@@ -1,0 +1,25 @@
+#home {
+    .welcome-header {
+    background: whitesmoke;
+    //padding: 0;
+    margin: 0;
+    }
+    .closed-tab {
+        background: silver;
+        color: white;
+    }
+    .open-tab {
+        background: grey;
+        color: white;
+    }
+    .thin-item{
+    background: whitesmoke;
+        margin: 1px;
+        padding: 10px
+    }
+}
+
+ion-icon[large-font] {
+    font-size: 4rem;
+    margin: 0 20px 0 0px;
+}

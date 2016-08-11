@@ -1,0 +1,153 @@
+<ion-header>
+  <ion-navbar>
+    <button (click)="search=true" *ngIf="!search">
+      <ion-icon name="search"></ion-icon>
+    </button>
+    <ion-title *ngIf="!search">Home</ion-title>
+    <ion-searchbar (ionInput)="getItems($event)" *ngIf="search" showCancelButton="true" (ionCancel)="onCancel($event)"></ion-searchbar>
+  </ion-navbar>
+</ion-header>
+<ion-content id="home">
+
+  <ion-list>
+    <ion-item no-lines class="welcome-header">
+      <h1>Welcome back, Mauricio</h1>
+      <ion-icon name="trophy" item-right large-font></ion-icon>
+      <ion-icon name="mail" item-right large-font></ion-icon>
+    </ion-item>
+
+    <ion-card>
+      <ion-item no-lines class="closed-tab" (click)="yourevents=!yourevents">
+        Your Volunteer Events
+        <ion-icon name="arrow-down" item-right *ngIf="!yourevents"></ion-icon>
+        <ion-icon name="arrow-up" item-right *ngIf="yourevents"></ion-icon>
+      </ion-item>
+      <section *ngIf="!yourevents">
+        <ion-item>
+          <p class="thin-item">Tuesday - Aug 21, 2016</p>
+          <ion-row>
+            <ion-col>
+              <p>11AM</p>
+            </ion-col>
+            <ion-col>
+              <p><b>Angel Tree Kit Assembly</b></p>
+            </ion-col>
+            <ion-col>
+              <p>56 Volunteers</p>
+            </ion-col>
+          </ion-row>
+          <h4>Details:</h4>
+          <p>Come help assemble Angel Tree Kits for asomeone in need. Last year Casrr P Collins assembled 5500kits to help people
+            in the Community.</p>
+        </ion-item>
+        <ion-item>
+          <p class="thin-item">Tuesday - Aug 21, 2016</p>
+          <ion-row>
+            <ion-col>
+              <p>11AM</p>
+            </ion-col>
+            <ion-col>
+              <p>Angel Tree Kit Assembly</p>
+            </ion-col>
+            <ion-col>
+              <p>56 Volunteers</p>
+            </ion-col>
+          </ion-row>
+          <h2>Details:</h2>
+          <p>Come help assemble Angel Tree Kits for asomeone in need. Last year Casrr P Collins assembled 5500kits to help people
+            in the Community.</p>
+        </ion-item>
+      </section>
+    </ion-card>
+
+    <ion-card>
+      <ion-item no-lines class="open-tab" (click)="upcoming=!upcoming">
+        Upcoming Volunteer Events
+        <ion-icon name="arrow-down" item-right *ngIf="!upcoming"></ion-icon>
+        <ion-icon name="arrow-up" item-right *ngIf="upcoming"></ion-icon>
+      </ion-item>
+      <section *ngIf="!upcoming">
+        <ion-item>
+          <p class="thin-item">Tuesday - Aug 21, 2016</p>
+          <ion-row>
+            <ion-col>
+              <p>11AM</p>
+            </ion-col>
+            <ion-col>
+              <p><b>Angel Tree Kit Assembly</b></p>
+            </ion-col>
+            <ion-col>
+              <p>56 Volunteers</p>
+            </ion-col>
+          </ion-row>
+          <h4>Details:</h4>
+          <p>Come help assemble Angel Tree Kits for asomeone in need. Last year Casrr P Collins assembled 5500kits to help people
+            in the Community.</p>
+        </ion-item>
+        <ion-item>
+          <p class="thin-item">Tuesday - Aug 21, 2016</p>
+          <ion-row>
+            <ion-col>
+              <p>11AM</p>
+            </ion-col>
+            <ion-col>
+              <p>Angel Tree Kit Assembly</p>
+            </ion-col>
+            <ion-col>
+              <p>56 Volunteers</p>
+            </ion-col>
+          </ion-row>
+          <h2>Details:</h2>
+          <p>Come help assemble Angel Tree Kits for asomeone in need. Last year Casrr P Collins assembled 5500kits to help people
+            in the Community.</p>
+        </ion-item>
+      </section>
+    </ion-card>
+
+    <ion-card>
+      <ion-item no-lines class="closed-tab" (click)="previousevents=!previousevents">
+        Previously Events
+        <ion-icon name="arrow-down" item-right *ngIf="!previousevents"></ion-icon>
+        <ion-icon name="arrow-up" item-right *ngIf="previousevents"></ion-icon>
+      </ion-item>
+      <section *ngIf="!previousevents">
+        <ion-item>
+          <p class="thin-item">Tuesday - Aug 21, 2016</p>
+          <ion-row>
+            <ion-col>
+              <p>11AM</p>
+            </ion-col>
+            <ion-col>
+              <p><b>Angel Tree Kit Assembly</b></p>
+            </ion-col>
+            <ion-col>
+              <p>56 Volunteers</p>
+            </ion-col>
+          </ion-row>
+          <h4>Details:</h4>
+          <p>Come help assemble Angel Tree Kits for asomeone in need. Last year Casrr P Collins assembled 5500kits to help people
+            in the Community.</p>
+        </ion-item>
+        <ion-item>
+          <p class="thin-item">Tuesday - Aug 21, 2016</p>
+          <ion-row>
+            <ion-col>
+              <p>11AM</p>
+            </ion-col>
+            <ion-col>
+              <p>Angel Tree Kit Assembly</p>
+            </ion-col>
+            <ion-col>
+              <p>56 Volunteers</p>
+            </ion-col>
+          </ion-row>
+          <h2>Details:</h2>
+          <p>Come help assemble Angel Tree Kits for asomeone in need. Last year Casrr P Collins assembled 5500kits to help people
+            in the Community.</p>
+        </ion-item>
+      </section>
+    </ion-card>
+
+  </ion-list>
+
+</ion-content>

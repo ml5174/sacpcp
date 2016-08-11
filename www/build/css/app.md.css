@@ -9478,10 +9478,59 @@ body {
   font-size: 1.4rem;
   background-color: #fff; }
 
+#home .welcome-header {
+  background: whitesmoke;
+  margin: 0; }
+
+#home .closed-tab {
+  background: silver;
+  color: white; }
+
+#home .open-tab {
+  background: grey;
+  color: white; }
+
+#home .thin-item {
+  background: whitesmoke;
+  margin: 1px;
+  padding: 10px; }
+
+ion-icon[large-font] {
+  font-size: 4rem;
+  margin: 0 20px 0 0px; }
+
 .getting-started p {
   margin: 20px 0;
   line-height: 22px;
   font-size: 16px; }
+
+.login {
+  background: silver; }
+
+.loginitem {
+  background: silver;
+  margin: 10px 0px 10px 0px; }
+  .loginitem .logininput {
+    background: white;
+    padding: 0 10px 0 10px; }
+
+.icons-basic-page ion-icon {
+  font-size: 100px; }
+
+.icons-basic-page ion-row {
+  height: 33%;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
+
+.icons-basic-page ion-col {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 33%;
+  -ms-flex: 0 0 33%;
+  flex: 0 0 33%;
+  max-width: 33%;
+  text-align: center;
+  padding: 10px 5px; }
 
 div.selection {
   font-size: 22px;
