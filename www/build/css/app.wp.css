@@ -9206,6 +9206,9 @@ ion-icon[large-font] {
   font-size: 4rem;
   margin: 0 20px 0 0px; }
 
+#searchbutton {
+  float: left; }
+
 .getting-started p {
   margin: 20px 0;
   line-height: 22px;

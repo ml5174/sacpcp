@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <button (click)="search=true" *ngIf="!search">
+    <button (click)="search=true" *ngIf="!search" id="searchbutton">
       <ion-icon name="search"></ion-icon>
     </button>
     <ion-title *ngIf="!search">Home</ion-title>
@@ -81,8 +81,7 @@
             </ion-col>
           </ion-row>
           <h4>Details:</h4>
-          <p>Come help assemble Angel Tree Kits for asomeone in need. Last year Casrr P Collins assembled 5500kits to help people
-            in the Community.</p>
+          <p>{{getEvents()}}</p>
         </ion-item>
         <ion-item>
           <p class="thin-item">Tuesday - Aug 21, 2016</p>
@@ -111,39 +110,21 @@
         <ion-icon name="arrow-up" item-right *ngIf="previousevents"></ion-icon>
       </ion-item>
       <section *ngIf="!previousevents">
-        <ion-item>
-          <p class="thin-item">Tuesday - Aug 21, 2016</p>
+        <ion-item *ngFor="let e of eventService.events | async">
+          <p class="thin-item">{{e.date}}</p>
           <ion-row>
             <ion-col>
-              <p>11AM</p>
+              <p>{{e.time}}</p>
             </ion-col>
             <ion-col>
-              <p><b>Angel Tree Kit Assembly</b></p>
+              <p><b>{{e.title}}</b></p>
             </ion-col>
             <ion-col>
               <p>56 Volunteers</p>
             </ion-col>
           </ion-row>
           <h4>Details:</h4>
-          <p>Come help assemble Angel Tree Kits for asomeone in need. Last year Casrr P Collins assembled 5500kits to help people
-            in the Community.</p>
-        </ion-item>
-        <ion-item>
-          <p class="thin-item">Tuesday - Aug 21, 2016</p>
-          <ion-row>
-            <ion-col>
-              <p>11AM</p>
-            </ion-col>
-            <ion-col>
-              <p>Angel Tree Kit Assembly</p>
-            </ion-col>
-            <ion-col>
-              <p>56 Volunteers</p>
-            </ion-col>
-          </ion-row>
-          <h2>Details:</h2>
-          <p>Come help assemble Angel Tree Kits for asomeone in need. Last year Casrr P Collins assembled 5500kits to help people
-            in the Community.</p>
+          <p>{{e.details}}</p>
         </ion-item>
       </section>
     </ion-card>
