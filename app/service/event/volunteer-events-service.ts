@@ -7,7 +7,7 @@ import {VolunteerEvent} from './volunteer-event';
 export class VolunteerEventsService {
     constructor(private http: Http) { 
     }
-    private commentsUrl = 'http://localhost:8100/backend-mock/events.json';
+    private commentsUrl = 'backend-mock/events.json';
     getVolunteerEvents() : Observable<VolunteerEvent[]>{
         return this.http.get(this.commentsUrl)
             .map(res => res.json())
