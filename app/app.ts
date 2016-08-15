@@ -11,7 +11,6 @@ import {LogonPage} from './pages/logon/logon';
 class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  // make HelloIonicPage the root (or first) page
   rootPage: any = TabsPage;
   pages: Array<{title: string, component: any}>;
 
@@ -25,7 +24,7 @@ class MyApp {
     this.pages = [
       { title: 'Logon', component: LogonPage },
       { title: 'Home', component: TabsPage },
-      { title: 'My First List', component: ListPage }
+      { title: 'Services List', component: ListPage }
     ];
   }
 
@@ -46,3 +45,5 @@ class MyApp {
 }
 
 ionicBootstrap(MyApp);
+
+

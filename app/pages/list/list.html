@@ -3,21 +3,24 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>My First List</ion-title>
+    <ion-title>Services</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon name="{{item.icon}}" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+<ion-content padding class="getting-started">
+
+  <ion-card *ngFor="let service of services">
+    <ion-item no-lines class="closed-tab" (click)="service.open=!service.open">
+      {{service.name}}
+      <ion-icon name="arrow-down" item-right *ngIf="service.open"></ion-icon>
+      <ion-icon name="arrow-up" item-right *ngIf="!service.open"></ion-icon>
+    </ion-item>
+    <section *ngIf="service.open">
+      <ion-item *ngFor="let key of getKeys(service)">
+        <h4 style="float: left">{{key}}</h4>
+        <h4 style="float: right">{{service.structure[key]}}</h4>
+      </ion-item>
+    </section>
+  </ion-card>
+
 </ion-content>

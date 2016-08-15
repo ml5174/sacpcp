@@ -1,131 +1,99 @@
 <ion-header>
   <ion-navbar>
-    <button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+    <button (click)="search=true" *ngIf="!search" id="searchbutton">
+      <ion-icon name="search"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title *ngIf="!search">Home</ion-title>
+    <ion-searchbar (ionInput)="getItems($event)" *ngIf="search" showCancelButton="true" (ionCancel)="onCancel($event)"></ion-searchbar>
   </ion-navbar>
 </ion-header>
+<ion-content id="home">
 
-<ion-content padding class="getting-started">
-
-  <h3>Volunteer</h3>
-
-  <ion-card>
-
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="http://ionicframework.com/dist/preview-app/www/img/marty-avatar.png">
-      </ion-avatar>
-      <h2>Marty McFly</h2>
-      <p>November 5, 1955</p>
+  <ion-list>
+    <ion-item no-lines class="welcome-header">
+      <h1>Welcome back, Mauricio</h1>
+      <ion-icon name="trophy" item-right large-font></ion-icon>
+      <ion-icon name="mail" item-right large-font></ion-icon>
     </ion-item>
 
-    <img src="http://ionicframework.com/dist/preview-app/www/img/advance-card-bttf.png">
+    <ion-card>
+      <ion-item no-lines class="closed-tab" (click)="yourevents=!yourevents">
+        Your Volunteer Events
+        <ion-icon name="arrow-down" item-right *ngIf="!yourevents"></ion-icon>
+        <ion-icon name="arrow-up" item-right *ngIf="yourevents"></ion-icon>
+      </ion-item>
+      <section *ngIf="!yourevents">
+        <ion-item *ngFor="let e of events">
+          <p class="thin-item">{{e.date}}</p>
+          <ion-row>
+            <ion-col>
+              <p>{{e.time}}</p>
+            </ion-col>
+            <ion-col>
+              <p><b>{{e.title}}</b></p>
+            </ion-col>
+            <ion-col>
+              <p>56 Volunteers</p>
+            </ion-col>
+          </ion-row>
+          <h4>Details:</h4>
+          <p>{{e.details}}</p>
+        </ion-item>
+      </section>
+    </ion-card>
 
-    <ion-card-content>
-      <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?!
-        Whoa. This is heavy.</p>
-    </ion-card-content>
+    <ion-card>
+      <ion-item no-lines class="open-tab" (click)="upcoming=!upcoming">
+        Upcoming Volunteer Events
+        <ion-icon name="arrow-down" item-right *ngIf="!upcoming"></ion-icon>
+        <ion-icon name="arrow-up" item-right *ngIf="upcoming"></ion-icon>
+      </ion-item>
+      <section *ngIf="!upcoming">
+        <ion-item *ngFor="let e of events">
+          <p class="thin-item">{{e.date}}</p>
+          <ion-row>
+            <ion-col>
+              <p>{{e.time}}</p>
+            </ion-col>
+            <ion-col>
+              <p><b>{{e.title}}</b></p>
+            </ion-col>
+            <ion-col>
+              <p>56 Volunteers</p>
+            </ion-col>
+          </ion-row>
+          <h4>Details:</h4>
+          <p>{{e.details}}</p>
+        </ion-item>
+      </section>
+    </ion-card>
 
-    <ion-row>
-      <ion-col>
-        <button primary clear small>
-        <ion-icon name="thumbs-up"></ion-icon>
-        <div>12 Likes</div>
-      </button>
-      </ion-col>
-      <ion-col>
-        <button primary clear small>
-        <ion-icon name="text"></ion-icon>
-        <div>4 Comments</div>
-      </button>
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
-      </ion-col>
-    </ion-row>
+    <ion-card>
+      <ion-item no-lines class="closed-tab" (click)="previousevents=!previousevents">
+        Previously Events
+        <ion-icon name="arrow-down" item-right *ngIf="!previousevents"></ion-icon>
+        <ion-icon name="arrow-up" item-right *ngIf="previousevents"></ion-icon>
+      </ion-item>
+      <section *ngIf="!previousevents">
+        <ion-item *ngFor="let e of events">
+          <p class="thin-item">{{e.date}}</p>
+          <ion-row>
+            <ion-col>
+              <p>{{e.time}}</p>
+            </ion-col>
+            <ion-col>
+              <p><b>{{e.title}}</b></p>
+            </ion-col>
+            <ion-col>
+              <p>56 Volunteers</p>
+            </ion-col>
+          </ion-row>
+          <h4>Details:</h4>
+          <p>{{e.details}}</p>
+        </ion-item>
+      </section>
+    </ion-card>
 
-  </ion-card>
-
-  <ion-card>
-
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="http://ionicframework.com/dist/preview-app/www/img/marty-avatar.png">
-      </ion-avatar>
-      <h2>Marty McFly</h2>
-      <p>November 5, 1955</p>
-    </ion-item>
-
-    <img src="http://ionicframework.com/dist/preview-app/www/img/advance-card-bttf.png">
-
-    <ion-card-content>
-      <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?!
-        Whoa. This is heavy.</p>
-    </ion-card-content>
-
-    <ion-row>
-      <ion-col>
-        <button primary clear small>
-        <ion-icon name="thumbs-up"></ion-icon>
-        <div>12 Likes</div>
-      </button>
-      </ion-col>
-      <ion-col>
-        <button primary clear small>
-        <ion-icon name="text"></ion-icon>
-        <div>4 Comments</div>
-      </button>
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
-      </ion-col>
-    </ion-row>
-
-  </ion-card>
-
-  <ion-card>
-
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="http://ionicframework.com/dist/preview-app/www/img/marty-avatar.png">
-      </ion-avatar>
-      <h2>Marty McFly</h2>
-      <p>November 5, 1955</p>
-    </ion-item>
-
-    <img src="http://ionicframework.com/dist/preview-app/www/img/advance-card-bttf.png">
-
-    <ion-card-content>
-      <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?!
-        Whoa. This is heavy.</p>
-    </ion-card-content>
-
-    <ion-row>
-      <ion-col>
-        <button primary clear small>
-        <ion-icon name="thumbs-up"></ion-icon>
-        <div>12 Likes</div>
-      </button>
-      </ion-col>
-      <ion-col>
-        <button primary clear small>
-        <ion-icon name="text"></ion-icon>
-        <div>4 Comments</div>
-      </button>
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
-      </ion-col>
-    </ion-row>
-
-  </ion-card>
+  </ion-list>
 
 </ion-content>

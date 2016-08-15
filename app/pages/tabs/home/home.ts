@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {VolunteerEvent} from '../../../service/event/volunteer-event';
-import {VolunteerEventsService} from '../../../service/event/volunteer-events-service';
+import {VolunteerEvent} from '../../../model/volunteer-event';
+import {VolunteerEventsService} from '../../../service/volunteer-events-service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
