@@ -1,0 +1,70 @@
+
+https://posttestserver.com/
+                                - a simple server that can be posted to
+http://myjson.com/
+                                - a simple json hosting service
+http://requestb.in/ 
+                                - RequestBin gives you a URL that will collect requests made to it and let you inspect them in a human-friendly way.Use RequestBin to see what your HTTP 
+                                  client is sending or to inspect and debug webhook requests.
+http://putsreq.com/
+                                - PutsReq lets you record HTTP requests and simulate responses like no other tool available.
+https://httpbin.org/
+                                - Testing an HTTP Library can become difficult sometimes. RequestBin is fantastic for testing POST requests, but doesn't let you control the response. 
+                                  This exists to cover all kinds of HTTP scenarios. Additional endpoints are being considered.
+http://requestmaker.com/
+                                - alternative to hurl.it without, annoying robocheck
+https://www.hurl.it/
+                                - Make Http requests /POST/GET                             
+https://github.com/typicode/json-server
+                                - Get a full fake REST API with zero coding in less than 30 seconds (seriously)
+http://www.json-generator.com/
+                                - Provides a template that can be used to create json data. We have all faced the problem of lack of information in our app. All interfaces seem lifeless and empty. Debugging with no data is also not simple. 
+                                  I think that  each of us has at least once in their lives created a bunch of files with JSON data, but they were just one object propagated without unique fields. JSON Generator was created in order to help
+                                  with this. It provides an  opportunity generate any data and in any quantity. Edit template, click "Generate" and you're done.
+https://randomuser.me/
+                                - The Random User Generator is a free API that generates data of fake users, including names, emails, pictures, etc. It is a very helpful API for doing mockups and learning. Making an HTTP request to
+                                https://randomuser.me/api/ will return a JSON response
+http://placehold.it/
+                                - A quick and simple image placeholder service. Create a pic of size given in url ex http://placehold.it/32x32
+http://www.mocky.io/
+                                - Make our own Http response !!
+https://www.mailinator.com/
+                                - Free on the fly disposible and open mailbox
+https://www.javascripting.com/
+                                - A database all js framwework soreted by rank usability support                              
+https://www.imgix.com/
+                                - Real-time Image Processing just by changing url.                            
+https://runnable.io/
+                                - Runnable is a sandbox service that creates full-stack environments for your GitHub branches, so your team can integrate and test more often.
+http://onlinecurl.com/
+                                -Curl From The Cloud! Ping your servers and webpages from anywhere and receive a neatly formatted response. Add in different options to customize your cURL reques
+
+http://wave.webaim.org/
+                                - web accessability evaluavtion tool
+http://fittextjs.com                        
+                                - A jQuery plugin for inflating web type Download on Github
+http://letteringjs.com/
+                                - Web type is exploding all over the web but CSS currently doesn't offer complete down-to-the-letter control
+http://fitvidsjs.com/
+                                - A lightweight, easy-to-use jQuery plugin for fluid width video embeds
+https://scottjehl.github.io/picturefill/
+                                - Serve different resolution image for different devices/viewports
+http://caniuse.com/
+                                - CSS browser compatability 
+http://pleeease.io/play/
+                                - auto write browser vendor prefixs like -webkit in CSS caniuse - extension
+https://github.com/daneden/animate.css
+                                - handy animation CSS extn
+http://cubic-bezier.com/ http://easings.net/#
+                                - animation function builder
+http://rawgit.com/
+                                - see html files form github online
+                                javascript:top.location=("https://rawgit.com"+location.pathname).replace(/\bblob\//ig,""); //bookmarklet see github live
+https://htmlpreview.github.io/?
+                                - preview github
+http://www.0to255.com/5c5b2e
+                                - view color patch, pick color from image then take darker version from this link and use for button background color placed on top of           img 
+https://buttons.cm/ -CSS - for non web emails                  
+                                - Design gorgeous buttons using progressively enhanced VML and CSS. You can also create rock-solid background images in emails too
+https://www.campaignmonitor.com/css/
+                                - A complete breakdown of the CSS support for the top 10 most popular mobile, web and desktop email clients on the planet.
