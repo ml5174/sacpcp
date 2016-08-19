@@ -5,6 +5,10 @@
     </button>
     <ion-title *ngIf="!search">Home</ion-title>
     <ion-searchbar (ionInput)="getItems($event)" *ngIf="search" showCancelButton="true" (ionCancel)="onCancel($event)"></ion-searchbar>
+    
+    <button menuToggle *ngIf="!search" right>
+      <ion-icon name="menu"></ion-icon>
+    </button>
   </ion-navbar>
 </ion-header>
 <ion-content id="home">
