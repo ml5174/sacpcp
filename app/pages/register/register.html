@@ -15,19 +15,19 @@
   <ion-list>
 
     <ion-item no-lines class="">
-      <ion-icon name="ios-contact" item-left isActive="false" ></ion-icon>
+      <ion-icon name="contact" item-left isActive="false" ></ion-icon>
       <ion-label floating>Username</ion-label>
       <ion-input type="text" class="" [(ngModel)]="username" required></ion-input>
     </ion-item>
 
     <ion-item no-lines class="">
-      <ion-icon name="ios-lock" item-left isActive="false" ></ion-icon>
+      <ion-icon name="lock" item-left isActive="false" ></ion-icon>
       <ion-label floating>Password</ion-label>
       <ion-input type="password" placeholder="" class="" [(ngModel)]="password1" required></ion-input>
     </ion-item>
 
     <ion-item no-lines class="">
-      <ion-icon name="ios-lock" item-left isActive="false" ></ion-icon>
+      <ion-icon name="lock" item-left isActive="false" ></ion-icon>
       <ion-label floating>Confirm Password</ion-label>
       <ion-input type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
     </ion-item>
@@ -39,14 +39,32 @@
     </ion-item>
 
     <ion-item no-lines class="">
-      <button primary block large round (click)="register()">Register</button>
+      <ion-icon name="call" item-left isActive="false" ></ion-icon>
+      <ion-label floating>Mobile Phone Number</ion-label>
+      <ion-input type="phone" placeholder="" class=""  [(ngModel)]="phone" required></ion-input>
+    </ion-item>
+
+    <hr>
+
+    <ion-item no-lines class="">
+      <ion-label>Age Under 16</ion-label>
+      <ion-checkbox dark [(ngModel)]="underage"></ion-checkbox>
+    </ion-item>
+    
+    <ion-item no-lines class="">
+      <ion-label floating>{{underage ? "Parents " : ""}}First Name</ion-label>
+      <ion-input type="string" placeholder="" class=""  [(ngModel)]="fname" required></ion-input>
     </ion-item>
 
     <ion-item no-lines class="">
-      <ion-label>Remember Me</ion-label>
-      <ion-checkbox dark checked="true"></ion-checkbox>
+      <ion-label floating>{{underage ? "Parents " : ""}}Last Name</ion-label>
+      <ion-input type="string" placeholder="" class=""  [(ngModel)]="lname" required></ion-input>
     </ion-item>
-    
+
+    <ion-item no-lines class="">
+      <button primary block large round (click)="register()">Register</button>
+    </ion-item>
+
   </ion-list>
 
 </ion-content>
