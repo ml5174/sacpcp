@@ -12,30 +12,28 @@
 
   <h3>Volunteer Registration</h3>
 
-  <ion-list>
-
     <ion-item no-lines class="">
       <ion-icon name="contact" item-left isActive="false" ></ion-icon>
       <ion-label floating>Username</ion-label>
-      <ion-input type="text" class="" [(ngModel)]="username" required></ion-input>
+      <ion-input required type="text" class="" [(ngModel)]="username" required></ion-input>
     </ion-item>
 
     <ion-item no-lines class="">
       <ion-icon name="lock" item-left isActive="false" ></ion-icon>
       <ion-label floating>Password</ion-label>
-      <ion-input type="password" placeholder="" class="" [(ngModel)]="password1" required></ion-input>
+      <ion-input required type="password" placeholder="" class="" [(ngModel)]="password1" required></ion-input>
     </ion-item>
 
     <ion-item no-lines class="">
       <ion-icon name="lock" item-left isActive="false" ></ion-icon>
       <ion-label floating>Confirm Password</ion-label>
-      <ion-input type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
+      <ion-input required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
     </ion-item>
 
     <ion-item no-lines class="">
       <ion-icon name="mail" item-left isActive="false" ></ion-icon>
       <ion-label floating>email</ion-label>
-      <ion-input type="email" placeholder="" class=""  [(ngModel)]="email" required></ion-input>
+      <ion-input required type="email" placeholder="" class=""  [(ngModel)]="email" required></ion-input>
     </ion-item>
 
     <ion-item no-lines class="">
@@ -65,6 +63,5 @@
       <button primary block large round (click)="register()">Register</button>
     </ion-item>
 
-  </ion-list>
 
 </ion-content>

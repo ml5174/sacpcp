@@ -8764,6 +8764,10 @@ ion-icon[large-font] {
     background: white;
     padding: 0 10px 0 10px; }
 
+.error {
+  color: red;
+  background: white; }
+
 .icons-basic-page ion-icon {
   font-size: 100px; }
 

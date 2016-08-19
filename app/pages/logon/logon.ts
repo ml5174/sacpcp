@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {LoginServices} from '../../service/login';
 import { Storage, LocalStorage } from 'ionic-angular';
+import {NavController, Nav} from 'ionic-angular';
+import {RegisterPage} from '../register/register';
 
 @Component({
   templateUrl: 'build/pages/logon/logon.html',
@@ -12,7 +14,10 @@ export class LogonPage {
   password: string = '';
   remember: boolean = true;
   key: any={key:'key'};
-  constructor(private loginServices: LoginServices) {
+  error: string = '';
+  val: any;
+  constructor(private nav: NavController,
+              private loginServices: LoginServices) {
      this.storage.get('username')
       .then( 
           value => this.username = value 
@@ -30,6 +35,15 @@ export class LogonPage {
           key => this.key = key, 
           err => { 
             console.log(err);
-          })
+            this.setError(err);
+          }),
+          val => this.val = val;
+  }
+  register() {
+    this.nav.push(RegisterPage);
+  }
+  setError(error) {
+    if (error['non_field_errors']) this.error = error['non_field_errors'].toString();
+    if (error['password']) this.error = error['password'].toString();
   }
 }

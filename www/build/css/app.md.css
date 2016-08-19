@@ -9517,6 +9517,10 @@ ion-icon[large-font] {
     background: white;
     padding: 0 10px 0 10px; }
 
+.error {
+  color: red;
+  background: white; }
+
 .icons-basic-page ion-icon {
   font-size: 100px; }
 
@@ -9540,3 +9544,13 @@ div.selection {
   display: block;
   text-align: center;
   padding-top: 5%; }
+
+html {
+  width: 900px;
+  text-align: center;
+  margin: 0px auto; }
+
+ion-app {
+  width: 900px;
+  text-align: center;
+  margin: 0px auto; }

@@ -13,11 +13,11 @@ export class LoginServices {
     login(body): Observable<any> {
         return this.http.post(LOGIN_URI, body)
             .map(res => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
     register(body): Observable<any> {
         return this.http.post(REGISTER_URI, body)
-            .map(res => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .map(res => res.json());
+         //   .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 }
