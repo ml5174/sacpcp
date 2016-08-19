@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Salvation Army</ion-title>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <h3>Volunteer Registration</h3>
+
+  <ion-list>
+
+    <ion-item no-lines class="">
+      <ion-icon name="ios-contact" item-left isActive="false" ></ion-icon>
+      <ion-label floating>Username</ion-label>
+      <ion-input type="text" class="" [(ngModel)]="username" required></ion-input>
+    </ion-item>
+
+    <ion-item no-lines class="">
+      <ion-icon name="ios-lock" item-left isActive="false" ></ion-icon>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" placeholder="" class="" [(ngModel)]="password1" required></ion-input>
+    </ion-item>
+
+    <ion-item no-lines class="">
+      <ion-icon name="ios-lock" item-left isActive="false" ></ion-icon>
+      <ion-label floating>Confirm Password</ion-label>
+      <ion-input type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
+    </ion-item>
+
+    <ion-item no-lines class="">
+      <ion-icon name="mail" item-left isActive="false" ></ion-icon>
+      <ion-label floating>email</ion-label>
+      <ion-input type="email" placeholder="" class=""  [(ngModel)]="email" required></ion-input>
+    </ion-item>
+
+    <ion-item no-lines class="">
+      <button primary block large round (click)="register()">Register</button>
+    </ion-item>
+
+    <ion-item no-lines class="">
+      <ion-label>Remember Me</ion-label>
+      <ion-checkbox dark checked="true"></ion-checkbox>
+    </ion-item>
+    
+  </ion-list>
+
+</ion-content>

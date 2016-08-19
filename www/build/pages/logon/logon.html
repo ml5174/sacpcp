@@ -13,26 +13,28 @@
   <h3>Volunteer Logon</h3>
 
   <ion-list>
-    <ion-item no-lines class="loginitem">
-      <ion-input type="text" placeholder="Username" class="logininput" ></ion-input>
+    <ion-item no-lines class="logininput">
+      <ion-icon name="ios-contact" item-left  isActive="false" class="logininput" ></ion-icon>
+      <ion-input type="text" placeholder="Username" class="logininput" [(ngModel)]="username"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines class="logininput">
+      <ion-icon name="ios-lock" item-left isActive="false" ></ion-icon>
+      <ion-input type="password" placeholder="Password" class="logininput" [(ngModel)]="password"></ion-input>
     </ion-item>
 
     <ion-item no-lines class="loginitem">
-      <ion-input type="password" placeholder="Password" class="logininput" ></ion-input>
-    </ion-item>
-
-    <ion-item no-lines class="loginitem">
-      <button primary block large round>Logon</button>
+      <button primary block large round (click)="login()">Logon</button>
     </ion-item>
     <ion-item no-lines class="loginitem">
       <ion-label>Remember Me</ion-label>
-      <ion-checkbox dark checked="true"></ion-checkbox>
+      <ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>
     </ion-item>
     <ion-item no-lines class="loginitem">
       <p>Forgot User ID/Password</p>
     </ion-item>
     <ion-item no-lines class="loginitem">
-      <p>New User? Sign up today!</p>
+      <p>New User? Sign up today! #{{key.key}}#</p>
     </ion-item>
   </ion-list>
 
