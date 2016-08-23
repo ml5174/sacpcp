@@ -21,12 +21,12 @@
     </ion-item>
 
     <ion-item no-lines class="logininput" [class.error]="!username.valid && username.touched">
-      <ion-icon name="ios-contact" item-left  isActive="false" class="logininput" ></ion-icon>
+      <ion-icon name="contact" item-left  isActive="false" class="logininput" ></ion-icon>
       <ion-input required type="text" placeholder="Username" class="logininput" [(ngModel)]="username"></ion-input>
     </ion-item>
 
     <ion-item no-lines class="logininput" [class.error]="!password.valid && password.touched">
-      <ion-icon name="ios-lock" item-left isActive="false" ></ion-icon>
+      <ion-icon name="lock" item-left isActive="false" ></ion-icon>
       <ion-input required type="password" placeholder="Password" class="logininput" [(ngModel)]="password"></ion-input>
     </ion-item>
 
