@@ -3,6 +3,8 @@ import {HomePage} from './home/home';
 import {AwardsPage} from './awards/awards';
 import {DonatePage} from './donate/donate';
 import {VolunteerPage} from './volunteer/volunteer';
+import {NavController, Nav, NavParams} from 'ionic-angular';
+import {LogonPage} from '../logon/logon';
 
 @Component({
   templateUrl: 'build/pages/tabs/tabs.html'
@@ -12,11 +14,19 @@ export class TabsPage {
   private awardsPage: any;
   private donatePage: any;
   private volunteerPage: any;
+  private loginKey: string;
   
-  constructor() {
+  constructor(private nav: NavController,
+              private navParams: NavParams) {
     this.homePage = HomePage;
     this.awardsPage = AwardsPage;
     this.donatePage = DonatePage;
     this.volunteerPage = VolunteerPage;
+    this.loginKey = navParams.get('key');
+    if ( this.loginKey === undefined ) this.login();
+  }
+
+  login() {
+    this.nav.push(LogonPage);
   }
 }

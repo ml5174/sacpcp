@@ -12,56 +12,64 @@
 
   <h3>Volunteer Registration</h3>
 
+  <ion-item no-lines *ngFor="let error of errors">
+    <ion-icon name="alert" item-left class="error"></ion-icon>
+    <p class="error">{{error}}</p>
+  </ion-item>
+
+  <section *ngIf="key.length<1">
     <ion-item no-lines class="">
-      <ion-icon name="contact" item-left isActive="false" ></ion-icon>
+      <ion-icon name="contact" item-left isActive="false"></ion-icon>
       <ion-label floating>Username</ion-label>
       <ion-input required type="text" class="" [(ngModel)]="username" required></ion-input>
     </ion-item>
 
     <ion-item no-lines class="">
-      <ion-icon name="lock" item-left isActive="false" ></ion-icon>
+      <ion-icon name="lock" item-left isActive="false"></ion-icon>
       <ion-label floating>Password</ion-label>
       <ion-input required type="password" placeholder="" class="" [(ngModel)]="password1" required></ion-input>
     </ion-item>
 
     <ion-item no-lines class="">
-      <ion-icon name="lock" item-left isActive="false" ></ion-icon>
+      <ion-icon name="lock" item-left isActive="false"></ion-icon>
       <ion-label floating>Confirm Password</ion-label>
       <ion-input required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
     </ion-item>
 
     <ion-item no-lines class="">
-      <ion-icon name="mail" item-left isActive="false" ></ion-icon>
+      <ion-icon name="mail" item-left isActive="false"></ion-icon>
       <ion-label floating>email</ion-label>
-      <ion-input required type="email" placeholder="" class=""  [(ngModel)]="email" required></ion-input>
+      <ion-input required type="email" placeholder="" class="" [(ngModel)]="email" required></ion-input>
     </ion-item>
 
     <ion-item no-lines class="">
-      <ion-icon name="call" item-left isActive="false" ></ion-icon>
+      <ion-icon name="call" item-left isActive="false"></ion-icon>
       <ion-label floating>Mobile Phone Number</ion-label>
-      <ion-input type="phone" placeholder="" class=""  [(ngModel)]="phone" required></ion-input>
+      <ion-input type="phone" placeholder="" class="" [(ngModel)]="phone" required></ion-input>
     </ion-item>
+  </section>
 
-    <hr>
-
+  <section *ngIf="key.length>1">
     <ion-item no-lines class="">
       <ion-label>Age Under 16</ion-label>
       <ion-checkbox dark [(ngModel)]="underage"></ion-checkbox>
     </ion-item>
-    
+
     <ion-item no-lines class="">
       <ion-label floating>{{underage ? "Parents " : ""}}First Name</ion-label>
-      <ion-input type="string" placeholder="" class=""  [(ngModel)]="fname" required></ion-input>
+      <ion-input type="string" placeholder="" class="" [(ngModel)]="fname" required></ion-input>
     </ion-item>
 
     <ion-item no-lines class="">
       <ion-label floating>{{underage ? "Parents " : ""}}Last Name</ion-label>
-      <ion-input type="string" placeholder="" class=""  [(ngModel)]="lname" required></ion-input>
+      <ion-input type="string" placeholder="" class="" [(ngModel)]="lname" required></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="">
-      <button primary block large round (click)="register()">Register</button>
-    </ion-item>
+    
+  </section>
+  <ion-item no-lines class="">
+    <button primary block large round (click)="register()">Register {{(key.length<1) ? "Login" : "Profile"}}</button>
+  </ion-item>
 
 
 </ion-content>

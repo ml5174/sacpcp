@@ -15,7 +15,7 @@
     
   </div>
   <ion-list>
-    <ion-item *ngIf="error"  no-lines >
+    <ion-item no-lines *ngFor="let error of errors">
       <ion-icon name="alert" item-left class="error"></ion-icon>
       <p class="error">{{error}}</p>
     </ion-item>
@@ -38,12 +38,11 @@
       <ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>
     </ion-item>
     <ion-item no-lines class="loginitem">
-      <p>Forgot User ID/Password</p>
+      <ion-input value="Forgot User ID/Password"></ion-input>
     </ion-item>
-    <ion-item no-lines class="loginitem">
-      <p (click)="register()">New User? Sign up today!</p>
+    <ion-item no-lines class="loginitem" (click)="register()">
+      <ion-input value="New User? Sign up today!"></ion-input>
     </ion-item>
-    <p *ngIf="key.key!=='key'"> #{{key.key}}#</p>
   </ion-list>
 
 </ion-content>

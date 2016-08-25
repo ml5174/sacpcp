@@ -3,6 +3,7 @@ import {LoginServices} from '../../service/login';
 import { Storage, LocalStorage } from 'ionic-angular';
 import {NavController, Nav} from 'ionic-angular';
 import {RegisterPage} from '../register/register';
+import {TabsPage} from '../tabs/tabs';
 
 @Component({
   templateUrl: 'build/pages/logon/logon.html',
@@ -14,7 +15,7 @@ export class LogonPage {
   password: string = '';
   remember: boolean = true;
   key: any={key:'key'};
-  error: string = '';
+  errors: Array<string> = [];
   val: any;
   constructor(private nav: NavController,
               private loginServices: LoginServices) {
@@ -32,7 +33,10 @@ export class LogonPage {
     }
     this.loginServices.login(login)
       .subscribe(
-          key => this.key = key, 
+          key => {
+            this.key = key;
+            this.nav.push(TabsPage, {key: key});
+          }, 
           err => { 
             console.log(err);
             this.setError(err);
@@ -43,7 +47,10 @@ export class LogonPage {
     this.nav.push(RegisterPage);
   }
   setError(error) {
-    if (error['non_field_errors']) this.error = error['non_field_errors'].toString();
-    if (error['password']) this.error = error['password'].toString();
+    for (let key in error) {
+      for (let val in error[key]) {
+        this.errors.push(error[key][val].toString());
+      }
+    }
   }
 }

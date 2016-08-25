@@ -1,6 +1,7 @@
 import {Component} from '@angular/core'
 import {LoginServices} from '../../service/login';
 import {NavController, Nav} from 'ionic-angular';
+import {STRINGS} from '../../provider/config'
 
 @Component({
   templateUrl: 'build/pages/register/register.html',
@@ -11,12 +12,17 @@ export class RegisterPage {
   password1: string = '';
   password2: string = '';
   email: string = '';
+  key: string = '';
+  val: string = '';
+  errors: Array<string> = [];
+
   constructor(private nav: NavController,
               private loginServices: LoginServices) {
 
   }
+
   register() {
-    
+    this.errors = [];
     let register = {
       username: this.username,
       password1: this.password1,
@@ -31,5 +37,13 @@ export class RegisterPage {
             this.setError(err);
           }),
           val => this.val = val;
+          
+  }
+  setError(error) {
+    for (let key in error) { 
+      for (let val in error[key]) {
+        this.errors.push(STRINGS[key]+': '+error[key][val].toString());
+      }
+    }
   }
 }
