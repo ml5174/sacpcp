@@ -1,13 +1,15 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {HomePage} from './home/home';
 import {AwardsPage} from './awards/awards';
 import {DonatePage} from './donate/donate';
 import {VolunteerPage} from './volunteer/volunteer';
 import {NavController, Nav, NavParams} from 'ionic-angular';
 import {LogonPage} from '../logon/logon';
+import {LoginServices} from '../../service/login';
 
 @Component({
-  templateUrl: 'build/pages/tabs/tabs.html'
+  templateUrl: 'build/pages/tabs/tabs.html',
+  providers: [LogonPage, LoginServices]
 })
 export class TabsPage {
   private homePage: any;
@@ -15,9 +17,10 @@ export class TabsPage {
   private donatePage: any;
   private volunteerPage: any;
   private loginKey: string;
-  
-  constructor(private nav: NavController,
+
+  constructor(private nav: Nav, 
               private navParams: NavParams) {
+                
     this.homePage = HomePage;
     this.awardsPage = AwardsPage;
     this.donatePage = DonatePage;
