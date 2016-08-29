@@ -8,7 +8,7 @@
 </ion-header>
 
 
-<ion-content padding class="login">
+<ion-content padding>
 
   <h3>Volunteer Logon</h3>
   <div >
@@ -20,27 +20,29 @@
       <p class="error">{{error}}</p>
     </ion-item>
 
-    <ion-item no-lines class="logininput" [class.error]="!username.valid && username.touched">
-      <ion-icon name="contact" item-left  isActive="false" class="logininput" ></ion-icon>
-      <ion-input required type="text" placeholder="Username" class="logininput" [(ngModel)]="username"></ion-input>
+    <ion-item no-lines [class.error]="!username.valid && username.touched">
+      <ion-icon name="contact" item-left  isActive="false" ></ion-icon>
+      <ion-label floating>Username</ion-label>
+      <ion-input required type="text" placeholder="" [(ngModel)]="username"></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="logininput" [class.error]="!password.valid && password.touched">
+    <ion-item no-lines [class.error]="!password.valid && password.touched">
       <ion-icon name="lock" item-left isActive="false" ></ion-icon>
-      <ion-input required type="password" placeholder="Password" class="logininput" [(ngModel)]="password"></ion-input>
+      <ion-label floating>Password</ion-label>
+      <ion-input required type="password" placeholder="" [(ngModel)]="password"></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="loginitem">
+    <ion-item no-lines >
       <button primary block large round (click)="login()">Logon</button>
     </ion-item>
-    <ion-item no-lines class="loginitem">
+    <ion-item no-lines >
       <ion-label>Remember Me</ion-label>
       <ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>
     </ion-item>
-    <ion-item no-lines class="loginitem">
+    <ion-item no-lines >
       <ion-input value="Forgot User ID/Password"></ion-input>
     </ion-item>
-    <ion-item no-lines class="loginitem" (click)="register()">
+    <ion-item no-lines  (click)="register()">
       <ion-input value="New User? Sign up today!"></ion-input>
     </ion-item>
   </ion-list>

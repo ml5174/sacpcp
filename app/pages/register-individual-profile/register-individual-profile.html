@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Salvation Army</ion-title>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <h3>Volunteer Profile Registration</h3>
+
+  <ion-item no-lines *ngFor="let error of errors">
+    <ion-icon name="alert" item-left class="error"></ion-icon>
+    <p class="error">{{error}}</p>
+  </ion-item>
+
+    <ion-item no-lines class="">
+      <ion-label>Age Under 16</ion-label>
+      <ion-checkbox dark [(ngModel)]="underage"></ion-checkbox>
+    </ion-item>
+
+    <ion-item no-lines class="">
+      <ion-label floating>{{underage ? "Parents " : ""}}First Name</ion-label>
+      <ion-input type="string" placeholder="" class="" [(ngModel)]="fname" required></ion-input>
+    </ion-item>
+
+    <ion-item no-lines class="">
+      <ion-label floating>{{underage ? "Parents " : ""}}Last Name</ion-label>
+      <ion-input type="string" placeholder="" class="" [(ngModel)]="lname" required></ion-input>
+    </ion-item>
+
+  <ion-item no-lines class="">
+    <button primary block large round (click)="register()">Register Profile}}</button>
+  </ion-item>
+
+
+</ion-content>

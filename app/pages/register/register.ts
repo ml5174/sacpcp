@@ -7,7 +7,7 @@ import {STRINGS} from '../../provider/config'
   templateUrl: 'build/pages/register/register.html',
   providers: [LoginServices]
 })
-export class RegisterPage {
+export class RegisterLoginPage {
   username: string = '';
   password1: string = '';
   password2: string = '';

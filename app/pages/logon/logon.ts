@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {LoginServices} from '../../service/login';
 import { Storage, LocalStorage } from 'ionic-angular';
 import {NavController, Nav} from 'ionic-angular';
-import {RegisterPage} from '../register/register';
+import { RegisterLoginPage } from '../register-login/register-login';
 import {TabsPage} from '../tabs/tabs';
 
 @Component({
@@ -44,7 +44,7 @@ export class LogonPage {
           val => this.val = val;
   }
   register() {
-    this.nav.push(RegisterPage);
+    this.nav.push(RegisterLoginPage);
   }
   setError(error) {
     for (let key in error) {
