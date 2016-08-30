@@ -14,14 +14,14 @@ export class LogonPage {
   username: string = '';
   password: string = '';
   remember: boolean = true;
-  key: any={key:'key'};
+  key: any = { key: 'key' };
   errors: Array<string> = [];
   val: any;
   constructor(private nav: NavController,
-              private loginServices: LoginServices) {
-     this.storage.get('username')
-      .then( 
-          value => this.username = value 
+    private loginServices: LoginServices) {
+    this.storage.get('username')
+      .then(
+      value => this.username = value
       );
   }
   login() {
@@ -33,20 +33,25 @@ export class LogonPage {
     }
     this.loginServices.login(login)
       .subscribe(
-          key => {
-            this.key = key;
-            this.nav.push(TabsPage, {key: key});
-          }, 
-          err => { 
-            console.log(err);
-            this.setError(err);
-          }),
-          val => this.val = val;
+      key => {
+        this.key = key;
+        this.nav.push(TabsPage, { key: key });
+      },
+      err => {
+        console.log(err);
+        this.setError(err);
+      }),
+      val => this.val = val;
   }
   register() {
     this.nav.push(RegisterLoginPage);
   }
   setError(error) {
+    if (error['detail']) {
+      this.errors.push(error['detail']);
+      return;
+    }
+
     for (let key in error) {
       for (let val in error[key]) {
         this.errors.push(error[key][val].toString());
