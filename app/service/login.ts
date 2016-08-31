@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {Http, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import {LOGIN_URI} from '../provider/config';
 import {REGISTER_URI} from '../provider/config';
@@ -29,10 +29,10 @@ export class LoginServices {
     }
     getUser(loginKey): Observable<any> {
         let headers = new Headers();
-        if (loginKey !== undefined ) headers.append('Authorization', 'Token '+loginKey.key);
-        return this.http.get(SERVER+REGISTER_USER_URI, {
-                headers: headers
-                })
+        if (loginKey) if (loginKey.key) headers.append('Authorization', 'Token '+loginKey.key);
+        headers.append('Content-Type', 'text/plain');
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(SERVER+REGISTER_USER_URI, options)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }

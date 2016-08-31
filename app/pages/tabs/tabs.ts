@@ -40,7 +40,10 @@ export class TabsPage {
   getUserProfile() {
     this.loginServices
         .getUser(this.loginKey).subscribe(
-                               profile => this.profile = profile, 
+                               profile => {
+                                 this.profile = profile;
+                                 console.log(profile.toString())
+                                }, 
                                 err => {
                                     console.log(err);
                                     this.handleUserProfileError(err);
