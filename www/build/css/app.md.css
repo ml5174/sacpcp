@@ -9545,12 +9545,12 @@ div.selection {
   text-align: center;
   padding-top: 5%; }
 
-html {
-  width: 900px;
-  text-align: center;
-  margin: 0px auto; }
-
-ion-app {
-  width: 900px;
-  text-align: center;
-  margin: 0px auto; }
+@media (min-width: 900px) {
+  html {
+    max-width: 900px;
+    text-align: center;
+    margin: 0px auto; }
+  ion-app {
+    max-width: 900px;
+    text-align: center;
+    margin: 0px auto; } }

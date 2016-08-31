@@ -21,7 +21,9 @@ export class LogonPage {
     private loginServices: LoginServices) {
     this.storage.get('username')
       .then(
-      value => this.username = value
+      value => {
+          if (value) this.username = value
+        }
       );
   }
   login() {

@@ -31,9 +31,9 @@ export class TabsPage {
     this.volunteerPage = VolunteerPage;
 
     this.loginKey = navParams.get('key');
+    if (!this.loginKey) this.login();
   }
 
-  
   ngOnInit(){
     this.getUserProfile();
   }
