@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {LoginServices} from '../../service/login';
 import { Storage, LocalStorage } from 'ionic-angular';
-import {NavController, Nav} from 'ionic-angular';
+import {NavController, Nav, NavParams} from 'ionic-angular';
 import { RegisterLoginPage } from '../register-login/register-login';
 import {TabsPage} from '../tabs/tabs';
 
@@ -18,7 +18,13 @@ export class LogonPage {
   errors: Array<string> = [];
   val: any;
   constructor(private nav: NavController,
-    private loginServices: LoginServices) {
+              private navParams: NavParams,
+              private loginServices: LoginServices) {
+
+/* Temp solution until login validation is implemented */
+    this.key = navParams.get('key');
+    if (this.key) this.errors.push('Please login to validate your password.');
+
     this.storage.get('username')
       .then(
       value => {
@@ -36,6 +42,10 @@ export class LogonPage {
     this.loginServices.login(login)
       .subscribe(
       key => {
+        if (key != this.key) {
+          if (this.key) this.errors.push('Login is different than one registered.');
+          return;
+        }
         this.key = key;
         this.nav.push(TabsPage, { key: key });
       },

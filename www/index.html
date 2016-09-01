@@ -4,22 +4,12 @@
 <head>
   <title>Ionic</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 
   <link ios-href="build/css/app.ios.css" rel="stylesheet">
   <link md-href="build/css/app.md.css" rel="stylesheet">
   <link wp-href="build/css/app.wp.css" rel="stylesheet">
   <script src="js/shims_for_IE.js"></script>
-  <script>
-      var classNames = [];
-      if (navigator.userAgent.match(/(iPad|iPhone|iPod)/i)) classNames.push('device-ios');
-      if (navigator.userAgent.match(/android/i)) classNames.push('device-android');
-
-      var html = document.getElementsByTagName('html')[0];
-
-      if (classNames.length) classNames.push('on-device');
-      if (html.classList) html.classList.add.apply(html.classList, classNames);
-    </script>
 </head>
 
 <body>

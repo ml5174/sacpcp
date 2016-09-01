@@ -2,7 +2,6 @@ import {Component, ViewChild} from '@angular/core';
 import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
-import {ListPage} from './pages/list/list';
 import {LogonPage} from './pages/logon/logon';
 import {RegisterLoginPage} from './pages/register-login/register-login';
 import {RegisterIndividualProfilePage} from './pages/register-individual-profile/register-individual-profile';
@@ -26,7 +25,6 @@ class MyApp {
     this.pages = [
       { title: 'Logon', component: LogonPage },
       { title: 'Home', component: TabsPage },
-      { title: 'Services List', component: ListPage },
       { title: 'Login Registration', component: RegisterLoginPage },
       { title: 'Profile Registration', component: RegisterIndividualProfilePage }
     ];

@@ -7,7 +7,7 @@ import {NavController, Nav, NavParams} from 'ionic-angular';
 import {RegisterIndividualProfilePage} from '../register-individual-profile/register-individual-profile';
 import {LogonPage} from '../logon/logon';
 import {LoginServices} from '../../service/login';
-import {UserProfile} from '../../model/user-profile'
+import {UserProfile} from '../../model/user-profile';
 
 @Component({
   templateUrl: 'build/pages/tabs/tabs.html',

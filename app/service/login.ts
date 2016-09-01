@@ -19,8 +19,8 @@ export class LoginServices {
     }
     register(body): Observable<any> {
         return this.http.post(SERVER+REGISTER_URI, body)
-            .map(res => res.json())
-            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+            .map(res => res.json()) 
+            .catch((error: any) => Observable.throw(error || 'Server error'));
     }
     updateUser(body): Observable<any> {
         return this.http.post(SERVER+REGISTER_USER_URI, body)
