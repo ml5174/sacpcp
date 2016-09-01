@@ -1,24 +1,23 @@
 import {Component} from '@angular/core'
-import {LoginServices} from '../../service/login';
+import {UserServices} from '../../service/user';
 import {NavController, Nav} from 'ionic-angular';
 import {STRINGS} from '../../provider/config';
 import { LogonPage } from '../logon/logon';
 
 @Component({
-  templateUrl: 'build/pages/register-login/register-login.html',
-  providers: [LoginServices]
+  templateUrl: 'build/pages/register-login/register-login.html'
 })
 export class RegisterLoginPage {
-  username: string = '';
-  password1: string = '';
-  password2: string = '';
-  email: string = '';
-  key: string = '';
-  val: string = '';
-  errors: Array<string> = [];
+  private username: string = '';
+  private password1: string = '';
+  private password2: string = '';
+  private email: string = '';
+  private key: string = '';
+  private val: string = '';
+  private errors: Array<string> = [];
 
   constructor(private nav: NavController,
-    private loginServices: LoginServices) {
+    private userServices: UserServices) {
 
   }
 
@@ -30,7 +29,7 @@ export class RegisterLoginPage {
       password2: this.password2,
       email: this.email
     }
-    this.loginServices.register(register)
+    this.userServices.register(register)
       .subscribe(
       key => {
         this.key = key;

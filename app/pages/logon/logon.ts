@@ -1,13 +1,12 @@
 import {Component} from '@angular/core';
-import {LoginServices} from '../../service/login';
+import { UserServices } from '../../service/user';
 import { Storage, LocalStorage } from 'ionic-angular';
 import {NavController, Nav, NavParams} from 'ionic-angular';
 import { RegisterLoginPage } from '../register-login/register-login';
 import {TabsPage} from '../tabs/tabs';
 
 @Component({
-  templateUrl: 'build/pages/logon/logon.html',
-  providers: [LoginServices]
+  templateUrl: 'build/pages/logon/logon.html'
 })
 export class LogonPage {
   storage: Storage = new Storage(LocalStorage);
@@ -19,7 +18,7 @@ export class LogonPage {
   val: any;
   constructor(private nav: NavController,
               private navParams: NavParams,
-              private loginServices: LoginServices) {
+              private userServices: UserServices) {
 
 /* Temp solution until login validation is implemented */
     this.key = navParams.get('key');
@@ -41,27 +40,27 @@ export class LogonPage {
       username: this.username,
       password: this.password
     }
-    this.loginServices.login(login)
+    this.userServices.login(login)
       .subscribe(
       key => {
+/* Temp solution until login validation is implemented */
         if (this.key) {
-          if (key.key !== this.key.key) this.errors.push('Login is different than one registered.');
-          else this.errors.push('Login Success, Registration Success');
+          if (key !== this.key.key) this.errors.push('Login is different than one registered.');
+          else {
+            this.errors.push('Login Success, Registration Success.  Login again to go to the home page.');
+            this.key = undefined;
+          } 
           return;
         }
-        this.key = key;
-        this.nav.push(TabsPage, { key: key });
+        this.nav.push(TabsPage);
       },
-      err => {
-        console.log(err);
-        this.setError(err);
-      }),
-      val => this.val = val;
+      err => this.setError(err));
   }
   register() {
     this.nav.push(RegisterLoginPage);
   }
   setError(error) {
+
     if (error['detail']) {
       this.errors.push(error['detail']);
       return;

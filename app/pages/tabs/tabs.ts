@@ -6,12 +6,12 @@ import {VolunteerPage} from './volunteer/volunteer';
 import {NavController, Nav, NavParams} from 'ionic-angular';
 import {RegisterIndividualProfilePage} from '../register-individual-profile/register-individual-profile';
 import {LogonPage} from '../logon/logon';
-import {LoginServices} from '../../service/login';
+import {UserServices} from '../../service/user';
 import {UserProfile} from '../../model/user-profile';
 
 @Component({
   templateUrl: 'build/pages/tabs/tabs.html',
-  providers: [LogonPage, LoginServices]
+  providers: [LogonPage]
 })
 export class TabsPage {
   private homePage: any;
@@ -19,40 +19,44 @@ export class TabsPage {
   private donatePage: any;
   private volunteerPage: any;
   private loginKey: string;
+  private username: string;
   private profile: UserProfile;
+  private errors: Array<string> = [];
 
   constructor(private nav: Nav, 
               private navParams: NavParams,
-              private loginServices: LoginServices) {
+              private userServices: UserServices) {
                 
     this.homePage = HomePage;
     this.awardsPage = AwardsPage;
     this.donatePage = DonatePage;
     this.volunteerPage = VolunteerPage;
 
-    this.loginKey = navParams.get('key');
-    if (!this.loginKey) this.login();
+    if (!userServices.user.id) this.login();
   }
 
   ngOnInit(){
     this.getUserProfile();
   }
   getUserProfile() {
-    this.loginServices
-        .getUser(this.loginKey).subscribe(
-                               profile => {
-                                 this.profile = profile;
-                                 console.log(profile.toString())
-                                }, 
-                                err => {
-                                    console.log(err);
-                                    this.handleUserProfileError(err);
-                                });
+    this.userServices
+        .get().subscribe(
+          profile => {
+            this.profile = profile;
+            console.log(profile.toString())
+          }, 
+          err => this.handleUserProfileError(err));
   }
   handleUserProfileError(error) {
-    if (error.detail) {
-      if (error.detail==='Not found.') this.nav.push(RegisterIndividualProfilePage);
-      if (error.detail=== 'Authentication credentials were not provided.' ) this.login();
+    if (error.status === 400) {
+      error = error.json();
+      if (error.detail) {
+        if (error.detail==='Not found.') this.nav.push(RegisterIndividualProfilePage);
+        if (error.detail=== 'Authentication credentials were not provided.' ) this.login();
+      }
+    }
+    if (error.status === 500) {
+      this.errors.push('Backend returned 500 error, talk to JOHN :) ');
     }
   }
   login() {

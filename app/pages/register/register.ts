@@ -1,11 +1,10 @@
 import {Component} from '@angular/core'
-import {LoginServices} from '../../service/login';
+import {UserServices} from '../../service/user';
 import {NavController, Nav} from 'ionic-angular';
 import {STRINGS} from '../../provider/config'
 
 @Component({
-  templateUrl: 'build/pages/register/register.html',
-  providers: [LoginServices]
+  templateUrl: 'build/pages/register/register.html'
 })
 export class RegisterLoginPage {
   username: string = '';
@@ -17,7 +16,7 @@ export class RegisterLoginPage {
   errors: Array<string> = [];
 
   constructor(private nav: NavController,
-              private loginServices: LoginServices) {
+              private userServices: UserServices) {
 
   }
 
@@ -29,7 +28,7 @@ export class RegisterLoginPage {
       password2: this.password2,
       email: this.email
     }
-    this.loginServices.register(register)
+    this.userServices.register(register)
       .subscribe(
           key => this.key = key, 
           err => { 

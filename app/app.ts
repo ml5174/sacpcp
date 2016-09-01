@@ -5,9 +5,11 @@ import {TabsPage} from './pages/tabs/tabs';
 import {LogonPage} from './pages/logon/logon';
 import {RegisterLoginPage} from './pages/register-login/register-login';
 import {RegisterIndividualProfilePage} from './pages/register-individual-profile/register-individual-profile';
+import {UserServices} from './service/user';
 
 @Component({
-  templateUrl: 'build/app.html'
+  templateUrl: 'build/app.html',
+  providers: [UserServices]
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;

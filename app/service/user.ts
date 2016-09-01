@@ -5,35 +5,37 @@ import {LOGIN_URI} from '../provider/config';
 import {REGISTER_URI} from '../provider/config';
 import {REGISTER_USER_URI} from '../provider/config';
 import {SERVER} from '../provider/config';
+import { UserProfile } from '../model/user-profile';
 
 @Injectable()
-export class LoginServices {
+export class UserServices {
+    user: UserProfile=new UserProfile();
+
     constructor(private http: Http) {
     }
-    //    username: "testuser"
-    //    password: "password123"
+
     login(body): Observable<any> {
         return this.http.post(SERVER+LOGIN_URI, body)
-            .map(res => res.json())
-            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+            .map(res => this.user.id = res.json().key)
+            .catch((error: any) => Observable.throw(error|| 'Server error'));
     }
     register(body): Observable<any> {
         return this.http.post(SERVER+REGISTER_URI, body)
             .map(res => res.json()) 
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
-    updateUser(body): Observable<any> {
+    update(body): Observable<any> {
         return this.http.post(SERVER+REGISTER_USER_URI, body)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
-    getUser(loginKey): Observable<any> {
+    get(): Observable<any> {
         let headers = new Headers();
-        if (loginKey) if (loginKey.key) headers.append('Authorization', 'Token '+loginKey.key);
+        if (this.user) if (this.user.id) headers.append('Authorization', 'Token '+this.user.id);
         headers.append('Content-Type', 'text/plain');
         let options = new RequestOptions({ headers: headers });
         return this.http.get(SERVER+REGISTER_USER_URI, options)
             .map(res => res.json())
-            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+            .catch((error: any) => Observable.throw(error || 'Server error'));
     }
 }
