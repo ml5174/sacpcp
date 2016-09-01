@@ -33,6 +33,8 @@ export class LogonPage {
       );
   }
   login() {
+    this.errors = [];
+
     if (this.remember) this.storage.set('username', this.username);
     else this.storage.set('username', '');
     let login = {
@@ -42,8 +44,9 @@ export class LogonPage {
     this.loginServices.login(login)
       .subscribe(
       key => {
-        if (key != this.key) {
-          if (this.key) this.errors.push('Login is different than one registered.');
+        if (this.key) {
+          if (key.key !== this.key.key) this.errors.push('Login is different than one registered.');
+          else this.errors.push('Login Success, Registration Success');
           return;
         }
         this.key = key;
