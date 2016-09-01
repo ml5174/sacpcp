@@ -17,18 +17,18 @@ export class LogonPage {
   errors: Array<string> = [];
   val: any;
   constructor(private nav: NavController,
-              private navParams: NavParams,
-              private userServices: UserServices) {
+    private navParams: NavParams,
+    private userServices: UserServices) {
 
-/* Temp solution until login validation is implemented */
+    /* Temp solution until login validation is implemented */
     this.key = navParams.get('key');
     if (this.key) this.errors.push('Please login to validate your password.');
 
     this.storage.get('username')
       .then(
       value => {
-          if (value) this.username = value
-        }
+        if (value) this.username = value
+      }
       );
   }
   login() {
@@ -43,13 +43,13 @@ export class LogonPage {
     this.userServices.login(login)
       .subscribe(
       key => {
-/* Temp solution until login validation is implemented */
+        /* Temp solution until login validation is implemented */
         if (this.key) {
           if (key !== this.key.key) this.errors.push('Login is different than one registered.');
           else {
             this.errors.push('Login Success, Registration Success.  Login again to go to the home page.');
             this.key = undefined;
-          } 
+          }
           return;
         }
         this.nav.push(TabsPage);
@@ -61,15 +61,21 @@ export class LogonPage {
   }
   setError(error) {
 
-    if (error['detail']) {
-      this.errors.push(error['detail']);
-      return;
-    }
-
-    for (let key in error) {
-      for (let val in error[key]) {
-        this.errors.push(error[key][val].toString());
+    if (error.status === 400) {
+      error = error.json();
+      if (error['detail']) {
+        this.errors.push(error['detail']);
+        return;
       }
+
+      for (let key in error) {
+        for (let val in error[key]) {
+          this.errors.push(error[key][val].toString());
+        }
+      }
+    }
+    if (error.status === 500) {
+      this.errors.push('Backend returned 500 error, talk to JOHN :) ');
     }
   }
 }
