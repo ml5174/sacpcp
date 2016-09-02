@@ -9539,12 +9539,6 @@ ion-icon[large-font] {
   text-align: center;
   padding: 10px 5px; }
 
-div.selection {
-  font-size: 22px;
-  display: block;
-  text-align: center;
-  padding-top: 5%; }
-
 @media (min-width: 900px) {
   html {
     max-width: 900px;
