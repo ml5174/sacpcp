@@ -13,3 +13,7 @@ a.	This installs ionic command line utils
 a.	This will pull up your default browser with the app running.
 5.)	I recommend Visual Studio Code to edit.
 a.	https://code.visualstudio.com/download
+
+
+
+Authors: Mauricio Lopez
