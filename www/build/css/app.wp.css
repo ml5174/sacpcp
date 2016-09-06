@@ -9228,6 +9228,10 @@ ion-icon[large-font] {
   color: red;
   background: white; }
 
+.button-clear {
+  text-transform: none;
+  font-size: 1.6rem; }
+
 .icons-basic-page ion-icon {
   font-size: 100px; }
 

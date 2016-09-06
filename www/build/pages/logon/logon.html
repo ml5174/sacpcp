@@ -40,10 +40,10 @@
       <ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>
     </ion-item>
     <ion-item no-lines >
-      <ion-input value="Forgot User ID/Password"></ion-input>
+      <button clear (click)="forgot()">Forgot User ID/Password</button>
     </ion-item>
-    <ion-item no-lines  (click)="register()">
-      <ion-input value="New User? Sign up today!"></ion-input>
+    <ion-item no-lines>
+      <button clear (click)="register()">New User? Sign up today!</button>
     </ion-item>
   </ion-list>
 

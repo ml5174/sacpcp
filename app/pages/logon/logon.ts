@@ -59,6 +59,9 @@ export class LogonPage {
   register() {
     this.nav.push(RegisterLoginPage);
   }
+  forgot() {
+    //this.nav.push(RegisterLoginPage);
+  }
   setError(error) {
 
     if (error.status === 400) {
