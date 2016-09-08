@@ -1,6 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
+import {Http, HTTP_PROVIDERS} from '@angular/http';
 import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
+import {TranslateService, TranslatePipe, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 import {TabsPage} from './pages/tabs/tabs';
 import {LogonPage} from './pages/logon/logon';
 import {RegisterLoginPage} from './pages/register-login/register-login';
@@ -9,7 +11,14 @@ import {UserServices} from './service/user';
 
 @Component({
   templateUrl: 'build/app.html',
-  providers: [UserServices]
+  providers: [UserServices,
+  { 
+      provide: TranslateLoader,
+      useFactory: (http: Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
+      deps: [Http]
+    },
+    TranslateService],
+    pipes: [TranslatePipe]
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -19,7 +28,8 @@ class MyApp {
 
   constructor(
     public platform: Platform,
-    public menu: MenuController
+    public menu: MenuController,
+    private translate: TranslateService
   ) {
     this.initializeApp();
 
@@ -30,6 +40,14 @@ class MyApp {
       { title: 'Login Registration', component: RegisterLoginPage },
       { title: 'Profile Registration', component: RegisterIndividualProfilePage }
     ];
+
+    // use navigator lang if English(en) or Spanish (es)
+    console.log(navigator.language);
+    var userLang = navigator.language.split('-')[0]; 
+    userLang = /(en|es)/gi.test(userLang) ? userLang : 'en';
+    // set default language and language to use
+    translate.setDefaultLang('en');
+    translate.use(userLang);
   }
 
   initializeApp() {

@@ -4,9 +4,11 @@ import { Storage, LocalStorage } from 'ionic-angular';
 import {NavController, Nav, NavParams} from 'ionic-angular';
 import { RegisterLoginPage } from '../register-login/register-login';
 import {TabsPage} from '../tabs/tabs';
+import {TranslatePipe} from "ng2-translate/ng2-translate";
 
 @Component({
-  templateUrl: 'build/pages/logon/logon.html'
+  templateUrl: 'build/pages/logon/logon.html',
+  pipes: [TranslatePipe]
 })
 export class LogonPage {
   storage: Storage = new Storage(LocalStorage);
