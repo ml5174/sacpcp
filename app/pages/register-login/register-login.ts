@@ -15,7 +15,7 @@ export class RegisterLoginPage {
   private key: string = '';
   private val: string = '';
   private errors: Array<string> = [];
-
+  private pcmethod: string = 'email'
   constructor(private nav: NavController,
     private userServices: UserServices) {
 
