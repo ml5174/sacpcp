@@ -42,7 +42,6 @@ class MyApp {
     ];
 
     // use navigator lang if English(en) or Spanish (es)
-    console.log(navigator.language);
     var userLang = navigator.language.split('-')[0]; 
     userLang = /(en|es)/gi.test(userLang) ? userLang : 'en';
     // set default language and language to use
