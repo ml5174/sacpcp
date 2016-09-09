@@ -3,8 +3,6 @@ import {UserServices} from '../../service/user';
 import {NavController, Nav} from 'ionic-angular';
 import {STRINGS} from '../../provider/config';
 import { LogonPage } from '../logon/logon';
-import { ConfirmEmailPage } from '../confirm-email/confirm-email';
-import { ConfirmSMSPage } from '../confirm-sms/confirm-sms';
 import {TranslatePipe} from "ng2-translate/ng2-translate";
 @Component({
   templateUrl: 'build/pages/forgot/forgot.html',
@@ -33,41 +31,9 @@ export class ForgotPage {
   }
 
   forgot() {
-    this.errors = [];
-    this.usernameerror = false;
-    this.password1error = false;
-    this.password2error = false;
-    this.emailerror = false;
-
-
-    /* TEMP CODE until confirmation flow is established */
-    if (this.pcmethod === 'sms') {
-      this.nav.push(ConfirmSMSPage);
-      return;
-      //   this.smserror=true;
-      //   this.errors.push("SMS not implemented");
-
-    }
-
-    let register = {
-      username: this.username,
-      password1: this.password1,
-      password2: this.password2,
-      email: this.email
-    }
-    this.userServices.register(register)
-      .subscribe(
-      key => {
-        this.key = key;
-        if (this.pcmethod === 'email')
-          this.nav.push(ConfirmEmailPage);
-      },
-      err => {
-        console.log(err);
-        this.setError(err);
-      });
-
+    this.nav.push(LogonPage);
   }
+
   setError(error) {
     if (error.status === 400) {
       error = error.json();
