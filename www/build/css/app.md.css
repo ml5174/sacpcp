@@ -9543,6 +9543,14 @@ ion-icon[large-font] {
   text-align: center;
   padding: 10px 5px; }
 
+.item .pcm-radio {
+  position: absolute;
+  left: 0;
+  width: 100px; }
+
+.pcm-icon {
+  padding-left: 30px; }
+
 @media (min-width: 900px) {
   html {
     max-width: 900px;

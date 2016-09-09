@@ -9249,3 +9249,11 @@ ion-icon[large-font] {
   max-width: 33%;
   text-align: center;
   padding: 10px 5px; }
+
+.item .pcm-radio {
+  position: absolute;
+  left: 0;
+  width: 100px; }
+
+.pcm-icon {
+  padding-left: 30px; }
