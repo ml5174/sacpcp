@@ -18,8 +18,29 @@ export class RegisterIndividualProfilePage {
   constructor(private nav: NavController,
               private userServices: UserServices) {
 
+    this.getMyPreferences();
+    this.getAvailablePreferences();
+
   }
 
+  getMyPreferences() {
+    this.userServices.getMyPreferences()
+      .subscribe(
+          key => this.key = key, 
+          err => { 
+            console.log(err);
+            this.setError(err);
+          })
+  }
+  getAvailablePreferences() {
+    this.userServices.getAvailablePreferences()
+      .subscribe(
+          key => this.key = key, 
+          err => { 
+            console.log(err);
+            this.setError(err);
+          })
+  }  
   register() {
     this.errors = [];
     let register = {
@@ -28,7 +49,7 @@ export class RegisterIndividualProfilePage {
       password2: this.password2,
       email: this.email
     }
-    this.userServices.register(register)
+    this.userServices.registerUser(register)
       .subscribe(
           key => this.key = key, 
           err => { 
@@ -39,10 +60,20 @@ export class RegisterIndividualProfilePage {
           
   }
   setError(error) {
-    for (let key in error) { 
-      for (let val in error[key]) {
-        this.errors.push(STRINGS[key]+': '+error[key][val].toString());
+    if (error.status === 400) {
+      error = error.json();
+      for (let key in error) {
+        for (let val in error[key]) {
+          let field = '';
+          if (STRINGS[key]) field = STRINGS[key] + ': ';
+          this.errors.push(field + error[key][val].toString());
+        }
       }
     }
+    if (error.status === 500) {
+      this.errors.push('Backend returned 500 error, talk to JOHN :) ');
+    }
+
   }
+
 }
