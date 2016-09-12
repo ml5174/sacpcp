@@ -13,39 +13,48 @@
   <h3>Volunteer Login Registration</h3>
 
   <ion-item no-lines *ngFor="let error of errors">
-    <ion-icon name="alert" item-left class="error"></ion-icon>
-    <p class="error">{{error}}</p>
+    <ion-icon name="alert" item-left></ion-icon>
+    <p style="color: red">{{error}}</p>
   </ion-item>
 
-    <ion-item no-lines class="">
-      <ion-icon name="contact" item-left isActive="false"></ion-icon>
-      <ion-label floating>Username</ion-label>
-      <ion-input required type="text" class="" [(ngModel)]="username" required></ion-input>
-    </ion-item>
+  <ion-item no-lines class="">
+    <ion-icon name="contact" item-left isActive="false" [class.error]="usernameerror"></ion-icon>
+    <ion-label floating>Username</ion-label>
+    <ion-input required type="text" class="" [(ngModel)]="username" required></ion-input>
+  </ion-item>
 
-    <ion-item no-lines class="">
-      <ion-icon name="lock" item-left isActive="false"></ion-icon>
-      <ion-label floating>Password</ion-label>
-      <ion-input required type="password" placeholder="" class="" [(ngModel)]="password1" required></ion-input>
-    </ion-item>
+  <ion-item no-lines class="">
+    <ion-icon name="lock" item-left isActive="false" [class.error]="password1error"></ion-icon>
+    <ion-label floating>Password</ion-label>
+    <ion-input required type="password" placeholder="" class="" [(ngModel)]="password1" required></ion-input>
+  </ion-item>
 
-    <ion-item no-lines class="">
-      <ion-icon name="lock" item-left isActive="false"></ion-icon>
-      <ion-label floating>Confirm Password</ion-label>
-      <ion-input required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
-    </ion-item>
+  <ion-item no-lines class="">
+    <ion-icon name="lock" item-left isActive="false" [class.error]="password2error"></ion-icon>
+    <ion-label floating>Confirm Password</ion-label>
+    <ion-input required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
+  </ion-item>
+  <ion-list radio-group [(ngModel)]="pcmethod">
 
-    <ion-item no-lines class="">
-      <ion-icon name="mail" item-left isActive="false"></ion-icon>
+    <ion-list-header>
+      Please select your prefered method of account validation.
+    </ion-list-header>
+
+    <ion-item no-lines >
+      <ion-radio checked="true" value="email" class="pcm-radio"></ion-radio>
+      <ion-icon name="mail" item-left isActive="false" class="pcm-icon" [class.error]="emailerror"></ion-icon>
       <ion-label floating>email</ion-label>
-      <ion-input required type="email" placeholder="" class="" [(ngModel)]="email" required></ion-input>
+      <ion-input required type="email" placeholder=""  [(ngModel)]="email" required></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="">
-      <ion-icon name="call" item-left isActive="false"></ion-icon>
+    <ion-item no-lines >
+      <ion-radio checked="false" value="sms" class="pcm-radio"></ion-radio>
+      <ion-icon name="call" item-left isActive="false" class="pcm-icon" [class.error]="smserror"></ion-icon>
       <ion-label floating>Mobile Phone Number</ion-label>
-      <ion-input type="phone" placeholder="" class="" [(ngModel)]="phone" required></ion-input>
+      <ion-input type="phone" placeholder=""  [(ngModel)]="phone" required></ion-input>
     </ion-item>
+
+  </ion-list>
   <ion-item no-lines class="">
     <button primary block large round (click)="register()">Register Login</button>
   </ion-item>

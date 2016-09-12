@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ 'Salvation Army' | translate}}</ion-title>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <h3>{{ 'Forgot(NOT WORKING)' | translate}}</h3>
+
+  <ion-item no-lines *ngFor="let error of errors">
+    <ion-icon name="alert" item-left class="error"></ion-icon>
+    <p class="error">{{error | translate}}</p>
+  </ion-item>
+
+
+  <ion-list>
+    <ion-item no-lines>
+
+      <ion-label style="word-wrap: break-word;">
+        {{ 'Please select your prefered method of account validation.' | translate}} </ion-label>
+    </ion-item>
+
+    <ion-item no-lines>
+      <ion-icon name="mail" item-left isActive="false" [class.error]="emailerror"></ion-icon>
+      <ion-label floating>{{'Email' | translate}}</ion-label>
+      <ion-input required type="email" placeholder="" [(ngModel)]="email" required></ion-input>
+    </ion-item>
+
+    <ion-item no-lines>
+      <ion-icon name="call" item-left isActive="false" [class.error]="smserror"></ion-icon>
+      <ion-label floating>{{'Mobile Phone Number' | translate}}</ion-label>
+      <ion-input type="phone" placeholder="" [(ngModel)]="phone" required></ion-input>
+    </ion-item>
+
+  </ion-list>
+  <ion-item no-lines class="">
+    <button primary block large round (click)="forgot()">{{'Submit' | translate}}</button>
+  </ion-item>
+
+
+</ion-content>
