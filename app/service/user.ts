@@ -5,8 +5,10 @@ import {LOGIN_URI} from '../provider/config';
 import {REGISTER_URI} from '../provider/config';
 import {REGISTER_USER_URI} from '../provider/config';
 import {GET_AVAILABLE_PREFERENCES_URI} from '../provider/config';
+import {GET_MY_PROFILE_URI} from '../provider/config';
 import {GET_MY_PREFERENCES_URI} from '../provider/config';
 import {SERVER} from '../provider/config';
+import {UPDATE_MY_PROFILE_URI} from '../provider/config';
 import { UserProfile } from '../model/user-profile';
 
 @Injectable()
@@ -60,6 +62,24 @@ export class UserServices {
         headers.append('Content-Type', 'text/plain');
         let options = new RequestOptions({ headers: headers });
         return this.http.get(SERVER+GET_MY_PREFERENCES_URI, options)
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+    getMyProfile(): Observable<any> {
+        let headers = new Headers();
+        if (this.user) if (this.user.id) headers.append('Authorization', 'Token '+this.user.id);
+        headers.append('Content-Type', 'text/plain');
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(SERVER+GET_MY_PROFILE_URI, options)
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+    updateMyProfile(): Observable<any> {
+        let headers = new Headers();
+        if (this.user) if (this.user.id) headers.append('Authorization', 'Token '+this.user.id);
+        headers.append('Content-Type', 'text/plain');
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(SERVER+UPDATE_MY_PROFILE_URI, options)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
