@@ -74,12 +74,22 @@ export class UserServices {
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
-    updateMyProfile(): Observable<any> {
+    createMyProfile(myProfile): Observable<any> {
         let headers = new Headers();
         if (this.user) if (this.user.id) headers.append('Authorization', 'Token '+this.user.id);
-        headers.append('Content-Type', 'text/plain');
+        headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this.http.get(SERVER+UPDATE_MY_PROFILE_URI, options)
+        return this.http.post(SERVER+UPDATE_MY_PROFILE_URI, myProfile, options)
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+    updateMyProfile(myProfile): Observable<any> {
+        delete myProfile.mugshot;
+        let headers = new Headers();
+        if (this.user) if (this.user.id) headers.append('Authorization', 'Token '+this.user.id);
+        headers.append('Content-Type', 'application/json');
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put(SERVER+UPDATE_MY_PROFILE_URI, myProfile, options)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
