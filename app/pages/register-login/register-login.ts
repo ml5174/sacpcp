@@ -5,8 +5,10 @@ import {STRINGS} from '../../provider/config';
 import { LogonPage } from '../logon/logon';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email';
 import { ConfirmSMSPage } from '../confirm-sms/confirm-sms';
+import {TranslatePipe} from "ng2-translate/ng2-translate";
 @Component({
-  templateUrl: 'build/pages/register-login/register-login.html'
+  templateUrl: 'build/pages/register-login/register-login.html',
+    pipes: [TranslatePipe]
 })
 export class RegisterLoginPage {
   private username: string = '';
