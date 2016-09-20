@@ -3,8 +3,10 @@ import { UserServices } from '../../service/user';
 import { Storage, LocalStorage } from 'ionic-angular';
 import {NavController, Nav, NavParams} from 'ionic-angular';
 import { RegisterLoginPage } from '../register-login/register-login';
+import { ForgotPage } from '../forgot/forgot';
 import {TabsPage} from '../tabs/tabs';
 import {TranslatePipe} from "ng2-translate/ng2-translate";
+import {STRINGS} from '../../provider/config';
 
 @Component({
   templateUrl: 'build/pages/logon/logon.html',
@@ -14,6 +16,8 @@ export class LogonPage {
   storage: Storage = new Storage(LocalStorage);
   username: string = '';
   password: string = '';
+  usernameerror: boolean = false;
+  passworderror: boolean = false;
   remember: boolean = true;
   key: any = { key: 'key' };
   errors: Array<string> = [];
@@ -35,6 +39,8 @@ export class LogonPage {
   }
   login() {
     this.errors = [];
+    this.usernameerror = false;
+    this.passworderror = false;
 
     if (this.remember) this.storage.set('username', this.username);
     else this.storage.set('username', '');
@@ -45,15 +51,6 @@ export class LogonPage {
     this.userServices.login(login)
       .subscribe(
       key => {
-        /* Temp solution until login validation is implemented */
-        if (this.key) {
-          if (key !== this.key.key) this.errors.push('Login is different than one registered.');
-          else {
-            this.errors.push('Login Success, Registration Success.  Login again to go to the home page.');
-            this.key = undefined;
-          }
-          return;
-        }
         this.nav.push(TabsPage);
       },
       err => this.setError(err));
@@ -62,7 +59,7 @@ export class LogonPage {
     this.nav.push(RegisterLoginPage);
   }
   forgot() {
-    //this.nav.push(RegisterLoginPage);
+    this.nav.push(ForgotPage);
   }
   setError(error) {
 
@@ -75,7 +72,11 @@ export class LogonPage {
 
       for (let key in error) {
         for (let val in error[key]) {
-          this.errors.push(error[key][val].toString());
+          let field = '';
+          if (STRINGS[key]) field = STRINGS[key] + ': ';
+          this.errors.push( field + error[key][val].toString());
+          if (key==='username') this.usernameerror=true;
+          if (key==='password') this.passworderror=true;
         }
       }
     }

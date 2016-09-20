@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar hideBackButton="true">
-    <ion-title>{{ 'Salvation Army' | translate}}</ion-title>
+    <ion-title>{{ 'The Salvation Army' | translate}}</ion-title>
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -17,17 +17,17 @@
   <ion-list>
     <ion-item no-lines *ngFor="let error of errors">
       <ion-icon name="alert" item-left class="error"></ion-icon>
-      <p class="error">{{error}}</p>
+      <p class="error">{{error | translate}}</p>
     </ion-item>
 
     <ion-item no-lines [class.error]="!username.valid && username.touched">
-      <ion-icon name="contact" item-left  isActive="false" ></ion-icon>
+      <ion-icon name="contact" item-left  isActive="false" [class.error]="usernameerror"></ion-icon>
       <ion-label floating>{{ 'Username' | translate}}</ion-label>
       <ion-input required type="text" placeholder="" [(ngModel)]="username"></ion-input>
     </ion-item>
 
     <ion-item no-lines [class.error]="!password.valid && password.touched">
-      <ion-icon name="lock" item-left isActive="false" ></ion-icon>
+      <ion-icon name="lock" item-left isActive="false" [class.error]="passworderror"></ion-icon>
       <ion-label floating>{{ 'Password' | translate}}</ion-label>
       <ion-input required type="password" placeholder="" [(ngModel)]="password"></ion-input>
     </ion-item>
