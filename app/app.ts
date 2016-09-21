@@ -35,7 +35,7 @@ class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'Logon', component: LogonPage },
+      { title: 'Login', component: LogonPage },
       { title: 'Home', component: TabsPage },
       { title: 'Login Registration', component: RegisterLoginPage },
       { title: 'Profile Registration', component: RegisterIndividualProfilePage }

@@ -1,9 +1,6 @@
-.getting-started {
-
-  p {
-    margin: 20px 0;
-    line-height: 22px;
-    font-size: 16px;
+@media (min-width :900px) {
+  ion-tabbar {
+    top: 56px;
+    bottom: auto !important ;
   }
-
 }
