@@ -13,3 +13,12 @@
 @import "../pages/tabs/donate/donate";
 
 @import "../pages/register-login/register-login";
+
+
+
+@media (min-width :900px) {
+    #tab-content {
+        max-width: 900px;
+        margin: 63px auto;
+    }
+}

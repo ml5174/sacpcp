@@ -32,7 +32,7 @@ export class TabsPage {
     this.donatePage = DonatePage;
     this.volunteerPage = VolunteerPage;
 
-    if (!userServices.user.id) this.login();
+    //if (!userServices.user.id) this.login();
   }
 
   ngOnInit(){

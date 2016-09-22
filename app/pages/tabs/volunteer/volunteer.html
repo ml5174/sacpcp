@@ -7,93 +7,94 @@
     <ion-searchbar (ionInput)="getItems($event)" *ngIf="search" showCancelButton="true" (ionCancel)="onCancel($event)"></ion-searchbar>
   </ion-navbar>
 </ion-header>
-<ion-content id="home">
+<ion-content>
 
-  <ion-list>
-    <ion-item no-lines class="welcome-header">
-      <h1>Welcome back, Mauricio</h1>
-      <ion-icon name="trophy" item-right large-font></ion-icon>
-      <ion-icon name="mail" item-right large-font></ion-icon>
-    </ion-item>
-
-    <ion-card>
-      <ion-item no-lines class="closed-tab" (click)="yourevents=!yourevents">
-        Your Volunteer Events
-        <ion-icon name="arrow-down" item-right *ngIf="!yourevents"></ion-icon>
-        <ion-icon name="arrow-up" item-right *ngIf="yourevents"></ion-icon>
+  <section id="tab-content">
+    <ion-list>
+      <ion-item no-lines class="welcome-header">
+        <h1>Welcome back, Mauricio</h1>
+        <ion-icon name="trophy" item-right large-font></ion-icon>
+        <ion-icon name="mail" item-right large-font></ion-icon>
       </ion-item>
-      <section *ngIf="!yourevents">
-        <ion-item *ngFor="let e of events">
-          <p class="thin-item">{{e.date}}</p>
-          <ion-row>
-            <ion-col>
-              <p>{{e.time}}</p>
-            </ion-col>
-            <ion-col>
-              <p><b>{{e.title}}</b></p>
-            </ion-col>
-            <ion-col>
-              <p>56 Volunteers</p>
-            </ion-col>
-          </ion-row>
-          <h4>Details:</h4>
-          <p>{{e.details}}</p>
+
+      <ion-card>
+        <ion-item no-lines class="closed-tab" (click)="yourevents=!yourevents">
+          Your Volunteer Events
+          <ion-icon name="arrow-down" item-right *ngIf="!yourevents"></ion-icon>
+          <ion-icon name="arrow-up" item-right *ngIf="yourevents"></ion-icon>
         </ion-item>
-      </section>
-    </ion-card>
+        <section *ngIf="!yourevents">
+          <ion-item *ngFor="let e of events">
+            <p class="thin-item">{{e.date}}</p>
+            <ion-row>
+              <ion-col>
+                <p>{{e.time}}</p>
+              </ion-col>
+              <ion-col>
+                <p><b>{{e.title}}</b></p>
+              </ion-col>
+              <ion-col>
+                <p>56 Volunteers</p>
+              </ion-col>
+            </ion-row>
+            <h4>Details:</h4>
+            <p>{{e.details}}</p>
+          </ion-item>
+        </section>
+      </ion-card>
 
-    <ion-card>
-      <ion-item no-lines class="open-tab" (click)="upcoming=!upcoming">
-        Upcoming Volunteer Events
-        <ion-icon name="arrow-down" item-right *ngIf="!upcoming"></ion-icon>
-        <ion-icon name="arrow-up" item-right *ngIf="upcoming"></ion-icon>
-      </ion-item>
-      <section *ngIf="!upcoming">
-        <ion-item *ngFor="let e of events">
-          <p class="thin-item">{{e.date}}</p>
-          <ion-row>
-            <ion-col>
-              <p>{{e.time}}</p>
-            </ion-col>
-            <ion-col>
-              <p><b>{{e.title}}</b></p>
-            </ion-col>
-            <ion-col>
-              <p>56 Volunteers</p>
-            </ion-col>
-          </ion-row>
-          <h4>Details:</h4>
-          <p>{{e.details}}</p>
+      <ion-card>
+        <ion-item no-lines class="open-tab" (click)="upcoming=!upcoming">
+          Upcoming Volunteer Events
+          <ion-icon name="arrow-down" item-right *ngIf="!upcoming"></ion-icon>
+          <ion-icon name="arrow-up" item-right *ngIf="upcoming"></ion-icon>
         </ion-item>
-      </section>
-    </ion-card>
+        <section *ngIf="!upcoming">
+          <ion-item *ngFor="let e of events">
+            <p class="thin-item">{{e.date}}</p>
+            <ion-row>
+              <ion-col>
+                <p>{{e.time}}</p>
+              </ion-col>
+              <ion-col>
+                <p><b>{{e.title}}</b></p>
+              </ion-col>
+              <ion-col>
+                <p>56 Volunteers</p>
+              </ion-col>
+            </ion-row>
+            <h4>Details:</h4>
+            <p>{{e.details}}</p>
+          </ion-item>
+        </section>
+      </ion-card>
 
-    <ion-card>
-      <ion-item no-lines class="closed-tab" (click)="previousevents=!previousevents">
-        Previously Events
-        <ion-icon name="arrow-down" item-right *ngIf="!previousevents"></ion-icon>
-        <ion-icon name="arrow-up" item-right *ngIf="previousevents"></ion-icon>
-      </ion-item>
-      <section *ngIf="!previousevents">
-        <ion-item *ngFor="let e of events">
-          <p class="thin-item">{{e.date}}</p>
-          <ion-row>
-            <ion-col>
-              <p>{{e.time}}</p>
-            </ion-col>
-            <ion-col>
-              <p><b>{{e.title}}</b></p>
-            </ion-col>
-            <ion-col>
-              <p>56 Volunteers</p>
-            </ion-col>
-          </ion-row>
-          <h4>Details:</h4>
-          <p>{{e.details}}</p>
+      <ion-card>
+        <ion-item no-lines class="closed-tab" (click)="previousevents=!previousevents">
+          Previously Events
+          <ion-icon name="arrow-down" item-right *ngIf="!previousevents"></ion-icon>
+          <ion-icon name="arrow-up" item-right *ngIf="previousevents"></ion-icon>
         </ion-item>
-      </section>
-    </ion-card>
+        <section *ngIf="!previousevents">
+          <ion-item *ngFor="let e of events">
+            <p class="thin-item">{{e.date}}</p>
+            <ion-row>
+              <ion-col>
+                <p>{{e.time}}</p>
+              </ion-col>
+              <ion-col>
+                <p><b>{{e.title}}</b></p>
+              </ion-col>
+              <ion-col>
+                <p>56 Volunteers</p>
+              </ion-col>
+            </ion-row>
+            <h4>Details:</h4>
+            <p>{{e.details}}</p>
+          </ion-item>
+        </section>
+      </ion-card>
 
-  </ion-list>
-
+    </ion-list>
+  </section>
 </ion-content>
