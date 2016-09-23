@@ -1,5 +1,6 @@
 {
     "Logon" : "de inicio de sesión",   
+    "Login" : "de inicio de sesión",   
     "Home": "casa",
     "Login Registration": "el registro de inicio de sesión",
     "Username" : "Nombre de Usuario",
@@ -7,7 +8,7 @@
     "Remember Me" : "Recuérdame",
     "Forgot User ID/Password" : "¿Olvidó su ID de usuario / contraseña",
     "New User? Sign up today!" : "¿Nuevo usuario? ¡Regístrate hoy!",
-    "Volunteer Logon" : "Voluntarios de inicio de sesión",
+    "Volunteer Login" : "Voluntarios de inicio de sesión",
     "The Salvation Army" : "Ejército de Salvación",
     "Password: This field may not be blank." : "Contraseña : Este campo no puede estar en blanco.",
     "Forgot" : "Olvidó",

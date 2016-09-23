@@ -1,5 +1,6 @@
 {
-    "Logon" : "Logon",   
+    "Logon" : "Login",   
+    "Login" : "Login",   
     "Home": "Home",
     "Login Registration": "Login Registration",
     "Username" : "Username",
