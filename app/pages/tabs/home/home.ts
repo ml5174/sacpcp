@@ -36,5 +36,7 @@ export class HomePage {
   login() {
     this.nav.setRoot(LogonPage);
   }
-  
+  noTabs() {
+    this.nav.setRoot(HomePage);
+  }
 }

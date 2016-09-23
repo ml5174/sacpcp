@@ -10,5 +10,6 @@
   <section id="tab-content">
     <h1 *ngIf="username">Welcome back {{username}}</h1>
     <button *ngIf="!username" (click)="login()">Login</button>
+    <button (click)="noTabs()">Remove Tabs</button>
   </section>
 </ion-content>
