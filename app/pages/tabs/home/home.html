@@ -1,12 +1,15 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Home</ion-title>
-    <button menuToggle right>
+    <!--button menuToggle right>
       <ion-icon name="menu"></ion-icon>
-    </button>
+    </button-->
   </ion-navbar>
 </ion-header>
-<ion-content id="home">
-  Welcome back {{username}}
-
+<ion-content>
+  <section id="tab-content">
+    <h1 *ngIf="username">Welcome back {{username}}</h1>
+    <button *ngIf="!username" (click)="login()">Login</button>
+    <button (click)="noTabs()">Remove Tabs</button>
+  </section>
 </ion-content>

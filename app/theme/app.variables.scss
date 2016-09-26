@@ -25,11 +25,28 @@
 // Both iOS and MD colors can be further customized if colors
 // are different per mode.
 
+$sa-primary: #FF173D;
+//$sa-primary: orange;
+
 $colors: (
-  primary:    #387ef5,
+  primary:    $sa-primary,
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222,
   favorite:   #69BB7B
 );
+
+//$toolbar-background: map-get($colors, primary);
+
+//$tabs-md-tab-color: white;
+
+//$font-family-base: "TrajanPro";
+//$font-family-ios-base: "TrajanPro";
+//$font-family-md-base: "TrajanPro";
+//$font-family-wp-base: "TrajanPro";
+
+$font-family-base: "AJensonPro";
+$font-family-ios-base: "AJensonPro";
+$font-family-md-base: "AJensonPro";
+$font-family-wp-base: "AJensonPro";

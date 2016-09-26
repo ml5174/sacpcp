@@ -1,15 +1,16 @@
 <ion-header>
   <ion-navbar>
     <ion-title>{{ 'The Salvation Army' | translate}}</ion-title>
-    <button menuToggle>
+    <!--button menuToggle>
       <ion-icon name="menu"></ion-icon>
-    </button>
+    </button-->
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
 
+  <section id="tab-content">
   <h3>Volunteer Login Registration</h3>
 
   <ion-item no-lines *ngFor="let error of errors">
@@ -58,6 +59,6 @@
   <ion-item no-lines class="">
     <button primary block large round (click)="register()">Register Login</button>
   </ion-item>
-
+  </section>
 
 </ion-content>

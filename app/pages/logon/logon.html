@@ -1,16 +1,17 @@
 <ion-header>
   <ion-navbar hideBackButton="true">
     <ion-title>{{ 'The Salvation Army' | translate}}</ion-title>
-    <button menuToggle>
+    <!--button menuToggle>
       <ion-icon name="menu"></ion-icon>
-    </button>
+    </button-->
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
 
-  <h3>{{ 'Volunteer Logon' | translate}}</h3>
+  <section id="tab-content">
+  <h3>{{ 'Volunteer Login' | translate}}</h3>
   <div >
     
   </div>
@@ -33,7 +34,7 @@
     </ion-item>
 
     <ion-item no-lines >
-      <button primary block large round (click)="login()">{{ 'Logon' | translate}}</button>
+      <button primary block large round (click)="login()">{{ 'Login' | translate}}</button>
     </ion-item>
     <ion-item no-lines >
       <ion-label>{{ 'Remember Me' | translate}}</ion-label>
@@ -46,5 +47,5 @@
       <button clear (click)="register()">{{ 'New User? Sign up today!' | translate}}</button>
     </ion-item>
   </ion-list>
-
+  </section>
 </ion-content>

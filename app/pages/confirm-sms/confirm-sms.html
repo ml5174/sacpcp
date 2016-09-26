@@ -1,13 +1,14 @@
 <ion-header>
   <ion-navbar>
     <ion-title>{{ 'The Salvation Army' | translate}}</ion-title>
-    <button menuToggle right>
+    <!-- button menuToggle right>
       <ion-icon name="menu"></ion-icon>
-    </button>
+    </button-->
   </ion-navbar>
 </ion-header>
 <ion-content padding>
 
+  <section id="tab-content">
   <h3>{{ 'Confirm SMS' | translate}}</h3>
   <p>
     {{'A text message was sent to your phone.  This message has a code. Please enter the code here.' | translate}}
@@ -28,4 +29,5 @@
   <ion-item no-lines class="">
     <button primary block large round (click)="validateCode()">Submit</button>
   </ion-item>
+  </section>
 </ion-content>

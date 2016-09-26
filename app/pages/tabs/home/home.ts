@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, Nav} from 'ionic-angular';
 import {VolunteerEvent} from '../../../model/volunteer-event';
 import {VolunteerEventsService} from '../../../service/volunteer-events-service';
 import { Observable } from 'rxjs/Observable';
+import {LogonPage} from '../../logon/logon';
 
 @Component({
   templateUrl: 'build/pages/tabs/home/home.html',
@@ -14,6 +15,7 @@ export class HomePage {
   yourevents: boolean = true;
   events: Array<VolunteerEvent> = [];
   constructor(private navCtrl: NavController,
+              private nav: Nav, 
               private volunteerEventsService: VolunteerEventsService
   ) {  }
   ngOnInit(){
@@ -31,4 +33,10 @@ export class HomePage {
                                 });
   }
   
+  login() {
+    this.nav.setRoot(LogonPage);
+  }
+  noTabs() {
+    this.nav.setRoot(HomePage);
+  }
 }
