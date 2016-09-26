@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {HomePage} from './home/home';
 import {AwardsPage} from './awards/awards';
 import {DonatePage} from './donate/donate';
-import {VolunteerPage} from './volunteer/volunteer';
+import {EventsPage} from './events/events';
 import {NavController, Nav, NavParams} from 'ionic-angular';
 import {RegisterIndividualProfilePage} from '../register-individual-profile/register-individual-profile';
 import {LogonPage} from '../logon/logon';
@@ -17,7 +17,7 @@ export class TabsPage {
   private homePage: any;
   private awardsPage: any;
   private donatePage: any;
-  private volunteerPage: any;
+  private eventsPage: any;
   private loginKey: string;
   private username: string;
   private profile: UserProfile;
@@ -30,7 +30,7 @@ export class TabsPage {
     this.homePage = HomePage;
     this.awardsPage = AwardsPage;
     this.donatePage = DonatePage;
-    this.volunteerPage = VolunteerPage;
+    this.eventsPage = EventsPage;
 
     //if (!userServices.user.id) this.login();
   }
