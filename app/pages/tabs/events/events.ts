@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, Nav} from 'ionic-angular';
 import {VolunteerEvent} from '../../../model/volunteer-event';
 import {VolunteerEventsService} from '../../../service/volunteer-events-service';
 import { Observable } from 'rxjs/Observable';
+import {LogonPage} from '../../logon/logon';
 
 @Component({
   templateUrl: 'build/pages/tabs/events/events.html',
@@ -13,7 +14,9 @@ export class EventsPage {
   previousevents: boolean = true;
   yourevents: boolean = true;
   events: Array<VolunteerEvent> = [];
+  language: string = "english";
   constructor(private navCtrl: NavController,
+              private nav: Nav, 
               private volunteerEventsService: VolunteerEventsService
   ) {  }
   ngOnInit(){
@@ -31,4 +34,7 @@ export class EventsPage {
                                 });
   }
 
+  login() {
+    this.nav.setRoot(LogonPage);
+  }
 }

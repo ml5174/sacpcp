@@ -1,22 +1,48 @@
-
 <ion-header>
   <ion-navbar>
-    <ion-title>Donate</ion-title>
+    <ion-title>Doing the Most Good</ion-title>
+    <button menuToggle right>
+      <ion-icon name="menu"></ion-icon>
+    </button>
   </ion-navbar>
 </ion-header>
 
+<section id="login-bar" *ngIf="!username">
+  <ion-select id="language-select" [(ngModel)]="language">
+    <ion-option value="english">English</ion-option>
+    <ion-option value="spanish">Espanol</ion-option>
+  </ion-select>
+  <button id="login-button" (click)="login()">Login</button>
+</section>
+<section id="logout-bar" *ngIf="username">
+  <h1>Welcome back {{username}}</h1>
+  <button (click)="login()">Lout</button>
+</section>
+
 <ion-content text-center class="icons-basic-page">
-  
+
   <section id="tab-content">
-  <ion-row>
-    <ion-col><ion-icon name="heart" danger></ion-icon></ion-col>
-    <ion-col><ion-icon name="heart" danger></ion-icon></ion-col>
-    <ion-col><ion-icon name="heart" danger></ion-icon></ion-col>
+    <ion-row>
+      <ion-col>
+        <ion-icon name="heart" danger></ion-icon>
+      </ion-col>
+      <ion-col>
+        <ion-icon name="heart" danger></ion-icon>
+      </ion-col>
+      <ion-col>
+        <ion-icon name="heart" danger></ion-icon>
+      </ion-col>
 
-    <ion-col><ion-icon name="heart" danger></ion-icon></ion-col>
-    <ion-col><ion-icon name="heart" danger></ion-icon></ion-col>
-    <ion-col><ion-icon name="heart" danger></ion-icon></ion-col>
+      <ion-col>
+        <ion-icon name="heart" danger></ion-icon>
+      </ion-col>
+      <ion-col>
+        <ion-icon name="heart" danger></ion-icon>
+      </ion-col>
+      <ion-col>
+        <ion-icon name="heart" danger></ion-icon>
+      </ion-col>
 
-  </ion-row>
+    </ion-row>
   </section>
 </ion-content>

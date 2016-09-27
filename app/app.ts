@@ -4,6 +4,7 @@ import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {TranslateService, TranslatePipe, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 import {TabsPage} from './pages/tabs/tabs';
+import {HomePage} from './pages/tabs/home/home';
 import {LogonPage} from './pages/logon/logon';
 import {RegisterLoginPage} from './pages/register-login/register-login';
 import {RegisterIndividualProfilePage} from './pages/register-individual-profile/register-individual-profile';
@@ -23,7 +24,7 @@ import {UserServices} from './service/user';
 class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = TabsPage;
+  rootPage: any = HomePage;
   pages: Array<{title: string, component: any}>;
 
   constructor(

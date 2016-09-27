@@ -56,10 +56,13 @@ export class LogonPage {
       err => this.setError(err));
   }
   register() {
-    this.nav.push(RegisterLoginPage);
+    this.nav.setRoot(RegisterLoginPage);
   }
   forgot() {
-    this.nav.push(ForgotPage);
+    this.nav.setRoot(ForgotPage);
+  }
+  back() {
+    this.nav.setRoot(TabsPage);
   }
   setError(error) {
 

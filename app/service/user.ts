@@ -13,7 +13,7 @@ import { UserProfile } from '../model/user-profile';
 
 @Injectable()
 export class UserServices {
-    user: UserProfile=new UserProfile();
+    public user: UserProfile=new UserProfile();
 
     constructor(private http: Http) {
     }

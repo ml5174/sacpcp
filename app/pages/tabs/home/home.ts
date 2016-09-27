@@ -4,22 +4,26 @@ import {VolunteerEvent} from '../../../model/volunteer-event';
 import {VolunteerEventsService} from '../../../service/volunteer-events-service';
 import { Observable } from 'rxjs/Observable';
 import {LogonPage} from '../../logon/logon';
+import {TranslateService, TranslatePipe, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 
 @Component({
   templateUrl: 'build/pages/tabs/home/home.html',
-  providers: [VolunteerEventsService]
+  providers: [VolunteerEventsService],
+  pipes: [TranslatePipe]
 })
 export class HomePage {
   search: boolean = false;
   previousevents: boolean = true;
   yourevents: boolean = true;
   events: Array<VolunteerEvent> = [];
+  language: string = "en";
   constructor(private navCtrl: NavController,
               private nav: Nav, 
-              private volunteerEventsService: VolunteerEventsService
+              private volunteerEventsService: VolunteerEventsService,
+              private translate: TranslateService
   ) {  }
   ngOnInit(){
-    this.getEvents();
+  //  this.getEvents();
   }
   onCancel(event: any) {
     this.search=false;
@@ -32,7 +36,14 @@ export class HomePage {
                                     console.log(err);
                                 });
   }
-  
+  changeLanguage() {
+    // use navigator lang if English(en) or Spanish (es)
+    var userLang = this.language; 
+    userLang = /(en|es)/gi.test(userLang) ? userLang : 'en';
+    // set default language and language to use
+    this.translate.setDefaultLang('en');
+    this.translate.use(userLang);
+  }
   login() {
     this.nav.setRoot(LogonPage);
   }
