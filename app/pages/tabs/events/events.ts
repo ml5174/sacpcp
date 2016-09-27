@@ -5,10 +5,10 @@ import {VolunteerEventsService} from '../../../service/volunteer-events-service'
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-  templateUrl: 'build/pages/tabs/volunteer/volunteer.html',
+  templateUrl: 'build/pages/tabs/events/events.html',
   providers: [VolunteerEventsService]
 })
-export class VolunteerPage {
+export class EventsPage {
   search: boolean = false;
   previousevents: boolean = true;
   yourevents: boolean = true;
@@ -30,5 +30,5 @@ export class VolunteerPage {
                                     console.log(err);
                                 });
   }
-  
+
 }

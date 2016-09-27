@@ -25,20 +25,20 @@
         </ion-item>
         <section *ngIf="!yourevents">
           <ion-item *ngFor="let e of events">
-            <p class="thin-item">{{e.date}}</p>
+            <p class="thin-item">{{e.title}}</p>
             <ion-row>
               <ion-col>
-                <p>{{e.time}}</p>
+                <p>{{e.start | date:"MM/dd/yy"}}</p>
               </ion-col>
               <ion-col>
-                <p><b>{{e.title}}</b></p>
+                <p><b>{{e.start | date:'shortTime'}}</b></p>
               </ion-col>
               <ion-col>
-                <p>56 Volunteers</p>
+                <p>{{e.location_name}}</p>
               </ion-col>
             </ion-row>
             <h4>Details:</h4>
-            <p>{{e.details}}</p>
+            <p>{{e.description}}</p>
           </ion-item>
         </section>
       </ion-card>
@@ -51,20 +51,20 @@
         </ion-item>
         <section *ngIf="!upcoming">
           <ion-item *ngFor="let e of events">
-            <p class="thin-item">{{e.date}}</p>
+            <p class="thin-item">{{e.title}}</p>
             <ion-row>
               <ion-col>
-                <p>{{e.time}}</p>
+                <p>{{e.start | date:"MM/dd/yy"}}</p>
               </ion-col>
               <ion-col>
-                <p><b>{{e.title}}</b></p>
+                <p><b>{{e.start | date:'shortTime'}}</b></p>
               </ion-col>
               <ion-col>
-                <p>56 Volunteers</p>
+                <p>{{e.location_name}}</p>
               </ion-col>
             </ion-row>
             <h4>Details:</h4>
-            <p>{{e.details}}</p>
+            <p>{{e.description}}</p>
           </ion-item>
         </section>
       </ion-card>
@@ -77,20 +77,20 @@
         </ion-item>
         <section *ngIf="!previousevents">
           <ion-item *ngFor="let e of events">
-            <p class="thin-item">{{e.date}}</p>
+            <p class="thin-item">{{e.title}}</p>
             <ion-row>
               <ion-col>
-                <p>{{e.time}}</p>
+                <p>{{e.start | date:"MM/dd/yy"}}</p>
               </ion-col>
               <ion-col>
-                <p><b>{{e.title}}</b></p>
+                <p><b>{{e.start | date:'shortTime'}}</b></p>
               </ion-col>
               <ion-col>
-                <p>56 Volunteers</p>
+                <p>{{e.location_name}}</p>
               </ion-col>
             </ion-row>
             <h4>Details:</h4>
-            <p>{{e.details}}</p>
+            <p>{{e.description}}</p>
           </ion-item>
         </section>
       </ion-card>
