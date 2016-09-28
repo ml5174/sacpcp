@@ -7,6 +7,10 @@
   </ion-navbar>
 </ion-header>
 
+  <section id="loginpage-bar">
+    <button id="back-button" (click)="back()">{{'< Back' | translate}}</button>
+    <button id="login-button" (click)="register()">{{'Create New Account' | translate}}</button>
+  </section>
 
 <ion-content padding>
 
@@ -23,13 +27,13 @@
 
     <ion-item no-lines [class.error]="!username.valid && username.touched">
       <ion-icon name="contact" item-left  isActive="false" [class.error]="usernameerror"></ion-icon>
-      <ion-label floating>{{ 'Username' | translate}}</ion-label>
+      <ion-label stacked>{{ 'Username' | translate}}</ion-label>
       <ion-input required type="text" placeholder="" [(ngModel)]="username"></ion-input>
     </ion-item>
 
     <ion-item no-lines [class.error]="!password.valid && password.touched">
       <ion-icon name="lock" item-left isActive="false" [class.error]="passworderror"></ion-icon>
-      <ion-label floating>{{ 'Password' | translate}}</ion-label>
+      <ion-label stacked>{{ 'Password' | translate}}</ion-label>
       <ion-input required type="password" placeholder="" [(ngModel)]="password"></ion-input>
     </ion-item>
 
@@ -42,9 +46,6 @@
     </ion-item>
     <ion-item no-lines >
       <button clear (click)="forgot()">{{ 'Forgot User ID/Password' | translate}}</button>
-    </ion-item>
-    <ion-item no-lines>
-      <button clear (click)="register()">{{ 'New User? Sign up today!' | translate}}</button>
     </ion-item>
   </ion-list>
   </section>

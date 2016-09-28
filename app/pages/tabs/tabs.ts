@@ -36,7 +36,7 @@ export class TabsPage {
   }
 
   ngOnInit(){
-    this.getUserProfile();
+  //  this.getUserProfile();
   }
   getUserProfile() {
     this.userServices
@@ -52,14 +52,11 @@ export class TabsPage {
       error = error.json();
       if (error.detail) {
         if (error.detail==='Not found.') this.nav.push(RegisterIndividualProfilePage);
-        if (error.detail=== 'Authentication credentials were not provided.' ) this.login();
+  //      if (error.detail=== 'Authentication credentials were not provided.' ) this.login();
       }
     }
     if (error.status === 500) {
       this.errors.push('Backend returned 500 error, talk to JOHN :) ');
     }
-  }
-  login() {
-    this.nav.push(LogonPage);
   }
 }

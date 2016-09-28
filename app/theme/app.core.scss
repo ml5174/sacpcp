@@ -11,7 +11,6 @@
 @import "../pages/tabs/tabs";
 @import "../pages/logon/logon";
 @import "../pages/tabs/donate/donate";
-
 @import "../pages/register-login/register-login";
 
 @font-face {
@@ -35,12 +34,6 @@
   src: local("AJensonPro-Italic"), local("AJensonPro-Italic"), url("../../assets/fonts/AJensonPro-It.otf") format("truetype"); 
 }
 
-@media (min-width :900px) {
-    #tab-content {
-        max-width: 900px;
-        margin: 63px auto;
-    }
-}
 
 h1, h2, h3, h4, h5, h6 {
     font-family: TrajanPro;
@@ -54,5 +47,5 @@ h1, h2, h3, h4, h5, h6 {
     background-image: url("../../assets/img/logo.svg");
     background-repeat: no-repeat;
     background-size: auto 85%;
-    background-position:right 5px top 5px;
+    background-position: left 5px top 5px;
 }
