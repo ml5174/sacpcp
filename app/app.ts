@@ -24,7 +24,7 @@ import {UserServices} from './service/user';
 class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = TabsPage;
   pages: Array<{title: string, component: any}>;
 
   constructor(
@@ -66,6 +66,8 @@ class MyApp {
   }
 }
 
-ionicBootstrap(MyApp);
+ionicBootstrap(MyApp, [], {
+  tabsPlacement: 'top'
+});
 
 

@@ -7,6 +7,9 @@
   </ion-navbar>
 </ion-header>
 
+
+<ion-content>
+  
   <section id="login-bar" *ngIf="!username">
     <ion-select id="language-select" [(ngModel)]="language" (ionChange)="changeLanguage()">
       <ion-option value="en">English</ion-option>
@@ -18,8 +21,7 @@
     <h1>Welcome back {{username}}</h1>
     <button (click)="login()">Lout</button>
   </section>
-
-<ion-content>
+  
   <section id="tab-content">
     <ion-searchbar (ionInput)="getItems($event)" showCancelButton="true" (ionCancel)="onCancel($event)"></ion-searchbar>
     <ion-card>
