@@ -1,14 +1,25 @@
 <ion-header>
   <ion-navbar>
-    <button (click)="search=true" *ngIf="!search" id="searchbutton">
-      <ion-icon name="search"></ion-icon>
+    <ion-title>Doing the Most Good</ion-title>
+    <button menuToggle right>
+      <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title *ngIf="!search">Home</ion-title>
-    <ion-searchbar (ionInput)="getItems($event)" *ngIf="search" showCancelButton="true" (ionCancel)="onCancel($event)"></ion-searchbar>
   </ion-navbar>
 </ion-header>
-<ion-content>
 
+<section id="login-bar" *ngIf="!username">
+  <ion-select id="language-select" [(ngModel)]="language">
+    <ion-option value="english">English</ion-option>
+    <ion-option value="spanish">Espanol</ion-option>
+  </ion-select>
+  <button id="login-button" (click)="login()">Login</button>
+</section>
+<section id="logout-bar" *ngIf="username">
+  <h1>Welcome back {{username}}</h1>
+  <button (click)="login()">Lout</button>
+</section>
+
+<ion-content>
   <section id="tab-content">
     <ion-list>
       <ion-item no-lines class="welcome-header">

@@ -19,3 +19,29 @@
   text-transform: none;
   font-size: 1.6rem;
 }
+
+
+#loginpage-bar{
+    top: 44px;
+    background: lightgrey;
+    display: block;
+    width: 100%;
+    height: 54px;
+    position: absolute;
+    z-index: 2;
+    #back-button {
+      float: left;
+      color: black;    
+      font-size: x-large;
+      height: 46px;
+      background: transparent;
+    }
+    #login-button {
+        float: right;
+        padding: 5px;
+        width: 150px;
+        margin-right: 15px;
+
+    }
+
+}

@@ -6,6 +6,8 @@ import { LogonPage } from '../logon/logon';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email';
 import { ConfirmSMSPage } from '../confirm-sms/confirm-sms';
 import {TranslatePipe} from "ng2-translate/ng2-translate";
+import {TabsPage} from '../tabs/tabs';
+
 @Component({
   templateUrl: 'build/pages/register-login/register-login.html',
     pipes: [TranslatePipe]
@@ -30,6 +32,10 @@ export class RegisterLoginPage {
   constructor(private nav: NavController,
     private userServices: UserServices) {
 
+  }
+
+  back() {
+    this.nav.setRoot(TabsPage);
   }
 
   register() {
