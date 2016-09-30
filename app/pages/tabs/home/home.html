@@ -1,25 +1,120 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Doing the Most Good</ion-title>
-    <button menuToggle right>
+  <ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>
+    <!--  <ion-title style="font-size: 1.3rem !important;">Doing the most good</ion-title>
+    -->
+    <ion-buttons end>
+    <!-- <button ion-button icon-left color="danger" *ngIf="!username" id="login-button" (click)="login()">
+     <ion-icon name="log-in"></ion-icon>
+     {{'Guest' | translate}}
+    </button>
+    <button ion-button icon-left color="danger" *ngIf="username" (click)="login()">
+    <ion-icon name="log-out"></ion-icon>
+     {{username}}
+    </button> -->
+    <!-- <button ion-button icon-only>
+      <ion-icon name="settings"></ion-icon>
+    </button> -->
+    <button ion-button icon-only menuToggle style="display: inline-block;">
       <ion-icon name="menu"></ion-icon>
     </button>
+	</ion-buttons>
   </ion-navbar>
+<ion-toolbar secondary>
+<ion-buttons begin>
+<button *ngIf="username" icon-button icon-left>
+       <ion-icon name="contact"></ion-icon>
+       {{username}}
+</button>
+<button *ngIf="!username" icon-button icon-left>
+       <ion-icon name="person-add"></ion-icon>
+Sign In
+</button>
+<button icon-button icon-left>
+<ion-icon name="swap"></ion-icon>
+Prefiere Espanol?
+</button>
+</ion-buttons>
+	<!-- <ion-label *ngIf="!username">Welcome Guest</ion-label>
+	<ion-label *ngIf="username">Welcome {{username}}</ion-label> -->
+    <ion-buttons end>
+     <button ion-button icon-left *ngIf="username" (click)="login()">
+    <ion-icon name="log-out"></ion-icon>
+     Logout
+    </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
-  <section id="login-bar" *ngIf="!username">
-    <ion-select id="language-select" [(ngModel)]="language" (ionChange)="changeLanguage()">
-      <ion-option value="en">English</ion-option>
-      <ion-option value="es">Espanol</ion-option>
-    </ion-select>
-    <button id="login-button" (click)="login()">{{'Login' | translate}}</button>
-  </section>
-  <section id="logout-bar" *ngIf="username">
-    <h1>Welcome back {{username}}</h1>
-    <button (click)="login()">Lout</button>
-  </section>
-
 <ion-content>
+
+<div padding>
+  <ion-segment [(ngModel)]="selectedTab">
+    <ion-segment-button value="events">
+      Events
+    </ion-segment-button>
+    
+    <ion-segment-button value="donate">
+      Donate
+    </ion-segment-button>
+    <ion-segment-button value="volunteer">
+      Volunteer
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+<div [ngSwitch]="selectedTab">
+  <ion-list *ngSwitchCase="'events'">
+    <ion-card style="max-width:95%">
+
+    <img src="https://static.wixstatic.com/media/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg/v1/fill/w_800,h_201,al_c,q_80/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg"/>
+
+    <ion-card-content>
+      <h2 class="card-title">
+        Lorem Ipsum Dolor
+      </h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique nec elit ut tempor. Nullam sit amet tortor magna. Suspendisse in blandit urna, eu scelerisque lacus. Nullam sed ipsum a eros gravida egestas vitae vitae arcu. Vestibulum bibendum turpis nunc, nec pulvinar orci rutrum sed. In interdum dapibus massa sed interdum. Aliquam erat volutpat. Integer eu ultricies quam. Nullam congue malesuada quam tempus eleifend. Suspendisse ut euismod erat, eu dapibus diam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean imperdiet tincidunt sapien, in facilisis neque vehicula vitae. Aenean tristique nulla in velit volutpat tempus.
+
+Sed pulvinar ac metus rhoncus aliquet. Praesent volutpat nibh ut interdum bibendum. In hac habitasse platea dictumst. Quisque id felis velit. Sed et ornare justo. Nulla facilisi. Vestibulum sed congue leo, et placerat massa. Pellentesque convallis et felis id rutrum. In interdum bibendum tortor ut feugiat.
+      </p>
+    </ion-card-content>
+
+    <ion-row no-padding>
+      <ion-col>
+        <button icon-only ion-button clear small color="danger" icon-left>
+          <ion-icon name='star'></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col text-center>
+        <button ion-button clear small color="danger" icon-left>
+          <ion-icon name='calendar'></ion-icon>
+          Attend
+        </button>
+      </ion-col>
+      <ion-col text-right>
+        <button ion-button clear small color="danger" icon-left>
+          <ion-icon name='share-alt'></ion-icon>
+          Share
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+  </ion-list>
+
+  <ion-list *ngSwitchCase="'kittens'">
+    <ion-item>
+      <ion-thumbnail item-left>
+        <img src="img/thumbnail-kitten-1.jpg">
+      </ion-thumbnail>
+      <h2>Luna</h2>
+    </ion-item>
+    ...
+  </ion-list>
+</div>
+
+<!--  
   <section id="tab-content">
     <ion-searchbar (ionInput)="getItems($event)" showCancelButton="true" (ionCancel)="onCancel($event)"></ion-searchbar>
     <ion-card>
@@ -49,5 +144,6 @@
     </ion-card>
 
   </section>
+  -->
     <!--button (click)="noTabs()">Remove Tabs</button-->
 </ion-content>
