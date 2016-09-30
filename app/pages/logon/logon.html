@@ -7,12 +7,13 @@
   </ion-navbar>
 </ion-header>
 
+
+<ion-content >
+
   <section id="loginpage-bar">
     <button id="back-button" (click)="back()">{{'< Back' | translate}}</button>
     <button id="login-button" (click)="register()">{{'Create New Account' | translate}}</button>
   </section>
-
-<ion-content padding>
 
   <section id="tab-content">
   <h3>{{ 'Volunteer Login' | translate}}</h3>
@@ -27,7 +28,7 @@
 
     <ion-item no-lines [class.error]="!username.valid && username.touched">
       <ion-icon name="contact" item-left  isActive="false" [class.error]="usernameerror"></ion-icon>
-      <ion-label stacked>{{ 'Username' | translate}}</ion-label>
+      <ion-label stacked>{{ 'User ID' | translate}}</ion-label>
       <ion-input required type="text" placeholder="" [(ngModel)]="username"></ion-input>
     </ion-item>
 

@@ -27,6 +27,8 @@ class MyApp {
   rootPage: any = TabsPage;
   pages: Array<{title: string, component: any}>;
 
+  language: string = navigator.language.split('-')[0];
+
   constructor(
     public platform: Platform,
     public menu: MenuController,
@@ -63,6 +65,15 @@ class MyApp {
     this.menu.close();
     // navigate to the new page if it is not the current page
     this.nav.setRoot(page.component);
+  }
+  changeLanguage() {
+    this.menu.close();
+    // use navigator lang if English(en) or Spanish (es)
+    var userLang = this.language; 
+    userLang = /(en|es)/gi.test(userLang) ? userLang : 'en';
+    // set default language and language to use
+    this.translate.setDefaultLang('en');
+    this.translate.use(userLang);
   }
 }
 
