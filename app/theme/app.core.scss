@@ -49,7 +49,21 @@ h1, h2, h3, h4, h5, h6 {
     background-size: auto 85%;
     background-position: left 5px top 5px;
 }
+
+//CUSTOM CONTENT
 .content-pad{
 max-width: 95%;
 margin: auto;
 }
+
+.flex-card{
+display: flex;
+flex-direction: column;
+flex: 1 0 auto;
+margin-bottom: 0px;
+}
+
+button.readmore{
+margin-top: auto;
+}
+
