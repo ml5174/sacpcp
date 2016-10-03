@@ -1,30 +1,15 @@
-<ion-header>
-  <ion-navbar hideBackButton="true">
-    <ion-title>{{ 'The Salvation Army' | translate}}</ion-title>
-    <!--button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button-->
-  </ion-navbar>
+<ion-header><app-header></app-header>
 </ion-header>
-
-  <section id="loginpage-bar">
-    <button id="back-button" (click)="back()">{{'< Back' | translate}}</button>
-    <button id="login-button" (click)="register()">{{'Create New Account' | translate}}</button>
-  </section>
-
-<ion-content padding>
-
-  <section id="tab-content">
+<ion-content>
+<div class="content-pad">
   <h3>{{ 'Volunteer Login' | translate}}</h3>
-  <div >
-    
-  </div>
   <ion-list>
     <ion-item no-lines *ngFor="let error of errors">
       <ion-icon name="alert" item-left class="error"></ion-icon>
       <p class="error">{{error | translate}}</p>
     </ion-item>
-
+<!--  TODO: change validation to happen onBlur or on loss of focus, not right at the get go. -->
+<!--  http://ux.stackexchange.com/questions/82960/floating-labels-vs-fixed-small-labels-on-the-the-web -->
     <ion-item no-lines [class.error]="!username.valid && username.touched">
       <ion-icon name="contact" item-left  isActive="false" [class.error]="usernameerror"></ion-icon>
       <ion-label stacked>{{ 'Username' | translate}}</ion-label>
@@ -38,7 +23,7 @@
     </ion-item>
 
     <ion-item no-lines >
-      <button primary block large round (click)="login()">{{ 'Login' | translate}}</button>
+      <button primary block large (click)="login()">{{ 'Login' | translate}}</button>
     </ion-item>
     <ion-item no-lines >
       <ion-label>{{ 'Remember Me' | translate}}</ion-label>
@@ -48,5 +33,5 @@
       <button clear (click)="forgot()">{{ 'Forgot User ID/Password' | translate}}</button>
     </ion-item>
   </ion-list>
-  </section>
+</div>
 </ion-content>

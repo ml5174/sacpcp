@@ -1,18 +1,13 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>{{ 'The Salvation Army' | translate}}</ion-title>
-    <!--button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button-->
-  </ion-navbar>
+<ion-header><app-header></app-header>
 </ion-header>
-
-
-<ion-content padding>
-
-  <section id="tab-content">
+<ion-content>
+<!--  how to multicolumn! http://stackoverflow.com/questions/38470941/how-to-has-responsive-grid-layout-in-ionic-2 -->
+  <div class="content-pad">
   <h3>Volunteer Profile Registration</h3>
-
+  <ion-row responsive-sm>
+  <ion-col width-50>
+	<ion-list>
+	<ion-list-header>Personal Information</ion-list-header>
   <ion-item no-lines *ngFor="let error of errors">
     <ion-icon name="alert" item-left></ion-icon>
     <p style="color: red">{{error}}</p>
@@ -82,7 +77,10 @@
       <ion-label floating>{{"Birth Date" | translate }}</ion-label>
       <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="myProfile.birthdate"></ion-datetime>
     </ion-item>
-
+</ion-list></ion-col>
+<ion-col width-50>
+<ion-list>
+<ion-list-header>App Settings</ion-list-header>
     <ion-item no-lines class="">
       <ion-icon name="contact" item-left [class.error]="mugshoterror"></ion-icon>
       <ion-label floating>{{"Mug Shot" | translate }}</ion-label>
@@ -140,9 +138,10 @@
         <ion-option *ngFor="let m of availablePreferences.donationtypes" [value]="m.id">{{m.name}}</ion-option>
       </ion-select>
     </ion-item>
-
-  <ion-item no-lines class="">
-    <button primary block large round (click)="register()">Register Profile</button>
-  </ion-item>
-  </section>
+</ion-list>
+  </ion-col>
+  </ion-row>
+    <button primary block large (click)="register()">Save Changes</button>
+  
+  </div>
 </ion-content>

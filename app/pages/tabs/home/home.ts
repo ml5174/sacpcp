@@ -4,24 +4,29 @@ import {VolunteerEvent} from '../../../model/volunteer-event';
 import {VolunteerEventsService} from '../../../service/volunteer-events-service';
 import { Observable } from 'rxjs/Observable';
 import {LogonPage} from '../../logon/logon';
+import {AppHeaderComponent} from '../../../components/app-header.component';
 import {TranslateService, TranslatePipe, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 
 @Component({
   templateUrl: 'build/pages/tabs/home/home.html',
   providers: [VolunteerEventsService],
-  pipes: [TranslatePipe]
+  pipes: [TranslatePipe],
+  directives: [AppHeaderComponent]
 })
 export class HomePage {
   search: boolean = false;
   previousevents: boolean = true;
   yourevents: boolean = true;
   events: Array<VolunteerEvent> = [];
+  selectedTab: string = "events";
   language: string = "en";
   constructor(private navCtrl: NavController,
               private nav: Nav, 
               private volunteerEventsService: VolunteerEventsService,
               private translate: TranslateService
-  ) {  }
+  ) { 
+  
+   }
   ngOnInit(){
   //  this.getEvents();
   }

@@ -4,10 +4,12 @@ import {UserServices} from '../../service/user';
 import {NavController, Nav} from 'ionic-angular';
 import {STRINGS} from '../../provider/config';
 import {TranslatePipe} from "ng2-translate/ng2-translate";
+import {AppHeaderComponent} from '../../components/app-header.component';
 
 @Component({
   templateUrl: 'build/pages/register-individual-profile/register-individual-profile.html',
-  pipes: [TranslatePipe]
+  pipes: [TranslatePipe],
+  directives: [AppHeaderComponent]
 })
 export class RegisterIndividualProfilePage {
   private username: string = '';
