@@ -1,26 +1,50 @@
 <ion-menu [content]="content" side="right">
 
   <ion-toolbar>
-    <ion-title>TESTING ONLY</ion-title>
+    <ion-title>Menu</ion-title>
   </ion-toolbar>
 
   <ion-content>
     <ion-list>
-      <ion-item>
-        <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title | translate}}
-      </button>
-      </ion-item>
-      <ion-item>
-        <ion-label>Language</ion-label>
-        <ion-select id="language-select" [(ngModel)]="language" (ionChange)="changeLanguage()">
-          <ion-option value="en">English</ion-option>
-          <ion-option value="es">Espanol</ion-option>
-        </ion-select>
-      </ion-item>
+    <button ion-item ion-button icon-left (click)="openPage(pages[1])">
+  <ion-icon name="home"></ion-icon>
+  Home
+</button>
+<ion-list-header>
+    Account
+  </ion-list-header>
+  <button *ngIf="!username" ion-item ion-button icon-left (click)="openPage(pages[0])">
+  <ion-icon name="person-add"></ion-icon>
+  Login
+</button>
+<button *ngIf="username" ion-item ion-button icon-left (click)="openPage(pages[0])">
+  <ion-icon name="log-out"></ion-icon>
+  Logout
+</button>
+<button *ngIf="!username" ion-item ion-button icon-left (click)="openPage(pages[2])">
+  <ion-icon name="create"></ion-icon>
+  Register
+</button>
+<button *ngIf="username" ion-item ion-button icon-left (click)="openPage(pages[3])">
+  <ion-icon name="clipboard"></ion-icon>
+  Profile
+</button>
     </ion-list>
-  </ion-content>
+    <ion-list radio-group>
+    <ion-list-header>
+    Language
+  </ion-list-header>
+    <ion-item>
+    <ion-label>English</ion-label>
+    <ion-radio checked="true" value="english"></ion-radio>
+  </ion-item>
 
+  <ion-item>
+    <ion-label>Espanol</ion-label>
+    <ion-radio value="spanish"></ion-radio>
+  </ion-item>
+</ion-list> 
+</ion-content>
 </ion-menu>
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

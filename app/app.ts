@@ -3,12 +3,13 @@ import {Http, HTTP_PROVIDERS} from '@angular/http';
 import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {TranslateService, TranslatePipe, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
-import {TabsPage} from './pages/tabs/tabs';
 import {HomePage} from './pages/tabs/home/home';
 import {LogonPage} from './pages/logon/logon';
 import {RegisterLoginPage} from './pages/register-login/register-login';
 import {RegisterIndividualProfilePage} from './pages/register-individual-profile/register-individual-profile';
 import {UserServices} from './service/user';
+import { Storage, LocalStorage } from 'ionic-angular';
+
 
 @Component({
   templateUrl: 'build/app.html',
@@ -24,7 +25,11 @@ import {UserServices} from './service/user';
 class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = TabsPage;
+  storage: Storage = new Storage(LocalStorage);
+	username: string = '';
+  key: any = { key: 'key' };
+  errors: Array<string> = [];
+  rootPage: any = HomePage;
   pages: Array<{title: string, component: any}>;
 
   language: string = navigator.language.split('-')[0];
@@ -39,7 +44,7 @@ class MyApp {
     // set our app's pages
     this.pages = [
       { title: 'Login', component: LogonPage },
-      { title: 'Home', component: TabsPage },
+      { title: 'Home', component: HomePage },
       { title: 'Login Registration', component: RegisterLoginPage },
       { title: 'Profile Registration', component: RegisterIndividualProfilePage }
     ];
@@ -57,6 +62,14 @@ class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
+      
+      this.storage.get('username')
+      .then(
+      value => {
+        if (value) this.username = value
+      }
+      );
+      
     });
   }
 
@@ -77,8 +90,6 @@ class MyApp {
   }
 }
 
-ionicBootstrap(MyApp, [], {
-  tabsPlacement: 'top'
-});
+ionicBootstrap(MyApp);
 
 

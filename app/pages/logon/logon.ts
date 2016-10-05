@@ -5,12 +5,14 @@ import {NavController, Nav, NavParams} from 'ionic-angular';
 import { RegisterLoginPage } from '../register-login/register-login';
 import { ForgotPage } from '../forgot/forgot';
 import {TabsPage} from '../tabs/tabs';
+import {AppHeaderComponent} from '../../components/app-header.component';
 import {TranslatePipe} from "ng2-translate/ng2-translate";
 import {STRINGS} from '../../provider/config';
 
 @Component({
   templateUrl: 'build/pages/logon/logon.html',
-  pipes: [TranslatePipe]
+  pipes: [TranslatePipe],
+  directives: [AppHeaderComponent]
 })
 export class LogonPage {
   storage: Storage = new Storage(LocalStorage);
