@@ -62,38 +62,43 @@ Espanol?
 
   <ion-item no-lines class="">
     <ion-icon name="contact" item-left isActive="false" [class.error]="usernameerror"></ion-icon>
-    <ion-label floating>Username</ion-label>
+    <ion-label stacked>User ID</ion-label>
     <ion-input required type="text" class="" [(ngModel)]="username" required></ion-input>
   </ion-item>
 
   <ion-item no-lines class="">
     <ion-icon name="lock" item-left isActive="false" [class.error]="password1error"></ion-icon>
-    <ion-label floating>Password</ion-label>
+    <ion-label stacked>Password</ion-label>
     <ion-input required type="password" placeholder="" class="" [(ngModel)]="password1" required></ion-input>
   </ion-item>
 
   <ion-item no-lines class="">
     <ion-icon name="lock" item-left isActive="false" [class.error]="password2error"></ion-icon>
-    <ion-label floating>Confirm Password</ion-label>
+    <ion-label stacked>Confirm Password</ion-label>
     <ion-input required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
   </ion-item>
   <ion-list radio-group [(ngModel)]="pcmethod">
 
     <ion-list-header>
-      Please select your prefered method of account validation.
+      Select account validation.
     </ion-list-header>
-
+<ion-item>
+  <ion-label>Email</ion-label>
+  <ion-checkbox dark checked="true"></ion-checkbox>
+  <ion-label item-right>Mobile</ion-label>
+  <ion-checkbox dark checked="true"></ion-checkbox>
+</ion-item>
     <ion-item no-lines >
       <ion-radio checked="true" value="email" class="pcm-radio"></ion-radio>
       <ion-icon name="mail" item-left isActive="false" class="pcm-icon" [class.error]="emailerror"></ion-icon>
-      <ion-label floating>email</ion-label>
+      <ion-label stacked>email</ion-label>
       <ion-input required type="email" placeholder=""  [(ngModel)]="email" required></ion-input>
     </ion-item>
 
     <ion-item no-lines >
       <ion-radio checked="false" value="sms" class="pcm-radio"></ion-radio>
       <ion-icon name="call" item-left isActive="false" class="pcm-icon" [class.error]="smserror"></ion-icon>
-      <ion-label floating>Mobile Phone Number</ion-label>
+      <ion-label stacked>Mobile Phone Number</ion-label>
       <ion-input type="phone" placeholder=""  [(ngModel)]="phone" required></ion-input>
     </ion-item>
 

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, Nav} from 'ionic-angular';
 import {VolunteerEvent} from '../../../model/volunteer-event';
+import {Locations} from '../../../model/locations';
 import {VolunteerEventsService} from '../../../service/volunteer-events-service';
 import { Observable } from 'rxjs/Observable';
 import {LogonPage} from '../../logon/logon';
@@ -19,6 +20,7 @@ export class HomePage {
   yourevents: boolean = true;
   events: Array<VolunteerEvent> = [];
   selectedTab: string = "events";
+  locations: Array<Locations> = [];
   language: string = "en";
   constructor(private navCtrl: NavController,
               private nav: Nav, 
@@ -28,7 +30,7 @@ export class HomePage {
   
    }
   ngOnInit(){
-  //  this.getEvents();
+    this.getEvents();
   }
   onCancel(event: any) {
     this.search=false;
@@ -40,6 +42,13 @@ export class HomePage {
                                 err => {
                                     console.log(err);
                                 });
+    this.volunteerEventsService
+        .getLocations().subscribe(
+                               locations => this.locations = locations, 
+                                err => {
+                                    console.log(err);
+                                });
+
   }
   changeLanguage() {
     // use navigator lang if English(en) or Spanish (es)

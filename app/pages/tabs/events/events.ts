@@ -13,7 +13,11 @@ export class EventsPage {
   search: boolean = false;
   previousevents: boolean = true;
   yourevents: boolean = true;
+  maxTime: string = "2016-10-20T18:27:53Z";
+  minTime: string = "2016-10-20T18:27:53Z";
   events: Array<VolunteerEvent> = [];
+  maxEvents: Array<VolunteerEvent> = [];
+  minEvents: Array<VolunteerEvent> = [];
   language: string = "english";
   constructor(private navCtrl: NavController,
               private nav: Nav, 
@@ -21,10 +25,13 @@ export class EventsPage {
   ) {  }
   ngOnInit(){
     this.getEvents();
+    this.getEventsMax(this.maxTime);
+    this.getEventsMin(this.minTime);
   }
   onCancel(event: any) {
     this.search=false;
   }
+
   getEvents() {
     this.volunteerEventsService
         .getVolunteerEvents().subscribe(
@@ -33,7 +40,22 @@ export class EventsPage {
                                     console.log(err);
                                 });
   }
-
+  getEventsMax(maxTime) {
+    this.volunteerEventsService
+        .getVolunteerEventsMaxTime(maxTime).subscribe(
+                               events => this.maxEvents = events, 
+                                err => {
+                                    console.log(err);
+                                });
+  }
+  getEventsMin(minTime) {
+    this.volunteerEventsService
+        .getVolunteerEventsMinTime(minTime).subscribe(
+                               events => this.minEvents = events, 
+                                err => {
+                                    console.log(err);
+                                });
+  }
   login() {
     this.nav.setRoot(LogonPage);
   }

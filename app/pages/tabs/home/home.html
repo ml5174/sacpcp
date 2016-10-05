@@ -1,7 +1,33 @@
+<<<<<<< HEAD
 <ion-header><app-header></app-header>
 </ion-header>
+=======
+<ion-header>
+  <ion-navbar>
+    <ion-title>Doing the Most Good</ion-title>
+    <button menuToggle right>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+
+  <ion-item id="login-bar" *ngIf="!username">
+      <ion-select id="language-select" [(ngModel)]="language" (ionChange)="changeLanguage()">
+        <ion-option value="en">English</ion-option>
+        <ion-option value="es">Espanol</ion-option>
+      </ion-select>
+      <ion-label id="login-button" (click)="login()">{{'Login' | translate}}</ion-label>
+  </ion-item>
+  <section id="logout-bar" *ngIf="username">
+    <h1>Welcome back {{username}}</h1>
+    <button (click)="login()">Lout</button>
+  </section>
+</ion-header>
+
+
+>>>>>>> refs/remotes/Mauricio/master
 <ion-content>
 
+<<<<<<< HEAD
 <div>
   <ion-segment [(ngModel)]="selectedTab">
     <ion-segment-button value="events">
@@ -195,6 +221,8 @@
 
 
 <!--  
+=======
+>>>>>>> refs/remotes/Mauricio/master
   <section id="tab-content">
     <ion-searchbar (ionInput)="getItems($event)" showCancelButton="true" (ionCancel)="onCancel($event)"></ion-searchbar>
     <ion-card>
@@ -224,6 +252,10 @@
     </ion-card>
 
   </section>
+<<<<<<< HEAD
   -->
     <!--button (click)="noTabs()">Remove Tabs</button-->
+=======
+  <!--button (click)="noTabs()">Remove Tabs</button-->
+>>>>>>> refs/remotes/Mauricio/master
 </ion-content>

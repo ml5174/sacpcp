@@ -56,12 +56,12 @@
 
       <ion-card>
         <ion-item no-lines class="open-tab" (click)="upcoming=!upcoming">
-          Upcoming Volunteer Events
+          Events until October 20th
           <ion-icon name="arrow-down" item-right *ngIf="!upcoming"></ion-icon>
           <ion-icon name="arrow-up" item-right *ngIf="upcoming"></ion-icon>
         </ion-item>
         <section *ngIf="!upcoming">
-          <ion-item *ngFor="let e of events">
+          <ion-item *ngFor="let e of maxEvents">
             <p class="thin-item">{{e.title}}</p>
             <ion-row>
               <ion-col>
@@ -82,12 +82,12 @@
 
       <ion-card>
         <ion-item no-lines class="closed-tab" (click)="previousevents=!previousevents">
-          Previously Events
+          Events after October 20
           <ion-icon name="arrow-down" item-right *ngIf="!previousevents"></ion-icon>
           <ion-icon name="arrow-up" item-right *ngIf="previousevents"></ion-icon>
         </ion-item>
         <section *ngIf="!previousevents">
-          <ion-item *ngFor="let e of events">
+          <ion-item *ngFor="let e of minEvents">
             <p class="thin-item">{{e.title}}</p>
             <ion-row>
               <ion-col>
