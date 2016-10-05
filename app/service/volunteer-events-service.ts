@@ -18,6 +18,21 @@ export class VolunteerEventsService {
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
+    getVolunteerEventsMaxTime(maxTime: string): Observable<VolunteerEvent[]> {
+        return this.http.get(SERVER + GET_EVENTS_URI + "?timeMax=" + maxTime)
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+    getVolunteerEventsMinTime(minTime: string): Observable<VolunteerEvent[]> {
+        return this.http.get(SERVER + GET_EVENTS_URI + "?timeMin=" + minTime)
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+    getVolunteerEventsTimeRange(minTime: Date, maxTime: Date): Observable<VolunteerEvent[]> {
+        return this.http.get(SERVER + GET_EVENTS_URI + "?timeMin=" + minTime + "&timeMax=" + maxTime)
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
     getLocations(): Observable<Locations[]> {
         return this.http.get(SERVER + GET_LOCATIONS_URI)
             .map(res => res.json())
