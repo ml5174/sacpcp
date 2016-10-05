@@ -3,12 +3,16 @@
 <ion-content>
 <!--  how to multicolumn! http://stackoverflow.com/questions/38470941/how-to-has-responsive-grid-layout-in-ionic-2 -->
   <div class="content-pad">
+  
   <h3>Volunteer Profile Registration</h3>
   <ion-row responsive-sm>
   <ion-col width-50>
+  <ion-card padding>
+  <ion-card-header>Personal Information</ion-card-header>
+  <ion-card-content>
+
 	<ion-list>
-	<ion-list-header>Personal Information</ion-list-header>
-  <ion-item no-lines *ngFor="let error of errors">
+  <ion-item *ngFor="let error of errors">
     <ion-icon name="alert" item-left></ion-icon>
     <p style="color: red">{{error}}</p>
   </ion-item>
@@ -30,76 +34,79 @@
     </ion-item>
 -->
 
-    <ion-item no-lines class="">
-     <ion-icon name="call" item-left [class.error]="mobilenumbererror"></ion-icon>
+    <ion-item [class.error]="mobilenumbererror && myProfile.mobilenumber.touched">
+     <ion-icon name="call" item-left ></ion-icon>
      <ion-label floating>{{"Mobile Number" | translate }}</ion-label>
-      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.mobilenumber" required></ion-input>
+      <ion-input type="tel" [(ngModel)]="myProfile.mobilenumber" ></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="">
-       <ion-icon name="call" item-left [class.error]="altnumbererror"></ion-icon>
+    <ion-item  [class.error]="altnumbererror && myProfile.altnumber.touched">
+       <ion-icon name="call" item-left></ion-icon>
       <ion-label floating>{{"Alternate Number" | translate }}</ion-label>
-      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.altnumber" required></ion-input>
+      <ion-input type="tel" placeholder="" class="" [(ngModel)]="myProfile.altnumber" required></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="">
+    <ion-item >
       <ion-icon name="globe" item-left [class.error]="address1error"></ion-icon>
       <ion-label floating>{{"Address 1" | translate }}</ion-label>
       <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.address1" required></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="">
+    <ion-item>
       <ion-icon name="globe" item-left [class.error]="address2error"></ion-icon>
       <ion-label floating>{{"Address 2" | translate }}</ion-label>
       <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.address2" required></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="">
+    <ion-item >
       <ion-icon name="globe" item-left [class.error]="cityerror"></ion-icon>
       <ion-label floating>{{"City" | translate }}</ion-label>
       <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.city" required></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="">
+    <ion-item >
       <ion-icon name="globe" item-left [class.error]="stateerror"></ion-icon>
       <ion-label floating>{{"State" | translate }}</ion-label>
       <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.state" required></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="">
+    <ion-item >
       <ion-icon name="globe" item-left [class.error]="zipcodeerror"></ion-icon>
       <ion-label floating>{{"Zip Code" | translate }}</ion-label>
       <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.zipcode" required></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="">
+    <ion-item >
       <ion-icon name="calendar" item-left [class.error]="birthdateerror"></ion-icon>
       <ion-label floating>{{"Birth Date" | translate }}</ion-label>
       <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="myProfile.birthdate"></ion-datetime>
     </ion-item>
-</ion-list></ion-col>
+</ion-list>
+</ion-card-content></ion-card></ion-col>
 <ion-col width-50>
+ <ion-card padding>
+  <ion-card-header>Volunteer Settings</ion-card-header>
+  <ion-card-content>
 <ion-list>
-<ion-list-header>App Settings</ion-list-header>
-    <ion-item no-lines class="">
+    <ion-item>
       <ion-icon name="contact" item-left [class.error]="mugshoterror"></ion-icon>
       <ion-label floating>{{"Mug Shot" | translate }}</ion-label>
       <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.mugshot" required></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="">
+    <ion-item>
       <ion-icon name="globe" item-left [class.error]="languageerror"></ion-icon>
       <ion-label floating>{{"Language" | translate }}</ion-label>
       <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.language" required></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="">
+    <ion-item>
       <ion-icon name="alarm" item-left [class.error]="notification_optionerror"></ion-icon>
       <ion-label floating>{{"Notification Option" | translate }}</ion-label>
       <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.notification_option" required></ion-input>
     </ion-item>
 
-    <ion-item no-lines class="">
+    <ion-item>
       <ion-icon name="megaphone" item-left [class.error]="my_contactmethod_iderror"></ion-icon>
       <ion-label floating>{{"Contact Method" | translate }}</ion-label>
       <ion-select [(ngModel)]="myProfile.my_contactmethod_id" required>
@@ -107,7 +114,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-item no-lines class="">
+    <ion-item>
       <ion-icon name="basket" item-left [class.error]="my_volunteertype_iderror"></ion-icon>
       <ion-label floating>{{"Volunteer Type" | translate }}</ion-label>
       <ion-select [(ngModel)]="myProfile.my_volunteertype_id" required>
@@ -115,7 +122,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-item no-lines class="">
+    <ion-item>
       <ion-icon name="hammer" item-left [class.error]="my_servicearea_iderror"></ion-icon>
       <ion-label floating>{{"Service Area" | translate }}</ion-label>
       <ion-select [(ngModel)]="myProfile.my_servicearea_id" required>
@@ -123,7 +130,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-item no-lines class="">
+    <ion-item>
       <ion-icon name="people" item-left [class.error]="my_referalsource_iderror"></ion-icon>
       <ion-label floating>{{"Referral Source" | translate }}</ion-label>
       <ion-select [(ngModel)]="myProfile.my_referalsource_id" required>
@@ -131,7 +138,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-item no-lines class="">
+    <ion-item>
       <ion-icon name="pizza" item-left [class.error]="my_donationtype_iderror"></ion-icon>
       <ion-label floating>{{"Donation Type" | translate }}</ion-label>
       <ion-select [(ngModel)]="myProfile.my_donationtype_id" required>
@@ -139,9 +146,11 @@
       </ion-select>
     </ion-item>
 </ion-list>
+</ion-card-content></ion-card>
   </ion-col>
   </ion-row>
+  <div padding>
     <button primary block large (click)="register()">Save Changes</button>
-  
+  </div>
   </div>
 </ion-content>

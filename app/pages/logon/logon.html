@@ -2,6 +2,7 @@
 </ion-header>
 <ion-content>
 <div class="content-pad">
+<ion-card padding>
   <h3>{{ 'Volunteer Login' | translate}}</h3>
   <ion-list>
     <ion-item no-lines *ngFor="let error of errors">
@@ -21,17 +22,18 @@
       <ion-label stacked>{{ 'Password' | translate}}</ion-label>
       <ion-input required type="password" placeholder="" [(ngModel)]="password"></ion-input>
     </ion-item>
-
-    <ion-item no-lines >
-      <button primary block large (click)="login()">{{ 'Login' | translate}}</button>
-    </ion-item>
-    <ion-item no-lines >
+	<ion-item no-lines >
       <ion-label>{{ 'Remember Me' | translate}}</ion-label>
       <ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>
     </ion-item>
     <ion-item no-lines >
+      <button primary block large (click)="login()">{{ 'Login' | translate}}</button>
+    </ion-item>
+    
+    <ion-item no-lines >
       <button clear (click)="forgot()">{{ 'Forgot User ID/Password' | translate}}</button>
     </ion-item>
   </ion-list>
+  </ion-card>
 </div>
 </ion-content>
