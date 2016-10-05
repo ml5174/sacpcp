@@ -5,21 +5,23 @@
       <ion-icon name="menu"></ion-icon>
     </button>
   </ion-navbar>
-</ion-header>
 
-  <section id="login-bar" *ngIf="!username">
-    <ion-select id="language-select" [(ngModel)]="language" (ionChange)="changeLanguage()">
-      <ion-option value="en">English</ion-option>
-      <ion-option value="es">Espanol</ion-option>
-    </ion-select>
-    <button id="login-button" (click)="login()">{{'Login' | translate}}</button>
-  </section>
+  <ion-item id="login-bar" *ngIf="!username">
+      <ion-select id="language-select" [(ngModel)]="language" (ionChange)="changeLanguage()">
+        <ion-option value="en">English</ion-option>
+        <ion-option value="es">Espanol</ion-option>
+      </ion-select>
+      <ion-label id="login-button" (click)="login()">{{'Login' | translate}}</ion-label>
+  </ion-item>
   <section id="logout-bar" *ngIf="username">
     <h1>Welcome back {{username}}</h1>
     <button (click)="login()">Lout</button>
   </section>
+</ion-header>
+
 
 <ion-content>
+
   <section id="tab-content">
     <ion-searchbar (ionInput)="getItems($event)" showCancelButton="true" (ionCancel)="onCancel($event)"></ion-searchbar>
     <ion-card>
@@ -49,5 +51,5 @@
     </ion-card>
 
   </section>
-    <!--button (click)="noTabs()">Remove Tabs</button-->
+  <!--button (click)="noTabs()">Remove Tabs</button-->
 </ion-content>
