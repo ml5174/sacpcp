@@ -1,0 +1,32 @@
+<ion-navbar class="navbar-background">
+  <ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>
+  <ion-buttons end>
+    <button ion-button icon-only menuToggle style="display: inline-block;">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-navbar>
+<ion-toolbar secondary>
+  <ion-buttons begin>
+    <button *ngIf="username" ion-button icon-left (click)="login()">
+       <ion-icon name="contact"></ion-icon>
+       {{username}}
+    </button>
+    <button *ngIf="!username" ion-button icon-left (click)="login()">
+       <ion-icon name="person-add"></ion-icon>
+        Sign In
+    </button>
+    <!--button ion-button icon-left>
+      <ion-icon name="swap"></ion-icon>
+        Espanol?
+    </button-->
+  </ion-buttons>
+  <!-- <ion-label *ngIf="!username">Welcome Guest</ion-label>
+	<ion-label *ngIf="username">Welcome {{username}}</ion-label> -->
+  <ion-buttons end>
+    <button ion-button icon-left *ngIf="username" (click)="login()">
+    <ion-icon name="log-out"></ion-icon>
+     Logout
+    </button>
+  </ion-buttons>
+</ion-toolbar>

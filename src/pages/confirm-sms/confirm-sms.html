@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ 'The Salvation Army' | translate}}</ion-title>
+    <!-- button menuToggle right>
+      <ion-icon name="menu"></ion-icon>
+    </button-->
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+
+  <section id="tab-content">
+  <h3>{{ 'Confirm SMS' | translate}}</h3>
+  <p>
+    {{'A text message was sent to your phone.  This message has a code. Please enter the code here.' | translate}}
+  </p>
+  <ion-list>
+    <ion-item no-lines *ngFor="let error of errors">
+      <ion-icon name="alert" item-left class="error"></ion-icon>
+      <p class="error">{{error}}</p>
+    </ion-item>
+
+    <ion-item no-lines [class.error]="!code.valid && code.touched">
+      <ion-icon name="code" item-left  isActive="false" [class.error]="codeerror"></ion-icon>
+      <ion-label floating>{{ 'Code' | translate}}</ion-label>
+      <ion-input required type="text" placeholder="" [(ngModel)]="code"></ion-input>
+    </ion-item>
+  </ion-list>
+  
+  <ion-item no-lines class="">
+    <button primary block large round (click)="validateCode()">Submit</button>
+  </ion-item>
+  </section>
+</ion-content>
