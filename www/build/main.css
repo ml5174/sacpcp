@@ -21086,23 +21086,23 @@ sub {
 
 @font-face {
   font-family: "TrajanPro";
-  src: url("../../assets/fonts/TrajanPro-Regular.otf") format("truetype");
+  src: url("../assets/fonts/TrajanPro-Regular.otf") format("truetype");
 }
 
 @font-face {
   font-family: "AJensonPro";
-  src: local("AJensonPro-Bold"), local("AJensonPro Bold"), url("../../assets/fonts/AJensonPro-Bold.otf") format("truetype");
+  src: local("AJensonPro-Bold"), local("AJensonPro Bold"), url("../assets/fonts/AJensonPro-Bold.otf") format("truetype");
 }
 
 @font-face {
   font-family: "AJensonPro";
-  src: local("AJensonPro-Regular"), local("AJensonPro Regular"), url("../../assets/fonts/AJensonPro-Regular.otf") format("truetype");
+  src: local("AJensonPro-Regular"), local("AJensonPro Regular"), url("../assets/fonts/AJensonPro-Regular.otf") format("truetype");
 }
 
 @font-face {
   font-family: "AJensonPro";
   font-style: italic;
-  src: local("AJensonPro-Italic"), local("AJensonPro-Italic"), url("../../assets/fonts/AJensonPro-It.otf") format("truetype");
+  src: local("AJensonPro-Italic"), local("AJensonPro-Italic"), url("../assets/fonts/AJensonPro-It.otf") format("truetype");
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -21114,14 +21114,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 app-header > ion-navbar > div.toolbar-background {
-  background-image: url("../../assets/img/logo.svg");
+  background-image: url("../assets/img/logo.svg");
   background-repeat: no-repeat;
   background-size: auto 85%;
   background-position: left 5px top 5px;
 }
 
 ion-header > ion-navbar > div.toolbar-background {
-  background-image: url("../../assets/img/logo.svg");
+  background-image: url("../assets/img/logo.svg");
   background-repeat: no-repeat;
   background-size: auto 85%;
   background-position: left 5px top 5px;
