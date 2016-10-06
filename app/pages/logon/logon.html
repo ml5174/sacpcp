@@ -1,34 +1,19 @@
-<ion-header>
-  <ion-navbar hideBackButton="true">
-    <ion-title>{{ 'The Salvation Army' | translate}}</ion-title>
-    <!--button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button-->
-  </ion-navbar>
+<ion-header><app-header></app-header>
 </ion-header>
-
-
-<ion-content >
-
-  <section id="loginpage-bar">
-    <button id="back-button" (click)="back()">{{'< Back' | translate}}</button>
-    <button id="login-button" (click)="register()">{{'Create New Account' | translate}}</button>
-  </section>
-
-  <section id="tab-content">
+<ion-content>
+<div class="content-pad">
+<ion-card padding>
   <h3>{{ 'Volunteer Login' | translate}}</h3>
-  <div >
-    
-  </div>
   <ion-list>
     <ion-item no-lines *ngFor="let error of errors">
       <ion-icon name="alert" item-left class="error"></ion-icon>
       <p class="error">{{error | translate}}</p>
     </ion-item>
-
+<!--  TODO: change validation to happen onBlur or on loss of focus, not right at the get go. -->
+<!--  http://ux.stackexchange.com/questions/82960/floating-labels-vs-fixed-small-labels-on-the-the-web -->
     <ion-item no-lines [class.error]="!username.valid && username.touched">
       <ion-icon name="contact" item-left  isActive="false" [class.error]="usernameerror"></ion-icon>
-      <ion-label stacked>{{ 'User ID' | translate}}</ion-label>
+      <ion-label stacked>{{ 'Username' | translate}}</ion-label>
       <ion-input required type="text" placeholder="" [(ngModel)]="username"></ion-input>
     </ion-item>
 
@@ -37,17 +22,18 @@
       <ion-label stacked>{{ 'Password' | translate}}</ion-label>
       <ion-input required type="password" placeholder="" [(ngModel)]="password"></ion-input>
     </ion-item>
-
-    <ion-item no-lines >
-      <button primary block large round (click)="login()">{{ 'Login' | translate}}</button>
-    </ion-item>
-    <ion-item no-lines >
+	<ion-item no-lines >
       <ion-label>{{ 'Remember Me' | translate}}</ion-label>
       <ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>
     </ion-item>
     <ion-item no-lines >
+      <button primary block large (click)="login()">{{ 'Login' | translate}}</button>
+    </ion-item>
+    
+    <ion-item no-lines >
       <button clear (click)="forgot()">{{ 'Forgot User ID/Password' | translate}}</button>
     </ion-item>
   </ion-list>
-  </section>
+  </ion-card>
+</div>
 </ion-content>

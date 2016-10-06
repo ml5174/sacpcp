@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/v2/theming/
 
-
 // App Shared Imports
 // --------------------------------------------------
 // These are the imports which make up the design of this app.
@@ -48,8 +47,25 @@ h1, h2, h3, h4, h5, h6 {
     background-repeat: no-repeat;
     background-size: auto 85%;
     background-position: left 5px top 5px;
-    border-bottom-width: 0px;
 }
+
+//CUSTOM CONTENT
+.content-pad{
+max-width: 95%;
+margin: auto;
+}
+
+.flex-card{
+display: flex;
+flex-direction: column;
+flex: 1 0 auto;
+margin-bottom: 0px;
+}
+
+button.readmore{
+margin-top: auto;
+}
+
 
 .item-label-stacked .text-input, .item-label-floating .text-input {
      border:1px solid;   
