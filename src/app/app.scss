@@ -1,0 +1,83 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+@font-face {
+  font-family: "TrajanPro";
+  src: url("../assets/fonts/TrajanPro-Regular.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "AJensonPro";
+  src: local("AJensonPro-Bold"), local("AJensonPro Bold"), url("../assets/fonts/AJensonPro-Bold.otf") format("truetype"); 
+}
+
+@font-face {
+  font-family: "AJensonPro";
+  src: local("AJensonPro-Regular"), local("AJensonPro Regular"), url("../assets/fonts/AJensonPro-Regular.otf") format("truetype"); 
+}
+
+@font-face {
+  font-family: "AJensonPro";
+  font-style: italic;
+  src: local("AJensonPro-Italic"), local("AJensonPro-Italic"), url("../assets/fonts/AJensonPro-It.otf") format("truetype"); 
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: TrajanPro;
+}
+
+.toolbar-content {
+    font-family: TrajanPro;
+}
+app-header > ion-navbar > div.toolbar-background {
+    background-image: url("../assets/img/logo.svg");
+    background-repeat: no-repeat;
+    background-size: auto 85%;
+    background-position: left 5px top 5px;
+}
+
+ion-header > ion-navbar > div.toolbar-background {
+    background-image: url("../assets/img/logo.svg");
+    background-repeat: no-repeat;
+    background-size: auto 85%;
+    background-position: left 5px top 5px;
+}
+//CUSTOM CONTENT
+.content-pad{
+    max-width: 95%;
+    margin: auto;
+}
+
+.flex-card{
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    margin-bottom: 0px;
+}
+
+button.readmore{
+    margin-top: auto;
+}
+
+
+.item-label-stacked .text-input, .item-label-floating .text-input {
+     border:1px solid;   
+     padding: 0 10px;
+    height: 3rem;
+    border-radius: 5px;
+}

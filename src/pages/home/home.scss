@@ -1,0 +1,62 @@
+#home {
+    .welcome-header {
+    background: whitesmoke;
+    //padding: 0;
+    margin: 0;
+    }
+    .closed-tab {
+        background: silver;
+        color: white;
+    }
+    .open-tab {
+        background: grey;
+        color: white;
+    }
+    .thin-item{
+    background: whitesmoke;
+        margin: 1px;
+        padding: 10px
+    }
+}
+#searchbutton {
+    float: left;
+}
+#login-bar{
+    background: #f8f8f8;
+    width: 100%;
+    height: 54px;
+    display: block;
+    box-shadow: border-box;
+    overflow: hidden;
+    #language-select {
+        float: left;
+        background: white;
+        font-size: large;
+        margin: 7px 7px 0px 25px;    
+        padding: 9px 7px 0px 16px;
+        width: 185px;
+        height: 40px;
+        border-width: 1px;
+        .select-icon {
+            width: 15px;
+            height: 27px;
+        }
+        button > span {
+            height: 45px;
+        }
+    }
+    #login-button {
+        float: right;
+        padding: 5px;
+        width: 85px;
+        margin-right: 15px;
+    }
+
+}
+ion-searchbar {
+    background: white;
+
+}
+.searchbar-input {
+     border:1px solid;
+}
