@@ -5,13 +5,6 @@ var global$1 = typeof global !== "undefined" ? global :
             typeof self !== "undefined" ? self :
             typeof window !== "undefined" ? window : {}
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 var globalScope;
 if (typeof window === 'undefined') {
     if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
@@ -537,12 +530,6 @@ function makePropDecorator(name, props, parentClass) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Inject decorator and metadata.
- *
- * @stable
- * @Annotation
- */
 var Inject = makeParamDecorator('Inject', [['token', undefined]]);
 /**
  * Optional decorator and metadata.
@@ -587,29 +574,6 @@ var Host = makeParamDecorator('Host', []);
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Creates a token that can be used in a DI Provider.
- *
- * ### Example ([live demo](http://plnkr.co/edit/Ys9ezXpj2Mnoy3Uc8KBp?p=preview))
- *
- * ```typescript
- * var t = new OpaqueToken("value");
- *
- * var injector = Injector.resolveAndCreate([
- *   {provide: t, useValue: "bindingValue"}
- * ]);
- *
- * expect(injector.get(t)).toEqual("bindingValue");
- * ```
- *
- * Using an `OpaqueToken` is preferable to using strings as tokens because of possible collisions
- * caused by multiple providers using the same string as two different tokens.
- *
- * Using an `OpaqueToken` is preferable to using an `Object` as tokens because it provides better
- * error messages.
- * @stable
- */
-// so that metadata is gathered for this class
 var OpaqueToken = (function () {
     function OpaqueToken(_desc) {
         this._desc = _desc;
@@ -631,40 +595,6 @@ var OpaqueToken = (function () {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * This token can be used to create a virtual provider that will populate the
- * `entryComponents` fields of components and ng modules based on its `useValue`.
- * All components that are referenced in the `useValue` value (either directly
- * or in a nested array or map) will be added to the `entryComponents` property.
- *
- * ### Example
- * The following example shows how the router can populate the `entryComponents`
- * field of an NgModule based on the router configuration which refers
- * to components.
- *
- * ```typescript
- * // helper function inside the router
- * function provideRoutes(routes) {
- *   return [
- *     {provide: ROUTES, useValue: routes},
- *     {provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: routes, multi: true}
- *   ];
- * }
- *
- * // user code
- * let routes = [
- *   {path: '/root', component: RootComp},
- *   {path: '/teams', component: TeamsComp}
- * ];
- *
- * @NgModule({
- *   providers: [provideRoutes(routes)]
- * })
- * class ModuleWithRoutes {}
- * ```
- *
- * @experimental
  */
 var ANALYZE_FOR_ENTRY_COMPONENTS = new OpaqueToken('AnalyzeForEntryComponents');
 /**
@@ -797,11 +727,6 @@ var ViewChild = makePropDecorator('ViewChild', [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Describes within the change detector which strategy will be used the next time change
- * detection is triggered.
- * @stable
- */
 var ChangeDetectionStrategy;
 (function (ChangeDetectionStrategy) {
     /**
@@ -860,12 +785,6 @@ function isDefaultChangeDetectionStrategy(changeDetectionStrategy) {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Directive decorator and metadata.
- *
- * @stable
- * @Annotation
  */
 var Directive = makeDecorator('Directive', {
     selector: undefined,
@@ -1121,14 +1040,6 @@ var AfterViewChecked = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Defines a schema that will allow:
- * - any non-Angular elements with a `-` in their name,
- * - any properties on elements with a `-` in their name which is the common rule for custom
- * elements.
- *
- * @stable
- */
 var CUSTOM_ELEMENTS_SCHEMA = {
     name: 'custom-elements'
 };
@@ -1255,18 +1166,6 @@ var ViewMetadata = (function () {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Allows to refer to references which are not yet defined.
- *
- * For instance, `forwardRef` is used when the `token` which we need to refer to for the purposes of
- * DI is declared,
- * but not yet defined. It is also used when the `token` which we use when creating a query is not
- * yet defined.
- *
- * ### Example
- * {@example core/di/ts/forward_ref/forward_ref_spec.ts region='forward_ref'}
- * @experimental
  */
 function forwardRef(forwardRefFn) {
     forwardRefFn.__forward_ref__ = forwardRef;
@@ -1425,8 +1324,6 @@ var Injector = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Map constructor.  We work around that by manually adding the items.
 var createMapFromPairs = (function () {
     try {
         if (new Map([[1, 2]]).size === 1) {
@@ -1991,22 +1888,6 @@ var MixingMultiProvidersWithRegularProvidersError = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * A unique object used for retrieving items from the {@link ReflectiveInjector}.
- *
- * Keys have:
- * - a system-wide unique `id`.
- * - a `token`.
- *
- * `Key` is used internally by {@link ReflectiveInjector} because its system-wide unique `id` allows
- * the
- * injector to store created objects in a more efficient way.
- *
- * `Key` should not be created directly. {@link ReflectiveInjector} creates keys automatically when
- * resolving
- * providers.
- * @experimental
- */
 var ReflectiveKey = (function () {
     /**
      * Private
@@ -2285,9 +2166,6 @@ var __extends$2 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * Reflective information about a symbol, including annotations, interfaces, and other metadata.
- */
 
 /**
  * Provides access to reflection data about symbols. Used internally by Angular
@@ -2445,10 +2323,6 @@ function _mergeMaps(target, config) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * The {@link Reflector} used internally in Angular to access metadata
- * about symbols.
- */
 var reflector = new Reflector(new ReflectionCapabilities());
 
 /**
@@ -2457,10 +2331,6 @@ var reflector = new Reflector(new ReflectionCapabilities());
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * `Dependency` is used by the framework to extend DI.
- * This is internal to Angular and should not be used directly.
  */
 var ReflectiveDependency = (function () {
     function ReflectiveDependency(key, optional, lowerBoundVisibility, upperBoundVisibility, properties) {
@@ -2675,7 +2545,6 @@ function _createDependency(token /** TODO #9100 */, optional /** TODO #9100 */, 
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// Threshold for the dynamic version
 var _MAX_CONSTRUCTION_COUNTER = 10;
 var UNDEFINED = new Object();
 var ReflectiveProtoInjectorInlineStrategy = (function () {
@@ -3605,10 +3474,6 @@ function isPromise(obj) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * A function that will be executed when an application is initialized.
- * @experimental
- */
 var APP_INITIALIZER = new OpaqueToken('Application Initializer');
 /**
  * A class that reflects the state of running {@link APP_INITIALIZER}s.
@@ -3659,16 +3524,6 @@ var ApplicationInitStatus = (function () {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * A DI Token representing a unique string id assigned to the application by Angular and used
- * primarily for prefixing application attributes and CSS styles when
- * {@link ViewEncapsulation#Emulated} is being used.
- *
- * If you need to avoid randomly generated value to be used as an application id, you can provide
- * a custom value via a DI provider <!-- TODO: provider --> configuring the root {@link Injector}
- * using this token.
- * @experimental
  */
 var APP_ID = new OpaqueToken('AppId');
 function _appIdRandomProviderFactory() {
@@ -3739,11 +3594,6 @@ var __extends$4 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * Indicates that a component is still being loaded in a synchronous compile.
- *
- * @stable
- */
 var ComponentStillLoadingError = (function (_super) {
     __extends$4(ComponentStillLoadingError, _super);
     function ComponentStillLoadingError(compType) {
@@ -4857,10 +4707,6 @@ var KeyValueChangeRecord = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * A repository of different iterable diffing strategies used by NgFor, NgClass, and others.
- * @stable
- */
 var IterableDiffers = (function () {
     function IterableDiffers(factories) {
         this.factories = factories;
@@ -4928,10 +4774,6 @@ var IterableDiffers = (function () {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * A repository of different Map diffing strategies used by NgClass, NgStyle, and others.
- * @stable
  */
 var KeyValueDiffers = (function () {
     function KeyValueDiffers(factories) {
@@ -5097,9 +4939,6 @@ var ChangeDetectorRef = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Structural diffing for `Object`s and `Map`s.
- */
 var keyValDiff = [new DefaultKeyValueDifferFactory()];
 /**
  * Structural diffing for `Iterable` types such as `Array`s.
@@ -5115,10 +4954,6 @@ var defaultKeyValueDiffers = new KeyValueDiffers(keyValDiff);
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @experimental
- */
-// TODO (matsko): add typing for the animation function
 var RenderComponentType = (function () {
     function RenderComponentType(id, templateUrl, slotCount, encapsulation, styles, animations) {
         this.id = id;
@@ -5293,9 +5128,6 @@ function leave(scope, returnValue) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * True if WTF is enabled.
- */
 var wtfEnabled = detectWTF();
 function noopScope(arg0, arg1) {
     return null;
@@ -5368,24 +5200,6 @@ var wtfLeave = wtfEnabled ? leave : function (s, r) { return r; };
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Represents a container where one or more Views can be attached.
- *
- * The container can contain two kinds of Views. Host Views, created by instantiating a
- * {@link Component} via {@link #createComponent}, and Embedded Views, created by instantiating an
- * {@link TemplateRef Embedded Template} via {@link #createEmbeddedView}.
- *
- * The location of the View Container within the containing View is specified by the Anchor
- * `element`. Each View Container can have only one Anchor Element and each Anchor Element can only
- * have a single View Container.
- *
- * Root elements of Views attached to this container become siblings of the Anchor Element in
- * the Rendered View.
- *
- * To access a `ViewContainerRef` of an Element, you can either place a {@link Directive} injected
- * with `ViewContainerRef` on the Element, or you obtain it via a {@link ViewChild} query.
- * @stable
  */
 var ViewContainerRef = (function () {
     function ViewContainerRef() {
@@ -5551,11 +5365,6 @@ var ViewType;
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * An AppElement is created for elements that have a ViewContainerRef,
- * a nested component or a <template> element to keep data around
- * that is needed for later instantiations.
- */
 var AppElement = (function () {
     function AppElement(index, parentIndex, parentView, nativeElement) {
         this.index = index;
@@ -5673,37 +5482,6 @@ var __extends$6 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * An error thrown if application changes model breaking the top-down data flow.
- *
- * This exception is only thrown in dev mode.
- *
- * <!-- TODO: Add a link once the dev mode option is configurable -->
- *
- * ### Example
- *
- * ```typescript
- * @Component({
- *   selector: 'parent',
- *   template: '<child [prop]="parentProp"></child>',
- * })
- * class Parent {
- *   parentProp = 'init';
- * }
- *
- * @Directive({selector: 'child', inputs: ['prop']})
- * class Child {
- *   constructor(public parent: Parent) {}
- *
- *   set prop(v) {
- *     // this updates the parent property, which is disallowed during change detection
- *     // this will result in ExpressionChangedAfterItHasBeenCheckedError
- *     this.parent.parentProp = 'updated';
- *   }
- * }
- * ```
- * @stable
- */
 var ExpressionChangedAfterItHasBeenCheckedError = (function (_super) {
     __extends$6(ExpressionChangedAfterItHasBeenCheckedError, _super);
     function ExpressionChangedAfterItHasBeenCheckedError(oldValue, currValue) {
@@ -6067,14 +5845,6 @@ var __extends$5 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * Represents an instance of a Component created via a {@link ComponentFactory}.
- *
- * `ComponentRef` provides access to the Component Instance as well other objects related to this
- * Component Instance and allows you to destroy the Component Instance via the {@link #destroy}
- * method.
- * @stable
- */
 var ComponentRef = (function () {
     function ComponentRef() {
     }
@@ -6222,9 +5992,6 @@ var __extends$7 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * @stable
- */
 var NoComponentFactoryError = (function (_super) {
     __extends$7(NoComponentFactoryError, _super);
     function NoComponentFactoryError(component) {
@@ -6322,7 +6089,6 @@ var isObject_1$1 = {
 	isObject: isObject_2
 };
 
-// typeof any so that it we don't have to cast when comparing a result to the error object
 var errorObject_1$2 = { e: {} };
 
 var errorObject = {
@@ -7248,53 +7014,6 @@ var __extends$8 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * Use by directives and components to emit custom Events.
- *
- * ### Examples
- *
- * In the following example, `Zippy` alternatively emits `open` and `close` events when its
- * title gets clicked:
- *
- * ```
- * @Component({
- *   selector: 'zippy',
- *   template: `
- *   <div class="zippy">
- *     <div (click)="toggle()">Toggle</div>
- *     <div [hidden]="!visible">
- *       <ng-content></ng-content>
- *     </div>
- *  </div>`})
- * export class Zippy {
- *   visible: boolean = true;
- *   @Output() open: EventEmitter<any> = new EventEmitter();
- *   @Output() close: EventEmitter<any> = new EventEmitter();
- *
- *   toggle() {
- *     this.visible = !this.visible;
- *     if (this.visible) {
- *       this.open.emit(null);
- *     } else {
- *       this.close.emit(null);
- *     }
- *   }
- * }
- * ```
- *
- * The events payload can be accessed by the parameter `$event` on the components output event
- * handler:
- *
- * ```
- * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
- * ```
- *
- * Uses Rx.Observable but provides an adapter to make it work as specified here:
- * https://github.com/jhusain/observable-spec
- *
- * Once a reference implementation of the spec is available, switch to it.
- * @stable
- */
 var EventEmitter = (function (_super) {
     __extends$8(EventEmitter, _super);
     /**
@@ -7426,77 +7145,6 @@ var NgZoneImpl = (function () {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * An injectable service for executing work inside or outside of the Angular zone.
- *
- * The most common use of this service is to optimize performance when starting a work consisting of
- * one or more asynchronous tasks that don't require UI updates or error handling to be handled by
- * Angular. Such tasks can be kicked off via {@link #runOutsideAngular} and if needed, these tasks
- * can reenter the Angular zone via {@link #run}.
- *
- * <!-- TODO: add/fix links to:
- *   - docs explaining zones and the use of zones in Angular and change-detection
- *   - link to runOutsideAngular/run (throughout this file!)
- *   -->
- *
- * ### Example ([live demo](http://plnkr.co/edit/lY9m8HLy7z06vDoUaSN2?p=preview))
- * ```
- * import {Component, View, NgZone} from '@angular/core';
- * import {NgIf} from '@angular/common';
- *
- * @Component({
- *   selector: 'ng-zone-demo'.
- *   template: `
- *     <h2>Demo: NgZone</h2>
- *
- *     <p>Progress: {{progress}}%</p>
- *     <p *ngIf="progress >= 100">Done processing {{label}} of Angular zone!</p>
- *
- *     <button (click)="processWithinAngularZone()">Process within Angular zone</button>
- *     <button (click)="processOutsideOfAngularZone()">Process outside of Angular zone</button>
- *   `,
- * })
- * export class NgZoneDemo {
- *   progress: number = 0;
- *   label: string;
- *
- *   constructor(private _ngZone: NgZone) {}
- *
- *   // Loop inside the Angular zone
- *   // so the UI DOES refresh after each setTimeout cycle
- *   processWithinAngularZone() {
- *     this.label = 'inside';
- *     this.progress = 0;
- *     this._increaseProgress(() => console.log('Inside Done!'));
- *   }
- *
- *   // Loop outside of the Angular zone
- *   // so the UI DOES NOT refresh after each setTimeout cycle
- *   processOutsideOfAngularZone() {
- *     this.label = 'outside';
- *     this.progress = 0;
- *     this._ngZone.runOutsideAngular(() => {
- *       this._increaseProgress(() => {
- *       // reenter the Angular zone and display done
- *       this._ngZone.run(() => {console.log('Outside Done!') });
- *     }}));
- *   }
- *
- *
- *   _increaseProgress(doneCallback: () => void) {
- *     this.progress += 1;
- *     console.log(`Current progress: ${this.progress}%`);
- *
- *     if (this.progress < 100) {
- *       window.setTimeout(() => this._increaseProgress(doneCallback)), 10)
- *     } else {
- *       doneCallback();
- *     }
- *   }
- * }
- * ```
- * @experimental
  */
 var NgZone = (function () {
     function NgZone(_a) {
@@ -7675,12 +7323,6 @@ var NgZone = (function () {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * The Testability service provides testing hooks that can be accessed from
- * the browser and by services such as Protractor. Each bootstrapped Angular
- * application on the page will have an instance of Testability.
- * @experimental
  */
 var Testability = (function () {
     function Testability(_ngZone) {
@@ -8307,14 +7949,6 @@ var __extends$14 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * Represents an instance of an NgModule created via a {@link NgModuleFactory}.
- *
- * `NgModuleRef` provides access to the NgModule Instance as well other objects related to this
- * NgModule Instance.
- *
- * @stable
- */
 var NgModuleRef = (function () {
     function NgModuleRef() {
     }
@@ -8447,29 +8081,6 @@ function registerModuleFactory(id, factory) {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * An unmodifiable list of items that Angular keeps up to date when the state
- * of the application changes.
- *
- * The type of object that {@link Query} and {@link ViewQueryMetadata} provide.
- *
- * Implements an iterable interface, therefore it can be used in both ES6
- * javascript `for (var i of items)` loops as well as in Angular templates with
- * `*ngFor="let i of myList"`.
- *
- * Changes can be observed by subscribing to the changes `Observable`.
- *
- * NOTE: In the future this class will implement an `Observable` interface.
- *
- * ### Example ([live demo](http://plnkr.co/edit/RX8sJnQYl9FWuSCWme5z?p=preview))
- * ```typescript
- * @Component({...})
- * class Container {
- *   @ViewChildren(Item) items:QueryList<Item>;
- * }
- * ```
- * @stable
  */
 var QueryList = (function () {
     function QueryList() {
@@ -8679,9 +8290,6 @@ var __extends$16 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * @stable
- */
 var ViewRef = (function () {
     function ViewRef() {
     }
@@ -9054,9 +8662,6 @@ var platformCore = createPlatformFactory(null, 'core', _CORE_PLATFORM_PROVIDERS)
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @experimental i18n support is experimental.
- */
 var LOCALE_ID = new OpaqueToken('LocaleId');
 /**
  * @experimental i18n support is experimental.
@@ -9234,9 +8839,6 @@ var AnimationKeyframe = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @experimental Animation support is experimental.
- */
 var AnimationPlayer = (function () {
     function AnimationPlayer() {
     }
@@ -9382,9 +8984,6 @@ var __extends$18 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * @experimental Animation support is experimental.
- */
 var AUTO_STYLE = '*';
 /**
  * Metadata representing the entry of animations.
@@ -10999,13 +10598,6 @@ var __core_private__ = {
  * Entry point for all public APIs of the core package.
  */
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 var globalScope$1;
 if (typeof window === 'undefined') {
     if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
@@ -11256,9 +10848,6 @@ function escapeRegExp$1(s) {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * A segment of text within the template.
  */
 var TextAst = (function () {
     function TextAst(value, ngContentIndex, sourceSpan) {
@@ -11543,8 +11132,6 @@ function templateVisitAll(visitor, asts, context) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Map constructor.  We work around that by manually adding the items.
 var createMapFromPairs$1 = (function () {
     try {
         if (new Map([[1, 2]]).size === 1) {
@@ -12539,7 +12126,6 @@ var __extends$23 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-//// Types
 var TypeModifier;
 (function (TypeModifier) {
     TypeModifier[TypeModifier["Const"] = 0] = "Const";
@@ -17316,9 +16902,6 @@ var __extends$27 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * An i18n error.
- */
 var I18nError = (function (_super) {
     __extends$27(I18nError, _super);
     function I18nError(span, msg) {
@@ -17740,9 +17323,6 @@ function _splitMeaningAndDesc(i18n) {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * A container for message extracted from the templates.
  */
 var MessageBundle = (function () {
     function MessageBundle(_htmlParser, _implicitTags, _implicitAttrs) {
@@ -18872,7 +18452,6 @@ var __extends$31 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-// http://cldr.unicode.org/index/cldr-spec/plural-rules
 var PLURAL_CASES = ['zero', 'one', 'two', 'few', 'many', 'other'];
 /**
  * Expands special forms into elements.
@@ -19595,16 +19174,6 @@ var __extends$21 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-// Group 1 = "bind-"
-// Group 2 = "let-"
-// Group 3 = "ref-/#"
-// Group 4 = "on-"
-// Group 5 = "bindon-"
-// Group 6 = "@"
-// Group 7 = the identifier after "bind-", "let-", "ref-/#", "on-", "bindon-" or "@"
-// Group 8 = identifier inside [()]
-// Group 9 = identifier inside []
-// Group 10 = identifier inside ()
 var BIND_NAME_REGEXP = /^(?:(?:(?:(bind-)|(let-)|(ref-|#)|(on-)|(bindon-)|(@))(.+))|\[\(([^\)]+)\)\]|\[([^\]]+)\]|\(([^\)]+)\))$/;
 var KW_BIND_IDX = 1;
 var KW_LET_IDX = 2;
@@ -24745,13 +24314,6 @@ function _cloneDirectiveWithTemplate(directive, template) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/*
- * Resolve a `Type` for {@link Directive}.
- *
- * This interface can be overridden by the application developer to create custom behavior.
- *
- * See {@link Compiler}
- */
 var DirectiveResolver = (function () {
     function DirectiveResolver(_reflector) {
         if (_reflector === void 0) { _reflector = reflector$1; }
@@ -27848,15 +27410,6 @@ function getStylesVarName(component) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * An internal module of the Angular compiler that begins with component types,
- * extracts templates, and eventually produces a compiled version of the component
- * ready for linking into an application.
- *
- * @security  When compiling templates at runtime, you must ensure that the entire template comes
- * from a trusted source. Attacker-controlled data introduced by a template could expose your
- * application to XSS risks.  For more detail, see the [Security Guide](http://g.co/ng/security).
- */
 var RuntimeCompiler = (function () {
     function RuntimeCompiler(_injector, _metadataResolver, _templateNormalizer, _templateParser, _styleCompiler, _viewCompiler, _ngModuleCompiler, _compilerConfig) {
         this._injector = _injector;
@@ -28229,17 +27782,6 @@ var ModuleBoundCompiler = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// =================================================================================================
-// =================================================================================================
-// =========== S T O P   -  S T O P   -  S T O P   -  S T O P   -  S T O P   -  S T O P  ===========
-// =================================================================================================
-// =================================================================================================
-//
-//        DO NOT EDIT THIS LIST OF SECURITY SENSITIVE PROPERTIES WITHOUT A SECURITY REVIEW!
-//                               Reach out to mprobst for details.
-//
-// =================================================================================================
-/** Map from tagName|propertyName SecurityContext. Properties applying to all tags use '*'. */
 var SECURITY_SCHEMA = {};
 function registerContext(ctx, specs) {
     for (var _i = 0, specs_1 = specs; _i < specs_1.length; _i++) {
@@ -28910,24 +28452,6 @@ var PlatformLocation = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * `LocationStrategy` is responsible for representing and reading route state
- * from the browser's URL. Angular provides two strategies:
- * {@link HashLocationStrategy} and {@link PathLocationStrategy} (default).
- *
- * This is used under the hood of the {@link Location} service.
- *
- * Applications should use the {@link Router} or {@link Location} services to
- * interact with application route state.
- *
- * For instance, {@link HashLocationStrategy} produces URLs like
- * `http://example.com#/foo`, and {@link PathLocationStrategy} produces
- * `http://example.com/foo` as an equivalent URL.
- *
- * See these two classes for more.
- *
- * @stable
- */
 var LocationStrategy = (function () {
     function LocationStrategy() {
     }
@@ -28957,13 +28481,6 @@ var LocationStrategy = (function () {
  */
 var APP_BASE_HREF = new OpaqueToken('appBaseHref');
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 var globalScope$2;
 if (typeof window === 'undefined') {
     if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
@@ -29126,38 +28643,6 @@ function getSymbolIterator$2() {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * `Location` is a service that applications can use to interact with a browser's URL.
- * Depending on which {@link LocationStrategy} is used, `Location` will either persist
- * to the URL's path or the URL's hash segment.
- *
- * Note: it's better to use {@link Router#navigate} service to trigger route changes. Use
- * `Location` only if you need to interact with or create normalized URLs outside of
- * routing.
- *
- * `Location` is responsible for normalizing the URL against the application's base href.
- * A normalized URL is absolute from the URL host, includes the application's base href, and has no
- * trailing slash:
- * - `/my/app/user/123` is normalized
- * - `my/app/user/123` **is not** normalized
- * - `/my/app/user/123/` **is not** normalized
- *
- * ### Example
- *
- * ```
- * import {Component} from '@angular/core';
- * import {Location} from '@angular/common';
- *
- * @Component({selector: 'app-component'})
- * class AppCmp {
- *   constructor(location: Location) {
- *     location.go('/foo');
- *   }
- * }
- * ```
- *
- * @stable
- */
 var Location = (function () {
     function Location(platformStrategy) {
         var _this = this;
@@ -29318,32 +28803,6 @@ var __extends$41 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * `HashLocationStrategy` is a {@link LocationStrategy} used to configure the
- * {@link Location} service to represent its state in the
- * [hash fragment](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax)
- * of the browser's URL.
- *
- * For instance, if you call `location.go('/foo')`, the browser's URL will become
- * `example.com#/foo`.
- *
- * ### Example
- *
- * ```
- * import {Component, NgModule} from '@angular/core';
- * import {
- *   LocationStrategy,
- *   HashLocationStrategy
- * } from '@angular/common';
- *
- * @NgModule({
- *   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}]
- * })
- * class AppModule {}
- * ```
- *
- * @stable
- */
 var HashLocationStrategy = (function (_super) {
     __extends$41(HashLocationStrategy, _super);
     function HashLocationStrategy(_platformLocation, _baseHref) {
@@ -29411,29 +28870,6 @@ var __extends$42 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * `PathLocationStrategy` is a {@link LocationStrategy} used to configure the
- * {@link Location} service to represent its state in the
- * [path](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax) of the
- * browser's URL.
- *
- * `PathLocationStrategy` is the default binding for {@link LocationStrategy}
- * provided in {@link ROUTER_PROVIDERS}.
- *
- * If you're using `PathLocationStrategy`, you must provide a {@link APP_BASE_HREF}
- * or add a base element to the document. This URL prefix that will be preserved
- * when generating and recognizing URLs.
- *
- * For instance, if you provide an `APP_BASE_HREF` of `'/my/app'` and call
- * `location.go('/foo')`, the browser's URL will become
- * `example.com/my/app/foo`.
- *
- * Similarly, if you add `<base href='/my/app'/>` to the document and call
- * `location.go('/foo')`, the browser's URL will become
- * `example.com/my/app/foo`.
- *
- * @stable
- */
 var PathLocationStrategy = (function (_super) {
     __extends$42(PathLocationStrategy, _super);
     function PathLocationStrategy(_platformLocation, href) {
@@ -29503,9 +28939,6 @@ var __extends$43 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * @experimental
- */
 var NgLocalization = (function () {
     function NgLocalization() {
     }
@@ -29984,8 +29417,6 @@ function getPluralCase(locale, nLike) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Map constructor.  We work around that by manually adding the items.
 var createMapFromPairs$2 = (function () {
     try {
         if (new Map([[1, 2]]).size === 1) {
@@ -30203,32 +29634,6 @@ function isListLikeIterable$2(obj) {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @ngModule CommonModule
- *
- * @whatItDoes Adds and removes CSS classes on an HTML element.
- *
- * @howToUse
- * ```
- *     <some-element [ngClass]="'first second'">...</some-element>
- *
- *     <some-element [ngClass]="['first', 'second']">...</some-element>
- *
- *     <some-element [ngClass]="{'first': true, 'second': true, 'third': false}">...</some-element>
- *
- *     <some-element [ngClass]="stringExp|arrayExp|objExp">...</some-element>
- * ```
- *
- * @description
- *
- * The CSS classes are updated as follow depending on the type of the expression evaluation:
- * - `string` - the CSS classes listed in a string (space delimited) are added,
- * - `Array` - the CSS classes (Array elements) are added,
- * - `Object` - keys are CSS class names that get added when the expression given in the value
- *              evaluates to a truthy value, otherwise class are removed.
- *
- * @stable
  */
 var NgClass = (function () {
     function NgClass(_iterableDiffers, _keyValueDiffers, _ngEl, _renderer) {
@@ -30545,30 +29950,6 @@ var RecordViewTuple = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Removes or recreates a portion of the DOM tree based on an {expression}.
- *
- * If the expression assigned to `ngIf` evaluates to a false value then the element
- * is removed from the DOM, otherwise a clone of the element is reinserted into the DOM.
- *
- * ### Example ([live demo](http://plnkr.co/edit/fe0kgemFBtmQOY31b4tw?p=preview)):
- *
- * ```
- * <div *ngIf="errorCount > 0" class="error">
- *   <!-- Error message displayed when the errorCount property on the current context is greater
- * than 0. -->
- *   {{errorCount}} errors detected
- * </div>
- * ```
- *
- * ### Syntax
- *
- * - `<div *ngIf="condition">...</div>`
- * - `<div template="ngIf condition">...</div>`
- * - `<template [ngIf]="condition"><div>...</div></template>`
- *
- * @stable
- */
 var NgIf = (function () {
     function NgIf(_viewContainer, _template) {
         this._viewContainer = _viewContainer;
@@ -30852,38 +30233,6 @@ var NgSwitchDefault = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @ngModule CommonModule
- *
- * @whatItDoes Adds / removes DOM sub-trees based on a numeric value. Tailored for pluralization.
- *
- * @howToUse
- * ```
- * <some-element [ngPlural]="value">
- *   <ng-container *ngPluralCase="'=0'">there is nothing</ng-container>
- *   <ng-container *ngPluralCase="'=1'">there is one</ng-container>
- *   <ng-container *ngPluralCase="'few'">there are a few</ng-container>
- *   <ng-container *ngPluralCase="'other'">there are exactly #</ng-container>
- * </some-element>
- * ```
- *
- * @description
- *
- * Displays DOM sub-trees that match the switch expression value, or failing that, DOM sub-trees
- * that match the switch expression's pluralization category.
- *
- * To use this directive you must provide a container element that sets the `[ngPlural]` attribute
- * to a switch expression. Inner elements with a `[ngPluralCase]` will display based on their
- * expression:
- * - if `[ngPluralCase]` is set to a value starting with `=`, it will only display if the value
- *   matches the switch expression exactly,
- * - otherwise, the view will be treated as a "category match", and will only display if exact
- *   value matches aren't found and the value maps to its category for the defined locale.
- *
- * See http://cldr.unicode.org/index/cldr-spec/plural-rules
- *
- * @experimental
- */
 var NgPlural = (function () {
     function NgPlural(_localization) {
         this._localization = _localization;
@@ -30969,28 +30318,6 @@ var NgPluralCase = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @ngModule CommonModule
- *
- * @whatItDoes Update an HTML element styles.
- *
- * @howToUse
- * ```
- * <some-element [ngStyle]="{'font-style': styleExp}">...</some-element>
- *
- * <some-element [ngStyle]="{'max-width.px': widthExp}">...</some-element>
- *
- * <some-element [ngStyle]="objExp">...</some-element>
- * ```
- *
- * @description
- *
- * The styles are updated according to the value of the expression evaluation:
- * - keys are style names with an option `.<unit>` suffix (ie 'top.px', 'font-style.em'),
- * - values are the values assigned to those properties (expressed in the given unit).
- *
- * @stable
- */
 var NgStyle = (function () {
     function NgStyle(_differs, _ngEl, _renderer) {
         this._differs = _differs;
@@ -31048,28 +30375,6 @@ var NgStyle = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @ngModule CommonModule
- *
- * @whatItDoes Inserts an embedded view from a prepared `TemplateRef`
- *
- * @howToUse
- * ```
- * <template [ngTemplateOutlet]="templateRefExpression"
- *           [ngOutletContext]="objectExpression">
- * </template>
- * ```
- *
- * @description
- *
- * You can attach a context object to the `EmbeddedViewRef` by setting `[ngOutletContext]`.
- * `[ngOutletContext]` should be an object, the object's keys will be the local template variables
- * available within the `TemplateRef`.
- *
- * Note: using the key `$implicit` in the context object will set it's value as default.
- *
- * @experimental
- */
 var NgTemplateOutlet = (function () {
     function NgTemplateOutlet(_viewContainerRef) {
         this._viewContainerRef = _viewContainerRef;
@@ -31112,10 +30417,6 @@ var NgTemplateOutlet = (function () {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * A collection of Angular directives that are likely to be used in each and every Angular
- * application.
  */
 var COMMON_DIRECTIVES = [
     NgClass,
@@ -31550,72 +30851,6 @@ var DateFormatter = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @ngModule CommonModule
- * @whatItDoes Formats a date according to locale rules.
- * @howToUse `date_expression | date[:format]`
- * @description
- *
- * Where:
- * - `expression` is a date object or a number (milliseconds since UTC epoch) or an ISO string
- * (https://www.w3.org/TR/NOTE-datetime).
- * - `format` indicates which date/time components to include. The format can be predifined as
- *   shown below or custom as shown in the table.
- *   - `'medium'`: equivalent to `'yMMMdjms'` (e.g. `Sep 3, 2010, 12:05:08 PM` for `en-US`)
- *   - `'short'`: equivalent to `'yMdjm'` (e.g. `9/3/2010, 12:05 PM` for `en-US`)
- *   - `'fullDate'`: equivalent to `'yMMMMEEEEd'` (e.g. `Friday, September 3, 2010` for `en-US`)
- *   - `'longDate'`: equivalent to `'yMMMMd'` (e.g. `September 3, 2010` for `en-US`)
- *   - `'mediumDate'`: equivalent to `'yMMMd'` (e.g. `Sep 3, 2010` for `en-US`)
- *   - `'shortDate'`: equivalent to `'yMd'` (e.g. `9/3/2010` for `en-US`)
- *   - `'mediumTime'`: equivalent to `'jms'` (e.g. `12:05:08 PM` for `en-US`)
- *   - `'shortTime'`: equivalent to `'jm'` (e.g. `12:05 PM` for `en-US`)
- *
- *
- *  | Component | Symbol | Short Form   | Long Form         | Numeric   | 2-digit   |
- *  |-----------|:------:|--------------|-------------------|-----------|-----------|
- *  | era       |   G    | G (AD)       | GGGG (Anno Domini)| -         | -         |
- *  | year      |   y    | -            | -                 | y (2015)  | yy (15)   |
- *  | month     |   M    | MMM (Sep)    | MMMM (September)  | M (9)     | MM (09)   |
- *  | day       |   d    | -            | -                 | d (3)     | dd (03)   |
- *  | weekday   |   E    | EEE (Sun)    | EEEE (Sunday)     | -         | -         |
- *  | hour      |   j    | -            | -                 | j (13)    | jj (13)   |
- *  | hour12    |   h    | -            | -                 | h (1 PM)  | hh (01 PM)|
- *  | hour24    |   H    | -            | -                 | H (13)    | HH (13)   |
- *  | minute    |   m    | -            | -                 | m (5)     | mm (05)   |
- *  | second    |   s    | -            | -                 | s (9)     | ss (09)   |
- *  | timezone  |   z    | -            | z (Pacific Standard Time)| -  | -         |
- *  | timezone  |   Z    | Z (GMT-8:00) | -                 | -         | -         |
- *  | timezone  |   a    | a (PM)       | -                 | -         | -         |
- *
- * In javascript, only the components specified will be respected (not the ordering,
- * punctuations, ...) and details of the formatting will be dependent on the locale.
- *
- * Timezone of the formatted text will be the local system timezone of the end-user's machine.
- *
- * WARNINGS:
- * - this pipe is marked as pure hence it will not be re-evaluated when the input is mutated.
- *   Instead users should treat the date as an immutable object and change the reference when the
- *   pipe needs to re-run (this is to avoid reformatting the date on every change detection run
- *   which would be an expensive operation).
- * - this pipe uses the Internationalization API. Therefore it is only reliable in Chrome and Opera
- *   browsers.
- *
- * ### Examples
- *
- * Assuming `dateObj` is (year: 2015, month: 6, day: 15, hour: 21, minute: 43, second: 11)
- * in the _local_ time and locale is 'en-US':
- *
- * ```
- *     {{ dateObj | date }}               // output is 'Jun 15, 2015'
- *     {{ dateObj | date:'medium' }}      // output is 'Jun 15, 2015, 9:43:11 PM'
- *     {{ dateObj | date:'shortTime' }}   // output is '9:43 PM'
- *     {{ dateObj | date:'mmss' }}        // output is '43:11'
- * ```
- *
- * {@example common/pipes/ts/date_pipe.ts region='DatePipe'}
- *
- * @stable
- */
 var DatePipe = (function () {
     function DatePipe(_locale) {
         this._locale = _locale;
@@ -31712,22 +30947,6 @@ var I18nPluralPipe = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @ngModule CommonModule
- * @whatItDoes Generic selector that displays the string that matches the current value.
- * @howToUse `expression | i18nSelect:mapping`
- * @description
- *
- *  Where:
- *  - `mapping`: is an object that indicates the text that should be displayed
- *  for different values of the provided `expression`.
- *
- *  ## Example
- *
- * {@example common/pipes/ts/i18n_pipe.ts region='I18nSelectPipeComponent'}
- *
- *  @experimental
- */
 var I18nSelectPipe = (function () {
     function I18nSelectPipe() {
     }
@@ -31754,19 +30973,6 @@ var I18nSelectPipe = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @ngModule CommonModule
- * @whatItDoes Converts value into JSON string.
- * @howToUse `expression | json`
- * @description
- *
- * Converts value into string using `JSON.stringify`. Useful for debugging.
- *
- * ### Example
- * {@example common/pipes/ts/json_pipe.ts region='JsonPipe'}
- *
- * @stable
- */
 var JsonPipe = (function () {
     function JsonPipe() {
     }
@@ -31785,20 +30991,6 @@ var JsonPipe = (function () {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @ngModule CommonModule
- * @whatItDoes Transforms string to lowercase.
- * @howToUse `expression | lowercase`
- * @description
- *
- * Converts value into lowercase string using `String.prototype.toLowerCase()`.
- *
- * ### Example
- *
- * {@example common/pipes/ts/lowerupper_pipe.ts region='LowerUpperPipe'}
- *
- * @stable
  */
 var LowerCasePipe = (function () {
     function LowerCasePipe() {
@@ -32001,50 +31193,6 @@ var CurrencyPipe = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @ngModule CommonModule
- * @whatItDoes Creates a new List or String containing a subset (slice) of the elements.
- * @howToUse `array_or_string_expression | slice:start[:end]`
- * @description
- *
- * Where the input expression is a `List` or `String`, and:
- * - `start`: The starting index of the subset to return.
- *   - **a positive integer**: return the item at `start` index and all items after
- *     in the list or string expression.
- *   - **a negative integer**: return the item at `start` index from the end and all items after
- *     in the list or string expression.
- *   - **if positive and greater than the size of the expression**: return an empty list or string.
- *   - **if negative and greater than the size of the expression**: return entire list or string.
- * - `end`: The ending index of the subset to return.
- *   - **omitted**: return all items until the end.
- *   - **if positive**: return all items before `end` index of the list or string.
- *   - **if negative**: return all items before `end` index from the end of the list or string.
- *
- * All behavior is based on the expected behavior of the JavaScript API `Array.prototype.slice()`
- * and `String.prototype.slice()`.
- *
- * When operating on a [List], the returned list is always a copy even when all
- * the elements are being returned.
- *
- * When operating on a blank value, the pipe returns the blank value.
- *
- * ## List Example
- *
- * This `ngFor` example:
- *
- * {@example common/pipes/ts/slice_pipe.ts region='SlicePipe_list'}
- *
- * produces the following:
- *
- *     <li>b</li>
- *     <li>c</li>
- *
- * ## String Examples
- *
- * {@example common/pipes/ts/slice_pipe.ts region='SlicePipe_string'}
- *
- * @stable
- */
 var SlicePipe = (function () {
     function SlicePipe() {
     }
@@ -32072,20 +31220,6 @@ var SlicePipe = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @ngModule CommonModule
- * @whatItDoes Transforms string to uppercase.
- * @howToUse `expression | uppercase`
- * @description
- *
- * Converts value into lowercase string using `String.prototype.toUpperCase()`.
- *
- * ### Example
- *
- * {@example common/pipes/ts/lowerupper_pipe.ts region='LowerUpperPipe'}
- *
- * @stable
- */
 var UpperCasePipe = (function () {
     function UpperCasePipe() {
     }
@@ -32112,9 +31246,6 @@ var UpperCasePipe = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * A collection of Angular pipes that are likely to be used in each and every application.
- */
 var COMMON_PIPES = [
     AsyncPipe,
     UpperCasePipe,
@@ -32135,13 +31266,6 @@ var COMMON_PIPES = [
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-// Note: This does not contain the location providers,
-// as they need some platform specific implementations to work.
-/**
- * The module that includes all the basic Angular directives like {@link NgIf}, {@link NgFor}, ...
- *
- * @stable
  */
 var CommonModule = (function () {
     function CommonModule() {
@@ -32211,13 +31335,6 @@ var AnimationDriver = (function () {
     return AnimationDriver;
 }());
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 var globalScope$3;
 if (typeof window === 'undefined') {
     if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
@@ -32743,12 +31860,6 @@ var __extends$47 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * Provides DOM operations in any browser environment.
- *
- * @security Tread carefully! Interacting with the DOM directly is dangerous and
- * can introduce XSS risks.
- */
 var GenericBrowserDomAdapter = (function (_super) {
     __extends$47(GenericBrowserDomAdapter, _super);
     function GenericBrowserDomAdapter() {
@@ -33226,11 +32337,6 @@ var __extends$48 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
- * This class should not be used directly by an application developer. Instead, use
- * {@link Location}.
- */
 var BrowserPlatformLocation = (function (_super) {
     __extends$48(BrowserPlatformLocation, _super);
     function BrowserPlatformLocation() {
@@ -33304,8 +32410,6 @@ var BrowserPlatformLocation = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Map constructor.  We work around that by manually adding the items.
 var createMapFromPairs$3 = (function () {
     try {
         if (new Map([[1, 2]]).size === 1) {
@@ -33608,16 +32712,6 @@ var BrowserGetTestability = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * A service that can be used to get and set the title of a current HTML document.
- *
- * Since an Angular 2 application can't be bootstrapped on the entire HTML document (`<html>` tag)
- * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
- * (representing the `<title>` tag). Instead, this service can be used to set and get the current
- * title value.
- *
- * @experimental
- */
 var Title = (function () {
     function Title() {
     }
@@ -33641,14 +32735,6 @@ var Title = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * A DI Token representing the main rendering context. In a browser this is the DOM Document.
- *
- * Note: Document might not be available in the Application Context when Application and Rendering
- * Contexts are not the same (e.g. when running the application into a Web Worker).
- *
- * @stable
- */
 var DOCUMENT = new OpaqueToken('DocumentToken');
 
 /**
@@ -33657,9 +32743,6 @@ var DOCUMENT = new OpaqueToken('DocumentToken');
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @stable
  */
 var EVENT_MANAGER_PLUGINS = new OpaqueToken('EventManagerPlugins');
 /**
@@ -34238,12 +33321,6 @@ var __extends$52 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * A DI token that you can use to provide{@link HammerGestureConfig} to Angular. Use it to configure
- * Hammer gestures.
- *
- * @experimental
- */
 var HAMMER_GESTURE_CONFIG = new OpaqueToken('HammerGestureConfig');
 /**
  * @experimental
@@ -34424,34 +33501,8 @@ var KeyEventsPlugin = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * A pattern that recognizes a commonly useful subset of URLs that are safe.
- *
- * This regular expression matches a subset of URLs that will not cause script
- * execution if used in URL context within a HTML document. Specifically, this
- * regular expression matches if (comment from here on and regex copied from
- * Soy's EscapingConventions):
- * (1) Either a protocol in a whitelist (http, https, mailto or ftp).
- * (2) or no protocol.  A protocol must be followed by a colon. The below
- *     allows that by allowing colons only after one of the characters [/?#].
- *     A colon after a hash (#) must be in the fragment.
- *     Otherwise, a colon after a (?) must be in a query.
- *     Otherwise, a colon after a single solidus (/) must be in a path.
- *     Otherwise, a colon after a double solidus (//) must be in the authority
- *     (before port).
- *
- * The pattern disallows &, used in HTML entity declarations before
- * one of the characters in [/?#]. This disallows HTML entities used in the
- * protocol name, which should never happen, e.g. "h&#116;tp" for "http".
- * It also disallows HTML entities in the first path part of a relative path,
- * e.g. "foo&lt;bar/baz".  Our existing escaping functions should not produce
- * that. More importantly, it disallows masking of a colon,
- * e.g. "javascript&#58;...".
- *
- * This regular expression was taken from the Closure sanitization library.
- */
 var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
-/** A pattern that matches safe data URLs. Only matches image, video and audio types. */
+/* A pattern that matches safe srcset values */
 var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;
 function sanitizeUrl(url) {
     url = String(url);
@@ -34474,7 +33525,6 @@ function sanitizeSrcset(srcset) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below. */
 var inertElement = null;
 /** Lazily initialized to make sure the DOM adapter gets set before use. */
 var DOM = null;
@@ -34736,20 +33786,6 @@ function sanitizeHtml(unsafeHtmlInput) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Regular expression for safe style values.
- *
- * Quotes (" and ') are allowed, but a check must be done elsewhere to ensure they're balanced.
- *
- * ',' allows multiple values to be assigned to the same property (e.g. background-attachment or
- * font-family) and hence could allow multiple values to get injected, but that should pose no risk
- * of XSS.
- *
- * The function expression checks only for XSS safety, not for CSS validity.
- *
- * This regular expression was taken from the Closure sanitization library, and augmented for
- * transformation values.
- */
 var VALUES = '[-,."\'%_!# a-zA-Z0-9]+';
 var TRANSFORMATION_FNS = '(?:matrix|translate|scale|rotate|skew|perspective)(?:X|Y|3d)?';
 var COLOR_FNS = '(?:rgb|hsl)a?';
@@ -34829,37 +33865,6 @@ var __extends$55 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
- * values to be safe to use in the different DOM contexts.
- *
- * For example, when binding a URL in an `<a [href]="someValue">` hyperlink, `someValue` will be
- * sanitized so that an attacker cannot inject e.g. a `javascript:` URL that would execute code on
- * the website.
- *
- * In specific situations, it might be necessary to disable sanitization, for example if the
- * application genuinely needs to produce a `javascript:` style link with a dynamic value in it.
- * Users can bypass security by constructing a value with one of the `bypassSecurityTrust...`
- * methods, and then binding to that value from the template.
- *
- * These situations should be very rare, and extraordinary care must be taken to avoid creating a
- * Cross Site Scripting (XSS) security bug!
- *
- * When using `bypassSecurityTrust...`, make sure to call the method as early as possible and as
- * close as possible to the source of the value, to make it easy to verify no security bug is
- * created by its use.
- *
- * It is not required (and not recommended) to bypass security if the value is safe, e.g. a URL that
- * does not start with a suspicious protocol, or an HTML snippet that does not contain dangerous
- * code. The sanitizer leaves safe values intact.
- *
- * @security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
- * sanitization for the value passed in. Carefully check and audit all values and code paths going
- * into this call. Make sure any user data is appropriately escaped for this security context.
- * For more detail, see the [Security Guide](http://g.co/ng/security).
- *
- * @stable
- */
 var DomSanitizer = (function () {
     function DomSanitizer() {
     }
@@ -35182,11 +34187,6 @@ var context = _global$3;
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Predicates for use with {@link DebugElement}'s query functions.
- *
- * @experimental All debugging apis are currently experimental.
- */
 
 /**
  * @license
@@ -35245,13 +34245,6 @@ var __platform_browser_private__ = {
  */
 var INTERNAL_BROWSER_PLATFORM_PROVIDERS = __platform_browser_private__.INTERNAL_BROWSER_PLATFORM_PROVIDERS;
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 var globalScope$4;
 if (typeof window === 'undefined') {
     if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
@@ -35433,13 +34426,6 @@ var __extends$57 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * An implementation of ResourceLoader that uses a template cache to avoid doing an actual
- * ResourceLoader.
- *
- * The template cache needs to be built and loaded into window.$templateCache
- * via a separate mechanism.
- */
 var CachedResourceLoader = (function (_super) {
     __extends$57(CachedResourceLoader, _super);
     function CachedResourceLoader() {
@@ -35475,9 +34461,6 @@ var CachedResourceLoader = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @experimental
- */
 
 /**
  * @experimental API related to bootstrapping are still under review.
@@ -35497,13 +34480,6 @@ var platformBrowserDynamic = createPlatformFactory(platformCoreDynamic, 'browser
  * Entry point for all public APIs of the platform-browser-dynamic package.
  */
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 var globalScope$5;
 if (typeof window === 'undefined') {
     if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
@@ -35717,13 +34693,6 @@ function hasConstructor$5(value, type) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Base class for control directives.
- *
- * Only used internally in the forms module.
- *
- * @stable
- */
 var AbstractControlDirective = (function () {
     function AbstractControlDirective() {
     }
@@ -35828,13 +34797,6 @@ var __extends$59 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * A directive that contains multiple {@link NgControl}s.
- *
- * Only used by the forms module.
- *
- * @stable
- */
 var ControlContainer = (function (_super) {
     __extends$59(ControlContainer, _super);
     function ControlContainer() {
@@ -35866,8 +34828,6 @@ var ControlContainer = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Map constructor.  We work around that by manually adding the items.
 var createMapFromPairs$4 = (function () {
     try {
         if (new Map([[1, 2]]).size === 1) {
@@ -36169,16 +35129,6 @@ var isPromise$2 = __core_private__.isPromise;
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Providers for validators to be used for {@link FormControl}s in a form.
- *
- * Provide this using `multi: true` to add validators.
- *
- * ### Example
- *
- * {@example core/forms/ts/ng_validators/ng_validators.ts region='ng_validators'}
- * @stable
- */
 var NG_VALIDATORS = new OpaqueToken('NgValidators');
 /**
  * Providers for asynchronous validators to be used for {@link FormControl}s
@@ -36306,12 +35256,6 @@ function _mergeErrors(arrayOfErrors) {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Used to provide a {@link ControlValueAccessor} for form controls.
- *
- * See {@link DefaultValueAccessor} for how to implement one.
- * @stable
  */
 var NG_VALUE_ACCESSOR = new OpaqueToken('NgValueAccessor');
 
@@ -36905,11 +35849,7 @@ function _buildValueString$1(id, value) {
 function _extractId$1(valueString) {
     return valueString.split(':')[0];
 }
-/**
- * The accessor for writing a value and listening to changes on a select element.
- *
- * @stable
- */
+/** Mock interface for HTMLCollection */
 var SelectMultipleControlValueAccessor = (function () {
     function SelectMultipleControlValueAccessor(_renderer, _elementRef) {
         this._renderer = _renderer;
@@ -37213,11 +36153,6 @@ var __extends$58 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * This is a base class for code shared between {@link NgModelGroup} and {@link FormGroupName}.
- *
- * @stable
- */
 var AbstractFormGroupDirective = (function (_super) {
     __extends$58(AbstractFormGroupDirective, _super);
     function AbstractFormGroupDirective() {
@@ -37395,53 +36330,6 @@ var __extends$63 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * Use by directives and components to emit custom Events.
- *
- * ### Examples
- *
- * In the following example, `Zippy` alternatively emits `open` and `close` events when its
- * title gets clicked:
- *
- * ```
- * @Component({
- *   selector: 'zippy',
- *   template: `
- *   <div class="zippy">
- *     <div (click)="toggle()">Toggle</div>
- *     <div [hidden]="!visible">
- *       <ng-content></ng-content>
- *     </div>
- *  </div>`})
- * export class Zippy {
- *   visible: boolean = true;
- *   @Output() open: EventEmitter<any> = new EventEmitter();
- *   @Output() close: EventEmitter<any> = new EventEmitter();
- *
- *   toggle() {
- *     this.visible = !this.visible;
- *     if (this.visible) {
- *       this.open.emit(null);
- *     } else {
- *       this.close.emit(null);
- *     }
- *   }
- * }
- * ```
- *
- * The events payload can be accessed by the parameter `$event` on the components output event
- * handler:
- *
- * ```
- * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
- * ```
- *
- * Uses Rx.Observable but provides an adapter to make it work as specified here:
- * https://github.com/jhusain/observable-spec
- *
- * Once a reference implementation of the spec is available, switch to it.
- * @stable
- */
 var EventEmitter$1 = (function (_super) {
     __extends$63(EventEmitter, _super);
     /**
@@ -37632,9 +36520,6 @@ var __extends$64 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * Indicates that a FormControl is valid, i.e. that no errors exist in the input value.
- */
 var VALID = 'VALID';
 /**
  * Indicates that a FormControl is invalid, i.e. that an error exists in the input value.
@@ -40332,26 +39217,6 @@ var PatternValidator = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @whatItDoes Creates an {@link AbstractControl} from a user-specified configuration.
- *
- * It is essentially syntactic sugar that shortens the `new FormGroup()`,
- * `new FormControl()`, and `new FormArray()` boilerplate that can build up in larger
- * forms.
- *
- * @howToUse
- *
- * To use, inject `FormBuilder` into your component class. You can then call its methods
- * directly.
- *
- * {@example forms/ts/formBuilder/form_builder_example.ts region='Component'}
- *
- *  * **npm package**: `@angular/forms`
- *
- *  * **NgModule**: {@link ReactiveFormsModule}
- *
- * @stable
- */
 var FormBuilder = (function () {
     function FormBuilder() {
     }
@@ -40471,10 +39336,6 @@ var InternalFormsSharedModule = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * The ng module for forms.
- * @stable
- */
 var FormsModule = (function () {
     function FormsModule() {
     }
@@ -40546,13 +39407,6 @@ var ReactiveFormsModule = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * A backend for http that uses the `XMLHttpRequest` browser API.
- *
- * Take care not to evaluate this in non-browser contexts.
- *
- * @experimental
- */
 var BrowserXhr = (function () {
     function BrowserXhr() {
     }
@@ -40565,13 +39419,6 @@ var BrowserXhr = (function () {
     return BrowserXhr;
 }());
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 var globalScope$6;
 if (typeof window === 'undefined') {
     if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
@@ -40856,8 +39703,6 @@ var ResponseContentType;
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Map constructor.  We work around that by manually adding the items.
 var createMapFromPairs$5 = (function () {
     try {
         if (new Map([[1, 2]]).size === 1) {
@@ -41089,34 +39934,6 @@ function _flattenArray$5(source, target) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Polyfill for [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers/Headers), as
- * specified in the [Fetch Spec](https://fetch.spec.whatwg.org/#headers-class).
- *
- * The only known difference between this `Headers` implementation and the spec is the
- * lack of an `entries` method.
- *
- * ### Example
- *
- * ```
- * import {Headers} from '@angular/http';
- *
- * var firstHeaders = new Headers();
- * firstHeaders.append('Content-Type', 'image/jpeg');
- * console.log(firstHeaders.get('Content-Type')) //'image/jpeg'
- *
- * // Create headers from Plain Old JavaScript Object
- * var secondHeaders = new Headers({
- *   'X-My-Custom-Header': 'Angular'
- * });
- * console.log(secondHeaders.get('X-My-Custom-Header')); //'Angular'
- *
- * var thirdHeaders = new Headers(secondHeaders);
- * console.log(thirdHeaders.get('X-My-Custom-Header')); //'Angular'
- * ```
- *
- * @experimental
- */
 var Headers = (function () {
     // TODO(vicb): any -> string|string[]
     function Headers(headers) {
@@ -41252,34 +40069,6 @@ var __extends$73 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * Creates a response options object to be optionally provided when instantiating a
- * {@link Response}.
- *
- * This class is based on the `ResponseInit` description in the [Fetch
- * Spec](https://fetch.spec.whatwg.org/#responseinit).
- *
- * All values are null by default. Typical defaults can be found in the
- * {@link BaseResponseOptions} class, which sub-classes `ResponseOptions`.
- *
- * This class may be used in tests to build {@link Response Responses} for
- * mock responses (see {@link MockBackend}).
- *
- * ### Example ([live demo](http://plnkr.co/edit/P9Jkk8e8cz6NVzbcxEsD?p=preview))
- *
- * ```typescript
- * import {ResponseOptions, Response} from '@angular/http';
- *
- * var options = new ResponseOptions({
- *   body: '{"name":"Jeff"}'
- * });
- * var res = new Response(options);
- *
- * console.log('res.json():', res.json()); // Object {name: "Jeff"}
- * ```
- *
- * @experimental
- */
 var ResponseOptions = (function () {
     function ResponseOptions(_a) {
         var _b = _a === void 0 ? {} : _a, body = _b.body, status = _b.status, headers = _b.headers, statusText = _b.statusText, type = _b.type, url = _b.url;
@@ -41644,10 +40433,6 @@ var URLSearchParams = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * HTTP request body used by both {@link Request} and {@link Response}
- * https://fetch.spec.whatwg.org/#body
- */
 var Body = (function () {
     function Body() {
     }
@@ -41717,26 +40502,6 @@ var __extends$74 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * Creates `Response` instances from provided values.
- *
- * Though this object isn't
- * usually instantiated by end-users, it is the primary object interacted with when it comes time to
- * add data to a view.
- *
- * ### Example
- *
- * ```
- * http.request('my-friends.txt').subscribe(response => this.friends = response.text());
- * ```
- *
- * The Response's interface is inspired by the Response constructor defined in the [Fetch
- * Spec](https://fetch.spec.whatwg.org/#response-class), but is considered a static value whose body
- * can be accessed many times. There are other differences in the implementation, but this is the
- * most significant.
- *
- * @experimental
- */
 var Response = (function (_super) {
     __extends$74(Response, _super);
     function Response(responseOptions) {
@@ -42167,32 +40932,6 @@ var __extends$75 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * Creates a request options object to be optionally provided when instantiating a
- * {@link Request}.
- *
- * This class is based on the `RequestInit` description in the [Fetch
- * Spec](https://fetch.spec.whatwg.org/#requestinit).
- *
- * All values are null by default. Typical defaults can be found in the {@link BaseRequestOptions}
- * class, which sub-classes `RequestOptions`.
- *
- * ### Example ([live demo](http://plnkr.co/edit/7Wvi3lfLq41aQPKlxB4O?p=preview))
- *
- * ```typescript
- * import {RequestOptions, Request, RequestMethod} from '@angular/http';
- *
- * var options = new RequestOptions({
- *   method: RequestMethod.Post,
- *   url: 'https://google.com'
- * });
- * var req = new Request(options);
- * console.log('req.method:', RequestMethod[req.method]); // Post
- * console.log('options.url:', options.url); // https://google.com
- * ```
- *
- * @experimental
- */
 var RequestOptions = (function () {
     function RequestOptions(_a) {
         var _b = _a === void 0 ? {} : _a, method = _b.method, headers = _b.headers, body = _b.body, url = _b.url, search = _b.search, withCredentials = _b.withCredentials, responseType = _b.responseType;
@@ -42321,46 +41060,6 @@ var __extends$77 = (undefined && undefined.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-// TODO(jeffbcross): properly implement body accessors
-/**
- * Creates `Request` instances from provided values.
- *
- * The Request's interface is inspired by the Request constructor defined in the [Fetch
- * Spec](https://fetch.spec.whatwg.org/#request-class),
- * but is considered a static value whose body can be accessed many times. There are other
- * differences in the implementation, but this is the most significant.
- *
- * `Request` instances are typically created by higher-level classes, like {@link Http} and
- * {@link Jsonp}, but it may occasionally be useful to explicitly create `Request` instances.
- * One such example is when creating services that wrap higher-level services, like {@link Http},
- * where it may be useful to generate a `Request` with arbitrary headers and search params.
- *
- * ```typescript
- * import {Injectable, Injector} from '@angular/core';
- * import {HTTP_PROVIDERS, Http, Request, RequestMethod} from '@angular/http';
- *
- * @Injectable()
- * class AutoAuthenticator {
- *   constructor(public http:Http) {}
- *   request(url:string) {
- *     return this.http.request(new Request({
- *       method: RequestMethod.Get,
- *       url: url,
- *       search: 'password=123'
- *     }));
- *   }
- * }
- *
- * var injector = Injector.resolveAndCreate([HTTP_PROVIDERS, AutoAuthenticator]);
- * var authenticator = injector.get(AutoAuthenticator);
- * authenticator.request('people.json').subscribe(res => {
- *   //URL should have included '?password=123'
- *   console.log('people', res.json());
- * });
- * ```
- *
- * @experimental
- */
 var Request = (function (_super) {
     __extends$77(Request, _super);
     function Request(requestOptions) {
@@ -66731,11 +65430,6 @@ function get(obj, path) {
     return obj;
 }
 
-/**
- * @private
- * @param pluginRef
- * @returns {null|*}
- */
 var getPlugin = function (pluginRef) {
     return get(window, pluginRef);
 };
@@ -66769,6 +65463,10 @@ var cordovaWarn = function (pluginName, method) {
 };
 function setIndex(args, opts, resolve, reject) {
     if (opts === void 0) { opts = {}; }
+    // ignore resolve and reject in case sync
+    if (opts.sync) {
+        return args;
+    }
     // If the plugin method expects myMethod(success, err, options)
     if (opts.callbackOrder === 'reverse') {
         // Get those arguments in the order [resolve, reject, ...restOfArgs]
@@ -67194,45 +65892,6 @@ var __decorate$2 = (undefined && undefined.__decorate) || function (decorators, 
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Action Sheet
- * @description
- * The ActionSheet plugin shows a native list of options the user can choose from.
- *
- * Requires Cordova plugin: `cordova-plugin-actionsheet`. For more info, please see the [ActionSheet plugin docs](https://github.com/EddyVerbruggen/cordova-plugin-actionsheet).
- *
- * @usage
- * ```typescript
- * import { ActionSheet } from 'ionic-native';
- *
- *
- * let buttonLabels = ['Share via Facebook', 'Share via Twitter'];
- * ActionSheet.show({
- *   'title': 'What do you want with this image?',
- *   'buttonLabels': buttonLabels,
- *   'addCancelButtonWithLabel': 'Cancel',
- *   'addDestructiveButtonWithLabel' : 'Delete'
- * }).then((buttonIndex: number) => {
- *   console.log('Button pressed: ' + buttonIndex);
- * });
- * ```
- *
- * @advanced
- * ActionSheet options
- *
- * | Option                        | Type      | Description                                  |
- * |-------------------------------|-----------|----------------------------------------------|
- * | title                         |`string`   | The title for the actionsheet                |
- * | buttonLabels                  |`string[]` | the labels for the buttons. Uses the index x |
- * | androidTheme                  |`number`   | Theme to be used on Android                  |
- * | androidEnableCancelButton     |`boolean`  | Enable a cancel on Android                   |
- * | winphoneEnableCancelButton    |`boolean`  | Enable a cancel on Windows Phone             |
- * | addCancelButtonWithLabel      |`string`   | Add a cancel button with text                |
- * | addDestructiveButtonWithLabel |`string`   | Add a destructive button with text           |
- * | position                      |`number[]` | On an iPad, set the X,Y position             |
- *
- *
- */
 var ActionSheet$1 = (function () {
     function ActionSheet() {
     }
@@ -67271,12 +65930,6 @@ var __decorate$3 = (undefined && undefined.__decorate) || function (decorators, 
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name AdMob
- * @description Plugin for Google Ads, including AdMob / DFP (doubleclick for publisher) and mediations to other Ad networks.
- * @usage
- * Please refer the the plugin's original repository for detailed usage.
- */
 var AdMob = (function () {
     function AdMob() {
     }
@@ -67473,36 +66126,6 @@ var __decorate$4 = (undefined && undefined.__decorate) || function (decorators, 
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Android Fingerprint Auth
- * @description
- * This plugin will open a native dialog fragment prompting the user to authenticate using their fingerprint. If the device has a secure lockscreen (pattern, PIN, or password), the user may opt to authenticate using that method as a backup.
- * @usage
- * ```typescript
- * import { AndroidFingerprintAuth } from 'ionic-native';
- *
- * AndroidFingerprintAuth.isAvailable()
- *   .then((result)=> {
- *     if(result.isAvailable){
- *       // it is available
- *
- *       AndroidFingerprintAuth.show({ clientId: "myAppName", clientSecret: "so_encrypted_much_secure_very_secret" })
- *         .then(result => {
- *            if(result.withFingerprint) {
- *              console.log('Successfully authenticated with fingerprint!');
- *            } else if(result.withPassword) {
- *              console.log('Successfully authenticated with backup password!');
- *            } else console.log('Didn\'t authenticate!');
- *         })
- *         .catch(error => console.error(error));
- *
- *     } else {
- *       // fingerprint auth isn't available
- *     }
- *   })
- *   .catch(error => console.error(error));
- * ```
- */
 var AndroidFingerprintAuth = (function () {
     function AndroidFingerprintAuth() {
     }
@@ -67537,33 +66160,6 @@ var __decorate$5 = (undefined && undefined.__decorate) || function (decorators, 
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name App Availability
- * @description
- * This plugin allows you to check if an app is installed on the user's device. It requires an URI Scheme (e.g. twitter://) on iOS or a Package Name (e.g com.twitter.android) on Android.
- *
- * Requires Cordova plugin: cordova-plugin-appavailability. For more info, please see the [AppAvailability plugin docs](https://github.com/ohh2ahh/AppAvailability).
- *
- * @usage
- * ```typescript
- * import { AppAvailability } from 'ionic-native';
- *
- *
- * let app;
- *
- * if (device.platform === 'iOS') {
- *   app = 'twitter://';
- * } else if (device.platform === 'Android') {
- *   app = 'com.twitter.android';
- * }
- *
- * AppAvailability.check(app)
- *   .then(
- *     (yes: string) => console.log(app + ' is available'),
- *     (no: string) => console.log(app + ' is NOT available')
- *   );
- * ```
- */
 var AppAvailability = (function () {
     function AppAvailability() {
     }
@@ -67593,46 +66189,6 @@ var __decorate$6 = (undefined && undefined.__decorate) || function (decorators, 
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name App Rate
- * @description
- * The AppRate plugin makes it easy to prompt the user to rate your app, either now, later, or never.
- *
- * Requires Cordova plugin: cordova-plugin-apprate. For more info, please see the [AppRate plugin docs](https://github.com/pushandplay/cordova-plugin-apprate).
- *
- * @usage
- * ```typescript
- * import { AppRate } from 'ionic-native';
- *
- *  AppRate.preferences.storeAppURL = {
- *    ios: '<my_app_id>',
- *    android: 'market://details?id=<package_name>',
- *  };
- *
- * AppRate.promptForRating();
- * ```
- *
- * @advanced
- *
- * Rating dialog preferences
- *
- * | Option                       | Type       | Default | Description                                                                            |
- * |------------------------------|------------|---------|----------------------------------------------------------------------------------------|
- * | useLanguage                  | `String`   | null    | custom BCP 47 language tag                                                             |
- * | displayAppName               | `String`   | ''      | custom application title                                                               |
- * | promptAgainForEachNewVersion | `Boolean`  | true    | show dialog again when application version will be updated                             |
- * | usesUntilPrompt              | `Integer`  | 3       | count of runs of application before dialog will be displayed                           |
- * | openStoreInApp               | `Boolean`  | false   | leave app or no when application page opened in app store (now supported only for iOS) |
- * | useCustomRateDialog          | `Boolean`  | false   | use custom view for rate dialog                                                        |
- * | callbacks.onButtonClicked    | `Function` | null    | call back function. called when user clicked on rate-dialog buttons                    |
- * | callbacks.onRateDialogShow   | `Function` | null    | call back function. called when rate-dialog showing                                    |
- * | storeAppURL.ios              | `String`   | null    | application id in AppStore                                                             |
- * | storeAppURL.android          | `String`   | null    | application URL in GooglePlay                                                          |
- * | storeAppURL.blackberry       | `String`   | null    | application URL in AppWorld                                                            |
- * | storeAppURL.windows8         | `String`   | null    | application URL in WindowsStore                                                        |
- * | customLocale                 | `Object`   | null    | custom locale object                                                                   |
-
- */
 var AppRate = (function () {
     function AppRate() {
     }
@@ -67674,24 +66230,6 @@ var __decorate$7 = (undefined && undefined.__decorate) || function (decorators, 
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name App Version
- * @description
- * Reads the version of your app from the target build settings.
- *
- * Requires Cordova plugin: `cordova-plugin-app-version`. For more info, please see the [Cordova App Version docs](https://github.com/whiteoctober/cordova-plugin-app-version).
- *
- * @usage
- * ```typescript
- * import { AppVersion } from 'ionic-native';
- *
- *
- *  AppVersion.getAppName();
- *  AppVersion.getPackageName();
- *  AppVersion.getVersionCode();
- *  AppVersion.getVersionNumber();
- * ```
- */
 var AppVersion = (function () {
     function AppVersion() {
     }
@@ -67744,23 +66282,6 @@ var __decorate$8 = (undefined && undefined.__decorate) || function (decorators, 
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Badge
- * @description
- * The essential purpose of badge numbers is to enable an application to inform its users that it has something for them — for example, unread messages — when the application isn’t running in the foreground.
- *
- * Requires Cordova plugin: cordova-plugin-badge. For more info, please see the [Badge plugin docs](https://github.com/katzer/cordova-plugin-badge).
- *
- * @usage
- * ```typescript
- * import { Badge } from 'ionic-native';
- *
- *
- * Badge.set(10);
- * Badge.increase();
- * Badge.clear();
- * ```
- */
 var Badge$1 = (function () {
     function Badge() {
     }
@@ -67838,55 +66359,6 @@ var __decorate$9 = (undefined && undefined.__decorate) || function (decorators, 
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name BackgroundGeolocation
- * @description
- * This plugin provides foreground and background geolocation with battery-saving "circular region monitoring" and "stop detection". For
- * more detail, please see https://github.com/mauron85/cordova-plugin-background-geolocation
- *
- * @usage
- *
- * ```typescript
- * import { BackgroundGeolocation } from 'ionic-native';
- *
- *
- * // When device is ready :
- * platform.ready().then(() => {
- *     // IMPORTANT: BackgroundGeolocation must be called within app.ts and or before Geolocation. Otherwise the platform will not ask you for background tracking permission.
- *
- *     // BackgroundGeolocation is highly configurable. See platform specific configuration options
- *     let config = {
- *             desiredAccuracy: 10,
- *             stationaryRadius: 20,
- *             distanceFilter: 30,
- *             debug: true, //  enable this hear sounds for background-geolocation life-cycle.
- *             stopOnTerminate: false, // enable this to clear background location settings when the app terminates
- *     };
- *
- *     BackgroundGeolocation.configure((location) => {
-         console.log('[js] BackgroundGeolocation callback:  ' + location.latitude + ',' + location.longitude);
-
-          // IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
-          // and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
-          // IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
-          BackgroundGeolocation.finish(); // FOR IOS ONLY
-
- *      }, (error) => {
- *        console.log('BackgroundGeolocation error');
- *      }, config);
- *
- *     // Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
- *     BackgroundGeolocation.start();
- * })
- *
- * // If you wish to turn OFF background-tracking, call the #stop method.
- * BackgroundGeolocation.stop();
- *
- * ```
- * @interfaces
- * Location
- * Config
- */
 var BackgroundGeolocation = (function () {
     function BackgroundGeolocation() {
     }
@@ -68156,31 +66628,6 @@ var __decorate$10 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
-* @name Background Mode
-* @description
-* Cordova plugin to prevent the app from going to sleep while in background.
-*  Requires Cordova plugin: cordova-plugin-background-mode. For more info about plugin, vist: https://github.com/katzer/cordova-plugin-background-mode#android-customization
-*@usage
-* ```typescript
-* import { BackgroundMode } from 'ionic-native';
-*
-* BackgroundMode.enable();
-* ```
-*
-* @advanced
-*
-* Configuration options
-*
-* | Property | Type      | Description                                                                  |
-* |----------|-----------|------------------------------------------------------------------------------|
-* | title    | `string`  | Title of the background task. Optional                                       |
-* | ticker   | `string`  | The text that scrolls itself on the statusbar. Optional                      |
-* | text     | `string`  | Description of the background task. Optional                                 |
-* | silent   | `boolean` | If the plugin will display a notification or not. Default is false. Optional |
-* | resume   | `boolean` | Bring the app into the foreground if the notification is tapped. Optional    |
-*
-*/
 var BackgroundMode = (function () {
     function BackgroundMode() {
     }
@@ -68281,25 +66728,6 @@ var __decorate$11 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Barcode Scanner
- * @description
- * The Barcode Scanner Plugin opens a camera view and automatically scans a barcode, returning the data back to you.
- *
- * Requires Cordova plugin: `phonegap-plugin-barcodescanner`. For more info, please see the [BarcodeScanner plugin docs](https://github.com/phonegap/phonegap-plugin-barcodescanner).
- *
- * @usage
- * ```typescript
- * import { BarcodeScanner } from 'ionic-native';
- *
- *
- * BarcodeScanner.scan().then((barcodeData) => {
- *  // Success! Barcode data is here
- * }, (err) => {
- * 	// An error occurred
- * });
- * ```
- */
 var BarcodeScanner = (function () {
     function BarcodeScanner() {
     }
@@ -68350,20 +66778,6 @@ var __decorate$12 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Base64 To Gallery
- * @description This plugin allows you to save base64 data as a png image into the device
- * @usage
- * ```typescript
- * import { Base64ToGallery } from 'ionic-native';
- *
- *
- * Base64ToGallery.base64ToGallery(base64Data, 'img_').then(
- *   res => console.log('Saved image to gallery ', res),
- *   err => console.log('Error saving image to gallery ', err)
- * );
- * ```
- */
 var Base64ToGallery = (function () {
     function Base64ToGallery() {
     }
@@ -68399,28 +66813,6 @@ var __decorate$13 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Battery Status
- * @description
- * Requires Cordova plugin: cordova-plugin-batterystatus. For more info, please see the [BatteryStatus plugin docs](https://github.com/apache/cordova-plugin-battery-status).
- *
- * @usage
- * ```typescript
- * import { BatteryStatus } from 'ionic-native';
- *
- *
- * // watch change in battery status
- * let subscription = BatteryStatus.onChange().subscribe(
- *  (status: StatusObject) => {
- *    console.log(status.level, status.isPlugged);
- *  }
- * );
- *
- * // stop watch
- * subscription.unsubscribe();
- *
- * ```
- */
 var BatteryStatus = (function () {
     function BatteryStatus() {
     }
@@ -68473,23 +66865,6 @@ var __decorate$14 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Brightness
- * @description
- * The Brightness plugin let you control the display brightness of your device.
- *
- * Requires Cordova plugin: `cordova-plugin-brightness`. For more info, please see the [Brightness plugin docs](https://github.com/mgcrea/cordova-plugin-brightness).
- *
- * @usage
- * ```typescript
- * import { Brightness } from 'ionic-native';
- *
- *
- * let brightnessValue: number = 0.8;
- * Brightness.setBrightness(brightnessValue);
- * ```
- *
- */
 var Brightness = (function () {
     function Brightness() {
     }
@@ -68537,164 +66912,6 @@ var __decorate$15 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name BLE
- * @description
- * This plugin enables communication between a phone and Bluetooth Low Energy (BLE) peripherals.
- *
- * The plugin provides a simple JavaScript API for iOS and Android.
- *
- * - Scan for peripherals
- * - Connect to a peripheral
- * - Read the value of a characteristic
- * - Write new value to a characteristic
- * - Get notified when characteristic's value changes
- *
- * Advertising information is returned when scanning for peripherals. Service, characteristic, and property info is returned when connecting to a peripheral. All access is via service and characteristic UUIDs. The plugin manages handles internally.
- *
- * Simultaneous connections to multiple peripherals are supported.
- *
- * @usage
- *
- * ## Peripheral Data
- *
- * Peripheral Data is passed to the success callback when scanning and connecting. Limited data is passed when scanning.
- *
- * ```typescript
- *   {
- *       "name": "Battery Demo",
- *       "id": "20:FF:D0:FF:D1:C0",
- *       "advertising": [2,1,6,3,3,15,24,8,9,66,97,116,116,101,114,121],
- *       "rssi": -55
- *   }
- * ```
- * After connecting, the peripheral object also includes service, characteristic and descriptor information.
- *
- * ```typescript
- *   {
- *       "name": "Battery Demo",
- *       "id": "20:FF:D0:FF:D1:C0",
- *       "advertising": [2,1,6,3,3,15,24,8,9,66,97,116,116,101,114,121],
- *       "rssi": -55,
- *       "services": [
- *           "1800",
- *           "1801",
- *           "180f"
- *       ],
- *       "characteristics": [
- *           {
- *               "service": "1800",
- *               "characteristic": "2a00",
- *               "properties": [
- *                   "Read"
- *               ]
- *           },
- *           {
- *               "service": "1800",
- *               "characteristic": "2a01",
- *               "properties": [
- *                   "Read"
- *               ]
- *           },
- *           {
- *               "service": "1801",
- *               "characteristic": "2a05",
- *               "properties": [
- *                   "Read"
- *               ]
- *           },
- *           {
- *               "service": "180f",
- *               "characteristic": "2a19",
- *               "properties": [
- *                   "Read"
- *               ],
- *               "descriptors": [
- *                   {
- *                       "uuid": "2901"
- *                   },
- *                   {
- *                       "uuid": "2904"
- *                   }
- *               ]
- *           }
- *       ]
- *   }
- * ```
- *
- * ## Advertising Data
- * Bluetooth advertising data is returned in when scanning for devices. The format format varies depending on your platform. On Android advertising data will be the raw advertising bytes. iOS does not allow access to raw advertising data, so a dictionary of data is returned.
- *
- * The advertising information for both Android and iOS appears to be a combination of advertising data and scan response data.
- *
- * ### Android
- *
- * ```typescript
- *   {
- *       "name": "demo",
- *       "id": "00:1A:7D:DA:71:13",
- *       "advertising": ArrayBuffer,
- *      "rssi": -37
- *  }
- * ```
- *
- * Convert the advertising info to a Uint8Array for processing. `var adData = new Uint8Array(peripheral.advertising)`
- *
- * ### iOS
- *
- * Note that iOS uses the string value of the constants for the [Advertisement Data Retrieval Keys](https://developer.apple.com/library/ios/documentation/CoreBluetooth/Reference/CBCentralManagerDelegate_Protocol/index.html#//apple_ref/doc/constant_group/Advertisement_Data_Retrieval_Keys). This will likely change in the future.
- *
- * ```typescript
- *   {
- *       "name": "demo",
- *       "id": "D8479A4F-7517-BCD3-91B5-3302B2F81802",
- *       "advertising": {
- *           "kCBAdvDataChannel": 37,
- *           "kCBAdvDataServiceData": {
- *               "FED8": {
- *                   "byteLength": 7 // data not shown
- *               }
- *           },
- *           "kCBAdvDataLocalName": "demo",
- *           "kCBAdvDataServiceUUIDs": ["FED8"],
- *           "kCBAdvDataManufacturerData": {
- *               "byteLength": 7  // data not shown
- *           },
- *           "kCBAdvDataTxPowerLevel": 32,
- *           "kCBAdvDataIsConnectable": true
- *       },
- *       "rssi": -53
- *   }
- * ```
- *
- * ## Typed Arrays
- *
- * This plugin uses typed Arrays or ArrayBuffers for sending and receiving data.
- *
- * This means that you need convert your data to ArrayBuffers before sending and from ArrayBuffers when receiving.
- *
- * ```typescript
- *   // ASCII only
- *   function stringToBytes(string) {
- *      var array = new Uint8Array(string.length);
- *      for (var i = 0, l = string.length; i < l; i++) {
- *          array[i] = string.charCodeAt(i);
- *       }
- *       return array.buffer;
- *   }
- *
- *   // ASCII only
- *   function bytesToString(buffer) {
- *       return String.fromCharCode.apply(null, new Uint8Array(buffer));
- *   }
- * ```
- * You can read more about typed arrays in these articles on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) and [HTML5 Rocks](http://www.html5rocks.com/en/tutorials/webgl/typed_arrays/).
- *
- * ## UUIDs
- *
- * UUIDs are always strings and not numbers. Some 16-bit UUIDs, such as '2220' look like integers, but they're not. (The integer 2220 is 0x8AC in hex.) This isn't a problem with 128 bit UUIDs since they look like strings 82b9e6e1-593a-456f-be9b-9215160ebcac. All 16-bit UUIDs should also be passed to methods as strings.
- *
- */
 var BLE = (function () {
     function BLE() {
     }
@@ -68971,32 +67188,6 @@ var __decorate$16 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Bluetooth Serial
- * @description This plugin enables serial communication over Bluetooth. It was written for communicating between Android or iOS and an Arduino.
- * @usage
- * ```typescript
- * import { BluetoothSerial } from 'ionic-native';
- *
- *
- * // Write a string
- * BluetoothSerial.write("hello world").then(success, failure);
- *
- * // Array of int or bytes
- * BluetoothSerial.write([186, 220, 222]).then(success, failure);
- *
- * // Typed Array
- * var data = new Uint8Array(4);
- * data[0] = 0x41;
- * data[1] = 0x42;
- * data[2] = 0x43;
- * data[3] = 0x44;
- * BluetoothSerial.write(data).then(success, failure);
- *
- * // Array Buffer
- * BluetoothSerial.write(data.buffer).then(success, failure);
- * ```
- */
 var BluetoothSerial = (function () {
     function BluetoothSerial() {
     }
@@ -69224,27 +67415,6 @@ var __decorate$17 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Calendar
- * @description
- * This plugin allows you to add events to the Calendar of the mobile device.
- *
- * Requires Cordova plugin: `cordova-plugin-calendar`. For more info, please see the [Calendar plugin docs](https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin).
- *
- *
- * @usage
- * ```
- * import {Calendar} from 'ionic-native';
- *
- *
- *
- * Calendar.createCalendar('MyCalendar').then(
- *   (msg) => { console.log(msg); },
- *   (err) => { console.log(err); }
- * );
- * ```
- *
- */
 var Calendar = (function () {
     function Calendar() {
     }
@@ -69256,7 +67426,7 @@ var Calendar = (function () {
      * - You're using Android < 6, or
      * - You've already granted permission
      *
-     * If this returns false, you should call `requestReadWritePermissions` function
+     * If this returns false, you should call the `requestReadWritePermission` function
      * @returns {Promise<boolean>}
      */
     Calendar.hasReadWritePermission = function () { return; };
@@ -69569,21 +67739,6 @@ var __decorate$18 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name CallNumber
- * @description
- * Call a number directly from your Cordova/Ionic application.
- *
- * @usage
- * ```
- * import {CallNumber} from 'ionic-native';
- *
- * CallNumber.callNumber(18001010101, true)
- *   .then(() => console.log('Launched dialer!'))
- *   .catch(() => console.log('Error launching dialer'));
- *
- * ```
- */
 var CallNumber = (function () {
     function CallNumber() {
     }
@@ -69617,30 +67772,6 @@ var __decorate$19 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Camera
- * @description
- * Take a photo or capture video.
- *
- * Requires {@link module:driftyco/ionic-native} and the Cordova plugin: `cordova-plugin-camera`. For more info, please see the [Cordova Camera Plugin Docs](https://github.com/apache/cordova-plugin-camera).
- *
- * @usage
- * ```typescript
- * import { Camera } from 'ionic-native';
- *
- *
- * Camera.getPicture(options).then((imageData) => {
- *  // imageData is either a base64 encoded string or a file URI
- *  // If it's base64:
- *  let base64Image = 'data:image/jpeg;base64,' + imageData;
- * }, (err) => {
- *  // Handle error
- * });
- * ```
- * @interfaces
- * CameraOptions
- * CameraPopoverOptions
- */
 var Camera = (function () {
     function Camera() {
     }
@@ -69752,60 +67883,6 @@ var __decorate$20 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name CameraPreview
- * @description
- * Showing camera preview in HTML
- *
- * For more info, please see the [Cordova Camera Preview Plugin Docs](https://github.com/cordova-plugin-camera-preview/cordova-plugin-camera-preview).
- *
- * @usage
- * ```
- * import { CameraPreview } from 'ionic-native';
- *
- * // camera options (Size and location)
- * let cameraRect: CameraPreviewRect = {
- *   x: 100,
- *   y: 100,
- *   width: 200,
- *   height: 200
- * };
- *
- *
- * // start camera
- * CameraPreview.startCamera(
- *   cameraRect, // position and size of preview
- *   'front', // default camera
- *   true, // tape to take picture
- *   false, // disable drag
- *   true // send the preview to the back of the screen so we can add overlaying elements
- * );
- *
- * // Set the handler to run every time we take a picture
- * CameraPreview.setOnPictureTakenHandler().subscribe((result) => {
- *   console.log(result);
- *   // do something with the result
- * });
- *
- *
- * // take a picture
- * CameraPreview.takePicture({
- *   maxWidth: 640,
- *   maxHeight: 640
- * });
- *
- * // Switch camera
- * CameraPreview.switchCamera();
- *
- * // set color effect to negative
- * CameraPreview.setColorEffect('negative');
- *
- * // Stop the camera preview
- * CameraPreview.stopCamera();
- *
- * ```
- *
- */
 var CameraPreview = (function () {
     function CameraPreview() {
     }
@@ -69852,26 +67929,10 @@ var CameraPreview = (function () {
     CameraPreview.hide = function () { };
     
     /**
-     * Set the default mode for the Flash.
-     */
-    // @Cordova({
-    //   sync: true
-    // })
-    // static setFlashMode(mode: number): void { };
-    /**
      * Set camera color effect.
      */
     CameraPreview.setColorEffect = function (effect) { };
     
-    /**
-     * @private
-     * @enum {number}
-     */
-    CameraPreview.FlashMode = {
-        OFF: 0,
-        ON: 1,
-        AUTO: 2
-    };
     __decorate$20([
         Cordova({
             sync: true
@@ -69916,7 +67977,7 @@ var CameraPreview = (function () {
         Plugin({
             plugin: 'cordova-plugin-camera-preview',
             pluginRef: 'cordova.plugins.camerapreview',
-            repo: 'https://github.com/cordova-plugin-camera-preview/cordova-plugin-camera-preview',
+            repo: 'https://github.com/westonganger/cordova-plugin-camera-preview',
             platforms: ['Android', 'iOS']
         })
     ], CameraPreview);
@@ -69929,29 +67990,6 @@ var __decorate$21 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name CardIO
- * @description
- * @usage
- * ```
- * import { CardIO } from 'ionic-native';
- *
- *
- * CardIO.canScan()
- *   .then(
- *     (res: boolean) => {
- *       if(res){
- *         let options = {
- *           requireExpiry: true,
- *           requireCCV: false,
- *           requirePostalCode: false
- *         };
- *         CardIO.scan(options);
- *       }
- *     }
- *   );
- * ```
- */
 var CardIO = (function () {
     function CardIO() {
     }
@@ -69996,32 +68034,6 @@ var __decorate$22 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Clipboard
- * @description
- * Clipboard management plugin for Cordova that supports iOS, Android, and Windows Phone 8.
- *
- * Requires Cordova plugin: https://github.com/VersoSolutions/CordovaClipboard
- * For more info, please see the [Clipboard plugin docs](https://github.com/VersoSolutions/CordovaClipboard.git).
- *
- * @usage
- * ```typescript
- * import { Clipboard } from 'ionic-native';
- *
- *
- * Clipboard.copy('Hello world');
- *
- * Clipboard.paste().then(
- *    (resolve: string) => {
- *     alert(resolve);
- *     },
- *     (reject: string) => {
- *     alert('Error: ' + reject);
- *     }
- *     );
- * );
- * ```
- */
 var Clipboard = (function () {
     function Clipboard() {
     }
@@ -70059,9 +68071,6 @@ var __decorate$23 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * Defines the possible result statuses of the window.codePush.sync operation.
- */
 var SyncStatus;
 (function (SyncStatus) {
     /**
@@ -70254,9 +68263,6 @@ var __decorate$24 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @private
- */
 var Contact = (function () {
     function Contact() {
         this._objectInstance = navigator.contacts.create();
@@ -70750,22 +68756,6 @@ var __decorate$25 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Crop
- * @description Crops images
- * @usage
- * ```
- * import {Crop} from 'ionic-native';
- *
- * ...
- *
- * Crop.crop('path/to/image.jpg', {quality: 75})
- *   .then(
- *     newImage => console.log("new image path is: " + newImage),
- *     error => console.error("Error cropping image", error)
- *   );
- * ```
- */
 var Crop = (function () {
     function Crop() {
     }
@@ -70797,30 +68787,6 @@ var __decorate$26 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Date Picker
- * @description
- * The DatePicker plugin allows the user to fetch date or time using native dialogs.
- *
- * Platforms supported: iOS, Android, Windows
- *
- * Requires Cordova plugin: `cordova-plugin-datepicker`. For more info, please see the [DatePicker plugin docs](https://github.com/VitaliiBlagodir/cordova-plugin-datepicker).
- *
- * @usage
- * ```typescript
- * import { DatePicker } from 'ionic-native';
- *
- *
- * DatePicker.show({
- *   date: new Date(),
- *   mode: 'date'
- * }).then(
- *   date => console.log('Got date: ', date),
- *   err => console.log('Error occurred while getting date: ', err)
- * );
- * ```
- *
- */
 var DatePicker = (function () {
     function DatePicker() {
     }
@@ -70849,34 +68815,6 @@ var __decorate$27 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name DB Meter
- * @description This plugin defines a global DBMeter object, which permits to get the decibel values from the microphone.
- * @usage
- * ```typescript
- * import { DBMeter } from 'ionic-native';
- *
- *
- * // Start listening
- * let subscription = DBMeter.start().subscribe(
- *   data => console.log(data)
- * );
- *
- * // Check if we are listening
- * DBMeter.isListening().then(
- *   (isListening: boolean) => console.log(isListening)
- * );
- *
- * // Stop listening
- * subscription.unsubscribe();
- *
- * // Delete DBMeter instance from memory
- * DBMeter.delete().then(
- *   () => console.log('Deleted DB Meter instance'),
- *   error => console.log('Error occurred while deleting DB Meter instance')
- * );
- * ```
- */
 var DBMeter = (function () {
     function DBMeter() {
     }
@@ -70932,17 +68870,6 @@ var __decorate$28 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Ionic Deeplinks
- * @description This plugin handles deeplinks on iOS and Android for both custom URL scheme links
- * and Universal App Links.
- *
- * @usage
- * ```typescript
- * import { IonicDeeplinks } from 'ionic-native';
- *
- * ```
- */
 var Deeplinks = (function () {
     function Deeplinks() {
     }
@@ -71004,19 +68931,6 @@ var __decorate$29 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Device
- * @description
- * Access information about the underlying device and platform.
- *
- * @usage
- * ```typescript
- * import { Device } from 'ionic-native';
- *
- *
- * console.log('Device UUID is: ' + Device.device.uuid);
- * ```
- */
 var Device = (function () {
     function Device() {
     }
@@ -71097,32 +69011,6 @@ var __decorate$31 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Device Motion
- * @description
- * Requires Cordova plugin: `cordova-plugin-device-motion`. For more info, please see the [Device Motion docs](https://github.com/apache/cordova-plugin-device-motion).
- *
- * @usage
- * ```typescript
- * import { DeviceMotion } from 'ionic-native';
- *
- *
- * // Get the device current acceleration
- * DeviceMotion.getCurrentAcceleration().then(
- *   (acceleration: AccelerationData) => console.log(acceleration),
- *   (error: any) => console.log(error)
- * );
- *
- * // Watch device acceleration
- * var subscription = DeviceMotion.watchAcceleration().subscribe((acceleration: AccelerationData) => {
- *   console.log(acceleration);
- * });
- *
- * // Stop watch
- * subscription.unsubscribe();
- *
- * ```
- */
 var DeviceMotion = (function () {
     function DeviceMotion() {
     }
@@ -71163,32 +69051,6 @@ var __decorate$32 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Device Orientation
- * @description
- * Requires Cordova plugin: `cordova-plugin-device-orientation`. For more info, please see the [Device Orientation docs](https://github.com/apache/cordova-plugin-device-orientation).
- *
- * @usage
- * ```typescript
- * // CompassHeading is an interface for compass
- * import { DeviceOrientation, CompassHeading } from 'ionic-native';
- *
- *
- * // Get the device current compass heading
- * DeviceOrientation.getCurrentHeading().then(
- *   (data: CompassHeading) => console.log(data),
- *   (error: any) => console.log(error)
- * );
- *
- * // Watch the device compass heading change
- * var subscription = DeviceOrientation.watchHeading().subscribe(
- *   (data: CompassHeading) => console.log(data)
- * );
- *
- * // Stop watching heading change
- * subscription.unsubscribe();
- * ```
- */
 var DeviceOrientation = (function () {
     function DeviceOrientation() {
     }
@@ -71231,34 +69093,6 @@ var __decorate$33 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Diagnostic
- * @description
- * Checks whether device hardware features are enabled or available to the app, e.g. camera, GPS, wifi
- *
- * @usage
- * ```typescript
- * import { Diagnostic } from 'ionic-native';
- *
- * let successCallback = (isAvailable) => { console.log('Is available? ' + isAvailable); };
- * let errorCallback = (e) => console.error(e);
- *
- * Diagnostic.isCameraAvailable().then(successCallback).catch(errorCallback);
- *
- * Diagnostic.isBluetoothAvailable().then(successCallback, errorCallback);
- *
- *
- * Diagnostic.getBluetoothState()
- *   .then((state) => {
- *     if (state == Diagnostic.bluetoothStates.POWERED_ON){
- *       // do something
- *     } else {
- *       // do something else
- *     }
- *   }).catch(e => console.error(e));
- *
- * ```
- */
 var Diagnostic = (function () {
     function Diagnostic() {
     }
@@ -71841,22 +69675,6 @@ var __decorate$34 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Dialogs
- * @description
- * This plugin gives you ability to access and customize the device native dialogs.
- *
- * Requires Cordova plugin: `cordova-plugin-dialogs`. For more info, please see the [Dialogs plugin docs](https://github.com/apache/cordova-plugin-dialogs).
- *
- * @usage
- * ```typescript
- * import { Dialogs } from 'ionic-native';
- *
- *
- *
- *
- * ```
- */
 var Dialogs = (function () {
     function Dialogs() {
     }
@@ -71942,46 +69760,6 @@ var __decorate$35 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Email Composer
- * @description
- *
- * Requires Cordova plugin: cordova-plugin-email-composer. For more info, please see the [Email Composer plugin docs](https://github.com/hypery2k/cordova-email-plugin).
- *
- * DISCLAIMER: This plugin is experiencing issues with the latest versions of Cordova. Use at your own risk. Functionality is not guaranteed. Please stay tuned for a more stable version.
- * A good alternative to this plugin is the social sharing plugin.
- *
- * @usage
- * ```typescript
- * import { EmailComposer } from 'ionic-native';
- *
- *
- * EmailComposer.isAvailable().then((available: boolean) =>{
- *  if(available) {
- *    //Now we know we can send
- *  }
- * });
- *
- * let email = {
- *   to: 'max@mustermann.de',
- *   cc: 'erika@mustermann.de',
- *   bcc: ['john@doe.com', 'jane@doe.com'],
- *   attachments: [
- *     'file://img/logo.png',
- *     'res://icon.png',
- *     'base64:icon.png//iVBORw0KGgoAAAANSUhEUg...',
- *     'file://README.pdf'
- *   ],
- *   subject: 'Cordova Icons',
- *   body: 'How are you? Nice greetings from Leipzig',
- *   isHtml: true
- * };
- *
- * // Send a text message using default options
- * EmailComposer.open(email);
- *
- * ```
- */
 var EmailComposer = (function () {
     function EmailComposer() {
     }
@@ -72056,13 +69834,6 @@ var __decorate$36 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name EstimoteBeacons
- *
- * @description
- * This plugin enables communication between a phone and Estimote Beacons peripherals.
- *
- */
 var EstimoteBeacons = (function () {
     function EstimoteBeacons() {
     }
@@ -72547,83 +70318,6 @@ var __decorate$37 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Facebook
- * @description
- * Use the Facebook Connect plugin to obtain access to the native FB application on iOS and Android.
- *
- * Requires Cordova plugin: `cordova-plugin-facebook4`. For more info, please see the [Facebook Connect](https://github.com/jeduan/cordova-plugin-facebook4).
- *
- * #### Installation
- *
- *  To use the FB plugin, you first have to create a new Facebook App inside of the Facebook developer portal at [https://developers.facebook.com/apps](https://developers.facebook.com/apps).
- *
- * [![fb-getstarted-1](/img/docs/native/Facebook/1.png)](https://developers.facebook.com/apps/)
- *
- * Retrieve the `App ID` and `App Name`.
- *
- * [![fb-getstarted-2](/img/docs/native/Facebook/2.png)](https://developers.facebook.com/apps/)
- *
- * Then type in the following command in your Terminal, where APP_ID and APP_NAME are the values from the Facebook Developer portal.
- *
- * ```bash
- *  ionic plugin add cordova-plugin-facebook4 --save --variable APP_ID="123456789" --variable APP_NAME="myApplication"
- * ```
- *
- * After, you'll need to add the native platforms you'll be using to your app in the Facebook Developer portal under your app's Settings:
- *
- * [![fb-getstarted-3](/img/docs/native/Facebook/3.png)](https://developers.facebook.com/apps/)
- *
- * Click `'Add Platform'`.
- *
- * [![fb-getstarted-4](/img/docs/native/Facebook/4.png)](https://developers.facebook.com/apps/)
- *
- * At this point you'll need to open your project's [`config.xml`](https://cordova.apache.org/docs/en/latest/config_ref/index.html) file, found in the root directory of your project.
- *
- * Take note of the `id` for the next step:
- * ```
- * <widget id="com.mycompany.testapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
- * ```
- *
- * You can also edit the `id` to whatever you'd like it to be.
- *
- * #### iOS Install
- * Under 'Bundle ID', add the `id` from your `config.xml` file:
- *
- * [![fb-getstarted-5](/img/docs/native/Facebook/5.png)](https://developers.facebook.com/apps/)
- *
- *
- * #### Android Install
- * Under 'Google Play Package Name', add the `id` from your `config.xml` file:
- *
- * [![fb-getstarted-6](/img/docs/native/Facebook/6.png)](https://developers.facebook.com/apps/)
- *
- *
- * And that's it! You can now make calls to Facebook using the plugin.
- *
- * ## Events
- *
- * App events allow you to understand the makeup of users engaging with your app, measure the performance of your Facebook mobile app ads, and reach specific sets of your users with Facebook mobile app ads.
- *
- * - [iOS] [https://developers.facebook.com/docs/ios/app-events](https://developers.facebook.com/docs/ios/app-events)
- * - [Android] [https://developers.facebook.com/docs/android/app-events](https://developers.facebook.com/docs/android/app-events)
- * - [JS] Does not have an Events API, so the plugin functions are empty and will return an automatic success
- *
- * Activation events are automatically tracked for you in the plugin.
- *
- * Events are listed on the [insights page](https://www.facebook.com/insights/).
- *
- * For tracking events, see `logEvent` and `logPurchase`.
- *
- * @usage
- * ```typescript
- * import { Facebook } from 'ionic-native';
- *
- *
- *
- * ```
- *
- */
 var Facebook = (function () {
     function Facebook() {
     }
@@ -72808,27 +70502,6 @@ var __decorate$38 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name File
- * @description
- * This plugin implements a File API allowing read/write access to files residing on the device.
- *
- * The File class implements static convenience functions to access files and directories.
- *
- * Example:
- * ```
- * import { File } from 'ionic-native';
- *
- * declare var cordova: any;
- * const fs:string = cordova.file.dataDirectory;
- * File.checkDir(this.fs, 'mydir').then(_ => console.log('yay')).catch(err => console.log('boooh'));
- * ```
- *
- *  This plugin is based on several specs, including : The HTML5 File API http://www.w3.org/TR/FileAPI/
- *  The (now-defunct) Directories and System extensions Latest: http://www.w3.org/TR/2012/WD-file-system-api-20120417/
- *  Although most of the plugin code was written when an earlier spec was current: http://www.w3.org/TR/2011/WD-file-system-api-20110419/
- *  It also implements the FileWriter spec : http://dev.w3.org/2009/dap/file-system/file-writer.html
- */
 var File = (function () {
     function File() {
     }
@@ -73587,22 +71260,6 @@ var __decorate$39 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name FileChooser
- * @description
- *
- * Opens the file picker on Android for the user to select a file, returns a file URI.
- *
- * @usage
- * ```
- * import {FileChooser} from 'ionic-native';
- *
- * FileChooser.open()
- *   .then(uri => console.log(uri);
- *   .catch(e => console.log(e);
- *
- * ```
- */
 var FileChooser = (function () {
     function FileChooser() {
     }
@@ -73630,19 +71287,6 @@ var __decorate$40 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name FileOpener
- * @description
- * This plugin will open a file on your device file system with its default application.
- *
- * @usage
- * ```
- * import {FileOpener} from 'ionic-native';
- *
- *
- *
- * ```
- */
 var FileOpener = (function () {
     function FileOpener() {
     }
@@ -73699,52 +71343,6 @@ var __decorate$41 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Transfer
- *
- * @description
- * This plugin allows you to upload and download files.
- *
- * @usage
- * ```typescript
- * import { Transfer } from 'ionic-native';
- *
- *
- * // Create instance:
- * const fileTransfer = new Transfer();
- *
- * // Upload a file:
- * fileTransfer.upload(..).then(..).catch(..);
- *
- * // Download a file:
- * fileTransfer.download(..).then(..).catch(..);
- *
- * // Abort active transfer:
- * fileTransfer.abort();
- *
- * E.g
- *
- * upload(){
- *   const fileTransfer = new Transfer();
- *   var options: any;
- *
- *   options = {
- *      fileKey: 'file',
- *      fileName: 'name.jpg',
- *      headers: {}
- *      .....
- *   }
- *   fileTransfer.upload("<file path>", "<api endpoint>", options)
- *    .then((data) => {
- *      // success
- *    }, (err) => {
- *      // error
- *    })
- * }
- *
- * ```
- *
- */
 var Transfer = (function () {
     function Transfer() {
         this._objectInstance = new FileTransfer();
@@ -73835,20 +71433,6 @@ var __decorate$42 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Flashlight
- * @description This plugin allows you to switch the flashlight / torch of the device on and off.
- *
- * Requires Cordova plugin: `cordova-plugin-flashlight`. For more info, please see the [Flashlight plugin docs](https://github.com/EddyVerbruggen/Flashlight-PhoneGap-Plugin).
- *
- * @usage
- * ```typescript
- * import { Flashlight } from 'ionic-native';
- *
- *
- *
- * ```
- */
 var Flashlight = (function () {
     function Flashlight() {
     }
@@ -74008,39 +71592,6 @@ var __decorate$44 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Geolocation
- * @description
- * This plugin provides information about the device's location, such as latitude and longitude. Common sources of location information include Global Positioning System (GPS) and location inferred from network signals such as IP address, RFID, WiFi and Bluetooth MAC addresses, and GSM/CDMA cell IDs.
- *
- *  This API is based on the W3C Geolocation API Specification, and only executes on devices that don't already provide an implementation.
- *
- * @usage
- *
- * ```typescript
- * import { Geolocation } from 'ionic-native';
- *
- *
- * Geolocation.getCurrentPosition().then((resp) => {
- *  // resp.coords.latitude
- *  // resp.coords.longitude
- * }).catch((error) => {
- *   console.log('Error getting location', error);
- * });
- *
- * let watch = Geolocation.watchPosition();
- * watch.subscribe((data) => {
- *  // data can be a set of coordinates, or an error (if an error occurred).
- *  // data.coords.latitude
- *  // data.coords.longitude
- * });
- * ```
- * @interfaces
- * Coordinates
- * Geoposition
- * PositionError
- * GeolocationOptions
- */
 var Geolocation = (function () {
     function Geolocation() {
     }
@@ -74096,16 +71647,6 @@ var __decorate$45 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Globalization
- * @description
- * @usage
- * ```typescript
- * import { Globalization } from 'ionic-native';
- *
- *
- * ```
- */
 var Globalization = (function () {
     function Globalization() {
     }
@@ -74250,16 +71791,6 @@ var __decorate$46 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Google Plus
- * @description
- * @usage
- * ```typescript
- * import { GooglePlus } from 'ionic-native';
- *
- *
- * ```
- */
 var GooglePlus = (function () {
     function GooglePlus() {
     }
@@ -74311,10 +71842,6 @@ var __decorate$47 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @private
- * You can listen to these events where appropriate
- */
 
 /**
  * @private
@@ -74367,11 +71894,23 @@ var __decorate$47 = (undefined && undefined.__decorate) || function (decorators,
  *   });
  * ```
  */
+var pluginMap = {
+    pluginRef: 'plugin.google.maps.Map',
+    plugin: 'cordova-plugin-googlemaps',
+    repo: 'https://github.com/mapsplugin/cordova-plugin-googlemaps',
+    install: 'ionic plugin add cordova-plugin-googlemaps --variable API_KEY_FOR_ANDROID="YOUR_ANDROID_API_KEY_IS_HERE" --variable API_KEY_FOR_IOS="YOUR_IOS_API_KEY_IS_HERE"'
+};
 var GoogleMap = (function () {
     function GoogleMap(element, options) {
-        if (typeof element === 'string')
-            element = document.getElementById(element);
-        this._objectInstance = plugin.google.maps.Map.getMap(element, options);
+        if (!!getPlugin('plugin.google.maps.Map')) {
+            if (typeof element === 'string') {
+                element = document.getElementById(element);
+            }
+            this._objectInstance = plugin.google.maps.Map.getMap(element, options);
+        }
+        else {
+            pluginWarn(pluginMap);
+        }
     }
     /**
      * Checks if a map object has been created and is available.
@@ -74386,6 +71925,11 @@ var GoogleMap = (function () {
      */
     GoogleMap.prototype.on = function (event) {
         var _this = this;
+        if (!this._objectInstance) {
+            return new Observable_2(function (observer) {
+                observer.error({ error: 'plugin_not_installed' });
+            });
+        }
         return new Observable_2(function (observer) {
             _this._objectInstance.on(event, observer.next.bind(observer));
             return function () { return _this._objectInstance.off(event); };
@@ -74398,6 +71942,9 @@ var GoogleMap = (function () {
      */
     GoogleMap.prototype.one = function (event) {
         var _this = this;
+        if (!this._objectInstance) {
+            return Promise.reject({ error: 'plugin_not_installed' });
+        }
         return new Promise(function (resolve) { return _this._objectInstance.one(event, resolve); });
     };
     GoogleMap.prototype.setDebuggable = function (isDebuggable) { };
@@ -74436,6 +71983,9 @@ var GoogleMap = (function () {
     GoogleMap.prototype.setAllGesturesEnabled = function (enabled) { };
     GoogleMap.prototype.addMarker = function (options) {
         var _this = this;
+        if (!this._objectInstance) {
+            return Promise.reject({ error: 'plugin_not_installed' });
+        }
         return new Promise(function (resolve, reject) {
             _this._objectInstance.addMarker(options, function (marker) {
                 if (marker) {
@@ -74449,6 +71999,9 @@ var GoogleMap = (function () {
     };
     GoogleMap.prototype.addCircle = function (options) {
         var _this = this;
+        if (!this._objectInstance) {
+            return Promise.reject({ error: 'plugin_not_installed' });
+        }
         return new Promise(function (resolve, reject) {
             _this._objectInstance.addCircle(options, function (circle) {
                 if (circle) {
@@ -74462,6 +72015,9 @@ var GoogleMap = (function () {
     };
     GoogleMap.prototype.addPolygon = function (options) {
         var _this = this;
+        if (!this._objectInstance) {
+            return Promise.reject({ error: 'plugin_not_installed' });
+        }
         return new Promise(function (resolve, reject) {
             _this._objectInstance.addPolygon(options, function (polygon) {
                 if (polygon) {
@@ -74475,6 +72031,9 @@ var GoogleMap = (function () {
     };
     GoogleMap.prototype.addPolyline = function (options) {
         var _this = this;
+        if (!this._objectInstance) {
+            return Promise.reject({ error: 'plugin_not_installed' });
+        }
         return new Promise(function (resolve, reject) {
             _this._objectInstance.addPolyline(options, function (polyline) {
                 if (polyline) {
@@ -74488,6 +72047,9 @@ var GoogleMap = (function () {
     };
     GoogleMap.prototype.addTileOverlay = function (options) {
         var _this = this;
+        if (!this._objectInstance) {
+            return Promise.reject({ error: 'plugin_not_installed' });
+        }
         return new Promise(function (resolve, reject) {
             _this._objectInstance.addTileOverlay(options, function (tileOverlay) {
                 if (tileOverlay) {
@@ -74501,6 +72063,9 @@ var GoogleMap = (function () {
     };
     GoogleMap.prototype.addGroundOverlay = function (options) {
         var _this = this;
+        if (!this._objectInstance) {
+            return Promise.reject({ error: 'plugin_not_installed' });
+        }
         return new Promise(function (resolve, reject) {
             _this._objectInstance.addGroundOverlay(options, function (groundOverlay) {
                 if (groundOverlay) {
@@ -74514,6 +72079,9 @@ var GoogleMap = (function () {
     };
     GoogleMap.prototype.addKmlOverlay = function (options) {
         var _this = this;
+        if (!this._objectInstance) {
+            return Promise.reject({ error: 'plugin_not_installed' });
+        }
         return new Promise(function (resolve, reject) {
             _this._objectInstance.addKmlOverlay(options, function (kmlOverlay) {
                 if (kmlOverlay) {
@@ -74634,12 +72202,7 @@ var GoogleMap = (function () {
         Cordova()
     ], GoogleMap, "isAvailable", null);
     GoogleMap = __decorate$47([
-        Plugin({
-            pluginRef: 'plugin.google.maps.Map',
-            plugin: 'cordova-plugin-googlemaps',
-            repo: 'https://github.com/mapsplugin/cordova-plugin-googlemaps',
-            install: 'ionic plugin add cordova-plugin-googlemaps --variable API_KEY_FOR_ANDROID="YOUR_ANDROID_API_KEY_IS_HERE" --variable API_KEY_FOR_IOS="YOUR_IOS_API_KEY_IS_HERE"'
-        })
+        Plugin(pluginMap)
     ], GoogleMap);
     return GoogleMap;
 }());
@@ -75132,39 +72695,7 @@ var GoogleMapsLatLngBounds = (function () {
 /**
  * @private
  */
-var GoogleMapsLatLng = (function () {
-    function GoogleMapsLatLng(lat, lng) {
-        this._objectInstance = new plugin.google.maps.LatLng(lat, lng);
-    }
-    Object.defineProperty(GoogleMapsLatLng.prototype, "lat", {
-        get: function () { return; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(GoogleMapsLatLng.prototype, "lng", {
-        get: function () { return; },
-        enumerable: true,
-        configurable: true
-    });
-    GoogleMapsLatLng.prototype.equals = function (other) {
-        return this.lat === other.lat && this.lng === other.lng;
-    };
-    GoogleMapsLatLng.prototype.toString = function () { return; };
-    GoogleMapsLatLng.prototype.toUrlValue = function (precision) {
-        precision = precision || 6;
-        return this.lat.toFixed(precision) + ',' + this.lng.toFixed(precision);
-    };
-    __decorate$47([
-        InstanceProperty
-    ], GoogleMapsLatLng.prototype, "lat", null);
-    __decorate$47([
-        InstanceProperty
-    ], GoogleMapsLatLng.prototype, "lng", null);
-    __decorate$47([
-        CordovaInstance({ sync: true })
-    ], GoogleMapsLatLng.prototype, "toString", null);
-    return GoogleMapsLatLng;
-}());
+
 /**
  * @private
  */
@@ -75175,15 +72706,6 @@ var __decorate$48 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Google Analytics
- * @description
- * This plugin connects to Google's native Universal Analytics SDK
- * Prerequisites:
- * - A Cordova 3.0+ project for iOS and/or Android
- * - A Mobile App property through the Google Analytics Admin Console
- * - (Android) Google Play Services SDK installed via [Android SDK Manager](https://developer.android.com/sdk/installing/adding-packages.html)
- */
 var GoogleAnalytics = (function () {
     function GoogleAnalytics() {
     }
@@ -75387,20 +72909,6 @@ var __decorate$49 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Hotspot
- * @description
- * @usage
- * ```typescript
- * import { Hotspot, Network } from 'ionic-native';
- *
- *
- * Hotspot.scanWifi().then((networks: Array<Network>) => {
- *     console.log(networks);
- * });
- *
- * ```
- */
 var Hotspot = (function () {
     function Hotspot() {
     }
@@ -75640,26 +73148,6 @@ var __decorate$50 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Httpd
- * @description
- * Embedded httpd for Cordova apps. Light weight HTTP server.
- * @usage
- * ```typescript
- * import {Httpd, HttpdOptions} from 'ionic-native';
- *
- * let options: HttpdOptions = {
- *      www_root: 'httpd_root', // relative path to app's www directory
- *      port: 80,
- *      localhost_only: false
- *  };
- *
- * Httpd.startServer(options).subscribe((data) => {
- *  console.log('Server is live');
- * });
- *
- * ```
- */
 var Httpd = (function () {
     function Httpd() {
     }
@@ -75708,51 +73196,6 @@ var __decorate$51 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name IBeacon
- * @description
- * This plugin provides functions for working with iBeacons.
- *
- *  The plugin's API closely mimics the one exposed through the [CLLocationManager](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html) introduced in iOS 7.
- *
- * @usage
- *
- * ```typescript
- * import { IBeacon } from 'ionic-native';
- *
- *
- * // Request permission to use location on iOS
- * IBeacon.requestAlwaysAuthorization();
- * // create a new delegate and register it with the native layer
- * let delegate = IBeacon.Delegate();
- *
- * // Subscribe to some of the delegate's event handlers
- * delegate.didRangeBeaconsInRegion()
- *   .subscribe(
- *     data => console.log('didRangeBeaconsInRegion: ', data),
- *     error => console.error();
- *   );
- * delegate.didStartMonitoringForRegion()
- *   .subscribe(
- *     data => console.log('didStartMonitoringForRegion: ', data),
- *     error => console.error();
- *   );
- * delegate.didEnterRegion()
- *   .subscribe(
- *     data => {
- *       console.log('didEnterRegion: ', data);
- *     }
- *   );
- *
- * let beaconRegion = IBeacon.BeaconRegion('deskBeacon','F7826DA6-ASDF-ASDF-8024-BC5B71E0893E');
- *
- * IBeacon.startMonitoringForRegion(beaconRegion)
- *   .then(
- *     () => console.log('Native layer recieved the request to monitoring'),
- *     error => console.error('Native layer failed to begin monitoring: ', error)
- *   );
- * ```
- */
 var IBeacon = (function () {
     function IBeacon() {
     }
@@ -76197,27 +73640,6 @@ var __decorate$52 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Image Picker
- * @description
- * Cordova Plugin For Multiple Image Selection
- *
- * Requires Cordova plugin: `cordova-plugin-image-picker`.
- * For more info, please see the https://github.com/wymsee/cordova-imagePicker
- *
- * @usage
- * ```typescript
- * import { ImagePicker } from 'ionic-native';
- *
- *
- *
- * ImagePicker.getPictures(options).then((results) => {
- *   for (var i = 0; i < results.length; i++) {
- *       console.log('Image URI: ' + results[i]);
- *   }
- * }, (err) => { });
- * ```
- */
 var ImagePicker = (function () {
     function ImagePicker() {
     }
@@ -76249,36 +73671,6 @@ var __decorate$53 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name ImageResizer
- * @description
- * Cordova Plugin For Image Resize
- *
- * Requires plugin `info.protonet.imageresizer` - use the Ionic CLI and type in the following command:
- * `ionic plugin add https://github.com/protonet/cordova-plugin-image-resizer.git`
- *
- * For more info, please see the https://github.com/protonet/cordova-plugin-image-resizer
- *
- * @usage
- * ```typescript
- * import { ImageResizer, ImageResizerOptions } from 'ionic-native';
- *
- * let options = {
- *  uri: uri,
- *  folderName: 'Protonet',
- *  quality: 90,
- *  width: 1280,
- *  height: 1280
- * } as ImageResizerOptions;
- *
- * ImageResizer
- * .resize(options)
- * .then(
- *  (filePath: string) => { console.log('FilePath', filePath); },
- *  () => { console.log('Error occured'); }
- * )
- * ```
- */
 var ImageResizer = (function () {
     function ImageResizer() {
     }
@@ -76302,23 +73694,6 @@ var __decorate$54 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name InAppBrowser
- * @description Launches in app Browser
- * @usage
- * ```typescript
- * import {InAppBrowser} from 'ionic-native';
- *
- *
- * ...
- *
- *
- * let browser = new InAppBrowser('https://ionic.io', '_system');
- * browser.executeScript(...);
- * browser.insertCSS(...);
- * browser.close();
- * ```
- */
 var InAppBrowser = (function () {
     /**
      * Opens a URL in a new InAppBrowser instance, the current browser instance, or the system browser.
@@ -76399,55 +73774,6 @@ var __decorate$55 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name InAppPurchase
- * @description
- * A lightweight Cordova plugin for in app purchases on iOS/Android.
- *
- * @usage
- * ```ts
- * import {InAppPurchase} from 'ionic-native';
- *
- * InAppPurchase
- *  .getProducts(['com.yourapp.prod1', 'com.yourapp.prod2', ...])
- *  .then((products) => {
- *    console.log(products);
- *     //  [{ productId: 'com.yourapp.prod1', 'title': '...', description: '...', price: '...' }, ...]
- *  })
- *  .catch((err) => {
- *    console.log(err);
- *  });
- *
- *
- * InAppPurchase
- *   .buy('com.yourapp.prod1')
- *   .then((data)=> {
- *     console.log(data);
- *     // {
- *     //   transactionId: ...
- *     //   receipt: ...
- *     //   signature: ...
- *     // }
- *   })
- *   .catch((err)=> {
- *     console.log(err);
- *   });
- *
- * ```
- *
- * @advanced
- *
- * ```ts
- * // fist buy the product...
- * InAppPurchase
- *   .buy('com.yourapp.consumable_prod1')
- *   .then(data => InAppPurchase.consume(data.productType, data.receipt, data.signature))
- *   .then(() => console.log('product was successfully consumed!'))
- *   .catch( err=> console.log(err))
- * ```
- *
- *
- */
 var InAppPurchase = (function () {
     function InAppPurchase() {
     }
@@ -76534,30 +73860,6 @@ var __decorate$56 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Insomnia
- * @description
- * Prevent the screen of the mobile device from falling asleep.
- *
- * @usage
- * ```typescript
- * import { Insomnia } from 'ionic-native';
- *
- *
- * Insomnia.keepAwake()
- *   .then(
- *     () => console.log('success'),
- *     () => console.log('error')
- *   );
- *
- * Insomnia.allowSleepAgain()
- *   .then(
- *     () => console.log('success'),
- *     () => console.log('error')
- *   );
- * ```
- *
- */
 var Insomnia = (function () {
     function Insomnia() {
     }
@@ -76594,20 +73896,6 @@ var __decorate$57 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Instagram
- * @description Share a photo with the instagram app
- *
- * @usage
- * ```
- * import {Instagram} from 'ionic-native';
- *
- * Instagram.share('data:image/png;uhduhf3hfif33', 'Caption')
- *   .then(() => console.log('Shared!'))
- *   .catch((error: any) => console.error(error));
- *
- * ```
- */
 var Instagram = (function () {
     function Instagram() {
     }
@@ -76663,22 +73951,6 @@ var __decorate$58 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name IsDebug
- * @description
- * Detect if the app is running in debug mode or not.
- * Debug mode is when the app is built and installed locally via xcode / eclipse / the cordova cli etc, compared to release mode when the app was downloaded from the app / play store via an end user.
- *
- * @usage
- * ```
- * import {IsDebug} from 'ionic-native';
- *
- * IsDebug.getIsDebug()
- *   .then((isDebug: boolean) => console.log('Is debug:', isDebug))
- *   .catch((error: any) => console.error(error));
- *
- * ```
- */
 var IsDebug = (function () {
     function IsDebug() {
     }
@@ -76708,17 +73980,6 @@ var __decorate$59 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Keyboard
- * @description
- * @usage
- * ```typescript
- * import { Keyboard } from 'ionic-native';
- *
- *
- *
- * ```
- */
 var Keyboard$1 = (function () {
     function Keyboard() {
     }
@@ -76799,29 +74060,6 @@ var __decorate$60 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Launch Navigator
- * @description
- * Requires Cordova plugin: uk.co.workingedge.phonegap.plugin.launchnavigator. For more info, please see the [LaunchNavigator plugin docs](https://github.com/dpa99c/phonegap-launch-navigator).
- *
- * @usage
- * Please refer to the plugin's repo for detailed usage. This docs page only explains the Native wrapper.
- *
- * ```typescript
- * import { LaunchNavigator, LaunchNavigatorOptions } from 'ionic-native';
- *
- * let options: LaunchNavigatorOptions = {
- *   start: 'London, ON',
- *   app: LaunchNavigator.APPS.UBER
- * };
- *
- * LaunchNavigator.navigate('Toronto, ON', options)
- *   .then(
- *     success => console.log('Launched navigator'),
- *     error => console.log('Error launching navigator', error)
- *   );
- * ```
- */
 var LaunchNavigator = (function () {
     function LaunchNavigator() {
     }
@@ -76956,49 +74194,6 @@ var __decorate$61 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Local Notifications
- * @description
- * This plugin allows you to display local notifications on the device
- *
- * @usage
- * ```typescript
- * import { LocalNotifications } from 'ionic-native';
- *
- *
- * // Schedule a single notification
- * LocalNotifications.schedule({
- *   id: 1,
- *   text: 'Single Notification',
- *   sound: isAndroid? 'file://sound.mp3': 'file://beep.caf',
- *   data: { secret: key }
- * });
- *
- *
- * // Schedule multiple notifications
- * LocalNotifications.schedule([{
- *    id: 1,
- *    text: 'Multi Notification 1',
- *    sound: isAndroid ? 'file://sound.mp3': 'file://beep.caf',
- *    data: { secret:key }
- *   },{
- *    id: 2,
- *    title: 'Local Notification Example',
- *    text: 'Multi Notification 2',
- *    icon: 'http://example.com/icon.png'
- * }]);
- *
- *
- * // Schedule delayed notification
- * LocalNotifications.schedule({
- *    text: 'Delayed Notification',
- *    at: new Date(new Date().getTime() + 3600),
- *    led: 'FF0000',
- *    sound: null
- * });
- * ```
- *
- */
 var LocalNotifications = (function () {
     function LocalNotifications() {
     }
@@ -77207,29 +74402,6 @@ var __decorate$62 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name LocationAccuracy
- * @description
- * This Cordova/Phonegap plugin for Android and iOS to request enabling/changing of Location Services by triggering a native dialog from within the app, avoiding the need for the user to leave your app to change location settings manually.
- *
- * @usage
- * ```
- * import { LocationAccuracy } from 'ionic-native';
- *
- * LocationAccuracy.canRequest().then((canRequest: boolean) => {
- *
- *   if(canRequest) {
- *     // the accuracy option will be ignored by iOS
- *     LocationAccuracy.request(LocationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
- *       () => console.log('Request successful'),
- *       error => console.log('Error requesting location permissions', error)
- *     );
- *   }
- *
- * });
- *
- * ```
- */
 var LocationAccuracy = (function () {
     function LocationAccuracy() {
     }
@@ -77286,23 +74458,6 @@ var __decorate$63 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Media Capture
- * @description
- * @usage
- * ```typescript
- * import { MediaCapture } from 'ionic-native';
- *
- *
- * let options: CaptureImageOptions = { limit: 3 };
- * MediaCapture.captureImage(options)
- *   .then(
- *     (data: MediaFile[]) => console.log(data),
- *     (err: CaptureError) => console.error(err)
- *   );
- *
- * ```
- */
 var MediaCapture = (function () {
     function MediaCapture() {
     }
@@ -77414,27 +74569,6 @@ var __decorate$64 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name NativeAudio
- * @description Native Audio Playback
- * @usage
- * ```typescript
- * import {NativeAudio} from 'ionic-native';
- *
- * NativeAudio.preloadSimple('uniqueId1', 'path/to/file.mp3').then(onSuccess, onError);
- * NativeAudio.preloadComplex('uniqueId2', 'path/to/file2.mp3', 1, 1, 0).then(onSuccess, onError);
- *
- * NativeAudio.play('uniqueId1').then(onSuccess, onError);
- * NativeAudio.loop('uniqueId2').then(onSuccess, onError);
- *
- * NativeAudio.setVolumeForComplexAsset('uniqueId2', 0.6).then(onSuccess,onError);
- *
- * NativeAudio.stop('uniqueId1').then(onSuccess,onError);
- *
- * NativeAudio.unload('uniqueId1').then(onSuccess,onError);
- *
- * ```
- */
 var NativeAudio = (function () {
     function NativeAudio() {
     }
@@ -77523,33 +74657,6 @@ var __decorate$65 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name NativePageTransitions
- * @description
- * The Native Page Transitions plugin uses native hardware acceleration to animate your transitions between views. You have complete control over the type of transition, the duration, and direction.
- *
- * @usage
- * ```
- * import {NativePageTransitions, TransitionOptions} from 'ionic-native';
- *
- * let options: TransitionOptions = {
- *    direction: 'up',
- *    duration: 500,
- *    slowdownfactor: 3,
- *    slidePixels: 20,
- *    iosdelay: 100,
- *    androiddelay: 150,
- *    winphonedelay: 250,
- *    fixedPixelsTop: 0,
- *    fixedPixelsBottom: 60
- *  };
- *
- * NativePageTransitions.slide(options)
- *   .then(onSuccess)
- *   .catch(onError);
- *
- * ```
- */
 var NativePageTransitions = (function () {
     function NativePageTransitions() {
     }
@@ -77610,27 +74717,6 @@ var __decorate$66 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name NativeStorage
- * @description Native storage of variables in Android and iOS
- *
- * @usage
- * ```typescript
- * import { NativeStorage } from 'ionic-native';
- *
- * NativeStorage.setItem('myitem', {property: 'value', anotherProperty: 'anotherValue'})
- *   .then(
- *     () => console.log('Stored item!'),
- *     error => console.error('Error storing item', error)
- *   );
- *
- * NativeStorage.getItem('myitem')
- *   .then(
- *     data => console.log(data),
- *     error => console.error(error)
- *   );
- * ```
- */
 var NativeStorage = (function () {
     function NativeStorage() {
     }
@@ -77682,19 +74768,6 @@ var __decorate$67 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Market
- * @description
- * Opens an app's page in the market place (Google Play, App Store)
- *
- * @usage
- * ```
- * import {Market} from 'ionic-native';
- *
- * Market.open('your.package.name');
- *
- * ```
- */
 var Market = (function () {
     function Market() {
     }
@@ -77723,66 +74796,6 @@ var __decorate$68 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name MediaPlugin
- * @description
- * @usage
- * ```typescript
- * import { MediaPlugin } from 'ionic-native';
- *
- *
- *
- * // Create a MediaPlugin instance.  Expects path to file or url as argument
- * var file = new MediaPlugin('path/to/file.mp3');
- *
- * // Catch the Success & Error Output
- * // Platform Quirks
- * // iOS calls success on completion of playback only
- * // Android calls success on completion of playback AND on release()
- * file.init.then(() => {
- *   console.log('Playback Finished');
- * }, (err) => {
- *   console.log('somthing went wrong! error code: ' + err.code + ' message: ' + err.message);
- * });
- *
- * // play the file
- * file.play();
- *
- * // pause the file
- * file.pause();
- *
- * // get current playback position
- * file.getCurrentPosition().then((position) => {
- *   console.log(position);
- * });
- *
- * // get file duration
- * file.getDuration().then((duration) => {
- *   console.log(position);
- * });
- *
- * // skip to 10 seconds (expects int value in ms)
- * file.seekTo(10000);
- *
- * // stop playing the file
- * file.stop();
- *
- * // release the native audio resource
- * // Platform Quirks:
- * // iOS simply create a new instance and the old one will be overwritten
- * // Android you must call release() to destroy instances of media when you are done
- * file.release();
- *
- * // Recording to a file
- * var newFile = new MediaPlugin('path/to/file.mp3');
- * newFile.startRecord();
- *
- * newFile.stopRecord();
- *
- *
- *
- * ```
- */
 var pluginMeta = {
     repo: 'https://github.com/apache/cordova-plugin-media',
     plugin: 'cordova-plugin-media',
@@ -77956,21 +74969,6 @@ var __decorate$69 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Mixpanel
- * @description
- * Cordova Plugin that wraps Mixpanel SDK for Android and iOS
- *
- * @usage
- * ```
- * import {Mixpanel} from 'ionic-native';
- *
- * Mixpanel.init(token)
- *   .then(onSuccess)
- *   .catch(onError);
- *
- * ```
- */
 var Mixpanel = (function () {
     function Mixpanel() {
     }
@@ -78080,78 +75078,6 @@ var __decorate$70 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name MusicControls
- * @description
- * Music controls for Cordova applications.
- * Display a 'media' notification with play/pause, previous, next buttons, allowing the user to control the play.
- * Handle also headset event (plug, unplug, headset button).
- *
- * @usage
- * ```
- * import {MusicControls} from 'ionic-native';
- *
- * MusicControls.create({
- *   track       : 'Time is Running Out',        // optional, default : ''
- *   artist      : 'Muse',                       // optional, default : ''
- *   cover       : 'albums/absolution.jpg',      // optional, default : nothing
- *   // cover can be a local path (use fullpath 'file:///storage/emulated/...', or only 'my_image.jpg' if my_image.jpg is in the www folder of your app)
- *   //           or a remote url ('http://...', 'https://...', 'ftp://...')
- *   isPlaying   : true,                         // optional, default : true
- *   dismissable : true,                         // optional, default : false
- *
- *   // hide previous/next/close buttons:
- *   hasPrev   : false,      // show previous button, optional, default: true
- *   hasNext   : false,      // show next button, optional, default: true
- *   hasClose  : true,       // show close button, optional, default: false
- *
- *   // Android only, optional
- *   // text displayed in the status bar when the notification (and the ticker) are updated
- *   ticker    : 'Now playing "Time is Running Out"'
- *  });
- *
- *  MusicControls.subscribe().subscribe(action => {
- *
- *    switch(action) {
- *        case 'music-controls-next':
- *            // Do something
- *            break;
- *        case 'music-controls-previous':
- *            // Do something
- *            break;
- *        case 'music-controls-pause':
- *            // Do something
- *            break;
- *        case 'music-controls-play':
- *            // Do something
- *            break;
- *        case 'music-controls-destroy':
- *            // Do something
- *            break;
- *
- *        // Headset events (Android only)
- *        case 'music-controls-media-button' :
- *            // Do something
- *            break;
- *        case 'music-controls-headset-unplugged':
- *            // Do something
- *            break;
- *        case 'music-controls-headset-plugged':
- *            // Do something
- *            break;
- *        default:
- *            break;
- *    }
- *
- *  });
- *
- *  MusicControls.listen(); // activates the observable above
- *
- *  MusicControls.updateIsPlaying(true);
- *
- *
- * ```
- */
 var MusicControls = (function () {
     function MusicControls() {
     }
@@ -78213,47 +75139,6 @@ var __decorate$71 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Network
- * @description
- * Requires Cordova plugin: cordova-plugin-network-information. For more info, please see the [Network plugin docs](https://github.com/apache/cordova-plugin-network-information).
- *
- * @usage
- * ```typescript
- * import { Network } from 'ionic-native';
- *
- * // watch network for a disconnect
- * let disconnectSubscription = Network.onDisconnect().subscribe(() => {
- *   console.log('network was disconnected :-(');
- * });
- *
- * // stop disconnect watch
- * disconnectSubscription.unsubscribe();
- *
- *
- * // watch network for a connection
- * let connectSubscription = Network.onConnect().subscribe(() => {
- *   console.log('network connected!');
-
- *   // We just got a connection but we need to wait briefly
- *
-   // before we determine the connection type.  Might need to wait
-
- *   // prior to doing any api requests as well.
- *   setTimeout(() => {
- *     if (Network.connection === 'wifi') {
- *       console.log('we got a wifi connection, woohoo!');
- *     }
- *   }, 3000);
- * });
- *
- * // stop connect watch
- * connectSubscription.unsubscribe();
- *
- * ```
- * @advanced
- * The `connection` property will return one of the following connection types: `unknown`, `ethernet`, `wifi`, `2g`, `3g`, `4g`, `cellular`, `none`
- */
 var Network = (function () {
     function Network() {
     }
@@ -78307,28 +75192,6 @@ var __decorate$72 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name NFC
- * @description
- * The NFC plugin allows you to read and write NFC tags. You can also beam to, and receive from, other NFC enabled devices.
- *
- * Use to
- * - read data from NFC tags
- * - write data to NFC tags
- * - send data to other NFC enabled devices
- * - receive data from NFC devices
- *
- * This plugin uses NDEF (NFC Data Exchange Format) for maximum compatibilty between NFC devices, tag types, and operating systems.
- *
- * @usage
- * ```
- * import {NFC, Ndef} from 'ionic-native';
- *
- * let message = Ndef.textRecord('Hello world');
- * NFC.share([message]).then(onSuccess).catch(onError);
- *
- * ```
- */
 var NFC = (function () {
     function NFC() {
     }
@@ -78485,44 +75348,46 @@ var __decorate$73 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name OneSignal
- * @description
- * The OneSignal plugin is an client implementation for using the [OneSignal](https://onesignal.com/) Service.
- * OneSignal is a simple implementation for delivering push notifications.
- *
- * Requires Cordova plugin: `onesignal-cordova-plugin`. For more info, please see the [OneSignal Cordova Docs](https://documentation.onesignal.com/docs/phonegap-sdk-installation).
- *
- * @usage
- * ```typescript
- * import { OneSignal } from 'ionic-native';
- *
- * OneSignal.init('b2f7f966-d8cc-11e4-bed1-df8f05be55ba',
- *                        {googleProjectNumber: '703322744261'})
- *  .subscribe(jsonData => {
- *    console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
- *  });
- *
- * OneSignal.enableInAppAlertNotification(true);
- * ```
- *
- */
 var OneSignal = (function () {
     function OneSignal() {
     }
     /**
-     * Only required method you need to call to setup OneSignal to receive push notifications. Call this from the `deviceready` event.
+     * Start the initialization process. Once you are done configuring OneSignal, call the endInit function.
      *
-     * @param {string} Your AppId from your OneSignal app
-     * @param {options} The Google Project Number (which you can get from the Google Developer Potal) and the autoRegister option.
-     * @returns {Observable} when a notification is received. Handle your notification action here.
+     * @param {string} appId Your AppId from your OneSignal app
+     * @param {string} googleProjectNumber The Google Project Number (which you can get from the Google Developer Portal) and the autoRegister option.
      */
-    OneSignal.init = function (appId, options) { return; };
+    OneSignal.startInit = function (appId, googleProjectNumber) { return; };
     /**
-     * Call this when you would like to prompt an iOS user to accept push notifications with the default system prompt.
-     * Only use if you passed false to autoRegister when calling init.
+     * Callback to run when a notification is received
+     * @return {Observable<any>}
      */
-    OneSignal.registerForPushNotifications = function () { };
+    OneSignal.handleNotificationReceived = function () { return; };
+    /**
+     * Callback to run when a notification is opened
+     * @return {Observable<any>}
+     */
+    OneSignal.handleNotificationOpened = function () { return; };
+    /**
+     *
+     * @param settings
+     */
+    OneSignal.iOSSettings = function (settings) { return; };
+    OneSignal.endInit = function () { return; };
+    /**
+     * Retrieve a list of tags that have been set on the user from the OneSignal server.
+     *
+     * @returns {Promise} Returns a Promise that resolves when tags are recieved.
+     */
+    OneSignal.getTags = function () { return; };
+    /**
+     * Lets you retrieve the OneSignal user id and device token.
+     * Your handler is called after the device is successfully registered with OneSignal.
+     *
+     * @returns {Promise} Returns a Promise that reolves if the device was successfully registered.
+     * It returns a JSON with `userId`and `pushToken`.
+     */
+    OneSignal.getIds = function () { return; };
     /**
      * Tag a user based on an app event of your choosing so later you can create segments on [onesignal.com](https://onesignal.com/) to target these users.
      * Recommend using sendTags over sendTag if you need to set more than one tag on a user at a time.
@@ -78532,38 +75397,29 @@ var OneSignal = (function () {
      */
     OneSignal.sendTag = function (key, value) { };
     /**
-   * Tag a user based on an app event of your choosing so later you can create segments on [onesignal.com](https://onesignal.com/) to target these users.
-   * Recommend using sendTags over sendTag if you need to set more than one tag on a user at a time.
-   *
-   * @param {string} Pass a json object with key/value pairs like: {key: "value", key2: "value2"}
-   */
+     * Tag a user based on an app event of your choosing so later you can create segments on [onesignal.com](https://onesignal.com/) to target these users.
+     * Recommend using sendTags over sendTag if you need to set more than one tag on a user at a time.
+     *
+     * @param {string} Pass a json object with key/value pairs like: {key: "value", key2: "value2"}
+     */
     OneSignal.sendTags = function (json) { };
     /**
-    * Retrieve a list of tags that have been set on the user from the OneSignal server.
-    *
-    * @returns {Promise} Returns a Promise that resolves when tags are recieved.
-    */
-    OneSignal.getTags = function () { return; };
-    /**
-    * Deletes a tag that was previously set on a user with `sendTag` or `sendTags`. Use `deleteTags` if you need to delete more than one.
-    *
-    * @param {string} Key to remove.
-    */
+     * Deletes a tag that was previously set on a user with `sendTag` or `sendTags`. Use `deleteTags` if you need to delete more than one.
+     *
+     * @param {string} Key to remove.
+     */
     OneSignal.deleteTag = function (key) { };
     /**
-    * Deletes tags that were previously set on a user with `sendTag` or `sendTags`.
-    *
-    * @param {Array<string>} Keys to remove.
-    */
+     * Deletes tags that were previously set on a user with `sendTag` or `sendTags`.
+     *
+     * @param {Array<string>} Keys to remove.
+     */
     OneSignal.deleteTags = function (keys) { };
     /**
-    * Lets you retrieve the OneSignal user id and device token.
-    * Your handler is called after the device is successfully registered with OneSignal.
-    *
-    * @returns {Promise} Returns a Promise that reolves if the device was successfully registered.
-    * It returns a JSON with `userId`and `pushToken`.
-    */
-    OneSignal.getIds = function () { return; };
+     * Call this when you would like to prompt an iOS user to accept push notifications with the default system prompt.
+     * Only use if you passed false to autoRegister when calling init.
+     */
+    OneSignal.registerForPushNotifications = function () { };
     /**
     * Warning:
     * Only applies to Android and Amazon. You can call this from your UI from a button press for example to give your user's options for your notifications.
@@ -78595,14 +75451,6 @@ var OneSignal = (function () {
     */
     OneSignal.enableNotificationsWhenActive = function (enable) { };
     /**
-    * By default this is false and notifications will not be shown when the user is in your app, instead the notificationOpenedCallback is fired.
-    * If set to true notifications will be shown as native alert boxes if a notification is received when the user is in your app.
-    * The notificationOpenedCallback is then fired after the alert box is closed.
-    *
-    * @param {boolean} enable
-    */
-    OneSignal.enableInAppAlertNotification = function (enable) { };
-    /**
     * You can call this method with false to opt users out of receiving all notifications through OneSignal.
     * You can pass true later to opt users back into notifications.
     *
@@ -78620,6 +75468,11 @@ var OneSignal = (function () {
     */
     OneSignal.promptLocation = function () { };
     /**
+     *
+     * @param email {string}
+     */
+    OneSignal.syncHashedEmail = function (email) { };
+    /**
     * Enable logging to help debug if you run into an issue setting up OneSignal.
     * The logging levels are as follows: 0 = None, 1= Fatal, 2 = Errors, 3 = Warnings, 4 = Info, 5 = Debug, 6 = Verbose
   
@@ -78628,12 +75481,39 @@ var OneSignal = (function () {
     * @param {loglevel} contains two properties: logLevel (for console logging) and visualLevel (for dialog messages)
     */
     OneSignal.setLogLevel = function (logLevel) { };
-    __decorate$73([
-        Cordova({ observable: true })
-    ], OneSignal, "init", null);
+    /**
+     * @private
+     */
+    OneSignal.OSInFocusDisplayOption = {
+        None: 0,
+        InAppAlert: 1,
+        Notification: 2
+    };
     __decorate$73([
         Cordova({ sync: true })
-    ], OneSignal, "registerForPushNotifications", null);
+    ], OneSignal, "startInit", null);
+    __decorate$73([
+        Cordova({
+            observable: true
+        })
+    ], OneSignal, "handleNotificationReceived", null);
+    __decorate$73([
+        Cordova({
+            observable: true
+        })
+    ], OneSignal, "handleNotificationOpened", null);
+    __decorate$73([
+        Cordova({ sync: true })
+    ], OneSignal, "iOSSettings", null);
+    __decorate$73([
+        Cordova({ sync: true })
+    ], OneSignal, "endInit", null);
+    __decorate$73([
+        Cordova()
+    ], OneSignal, "getTags", null);
+    __decorate$73([
+        Cordova()
+    ], OneSignal, "getIds", null);
     __decorate$73([
         Cordova({ sync: true })
     ], OneSignal, "sendTag", null);
@@ -78641,17 +75521,14 @@ var OneSignal = (function () {
         Cordova({ sync: true })
     ], OneSignal, "sendTags", null);
     __decorate$73([
-        Cordova()
-    ], OneSignal, "getTags", null);
-    __decorate$73([
         Cordova({ sync: true })
     ], OneSignal, "deleteTag", null);
     __decorate$73([
         Cordova({ sync: true })
     ], OneSignal, "deleteTags", null);
     __decorate$73([
-        Cordova()
-    ], OneSignal, "getIds", null);
+        Cordova({ sync: true })
+    ], OneSignal, "registerForPushNotifications", null);
     __decorate$73([
         Cordova({ sync: true })
     ], OneSignal, "enableVibrate", null);
@@ -78663,9 +75540,6 @@ var OneSignal = (function () {
     ], OneSignal, "enableNotificationsWhenActive", null);
     __decorate$73([
         Cordova({ sync: true })
-    ], OneSignal, "enableInAppAlertNotification", null);
-    __decorate$73([
-        Cordova({ sync: true })
     ], OneSignal, "setSubscription", null);
     __decorate$73([
         Cordova()
@@ -78673,6 +75547,9 @@ var OneSignal = (function () {
     __decorate$73([
         Cordova({ sync: true })
     ], OneSignal, "promptLocation", null);
+    __decorate$73([
+        Cordova({ sync: true })
+    ], OneSignal, "syncHashedEmail", null);
     __decorate$73([
         Cordova({ sync: true })
     ], OneSignal, "setLogLevel", null);
@@ -78692,18 +75569,6 @@ var __decorate$74 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Photo Viewer
- * @description This plugin can display your image in full screen with the ability to pan, zoom, and share the image.
- * @usage
- * ```typescript
- * import { PhotoViewer } from 'ionic-native';
- *
- * PhotoViewer.show('https://mysite.com/path/to/image.jpg');
- *
- * PhotoViewer.show('https://mysite.com/path/to/image.jpg', 'My image title', {share: false});
- * ```
- */
 var PhotoViewer = (function () {
     function PhotoViewer() {
     }
@@ -78733,40 +75598,6 @@ var __decorate$75 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Screen Orientation
- * @description
- * Cordova plugin to set/lock the screen orientation in a common way for iOS, Android, WP8 and Blackberry 10.
- * This plugin is based on an early version of Screen Orientation API so the api does not currently match the current spec.
- *
- * Requires Cordova plugin: `cordova-plugin-screen-orientation`. For more info, please see the [Screen Orientation plugin docs](https://github.com/apache/cordova-plugin-screen-orientation).
- *
- * @usage
- * ```typescript
- * import { ScreenOrientation } from 'ionic-native';
- *
- *
- * // set to either landscape
- * ScreenOrientation.lockOrientation('landscape');
- *
- * // allow user rotate
- * ScreenOrientation.unlockOrientation();
- * ```
- *
- * @advanced
- *
- * Accepted orientation values:
- *
- * | Value                         | Description                                                                  |
- * |-------------------------------|------------------------------------------------------------------------------|
- * | portrait-primary              | The orientation is in the primary portrait mode.                             |
- * | portrait-secondary            | The orientation is in the secondary portrait mode.                           |
- * | landscape-primary             | The orientation is in the primary landscape mode.                            |
- * | landscape-secondary           | The orientation is in the secondary landscape mode.                          |
- * | portrait                      | The orientation is either portrait-primary or portrait-secondary (sensor).   |
- * | landscape                     | The orientation is either landscape-primary or landscape-secondary (sensor). |
- *
- */
 var ScreenOrientation = (function () {
     function ScreenOrientation() {
     }
@@ -78816,49 +75647,31 @@ var __decorate$76 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name PayPal
- * @description
- * PayPal plugin for Cordova/Ionic Applications
- *
- * @usage
- * ```
- * import {PayPal} from 'ionic-native';
- *
- * PayPal.init({
- *      "PayPalEnvironmentProduction": "YOUR_PRODUCTION_CLIENT_ID",
-       "PayPalEnvironmentSandbox": "YOUR_SANDBOX_CLIENT_ID"
-       })
- *   .then(onSuccess)
- *   .catch(onError);
- *
- * ```
- * @interfaces
- * PayPalEnvironment
- * PayPalConfigurationOptions
- * @classes
- * PayPalPayment
- * PayPalItem
- * PayPalPaymentDetails
- * PayPalShippingAddress
- */
 var PayPal = (function () {
     function PayPal() {
     }
+    /**
+     * Retrieve the version of the PayPal iOS SDK library. Useful when contacting support.
+     */
+    PayPal.version = function () { return; };
     /**
      * You must preconnect to PayPal to prepare the device for processing payments.
      * This improves the user experience, by making the presentation of the
      * UI faster. The preconnect is valid for a limited time, so
      * the recommended time to preconnect is on page load.
      *
-     * @param {String} environment available options are "PayPalEnvironmentNoNetwork", "PayPalEnvironmentProduction" and "PayPalEnvironmentSandbox"
-     * @param {PayPalConfiguration} configuration For Future Payments merchantName, merchantPrivacyPolicyURL and merchantUserAgreementURL must be set be set
+     * @param {PayPalEnvironment} clientIdsForEnvironments: set of client ids for environments
      */
-    PayPal.init = function (environment, configuration) { return; };
+    PayPal.init = function (clientIdsForEnvironments) { return; };
     /**
-     * Retreive the version of PayPal iOS SDK Library.
-     */
-    PayPal.version = function () { return; };
+     * You must preconnect to PayPal to prepare the device for processing payments.
+     * This improves the user experience, by making the presentation of the UI faster.
+     * The preconnect is valid for a limited time, so the recommended time to preconnect is on page load.
+     *
+     * @param {String} environment: available options are "PayPalEnvironmentNoNetwork", "PayPalEnvironmentProduction" and "PayPalEnvironmentSandbox"
+     * @param {PayPalConfiguration} configuration: PayPalConfiguration object, for Future Payments merchantName, merchantPrivacyPolicyURL and merchantUserAgreementURL must be set be set
+     **/
+    PayPal.prepareToRender = function (environment, configuration) { return; };
     /**
      * Start PayPal UI to collect payment from the user.
      * See https://developer.paypal.com/webapps/developer/docs/integration/mobile/ios-integration-guide/
@@ -78890,10 +75703,13 @@ var PayPal = (function () {
     PayPal.renderProfileSharingUI = function (scopes) { return; };
     __decorate$76([
         Cordova()
+    ], PayPal, "version", null);
+    __decorate$76([
+        Cordova()
     ], PayPal, "init", null);
     __decorate$76([
         Cordova()
-    ], PayPal, "version", null);
+    ], PayPal, "prepareToRender", null);
     __decorate$76([
         Cordova()
     ], PayPal, "renderSinglePaymentUI", null);
@@ -78941,24 +75757,6 @@ var __decorate$77 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Pin Dialog
- * @description
- *
- * @usage
- * ```typescript
- * import { PinDialog } from 'ionic-native';
- *
- *
- * PinDialog.prompt('Enter your PIN', 'Verify PIN', ['OK', 'Cancel'])
- *   .then(
- *     (result: any) => {
- *       if (result.buttonIndex == 1) console.log('User clicked OK, value is: ', result.input1);
- *       else if(result.buttonIndex == 2) console.log('User cancelled');
- *     }
- *   );
- * ```
- */
 var PinDialog = (function () {
     function PinDialog() {
     }
@@ -78990,22 +75788,6 @@ var __decorate$78 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name PowerManagement
- * @description
- * The PowerManagement plugin offers access to the devices power-management functionality.
- * It should be used for applications which keep running for a long time without any user interaction.
- *
- * @usage
- * ```
- * import {PowerManagement} from 'ionic-native';
- *
- * PowerManagement.acquire()
- *   .then(onSuccess)
- *   .catch(onError);
- *
- * ```
- */
 var PowerManagement = (function () {
     function PowerManagement() {
     }
@@ -79055,26 +75837,6 @@ var __decorate$79 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Printer
- * @description Prints documents or HTML rendered content
- * @usage
- * ```typescript
- * import {Printer, PrintOptions} from 'ionic-native';
- *
- * Printer.isAvailable().then(onSuccess, onError);
- *
- * let options: PrintOptions = {
- *      name: 'MyDocument',
- *      printerId: 'printer007',
- *      duplex: true,
- *      landscape: true,
- *      grayscale: true
- *    };
- *
- * Printer.print(content, options).then(onSuccess, onError);
- * ```
- */
 var Printer = (function () {
     function Printer() {
     }
@@ -79111,20 +75873,6 @@ var __decorate$80 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Push
- * @description
- * Register and receive push notifications.
- *
- * Requires Cordova plugin: `phonegap-plugin-push`. For more info, please see the [Push plugin docs](https://github.com/phonegap/phonegap-plugin-push).
- *
- * For TypeScript users, see the [Push plugin docs about using TypeScript for custom notifications](https://github.com/phonegap/phonegap-plugin-push/blob/master/docs/TYPESCRIPT.md).
- *
- * @usage
- * ```typescript
- * import { Push } from 'ionic-native';
- * ```
- */
 var Push = (function () {
     function Push() {
     }
@@ -79178,43 +75926,6 @@ var __decorate$81 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name SafariViewController
- * @description
- * @usage
- * ```
- * import { SafariViewController } from 'ionic-native';
- *
- *
- * SafariViewController.isAvailable()
- *   .then(
- *     (available: boolean) => {
- *       if(available){
- *
- *         SafariViewController.show({
- *           url: 'http://ionic.io',
- *           hidden: false,
- *           animated: false,
- *           transition: 'curl',
- *           enterReaderModeIfAvailable: true,
- *           tintColor: '#ff0000'
- *         })
- *         .then(
- *           (result: any) => {
- *             if(result.event === 'opened') console.log('Opened');
- *             else if(result.event === 'loaded') console.log('Loaded');
- *             else if(result.event === 'closed') console.log('Closed');
- *           },
- *           (error: any) => console.error(error)
- *         );
- *
- *       } else {
- *         // use fallback browser, example InAppBrowser
- *       }
- *     }
- *   );
- * ```
- */
 var SafariViewController = (function () {
     function SafariViewController() {
     }
@@ -79279,20 +75990,6 @@ var __decorate$82 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Screenshot
- * @description Captures a screen shot
- * @usage
- * ```typescript
- * import {Screenshot} from 'ionic-native';
- *
- * // Take a screenshot and save to file
- * Screenshot.save('jpg', 80, 'myscreenshot.jpg').then(onSuccess, onError);
- *
- * // Take a screenshot and get temporary file URI
- * Screenshot.URI(80).then(onSuccess, onError);
- * ```
- */
 var Screenshot = (function () {
     function Screenshot() {
     }
@@ -79351,44 +76048,6 @@ var __decorate$83 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Secure Storage
- * @description
- * This plugin gets, sets and removes key,value pairs from a device's secure storage.
- *
- * Requires Cordova plugin: `cordova-plugin-secure-storage`. For more info, please see the [Cordova Secure Storage docs](https://github.com/Crypho/cordova-plugin-secure-storage).
- *
- * @usage
- *
- * ```typescript
- * import { SecureStorage } from 'ionic-native';
- *
- * let secureStorage: SecureStorage = new SecureStorage();
- * secureStorage.create('my_store_name')
- *  .then(
- *    () => console.log('Storage is ready!'),
- *    error => console.log(error)
- * );
- *
- * secureStorage.get('myitem')
- *  .then(
- *    data => console.log(data),
- *    error => console.log(error)
- * );
- *
- * secureStorage.set('myitem', 'myvalue')
- *  .then(
- *    data => console.log(data),
- *    error => console.log(error)
- * );
- *
- * secureStorage.remove('myitem')
- * .then(
- *    data => console.log(data),
- *    error => console.log(error)
- * );
- * ```
- */
 var SecureStorage = (function () {
     function SecureStorage() {
     }
@@ -79450,20 +76109,6 @@ var __decorate$84 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Shake
- * @description Handles shake gesture
- * @usage
- * ```typescript
- * import {Shake} from 'ionic-native';
- *
- * let watch = Shake.startWatch(60).subscribe(() => {
- *   // do something
- *   });
- *
- * watch.unsubscribe();
- * ```
- */
 var Shake = (function () {
     function Shake() {
     }
@@ -79496,24 +76141,6 @@ var __decorate$85 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Sim
- * @description
- * Gets info from the Sim card like the carrier name, mcc, mnc and country code and other system dependent info.
- *
- * Requires Cordova plugin: `cordova-plugin-sim`. For more info, please see the [Cordova Sim docs](https://github.com/pbakondy/cordova-plugin-sim).
- *
- * @usage
- * ```typescript
- * import { Sim } from 'ionic-native';
- *
- *
- * Sim.getSimInfo().then(
- *   (info) => console.log('Sim info: ', info),
- *   (err) => console.log('Unable to get sim info: ', err)
- * );
- * ```
- */
 var Sim = (function () {
     function Sim() {
     }
@@ -79542,21 +76169,6 @@ var __decorate$86 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name SMS
- * @description
- *
- * Requires Cordova plugin: cordova-plugin-sms. For more info, please see the [SMS plugin docs](https://github.com/cordova-sms/cordova-sms-plugin).
- *
- * @usage
- * ```typescript
- * import { SMS } from 'ionic-native';
- *
- *
- * // Send a text message using default options
- * SMS.send('416123456', 'Hello world!');
- * ```
- */
 var SMS = (function () {
     function SMS() {
     }
@@ -79588,29 +76200,6 @@ var __decorate$87 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Social Sharing
- * @description
- * Share text, files, images, and links via social networks, sms, and email.
- * @usage
- * ```typescript
- * import { SocialSharing } from 'ionic-native';
- *
- * // Check if sharing via email is supported
- * SocialSharing.canShareViaEmail().then(() => {
- *   // Sharing via email is possible
- * }).catch(() => {
- *   // Sharing via email is not possible
- * });
- *
- * // Share via email
- * SocialSharing.shareViaEmail('Body', 'Subject', 'recipient@example.org').then(() => {
- *   // Success!
- * }).catch(() => {
- *   // Error!
- * });
- * ```
- */
 var SocialSharing = (function () {
     function SocialSharing() {
     }
@@ -79817,19 +76406,6 @@ var __decorate$88 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Spinner Dialog
- * @description
- * @usage
- * ```typescript
- * import { SpinnerDialog } from 'ionic-native';
- *
- *
- * SpinnerDialog.show();
- *
- * SpinnerDialog.hide();
- * ```
- */
 var SpinnerDialog = (function () {
     function SpinnerDialog() {
     }
@@ -79872,19 +76448,6 @@ var __decorate$89 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Splashscreen
- * @description This plugin displays and hides a splash screen during application launch. The methods below allows showing and hiding the splashscreen after the app has loaded.
- * @usage
- * ```typescript
- * import { Splashscreen } from 'ionic-native';
- *
- *
- * Splashscreen.show();
- *
- * Splashscreen.hide();
- * ```
- */
 var Splashscreen = (function () {
     function Splashscreen() {
     }
@@ -79922,33 +76485,6 @@ var __decorate$90 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name SQLite
- *
- * @description
- * Access SQLite databases on the device.
- *
- * @usage
- *
- * ```typescript
- * import { SQLite } from 'ionic-native';
- *
- * let db = new SQLite();
- * db.openDatabase({
- *   name: 'data.db',
- *   location: 'default' // the location field is required
- * }).then(() => {
- *   db.executeSql('create table danceMoves(name VARCHAR(32))', {}).then(() => {
- *
- *   }, (err) => {
- *     console.error('Unable to execute sql: ', err);
- *   });
- * }, (err) => {
- *   console.error('Unable to open database: ', err);
- * });
- * ```
- *
- */
 var SQLite = (function () {
     function SQLite() {
     }
@@ -80118,24 +76654,6 @@ var __decorate$91 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Status Bar
- * @description
- * Manage the appearance of the native status bar.
- *
- * Requires Cordova plugin: `cordova-plugin-statusbar`. For more info, please see the [StatusBar plugin docs](https://github.com/apache/cordova-plugin-statusbar).
- *
- * @usage
- * ```typescript
- * import { StatusBar } from 'ionic-native';
- *
- *
- * StatusBar.overlaysWebView(true); // let status bar overlay webview
- *
- * StatusBar.backgroundColorByHexString('#ffffff'); // set status bar to white
- * ```
- *
- */
 var StatusBar = (function () {
     function StatusBar() {
     }
@@ -80269,26 +76787,6 @@ var __decorate$92 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Stepcounter
- * @description
- * Cordova plugin for using device's stepcounter on Android (API > 19)
- *
- * Use to
- * - start and stop stepcounter service
- * - read device's stepcounter data
- *
- * @usage
- * ```
- * import { Stepcounter } from 'ionic-native';
- *
- * let startingOffset = 0;
- * Stepcounter.start(startingOffset).then(onSuccess => console.log('stepcounter-start success', onSuccess), onFailure => console.log('stepcounter-start error', onFailure));
- *
- * Stepcounter.getHistory().then(historyObj => console.log('stepcounter-history success', historyObj), onFailure => console.log('stepcounter-history error', onFailure));
- *
- * ```
- */
 var Stepcounter = (function () {
     function Stepcounter() {
     }
@@ -80359,25 +76857,6 @@ var __decorate$93 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name StreamingMedia
- * @description
- * This plugin allows you to stream audio and video in a fullscreen, native player on iOS and Android.
- *
- * @usage
- * ```
- * import {StreamingMedia, StreamingVideoOptions} from 'ionic-native';
- *
- * let options: StreamingVideoOptions = {
- *   successCallback: () => { console.log('Video played') },
- *   errorCallback: (e) => { console.log('Error streaming') },
- *   orientation: 'landscape'
- * };
- *
- * StreamingMedia.('https://path/to/video/stream', options);
- *
- * ```
- */
 var StreamingMedia = (function () {
     function StreamingMedia() {
     }
@@ -80437,66 +76916,6 @@ var __decorate$94 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name 3DTouch
- * @description
- * @usage
- * Please do refer to the original plugin's repo for detailed usage. The usage example here might not be sufficient.
- * ```
- * import { ThreeDeeTouch } from 'ionic-native';
- *
- * // import for type completion on variables
- * import { ThreeDeeTouchQuickAction, ThreeDeeTouchForceTouch } from 'ionic-native';
- * ...
- *
- * ThreeDeeTouch.isAvailable().then(isAvailable => console.log("3D Touch available? " + isAvailable));
- *
- * ThreeDeeTouch.watchForceTouches()
- *   .subscribe(
- *     (data: ThreeDeeTouchForceTouch) => {
- *       console.log("Force touch %" + data.force);
- *       console.log("Force touch timestamp: " + data.timestamp);
- *       console.log("Force touch x: " + data.x);
- *       console.log("Force touch y: " + data.y);
- *     }
- *   );
- *
- *
- * let actions: Array<ThreeDeeTouchQuickAction> = [
- *   {
- *     type: 'checkin',
- *     title: 'Check in',
- *     subtitle: 'Quickly check in',
- *     iconType: 'Compose'
- *   },
- *   {
- *     type: 'share',
- *     title: 'Share',
- *     subtitle: 'Share like you care',
- *     iconType: 'Share'
- *   },
- *   {
- *     type: 'search',
- *     title: 'Search',
- *     iconType: 'Search'
- *   },
- *   {
- *     title: 'Show favorites',
- *     iconTemplate: 'HeartTemplate'
- *   }
- * ];
- * ThreeDeeTouch.configureQuickActions(actions);
- *
- * ThreeDeeTouchForceTouch.onHomeIconPressed().subscribe(
- *  (payload) => {
- *    // returns an object that is the button you presed
- *    console.log('Pressed the ${payload.title} button')
- *    console.log(payload.type)
- *
- *  }
- * )
- * ```
- */
 var ThreeDeeTouch = (function () {
     function ThreeDeeTouch() {
     }
@@ -80582,25 +77001,6 @@ var __decorate$95 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Toast
- * @description
- * This plugin allows you to show a native Toast (a little text popup) on iOS, Android and WP8. It's great for showing a non intrusive native notification which is guaranteed always in the viewport of the browser.
- *
- * Requires Cordova plugin: `cordova-plugin-x-toast`. For more info, please see the [Toast plugin docs](https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin).
- *
- * @usage
- * ```typescript
- * import { Toast } from 'ionic-native';
- *
- *
- * Toast.show("I'm a toast", '5000', 'center').subscribe(
- *   toast => {
- *     console.log(toast);
- *   }
- * );
- * ```
- */
 var Toast$1 = (function () {
     function Toast() {
     }
@@ -80728,49 +77128,6 @@ var __decorate$96 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name TouchID
- * @description
- * Scan the fingerprint of a user with the TouchID sensor.
- *
- * Requires Cordova plugin: `cordova-plugin-touch-id`. For more info, please see the [TouchID plugin docs](https://github.com/EddyVerbruggen/cordova-plugin-touch-id).
- *
- * @usage
- * ### Import Touch ID Plugin into Project
- * ```typescript
- * import { TouchID } from 'ionic-native';
- * ```
- * ### Check for Touch ID Availability
- * ```typescript
- * TouchID.isAvailable()
- *   .then(
- *     res => console.log('TouchID is available!'),
- *     err => console.error('TouchID is not available', err)
- *   );
- * ```
- * ### Invoke Touch ID w/ Custom Message
- *
- * ```typescript
- * TouchID.verifyFingerprint('Scan your fingerprint please')
- *   .then(
- *     res => console.log('Ok', res),
- *     err => console.error('Error', err)
- *   );
- * ```
- *
- * ### Error Codes
- *
- * The plugin will reject for various reasons. Your app will most likely need to respond to the cases differently.
- *
- * Here is a list of some of the error codes:
- *
- *  -  `-1` - Fingerprint scan failed more than 3 times
- *  -  `-2` or `-128` - User tapped the 'Cancel' button
- *  -  `-3` - User tapped the 'Enter Passcode' or 'Enter Password' button
- *  -  `-4` - The scan was cancelled by the system (Home button for example)
- *  -  `-6` - TouchID is not Available
- *  -  `-8` - TouchID is locked out from too many tries
- */
 var TouchID = (function () {
     function TouchID() {
     }
@@ -80831,21 +77188,6 @@ var __decorate$97 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name TextToSpeech
- * @description
- * Text to Speech plugin
- *
- * @usage
- * ```
- * import {TextToSpeech} from 'ionic-native';
- *
- * TextToSpeech.speak('Hello World')
- *   .then(() => console.log('Success'))
- *   .catch((reason: any) => console.log(reason));
- *
- * ```
- */
 var TextToSpeech = (function () {
     function TextToSpeech() {
     }
@@ -80879,116 +77221,46 @@ var __decorate$98 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name ThemableBrowser
- * @description
- * In-app browser that allows styling.
- *
- * @usage
- * ```
- * import { ThemableBrowser } from 'ionic-native';
- *
- * // can add options from the original InAppBrowser in a JavaScript object form (not string)
- * // This options object also takes additional parameters introduced by the ThemableBrowser plugin
- * // This example only shows the additional parameters for ThemableBrowser
- * // Note that that `image` and `imagePressed` values refer to resources that are stored in your app
- * let options = {
- *  statusbar: {
- *          color: '#ffffffff'
- *      },
- *      toolbar: {
- *          height: 44,
- *          color: '#f0f0f0ff'
- *      },
- *      title: {
- *          color: '#003264ff',
- *          showPageTitle: true
- *      },
- *      backButton: {
- *          image: 'back',
- *          imagePressed: 'back_pressed',
- *          align: 'left',
- *          event: 'backPressed'
- *      },
- *      forwardButton: {
- *          image: 'forward',
- *          imagePressed: 'forward_pressed',
- *          align: 'left',
- *          event: 'forwardPressed'
- *      },
- *      closeButton: {
- *          image: 'close',
- *          imagePressed: 'close_pressed',
- *          align: 'left',
- *          event: 'closePressed'
- *      },
- *      customButtons: [
- *          {
- *              image: 'share',
- *              imagePressed: 'share_pressed',
- *              align: 'right',
- *              event: 'sharePressed'
- *          }
- *      ],
- *      menu: {
- *          image: 'menu',
- *          imagePressed: 'menu_pressed',
- *          title: 'Test',
- *          cancel: 'Cancel',
- *          align: 'right',
- *          items: [
- *              {
- *                  event: 'helloPressed',
- *                  label: 'Hello World!'
- *              },
- *              {
- *                  event: 'testPressed',
- *                  label: 'Test!'
- *              }
- *          ]
- *      },
- *      backButtonCanClose: true
- * };
- *
- * let browser = new ThemeableBrowser('https://ionic.io', '_blank', options);
- *
- * ```
- * We suggest that you refer to the plugin's repository for additional information on usage that may not be covered here.
- */
-var ThemableBrowser = (function () {
-    function ThemableBrowser(url, target, styleOptions) {
-        this._objectInstance = cordova.ThemableBrowser.open(arguments);
+var ThemeableBrowser = (function () {
+    function ThemeableBrowser(url, target, styleOptions) {
+        try {
+            this._objectInstance = cordova.ThemeableBrowser.open(url, target, styleOptions);
+        }
+        catch (e) {
+            window.open(url);
+            console.warn('Native: ThemeableBrowser is not installed or you are running on a browser. Falling back to window.open, all instance methods will NOT work.');
+        }
     }
     /**
      * Displays an browser window that was opened hidden. Calling this has no effect
      * if the browser was already visible.
      */
-    ThemableBrowser.prototype.show = function () { };
+    ThemeableBrowser.prototype.show = function () { };
     /**
      * Closes the browser window.
      */
-    ThemableBrowser.prototype.close = function () { };
+    ThemeableBrowser.prototype.close = function () { };
     /**
      * Reloads the current page
      */
-    ThemableBrowser.prototype.reload = function () { };
+    ThemeableBrowser.prototype.reload = function () { };
     /**
      * Injects JavaScript code into the browser window.
      * @param script    Details of the script to run, specifying either a file or code key.
      */
-    ThemableBrowser.prototype.executeScript = function (script) { return; };
+    ThemeableBrowser.prototype.executeScript = function (script) { return; };
     /**
      * Injects CSS into the browser window.
      * @param css       Details of the script to run, specifying either a file or code key.
      */
-    ThemableBrowser.prototype.insertCss = function (css) { return; };
+    ThemeableBrowser.prototype.insertCss = function (css) { return; };
     /**
      * A method that allows you to listen to events happening in the browser.
-     * Available events are: `ThemableBrowserError`, `ThemableBrowserWarning`, `critical`, `loadfail`, `unexpected`, `undefined`
+     * Available events are: `ThemeableBrowserError`, `ThemeableBrowserWarning`, `critical`, `loadfail`, `unexpected`, `undefined`
      * @param event Event name
      * @returns {Observable<any>} Returns back an observable that will listen to the event on subscribe, and will stop listening to the event on unsubscribe.
      */
-    ThemableBrowser.prototype.on = function (event) {
+    ThemeableBrowser.prototype.on = function (event) {
         var _this = this;
         return new Observable_2(function (observer) {
             _this._objectInstance.addEventListener(event, observer.next.bind(observer));
@@ -80997,27 +77269,27 @@ var ThemableBrowser = (function () {
     };
     __decorate$98([
         CordovaInstance({ sync: true })
-    ], ThemableBrowser.prototype, "show", null);
+    ], ThemeableBrowser.prototype, "show", null);
     __decorate$98([
         CordovaInstance({ sync: true })
-    ], ThemableBrowser.prototype, "close", null);
+    ], ThemeableBrowser.prototype, "close", null);
     __decorate$98([
         CordovaInstance({ sync: true })
-    ], ThemableBrowser.prototype, "reload", null);
+    ], ThemeableBrowser.prototype, "reload", null);
     __decorate$98([
         CordovaInstance()
-    ], ThemableBrowser.prototype, "executeScript", null);
+    ], ThemeableBrowser.prototype, "executeScript", null);
     __decorate$98([
         CordovaInstance()
-    ], ThemableBrowser.prototype, "insertCss", null);
-    ThemableBrowser = __decorate$98([
+    ], ThemeableBrowser.prototype, "insertCss", null);
+    ThemeableBrowser = __decorate$98([
         Plugin({
             plugin: 'cordova-plugin-themeablebrowser',
             pluginRef: 'cordova.ThemeableBrowser',
             repo: 'https://github.com/initialxy/cordova-plugin-themeablebrowser'
         })
-    ], ThemableBrowser);
-    return ThemableBrowser;
+    ], ThemeableBrowser);
+    return ThemeableBrowser;
 }());
 
 var __decorate$99 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -81026,31 +77298,6 @@ var __decorate$99 = (undefined && undefined.__decorate) || function (decorators,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Twitter Connect
- * @description
- * Plugin to use Twitter Single Sign On
- * Uses Twitter's Fabric SDK
- * ```typescript
- * import {TwitterConnect} from 'ionic-native';
- *
- * function onSuccess(response) {
- *   console.log(response);
- *
- *   // Will console log something like:
- *   // {
- *   //   userName: 'myuser',
- *   //   userId: '12358102',
- *   //   secret: 'tokenSecret'
- *   //   token: 'accessTokenHere'
- *   // }
- * }
- *
- * TwitterConnect.login().then(onSuccess, onError);
- *
- * TwitterConnect.logout().then(onLogoutSuccess, onLogoutError);
- * ```
- */
 var TwitterConnect = (function () {
     function TwitterConnect() {
     }
@@ -81095,29 +77342,6 @@ var __decorate$100 = (undefined && undefined.__decorate) || function (decorators
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Vibration
- * @description Vibrates the device
- * @usage
- * ```typescript
- * import { Vibration } from 'ionic-native';
- *
- *
- * // Vibrate the device for a second
- * // Duration is ignored on iOS.
- * Vibration.vibrate(1000);
- *
- * // Vibrate 2 seconds
- * // Pause for 1 second
- * // Vibrate for 2 seconds
- * // Patterns work on Android and Windows only
- * Vibration.vibrate([2000,1000,2000]);
- *
- * // Stop any current vibrations immediately
- * // Works on Android and Windows only
- * Vibration.vibrate(0);
- * ```
- */
 var Vibration = (function () {
     function Vibration() {
     }
@@ -81148,24 +77372,6 @@ var __decorate$101 = (undefined && undefined.__decorate) || function (decorators
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name VideoEditor
- * @description Edit videos using native device APIs
- *
- * @usage
- * ```
- * import {VideoEditor} from 'ionic-native';
- *
- * VideoEditor.transcodeVideo({
- *   fileUri: '/path/to/input.mov',
- *   outputFileName: 'output.mp4',
- *   outputFileType: VideoEditor.OutputFileType.MPEG4
- * })
- * .then((fileUri: string) => console.log('video transcode success', fileUri))
- * .catch((error: any) => console.log('video transcode error', error));
- *
- * ```
- */
 var VideoEditor = (function () {
     function VideoEditor() {
     }
@@ -81241,27 +77447,6 @@ var __decorate$102 = (undefined && undefined.__decorate) || function (decorators
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name VideoPlayer
- * @description
- * A Codova plugin that simply allows you to immediately play a video in fullscreen mode.
- *
- * Requires Cordova plugin: `com.moust.cordova.videoplayer`. For more info, please see the [VideoPlayer plugin docs](https://github.com/moust/cordova-plugin-videoplayer).
- *
- * @usage
- * ```typescript
- * import { VideoPlayer } from 'ionic-native';
- *
- *
- * // Playing a video.
- * VideoPlayer.play("file:///android_asset/www/movie.mp4").then(() => {
- *  console.log('video completed');
- * }).catch(err => {
- *  console.log(err);
- * });
- *
- * ```
- */
 var VideoPlayer = (function () {
     function VideoPlayer() {
     }
@@ -81299,19 +77484,6 @@ var __decorate$103 = (undefined && undefined.__decorate) || function (decorators
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name WebIntent
- * @description
- * @usage
- * For usage information please refer to the plugin's Github repo.
- *
- * ```typescript
- * import {WebIntent} from 'ionic-native';
- *
- * WebIntent.startActivity(options).then(onSuccess, onError);
- *
- * ```
- */
 var WebIntent = (function () {
     function WebIntent() {
     }
@@ -81378,19 +77550,6 @@ var __decorate$104 = (undefined && undefined.__decorate) || function (decorators
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name YoutubeVideoPlayer
- * @description
- * Plays YouTube videos in Native YouTube App
- *
- * @usage
- * ```
- * import {YoutubeVideoPlayer} from 'ionic-native';
- *
- * YouTubeVideoPlayer.openVideo('myvideoid');
- *
- * ```
- */
 var YoutubeVideoPlayer = (function () {
     function YoutubeVideoPlayer() {
     }
@@ -81419,44 +77578,6 @@ var __decorate$105 = (undefined && undefined.__decorate) || function (decorators
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name ZBar
- * @description
- * The ZBar Scanner Plugin allows you to scan 2d barcodes.
- *
- * Requires Cordova plugin: `cordova-plugin-cszbar`. For more info, please see the [zBar plugin docs](https://github.com/tjwoon/csZBar).
- *
- * @usage
- * ```
- * import { ZBar } from 'ionic-native';
- *
- * let zBarOptions = {
- *       flash: "off",
- *       drawSight: false
- *     };
- *
- * ZBar.scan(zBarOptions)
- *    .then(result => {
- *       console.log(result); // Scanned code
- *    })
- *    .catch(error => {
- *       console.log(error); // Error message
- *    });
- *
- * ```
- *
- * @advanced
- * zBar options
- *
- * | Option             | Type      | Values                    | Defaults                                                    |
- * |--------------------|-----------|-----------------------------------------------------------------------------------------|
- * | text_title         |`string?`  |                           | `"Scan QR Code"` (Android only)                             |
- * | text_instructions  |`string?`  |                           | `"Please point your camera at the QR code."` (Android only) |
- * | camera             |`string?`  | `"front"`, `"back"`,      | `"back"`                                                    |
- * | flash              |`string?`  | `"on"`, `"off"`, `"auto"` | `"auto"`                                                    |
- * | drawSight          |`boolean?` | `true`, `false`           | `true` (Draws red line in center of scanner)                |
- *
- */
 var ZBar = (function () {
     function ZBar() {
     }
@@ -81486,23 +77607,6 @@ var __decorate$106 = (undefined && undefined.__decorate) || function (decorators
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * @name Zip
- * @description
- * A Cordova plugin to unzip files in Android and iOS.
- *
- * @usage
- * ```
- * import {Zip} from 'ionic-native';
- *
- * Zip.unzip('path/to/source.zip', 'path/to/dest', (progress) => console.log('Unzipping, ' + Math.round((progress.loaded / progress.total) * 100) + '%'))
- *  .then((result) => {
- *    if(result === 0) console.log('SUCCESS');
- *    if(result === -1) console.log('FAILED');
- *  });
- *
- * ```
- */
 var Zip = (function () {
     function Zip() {
     }
@@ -81530,8 +77634,132 @@ var Zip = (function () {
     return Zip;
 }());
 
+var __decorate$107 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var HTTP = (function () {
+    function HTTP() {
+    }
+    /**
+     * This returns an object representing a basic HTTP Authorization header of the form.
+     * @param username {string} Username
+     * @param password {string} Password
+     * @return {Object} an object representing a basic HTTP Authorization header of the form {'Authorization': 'Basic base64encodedusernameandpassword'}
+     */
+    HTTP.getBasicAuthHeader = function (username, password) { return; };
+    /**
+     * This sets up all future requests to use Basic HTTP authentication with the given username and password.
+     * @param username {string} Username
+     * @param password {string} Password
+     */
+    HTTP.useBasicAuth = function (username, password) { };
+    /**
+     * Set a header for all future requests. Takes a header and a value.
+     * @param header {string} The name of the header
+     * @param value {string} The value of the header
+     */
+    HTTP.setHeader = function (header, value) { };
+    /**
+     * Enable or disable SSL Pinning. This defaults to false.
+     *
+     * To use SSL pinning you must include at least one .cer SSL certificate in your app project. You can pin to your server certificate or to one of the issuing CA certificates. For ios include your certificate in the root level of your bundle (just add the .cer file to your project/target at the root level). For android include your certificate in your project's platforms/android/assets folder. In both cases all .cer files found will be loaded automatically. If you only have a .pem certificate see this stackoverflow answer. You want to convert it to a DER encoded certificate with a .cer extension.
+     *
+     * As an alternative, you can store your .cer files in the www/certificates folder.
+     * @param enable {boolean} Set to true to enable
+     * @return {Promise<any>} returns a promise that will resolve on success, and reject on failure
+     */
+    HTTP.enableSSLPinning = function (enable) { return; };
+    /**
+     * Accept all SSL certificates. Or disabled accepting all certificates. Defaults to false.
+     * @param accept {boolean} Set to true to accept
+     * @return {Promise<any>} returns a promise that will resolve on success, and reject on failure
+     */
+    HTTP.acceptAllCerts = function (accept) { return; };
+    /**
+     * Whether or not to validate the domain name in the certificate. This defaults to true.
+     * @param validate {boolean} Set to true to validate
+     * @return {Promise<any>} returns a promise that will resolve on success, and reject on failure
+     */
+    HTTP.validateDomainName = function (validate) { return; };
+    /**
+     * Make a POST request
+     * @param url {string} The url to send the request to
+     * @param body {Object} The body of the request
+     * @param headers {Object} The headers to set for this request
+     * @return {Promise<HTTPResponse>} returns a promise that resolve on success, and reject on failure
+     */
+    HTTP.post = function (url, body, headers) { return; };
+    /**
+     *
+     * @param url {string} The url to send the request to
+     * @param parameters {Object} Parameters to send with the request
+     * @param headers {Object} The headers to set for this request
+     * @return {Promise<HTTPResponse>} returns a promise that resolve on success, and reject on failure
+     */
+    HTTP.get = function (url, parameters, headers) { return; };
+    /**
+     *
+     * @param url {string} The url to send the request to
+     * @param body {Object} The body of the request
+     * @param headers {Object} The headers to set for this request
+     * @param filePath {string} The local path of the file to upload
+     * @param fileParameter {string} The name of the parameter to pass the file along as
+     * @return {Promise<HTTPResponse>} returns a promise that resolve on success, and reject on failure
+     */
+    HTTP.uploadFile = function (url, body, headers, filePath, fileParameter) { return; };
+    /**
+     *
+     * @param url {string} The url to send the request to
+     * @param body {Object} The body of the request
+     * @param headers {Object} The headers to set for this request
+     * @param filePath {string} The path to donwload the file to, including the file name.
+     * @return {Promise<HTTPResponse>} returns a promise that resolve on success, and reject on failure
+     */
+    HTTP.downloadFile = function (url, body, headers, filePath) { return; };
+    __decorate$107([
+        Cordova({ sync: true })
+    ], HTTP, "getBasicAuthHeader", null);
+    __decorate$107([
+        Cordova({ sync: true })
+    ], HTTP, "useBasicAuth", null);
+    __decorate$107([
+        Cordova({ sync: true })
+    ], HTTP, "setHeader", null);
+    __decorate$107([
+        Cordova()
+    ], HTTP, "enableSSLPinning", null);
+    __decorate$107([
+        Cordova()
+    ], HTTP, "acceptAllCerts", null);
+    __decorate$107([
+        Cordova()
+    ], HTTP, "validateDomainName", null);
+    __decorate$107([
+        Cordova()
+    ], HTTP, "post", null);
+    __decorate$107([
+        Cordova()
+    ], HTTP, "get", null);
+    __decorate$107([
+        Cordova()
+    ], HTTP, "uploadFile", null);
+    __decorate$107([
+        Cordova()
+    ], HTTP, "downloadFile", null);
+    HTTP = __decorate$107([
+        Plugin({
+            plugin: 'cordova-plugin-http',
+            pluginRef: 'cordovaHTTP',
+            repo: 'https://github.com/wymsee/cordova-HTTP'
+        })
+    ], HTTP);
+    return HTTP;
+}());
+
 var DEVICE_READY_TIMEOUT = 2000;
-// Window export to use outside of a module loading system
 window['IonicNative'] = {
     ActionSheet: ActionSheet$1,
     AdMob: AdMob,
@@ -81629,7 +77857,7 @@ window['IonicNative'] = {
     TouchID: TouchID,
     Transfer: Transfer,
     TextToSpeech: TextToSpeech,
-    ThemableBrowser: ThemableBrowser,
+    ThemeableBrowser: ThemeableBrowser,
     TwitterConnect: TwitterConnect,
     VideoEditor: VideoEditor,
     VideoPlayer: VideoPlayer,
@@ -84107,26 +80335,12 @@ function wireUpDriverMethods(driver) {
 
 wireUpDriverMethods(cordovaSQLiteDriver);
 
-var __decorate$107 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$108 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-/**
- * Storage is an easy way to store key/value pairs and other complicated
- * data in a way that uses a variety of storage engines underneath. Currently,
- * Storage uses localforage underneath to abstract away the various storage
- * engines while still providing a simple API.
- *
- * When running natively, Storage will prioritize using SQLite, as it's one of
- * the most stable and widely used file-based databases, and avoids some of the
- * pitfalls of things like localstorage that the OS can decide to clear out in
- * low disk-space situations.
- *
- * When running in the web or as a Progressive Web App, Storage will attempt to use
- * IndexedDB, WebSQL, and localstorage, in that order.
- */
 var Storage = (function () {
     function Storage() {
         // TODO: Remove this once we figure out our proper build
@@ -84192,7 +80406,7 @@ var Storage = (function () {
     Storage.prototype.forEach = function (iteratorCallback) {
         return this._db.iterate(iteratorCallback);
     };
-    Storage = __decorate$107([
+    Storage = __decorate$108([
         Injectable()
     ], Storage);
     return Storage;
@@ -86484,22 +82698,6 @@ var AsyncAction_1$1 = {
 	AsyncAction: AsyncAction_2
 };
 
-/**
- * An execution context and a data structure to order tasks and schedule their
- * execution. Provides a notion of (potentially virtual) time, through the
- * `now()` getter method.
- *
- * Each unit of work in a Scheduler is called an {@link Action}.
- *
- * ```ts
- * class Scheduler {
- *   now(): number;
- *   schedule(work, delay?, state?): Subscription;
- * }
- * ```
- *
- * @class Scheduler
- */
 var Scheduler$1 = (function () {
     function Scheduler(SchedulerAction, now) {
         if (now === void 0) { now = Scheduler.now; }
@@ -86832,7 +83030,6 @@ var Observable_1$44 = Observable_1$1;
 var race_1 = race_1$1;
 Observable_1$44.Observable.race = race_1.raceStatic;
 
-/* tslint:disable:no-empty */
 function noop$8() { }
 var noop_2 = noop$8;
 
@@ -93062,12 +89259,6 @@ var Observable_1$105 = Observable_1$1;
 var last_1 = last_1$1;
 Observable_1$105.Observable.prototype.last = last_1.last;
 
-/**
- * @param func
- * @return {Observable<R>}
- * @method let
- * @owner Observable
- */
 function letProto(func) {
     return func(this);
 }
@@ -98510,9 +94701,142 @@ var AnimationFrameAction_1 = AnimationFrameAction_1$1;
 var AnimationFrameScheduler_1 = AnimationFrameScheduler_1$1;
 var animationFrame_1$1 = new AnimationFrameScheduler_1.AnimationFrameScheduler(AnimationFrameAction_1.AnimationFrameAction);
 
-/* tslint:enable:no-unused-variable */
 var Observable_1$15 = Observable_1$1;
 var Observable$1 = Observable_1$15.Observable;
+// statics
+/* tslint:disable:no-use-before-declare */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//dom
+
+
+//operators
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* tslint:disable:no-unused-variable */
 
 /* ion-compiler */
 var LOGIN_URI = '/rest-auth/login/';
@@ -98524,7 +94848,9 @@ var GET_MY_PROFILE_URI = '/api/v0.2/salarmy/myprofile/';
 var UPDATE_MY_PROFILE_URI = '/api/v0.2/salarmy/myprofile/';
 var GET_EVENTS_URI = '/api/v0.2/events/events/';
 var GET_LOCATIONS_URI = '/api/v0.2/accounts/locations/';
-var SERVER = 'http://198.199.86.127:8282'; //DO
+var SERVER = 'http://54.174.213.109:8000';
+if (document.location.hostname === '198.199.86.127')
+    SERVER = 'http://198.199.86.127:8282';
 var STRINGS = {
     password: 'Password',
     username: 'User Name',
@@ -98562,7 +94888,7 @@ var UserProfile = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$108 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$109 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -98664,7 +94990,7 @@ var UserServices = (function () {
             .map(function (res) { return res.json(); })
             .catch(function (error) { return Observable$1.throw(error || 'Server error'); });
     };
-    UserServices = __decorate$108([
+    UserServices = __decorate$109([
         Injectable(), 
         __metadata$2('design:paramtypes', [(typeof (_a = typeof Http !== 'undefined' && Http) === 'function' && _a) || Object])
     ], UserServices);
@@ -98673,7 +94999,7 @@ var UserServices = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$111 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$112 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -98692,12 +95018,27 @@ var VolunteerEventsService = (function () {
             .map(function (res) { return res.json(); })
             .catch(function (error) { return Observable$1.throw(error.json().error || 'Server error'); });
     };
+    VolunteerEventsService.prototype.getVolunteerEventsMaxTime = function (maxTime) {
+        return this.http.get(SERVER + GET_EVENTS_URI + "?timeMax=" + maxTime)
+            .map(function (res) { return res.json(); })
+            .catch(function (error) { return Observable$1.throw(error.json().error || 'Server error'); });
+    };
+    VolunteerEventsService.prototype.getVolunteerEventsMinTime = function (minTime) {
+        return this.http.get(SERVER + GET_EVENTS_URI + "?timeMin=" + minTime)
+            .map(function (res) { return res.json(); })
+            .catch(function (error) { return Observable$1.throw(error.json().error || 'Server error'); });
+    };
+    VolunteerEventsService.prototype.getVolunteerEventsTimeRange = function (minTime, maxTime) {
+        return this.http.get(SERVER + GET_EVENTS_URI + "?timeMin=" + minTime + "&timeMax=" + maxTime)
+            .map(function (res) { return res.json(); })
+            .catch(function (error) { return Observable$1.throw(error.json().error || 'Server error'); });
+    };
     VolunteerEventsService.prototype.getLocations = function () {
         return this.http.get(SERVER + GET_LOCATIONS_URI)
             .map(function (res) { return res.json(); })
             .catch(function (error) { return Observable$1.throw(error.json().error || 'Server error'); });
     };
-    VolunteerEventsService = __decorate$111([
+    VolunteerEventsService = __decorate$112([
         Injectable(), 
         __metadata$5('design:paramtypes', [(typeof (_a = typeof Http !== 'undefined' && Http) === 'function' && _a) || Object])
     ], VolunteerEventsService);
@@ -98706,7 +95047,7 @@ var VolunteerEventsService = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$114 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$115 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -98720,7 +95061,7 @@ var ConfirmEmailPage = (function () {
         this.nav = nav;
         this.userServices = userServices;
     }
-    ConfirmEmailPage = __decorate$114([
+    ConfirmEmailPage = __decorate$115([
         Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <ion-title>Confirm Email</ion-title>\n    <!--button menuToggle right>\n      <ion-icon name="menu"></ion-icon>\n    </button-->\n  </ion-navbar>\n</ion-header>\n<ion-content id="home">\n  \n  <section id="tab-content">\n  An email is being sent to you. Please follow the instructions on the email to confirm your identity.\n  </section>\n</ion-content>'
         }), 
         __metadata$8('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof UserServices !== 'undefined' && UserServices) === 'function' && _b) || Object])
@@ -98730,7 +95071,7 @@ var ConfirmEmailPage = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$116 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$117 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -98905,7 +95246,7 @@ var RegisterIndividualProfilePage = (function () {
             this.errors.push('Backend returned 500 error, talk to JOHN :) ');
         }
     };
-    RegisterIndividualProfilePage = __decorate$116([
+    RegisterIndividualProfilePage = __decorate$117([
         Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar class="navbar-background">\n    <ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <section id="tab-content">\n  <h3>Volunteer Profile Registration</h3>\n\n  <ion-item no-lines *ngFor="let error of errors">\n    <ion-icon name="alert" item-left></ion-icon>\n    <p style="color: red">{{error}}</p>\n  </ion-item>\n\n<!-- Not sure yet about under 16... -->\n<!--    <ion-item no-lines class="">\n      <ion-label>Age Under 16</ion-label>\n      <ion-checkbox dark [(ngModel)]="underage"></ion-checkbox>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-label stacked>{{underage ? "Parents " : ""}}First Name</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="fname" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-label stacked>{{underage ? "Parents " : ""}}Last Name</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="lname" required></ion-input>\n    </ion-item>\n-->\n\n    <ion-item no-lines class="">\n     <ion-icon name="call" item-left [class.error]="mobilenumbererror"></ion-icon>\n     <ion-label stacked>{{"Mobile Number" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.mobilenumber" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n       <ion-icon name="call" item-left [class.error]="altnumbererror"></ion-icon>\n      <ion-label stacked>{{"Alternate Number" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.altnumber" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="globe" item-left [class.error]="address1error"></ion-icon>\n      <ion-label stacked>{{"Address 1" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.address1" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="globe" item-left [class.error]="address2error"></ion-icon>\n      <ion-label stacked>{{"Address 2" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.address2" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="globe" item-left [class.error]="cityerror"></ion-icon>\n      <ion-label stacked>{{"City" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.city" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="globe" item-left [class.error]="stateerror"></ion-icon>\n      <ion-label stacked>{{"State" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.state" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="globe" item-left [class.error]="zipcodeerror"></ion-icon>\n      <ion-label stacked>{{"Zip Code" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.zipcode" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="calendar" item-left [class.error]="birthdateerror"></ion-icon>\n      <ion-label stacked>{{"Birth Date" | translate }}</ion-label>\n      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="myProfile.birthdate"></ion-datetime>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="contact" item-left [class.error]="mugshoterror"></ion-icon>\n      <ion-label stacked>{{"Mug Shot" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.mugshot" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="globe" item-left [class.error]="languageerror"></ion-icon>\n      <ion-label stacked>{{"Language" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.language" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="alarm" item-left [class.error]="notification_optionerror"></ion-icon>\n      <ion-label stacked>{{"Notification Option" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.notification_option" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="megaphone" item-left [class.error]="my_contactmethod_iderror"></ion-icon>\n      <ion-label stacked>{{"Contact Method" | translate }}</ion-label>\n      <ion-select [(ngModel)]="myProfile.my_contactmethod_id" required>\n        <ion-option *ngFor="let m of availablePreferences.contactmethods" [value]="m.id">{{m.name}}</ion-option>\n      </ion-select>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="basket" item-left [class.error]="my_volunteertype_iderror"></ion-icon>\n      <ion-label stacked>{{"Volunteer Type" | translate }}</ion-label>\n      <ion-select [(ngModel)]="myProfile.my_volunteertype_id" required>\n        <ion-option *ngFor="let m of availablePreferences.volunteertypes" [value]="m.id">{{m.name}}</ion-option>\n      </ion-select>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="hammer" item-left [class.error]="my_servicearea_iderror"></ion-icon>\n      <ion-label stacked>{{"Service Area" | translate }}</ion-label>\n      <ion-select [(ngModel)]="myProfile.my_servicearea_id" required>\n        <ion-option *ngFor="let m of availablePreferences.serviceareas" [value]="m.id">{{m.name}}</ion-option>\n      </ion-select>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="people" item-left [class.error]="my_referalsource_iderror"></ion-icon>\n      <ion-label stacked>{{"Referral Source" | translate }}</ion-label>\n      <ion-select [(ngModel)]="myProfile.my_referalsource_id" required>\n        <ion-option *ngFor="let m of availablePreferences.referalsources" [value]="m.id">{{m.name}}</ion-option>\n      </ion-select>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="pizza" item-left [class.error]="my_donationtype_iderror"></ion-icon>\n      <ion-label stacked>{{"Donation Type" | translate }}</ion-label>\n      <ion-select [(ngModel)]="myProfile.my_donationtype_id" required>\n        <ion-option *ngFor="let m of availablePreferences.donationtypes" [value]="m.id">{{m.name}}</ion-option>\n      </ion-select>\n    </ion-item>\n\n  <ion-item no-lines class="">\n    <button ion-button color="primary" block large round (click)="register()">Register Profile</button>\n  </ion-item>\n  </section>\n</ion-content>'
         }), 
         __metadata$10('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof UserServices !== 'undefined' && UserServices) === 'function' && _b) || Object, (typeof (_c = typeof TranslateService !== 'undefined' && TranslateService) === 'function' && _c) || Object])
@@ -98915,7 +95256,7 @@ var RegisterIndividualProfilePage = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$115 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$116 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -98935,7 +95276,7 @@ var ConfirmSMSPage = (function () {
     ConfirmSMSPage.prototype.validateCode = function () {
         this.nav.push(RegisterIndividualProfilePage);
     };
-    ConfirmSMSPage = __decorate$115([
+    ConfirmSMSPage = __decorate$116([
         Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <ion-title>{{ \'The Salvation Army\' | translate}}</ion-title>\n    <!-- button menuToggle right>\n      <ion-icon name="menu"></ion-icon>\n    </button-->\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n\n  <section id="tab-content">\n  <h3>{{ \'Confirm SMS\' | translate}}</h3>\n  <p>\n    {{\'A text message was sent to your phone.  This message has a code. Please enter the code here.\' | translate}}\n  </p>\n  <ion-list>\n    <ion-item no-lines *ngFor="let error of errors">\n      <ion-icon name="alert" item-left class="error"></ion-icon>\n      <p class="error">{{error}}</p>\n    </ion-item>\n\n    <ion-item no-lines [class.error]="!code.valid && code.touched">\n      <ion-icon name="code" item-left  isActive="false" [class.error]="codeerror"></ion-icon>\n      <ion-label floating>{{ \'Code\' | translate}}</ion-label>\n      <ion-input required type="text" placeholder="" [(ngModel)]="code"></ion-input>\n    </ion-item>\n  </ion-list>\n  \n  <ion-item no-lines class="">\n    <button primary block large round (click)="validateCode()">Submit</button>\n  </ion-item>\n  </section>\n</ion-content>'
         }), 
         __metadata$9('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof UserServices !== 'undefined' && UserServices) === 'function' && _b) || Object, (typeof (_c = typeof TranslateService !== 'undefined' && TranslateService) === 'function' && _c) || Object])
@@ -98945,7 +95286,7 @@ var ConfirmSMSPage = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$113 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$114 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -99028,7 +95369,7 @@ var RegisterLoginPage = (function () {
             this.errors.push('Backend returned 500 error, talk to JOHN :) ');
         }
     };
-    RegisterLoginPage = __decorate$113([
+    RegisterLoginPage = __decorate$114([
         Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar class="navbar-background">\n    <ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n\n  <ion-toolbar secondary>\n    <ion-buttons begin>\n      <button ion-button icon-left (click)="back()">\n       <ion-icon name="back"></ion-icon>\n        {{\'< Back\' | translate}}\n    </button>\n    </ion-buttons>\n  </ion-toolbar>\n\n\n  <section id="tab-content">\n  <h3>Volunteer Login Registration</h3>\n\n  <ion-item no-lines *ngFor="let error of errors">\n    <ion-icon name="alert" item-left></ion-icon>\n    <p style="color: red">{{error}}</p>\n  </ion-item>\n\n  <ion-item no-lines class="">\n    <ion-icon name="contact" item-left isActive="false" [class.error]="usernameerror"></ion-icon>\n    <ion-label stacked>User ID</ion-label>\n    <ion-input required type="text" class="" [(ngModel)]="username" required></ion-input>\n  </ion-item>\n\n  <ion-item no-lines class="">\n    <ion-icon name="lock" item-left isActive="false" [class.error]="password1error"></ion-icon>\n    <ion-label stacked>Password</ion-label>\n    <ion-input required type="password" placeholder="" class="" [(ngModel)]="password1" required></ion-input>\n  </ion-item>\n\n  <ion-item no-lines class="">\n    <ion-icon name="lock" item-left isActive="false" [class.error]="password2error"></ion-icon>\n    <ion-label stacked>Confirm Password</ion-label>\n    <ion-input required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>\n  </ion-item>\n  <ion-list radio-group [(ngModel)]="pcmethod">\n\n    <ion-list-header>\n      Account validation.\n    </ion-list-header>\n    <ion-item no-lines >\n      <ion-radio checked="true" value="email" class="pcm-radio"></ion-radio>\n      <ion-icon name="mail" item-left isActive="false" class="pcm-icon" [class.error]="emailerror"></ion-icon>\n      <ion-label stacked>email</ion-label>\n      <ion-input required type="email" placeholder=""  [(ngModel)]="email" required></ion-input>\n    </ion-item>\n\n    <!--ion-item no-lines >\n      <ion-radio checked="false" value="sms" class="pcm-radio"></ion-radio>\n      <ion-icon name="call" item-left isActive="false" class="pcm-icon" [class.error]="smserror"></ion-icon>\n      <ion-label stacked>Mobile Phone Number</ion-label>\n      <ion-input type="phone" placeholder=""  [(ngModel)]="phone" required></ion-input>\n    </ion-item-->\n\n  </ion-list>\n\n  <ion-item no-lines class="">\n    <button ion-button color="primary" block large round (click)="register()">Register Login</button>\n  </ion-item>\n  </section>\n\n</ion-content>'
         }), 
         __metadata$7('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof UserServices !== 'undefined' && UserServices) === 'function' && _b) || Object, (typeof (_c = typeof TranslateService !== 'undefined' && TranslateService) === 'function' && _c) || Object])
@@ -99038,7 +95379,7 @@ var RegisterLoginPage = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$117 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$118 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -99093,7 +95434,7 @@ var ForgotPage = (function () {
             this.errors.push('Backend returned 500 error, talk to JOHN :) ');
         }
     };
-    ForgotPage = __decorate$117([
+    ForgotPage = __decorate$118([
         Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <ion-title>{{ \'The Salvation Army\' | translate}}</ion-title>\n    <!--button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button-->\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content padding>\n\n  <section id="tab-content">\n  <h3>{{ \'Forgot(NOT WORKING)\' | translate}}</h3>\n\n  <ion-item no-lines *ngFor="let error of errors">\n    <ion-icon name="alert" item-left class="error"></ion-icon>\n    <p class="error">{{error | translate}}</p>\n  </ion-item>\n\n\n  <ion-list>\n    <ion-item no-lines>\n\n      <ion-label style="word-wrap: break-word;">\n        {{ \'Please select your prefered method of account validation.\' | translate}} </ion-label>\n    </ion-item>\n\n    <ion-item no-lines>\n      <ion-icon name="mail" item-left isActive="false" [class.error]="emailerror"></ion-icon>\n      <ion-label floating>{{\'Email\' | translate}}</ion-label>\n      <ion-input required type="email" placeholder="" [(ngModel)]="email" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines>\n      <ion-icon name="call" item-left isActive="false" [class.error]="smserror"></ion-icon>\n      <ion-label floating>{{\'Mobile Phone Number\' | translate}}</ion-label>\n      <ion-input type="phone" placeholder="" [(ngModel)]="phone" required></ion-input>\n    </ion-item>\n\n  </ion-list>\n  <ion-item no-lines class="">\n    <button primary block large round (click)="forgot()">{{\'Submit\' | translate}}</button>\n  </ion-item>\n\n  </section>\n</ion-content>'
         }), 
         __metadata$11('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof UserServices !== 'undefined' && UserServices) === 'function' && _b) || Object, (typeof (_c = typeof TranslateService !== 'undefined' && TranslateService) === 'function' && _c) || Object])
@@ -99103,7 +95444,7 @@ var ForgotPage = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$112 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$113 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -99188,7 +95529,7 @@ var LoginPage = (function () {
             this.errors.push('Backend returned 500 error, talk to JOHN :) ');
         }
     };
-    LoginPage = __decorate$112([
+    LoginPage = __decorate$113([
         Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar class="navbar-background">\n    <ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n\n  <ion-toolbar secondary>\n    <ion-buttons begin>\n      <button ion-button icon-left (click)="back()">\n       <ion-icon name="back"></ion-icon>\n        {{\'< Back\' | translate}}\n    </button>\n      <button style="float: right" ion-button icon-left (click)="register()">\n       <ion-icon name="back"></ion-icon>\n        {{\'Create New Account\' | translate}}\n    </button>\n    </ion-buttons>\n  </ion-toolbar>\n\n\n  <section id="tab-content">\n    <h3>{{ \'Volunteer Login\' | translate}}</h3>\n    <ion-list>\n      <ion-item no-lines *ngFor="let error of errors">\n        <ion-icon name="alert" item-left class="error"></ion-icon>\n        <p class="error">{{error | translate}}</p>\n      </ion-item>\n      <!--  TODO: change validation to happen onBlur or on loss of focus, not right at the get go. -->\n      <!--  http://ux.stackexchange.com/questions/82960/floating-labels-vs-fixed-small-labels-on-the-the-web -->\n      <ion-item no-lines [class.error]="!username.valid && username.touched">\n        <ion-icon name="contact" item-left isActive="false" [class.error]="usernameerror"></ion-icon>\n        <ion-label stacked>{{ \'Username\' | translate}}</ion-label>\n        <ion-input required type="text" placeholder="" [(ngModel)]="username"></ion-input>\n      </ion-item>\n\n      <ion-item no-lines [class.error]="!password.valid && password.touched">\n        <ion-icon name="lock" item-left isActive="false" [class.error]="passworderror"></ion-icon>\n        <ion-label stacked>{{ \'Password\' | translate}}</ion-label>\n        <ion-input required type="password" placeholder="" [(ngModel)]="password"></ion-input>\n      </ion-item>\n      <ion-item no-lines>\n        <ion-label>{{ \'Remember Me\' | translate}}</ion-label>\n        <ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>\n      </ion-item>\n      <ion-item no-lines>\n        <button ion-button color="primary" block large (click)="login()">{{ \'Login\' | translate}}</button>\n      </ion-item>\n\n      <ion-item no-lines>\n        <p clear (click)="forgot()">{{ \'Forgot User ID/Password\' | translate}}</p>\n      </ion-item>\n    </ion-list>\n  </section>\n</ion-content>'
         }), 
         __metadata$6('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object, (typeof (_c = typeof UserServices !== 'undefined' && UserServices) === 'function' && _c) || Object, (typeof (_d = typeof TranslateService !== 'undefined' && TranslateService) === 'function' && _d) || Object])
@@ -99198,7 +95539,7 @@ var LoginPage = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$110 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$111 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -99217,7 +95558,10 @@ var HomePage = (function () {
         this.previousevents = true;
         this.yourevents = true;
         this.events = [];
-        this.selectedTab = "events";
+        this.maxEvents = [];
+        this.minEvents = [];
+        this.locations = [];
+        this.selectedTab = "home";
         this.language = "en";
     }
     HomePage.prototype.ngOnInit = function () {
@@ -99230,6 +95574,24 @@ var HomePage = (function () {
         var _this = this;
         this.volunteerEventsService
             .getVolunteerEvents().subscribe(function (events) { return _this.events = events; }, function (err) {
+            console.log(err);
+        });
+        +this.volunteerEventsService
+            .getLocations().subscribe(function (locations) { return _this.locations = locations; }, function (err) {
+            console.log(err);
+        });
+    };
+    HomePage.prototype.getEventsMax = function (maxTime) {
+        var _this = this;
+        this.volunteerEventsService
+            .getVolunteerEventsMaxTime(maxTime).subscribe(function (events) { return _this.maxEvents = events; }, function (err) {
+            console.log(err);
+        });
+    };
+    HomePage.prototype.getEventsMin = function (minTime) {
+        var _this = this;
+        this.volunteerEventsService
+            .getVolunteerEventsMinTime(minTime).subscribe(function (events) { return _this.minEvents = events; }, function (err) {
             console.log(err);
         });
     };
@@ -99247,8 +95609,8 @@ var HomePage = (function () {
     HomePage.prototype.noTabs = function () {
         this.nav.setRoot(HomePage);
     };
-    HomePage = __decorate$110([
-        Component({ template: /* ion-inline-template */ '<ion-header>\n  <app-header></app-header>\n</ion-header>\n\n<ion-content>\n\n  <div>\n    <ion-segment [(ngModel)]="selectedTab">\n      <ion-segment-button value="events">\n        Events\n      </ion-segment-button>\n\n      <ion-segment-button value="donate">\n        Donate\n      </ion-segment-button>\n      <ion-segment-button value="volunteer">\n        Volunteer\n      </ion-segment-button>\n    </ion-segment>\n  </div>\n\n  <div [ngSwitch]="selectedTab">\n    <div *ngSwitchCase="\'events\'">\n\n      <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>\n      <ion-row responsive-sm wrap>\n        <!--  NG REPEAT THIS -->\n        <ion-col width-50 class="flex-card">\n          <ion-card class="flex-card" *ngFor="let e of events">\n            <!--  ng repeat on this using search criteria and/or location data as input-->\n            <!--  throw ng-ifs on everything inside the card body. if the event has or doesnt have something, card dynamically changes to represent this -->\n            <!--  if short event descriptions are not given, need to truncate dynamically and put a read more button in too -->\n            <img src="https://static.wixstatic.com/media/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg/v1/fill/w_800,h_201,al_c,q_80/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg"\n            />\n            <ion-card-content>\n              <h2 class="card-title">\n                {{e.title}}\n              </h2>\n              <ion-row>\n                <ion-col>\n                  <p>{{e.start | date:"MM/dd/yy"}}</p>\n                </ion-col>\n                <ion-col>\n                  <p><b>{{e.start | date:\'shortTime\'}}</b></p>\n                </ion-col>\n                <ion-col>\n                  <p>{{e.location_name}}</p>\n                </ion-col>\n              </ion-row>\n\n              <p>{{e.description}}</p>\n\n            </ion-card-content>\n            <!--button padding ion-button class="readmore">Read more</button-->\n            <ion-row no-padding>\n              <ion-col>\n                <button icon-only ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'star\'></ion-icon>\n        </button>\n              </ion-col>\n              <ion-col text-center>\n                <button ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'calendar\'></ion-icon>\n          Attend\n        </button>\n              </ion-col>\n              <ion-col text-right>\n                <button ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'share-alt\'></ion-icon>\n          Share\n        </button>\n              </ion-col>\n            </ion-row>\n\n          </ion-card>\n        </ion-col>\n        <ion-col width-50 class="flex-card">\n          <ion-card class="flex-card">\n            <ion-card-content>\n              <h2 class="card-title">\n                Lorem Ipsum Dolor\n              </h2>\n              <p>\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique nec elit ut tempor. Nullam sit amet tortor magna.\n                Suspendisse in blandit urna..\n              </p>\n\n            </ion-card-content>\n            <button padding ion-button class="readmore">Read more</button>\n            <ion-row no-padding>\n\n              <ion-col>\n                <button icon-only ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'star\'></ion-icon>\n        </button>\n              </ion-col>\n              <ion-col text-center>\n                <button ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'calendar\'></ion-icon>\n          Attend\n        </button>\n              </ion-col>\n              <ion-col text-right>\n                <button ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'share-alt\'></ion-icon>\n          Share\n        </button>\n              </ion-col>\n            </ion-row>\n\n          </ion-card>\n        </ion-col>\n\n        <ion-col width-50 class="flex-card">\n          <ion-card class="flex-card">\n            <ion-card-content>\n              <h2 class="card-title">\n                Lorem Ipsum Dolor\n              </h2>\n              <p>\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique nec elit ut tempor. Nullam sit amet tortor magna.\n                Suspendisse in blandit urna..\n              </p>\n            </ion-card-content>\n            <button padding ion-button class="readmore">Read more</button>\n            <ion-row no-padding>\n              <ion-col>\n                <button icon-only ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'star\'></ion-icon>\n        </button>\n              </ion-col>\n              <ion-col text-center>\n                <button ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'calendar\'></ion-icon>\n          Attend\n        </button>\n              </ion-col>\n              <ion-col text-right>\n                <button ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'share-alt\'></ion-icon>\n          Share\n        </button>\n              </ion-col>\n            </ion-row>\n\n          </ion-card>\n        </ion-col>\n        <ion-col width-50 class="flex-card">\n          <ion-card class="flex-card">\n            <!--  ng repeat on this using search criteria and/or location data as input-->\n            <!--  throw ng-ifs on everything inside the card body. if the event has or doesnt have something, card dynamically changes to represent this -->\n            <!--  if short event descriptions are not given, need to truncate dynamically and put a read more button in too -->\n            <img src="https://static.wixstatic.com/media/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg/v1/fill/w_800,h_201,al_c,q_80/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg"\n            />\n            <ion-card-content>\n              <h2 class="card-title">\n                Lorem Ipsum Dolor\n              </h2>\n              <p>\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique nec elit ut tempor. Nullam sit amet tortor magna.\n                Suspendisse in blandit urna..\n              </p>\n            </ion-card-content>\n\n            <button padding class="readmore" ion-button>Read more</button>\n            <ion-row no-padding>\n              <ion-col>\n                <button icon-only ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'star\'></ion-icon>\n        </button>\n              </ion-col>\n              <ion-col text-center>\n                <button ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'calendar\'></ion-icon>\n          Attend\n        </button>\n              </ion-col>\n              <ion-col text-right>\n                <button ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'share-alt\'></ion-icon>\n          Share\n        </button>\n              </ion-col>\n            </ion-row>\n\n          </ion-card>\n        </ion-col>\n      </ion-row>\n\n    </div>\n    <div *ngSwitchCase="\'donate\'">\n      <ion-list>\n        <ion-item>\n          <ion-thumbnail item-left>\n            <img src="img/thumbnail-kitten-1.jpg">\n          </ion-thumbnail>\n          <h2>Luna</h2>\n        </ion-item>\n        ...\n      </ion-list>\n    </div>\n    <div *ngSwitchCase="\'volunteer\'">\n      <ion-list>\n        <ion-item>\n          <ion-thumbnail item-left>\n            <img src="img/thumbnail-kitten-1.jpg">\n          </ion-thumbnail>\n          <h2>Luna</h2>\n        </ion-item>\n        ...\n      </ion-list>\n    </div>\n  </div>\n\n</ion-content>',
+    HomePage = __decorate$111([
+        Component({ template: /* ion-inline-template */ '<ion-header>\n	<app-header></app-header>\n</ion-header>\n\n<ion-content>\n\n	<div>\n		<ion-segment [(ngModel)]="selectedTab">\n\n			<ion-segment-button value="home">\n				Home\n			</ion-segment-button>\n			<ion-segment-button value="events">\n				Events\n			</ion-segment-button>\n		</ion-segment>\n	</div>\n\n	<div [ngSwitch]="selectedTab">\n		<div *ngSwitchCase="\'events\'">\n\n			<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>\n			<ion-row responsive-sm wrap>\n				<!--  NG REPEAT THIS -->\n				<ion-col width-50 class="flex-card">\n					<ion-card class="flex-card" *ngFor="let e of events">\n						<!--  ng repeat on this using search criteria and/or location data as input-->\n						<!--  throw ng-ifs on everything inside the card body. if the event has or doesnt have something, card dynamically changes to represent this -->\n						<!--  if short event descriptions are not given, need to truncate dynamically and put a read more button in too -->\n						<img src="https://static.wixstatic.com/media/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg/v1/fill/w_800,h_201,al_c,q_80/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg"\n						/>\n						<ion-card-content>\n							<h2 class="card-title">\n								{{e.title}}\n							</h2>\n							<ion-row>\n								<ion-col>\n									<p>{{e.start | date:"MM/dd/yy"}}</p>\n								</ion-col>\n								<ion-col>\n									<p><b>{{e.start | date:\'shortTime\'}}</b></p>\n								</ion-col>\n								<ion-col>\n									<p>{{e.location_name}}</p>\n								</ion-col>\n							</ion-row>\n\n							<p>{{e.description}}</p>\n\n						</ion-card-content>\n						<!--button padding ion-button class="readmore">Read more</button>\n            <ion-row no-padding>\n              <ion-col>\n                <button icon-only ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'star\'></ion-icon>\n        </button>\n              </ion-col>\n              <ion-col text-center>\n                <button ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'calendar\'></ion-icon>\n          Attend\n        </button>\n              </ion-col>\n              <ion-col text-right>\n                <button ion-button clear small color="danger" icon-left>\n          <ion-icon name=\'share-alt\'></ion-icon>\n          Share\n        </button-->\n					</ion-card>\n				</ion-col>\n			</ion-row>\n\n		</div>\n		<div *ngSwitchCase="\'home\'">\n      <img src="http://photos3.meetupstatic.com/photos/event/a/6/b/0/600_419742672.jpeg"\n						/>\n			<ion-list>\n				<ion-item>\n					<ion-thumbnail item-left>	<img src="http://host3.salvationarmygeorgia.org/http://salvationarmygeorgia.org/wp-content/uploads/2014/06/redKettle.png&t=24b7e5741a486b3eef7dc371beced8d9"/>\n					</ion-thumbnail>\n					<h2>Home Page Content Pending</h2>\n				</ion-item>\n				...\n			</ion-list>\n		</div>\n	</div>\n\n</ion-content>',
             providers: [VolunteerEventsService],
         }), 
         __metadata$4('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof Nav !== 'undefined' && Nav) === 'function' && _b) || Object, (typeof (_c = typeof VolunteerEventsService !== 'undefined' && VolunteerEventsService) === 'function' && _c) || Object, (typeof (_d = typeof TranslateService !== 'undefined' && TranslateService) === 'function' && _d) || Object])
@@ -99309,7 +95671,7 @@ var MyApp = (function () {
         __metadata$1('design:type', (typeof (_a = typeof Nav !== 'undefined' && Nav) === 'function' && _a) || Object)
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate$1([
-        Component({ template: /* ion-inline-template */ '<ion-menu [content]="content" side="right">\n\n  <ion-toolbar>\n    <ion-title>Menu</ion-title>\n  </ion-toolbar>\n\n  <ion-content>\n    <ion-list>\n      <ion-item icon-left (click)="openPage(pages[1])">\n        <ion-icon name="home"></ion-icon>\n        Home\n      </ion-item>\n      <ion-list-header>\n        Account\n      </ion-list-header>\n      <ion-item *ngIf="!username" icon-left (click)="openPage(pages[0])">\n        <ion-icon name="person-add"></ion-icon>\n        Login\n      </ion-item>\n      <ion-item *ngIf="username" icon-left (click)="openPage(pages[0])">\n        <ion-icon name="log-out"></ion-icon>\n        Logout\n      </ion-item>\n      <ion-item *ngIf="!username" icon-left (click)="openPage(pages[2])">\n        <ion-icon name="create"></ion-icon>\n        Register\n      </ion-item>\n      <ion-item *ngIf="!username" icon-left (click)="openPage(pages[3])">\n        <ion-icon name="clipboard"></ion-icon>\n        Profile\n      </ion-item>\n    </ion-list>\n    <!--ion-list radio-group>\n      <ion-list-header>\n        Language\n      </ion-list-header>\n      <ion-item>\n        <ion-label>English</ion-label>\n        <ion-radio checked="true" value="english"></ion-radio>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Espanol</ion-label>\n        <ion-radio value="spanish"></ion-radio>\n      </ion-item>\n    </ion-list-->\n  </ion-content>\n</ion-menu>\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>',
+        Component({ template: /* ion-inline-template */ '<ion-menu [content]="content" side="right">\n\n  <ion-toolbar>\n    <ion-title>Menu</ion-title>\n  </ion-toolbar>\n\n  <ion-content>\n    <ion-list>\n      <ion-item icon-left (click)="openPage(pages[1])">\n        <ion-icon name="home"></ion-icon>\n        Home\n      </ion-item>\n      <ion-list-header>\n        Account\n      </ion-list-header>\n      <ion-item *ngIf="!username" icon-left (click)="openPage(pages[0])">\n        <ion-icon name="person-add"></ion-icon>\n        Login\n      </ion-item>\n      <ion-item *ngIf="username" icon-left (click)="openPage(pages[0])">\n        <ion-icon name="log-out"></ion-icon>\n        Logout\n      </ion-item>\n      <ion-item *ngIf="!username" icon-left (click)="openPage(pages[2])">\n        <ion-icon name="create"></ion-icon>\n        Register\n      </ion-item>\n      <ion-item *ngIf="username" icon-left (click)="openPage(pages[3])">\n        <ion-icon name="clipboard"></ion-icon>\n        Profile\n      </ion-item>\n    </ion-list>\n    <!--ion-list radio-group>\n      <ion-list-header>\n        Language\n      </ion-list-header>\n      <ion-item>\n        <ion-label>English</ion-label>\n        <ion-radio checked="true" value="english"></ion-radio>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Espanol</ion-label>\n        <ion-radio value="spanish"></ion-radio>\n      </ion-item>\n    </ion-list-->\n  </ion-content>\n</ion-menu>\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>',
             providers: [UserServices]
         }), 
         __metadata$1('design:paramtypes', [(typeof (_b = typeof Platform !== 'undefined' && Platform) === 'function' && _b) || Object, (typeof (_c = typeof MenuController !== 'undefined' && MenuController) === 'function' && _c) || Object])
@@ -99319,7 +95681,7 @@ var MyApp = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$118 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$119 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -99331,7 +95693,7 @@ var __metadata$12 = (undefined && undefined.__metadata) || function (k, v) {
 var HelloIonicPage = (function () {
     function HelloIonicPage() {
     }
-    HelloIonicPage = __decorate$118([
+    HelloIonicPage = __decorate$119([
         Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Hello Ionic</ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content padding>\n\n  <h3>Welcome to your first Ionic app!</h3>\n\n  <p>\n    This starter project is our way of helping you get a functional app running in record time.\n  </p>\n  <p>\n    Follow along on the tutorial section of the Ionic docs!\n  </p>\n  <p>\n    <button ion-button color="primary" menuToggle>Toggle Menu</button>\n  </p>\n\n</ion-content>\n'
         }), 
         __metadata$12('design:paramtypes', [])
@@ -99340,7 +95702,7 @@ var HelloIonicPage = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$119 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$120 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -99356,7 +95718,7 @@ var ItemDetailsPage = (function () {
         // If we navigated to this page, we will have an item available as a nav param
         this.selectedItem = navParams.get('item');
     }
-    ItemDetailsPage = __decorate$119([
+    ItemDetailsPage = __decorate$120([
         Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <button menuToggle *ngIf="!selectedItem">\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Item Details</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n <div *ngIf="selectedItem" class="selection">\n    <b>{{selectedItem.title}}</b>\n    <ion-icon name="{{selectedItem.icon}}"></ion-icon>\n    <div>\n      You navigated here from <b>{{selectedItem.title}}</b>\n    </div>\n  </div>\n</ion-content>\n'
         }), 
         __metadata$13('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object])
@@ -99366,7 +95728,7 @@ var ItemDetailsPage = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$120 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$121 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -99397,12 +95759,40 @@ var ListPage = (function () {
             item: item
         });
     };
-    ListPage = __decorate$120([
+    ListPage = __decorate$121([
         Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>My First List</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">\n      <ion-icon name="{{item.icon}}" item-left></ion-icon>\n      {{item.title}}\n      <div class="item-note" item-right>\n        {{item.note}}\n      </div>\n    </button>\n  </ion-list>\n  <div *ngIf="selectedItem" padding>\n    You navigated here from <b>{{selectedItem.title}}</b>\n  </div>\n</ion-content>\n'
         }), 
         __metadata$14('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object])
     ], ListPage);
     return ListPage;
+    var _a, _b;
+}());
+
+/* ion-compiler */
+var __decorate$123 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$16 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var DonatePage = (function () {
+    function DonatePage(navCtrl, nav) {
+        this.navCtrl = navCtrl;
+        this.nav = nav;
+        this.language = "english";
+    }
+    DonatePage.prototype.login = function () {
+        //   this.nav.setRoot(LoginPage);
+    };
+    DonatePage = __decorate$123([
+        Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <ion-title id="doing">Doing the Most Good</ion-title>\n    <button menuToggle right>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n  </ion-navbar>\n</ion-header>\n\n<section id="login-bar" *ngIf="!username">\n  <ion-select id="language-select" [(ngModel)]="language">\n    <ion-option value="english">English</ion-option>\n    <ion-option value="spanish">Espanol</ion-option>\n  </ion-select>\n  <button id="login-button" (click)="login()">Login</button>\n</section>\n<section id="logout-bar" *ngIf="username">\n  <h1>Welcome back {{username}}</h1>\n  <button (click)="login()">Lout</button>\n  <section id="tab-content">\n    <ion-searchbar (ionInput)="getItems($event)" showCancelButton="true" (ionCancel)="onCancel($event)"></ion-searchbar>\n    <ion-card>\n      <ion-item no-lines class="closed-tab" (click)="yourevents=!yourevents">\n        Your Volunteer Events\n        <ion-icon name="arrow-down" item-right *ngIf="!yourevents"></ion-icon>\n        <ion-icon name="arrow-up" item-right *ngIf="yourevents"></ion-icon>\n      </ion-item>\n      <section *ngIf="!yourevents">\n        <ion-item *ngFor="let e of events">\n          <p class="thin-item">{{e.title}}</p>\n          <ion-row>\n            <ion-col>\n              <p>{{e.start | date:"MM/dd/yy"}}</p>\n            </ion-col>\n            <ion-col>\n              <p><b>{{e.start | date:\'shortTime\'}}</b></p>\n            </ion-col>\n            <ion-col>\n              <p>{{e.location_name}}</p>\n            </ion-col>\n          </ion-row>\n          <h4>Details:</h4>\n          <p>{{e.description}}</p>\n        </ion-item>\n      </section>\n    </ion-card>\n  </section>\n</section>\n'
+        }), 
+        __metadata$16('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof Nav !== 'undefined' && Nav) === 'function' && _b) || Object])
+    ], DonatePage);
+    return DonatePage;
     var _a, _b;
 }());
 
@@ -99413,42 +95803,9 @@ var __decorate$122 = (undefined && undefined.__decorate) || function (decorators
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$16 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-//import {LoginPage} from '../../login/login';
-var DonatePage = (function () {
-    function DonatePage(navCtrl, nav) {
-        this.navCtrl = navCtrl;
-        this.nav = nav;
-        this.language = "english";
-    }
-    DonatePage.prototype.login = function () {
-        //   this.nav.setRoot(LoginPage);
-    };
-    DonatePage = __decorate$122([
-        Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <ion-title id="doing">Doing the Most Good</ion-title>\n    <button menuToggle right>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n  </ion-navbar>\n</ion-header>\n\n<section id="login-bar" *ngIf="!username">\n  <ion-select id="language-select" [(ngModel)]="language">\n    <ion-option value="english">English</ion-option>\n    <ion-option value="spanish">Espanol</ion-option>\n  </ion-select>\n  <button id="login-button" (click)="login()">Login</button>\n</section>\n<section id="logout-bar" *ngIf="username">\n  <h1>Welcome back {{username}}</h1>\n  <button (click)="login()">Lout</button>\n  <section id="tab-content">\n    <ion-searchbar (ionInput)="getItems($event)" showCancelButton="true" (ionCancel)="onCancel($event)"></ion-searchbar>\n    <ion-card>\n      <ion-item no-lines class="closed-tab" (click)="yourevents=!yourevents">\n        Your Volunteer Events\n        <ion-icon name="arrow-down" item-right *ngIf="!yourevents"></ion-icon>\n        <ion-icon name="arrow-up" item-right *ngIf="yourevents"></ion-icon>\n      </ion-item>\n      <section *ngIf="!yourevents">\n        <ion-item *ngFor="let e of events">\n          <p class="thin-item">{{e.title}}</p>\n          <ion-row>\n            <ion-col>\n              <p>{{e.start | date:"MM/dd/yy"}}</p>\n            </ion-col>\n            <ion-col>\n              <p><b>{{e.start | date:\'shortTime\'}}</b></p>\n            </ion-col>\n            <ion-col>\n              <p>{{e.location_name}}</p>\n            </ion-col>\n          </ion-row>\n          <h4>Details:</h4>\n          <p>{{e.description}}</p>\n        </ion-item>\n      </section>\n    </ion-card>\n  </section>\n</section>\n'
-        }), 
-        __metadata$16('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof Nav !== 'undefined' && Nav) === 'function' && _b) || Object])
-    ], DonatePage);
-    return DonatePage;
-    var _a, _b;
-}());
-
-/* ion-compiler */
-var __decorate$121 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 var __metadata$15 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-//import {RegisterIndividualProfilePage} from '../register-individual-profile/register-individual-profile';
-//import {LoginPage} from '../login/login';
-//import {UserServices} from '../../service/user';
-//import {UserProfile} from '../../model/user-profile';
 var TabsPage = (function () {
     function TabsPage(nav, navParams) {
         //            private userServices: UserServices) {
@@ -99486,7 +95843,7 @@ var TabsPage = (function () {
             this.errors.push('Backend returned 500 error, talk to JOHN :) ');
           }*/
     };
-    TabsPage = __decorate$121([
+    TabsPage = __decorate$122([
         Component({ template: /* ion-inline-template */ '<ion-tabs tabsPlacement="top">\n  <ion-tab tabTitle="Events" [root]="homePage"></ion-tab>\n  <ion-tab tabTitle="Donate" [root]="donatePage"></ion-tab>\n  <!--ion-tab tabTitle="Volunteer" [root]="eventsPage"></ion-tab>\n  <ion-tab tabIcon="contact" tabTitle="Users" [root]="awardsPage"></ion-tab>\n  <ion-tab tabIcon="trophy" tabTitle="Awards" [root]="awardsPage"></ion-tab-->\n</ion-tabs>' //,
         }), 
         __metadata$15('design:paramtypes', [(typeof (_a = typeof Nav !== 'undefined' && Nav) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object])
@@ -99496,7 +95853,7 @@ var TabsPage = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$123 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$124 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -99522,7 +95879,7 @@ var AppHeaderComponent = (function () {
     AppHeaderComponent.prototype.login = function () {
         this.nav.setRoot(LoginPage);
     };
-    AppHeaderComponent = __decorate$123([
+    AppHeaderComponent = __decorate$124([
         Component({
             selector: 'app-header', template: /* ion-inline-template */ '<ion-navbar class="navbar-background">\n\n  <ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>\n\n  <ion-buttons end>\n\n    <button ion-button icon-only menuToggle style="display: inline-block;">\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n</ion-navbar>\n\n<ion-toolbar secondary>\n\n  <ion-buttons begin>\n\n    <button *ngIf="username" ion-button icon-left (click)="login()">\n\n       <ion-icon name="contact"></ion-icon>\n\n       {{username}}\n\n    </button>\n\n    <button *ngIf="!username" ion-button icon-left (click)="login()">\n\n       <ion-icon name="person-add"></ion-icon>\n\n        Sign In\n\n    </button>\n\n    <!--button ion-button icon-left>\n\n      <ion-icon name="swap"></ion-icon>\n\n        Espanol?\n\n    </button-->\n\n  </ion-buttons>\n\n  <!-- <ion-label *ngIf="!username">Welcome Guest</ion-label>\n\n	<ion-label *ngIf="username">Welcome {{username}}</ion-label> -->\n\n  <ion-buttons end>\n\n    <button ion-button icon-left *ngIf="username" (click)="login()">\n\n    <ion-icon name="log-out"></ion-icon>\n\n     Logout\n\n    </button>\n\n  </ion-buttons>\n\n</ion-toolbar>'
         }), 

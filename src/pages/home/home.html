@@ -1,57 +1,54 @@
 <ion-header>
-  <app-header></app-header>
+	<app-header></app-header>
 </ion-header>
 
 <ion-content>
 
-  <div>
-    <ion-segment [(ngModel)]="selectedTab">
-      <ion-segment-button value="events">
-        Events
-      </ion-segment-button>
+	<div>
+		<ion-segment [(ngModel)]="selectedTab">
 
-      <ion-segment-button value="donate">
-        Donate
-      </ion-segment-button>
-      <ion-segment-button value="volunteer">
-        Volunteer
-      </ion-segment-button>
-    </ion-segment>
-  </div>
+			<ion-segment-button value="home">
+				Home
+			</ion-segment-button>
+			<ion-segment-button value="events">
+				Events
+			</ion-segment-button>
+		</ion-segment>
+	</div>
 
-  <div [ngSwitch]="selectedTab">
-    <div *ngSwitchCase="'events'">
+	<div [ngSwitch]="selectedTab">
+		<div *ngSwitchCase="'events'">
 
-      <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-      <ion-row responsive-sm wrap>
-        <!--  NG REPEAT THIS -->
-        <ion-col width-50 class="flex-card">
-          <ion-card class="flex-card" *ngFor="let e of events">
-            <!--  ng repeat on this using search criteria and/or location data as input-->
-            <!--  throw ng-ifs on everything inside the card body. if the event has or doesnt have something, card dynamically changes to represent this -->
-            <!--  if short event descriptions are not given, need to truncate dynamically and put a read more button in too -->
-            <img src="https://static.wixstatic.com/media/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg/v1/fill/w_800,h_201,al_c,q_80/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg"
-            />
-            <ion-card-content>
-              <h2 class="card-title">
-                {{e.title}}
-              </h2>
-              <ion-row>
-                <ion-col>
-                  <p>{{e.start | date:"MM/dd/yy"}}</p>
-                </ion-col>
-                <ion-col>
-                  <p><b>{{e.start | date:'shortTime'}}</b></p>
-                </ion-col>
-                <ion-col>
-                  <p>{{e.location_name}}</p>
-                </ion-col>
-              </ion-row>
+			<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+			<ion-row responsive-sm wrap>
+				<!--  NG REPEAT THIS -->
+				<ion-col width-50 class="flex-card">
+					<ion-card class="flex-card" *ngFor="let e of events">
+						<!--  ng repeat on this using search criteria and/or location data as input-->
+						<!--  throw ng-ifs on everything inside the card body. if the event has or doesnt have something, card dynamically changes to represent this -->
+						<!--  if short event descriptions are not given, need to truncate dynamically and put a read more button in too -->
+						<img src="https://static.wixstatic.com/media/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg/v1/fill/w_800,h_201,al_c,q_80/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg"
+						/>
+						<ion-card-content>
+							<h2 class="card-title">
+								{{e.title}}
+							</h2>
+							<ion-row>
+								<ion-col>
+									<p>{{e.start | date:"MM/dd/yy"}}</p>
+								</ion-col>
+								<ion-col>
+									<p><b>{{e.start | date:'shortTime'}}</b></p>
+								</ion-col>
+								<ion-col>
+									<p>{{e.location_name}}</p>
+								</ion-col>
+							</ion-row>
 
-              <p>{{e.description}}</p>
+							<p>{{e.description}}</p>
 
-            </ion-card-content>
-            <!--button padding ion-button class="readmore">Read more</button-->
+						</ion-card-content>
+						<!--button padding ion-button class="readmore">Read more</button>
             <ion-row no-padding>
               <ion-col>
                 <button icon-only ion-button clear small color="danger" icon-left>
@@ -68,148 +65,24 @@
                 <button ion-button clear small color="danger" icon-left>
           <ion-icon name='share-alt'></ion-icon>
           Share
-        </button>
-              </ion-col>
-            </ion-row>
+        </button-->
+					</ion-card>
+				</ion-col>
+			</ion-row>
 
-          </ion-card>
-        </ion-col>
-        <ion-col width-50 class="flex-card">
-          <ion-card class="flex-card">
-            <ion-card-content>
-              <h2 class="card-title">
-                Lorem Ipsum Dolor
-              </h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique nec elit ut tempor. Nullam sit amet tortor magna.
-                Suspendisse in blandit urna..
-              </p>
-
-            </ion-card-content>
-            <button padding ion-button class="readmore">Read more</button>
-            <ion-row no-padding>
-
-              <ion-col>
-                <button icon-only ion-button clear small color="danger" icon-left>
-          <ion-icon name='star'></ion-icon>
-        </button>
-              </ion-col>
-              <ion-col text-center>
-                <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='calendar'></ion-icon>
-          Attend
-        </button>
-              </ion-col>
-              <ion-col text-right>
-                <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='share-alt'></ion-icon>
-          Share
-        </button>
-              </ion-col>
-            </ion-row>
-
-          </ion-card>
-        </ion-col>
-
-        <ion-col width-50 class="flex-card">
-          <ion-card class="flex-card">
-            <ion-card-content>
-              <h2 class="card-title">
-                Lorem Ipsum Dolor
-              </h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique nec elit ut tempor. Nullam sit amet tortor magna.
-                Suspendisse in blandit urna..
-              </p>
-            </ion-card-content>
-            <button padding ion-button class="readmore">Read more</button>
-            <ion-row no-padding>
-              <ion-col>
-                <button icon-only ion-button clear small color="danger" icon-left>
-          <ion-icon name='star'></ion-icon>
-        </button>
-              </ion-col>
-              <ion-col text-center>
-                <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='calendar'></ion-icon>
-          Attend
-        </button>
-              </ion-col>
-              <ion-col text-right>
-                <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='share-alt'></ion-icon>
-          Share
-        </button>
-              </ion-col>
-            </ion-row>
-
-          </ion-card>
-        </ion-col>
-        <ion-col width-50 class="flex-card">
-          <ion-card class="flex-card">
-            <!--  ng repeat on this using search criteria and/or location data as input-->
-            <!--  throw ng-ifs on everything inside the card body. if the event has or doesnt have something, card dynamically changes to represent this -->
-            <!--  if short event descriptions are not given, need to truncate dynamically and put a read more button in too -->
-            <img src="https://static.wixstatic.com/media/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg/v1/fill/w_800,h_201,al_c,q_80/0af972_330aefeed6cb4313b93164437a290661~mv2.jpg"
-            />
-            <ion-card-content>
-              <h2 class="card-title">
-                Lorem Ipsum Dolor
-              </h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique nec elit ut tempor. Nullam sit amet tortor magna.
-                Suspendisse in blandit urna..
-              </p>
-            </ion-card-content>
-
-            <button padding class="readmore" ion-button>Read more</button>
-            <ion-row no-padding>
-              <ion-col>
-                <button icon-only ion-button clear small color="danger" icon-left>
-          <ion-icon name='star'></ion-icon>
-        </button>
-              </ion-col>
-              <ion-col text-center>
-                <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='calendar'></ion-icon>
-          Attend
-        </button>
-              </ion-col>
-              <ion-col text-right>
-                <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='share-alt'></ion-icon>
-          Share
-        </button>
-              </ion-col>
-            </ion-row>
-
-          </ion-card>
-        </ion-col>
-      </ion-row>
-
-    </div>
-    <div *ngSwitchCase="'donate'">
-      <ion-list>
-        <ion-item>
-          <ion-thumbnail item-left>
-            <img src="img/thumbnail-kitten-1.jpg">
-          </ion-thumbnail>
-          <h2>Luna</h2>
-        </ion-item>
-        ...
-      </ion-list>
-    </div>
-    <div *ngSwitchCase="'volunteer'">
-      <ion-list>
-        <ion-item>
-          <ion-thumbnail item-left>
-            <img src="img/thumbnail-kitten-1.jpg">
-          </ion-thumbnail>
-          <h2>Luna</h2>
-        </ion-item>
-        ...
-      </ion-list>
-    </div>
-  </div>
+		</div>
+		<div *ngSwitchCase="'home'">
+      <img src="http://photos3.meetupstatic.com/photos/event/a/6/b/0/600_419742672.jpeg"
+						/>
+			<ion-list>
+				<ion-item>
+					<ion-thumbnail item-left>	<img src="http://host3.salvationarmygeorgia.org/http://salvationarmygeorgia.org/wp-content/uploads/2014/06/redKettle.png&t=24b7e5741a486b3eef7dc371beced8d9"/>
+					</ion-thumbnail>
+					<h2>Home Page Content Pending</h2>
+				</ion-item>
+				...
+			</ion-list>
+		</div>
+	</div>
 
 </ion-content>
