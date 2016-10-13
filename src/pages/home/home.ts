@@ -20,7 +20,7 @@ export class HomePage {
   maxEvents: Array<VolunteerEvent> = [];
   minEvents: Array<VolunteerEvent> = [];
   locations: Array<Locations> = [];
-  selectedTab: string = "events";
+  selectedTab: string = "home";
   language: string = "en";
   constructor(private navCtrl: NavController,
               private nav: Nav, 
