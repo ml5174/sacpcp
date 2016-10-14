@@ -43,6 +43,7 @@ export class LoginPage {
     this.passworderror = false;
 
     if (this.remember) this.storage.set('username', this.username);
+
     else this.storage.set('username', '');
     let login = {
       username: this.username,
@@ -51,6 +52,7 @@ export class LoginPage {
     this.userServices.login(login)
       .subscribe(
       key => {
+        this.storage.set('key', key);
         this.nav.push(HomePage);
       },
       err => this.setError(err));

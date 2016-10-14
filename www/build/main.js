@@ -94883,6 +94883,7 @@ var STRINGS = {
 /* ion-compiler */
 var UserProfile = (function () {
     function UserProfile() {
+        this.profile = {};
     }
     return UserProfile;
 }());
@@ -94901,6 +94902,7 @@ var UserServices = (function () {
     function UserServices(http) {
         this.http = http;
         this.user = new UserProfile();
+        this.storage = new Storage();
     }
     UserServices.prototype.login = function (body) {
         var _this = this;
@@ -94957,6 +94959,7 @@ var UserServices = (function () {
             .catch(function (error) { return Observable$1.throw(error || 'Server error'); });
     };
     UserServices.prototype.getMyProfile = function () {
+        var user = this.user;
         var headers = new Headers();
         if (this.user)
             if (this.user.id)
@@ -94964,7 +94967,9 @@ var UserServices = (function () {
         headers.append('Content-Type', 'text/plain');
         var options = new RequestOptions({ headers: headers });
         return this.http.get(SERVER + GET_MY_PROFILE_URI, options)
-            .map(function (res) { return res.json(); })
+            .map(function (res) {
+            user.profile = res.json();
+        })
             .catch(function (error) { return Observable$1.throw(error || 'Server error'); });
     };
     UserServices.prototype.createMyProfile = function (myProfile) {
@@ -95054,30 +95059,6 @@ var __decorate$115 = (undefined && undefined.__decorate) || function (decorators
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata$8 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ConfirmEmailPage = (function () {
-    function ConfirmEmailPage(nav, userServices) {
-        this.nav = nav;
-        this.userServices = userServices;
-    }
-    ConfirmEmailPage = __decorate$115([
-        Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <ion-title>Confirm Email</ion-title>\n    <!--button menuToggle right>\n      <ion-icon name="menu"></ion-icon>\n    </button-->\n  </ion-navbar>\n</ion-header>\n<ion-content id="home">\n  \n  <section id="tab-content">\n  An email is being sent to you. Please follow the instructions on the email to confirm your identity.\n  </section>\n</ion-content>'
-        }), 
-        __metadata$8('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof UserServices !== 'undefined' && UserServices) === 'function' && _b) || Object])
-    ], ConfirmEmailPage);
-    return ConfirmEmailPage;
-    var _a, _b;
-}());
-
-/* ion-compiler */
-var __decorate$117 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$10 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var RegisterIndividualProfilePage = (function () {
@@ -95246,42 +95227,12 @@ var RegisterIndividualProfilePage = (function () {
             this.errors.push('Backend returned 500 error, talk to JOHN :) ');
         }
     };
-    RegisterIndividualProfilePage = __decorate$117([
+    RegisterIndividualProfilePage = __decorate$115([
         Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar class="navbar-background">\n    <ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <section id="tab-content">\n  <h3>Volunteer Profile Registration</h3>\n\n  <ion-item no-lines *ngFor="let error of errors">\n    <ion-icon name="alert" item-left></ion-icon>\n    <p style="color: red">{{error}}</p>\n  </ion-item>\n\n<!-- Not sure yet about under 16... -->\n<!--    <ion-item no-lines class="">\n      <ion-label>Age Under 16</ion-label>\n      <ion-checkbox dark [(ngModel)]="underage"></ion-checkbox>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-label stacked>{{underage ? "Parents " : ""}}First Name</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="fname" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-label stacked>{{underage ? "Parents " : ""}}Last Name</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="lname" required></ion-input>\n    </ion-item>\n-->\n\n    <ion-item no-lines class="">\n     <ion-icon name="call" item-left [class.error]="mobilenumbererror"></ion-icon>\n     <ion-label stacked>{{"Mobile Number" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.mobilenumber" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n       <ion-icon name="call" item-left [class.error]="altnumbererror"></ion-icon>\n      <ion-label stacked>{{"Alternate Number" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.altnumber" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="globe" item-left [class.error]="address1error"></ion-icon>\n      <ion-label stacked>{{"Address 1" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.address1" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="globe" item-left [class.error]="address2error"></ion-icon>\n      <ion-label stacked>{{"Address 2" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.address2" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="globe" item-left [class.error]="cityerror"></ion-icon>\n      <ion-label stacked>{{"City" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.city" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="globe" item-left [class.error]="stateerror"></ion-icon>\n      <ion-label stacked>{{"State" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.state" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="globe" item-left [class.error]="zipcodeerror"></ion-icon>\n      <ion-label stacked>{{"Zip Code" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.zipcode" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="calendar" item-left [class.error]="birthdateerror"></ion-icon>\n      <ion-label stacked>{{"Birth Date" | translate }}</ion-label>\n      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="myProfile.birthdate"></ion-datetime>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="contact" item-left [class.error]="mugshoterror"></ion-icon>\n      <ion-label stacked>{{"Mug Shot" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.mugshot" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="globe" item-left [class.error]="languageerror"></ion-icon>\n      <ion-label stacked>{{"Language" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.language" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="alarm" item-left [class.error]="notification_optionerror"></ion-icon>\n      <ion-label stacked>{{"Notification Option" | translate }}</ion-label>\n      <ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.notification_option" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="megaphone" item-left [class.error]="my_contactmethod_iderror"></ion-icon>\n      <ion-label stacked>{{"Contact Method" | translate }}</ion-label>\n      <ion-select [(ngModel)]="myProfile.my_contactmethod_id" required>\n        <ion-option *ngFor="let m of availablePreferences.contactmethods" [value]="m.id">{{m.name}}</ion-option>\n      </ion-select>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="basket" item-left [class.error]="my_volunteertype_iderror"></ion-icon>\n      <ion-label stacked>{{"Volunteer Type" | translate }}</ion-label>\n      <ion-select [(ngModel)]="myProfile.my_volunteertype_id" required>\n        <ion-option *ngFor="let m of availablePreferences.volunteertypes" [value]="m.id">{{m.name}}</ion-option>\n      </ion-select>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="hammer" item-left [class.error]="my_servicearea_iderror"></ion-icon>\n      <ion-label stacked>{{"Service Area" | translate }}</ion-label>\n      <ion-select [(ngModel)]="myProfile.my_servicearea_id" required>\n        <ion-option *ngFor="let m of availablePreferences.serviceareas" [value]="m.id">{{m.name}}</ion-option>\n      </ion-select>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="people" item-left [class.error]="my_referalsource_iderror"></ion-icon>\n      <ion-label stacked>{{"Referral Source" | translate }}</ion-label>\n      <ion-select [(ngModel)]="myProfile.my_referalsource_id" required>\n        <ion-option *ngFor="let m of availablePreferences.referalsources" [value]="m.id">{{m.name}}</ion-option>\n      </ion-select>\n    </ion-item>\n\n    <ion-item no-lines class="">\n      <ion-icon name="pizza" item-left [class.error]="my_donationtype_iderror"></ion-icon>\n      <ion-label stacked>{{"Donation Type" | translate }}</ion-label>\n      <ion-select [(ngModel)]="myProfile.my_donationtype_id" required>\n        <ion-option *ngFor="let m of availablePreferences.donationtypes" [value]="m.id">{{m.name}}</ion-option>\n      </ion-select>\n    </ion-item>\n\n  <ion-item no-lines class="">\n    <button ion-button color="primary" block large round (click)="register()">Register Profile</button>\n  </ion-item>\n  </section>\n</ion-content>'
         }), 
-        __metadata$10('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof UserServices !== 'undefined' && UserServices) === 'function' && _b) || Object, (typeof (_c = typeof TranslateService !== 'undefined' && TranslateService) === 'function' && _c) || Object])
+        __metadata$8('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof UserServices !== 'undefined' && UserServices) === 'function' && _b) || Object, (typeof (_c = typeof TranslateService !== 'undefined' && TranslateService) === 'function' && _c) || Object])
     ], RegisterIndividualProfilePage);
     return RegisterIndividualProfilePage;
-    var _a, _b, _c;
-}());
-
-/* ion-compiler */
-var __decorate$116 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$9 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ConfirmSMSPage = (function () {
-    function ConfirmSMSPage(nav, userServices, translate) {
-        this.nav = nav;
-        this.userServices = userServices;
-        this.translate = translate;
-        this.code = '';
-        this.codeerror = false;
-    }
-    ConfirmSMSPage.prototype.validateCode = function () {
-        this.nav.push(RegisterIndividualProfilePage);
-    };
-    ConfirmSMSPage = __decorate$116([
-        Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <ion-title>{{ \'The Salvation Army\' | translate}}</ion-title>\n    <!-- button menuToggle right>\n      <ion-icon name="menu"></ion-icon>\n    </button-->\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n\n  <section id="tab-content">\n  <h3>{{ \'Confirm SMS\' | translate}}</h3>\n  <p>\n    {{\'A text message was sent to your phone.  This message has a code. Please enter the code here.\' | translate}}\n  </p>\n  <ion-list>\n    <ion-item no-lines *ngFor="let error of errors">\n      <ion-icon name="alert" item-left class="error"></ion-icon>\n      <p class="error">{{error}}</p>\n    </ion-item>\n\n    <ion-item no-lines [class.error]="!code.valid && code.touched">\n      <ion-icon name="code" item-left  isActive="false" [class.error]="codeerror"></ion-icon>\n      <ion-label floating>{{ \'Code\' | translate}}</ion-label>\n      <ion-input required type="text" placeholder="" [(ngModel)]="code"></ion-input>\n    </ion-item>\n  </ion-list>\n  \n  <ion-item no-lines class="">\n    <button primary block large round (click)="validateCode()">Submit</button>\n  </ion-item>\n  </section>\n</ion-content>'
-        }), 
-        __metadata$9('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof UserServices !== 'undefined' && UserServices) === 'function' && _b) || Object, (typeof (_c = typeof TranslateService !== 'undefined' && TranslateService) === 'function' && _c) || Object])
-    ], ConfirmSMSPage);
-    return ConfirmSMSPage;
     var _a, _b, _c;
 }());
 
@@ -95319,6 +95270,7 @@ var RegisterLoginPage = (function () {
     };
     RegisterLoginPage.prototype.register = function () {
         var _this = this;
+        var registerLogin = this;
         this.errors = [];
         this.usernameerror = false;
         this.password1error = false;
@@ -95326,8 +95278,6 @@ var RegisterLoginPage = (function () {
         this.emailerror = false;
         /* TEMP CODE until confirmation flow is established */
         if (this.pcmethod === 'sms') {
-            this.nav.push(ConfirmSMSPage);
-            return;
         }
         var register = {
             username: this.username,
@@ -95338,8 +95288,18 @@ var RegisterLoginPage = (function () {
         this.userServices.register(register)
             .subscribe(function (key) {
             _this.key = key;
-            if (_this.pcmethod === 'email')
-                _this.nav.push(ConfirmEmailPage);
+            var myProfile = {
+                'User': registerLogin.username
+            };
+            _this.userServices.createMyProfile(myProfile)
+                .subscribe(function (key) {
+                registerLogin.key = key;
+                registerLogin.nav.setRoot(RegisterIndividualProfilePage);
+            }, function (err) {
+                console.log(err);
+                _this.setError(err);
+            }),
+                function (val) { return _this.val = val; };
         }, function (err) {
             console.log(err);
             _this.setError(err);
@@ -95370,7 +95330,7 @@ var RegisterLoginPage = (function () {
         }
     };
     RegisterLoginPage = __decorate$114([
-        Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar class="navbar-background">\n    <ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n\n  <ion-toolbar secondary>\n    <ion-buttons begin>\n      <button ion-button icon-left (click)="back()">\n       <ion-icon name="back"></ion-icon>\n        {{\'< Back\' | translate}}\n    </button>\n    </ion-buttons>\n  </ion-toolbar>\n\n\n  <section id="tab-content">\n  <h3>Volunteer Login Registration</h3>\n\n  <ion-item no-lines *ngFor="let error of errors">\n    <ion-icon name="alert" item-left></ion-icon>\n    <p style="color: red">{{error}}</p>\n  </ion-item>\n\n  <ion-item no-lines class="">\n    <ion-icon name="contact" item-left isActive="false" [class.error]="usernameerror"></ion-icon>\n    <ion-label stacked>User ID</ion-label>\n    <ion-input required type="text" class="" [(ngModel)]="username" required></ion-input>\n  </ion-item>\n\n  <ion-item no-lines class="">\n    <ion-icon name="lock" item-left isActive="false" [class.error]="password1error"></ion-icon>\n    <ion-label stacked>Password</ion-label>\n    <ion-input required type="password" placeholder="" class="" [(ngModel)]="password1" required></ion-input>\n  </ion-item>\n\n  <ion-item no-lines class="">\n    <ion-icon name="lock" item-left isActive="false" [class.error]="password2error"></ion-icon>\n    <ion-label stacked>Confirm Password</ion-label>\n    <ion-input required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>\n  </ion-item>\n  <ion-list radio-group [(ngModel)]="pcmethod">\n\n    <ion-list-header>\n      Account validation.\n    </ion-list-header>\n    <ion-item no-lines >\n      <ion-radio checked="true" value="email" class="pcm-radio"></ion-radio>\n      <ion-icon name="mail" item-left isActive="false" class="pcm-icon" [class.error]="emailerror"></ion-icon>\n      <ion-label stacked>email</ion-label>\n      <ion-input required type="email" placeholder=""  [(ngModel)]="email" required></ion-input>\n    </ion-item>\n\n    <!--ion-item no-lines >\n      <ion-radio checked="false" value="sms" class="pcm-radio"></ion-radio>\n      <ion-icon name="call" item-left isActive="false" class="pcm-icon" [class.error]="smserror"></ion-icon>\n      <ion-label stacked>Mobile Phone Number</ion-label>\n      <ion-input type="phone" placeholder=""  [(ngModel)]="phone" required></ion-input>\n    </ion-item-->\n\n  </ion-list>\n\n  <ion-item no-lines class="">\n    <button ion-button color="primary" block large round (click)="register()">Register Login</button>\n  </ion-item>\n  </section>\n\n</ion-content>'
+        Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar class="navbar-background">\n    <ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n\n  <ion-toolbar secondary>\n    <ion-buttons begin>\n      <button ion-button icon-left (click)="back()">\n       <ion-icon name="back"></ion-icon>\n        {{\'< Back\' | translate}}\n    </button>\n    </ion-buttons>\n  </ion-toolbar>\n\n\n  <section id="tab-content">\n  <h3>Volunteer Login Registration</h3>\n\n  <ion-item no-lines *ngFor="let error of errors">\n    <ion-icon name="alert" item-left></ion-icon>\n    <p style="color: red">{{error}}</p>\n  </ion-item>\n\n  <ion-item no-lines class="">\n    <ion-icon name="contact" item-left isActive="false" [class.error]="usernameerror"></ion-icon>\n    <ion-label stacked>User ID</ion-label>\n    <ion-input required type="text" class="" [(ngModel)]="username" required></ion-input>\n  </ion-item>\n\n  <ion-item no-lines class="">\n    <ion-icon name="lock" item-left isActive="false" [class.error]="password1error"></ion-icon>\n    <ion-label stacked>Password</ion-label>\n    <ion-input required type="password" placeholder="" class="" [(ngModel)]="password1" required></ion-input>\n  </ion-item>\n\n  <ion-item no-lines class="">\n    <ion-icon name="lock" item-left isActive="false" [class.error]="password2error"></ion-icon>\n    <ion-label stacked>Confirm Password</ion-label>\n    <ion-input required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>\n  </ion-item>\n  <ion-list radio-group [(ngModel)]="pcmethod">\n\n    <ion-list-header>\n      Account validation.\n    </ion-list-header>\n    <ion-item no-lines >\n      <ion-radio checked="true" value="email" class="pcm-radio"></ion-radio>\n      <ion-icon name="mail" item-left isActive="false" class="pcm-icon" [class.error]="emailerror"></ion-icon>\n      <ion-label stacked>email</ion-label>\n      <ion-input required type="email" placeholder=""  [(ngModel)]="email" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines >\n      <ion-radio checked="false" value="sms" class="pcm-radio"></ion-radio>\n      <ion-icon name="call" item-left isActive="false" class="pcm-icon" [class.error]="smserror"></ion-icon>\n      <ion-label stacked>Mobile Phone Number</ion-label>\n      <ion-input type="phone" placeholder=""  [(ngModel)]="phone" required></ion-input>\n    </ion-item>\n\n  </ion-list>\n\n  <ion-item no-lines class="">\n    <button ion-button color="primary" block large round (click)="register()">Register Login</button>\n  </ion-item>\n  </section>\n\n</ion-content>'
         }), 
         __metadata$7('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof UserServices !== 'undefined' && UserServices) === 'function' && _b) || Object, (typeof (_c = typeof TranslateService !== 'undefined' && TranslateService) === 'function' && _c) || Object])
     ], RegisterLoginPage);
@@ -95379,13 +95339,13 @@ var RegisterLoginPage = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$118 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$116 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$11 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$9 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var ForgotPage = (function () {
@@ -95434,10 +95394,10 @@ var ForgotPage = (function () {
             this.errors.push('Backend returned 500 error, talk to JOHN :) ');
         }
     };
-    ForgotPage = __decorate$118([
+    ForgotPage = __decorate$116([
         Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <ion-title>{{ \'The Salvation Army\' | translate}}</ion-title>\n    <!--button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button-->\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content padding>\n\n  <section id="tab-content">\n  <h3>{{ \'Forgot(NOT WORKING)\' | translate}}</h3>\n\n  <ion-item no-lines *ngFor="let error of errors">\n    <ion-icon name="alert" item-left class="error"></ion-icon>\n    <p class="error">{{error | translate}}</p>\n  </ion-item>\n\n\n  <ion-list>\n    <ion-item no-lines>\n\n      <ion-label style="word-wrap: break-word;">\n        {{ \'Please select your prefered method of account validation.\' | translate}} </ion-label>\n    </ion-item>\n\n    <ion-item no-lines>\n      <ion-icon name="mail" item-left isActive="false" [class.error]="emailerror"></ion-icon>\n      <ion-label floating>{{\'Email\' | translate}}</ion-label>\n      <ion-input required type="email" placeholder="" [(ngModel)]="email" required></ion-input>\n    </ion-item>\n\n    <ion-item no-lines>\n      <ion-icon name="call" item-left isActive="false" [class.error]="smserror"></ion-icon>\n      <ion-label floating>{{\'Mobile Phone Number\' | translate}}</ion-label>\n      <ion-input type="phone" placeholder="" [(ngModel)]="phone" required></ion-input>\n    </ion-item>\n\n  </ion-list>\n  <ion-item no-lines class="">\n    <button primary block large round (click)="forgot()">{{\'Submit\' | translate}}</button>\n  </ion-item>\n\n  </section>\n</ion-content>'
         }), 
-        __metadata$11('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof UserServices !== 'undefined' && UserServices) === 'function' && _b) || Object, (typeof (_c = typeof TranslateService !== 'undefined' && TranslateService) === 'function' && _c) || Object])
+        __metadata$9('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof UserServices !== 'undefined' && UserServices) === 'function' && _b) || Object, (typeof (_c = typeof TranslateService !== 'undefined' && TranslateService) === 'function' && _c) || Object])
     ], ForgotPage);
     return ForgotPage;
     var _a, _b, _c;
@@ -95493,6 +95453,7 @@ var LoginPage = (function () {
         };
         this.userServices.login(login)
             .subscribe(function (key) {
+            _this.storage.set('key', key);
             _this.nav.push(HomePage);
         }, function (err) { return _this.setError(err); });
     };
@@ -95630,14 +95591,15 @@ var __metadata$1 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var MyApp = (function () {
-    function MyApp(platform, menu) {
+    function MyApp(platform, menu, userServices) {
         this.platform = platform;
         this.menu = menu;
+        this.userServices = userServices;
         this.storage = new Storage();
-        this.username = '';
         this.key = { key: 'key' };
         this.errors = [];
         this.rootPage = HomePage;
+        this.username = "weo";
         this.initializeApp();
         // set our app's pages
         this.pages = [
@@ -95648,16 +95610,18 @@ var MyApp = (function () {
         ];
     }
     MyApp.prototype.initializeApp = function () {
-        var _this = this;
+        var us = this.userServices;
+        this.storage.get('id')
+            .then(function (value) {
+            console.log('UID: ' + value);
+            if (value)
+                us.user.id = value;
+            us.getMyProfile();
+        });
         this.platform.ready().then(function () {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             StatusBar.styleDefault();
-            _this.storage.get('username')
-                .then(function (value) {
-                if (value)
-                    _this.username = value;
-            });
         });
     };
     MyApp.prototype.openPage = function (page) {
@@ -95671,13 +95635,60 @@ var MyApp = (function () {
         __metadata$1('design:type', (typeof (_a = typeof Nav !== 'undefined' && Nav) === 'function' && _a) || Object)
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate$1([
-        Component({ template: /* ion-inline-template */ '<ion-menu [content]="content" side="right">\n\n  <ion-toolbar>\n    <ion-title>Menu</ion-title>\n  </ion-toolbar>\n\n  <ion-content>\n    <ion-list>\n      <ion-item icon-left (click)="openPage(pages[1])">\n        <ion-icon name="home"></ion-icon>\n        Home\n      </ion-item>\n      <ion-list-header>\n        Account\n      </ion-list-header>\n      <ion-item *ngIf="!username" icon-left (click)="openPage(pages[0])">\n        <ion-icon name="person-add"></ion-icon>\n        Login\n      </ion-item>\n      <ion-item *ngIf="username" icon-left (click)="openPage(pages[0])">\n        <ion-icon name="log-out"></ion-icon>\n        Logout\n      </ion-item>\n      <ion-item *ngIf="!username" icon-left (click)="openPage(pages[2])">\n        <ion-icon name="create"></ion-icon>\n        Register\n      </ion-item>\n      <ion-item *ngIf="username" icon-left (click)="openPage(pages[3])">\n        <ion-icon name="clipboard"></ion-icon>\n        Profile\n      </ion-item>\n    </ion-list>\n    <!--ion-list radio-group>\n      <ion-list-header>\n        Language\n      </ion-list-header>\n      <ion-item>\n        <ion-label>English</ion-label>\n        <ion-radio checked="true" value="english"></ion-radio>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Espanol</ion-label>\n        <ion-radio value="spanish"></ion-radio>\n      </ion-item>\n    </ion-list-->\n  </ion-content>\n</ion-menu>\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>',
+        Component({ template: /* ion-inline-template */ '<ion-menu [content]="content" side="right">\n\n  <ion-toolbar>\n    <ion-title>Menu</ion-title>\n  </ion-toolbar>\n\n  <ion-content>\n    <ion-list>\n      <ion-item icon-left (click)="openPage(pages[1])">\n        <ion-icon name="home"></ion-icon>\n        Home\n      </ion-item>\n      <ion-list-header>\n        Account\n      </ion-list-header>\n      <ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[0])">\n        <ion-icon name="person-add"></ion-icon>\n        Login {{userServices.user.id}}\n      </ion-item>\n      <ion-item *ngIf="userServices.user.id" icon-left (click)="openPage(pages[0])">\n        <ion-icon name="log-out"></ion-icon>\n        Logout  {{userServices.user.id}}\n      </ion-item>\n      <ion-item *ngIf="!username" icon-left (click)="openPage(pages[2])">\n        <ion-icon name="create"></ion-icon>\n        Register\n      </ion-item>\n      <ion-item *ngIf="username" icon-left (click)="openPage(pages[3])">\n        <ion-icon name="clipboard"></ion-icon>\n        Profile\n      </ion-item>\n    </ion-list>\n    <!--ion-list radio-group>\n      <ion-list-header>\n        Language\n      </ion-list-header>\n      <ion-item>\n        <ion-label>English</ion-label>\n        <ion-radio checked="true" value="english"></ion-radio>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Espanol</ion-label>\n        <ion-radio value="spanish"></ion-radio>\n      </ion-item>\n    </ion-list-->\n  </ion-content>\n</ion-menu>\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>',
             providers: [UserServices]
         }), 
-        __metadata$1('design:paramtypes', [(typeof (_b = typeof Platform !== 'undefined' && Platform) === 'function' && _b) || Object, (typeof (_c = typeof MenuController !== 'undefined' && MenuController) === 'function' && _c) || Object])
+        __metadata$1('design:paramtypes', [(typeof (_b = typeof Platform !== 'undefined' && Platform) === 'function' && _b) || Object, (typeof (_c = typeof MenuController !== 'undefined' && MenuController) === 'function' && _c) || Object, (typeof (_d = typeof UserServices !== 'undefined' && UserServices) === 'function' && _d) || Object])
     ], MyApp);
     return MyApp;
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
+}());
+
+/* ion-compiler */
+var __decorate$117 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$10 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var HelloIonicPage = (function () {
+    function HelloIonicPage() {
+    }
+    HelloIonicPage = __decorate$117([
+        Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Hello Ionic</ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content padding>\n\n  <h3>Welcome to your first Ionic app!</h3>\n\n  <p>\n    This starter project is our way of helping you get a functional app running in record time.\n  </p>\n  <p>\n    Follow along on the tutorial section of the Ionic docs!\n  </p>\n  <p>\n    <button ion-button color="primary" menuToggle>Toggle Menu</button>\n  </p>\n\n</ion-content>\n'
+        }), 
+        __metadata$10('design:paramtypes', [])
+    ], HelloIonicPage);
+    return HelloIonicPage;
+}());
+
+/* ion-compiler */
+var __decorate$118 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$11 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var ItemDetailsPage = (function () {
+    function ItemDetailsPage(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        // If we navigated to this page, we will have an item available as a nav param
+        this.selectedItem = navParams.get('item');
+    }
+    ItemDetailsPage = __decorate$118([
+        Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <button menuToggle *ngIf="!selectedItem">\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Item Details</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n <div *ngIf="selectedItem" class="selection">\n    <b>{{selectedItem.title}}</b>\n    <ion-icon name="{{selectedItem.icon}}"></ion-icon>\n    <div>\n      You navigated here from <b>{{selectedItem.title}}</b>\n    </div>\n  </div>\n</ion-content>\n'
+        }), 
+        __metadata$11('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object])
+    ], ItemDetailsPage);
+    return ItemDetailsPage;
+    var _a, _b;
 }());
 
 /* ion-compiler */
@@ -95688,53 +95699,6 @@ var __decorate$119 = (undefined && undefined.__decorate) || function (decorators
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata$12 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var HelloIonicPage = (function () {
-    function HelloIonicPage() {
-    }
-    HelloIonicPage = __decorate$119([
-        Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Hello Ionic</ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content padding>\n\n  <h3>Welcome to your first Ionic app!</h3>\n\n  <p>\n    This starter project is our way of helping you get a functional app running in record time.\n  </p>\n  <p>\n    Follow along on the tutorial section of the Ionic docs!\n  </p>\n  <p>\n    <button ion-button color="primary" menuToggle>Toggle Menu</button>\n  </p>\n\n</ion-content>\n'
-        }), 
-        __metadata$12('design:paramtypes', [])
-    ], HelloIonicPage);
-    return HelloIonicPage;
-}());
-
-/* ion-compiler */
-var __decorate$120 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$13 = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ItemDetailsPage = (function () {
-    function ItemDetailsPage(navCtrl, navParams) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        // If we navigated to this page, we will have an item available as a nav param
-        this.selectedItem = navParams.get('item');
-    }
-    ItemDetailsPage = __decorate$120([
-        Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <button menuToggle *ngIf="!selectedItem">\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Item Details</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n <div *ngIf="selectedItem" class="selection">\n    <b>{{selectedItem.title}}</b>\n    <ion-icon name="{{selectedItem.icon}}"></ion-icon>\n    <div>\n      You navigated here from <b>{{selectedItem.title}}</b>\n    </div>\n  </div>\n</ion-content>\n'
-        }), 
-        __metadata$13('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object])
-    ], ItemDetailsPage);
-    return ItemDetailsPage;
-    var _a, _b;
-}());
-
-/* ion-compiler */
-var __decorate$121 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$14 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var ListPage = (function () {
@@ -95759,23 +95723,23 @@ var ListPage = (function () {
             item: item
         });
     };
-    ListPage = __decorate$121([
+    ListPage = __decorate$119([
         Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>My First List</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">\n      <ion-icon name="{{item.icon}}" item-left></ion-icon>\n      {{item.title}}\n      <div class="item-note" item-right>\n        {{item.note}}\n      </div>\n    </button>\n  </ion-list>\n  <div *ngIf="selectedItem" padding>\n    You navigated here from <b>{{selectedItem.title}}</b>\n  </div>\n</ion-content>\n'
         }), 
-        __metadata$14('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object])
+        __metadata$12('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object])
     ], ListPage);
     return ListPage;
     var _a, _b;
 }());
 
 /* ion-compiler */
-var __decorate$123 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$121 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$16 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$14 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var DonatePage = (function () {
@@ -95787,23 +95751,23 @@ var DonatePage = (function () {
     DonatePage.prototype.login = function () {
         //   this.nav.setRoot(LoginPage);
     };
-    DonatePage = __decorate$123([
+    DonatePage = __decorate$121([
         Component({ template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <ion-title id="doing">Doing the Most Good</ion-title>\n    <button menuToggle right>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n  </ion-navbar>\n</ion-header>\n\n<section id="login-bar" *ngIf="!username">\n  <ion-select id="language-select" [(ngModel)]="language">\n    <ion-option value="english">English</ion-option>\n    <ion-option value="spanish">Espanol</ion-option>\n  </ion-select>\n  <button id="login-button" (click)="login()">Login</button>\n</section>\n<section id="logout-bar" *ngIf="username">\n  <h1>Welcome back {{username}}</h1>\n  <button (click)="login()">Lout</button>\n  <section id="tab-content">\n    <ion-searchbar (ionInput)="getItems($event)" showCancelButton="true" (ionCancel)="onCancel($event)"></ion-searchbar>\n    <ion-card>\n      <ion-item no-lines class="closed-tab" (click)="yourevents=!yourevents">\n        Your Volunteer Events\n        <ion-icon name="arrow-down" item-right *ngIf="!yourevents"></ion-icon>\n        <ion-icon name="arrow-up" item-right *ngIf="yourevents"></ion-icon>\n      </ion-item>\n      <section *ngIf="!yourevents">\n        <ion-item *ngFor="let e of events">\n          <p class="thin-item">{{e.title}}</p>\n          <ion-row>\n            <ion-col>\n              <p>{{e.start | date:"MM/dd/yy"}}</p>\n            </ion-col>\n            <ion-col>\n              <p><b>{{e.start | date:\'shortTime\'}}</b></p>\n            </ion-col>\n            <ion-col>\n              <p>{{e.location_name}}</p>\n            </ion-col>\n          </ion-row>\n          <h4>Details:</h4>\n          <p>{{e.description}}</p>\n        </ion-item>\n      </section>\n    </ion-card>\n  </section>\n</section>\n'
         }), 
-        __metadata$16('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof Nav !== 'undefined' && Nav) === 'function' && _b) || Object])
+        __metadata$14('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof Nav !== 'undefined' && Nav) === 'function' && _b) || Object])
     ], DonatePage);
     return DonatePage;
     var _a, _b;
 }());
 
 /* ion-compiler */
-var __decorate$122 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$120 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$15 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$13 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var TabsPage = (function () {
@@ -95843,50 +95807,47 @@ var TabsPage = (function () {
             this.errors.push('Backend returned 500 error, talk to JOHN :) ');
           }*/
     };
-    TabsPage = __decorate$122([
+    TabsPage = __decorate$120([
         Component({ template: /* ion-inline-template */ '<ion-tabs tabsPlacement="top">\n  <ion-tab tabTitle="Events" [root]="homePage"></ion-tab>\n  <ion-tab tabTitle="Donate" [root]="donatePage"></ion-tab>\n  <!--ion-tab tabTitle="Volunteer" [root]="eventsPage"></ion-tab>\n  <ion-tab tabIcon="contact" tabTitle="Users" [root]="awardsPage"></ion-tab>\n  <ion-tab tabIcon="trophy" tabTitle="Awards" [root]="awardsPage"></ion-tab-->\n</ion-tabs>' //,
         }), 
-        __metadata$15('design:paramtypes', [(typeof (_a = typeof Nav !== 'undefined' && Nav) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object])
+        __metadata$13('design:paramtypes', [(typeof (_a = typeof Nav !== 'undefined' && Nav) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object])
     ], TabsPage);
     return TabsPage;
     var _a, _b;
 }());
 
 /* ion-compiler */
-var __decorate$124 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$122 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$17 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$15 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var AppHeaderComponent = (function () {
-    function AppHeaderComponent(nav) {
-        var _this = this;
+    function AppHeaderComponent(nav, userServices) {
         this.nav = nav;
-        //To check whether user is logged in or not. Also trigger any language prefs for the menu here.
-        this.storage = new Storage();
-        this.username = '';
-        this.key = { key: 'key' };
-        this.storage.get('username')
-            .then(function (value) {
-            if (value)
-                _this.username = value;
-        });
+        this.userServices = userServices;
     }
     AppHeaderComponent.prototype.login = function () {
         this.nav.setRoot(LoginPage);
     };
-    AppHeaderComponent = __decorate$124([
+    AppHeaderComponent.prototype.logout = function () {
+        this.userServices.user = new UserProfile();
+    };
+    AppHeaderComponent.prototype.profile = function () {
+        this.nav.setRoot(RegisterIndividualProfilePage);
+    };
+    AppHeaderComponent = __decorate$122([
         Component({
-            selector: 'app-header', template: /* ion-inline-template */ '<ion-navbar class="navbar-background">\n\n  <ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>\n\n  <ion-buttons end>\n\n    <button ion-button icon-only menuToggle style="display: inline-block;">\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n</ion-navbar>\n\n<ion-toolbar secondary>\n\n  <ion-buttons begin>\n\n    <button *ngIf="username" ion-button icon-left (click)="login()">\n\n       <ion-icon name="contact"></ion-icon>\n\n       {{username}}\n\n    </button>\n\n    <button *ngIf="!username" ion-button icon-left (click)="login()">\n\n       <ion-icon name="person-add"></ion-icon>\n\n        Sign In\n\n    </button>\n\n    <!--button ion-button icon-left>\n\n      <ion-icon name="swap"></ion-icon>\n\n        Espanol?\n\n    </button-->\n\n  </ion-buttons>\n\n  <!-- <ion-label *ngIf="!username">Welcome Guest</ion-label>\n\n	<ion-label *ngIf="username">Welcome {{username}}</ion-label> -->\n\n  <ion-buttons end>\n\n    <button ion-button icon-left *ngIf="username" (click)="login()">\n\n    <ion-icon name="log-out"></ion-icon>\n\n     Logout\n\n    </button>\n\n  </ion-buttons>\n\n</ion-toolbar>'
+            selector: 'app-header', template: /* ion-inline-template */ '<ion-navbar class="navbar-background"  hideBackButton="true">\n\n  <ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>\n\n  <ion-buttons end>\n\n    <button ion-button icon-only menuToggle style="display: inline-block;">\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n</ion-navbar>\n\n<ion-toolbar secondary>\n\n  <ion-buttons begin>\n\n    <button *ngIf="userServices.user.id" ion-button icon-left (click)="profile()">\n\n       <ion-icon name="contact"></ion-icon>\n\n       {{userServices.user.id}}\n\n    </button>\n\n    <button *ngIf="!userServices.user.id" ion-button icon-left (click)="login()">\n\n       <ion-icon name="person-add"></ion-icon>\n\n        Sign In\n\n    </button>\n\n    <!--button ion-button icon-left>\n\n      <ion-icon name="swap"></ion-icon>\n\n        Espanol?\n\n    </button-->\n\n  </ion-buttons>\n\n  <!-- <ion-label *ngIf="!username">Welcome Guest</ion-label>\n\n	<ion-label *ngIf="username">Welcome {{username}}</ion-label> -->\n\n  <ion-buttons end>\n\n    <button ion-button icon-left *ngIf="userServices.user.id" (click)="logout()">\n\n    <ion-icon name="log-out"></ion-icon>\n\n     Logout\n\n    </button>\n\n  </ion-buttons>\n\n</ion-toolbar>'
         }), 
-        __metadata$17('design:paramtypes', [(typeof (_a = typeof Nav !== 'undefined' && Nav) === 'function' && _a) || Object])
+        __metadata$15('design:paramtypes', [(typeof (_a = typeof Nav !== 'undefined' && Nav) === 'function' && _a) || Object, (typeof (_b = typeof UserServices !== 'undefined' && UserServices) === 'function' && _b) || Object])
     ], AppHeaderComponent);
     return AppHeaderComponent;
-    var _a;
+    var _a, _b;
 }());
 
 /* ion-compiler */
