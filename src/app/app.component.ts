@@ -3,7 +3,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 
 import { StatusBar } from 'ionic-native';
-
 import { Storage } from '@ionic/storage';
 import { UserServices } from '../service/user';
 import { HomePage } from '../pages/home/home';
@@ -19,15 +18,15 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   storage: Storage = new Storage();
-  username: string = '';
   key: any = { key: 'key' };
   errors: Array<string> = [];
   rootPage: any = HomePage;
   pages: Array<{ title: string, component: any }>;
-
+  username: String = "weo";
   constructor(
     public platform: Platform,
-    public menu: MenuController
+    public menu: MenuController,
+    private userServices: UserServices
   ) {
     this.initializeApp();
 
@@ -41,17 +40,20 @@ export class MyApp {
   }
 
   initializeApp() {
+    let us = this.userServices;
+        this.storage.get('id')
+            .then(
+            value => {
+console.log('UID: '+value);              
+                if (value) us.user.id = value;
+                us.getMyProfile();
+            });
+
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
 
-      this.storage.get('username')
-        .then(
-        value => {
-          if (value) this.username = value
-        }
-        );
     });
   }
 

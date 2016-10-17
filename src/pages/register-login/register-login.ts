@@ -1,12 +1,13 @@
-import {Component} from '@angular/core'
-import {UserServices} from '../../service/user';
-import {NavController, Nav} from 'ionic-angular';
-import {STRINGS} from '../../provider/config';
+import { Component } from '@angular/core'
+import { UserServices } from '../../service/user';
+import { NavController, Nav } from 'ionic-angular';
+import { STRINGS } from '../../provider/config';
 import { LoginPage } from '../login/login';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email';
 import { ConfirmSMSPage } from '../confirm-sms/confirm-sms';
-import {TranslateService} from "ng2-translate/ng2-translate";
+import { TranslateService } from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
+import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 
 @Component({
   templateUrl: 'register-login.html'
@@ -16,7 +17,7 @@ export class RegisterLoginPage {
   private password1: string = '';
   private password2: string = '';
   private email: string = '';
-  
+
   private usernameerror: boolean = false;
   private password1error: boolean = false;
   private password2error: boolean = false;
@@ -30,7 +31,7 @@ export class RegisterLoginPage {
   private pcmethod: string = 'email'
   constructor(private nav: NavController,
     private userServices: UserServices,
-              private translate: TranslateService) {
+    private translate: TranslateService) {
 
   }
 
@@ -39,6 +40,7 @@ export class RegisterLoginPage {
   }
 
   register() {
+    let registerLogin = this;
     this.errors = [];
     this.usernameerror = false;
     this.password1error = false;
@@ -46,14 +48,13 @@ export class RegisterLoginPage {
     this.emailerror = false;
 
 
-        /* TEMP CODE until confirmation flow is established */
-        if (this.pcmethod === 'sms') {
-           this.nav.push(ConfirmSMSPage);
-            return;
-         //   this.smserror=true;
-         //   this.errors.push("SMS not implemented");
-            
-        }
+    /* TEMP CODE until confirmation flow is established */
+    if (this.pcmethod === 'sms') {
+      //   this.nav.push(ConfirmSMSPage);
+      //   return;
+      //    this.smserror=true;
+      //    this.errors.push("SMS not implemented");
+    }
 
     let register = {
       username: this.username,
@@ -65,8 +66,20 @@ export class RegisterLoginPage {
       .subscribe(
       key => {
         this.key = key;
-        if (this.pcmethod === 'email')
-           this.nav.push(ConfirmEmailPage);
+        let myProfile = {
+          'User': registerLogin.username
+        }
+        this.userServices.createMyProfile(myProfile)
+          .subscribe(
+          key => {
+            registerLogin.key = key;
+            registerLogin.nav.setRoot(RegisterIndividualProfilePage);
+          },
+          err => {
+            console.log(err);
+            this.setError(err);
+          }),
+          val => this.val = val;
       },
       err => {
         console.log(err);
@@ -82,10 +95,10 @@ export class RegisterLoginPage {
           let field = '';
           if (STRINGS[key]) field = STRINGS[key] + ': ';
           this.errors.push(field + error[key][val].toString());
-          if (key==='username') this.usernameerror=true;
-          if (key==='password1') this.password1error=true;
-          if (key==='password2') this.password2error=true;
-          if (key==='email') this.emailerror=true;
+          if (key === 'username') this.usernameerror = true;
+          if (key === 'password1') this.password1error = true;
+          if (key === 'password2') this.password2error = true;
+          if (key === 'email') this.emailerror = true;
         }
       }
     }

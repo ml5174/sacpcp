@@ -13,13 +13,13 @@
       <ion-list-header>
         Account
       </ion-list-header>
-      <ion-item *ngIf="!username" icon-left (click)="openPage(pages[0])">
+      <ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[0])">
         <ion-icon name="person-add"></ion-icon>
-        Login
+        Login {{userServices.user.id}}
       </ion-item>
-      <ion-item *ngIf="username" icon-left (click)="openPage(pages[0])">
+      <ion-item *ngIf="userServices.user.id" icon-left (click)="openPage(pages[0])">
         <ion-icon name="log-out"></ion-icon>
-        Logout
+        Logout  {{userServices.user.id}}
       </ion-item>
       <ion-item *ngIf="!username" icon-left (click)="openPage(pages[2])">
         <ion-icon name="create"></ion-icon>

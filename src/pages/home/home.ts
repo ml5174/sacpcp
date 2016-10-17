@@ -6,6 +6,7 @@ import {Locations} from '../../model/locations';
 import { Observable } from 'rxjs/Observable';
 import {LoginPage} from '../login/login';
 import {TranslateService} from 'ng2-translate/ng2-translate';
+import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 
 @Component({
   templateUrl: 'home.html',

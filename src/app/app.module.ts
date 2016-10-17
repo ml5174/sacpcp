@@ -8,13 +8,15 @@ import { MyApp } from './app.component';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
-import {TabsPage} from '../pages/tabs/tabs';
-import {HomePage} from '../pages/home/home';
-import {DonatePage} from '../pages/donate/donate';
-import {LoginPage} from '../pages/login/login';
+import { TabsPage } from '../pages/tabs/tabs';
+import { HomePage } from '../pages/home/home';
+import { DonatePage } from '../pages/donate/donate';
+import { LoginPage } from '../pages/login/login';
 import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
-import {AppHeaderComponent} from '../components/app-header.component';
+import { AppHeaderComponent } from '../components/app-header.component';
+
+import { UserServices } from '../service/user';
 
 @NgModule({
   declarations: [
