@@ -1,14 +1,19 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>{{ 'The Salvation Army' | translate}}</ion-title>
-    <!--button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button-->
+  <ion-navbar class="navbar-background" hideBackButton="true">
+    <ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>
   </ion-navbar>
 </ion-header>
 
+<ion-content>
 
-<ion-content padding>
+  <ion-toolbar secondary>
+    <ion-buttons begin>
+      <button ion-button icon-left (click)="back()">
+       <ion-icon name="back"></ion-icon>
+        {{'< Back' | translate}}
+    </button>
+    </ion-buttons>
+  </ion-toolbar>
 
   <section id="tab-content">
   <h3>{{ 'Forgot(NOT WORKING)' | translate}}</h3>
@@ -28,19 +33,19 @@
 
     <ion-item no-lines>
       <ion-icon name="mail" item-left isActive="false" [class.error]="emailerror"></ion-icon>
-      <ion-label floating>{{'Email' | translate}}</ion-label>
+      <ion-label stacked>{{'Email' | translate}}</ion-label>
       <ion-input required type="email" placeholder="" [(ngModel)]="email" required></ion-input>
     </ion-item>
 
-    <ion-item no-lines>
+    <!--ion-item no-lines>
       <ion-icon name="call" item-left isActive="false" [class.error]="smserror"></ion-icon>
-      <ion-label floating>{{'Mobile Phone Number' | translate}}</ion-label>
+      <ion-label stacked>{{'Mobile Phone Number' | translate}}</ion-label>
       <ion-input type="phone" placeholder="" [(ngModel)]="phone" required></ion-input>
-    </ion-item>
+    </ion-item-->
 
   </ion-list>
   <ion-item no-lines class="">
-    <button primary block large round (click)="forgot()">{{'Submit' | translate}}</button>
+    <button ion-button color="primary" block large round (click)="forgot()">{{'Submit' | translate}}</button>
   </ion-item>
 
   </section>

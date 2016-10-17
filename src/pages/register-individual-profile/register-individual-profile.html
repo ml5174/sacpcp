@@ -4,7 +4,17 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+
+  <ion-toolbar secondary>
+    <ion-buttons begin>
+      <button ion-button icon-left (click)="back()">
+       <ion-icon name="back"></ion-icon>
+        {{'< Back' | translate}}
+    </button>
+    </ion-buttons>
+  </ion-toolbar>
+
 
   <section id="tab-content">
   <h3>Volunteer Profile Registration</h3>

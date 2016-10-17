@@ -10,7 +10,7 @@
   <ion-buttons begin>
     <button *ngIf="userServices.user.id" ion-button icon-left (click)="profile()">
        <ion-icon name="contact"></ion-icon>
-       {{userServices.user.id}}
+       {{userServices.user.name}}
     </button>
     <button *ngIf="!userServices.user.id" ion-button icon-left (click)="login()">
        <ion-icon name="person-add"></ion-icon>

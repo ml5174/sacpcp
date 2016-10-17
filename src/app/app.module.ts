@@ -11,10 +11,12 @@ import { ListPage } from '../pages/list/list';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { DonatePage } from '../pages/donate/donate';
+import { ForgotPage } from '../pages/forgot/forgot';
 import { LoginPage } from '../pages/login/login';
 import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
 import { AppHeaderComponent } from '../components/app-header.component';
+import { Storage } from '@ionic/storage';
 
 import { UserServices } from '../service/user';
 
@@ -27,6 +29,7 @@ import { UserServices } from '../service/user';
     TabsPage,
     HomePage,
     DonatePage,
+    ForgotPage,
     LoginPage,
     AppHeaderComponent,
     RegisterLoginPage,
@@ -50,10 +53,11 @@ import { UserServices } from '../service/user';
     TabsPage,
     HomePage,
     DonatePage,
+    ForgotPage,
     LoginPage,
     RegisterLoginPage,
     RegisterIndividualProfilePage
   ],
-  providers: []
+  providers: [Storage]
 })
 export class AppModule {}
