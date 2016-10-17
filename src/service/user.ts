@@ -20,8 +20,12 @@ export class UserServices {
     }
 
     login(body): Observable<any> {
+
         return this.http.post(SERVER + LOGIN_URI, body)
-            .map(res => this.user.id = res.json().key)
+            .map(res => {
+                this.user.name = body.username;
+                this.user.id = res.json().key;
+            })
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
     register(body): Observable<any> {
@@ -67,13 +71,14 @@ export class UserServices {
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
     getMyProfile(): Observable<any> {
-        let user  = this.user
+        let user = this.user
         let headers = new Headers();
         if (this.user) if (this.user.id) headers.append('Authorization', 'Token ' + this.user.id);
         headers.append('Content-Type', 'text/plain');
         let options = new RequestOptions({ headers: headers });
         return this.http.get(SERVER + GET_MY_PROFILE_URI, options)
             .map(res => {
+                console.log(user.profile);
                 user.profile = res.json();
             })
             .catch((error: any) => Observable.throw(error || 'Server error'));
