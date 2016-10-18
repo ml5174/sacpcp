@@ -18,6 +18,7 @@ export class HomePage {
   previousevents: boolean = true;
   yourevents: boolean = true;
   events: Array<VolunteerEvent> = [];
+  searchedEvents: Array<VolunteerEvent> = [];
   maxEvents: Array<VolunteerEvent> = [];
   minEvents: Array<VolunteerEvent> = [];
   locations: Array<Locations> = [];
@@ -34,10 +35,29 @@ export class HomePage {
   onCancel(event: any) {
     this.search=false;
   }
+  getItems(ev: any) {
+    this.searchedEvents = this.events;
+    // set val to the value of the searchbar
+    let val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.searchedEvents = this.events.filter((item) => {
+        return ((item.description.toLowerCase().indexOf(val.toLowerCase()) > -1) ||
+                (item.title.toLowerCase().indexOf(val.toLowerCase()) > -1));
+      })
+    }
+
+  }
+  populateSearchedEvents(ev: any){
+    this.events = ev;
+
+    this.searchedEvents = this.events;
+  }
   getEvents() {
     this.volunteerEventsService
         .getVolunteerEvents().subscribe(
-                               events => this.events = events, 
+                               event => this.populateSearchedEvents(event), 
                                 err => {
                                     console.log(err);
                                 });
