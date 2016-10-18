@@ -4,6 +4,7 @@ import {UserServices} from '../../service/user';
 import {NavController, Nav} from 'ionic-angular';
 import {STRINGS} from '../../provider/config';
 import {TranslateService} from "ng2-translate/ng2-translate";
+import { HomePage } from '../home/home';
 
 @Component({
   templateUrl: 'register-individual-profile.html'
@@ -81,9 +82,11 @@ export class RegisterIndividualProfilePage {
     // Get my profile if it exists
     getMyProfileObservable.subscribe(
       data => {
-        console.log(data);
-        this.myProfile = data;
-        this.profileExists = true;
+        console.log('myprofile:'+this.userServices.user.profile);
+        if (this.userServices.user.profile) {
+          this.profileExists = true;
+          this.myProfile = this.userServices.user.profile;
+        }
       }, 
       err => {
         if (err.status == "404") {
@@ -199,4 +202,7 @@ export class RegisterIndividualProfilePage {
 
   }
 
+  back() {
+    this.nav.setRoot(HomePage);
+  }
 }

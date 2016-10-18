@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { UserServices } from '../service/user';
-import { Storage } from '@ionic/storage';
 import { Nav } from 'ionic-angular';
-import {LoginPage} from '../pages/login/login';
+import { LoginPage } from '../pages/login/login';
+import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
+import { UserProfile } from '../model/user-profile';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-header',
@@ -10,21 +12,20 @@ import {LoginPage} from '../pages/login/login';
 })
 
 export class AppHeaderComponent {
-  //To check whether user is logged in or not. Also trigger any language prefs for the menu here.
-  storage: Storage = new Storage();
-  username: string = '';
-  key: any = { key: 'key' };
   constructor(
-              private nav: Nav
-              ) {
-    this.storage.get('username')
-      .then(
-      value => {
-        if (value) this.username = value
-      }
-      );
+    private nav: Nav,
+    private userServices: UserServices,
+    public storage: Storage
+  ) {
   }
   login() {
-   this.nav.setRoot(LoginPage);
+    this.nav.setRoot(LoginPage);
+  }
+  logout() {
+    this.storage.set('key', undefined);
+    this.userServices.user = new UserProfile();
+  }
+  profile() {
+    this.nav.setRoot(RegisterIndividualProfilePage);
   }
 }

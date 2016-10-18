@@ -8,7 +8,11 @@ export const UPDATE_MY_PROFILE_URI = '/api/v0.2/salarmy/myprofile/';
 export const GET_EVENTS_URI = '/api/v0.2/events/events/';
 export const GET_LOCATIONS_URI = '/api/v0.2/accounts/locations/';
 
-export const SERVER = 'http://198.199.86.127:8282';//DO
+export var SERVER = 'http://54.174.213.109:8000'
+if (document.location.hostname === '198.199.86.127')
+    SERVER = 'http://198.199.86.127:8282';
+
+
 export const STRINGS = {
         password: 'Password',
         username: 'User Name',

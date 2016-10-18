@@ -12,7 +12,6 @@ import {STRINGS} from '../../provider/config';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  storage: Storage = new Storage();
   username: string = '';
   password: string = '';
   usernameerror: boolean = false;
@@ -24,7 +23,9 @@ export class LoginPage {
   constructor(private nav: NavController,
     private navParams: NavParams,
     private userServices: UserServices,
-              private translate: TranslateService) {
+    private translate: TranslateService,
+    public storage: Storage
+    ) {
 
     /* Temp solution until login validation is implemented */
     this.key = navParams.get('key');
@@ -38,20 +39,28 @@ export class LoginPage {
       );
   }
   login() {
+    var loginPage = this;
     this.errors = [];
     this.usernameerror = false;
     this.passworderror = false;
 
     if (this.remember) this.storage.set('username', this.username);
     else this.storage.set('username', '');
-    let login = {
+
+    let loginobject = {
       username: this.username,
       password: this.password
     }
-    this.userServices.login(login)
+    console.log(loginobject);
+    this.userServices.login(loginobject)
       .subscribe(
       key => {
-        this.nav.push(HomePage);
+        if (loginPage.remember) 
+          loginPage.storage.set('key', loginPage.userServices.user.id);
+      //  loginPage.storage.set('test', 'test');
+
+        loginPage.userServices.getMyProfile();
+        loginPage.nav.push(HomePage);
       },
       err => this.setError(err));
   }

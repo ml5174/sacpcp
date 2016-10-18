@@ -4,6 +4,8 @@ import {NavController, Nav} from 'ionic-angular';
 import {STRINGS} from '../../provider/config';
 import { LoginPage } from '../login/login';
 import {TranslateService} from "ng2-translate/ng2-translate";
+import { HomePage } from '../home/home';
+
 @Component({
   templateUrl: 'forgot.html'
 })
@@ -53,5 +55,8 @@ export class ForgotPage {
       this.errors.push('Backend returned 500 error, talk to JOHN :) ');
     }
 
+  }
+  back() {
+    this.nav.setRoot(HomePage);
   }
 }

@@ -2,9 +2,11 @@ import {Component} from '@angular/core';
 import {NavController, Nav} from 'ionic-angular';
 import {VolunteerEvent} from '../../model/volunteer-event';
 import {VolunteerEventsService} from '../../service/volunteer-events-service';
+import {Locations} from '../../model/locations';
 import { Observable } from 'rxjs/Observable';
 import {LoginPage} from '../login/login';
 import {TranslateService} from 'ng2-translate/ng2-translate';
+import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 
 @Component({
   templateUrl: 'home.html',
@@ -16,7 +18,10 @@ export class HomePage {
   previousevents: boolean = true;
   yourevents: boolean = true;
   events: Array<VolunteerEvent> = [];
-  selectedTab: string = "events";
+  maxEvents: Array<VolunteerEvent> = [];
+  minEvents: Array<VolunteerEvent> = [];
+  locations: Array<Locations> = [];
+  selectedTab: string = "home";
   language: string = "en";
   constructor(private navCtrl: NavController,
               private nav: Nav, 
@@ -36,6 +41,28 @@ export class HomePage {
                                 err => {
                                     console.log(err);
                                 });
+                                +    this.volunteerEventsService
+         .getLocations().subscribe(
+                                locations => this.locations = locations, 
+                                 err => {
+                                     console.log(err);
+                                 });
+  }
+  getEventsMax(maxTime) {
+     this.volunteerEventsService
+         .getVolunteerEventsMaxTime(maxTime).subscribe(
+                                events => this.maxEvents = events, 
+                                 err => {
+                                     console.log(err);
+                                 });
+  }
+  getEventsMin(minTime) {
+     this.volunteerEventsService
+         .getVolunteerEventsMinTime(minTime).subscribe(
+                                events => this.minEvents = events, 
+                                 err => {
+                                     console.log(err);
+                                 });
   }
   changeLanguage() {
     // use navigator lang if English(en) or Spanish (es)
