@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {NavController, Nav} from 'ionic-angular';
 import {VolunteerEvent} from '../../model/volunteer-event';
 import {VolunteerEventsService} from '../../service/volunteer-events-service';
+import {EventImage} from '../../model/eventImage';
 import {Locations} from '../../model/locations';
 import { Observable } from 'rxjs/Observable';
 import {LoginPage} from '../login/login';
@@ -22,6 +23,7 @@ export class HomePage {
   maxEvents: Array<VolunteerEvent> = [];
   minEvents: Array<VolunteerEvent> = [];
   locations: Array<Locations> = [];
+  image: EventImage = null;
   selectedTab: string = "home";
   language: string = "en";
   constructor(private navCtrl: NavController,
@@ -51,8 +53,19 @@ export class HomePage {
   }
   populateSearchedEvents(ev: any){
     this.events = ev;
+    for (let event of this.events) {
+     this.volunteerEventsService
+        .getEventImage(event.id).subscribe(
+                               image => event.image = image, 
+                                err => {
+                                    console.log(err);
+                                }, 
+                                () => this.searchedEvents = this.events);
+    }
+  }
 
-    this.searchedEvents = this.events;
+  getImages(){
+
   }
   getEvents() {
     this.volunteerEventsService
@@ -60,7 +73,8 @@ export class HomePage {
                                event => this.populateSearchedEvents(event), 
                                 err => {
                                     console.log(err);
-                                });
+                                }, 
+                                () => this.searchedEvents = this.events);
                                 +    this.volunteerEventsService
          .getLocations().subscribe(
                                 locations => this.locations = locations, 

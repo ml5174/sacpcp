@@ -3,8 +3,10 @@ import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import {VolunteerEvent} from '../model/volunteer-event';
 import {Locations} from '../model/locations';
+import {EventImage} from '../model/eventImage';
 import {GET_EVENTS_URI} from '../provider/config';
 import {GET_LOCATIONS_URI} from '../provider/config';
+import {GET_EVENT_IMAGE_URI} from '../provider/config';
 import {SERVER} from '../provider/config';
 
 @Injectable()
@@ -35,6 +37,11 @@ export class VolunteerEventsService {
      }
     getLocations(): Observable<Locations[]> {
         return this.http.get(SERVER + GET_LOCATIONS_URI)
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+    getEventImage(eventID: number): Observable<EventImage> {
+        return this.http.get(SERVER + GET_EVENT_IMAGE_URI + eventID)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
