@@ -6,8 +6,7 @@ import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-trans
 
 import { MyApp } from './app.component';
 import { TermsPage } from '../pages/terms/terms';
-import { ItemDetailsPage } from '../pages/item-details/item-details';
-import { ListPage } from '../pages/list/list';
+import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { DonatePage } from '../pages/donate/donate';
@@ -24,8 +23,7 @@ import { UserServices } from '../service/user';
   declarations: [
     MyApp,
     TermsPage,
-    ItemDetailsPage,
-    ListPage,
+    ChangePasswordPage,
     TabsPage,
     HomePage,
     DonatePage,
@@ -48,8 +46,7 @@ import { UserServices } from '../service/user';
   entryComponents: [
     MyApp,
     TermsPage,
-    ItemDetailsPage,
-    ListPage,
+    ChangePasswordPage,
     TabsPage,
     HomePage,
     DonatePage,

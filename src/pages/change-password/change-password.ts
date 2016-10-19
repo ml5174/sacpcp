@@ -3,24 +3,22 @@ import { UserServices } from '../../service/user';
 import { NavController, Nav } from 'ionic-angular';
 import { STRINGS } from '../../provider/config';
 import { TermsPage } from '../terms/terms';
-import { ConfirmEmailPage } from '../confirm-email/confirm-email';
-import { ConfirmSMSPage } from '../confirm-sms/confirm-sms';
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 
 @Component({
-  templateUrl: 'register-login.html'
+  templateUrl: 'change-password.html'
 })
-export class RegisterLoginPage {
-  private username: string = '';
+export class ChangePasswordPage {
+  private password: string = '';
   private password1: string = '';
   private showpassword: string = 'password';
   private password2: string = '';
   private email: string = '';
   private sms: string = '';
 
-  private usernameerror: boolean = false;
+  private passworderror: boolean = false;
   private password1error: boolean = false;
   private password2error: boolean = false;
   private emailerror: boolean = false;
@@ -42,7 +40,7 @@ export class RegisterLoginPage {
   register() {
     let registerLogin = this;
     this.errors = [];
-    this.usernameerror = false;
+    this.passworderror = false;
     this.password1error = false;
     this.password2error = false;
     this.emailerror = false;
@@ -54,20 +52,20 @@ export class RegisterLoginPage {
     else this.sms=this.pcvalue;
 
     let register = {
-      username: this.username,
-      password1: this.password1,
-      password2: this.password2,
-      email: this.email,
-      phone: this.sms,
-      terms: this.terms
+      old_password: this.password,
+      new_password1: this.password1,
+      new_password2: this.password2,
+   //   email: this.email,
+   //   phone: this.sms,
+   //   terms: this.terms
     }
 
-    this.userServices.register(register)
+    this.userServices.changePassword(register)
       .subscribe(
       key => {
         this.key = key;
         let myProfile = {
-          'User': registerLogin.username
+          'User': registerLogin.password
         }
         this.userServices.createMyProfile(myProfile)
           .subscribe(
@@ -95,7 +93,7 @@ export class RegisterLoginPage {
           let field = '';
           if (STRINGS[key]) field = STRINGS[key] + ': ';
           this.errors.push(field + error[key][val].toString());
-          if (key === 'username') this.usernameerror = true;
+          if (key === 'password') this.passworderror = true;
           if (key === 'password1') this.password1error = true;
           if (key === 'password2') this.password2error = true;
           if (key === 'email') this.emailerror = true;

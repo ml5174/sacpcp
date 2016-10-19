@@ -8,6 +8,8 @@ export const GET_MY_PROFILE_URI = '/api/v0.2/salarmy/myprofile/';
 export const UPDATE_MY_PROFILE_URI = '/api/v0.2/salarmy/myprofile/';
 export const GET_EVENTS_URI = '/api/v0.2/events/events/';
 export const GET_LOCATIONS_URI = '/api/v0.2/accounts/locations/';
+export const CHANGE_PASSWORD_URI = '/rest-auth/password/change/';
+    
 
 export var SERVER = window['djangoserver'];
 if (document.location.hostname === '198.199.86.127')
