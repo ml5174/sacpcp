@@ -5,7 +5,7 @@ import {HttpModule, Http} from '@angular/http';
 import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 
 import { MyApp } from './app.component';
-import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
+import { TermsPage } from '../pages/terms/terms';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -23,7 +23,7 @@ import { UserServices } from '../service/user';
 @NgModule({
   declarations: [
     MyApp,
-    HelloIonicPage,
+    TermsPage,
     ItemDetailsPage,
     ListPage,
     TabsPage,
@@ -47,7 +47,7 @@ import { UserServices } from '../service/user';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HelloIonicPage,
+    TermsPage,
     ItemDetailsPage,
     ListPage,
     TabsPage,

@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { LOGIN_URI } from '../provider/config';
 import { REGISTER_URI } from '../provider/config';
+import { RESET_URI } from '../provider/config';
 import { REGISTER_USER_URI } from '../provider/config';
 import { GET_AVAILABLE_PREFERENCES_URI } from '../provider/config';
 import { GET_MY_PROFILE_URI } from '../provider/config';
@@ -99,6 +100,13 @@ export class UserServices {
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
         return this.http.put(SERVER + UPDATE_MY_PROFILE_URI, myProfile, options)
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+    reset(email) : Observable<any> {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(SERVER + RESET_URI, email)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }

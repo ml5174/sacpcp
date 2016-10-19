@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { UserServices } from '../../service/user';
 import { NavController, Nav } from 'ionic-angular';
 import { STRINGS } from '../../provider/config';
-import { LoginPage } from '../login/login';
+import { TermsPage } from '../terms/terms';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email';
 import { ConfirmSMSPage } from '../confirm-sms/confirm-sms';
 import { TranslateService } from "ng2-translate/ng2-translate";
@@ -17,6 +17,7 @@ export class RegisterLoginPage {
   private password1: string = '';
   private password2: string = '';
   private email: string = '';
+  private sms: string = '';
 
   private usernameerror: boolean = false;
   private password1error: boolean = false;
@@ -24,21 +25,19 @@ export class RegisterLoginPage {
   private emailerror: boolean = false;
   private smserror: boolean = false;
 
-
   private key: string = '';
   private val: string = '';
   private errors: Array<string> = [];
   private pcmethod: string = 'email'
+  private pcvalue: string = '';
+
+  private terms: boolean = true;
+
   constructor(private nav: NavController,
     private userServices: UserServices,
     private translate: TranslateService) {
 
   }
-
-  back() {
-    this.nav.setRoot(HomePage);
-  }
-
   register() {
     let registerLogin = this;
     this.errors = [];
@@ -46,22 +45,22 @@ export class RegisterLoginPage {
     this.password1error = false;
     this.password2error = false;
     this.emailerror = false;
+    this.smserror = false;
+    this.email = '';
+    this.sms = '';
 
-
-    /* TEMP CODE until confirmation flow is established */
-    if (this.pcmethod === 'sms') {
-      //   this.nav.push(ConfirmSMSPage);
-      //   return;
-      //    this.smserror=true;
-      //    this.errors.push("SMS not implemented");
-    }
+    if (this.pcmethod==='email') this.email=this.pcvalue;
+    else this.sms=this.pcvalue;
 
     let register = {
       username: this.username,
       password1: this.password1,
       password2: this.password2,
-      email: this.email
+      email: this.email,
+      phone: this.sms,
+      terms: this.terms
     }
+
     this.userServices.register(register)
       .subscribe(
       key => {
@@ -107,4 +106,12 @@ export class RegisterLoginPage {
     }
 
   }
+  viewTerms() {
+    this.nav.push(TermsPage);
+  }
+
+  back() {
+    this.nav.setRoot(HomePage);
+  }
+
 }
