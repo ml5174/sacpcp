@@ -55,16 +55,3 @@ $colors: (
 $ionicons-font-path: "../assets/fonts";
 @import "ionicons";
 
-// Global features
-.absolute-container {
-  display: inline-block;
-  width: 100%;
-  position: relative;
-}
-
-.md .popover-icon {
-  margin-left: 20px;
-}
-.md #show-link {
-  margin-left: 20px;
-}
