@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { UserServices } from '../../service/user';
-import { NavController, Nav } from 'ionic-angular';
+import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { STRINGS } from '../../provider/config';
 import { TermsPage } from '../terms/terms';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email';
@@ -8,6 +8,7 @@ import { ConfirmSMSPage } from '../confirm-sms/confirm-sms';
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
+import { PasswordPopover } from '../../popover/password';
 
 @Component({
   templateUrl: 'register-login.html'
@@ -36,9 +37,10 @@ export class RegisterLoginPage {
 
   constructor(private nav: NavController,
     private userServices: UserServices,
-    private translate: TranslateService) {
+    private translate: TranslateService,
+    private popoverCtrl: PopoverController
+    ) {}
 
-  }
   register() {
     let registerLogin = this;
     this.errors = [];
@@ -117,5 +119,14 @@ export class RegisterLoginPage {
   showPassword() {
     if (this.showpassword === 'password') this.showpassword = 'text';
     else this.showpassword = 'password';
+  }
+  presentPasswordPopover(ev) {
+
+    let popover = this.popoverCtrl.create(PasswordPopover, {
+    });
+
+    popover.present({
+      ev: ev
+    });
   }
 }

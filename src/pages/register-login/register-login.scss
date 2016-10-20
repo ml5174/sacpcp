@@ -27,3 +27,20 @@ ion-label[stacked] {
   vertical-align: middle;
   line-height: normal;    
 }
+
+#register-login-page #show-link {    
+    position: absolute;
+    z-index: 9;
+    left: 153px;
+    margin-top: 11px;
+    font-size: small;
+}
+
+#register-login-page .popover-icon {
+    position: absolute;
+    z-index: 9;
+    left: 122px;
+    margin-top: 9px;
+    font-size: larger;
+    color: #FF173D;
+}
