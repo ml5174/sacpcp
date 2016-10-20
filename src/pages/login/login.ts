@@ -14,6 +14,7 @@ import {STRINGS} from '../../provider/config';
 export class LoginPage {
   username: string = '';
   password: string = '';
+  showpassword: string = 'password';
   usernameerror: boolean = false;
   passworderror: boolean = false;
   remember: boolean = true;
@@ -51,6 +52,9 @@ export class LoginPage {
       username: this.username,
       password: this.password
     }
+    
+
+
     console.log(loginobject);
     this.userServices.login(loginobject)
       .subscribe(
@@ -60,7 +64,7 @@ export class LoginPage {
       //  loginPage.storage.set('test', 'test');
 
         loginPage.userServices.getMyProfile();
-        loginPage.nav.push(HomePage);
+        loginPage.nav.setRoot(HomePage);
       },
       err => this.setError(err));
   }
@@ -72,6 +76,10 @@ export class LoginPage {
   }
   back() {
     this.nav.setRoot(HomePage);
+  }
+  showPassword() {
+    if (this.showpassword === 'password') this.showpassword = 'text';
+    else this.showpassword = 'password';
   }
   setError(error) {
 
