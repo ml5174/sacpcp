@@ -1,17 +1,23 @@
-import {Component} from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { UserServices } from '../../service/user';
 import { Storage } from '@ionic/storage';
-import {NavController, NavParams} from 'ionic-angular';
+import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { RegisterLoginPage } from '../register-login/register-login';
 import { ForgotPage } from '../forgot/forgot';
 import { HomePage } from '../home/home';
-import {TranslateService} from "ng2-translate/ng2-translate";
-import {STRINGS} from '../../provider/config';
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { STRINGS } from '../../provider/config';
+import { UseridPopover } from '../../popover/userid';
+import { PasswordPopover } from '../../popover/password';
 
 @Component({
   templateUrl: 'login.html'
 })
 export class LoginPage {
+  
+  @ViewChild('popoverContent', { read: ElementRef }) content: ElementRef;
+  @ViewChild('popoverText', { read: ElementRef }) text: ElementRef;
+
   username: string = '';
   password: string = '';
   showpassword: string = 'password';
@@ -25,7 +31,8 @@ export class LoginPage {
     private navParams: NavParams,
     private userServices: UserServices,
     private translate: TranslateService,
-    public storage: Storage
+    public storage: Storage,
+    private popoverCtrl: PopoverController
     ) {
 
     /* Temp solution until login validation is implemented */
@@ -103,5 +110,25 @@ export class LoginPage {
     if (error.status === 500) {
       this.errors.push('Backend returned 500 error, talk to JOHN :) ');
     }
+  }
+
+  presentPopover(ev) {
+
+    let popover = this.popoverCtrl.create(UseridPopover, {
+    });
+
+    popover.present({
+      ev: ev
+    });
+  }
+
+  presentPasswordPopover(ev) {
+
+    let popover = this.popoverCtrl.create(PasswordPopover, {
+    });
+
+    popover.present({
+      ev: ev
+    });
   }
 }

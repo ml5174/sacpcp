@@ -50,3 +50,10 @@ $colors: (
 
 $ionicons-font-path: "../assets/fonts";
 @import "ionicons";
+
+// Global features
+.absolute-container {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}

@@ -7,7 +7,6 @@ import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-trans
 import { MyApp } from './app.component';
 import { TermsPage } from '../pages/terms/terms';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
-import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { DonatePage } from '../pages/donate/donate';
 import { ForgotPage } from '../pages/forgot/forgot';
@@ -17,6 +16,9 @@ import { RegisterIndividualProfilePage } from '../pages/register-individual-prof
 import { AppHeaderComponent } from '../components/app-header.component';
 import { Storage } from '@ionic/storage';
 
+import { UseridPopover } from '../popover/userid';
+import { PasswordPopover } from '../popover/password';
+
 import { UserServices } from '../service/user';
 
 @NgModule({
@@ -24,14 +26,15 @@ import { UserServices } from '../service/user';
     MyApp,
     TermsPage,
     ChangePasswordPage,
-    TabsPage,
     HomePage,
     DonatePage,
     ForgotPage,
     LoginPage,
     AppHeaderComponent,
     RegisterLoginPage,
-    RegisterIndividualProfilePage
+    RegisterIndividualProfilePage,
+    UseridPopover,
+    PasswordPopover
   ],
   imports: [
     HttpModule,
@@ -47,7 +50,8 @@ import { UserServices } from '../service/user';
     MyApp,
     TermsPage,
     ChangePasswordPage,
-    TabsPage,
+    UseridPopover,
+    PasswordPopover,
     HomePage,
     DonatePage,
     ForgotPage,
@@ -55,6 +59,6 @@ import { UserServices } from '../service/user';
     RegisterLoginPage,
     RegisterIndividualProfilePage
   ],
-  providers: [Storage]
+  providers: [Storage, UseridPopover, PasswordPopover]
 })
 export class AppModule {}

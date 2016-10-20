@@ -46,10 +46,19 @@
     }
 }
 
-#show-link {    
+#login-page #show-link {    
     position: absolute;
     z-index: 9;
-    left: 149px;    
-    margin-top: 12px;
+    left: 153px;
+    margin-top: 11px;
     font-size: small;
+}
+
+#login-page .popover-icon {
+    position: absolute;
+    z-index: 9;
+    left: 122px;
+    margin-top: 9px;
+    font-size: larger;
+    color: #FF173D;
 }
