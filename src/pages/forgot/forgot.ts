@@ -1,8 +1,7 @@
 import {Component} from '@angular/core'
-import {UserServices} from '../../service/user';
 import {NavController, Nav} from 'ionic-angular';
 import {STRINGS} from '../../provider/config';
-import { LoginPage } from '../login/login';
+import { UserServices } from '../../service/user';
 import {TranslateService} from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
 
@@ -33,7 +32,15 @@ export class ForgotPage {
   }
 
   forgot() {
-    this.nav.push(LoginPage);
+    let resetObject = {
+      email: this.email
+    }
+    this.userServices.reset(resetObject)
+      .subscribe(
+      key => {
+        this.nav.push(HomePage);
+      },
+      err => this.setError(err));
   }
 
   setError(error) {
@@ -44,9 +51,6 @@ export class ForgotPage {
           let field = '';
           if (STRINGS[key]) field = STRINGS[key] + ': ';
           this.errors.push(field + error[key][val].toString());
-          if (key === 'username') this.usernameerror = true;
-          if (key === 'password1') this.password1error = true;
-          if (key === 'password2') this.password2error = true;
           if (key === 'email') this.emailerror = true;
         }
       }

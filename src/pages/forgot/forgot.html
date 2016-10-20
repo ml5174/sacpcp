@@ -15,8 +15,12 @@
     </ion-buttons>
   </ion-toolbar>
 
-  <section id="tab-content">
-  <h3>{{ 'Forgot(NOT WORKING)' | translate}}</h3>
+  <section id="tab-content" padding>
+  <h1>{{ 'Recover My User ID / Password' | translate}}</h1>
+  <p>Hello,</p>
+  <p>We are happy to help.</p>
+  <p>We will send you your User ID / Password to your registered Email ID / Mobile Phone</p>
+
 
   <ion-item no-lines *ngFor="let error of errors">
     <ion-icon name="alert" item-left class="error"></ion-icon>
@@ -24,26 +28,25 @@
   </ion-item>
 
 
-  <ion-list>
-    <ion-item no-lines>
+	<ion-list>
 
-      <ion-label style="word-wrap: break-word;">
-        {{ 'Please select your prefered method of account validation.' | translate}} </ion-label>
-    </ion-item>
+			<ion-list-header>
+				Please select prefered contact method.
+			</ion-list-header>
 
-    <ion-item no-lines>
-      <ion-icon name="mail" item-left isActive="false" [class.error]="emailerror"></ion-icon>
-      <ion-label stacked>{{'Email' | translate}}</ion-label>
-      <ion-input required type="email" placeholder="" [(ngModel)]="email" required></ion-input>
-    </ion-item>
+			<section id="pcm-choice">
+      <input type="radio" [(ngModel)]="pcmethod" value="email"/>
+				<label>Email</label>
+      <input type="radio" [(ngModel)]="pcmethod" value="sms" style="margin-left: 10px;"/>
+				<label>Mobile Phone</label>
+			</section>
 
-    <!--ion-item no-lines>
-      <ion-icon name="call" item-left isActive="false" [class.error]="smserror"></ion-icon>
-      <ion-label stacked>{{'Mobile Phone Number' | translate}}</ion-label>
-      <ion-input type="phone" placeholder="" [(ngModel)]="phone" required></ion-input>
-    </ion-item-->
+			<ion-item no-lines>
+				<ion-input id="pcm-input" required type="text" [placeholder]="pcmethod" [(ngModel)]="pcvalue" required></ion-input>
+			</ion-item>
 
-  </ion-list>
+		</ion-list>
+
   <ion-item no-lines class="">
     <button ion-button color="primary" block large round (click)="forgot()">{{'Submit' | translate}}</button>
   </ion-item>

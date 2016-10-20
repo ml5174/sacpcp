@@ -1,57 +1,58 @@
 <ion-header>
-  <ion-navbar class="navbar-background">
-    <ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>
-  </ion-navbar>
+	<ion-navbar class="navbar-background">
+		<ion-label style="margin-left: 50px;">Doing the Most Good</ion-label>
+	</ion-navbar>
 </ion-header>
 
 
 <ion-content>
 
-  <ion-toolbar secondary>
-    <ion-buttons begin>
-      <button ion-button icon-left (click)="back()">
+	<ion-toolbar secondary>
+		<ion-buttons begin>
+			<button ion-button icon-left (click)="back()">
        <ion-icon name="back"></ion-icon>
         {{'< Back' | translate}}
     </button>
-      <button style="float: right" ion-button icon-left (click)="register()">
+			<button style="float: right" ion-button icon-left (click)="register()">
        <ion-icon name="back"></ion-icon>
         {{'Create New Account' | translate}}
     </button>
-    </ion-buttons>
-  </ion-toolbar>
+		</ion-buttons>
+	</ion-toolbar>
 
+	<section id="tab-content">
 
-  <section id="tab-content">
-    <h3>{{ 'Volunteer Login' | translate}}</h3>
-    <ion-list>
-      <ion-item no-lines *ngFor="let error of errors">
-        <ion-icon name="alert" item-left class="error"></ion-icon>
-        <p class="error">{{error | translate}}</p>
-      </ion-item>
-      <!--  TODO: change validation to happen onBlur or on loss of focus, not right at the get go. -->
-      <!--  http://ux.stackexchange.com/questions/82960/floating-labels-vs-fixed-small-labels-on-the-the-web -->
-      <ion-item no-lines [class.error]="!username.valid && username.touched">
-        <ion-icon name="contact" item-left isActive="false" [class.error]="usernameerror"></ion-icon>
-        <ion-label stacked>{{ 'Username' | translate}}</ion-label>
-        <ion-input required type="text" placeholder="" [(ngModel)]="username"></ion-input>
-      </ion-item>
+		<h3>{{ 'Volunteer Login' | translate}}</h3>
 
-      <ion-item no-lines [class.error]="!password.valid && password.touched">
-        <ion-icon name="lock" item-left isActive="false" [class.error]="passworderror"></ion-icon>
-        <ion-label stacked>{{ 'Password' | translate}}</ion-label>
-        <ion-input required type="password" placeholder="" [(ngModel)]="password"></ion-input>
-      </ion-item>
-      <ion-item no-lines>
-        <ion-label>{{ 'Remember Me' | translate}}</ion-label>
-        <ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>
-      </ion-item>
-      <ion-item no-lines>
-        <button ion-button color="primary" block large (click)="login()">{{ 'Login' | translate}}</button>
-      </ion-item>
+		<ion-list>
+			<ion-item no-lines *ngFor="let error of errors">
+				<ion-icon name="alert" item-left class="error"></ion-icon>
+				<p class="error">{{error | translate}}</p>
+			</ion-item>
+			<ion-item no-lines [class.error]="!username.valid && username.touched">
+				<ion-icon name="contact" item-left isActive="false" [class.error]="usernameerror"></ion-icon>
+				<ion-label stacked>{{ 'Username' | translate}}</ion-label>
+				<ion-input required type="text" placeholder="" [(ngModel)]="username"></ion-input>
+			</ion-item>
+			<div style="display: inline-block;width: 100%">
+				<a id="show-link" (click)="showPassword()">Show</a>
+				<ion-item no-lines [class.error]="!password.valid && password.touched">
+					<ion-icon name="lock" item-left isActive="false" [class.error]="passworderror"></ion-icon>
+					<ion-label stacked>{{ 'Password' | translate}} </ion-label>
+					<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="password"></ion-input>
+				</ion-item>
+			</div>
+			<ion-item no-lines>
+				<ion-label>{{ 'Remember Me' | translate}}</ion-label>
+				<ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>
+			</ion-item>
+			<ion-item no-lines>
+				<button ion-button color="primary" block large (click)="login()">{{ 'Login' | translate}}</button>
+			</ion-item>
 
-      <ion-item no-lines>
-        <p clear (click)="forgot()">{{ 'Forgot User ID/Password' | translate}}</p>
-      </ion-item>
-    </ion-list>
-  </section>
+			<ion-item no-lines>
+				<p clear (click)="forgot()">{{ 'Forgot User ID/Password' | translate}}</p>
+			</ion-item>
+		</ion-list>
+	</section>
 </ion-content>

@@ -5,9 +5,8 @@ import {HttpModule, Http} from '@angular/http';
 import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 
 import { MyApp } from './app.component';
-import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
-import { ItemDetailsPage } from '../pages/item-details/item-details';
-import { ListPage } from '../pages/list/list';
+import { TermsPage } from '../pages/terms/terms';
+import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { DonatePage } from '../pages/donate/donate';
@@ -23,9 +22,8 @@ import { UserServices } from '../service/user';
 @NgModule({
   declarations: [
     MyApp,
-    HelloIonicPage,
-    ItemDetailsPage,
-    ListPage,
+    TermsPage,
+    ChangePasswordPage,
     TabsPage,
     HomePage,
     DonatePage,
@@ -47,9 +45,8 @@ import { UserServices } from '../service/user';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HelloIonicPage,
-    ItemDetailsPage,
-    ListPage,
+    TermsPage,
+    ChangePasswordPage,
     TabsPage,
     HomePage,
     DonatePage,

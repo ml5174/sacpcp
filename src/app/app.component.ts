@@ -10,6 +10,7 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
 import { UserProfile } from '../model/user-profile';
+import { ChangePasswordPage } from '../pages/change-password/change-password';
 
 @Component({
   templateUrl: 'app.html',
@@ -36,7 +37,9 @@ export class MyApp {
       { title: 'Login', component: LoginPage },
       { title: 'Home', component: HomePage },
       { title: 'Login Registration', component: RegisterLoginPage },
-      { title: 'Profile Registration', component: RegisterIndividualProfilePage }
+      { title: 'Profile Registration', component: RegisterIndividualProfilePage },
+      { title: 'Change Password', component: ChangePasswordPage }
+
     ];
   }
 

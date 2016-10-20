@@ -10,63 +10,42 @@ import { HomePage } from '../home/home';
   templateUrl: 'register-individual-profile.html'
 })
 export class RegisterIndividualProfilePage {
-  private username: string = '';
-  private password1: string = '';
-  private password2: string = '';
-  private email: string = '';
   private key: string = '';
   private val: string = '';
   private errors: Array<string> = [];
 
+  // Error booleans
+  private firstnameerror: boolean = false;
+  private lastnameerror: boolean = false;
+  private birthdateerror:  boolean = false;
+  private my_contactmethod_iderror:  boolean = false;
+  private my_volunteertype_iderror:  boolean = false;
+  private acceptedwaivererror: boolean = false;
+  private acceptedpolicyerror: boolean = false;
+  private com_opt_inerror: boolean = false;
+  
   private mobilenumbererror: boolean = false;
-  private altnumbererror: boolean = false;
+  private emailerror: boolean = false;
+  private parent_consenterror: boolean = false;
+
+  private gendererror: boolean = false;
   private address1error: boolean = false;
   private address2error: boolean = false;
   private cityerror: boolean = false;
   private stateerror: boolean = false;
   private zipcodeerror:  boolean = false;
-  private birthdateerror:  boolean = false;
-  private languageerror:  boolean = false;
-  private notification_optionerror:  boolean = false;
-  private contactmethoderror:  boolean = false;
-  private my_contactmethod_iderror:  boolean = false;
-  private volunteertypeerror:  boolean = false;
-  private my_volunteertype_iderror:  boolean = false;
-  private serviceareaerror:  boolean = false;
   private my_servicearea_iderror:  boolean = false;
-  private referalsourceerror:  boolean = false;
   private my_referalsource_iderror:  boolean = false;
-  private donationtypeerror:  boolean = false;
   private my_donationtype_iderror:  boolean = false;
 
+  // Other private variables
   private myProfile: any = {};
   private availablePreferences: Array<any> = [];
   private myPreferences: Array<any>;
 
-  private mobileNumber: string;
-  private altNumber: string;
-  private address1: string;
-  private address2: string;
-  private city: string;
-  private state: string;
-  private zipCode: string;
-  private birthDate: Date;
-  private mugShot: string;
-  private language: string;
-  private notificationOption: string;
-  private contactMethod: string;
-  private myContactMethodId: string;
-  private volunteerType: string;
-  private myVolunteerTypeId: string;
-  private serviceArea: string;
-  private myServiceAreaId: string;
-  private referralSource: string;
-  private myReferralSourceId: string;
-  private donationType: string;
-  private myDonationTypeId: string;
-
   private profileExists: boolean = false;
 
+  // Constructor
   constructor(private nav: NavController,
               private userServices: UserServices,
               private translate: TranslateService) {
@@ -86,6 +65,7 @@ export class RegisterIndividualProfilePage {
         if (this.userServices.user.profile) {
           this.profileExists = true;
           this.myProfile = this.userServices.user.profile;
+          if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
         }
       }, 
       err => {
@@ -122,6 +102,7 @@ export class RegisterIndividualProfilePage {
 
   createProfile() {
     this.errors = [];
+    this.cleanBooleans();
     this.userServices.createMyProfile(this.myProfile)
       .subscribe(
           key => this.key = key, 
@@ -134,6 +115,7 @@ export class RegisterIndividualProfilePage {
 
   updateProfile() {
     this.clearErrors();
+    this.cleanBooleans();
     this.userServices.updateMyProfile(this.myProfile)
       .subscribe(
           key => this.key = key, 
@@ -144,27 +126,39 @@ export class RegisterIndividualProfilePage {
           val => this.val = val;
   }
 
+  cleanBooleans() {
+    this.myProfile.accepted_policy = (this.myProfile.accepted_policy) ? 1 : 0;
+    this.myProfile.accepted_waiver = (this.myProfile.accepted_waiver) ? 1 : 0;
+    this.myProfile.comm_opt_in = (this.myProfile.comm_opt_in) ? 1 : 0;
+    this.myProfile.tc_version = (this.myProfile.tc_version) ? 1 : null;
+    this.myProfile.parent_consent = (this.myProfile.parent_consent) ? 1 : 0;
+}
+
   clearErrors() {
         this.errors = [];
 
+        this.firstnameerror=false;
+        this.lastnameerror=false;
+        this.birthdateerror=false;
+        this.my_contactmethod_iderror=false;
+        this.my_volunteertype_iderror=false;
+        this.acceptedwaivererror=false;
+        this.acceptedpolicyerror=false;
+        this.com_opt_inerror=false;
+
         this.mobilenumbererror=false;
-        this.altnumbererror=false;
+        this.emailerror=false;
+        this.parent_consenterror=false;
+
+        this.gendererror=false;
         this.address1error=false;
         this.address2error=false;
         this.cityerror=false;
         this.stateerror=false;
         this.zipcodeerror=false;
-        this.birthdateerror=false;
-        this.languageerror=false;
-        this.notification_optionerror=false;
-        this.volunteertypeerror=false;
-        this.my_volunteertype_iderror=false;
-        this.serviceareaerror=false;
         this.my_servicearea_iderror=false;
         this.my_referalsource_iderror=false;
-        this.donationtypeerror=false;
         this.my_donationtype_iderror=false;
-
   }
   
   setError(error) {
@@ -176,22 +170,27 @@ export class RegisterIndividualProfilePage {
           if (STRINGS[key]) field = STRINGS[key] + ': ';
           this.errors.push(field + error[key][val].toString());
 //          this[key + "error"] = true;
+          if (key==='first_name') this.firstnameerror=true;
+          if (key==='last_name') this.lastnameerror=true;
+          if (key==='birthdate') this.birthdateerror=true;
+          if (key==='my_contactmethod_id') this.my_contactmethod_iderror=true;
+          if (key==='my_volunteertype_id') this.my_volunteertype_iderror=true;
+          if (key==='acceptedwaiver') this.acceptedwaivererror=true;
+          if (key==='acceptedpolicy') this.acceptedpolicyerror=true;
+          if (key==='com_opt_in') this.com_opt_inerror=true;
+
           if (key==='mobilenumber') this.mobilenumbererror=true;
-          if (key==='altnumber') this.altnumbererror=true;
+          if (key==='email') this.emailerror=true;
+          if (key==='parent_consent') this.parent_consenterror=true;
+
+          if (key==='gender') this.gendererror=true;
           if (key==='address1') this.address1error=true;
           if (key==='address2') this.address2error=true;
           if (key==='city') this.cityerror=true;
           if (key==='state') this.stateerror=true;
           if (key==='zipcode') this.zipcodeerror=true;
-          if (key==='birthdate') this.birthdateerror=true;
-          if (key==='language') this.languageerror=true;
-          if (key==='notification_option') this.notification_optionerror=true;
-          if (key==='volunteertype') this.volunteertypeerror=true;
-          if (key==='my_volunteertype_id') this.my_volunteertype_iderror=true;
-          if (key==='servicearea') this.serviceareaerror=true;
           if (key==='my_servicearea_id') this.my_servicearea_iderror=true;
           if (key==='my_referalsource_id') this.my_referalsource_iderror=true;
-          if (key==='donationtype') this.donationtypeerror=true;
           if (key==='my_donationtype_id') this.my_donationtype_iderror=true;
         }
       }
