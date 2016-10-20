@@ -83,6 +83,7 @@ button.readmore{
 }
 
 .item-md.item-input.input-has-focus .item-inner,
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
 .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
   border-bottom-color: transparent;
   box-shadow: inset 0 0 0 0 transparent;
@@ -91,4 +92,8 @@ button.readmore{
 .item-md.item-input.input-has-focus .item-inner .text-input,
 .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner .text-input {
   border-color: map-get($colors, primary);
+}
+
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner .text-input {
+  border-color: map-get($colors, secondary);
 }
