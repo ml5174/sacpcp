@@ -96,6 +96,7 @@
 		</ion-item>
 
 		<!-- Conditional -->
+
 		<ion-item no-lines class="">
 			<ion-icon name="call" item-left [class.error]="com_opt_inerror"></ion-icon>
 			<ion-label>{{"Accept Terms and Conditions" | translate }}</ion-label>
@@ -125,25 +126,25 @@
 		<ion-item no-lines class="">
 			<ion-icon name="globe" item-left [class.error]="address1error"></ion-icon>
 			<ion-label stacked>{{"Address 1" | translate }}</ion-label>
-			<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.address1" required></ion-input>
+			<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.address1" ></ion-input>
 		</ion-item>
 
 		<ion-item no-lines class="">
 			<ion-icon name="globe" item-left [class.error]="address2error"></ion-icon>
 			<ion-label stacked>{{"Address 2" | translate }}</ion-label>
-			<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.address2" required></ion-input>
+			<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.address2" ></ion-input>
 		</ion-item>
 
 		<ion-item no-lines class="">
 			<ion-icon name="globe" item-left [class.error]="cityerror"></ion-icon>
 			<ion-label stacked>{{"City" | translate }}</ion-label>
-			<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.city" required></ion-input>
+			<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.city" ></ion-input>
 		</ion-item>
 
 		<ion-item no-lines class="">
 			<ion-icon name="globe" item-left [class.error]="stateerror"></ion-icon>
 			<ion-label stacked>{{"State" | translate }}</ion-label>
-			<ion-select [(ngModel)]="myProfile.state" required>
+			<ion-select [(ngModel)]="myProfile.state" >
 				<ion-option *ngFor="let m of availablePreferences.usstates" [value]="m[0]">{{m[1]}}</ion-option>
 			</ion-select>
 		</ion-item>
@@ -151,13 +152,13 @@
 		<ion-item no-lines class="">
 			<ion-icon name="globe" item-left [class.error]="zipcodeerror"></ion-icon>
 			<ion-label stacked>{{"Zip Code" | translate }}</ion-label>
-			<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.zipcode" required></ion-input>
+			<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.zipcode" ></ion-input>
 		</ion-item>
 
 		<ion-item no-lines class="">
 			<ion-icon name="hammer" item-left [class.error]="my_servicearea_iderror"></ion-icon>
 			<ion-label stacked>{{"Service Area" | translate }}</ion-label>
-			<ion-select [(ngModel)]="myProfile.my_servicearea_id" required>
+			<ion-select [(ngModel)]="myProfile.my_servicearea_id" >
 				<ion-option *ngFor="let m of availablePreferences.serviceareas" [value]="m.id">{{m.name}}</ion-option>
 			</ion-select>
 		</ion-item>
@@ -165,13 +166,13 @@
 		<ion-item no-lines class="">
 			<ion-icon name="alarm" item-left [class.error]="notification_optionerror"></ion-icon>
 			<ion-label stacked>{{"Notification Option" | translate }}</ion-label>
-			<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.notification_option" required></ion-input>
+			<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.notification_option" ></ion-input>
 		</ion-item>
 
 		<ion-item no-lines class="">
 			<ion-icon name="people" item-left [class.error]="my_referalsource_iderror"></ion-icon>
 			<ion-label stacked>{{"Referral Source" | translate }}</ion-label>
-			<ion-select [(ngModel)]="myProfile.my_referalsource_id" required>
+			<ion-select [(ngModel)]="myProfile.my_referalsource_id" >
 				<ion-option *ngFor="let m of availablePreferences.referalsources" [value]="m.id">{{m.name}}</ion-option>
 			</ion-select>
 		</ion-item>
@@ -179,7 +180,7 @@
 		<ion-item no-lines class="">
 			<ion-icon name="pizza" item-left [class.error]="my_donationtype_iderror"></ion-icon>
 			<ion-label stacked>{{"Donation Type" | translate }}</ion-label>
-			<ion-select [(ngModel)]="myProfile.my_donationtype_id" required>
+			<ion-select [(ngModel)]="myProfile.my_donationtype_id" >
 				<ion-option *ngFor="let m of availablePreferences.donationtypes" [value]="m.id">{{m.name}}</ion-option>
 			</ion-select>
 		</ion-item>
