@@ -104,3 +104,17 @@ button.readmore{
 .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner .text-input {
   border-color: map-get($colors, secondary);
 }
+
+// Global features
+.absolute-container {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+
+.md .popover-icon {
+  margin-left: 20px;
+}
+.md #show-link {
+  margin-left: 20px;
+}
