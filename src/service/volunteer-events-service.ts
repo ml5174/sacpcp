@@ -40,8 +40,8 @@ export class VolunteerEventsService {
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
-    getEventImage(eventID: number): Observable<EventImage> {
-        return this.http.get(SERVER + GET_EVENT_IMAGE_URI + eventID)
+    getEventImage(eventID: number): Observable<EventImage[]> {
+        return this.http.get(SERVER + GET_EVENT_IMAGE_URI + eventID + "/")
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }

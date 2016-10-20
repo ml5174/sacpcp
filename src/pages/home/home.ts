@@ -23,7 +23,7 @@ export class HomePage {
   maxEvents: Array<VolunteerEvent> = [];
   minEvents: Array<VolunteerEvent> = [];
   locations: Array<Locations> = [];
-  image: EventImage = null;
+  image: Array<EventImage>;
   selectedTab: string = "home";
   language: string = "en";
   constructor(private navCtrl: NavController,
@@ -51,30 +51,34 @@ export class HomePage {
     }
 
   }
-  populateSearchedEvents(ev: any){
+  populateSearchedEvents(ev: VolunteerEvent[]){
     this.events = ev;
+    this.searchedEvents = this.events;
+    console.log(this.searchedEvents);
     for (let event of this.events) {
      this.volunteerEventsService
         .getEventImage(event.id).subscribe(
-                               image => event.image = image, 
+                               image => {this.image = image;
+                                         event.image = this.image;
+                                         if(this.image.length==0){
+                                            this.image[0] = new EventImage();
+                                            event.image = this.image;};
+                                        }, 
                                 err => {
                                     console.log(err);
                                 }, 
                                 () => this.searchedEvents = this.events);
     }
   }
-
-  getImages(){
-
-  }
   getEvents() {
     this.volunteerEventsService
         .getVolunteerEvents().subscribe(
-                               event => this.populateSearchedEvents(event), 
+                               event => this.events = event, 
                                 err => {
                                     console.log(err);
                                 }, 
-                                () => this.searchedEvents = this.events);
+                                () => {this.searchedEvents = this.events
+                                       this.populateSearchedEvents(this.events)});
                                 +    this.volunteerEventsService
          .getLocations().subscribe(
                                 locations => this.locations = locations, 

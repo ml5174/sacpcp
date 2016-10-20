@@ -12,5 +12,6 @@ export class VolunteerEvent {
   location_id: string;
   location_name: string;
   created_by: string;
-  image: EventImage
+  image: Array<EventImage>;
+
 }
