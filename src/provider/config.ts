@@ -17,6 +17,10 @@ if (document.location.hostname === '198.199.86.127')
 
 
 export const STRINGS = {
+        first_name: 'First Name',
+        last_name: 'Last Name',
+        emergency_contact: 'Emergency Contact',
+        tc_version: 'Terms & Conditions',
         password: 'Password',
         username: 'User Name',
         password1: 'Password',
