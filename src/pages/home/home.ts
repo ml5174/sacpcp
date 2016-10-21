@@ -15,6 +15,12 @@ import { RegisterIndividualProfilePage } from '../register-individual-profile/re
  // pipes: [TranslatePipe]
 })
 export class HomePage {
+
+homeSlideOptions = {
+loop: true, 
+pager: true, 
+autoplay: 3000};
+
   search: boolean = false;
   previousevents: boolean = true;
   yourevents: boolean = true;
