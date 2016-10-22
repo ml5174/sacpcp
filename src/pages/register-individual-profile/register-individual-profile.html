@@ -200,33 +200,6 @@
 				</ion-list>
 
 
-				<!-- Required  -->
-
-				<ion-item no-lines class="">
-					<ion-icon name="basket" item-left [class.error]="my_volunteertype_iderror"></ion-icon>
-					<ion-label stacked>{{"Volunteer Type" | translate }}</ion-label>
-					<ion-select [(ngModel)]="myProfile.my_volunteertype_id" required>
-						<ion-option *ngFor="let m of availablePreferences.volunteertypes" [value]="m.id">{{m.name}}</ion-option>
-					</ion-select>
-				</ion-item>
-
-				<ion-item no-lines class="">
-					<ion-icon name="call" item-left [class.error]="acceptedwaivererror"></ion-icon>
-					<ion-label>{{"Accept Waiver" | translate }}</ion-label>
-					<ion-checkbox dark [(ngModel)]="myProfile.accepted_waiver"></ion-checkbox>
-				</ion-item>
-
-				<ion-item no-lines class="">
-					<ion-icon name="call" item-left [class.error]="acceptedpolicyerror"></ion-icon>
-					<ion-label>{{"Accept Policy" | translate }}</ion-label>
-					<ion-checkbox dark [(ngModel)]="myProfile.accepted_policy"></ion-checkbox>
-				</ion-item>
-
-				<ion-item no-lines class="">
-					<ion-icon name="call" item-left [class.error]="com_opt_inerror"></ion-icon>
-					<ion-label>{{"Opt In" | translate }}</ion-label>
-					<ion-checkbox dark [(ngModel)]="myProfile.comm_opt_in"></ion-checkbox>
-				</ion-item>
 			</div>
 
 			<div *ngSwitchCase="'preferences'">
@@ -317,6 +290,33 @@
 						<ion-option *ngFor="let m of availablePreferences.donationtypes" [value]="m.id">{{m.name}}</ion-option>
 					</ion-select>
 				</ion-item>
+
+				<ion-item no-lines class="">
+					<ion-icon name="basket" item-left [class.error]="my_volunteertype_iderror"></ion-icon>
+					<ion-label stacked>{{"Volunteer Type" | translate }}</ion-label>
+					<ion-select [(ngModel)]="myProfile.my_volunteertype_id" required>
+						<ion-option *ngFor="let m of availablePreferences.volunteertypes" [value]="m.id">{{m.name}}</ion-option>
+					</ion-select>
+				</ion-item>
+
+				<ion-item no-lines class="">
+					<ion-icon name="call" item-left [class.error]="acceptedwaivererror"></ion-icon>
+					<ion-label>{{"Accept Waiver" | translate }}</ion-label>
+					<ion-checkbox dark [(ngModel)]="myProfile.accepted_waiver"></ion-checkbox>
+				</ion-item>
+
+				<ion-item no-lines class="">
+					<ion-icon name="call" item-left [class.error]="acceptedpolicyerror"></ion-icon>
+					<ion-label>{{"Accept Policy" | translate }}</ion-label>
+					<ion-checkbox dark [(ngModel)]="myProfile.accepted_policy"></ion-checkbox>
+				</ion-item>
+
+				<ion-item no-lines class="">
+					<ion-icon name="call" item-left [class.error]="com_opt_inerror"></ion-icon>
+					<ion-label>{{"Opt In" | translate }}</ion-label>
+					<ion-checkbox dark [(ngModel)]="myProfile.comm_opt_in"></ion-checkbox>
+				</ion-item>
+
 			</div>
 		</div>
 	</section>
