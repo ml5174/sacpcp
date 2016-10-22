@@ -15,7 +15,6 @@ export var SERVER = window['djangoserver'];
 if (document.location.hostname === '198.199.86.127')
     SERVER = 'http://198.199.86.127:8282';
 
-
 export const STRINGS = {
         first_name: 'First Name',
         last_name: 'Last Name',

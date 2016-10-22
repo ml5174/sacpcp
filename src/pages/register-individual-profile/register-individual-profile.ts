@@ -103,6 +103,7 @@ export class RegisterIndividualProfilePage {
   createProfile() {
     this.errors = [];
     this.cleanBooleans();
+    this.myProfile.emergency_contact = {};
     this.userServices.createMyProfile(this.myProfile)
       .subscribe(
           key => this.key = key, 
@@ -116,6 +117,7 @@ export class RegisterIndividualProfilePage {
   updateProfile() {
     this.clearErrors();
     this.cleanBooleans();
+    this.myProfile.emergency_contact = {};
     this.userServices.updateMyProfile(this.myProfile)
       .subscribe(
           key => this.key = key, 
