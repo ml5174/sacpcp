@@ -1,15 +1,20 @@
 import {Component} from '@angular/core'
+import {ViewChild} from '@angular/core'
 import {Observable} from 'rxjs/Rx';
 import {UserServices} from '../../service/user';
 import {NavController, Nav} from 'ionic-angular';
 import {STRINGS} from '../../provider/config';
 import {TranslateService} from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
+import { Content } from 'ionic-angular';
 
 @Component({
   templateUrl: 'register-individual-profile.html'
 })
 export class RegisterIndividualProfilePage {
+
+  @ViewChild(Content) content: Content;
+
   private key: string = '';
   private val: string = '';
   private errors: Array<string> = [];
@@ -40,10 +45,13 @@ export class RegisterIndividualProfilePage {
 
   // Other private variables
   private myProfile: any = {};
+  private emergencyContact: any = {};
   private availablePreferences: Array<any> = [];
   private myPreferences: Array<any>;
 
   private profileExists: boolean = false;
+  
+  selectedTab: string = "personal";
 
   // Constructor
   constructor(private nav: NavController,
@@ -196,9 +204,11 @@ export class RegisterIndividualProfilePage {
           if (key==='my_donationtype_id') this.my_donationtype_iderror=true;
         }
       }
+      this.content.scrollToTop();
     }
     if (error.status === 500) {
       this.errors.push('Backend returned 500 error, talk to JOHN :) ');
+      this.content.scrollToTop();
     }
 
   }

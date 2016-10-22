@@ -9,3 +9,21 @@
     padding: 0 10px 0 10px;
   }
 }
+ion-footer {
+  text-align: center;
+}
+ion-footer button {
+  width: 8em;
+}
+ion-list.toggle-section.list-md {
+  margin-bottom: 0px !important;
+}
+ion-list.toggle-section {
+  margin-bottom: 10px !important;
+}
+ion-list.toggle-section ion-list-header {
+  margin-top: 0px;
+} 
+ion-list.toggle-section .hide {
+  display: none;
+}
