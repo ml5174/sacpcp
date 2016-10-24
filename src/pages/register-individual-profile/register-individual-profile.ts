@@ -6,6 +6,7 @@ import {NavController, Nav} from 'ionic-angular';
 import {STRINGS} from '../../provider/config';
 import {TranslateService} from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
+import { ChangePasswordPage } from '../change-password/change-password';
 import { Content, LoadingController, ToastController } from 'ionic-angular';
 
 @Component({
@@ -295,4 +296,9 @@ export class RegisterIndividualProfilePage {
   back() {
     this.nav.setRoot(HomePage);
   }
+
+  goToChangePassword() {
+    this.nav.setRoot(ChangePasswordPage);
+  }
+
 }

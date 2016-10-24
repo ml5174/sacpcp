@@ -220,6 +220,19 @@
 					</div>
 				</ion-list>
 
+				<!-- Change Password -->
+				<ion-list class="toggle-section">
+					<ion-list-header (click)="goToChangePassword()">
+						{{"Change Password" | translate }}
+						<ion-icon primary item-right name="ios-arrow-forward"></ion-icon>
+						<ion-icon *ngIf="emergencyContactSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
+					</ion-list-header>
+					<div class="toggle-section-content" [class.hide-section]="!emergencyContactSection">
+						<ion-list>
+						</ion-list>
+					</div>
+				</ion-list>
+
 
 			</div>
 
