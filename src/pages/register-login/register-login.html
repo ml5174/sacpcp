@@ -25,11 +25,15 @@
 			<p style="color: red">{{error}}</p>
 		</ion-item>
 
-		<ion-item no-lines class="">
-			<ion-icon name="contact" item-left isActive="false" [class.error]="usernameerror"></ion-icon>
-			<ion-label stacked>User ID</ion-label>
-			<ion-input required type="text" class="" [(ngModel)]="username" required></ion-input>
-		</ion-item>
+		<div class="absolute-container">
+
+			<ion-icon class="popover-icon" name="information-circle" (click)="presentUserPopover($event)"></ion-icon>
+			<ion-item no-lines class="">
+				<ion-icon name="contact" item-left isActive="false" [class.error]="usernameerror"></ion-icon>
+				<ion-label stacked>User ID</ion-label>
+				<ion-input required type="text" class="" [(ngModel)]="username" required></ion-input>
+			</ion-item>
+		</div>
 
 		<div class="absolute-container">
 			<a id="show-link" (click)="showPassword()">{{(showpassword==='password') ? 'Show' : 'Hide'}}</a>
