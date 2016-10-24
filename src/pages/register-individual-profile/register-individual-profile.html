@@ -39,9 +39,11 @@
 				<ion-segment-button value="preferences">
 					Preferences
 				</ion-segment-button>
+<!--
 				<ion-segment-button value="acknowledgements">
 					Acknowledgements
 				</ion-segment-button>
+-->
 			</ion-segment>
 		</div>
 
@@ -134,13 +136,13 @@
 									<ion-option *ngFor="let m of availablePreferences.contactmethods" [value]="m.id">{{m.name}}</ion-option>
 								</ion-select>
 							</ion-item>
-							<ion-item no-lines [hidden]="myProfile.contactmethod!=4">
+							<ion-item no-lines>
 								<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
 								<ion-label stacked>{{"Mobile Number" | translate }}</ion-label>
 								<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.mobilenumber" required></ion-input>
 							</ion-item>
 
-							<ion-item no-lines [hidden]="myProfile.contactmethod!=2">
+							<ion-item no-lines>
 								<ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
 								<ion-label stacked>{{"Email" | translate }}</ion-label>
 								<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.email" required></ion-input>
@@ -222,13 +224,35 @@
 
 				<!-- Change Password -->
 				<ion-list class="toggle-section">
-					<ion-list-header (click)="goToChangePassword()">
+					<ion-list-header (click)="changePasswordSection=!changePasswordSection" [class.selected]="changePasswordSection">
 						{{"Change Password" | translate }}
-						<ion-icon primary item-right name="ios-arrow-forward"></ion-icon>
-						<ion-icon *ngIf="emergencyContactSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
+						<ion-icon *ngIf="!changePasswordSection" primary item-right name="ios-add-circle-outline"></ion-icon>
+						<ion-icon *ngIf="changePasswordSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
 					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!emergencyContactSection">
+					<div class="toggle-section-content" [class.hide-section]="!changePasswordSection">
 						<ion-list>
+
+							<ion-item no-lines class="">
+								<ion-icon name="alert" item-left isActive="false" [class.error]="passworderror" *ngIf="passworderror"></ion-icon>
+								<ion-label stacked>Old Password</ion-label>
+								<ion-input required type="text" class="" [(ngModel)]="password" required></ion-input>
+							</ion-item>
+							<div class="absolute-container">
+								<a id="show-link" (click)="showPassword()">{{(showpassword==='password') ? 'Show' : 'Hide'}}</a>
+
+								<ion-icon class="popover-icon" name="information-circle" (click)="presentPasswordPopover($event)"></ion-icon>
+								<ion-item no-lines [class.error]="password1error">
+									<ion-icon name="alert" item-left isActive="false" [class.error]="password1error" *ngIf="password1error"></ion-icon>
+									<ion-label stacked>{{ 'New Password' | translate}} </ion-label>
+									<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="password1"></ion-input>
+								</ion-item>
+							</div>
+							<ion-item no-lines class="">
+								<ion-icon name="alert" item-left isActive="false" [class.error]="password2error" *ngIf="password2error"></ion-icon>
+								<ion-label stacked>Confirm New Password</ion-label>
+								<ion-input required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
+							</ion-item>
+
 						</ion-list>
 					</div>
 				</ion-list>
@@ -287,6 +311,7 @@
 				</ion-list>
 
 				<!-- Your Skills -->
+<!--
 				<ion-list class="toggle-section">
 					<ion-list-header (click)="skillsSection=!skillsSection"  [class.selected]="skillsSection">
 						{{"Your Skills" | translate }}
@@ -298,8 +323,10 @@
 						</ion-list>
 					</div>
 				</ion-list>
+-->
 
 				<!-- Your Preferred Locations for Service -->
+<!--
 				<ion-list class="toggle-section">
 					<ion-list-header (click)="locationsSection=!locationsSection"  [class.selected]="locationsSection">
 						{{"Your Preferred Locations for Service" | translate }}
@@ -311,11 +338,11 @@
 						</ion-list>
 					</div>
 				</ion-list>
-
+-->
 			</div>
 			
-			<div *ngSwitchCase="'acknowledgements'">
 <!-- Not sure what is going in here				
+			<div *ngSwitchCase="'acknowledgements'">
 				<ion-item no-lines class="">
 					<ion-icon name="alarm" item-left [class.error]="notification_optionerror"></ion-icon>
 					<ion-label stacked>{{"Notification Option" | translate }}</ion-label>
@@ -347,14 +374,14 @@
 					<ion-label>{{"Opt In" | translate }}</ion-label>
 					<ion-checkbox dark [(ngModel)]="myProfile.comm_opt_in"></ion-checkbox>
 				</ion-item>
--->
 			</div>
+-->
 		</div>
 	</section>
 
 </ion-content>
 
-<ion-footer>
+<ion-footer class="action-footer">
 	<ion-grid>
 		<ion-row>
 			<ion-col width-50>

@@ -18,22 +18,27 @@ ion-footer button {
 ion-list.toggle-section.list-md {
   margin-bottom: 0px !important;
 }
+
 ion-list.toggle-section {
   margin-bottom: 10px !important;
 }
+
 ion-list.toggle-section ion-list-header {
   margin-top: 0px;
   border-top: 1px solid #ccc;
 } 
+
 ion-list.toggle-section ion-list-header.selected {
   background-color: #ddd;
   color: black;
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
 } 
+
 ion-list.toggle-section .toggle-section-content.hide-section {
   max-height: 0px;
 }
+
 ion-list.toggle-section .toggle-section-content {
  -webkit-transition: max-height 0.2s ease-in-out;
   -moz-transition: max-height 0.2s ease-in-out;
@@ -41,4 +46,21 @@ ion-list.toggle-section .toggle-section-content {
   transition: max-height 0.2s ease-in-out;
   max-height: 800px;
   overflow: hidden;
+}
+
+#register-individual-profile-page #show-link {    
+    position: absolute;
+    z-index: 9;
+    left: 170px;
+    margin-top: 11px;
+    font-size: small;
+}
+
+#register-individual-profile-page .popover-icon {
+    position: absolute;
+    z-index: 9;
+    left: 144px;
+    margin-top: 9px;
+    font-size: larger;
+    color: #FF173D;
 }

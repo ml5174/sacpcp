@@ -7,7 +7,8 @@ import {STRINGS} from '../../provider/config';
 import {TranslateService} from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
 import { ChangePasswordPage } from '../change-password/change-password';
-import { Content, LoadingController, ToastController } from 'ionic-angular';
+import { Content, LoadingController, ToastController, PopoverController } from 'ionic-angular';
+import { PasswordPopover } from '../../popover/password';
 
 @Component({
   templateUrl: 'register-individual-profile.html'
@@ -47,12 +48,13 @@ export class RegisterIndividualProfilePage {
   private ecfirstnameerror:  boolean = false;
   private eclastnameerror:  boolean = false;
   private ecrelationerror:  boolean = false;
+  private ecmobilenumbererror:  boolean = false;
 
   private relationships = [
-    "Spouse",
-    "Parent",
-    "Sibling",
-    "Other"
+    "Parent/Guardian",
+    "Brother/Sister",
+    "Relative",
+    "Friend"
   ];
 
   private genders = [
@@ -76,6 +78,8 @@ export class RegisterIndividualProfilePage {
   private getProfileDone: boolean = false;
   private getPreferencesDone: boolean = false;
 
+  private showpassword: string = "password";
+
   selectedTab: string = "personal";
 
   // Constructor
@@ -83,7 +87,8 @@ export class RegisterIndividualProfilePage {
               private userServices: UserServices,
               private translate: TranslateService,
               public loadingController: LoadingController,
-              public toastController: ToastController) {
+              public toastController: ToastController,
+              private popoverCtrl: PopoverController) {
 
   }
 
@@ -245,6 +250,7 @@ export class RegisterIndividualProfilePage {
         this.ecfirstnameerror=false;
         this.eclastnameerror=false;
         this.ecrelationerror=false;
+        this.ecmobilenumbererror=false;
   }
   
   setError(error) {
@@ -279,6 +285,12 @@ export class RegisterIndividualProfilePage {
           if (key==='my_referalsource_id') this.my_referalsource_iderror=true;
           if (key==='my_donationtype_id') this.my_donationtype_iderror=true;
 
+          if (key==='emergency_contact')  {
+            let object = error[key];
+            if (object.mobilenumber) {
+              this.ecmobilenumbererror=true;
+            }
+          }
           if (key==='emergency_contact_first_name') this.ecfirstnameerror=true;
           if (key==='emergency_contact_last_name') this.eclastnameerror=true;
           if (key==='emergency_contact_relation') this.ecrelationerror=true;
@@ -299,6 +311,20 @@ export class RegisterIndividualProfilePage {
 
   goToChangePassword() {
     this.nav.setRoot(ChangePasswordPage);
+  }
+
+  showPassword() {
+    if (this.showpassword === 'password') this.showpassword = 'text';
+    else this.showpassword = 'password';
+  }
+  presentPasswordPopover(ev) {
+
+    let popover = this.popoverCtrl.create(PasswordPopover, {
+    });
+
+    popover.present({
+      ev: ev
+    });
   }
 
 }
