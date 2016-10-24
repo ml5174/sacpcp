@@ -228,12 +228,20 @@
 					<div class="toggle-section-content" [class.hide-section]="!volunteerTypesSection">
 						<ion-list>
 							<ion-item no-lines class="">
-								<ion-icon name="basket" item-left [class.error]="my_volunteertype_iderror" *ngIf="my_volunteertype_iderror"></ion-icon>
+								<ion-icon name="alert" item-left [class.error]="my_volunteertype_iderror" *ngIf="my_volunteertype_iderror"></ion-icon>
 								<ion-label stacked>{{"Volunteer Type" | translate }}</ion-label>
 								<ion-select [(ngModel)]="myProfile.my_volunteertype_id" required>
 									<ion-option *ngFor="let m of availablePreferences.volunteertypes" [value]="m.id">{{m.name}}</ion-option>
 								</ion-select>
 							</ion-item>
+							<ion-item no-lines class="">
+								<ion-icon name="alert" item-left [class.error]="my_referalsource_iderror" *ngIf="my_referalsource_iderror"></ion-icon>
+								<ion-label stacked>{{"Referral Source" | translate }}</ion-label>
+								<ion-select [(ngModel)]="myProfile.my_referalsource_id" >
+									<ion-option *ngFor="let m of availablePreferences.referalsources" [value]="m.id">{{m.name}}</ion-option>
+								</ion-select>
+							</ion-item>
+
 						</ion-list>
 					</div>
 				</ion-list>
@@ -248,7 +256,7 @@
 					<div class="toggle-section-content" [class.hide-section]="!serviceAreasSection">
 						<ion-list>
 							<ion-item no-lines class="">
-								<ion-icon name="error" item-left [class.error]="my_servicearea_iderror" *ngIf="my_servicearea_iderror"></ion-icon>
+								<ion-icon name="alert" item-left [class.error]="my_servicearea_iderror" *ngIf="my_servicearea_iderror"></ion-icon>
 								<ion-label stacked>{{"Service Area" | translate }}</ion-label>
 								<ion-select [(ngModel)]="myProfile.my_servicearea_id" >
 									<ion-option *ngFor="let m of availablePreferences.serviceareas" [value]="m.id">{{m.name}}</ion-option>
@@ -292,14 +300,6 @@
 					<ion-icon name="alarm" item-left [class.error]="notification_optionerror"></ion-icon>
 					<ion-label stacked>{{"Notification Option" | translate }}</ion-label>
 					<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.notification_option" ></ion-input>
-				</ion-item>
-
-				<ion-item no-lines class="">
-					<ion-icon name="people" item-left [class.error]="my_referalsource_iderror"></ion-icon>
-					<ion-label stacked>{{"Referral Source" | translate }}</ion-label>
-					<ion-select [(ngModel)]="myProfile.my_referalsource_id" >
-						<ion-option *ngFor="let m of availablePreferences.referalsources" [value]="m.id">{{m.name}}</ion-option>
-					</ion-select>
 				</ion-item>
 
 				<ion-item no-lines class="">
