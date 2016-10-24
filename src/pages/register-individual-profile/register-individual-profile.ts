@@ -99,10 +99,12 @@ export class RegisterIndividualProfilePage {
     // Get my profile if it exists
     getMyProfileObservable.subscribe(
       data => {
-        console.log('myprofile:'+this.userServices.user.profile);
+        console.log('myprofile:'+JSON.stringify(this.userServices.user.profile));
+
         if (this.userServices.user.profile) {
           this.profileExists = true;
           this.myProfile = this.userServices.user.profile;
+          if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
           if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
         }
         this.getProfileDone=true;
