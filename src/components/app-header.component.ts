@@ -25,6 +25,11 @@ export class AppHeaderComponent {
     this.storage.set('key', undefined);
     this.userServices.user = new UserProfile();
   }
+  
+  donate(){
+  	 window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank');
+  }
+  
   profile() {
     this.nav.setRoot(RegisterIndividualProfilePage);
   }
