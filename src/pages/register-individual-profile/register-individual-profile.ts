@@ -54,6 +54,12 @@ export class RegisterIndividualProfilePage {
     "Other"
   ];
 
+  private genders = [
+    {id:"1", value: "Male"},
+    {id:"2", value: "Female"},
+    {id:"3", value: "Other"}
+  ];
+
   // Other private variables
   private myProfile: any = {
     emergency_contact: {}

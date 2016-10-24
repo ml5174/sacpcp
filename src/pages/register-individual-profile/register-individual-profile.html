@@ -76,6 +76,14 @@
 							</ion-item>
 
 							<ion-item no-lines class="">
+								<ion-icon name="alert" item-left [class.error]="gendererror" *ngIf="gendererror"></ion-icon>
+								<ion-label stacked>{{"Gender" | translate }}</ion-label>
+								<ion-select [(ngModel)]="myProfile.gender" >
+									<ion-option *ngFor="let m of genders" [value]="m.id">{{m.value}}</ion-option>
+								</ion-select>
+							</ion-item>
+
+							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="address1error" *ngIf="address1error"></ion-icon>
 								<ion-label stacked>{{"Address 1" | translate }}</ion-label>
 								<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.address1" ></ion-input>
