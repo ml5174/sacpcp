@@ -6,7 +6,7 @@ import {NavController, Nav} from 'ionic-angular';
 import {STRINGS} from '../../provider/config';
 import {TranslateService} from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
-import { Content } from 'ionic-angular';
+import { Content, LoadingController, ToastController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'register-individual-profile.html'
@@ -43,20 +43,40 @@ export class RegisterIndividualProfilePage {
   private my_referalsource_iderror:  boolean = false;
   private my_donationtype_iderror:  boolean = false;
 
+  private ecfirstnameerror:  boolean = false;
+  private eclastnameerror:  boolean = false;
+  private ecrelationerror:  boolean = false;
+
+  private relationships = [
+    "Spouse",
+    "Parent",
+    "Sibling",
+    "Other"
+  ];
+
   // Other private variables
-  private myProfile: any = {};
-  private emergencyContact: any = {};
+  private myProfile: any = {
+    emergency_contact: {}
+  };
+
   private availablePreferences: Array<any> = [];
   private myPreferences: Array<any>;
 
   private profileExists: boolean = false;
-  
+
+  private loadingOverlay;
+
+  private getProfileDone: boolean = false;
+  private getPreferencesDone: boolean = false;
+
   selectedTab: string = "personal";
 
   // Constructor
   constructor(private nav: NavController,
               private userServices: UserServices,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              public loadingController: LoadingController,
+              public toastController: ToastController) {
 
   }
 
@@ -65,6 +85,10 @@ export class RegisterIndividualProfilePage {
     let getMyProfileObservable =  this.userServices.getMyProfile()
     let getMyPreferencesObservable =  this.userServices.getMyPreferences()
     let getAvailablePreferencesObservable =  this.userServices.getAvailablePreferences()
+
+    this.clearErrors();
+    this.cleanBooleans();
+    this.showLoading();
 
     // Get my profile if it exists
     getMyProfileObservable.subscribe(
@@ -75,6 +99,8 @@ export class RegisterIndividualProfilePage {
           this.myProfile = this.userServices.user.profile;
           if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
         }
+        this.getProfileDone=true;
+        if (this.getPreferencesDone) this.hideLoading();
       }, 
       err => {
         if (err.status == "404") {
@@ -83,20 +109,45 @@ export class RegisterIndividualProfilePage {
         } else {
           console.log(err);
         }
+        this.getProfileDone=true;
+        if (this.getPreferencesDone) this.hideLoading();
       });
 
     // Get preferences too
     Observable.forkJoin([getMyPreferencesObservable, getAvailablePreferencesObservable])
         .subscribe(data => {
-            this.myPreferences = data[0];
-            this.availablePreferences = data[1];
+          this.myPreferences = data[0];
+          this.availablePreferences = data[1];
 
-            console.log(this.myPreferences);
-            console.log(this.availablePreferences);
+          console.log(this.myPreferences);
+          console.log(this.availablePreferences);
+          this.getPreferencesDone=true;
+          if (this.getProfileDone) this.hideLoading();
         }, err => {
+          this.getPreferencesDone=true;
+          if (this.getProfileDone) this.hideLoading();
           console.log(err);
         });
 
+  }
+
+  presentToast(message: string) {
+    let toast = this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  showLoading() {
+    this.loadingOverlay = this.loadingController.create({
+      content: 'Please wait...'
+    });
+    this.loadingOverlay.present();
+  }
+
+  hideLoading() {
+    this.loadingOverlay.dismiss();
   }
 
   register() {
@@ -109,13 +160,19 @@ export class RegisterIndividualProfilePage {
   }
 
   createProfile() {
+    this.showLoading();
     this.errors = [];
     this.cleanBooleans();
-    this.myProfile.emergency_contact = {};
     this.userServices.createMyProfile(this.myProfile)
       .subscribe(
-          key => this.key = key, 
+          key => {
+            this.hideLoading();
+            this.presentToast("Profile saved.")
+            this.key = key;
+          }, 
           err => { 
+            this.presentToast("Error saving profile.")
+            this.hideLoading();
             console.log(err);
             this.setError(err);
           }),
@@ -123,13 +180,19 @@ export class RegisterIndividualProfilePage {
   }
 
   updateProfile() {
+    this.showLoading();
     this.clearErrors();
     this.cleanBooleans();
-    this.myProfile.emergency_contact = {};
     this.userServices.updateMyProfile(this.myProfile)
       .subscribe(
-          key => this.key = key, 
+          key => {
+            this.presentToast("Profile saved.")
+            this.hideLoading();
+            this.key = key;
+          }, 
           err => { 
+            this.presentToast("Error saving profile.")
+            this.hideLoading();
             console.log(err);
             this.setError(err);
           }),
@@ -169,6 +232,10 @@ export class RegisterIndividualProfilePage {
         this.my_servicearea_iderror=false;
         this.my_referalsource_iderror=false;
         this.my_donationtype_iderror=false;
+
+        this.ecfirstnameerror=false;
+        this.eclastnameerror=false;
+        this.ecrelationerror=false;
   }
   
   setError(error) {
@@ -202,6 +269,10 @@ export class RegisterIndividualProfilePage {
           if (key==='my_servicearea_id') this.my_servicearea_iderror=true;
           if (key==='my_referalsource_id') this.my_referalsource_iderror=true;
           if (key==='my_donationtype_id') this.my_donationtype_iderror=true;
+
+          if (key==='emergency_contact_first_name') this.ecfirstnameerror=true;
+          if (key==='emergency_contact_last_name') this.eclastnameerror=true;
+          if (key==='emergency_contact_relation') this.ecrelationerror=true;
         }
       }
       this.content.scrollToTop();
