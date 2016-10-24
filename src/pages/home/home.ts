@@ -32,6 +32,10 @@ autoplay: 3000};
   image: Array<EventImage>;
   selectedTab: string = "home";
   language: string = "en";
+  val: string;
+  values: Array<String>;
+  eventsLoaded: boolean = false;
+
   constructor(private navCtrl: NavController,
               private nav: Nav, 
               private volunteerEventsService: VolunteerEventsService,
@@ -46,21 +50,24 @@ autoplay: 3000};
   getItems(ev: any) {
     this.searchedEvents = this.events;
     // set val to the value of the searchbar
-    let val = ev.target.value;
+    this.val = ev.target.value;
+    this.val = this.val.trim();
+    this.values = this.val.split(" ");
+    if (this.val && this.val.trim() != '') {
+      for (var i = 0; i < this.values.length; ++i) {
+        this.searchedEvents = this.searchedEvents.filter((item) => {
+          return ((item.description.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1) ||
+            (item.title.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1));
 
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.searchedEvents = this.events.filter((item) => {
-        return ((item.description.toLowerCase().indexOf(val.toLowerCase()) > -1) ||
-                (item.title.toLowerCase().indexOf(val.toLowerCase()) > -1));
-      })
+        });
+
+      }
+
     }
-
   }
   populateSearchedEvents(ev: VolunteerEvent[]){
     this.events = ev;
     this.searchedEvents = this.events;
-    console.log(this.searchedEvents);
     for (let event of this.events) {
      this.volunteerEventsService
         .getEventImage(event.id).subscribe(
@@ -83,8 +90,10 @@ autoplay: 3000};
                                 err => {
                                     console.log(err);
                                 }, 
-                                () => {this.searchedEvents = this.events
-                                       this.populateSearchedEvents(this.events)});
+                                () => {this.searchedEvents = this.events;
+                                       this.populateSearchedEvents(this.events);
+                                       this.eventsLoaded = true;
+                                      });
                                 +    this.volunteerEventsService
          .getLocations().subscribe(
                                 locations => this.locations = locations, 
