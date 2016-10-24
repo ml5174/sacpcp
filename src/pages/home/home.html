@@ -19,7 +19,6 @@
 		<div *ngSwitchCase="'events'">
 
 			<ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
-			<div  *ngIf="eventsLoaded">
 			<ion-row responsive-sm wrap>
 				<!--  NG REPEAT THIS -->
 				<ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents">
@@ -68,7 +67,6 @@
 					</ion-card>
 				</ion-col>
 			</ion-row>
-		</div>
 		</div>
 		<div *ngSwitchCase="'home'" padding>
 			<ion-slides [options]="homeSlideOptions" style="width:100%; height:200px;">

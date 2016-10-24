@@ -47,9 +47,21 @@
 
 		</ion-list>
 
-  <ion-item no-lines class="">
+  <!--ion-item no-lines class="">
     <button ion-button color="primary" block large round (click)="forgot()">{{'Submit' | translate}}</button>
-  </ion-item>
+  </ion-item-->
 
   </section>
 </ion-content>
+<ion-footer class="action-footer">
+	<ion-grid>
+		<ion-row>
+			<ion-col width-50>
+				<button ion-button color="primary" (click)="back()">Cancel</button>
+			</ion-col>
+			<ion-col width-50>
+				<button ion-button color="primary" (click)="forgot()">Submit</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-footer>
