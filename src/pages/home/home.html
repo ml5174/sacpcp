@@ -19,6 +19,7 @@
 		<div *ngSwitchCase="'events'">
 
 			<ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
+			<div  *ngIf="eventsLoaded">
 			<ion-row responsive-sm wrap>
 				<!--  NG REPEAT THIS -->
 				<ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents">
@@ -26,7 +27,7 @@
 						<!--  ng repeat on this using search criteria and/or location data as input-->
 						<!--  throw ng-ifs on everything inside the card body. if the event has or doesnt have something, card dynamically changes to represent this -->
 						<!--  if short event descriptions are not given, need to truncate dynamically and put a read more button in too -->
-						<img [src]="e.image[0].image"/>
+						<img *ngIf="e?.image && e.image[0].image != 'no image'" [src]="e.image[0].image"/>
 
 						<ion-card-content>
 							<h2 class="card-title">
@@ -67,7 +68,7 @@
 					</ion-card>
 				</ion-col>
 			</ion-row>
-
+		</div>
 		</div>
 		<div *ngSwitchCase="'home'" padding>
 			<ion-slides [options]="homeSlideOptions" style="width:100%; height:200px;">
