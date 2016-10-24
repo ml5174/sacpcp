@@ -15,7 +15,6 @@ export var SERVER = window['djangoserver'];
 if (document.location.hostname === '198.199.86.127')
     SERVER = 'http://198.199.86.127:8282';
 
-
 export const STRINGS = {
         first_name: 'First Name',
         last_name: 'Last Name',
@@ -46,5 +45,8 @@ export const STRINGS = {
         referalsource: "Referral Source",
         my_referalsource_id: "Referral Source",
         donationtype: "Donation Type",
-        my_donationtype_id: "Donation Type"
+        my_donationtype_id: "Donation Type",
+        emergency_contact_first_name: "Emergency Contact First Name",
+        emergency_contact_last_name: "Emergency Contact First Name",
+        emergency_contact_relation: "Emergency Contact Relationship"
     }

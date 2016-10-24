@@ -9,6 +9,7 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 import { PasswordPopover } from '../../popover/password';
+import { UseridPopover } from '../../popover/userid';
 
 @Component({
   templateUrl: 'register-login.html'
@@ -61,7 +62,7 @@ export class RegisterLoginPage {
       password2: this.password2,
       email: this.email,
       phone: this.sms,
-      terms: this.terms
+      tandc: this.terms
     }
 
     this.userServices.register(register)
@@ -119,6 +120,15 @@ export class RegisterLoginPage {
   showPassword() {
     if (this.showpassword === 'password') this.showpassword = 'text';
     else this.showpassword = 'password';
+  }
+  presentUserPopover(ev) {
+
+    let popover = this.popoverCtrl.create(UseridPopover, {
+    });
+
+    popover.present({
+      ev: ev
+    });
   }
   presentPasswordPopover(ev) {
 

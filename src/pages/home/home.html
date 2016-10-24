@@ -2,10 +2,9 @@
 	<app-header></app-header>
 </ion-header>
 
-<ion-content>
-
+<ion-content padding-left padding-right padding-top>
 	<div>
-		<ion-segment [(ngModel)]="selectedTab">
+		<ion-segment [(ngModel)]="selectedTab" padding-bottom>
 
 			<ion-segment-button value="home">
 				Home
@@ -19,11 +18,11 @@
 	<div [ngSwitch]="selectedTab">
 		<div *ngSwitchCase="'events'">
 
-			<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+			<ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
 			<ion-row responsive-sm wrap>
 				<!--  NG REPEAT THIS -->
-				<ion-col width-50 class="flex-card">
-					<ion-card class="flex-card" *ngFor="let e of searchedEvents">
+				<ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents">
+					<ion-card class="flex-card" >
 						<!--  ng repeat on this using search criteria and/or location data as input-->
 						<!--  throw ng-ifs on everything inside the card body. if the event has or doesnt have something, card dynamically changes to represent this -->
 						<!--  if short event descriptions are not given, need to truncate dynamically and put a read more button in too -->
@@ -71,7 +70,24 @@
 
 		</div>
 		<div *ngSwitchCase="'home'" padding>
-			<img src="http://photos3.meetupstatic.com/photos/event/a/6/b/0/600_419742672.jpeg" />
+			<ion-slides [options]="homeSlideOptions" style="width:100%; height:200px;">
+			<ion-slide>
+			<img src="https://uploads.thealternativepress.com/uploads/photos/33/best_4e123f31ca71f82f29a5_IMG_0354.jpg" />
+			</ion-slide>
+			<ion-slide>
+			<img src="http://www.milewisctr.org/wp-content/uploads/2014/05/M-I-Lewis-Center-2.jpg" />
+			</ion-slide>
+			<ion-slide>
+			<img src="https://s3.amazonaws.com/usn-cache.salvationarmy.org/30bb76dd-9b2d-4660-b91d-c162c1bc64e3_christmas.jpg" />
+			</ion-slide>
+			<ion-slide>
+			<img src="http://www.salvationarmytexas.org/austin/wp-content/uploads/sites/6/2012/05/Christmas-Photo_volunteer-495x300.jpg" />
+			</ion-slide>
+			<ion-slide>
+			<img src="http://salvationarmynorth.org/wp-content/uploads/2012/08/Goods-Stores-562x374-562x374.jpg" />
+			</ion-slide>
+			
+			</ion-slides>
 
 			<div class="dynamicPageContainer">
 
@@ -88,11 +104,7 @@
 						<h2><span id="MainContent_content_pageModule_1796_lbl_heading" class="moduleTitle">CONTACT</span></h2>
 
 						<div class="moduleItemsWrapper">
-							<div><span style="font-size: 12pt;">Blake Fetterman - Executive Director </span></div>
-							<div style="font-size: 12pt;">
-							</div>
-							<div style="font-size: 12pt;">Harbor Light Corps Officers: </div>
-							<div style="font-size: 12pt;">Sergeants Rodney and Juanita Hinkle</div><br><span style="font-size: 12pt;">5302 Harry Hines Blvd.</span><br style="font-size: 12pt;">
+							<span style="font-size: 12pt;">5302 Harry Hines Blvd.</span><br style="font-size: 12pt;">
 							<span style="font-size: 12pt;">Dallas,TX 75235</span><br style="font-size: 12pt;"><span style="font-size: 12pt;">(214) 424-7050</span>
 							<br style="font-size: 12pt;">
 							<span style="font-size: 12pt;">(214) 424-688-5234 Fax </span>
@@ -105,19 +117,16 @@
 								<div class="textMediaText  textMediaMediaContainerItem744">
 									<div id="MainContent_content_pageModule_744_ctl00_pnl_textContent" class="previewArea">
 
-										<p><br></p>
 										<div> </div>
 										<div> </div>
-										<p>Located west of downtown Dallas, The Salvation Army Carr P. Collins Social Service Center is across from Parkland
+										<p>Located West of downtown Dallas, The Salvation Army Carr P. Collins Social Service Center is across from Parkland
 											Hospital on Harry Hines Boulevard.</p>
-										<p><br></p>
-										<div>The161,000 square foot center, which houses up to 600 people per night, is the largest multi-use facility in The
+										<p>The 161,000 square foot center, which houses up to 600 people per night, is the largest multi-use facility in The
 											Salvation Army world. Every year, thousands of people find the spiritual and practical help they need to change
 											their lives at The Salvation Army Carr P. Collins Social Service Center. Nowhere else in Dallas will people find
-											so many resources under one roof.</div>
+											so many resources under one roof.</p>
 										<div> </div>
-										<div> </div>
-										<div><strong>PROGRAM &amp; SERVICES </strong></div>
+										<p><strong>PROGRAMS &amp; SERVICES </strong></p>
 										<div>
 											<ul>
 												<li><a target="_blank" href="http://www.salvationarmydfw.org/p/locations/464">Food Pantry</a></li>
