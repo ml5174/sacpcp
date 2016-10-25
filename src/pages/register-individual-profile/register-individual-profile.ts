@@ -148,7 +148,8 @@ export class RegisterIndividualProfilePage {
   presentToast(message: string) {
     let toast = this.toastController.create({
       message: message,
-      duration: 2000
+      duration: 2000,
+      position: 'middle'
     });
     toast.present();
   }
