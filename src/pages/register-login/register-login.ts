@@ -10,6 +10,7 @@ import { HomePage } from '../home/home';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 import { PasswordPopover } from '../../popover/password';
 import { UseridPopover } from '../../popover/userid';
+import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'register-login.html'
@@ -35,12 +36,14 @@ export class RegisterLoginPage {
   private pcvalue: string = '';
 
   private terms: boolean = true;
+  private remember: boolean = true;
+  private storage: Storage = new Storage();
 
   constructor(private nav: NavController,
     private userServices: UserServices,
     private translate: TranslateService,
     private popoverCtrl: PopoverController
-    ) {}
+  ) { }
 
   register() {
     let registerLogin = this;
@@ -53,8 +56,13 @@ export class RegisterLoginPage {
     this.email = '';
     this.sms = '';
 
-    if (this.pcmethod==='email') this.email=this.pcvalue;
-    else this.sms=this.pcvalue;
+    if (this.pcmethod === 'email') this.email = this.pcvalue;
+    else this.sms = this.pcvalue;
+    console.log("terms: " + this.terms);
+    if (!this.terms) {
+      this.errors.push("You must accept Privacy and Terms to proceed.");
+      return;
+    }
 
     let register = {
       username: this.username,
@@ -62,7 +70,7 @@ export class RegisterLoginPage {
       password2: this.password2,
       email: this.email,
       phone: this.sms,
-      tandc: this.terms
+      tandc: 1
     }
 
     this.userServices.register(register)
@@ -72,17 +80,26 @@ export class RegisterLoginPage {
         let myProfile = {
           'User': registerLogin.username
         }
-        this.userServices.createMyProfile(myProfile)
-          .subscribe(
-          key => {
-            registerLogin.key = key;
-            registerLogin.nav.setRoot(RegisterIndividualProfilePage);
-          },
-          err => {
-            console.log(err);
-            this.setError(err);
-          }),
-          val => this.val = val;
+        this.userServices.user.name = this.username;
+        
+        if (this.remember) {
+          this.storage.set('username', this.username);
+          this.storage.set('key', this.userServices.user.id);
+        }
+        else this.storage.set('username', '');
+        registerLogin.nav.setRoot(RegisterIndividualProfilePage);
+        /* this.userServices.createMyProfile(myProfile)
+           .subscribe(
+           key => {
+             registerLogin.key = key;
+             registerLogin.nav.setRoot(RegisterIndividualProfilePage);
+           },
+           err => {
+             console.log(err);
+             this.setError(err);
+           }),
+           val => this.val = val;
+           */
       },
       err => {
         console.log(err);

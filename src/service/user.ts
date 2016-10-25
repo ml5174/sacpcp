@@ -17,7 +17,6 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class UserServices {
     public user: UserProfile = new UserProfile();
-    private storage: Storage = new Storage();
     constructor(private http: Http) {
     }
 
@@ -32,7 +31,9 @@ export class UserServices {
     }
     register(body): Observable<any> {
         return this.http.post(SERVER + REGISTER_URI, body)
-            .map(res => res.json())
+            .map(res => {
+                this.user.id = res.json().key;
+            })
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
     registerUser(body): Observable<any> {

@@ -58,6 +58,11 @@
 			<ion-input required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
 		</ion-item>
 
+		<ion-item no-lines>
+			<ion-label>{{ 'Save My Login' | translate}}</ion-label>
+			<ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>
+		</ion-item>
+
 		<ion-list>
 
 			<ion-list-header>
@@ -76,15 +81,27 @@
 			</ion-item>
 
 			<section style="padding: 15px;">
-				<ion-checkbox class="center" color="primary" [checked]="terms"></ion-checkbox>
+				<ion-checkbox class="center" color="primary" [(ngModel)]="terms"></ion-checkbox>
 				<span class="center" style="margin-left: 15px;" (click)="viewTerms()">I agree Pravacy &amp; Terms</span>
 			</section>
 
 		</ion-list>
 
-		<ion-item no-lines class="">
+		<!--ion-item no-lines class="">
 			<button ion-button color="primary" block large round (click)="register()">Register</button>
-		</ion-item>
+		</ion-item-->
 	</section>
 
 </ion-content>
+<ion-footer class="action-footer">
+	<ion-grid>
+		<ion-row>
+			<ion-col width-50>
+				<button ion-button color="primary" (click)="back()">Cancel</button>
+			</ion-col>
+			<ion-col width-50>
+				<button ion-button color="primary" (click)="register()">Register</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-footer>
