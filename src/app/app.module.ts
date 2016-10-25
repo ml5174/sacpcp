@@ -11,6 +11,7 @@ import { HomePage } from '../pages/home/home';
 import { DonatePage } from '../pages/donate/donate';
 import { ForgotPage } from '../pages/forgot/forgot';
 import { LoginPage } from '../pages/login/login';
+import { AboutPage } from '../pages/about/about';
 import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
 import { AppHeaderComponent } from '../components/app-header.component';
@@ -30,6 +31,7 @@ import { UserServices } from '../service/user';
     DonatePage,
     ForgotPage,
     LoginPage,
+    AboutPage,
     AppHeaderComponent,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
@@ -56,6 +58,7 @@ import { UserServices } from '../service/user';
     DonatePage,
     ForgotPage,
     LoginPage,
+    AboutPage,
     RegisterLoginPage,
     RegisterIndividualProfilePage
   ],
