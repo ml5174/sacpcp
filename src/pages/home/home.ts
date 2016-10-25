@@ -34,7 +34,6 @@ autoplay: 3000};
   language: string = "en";
   val: string;
   values: Array<String>;
-  eventsLoaded: boolean = false;
 
   constructor(private navCtrl: NavController,
               private nav: Nav, 
@@ -57,9 +56,10 @@ autoplay: 3000};
       for (var i = 0; i < this.values.length; ++i) {
         this.searchedEvents = this.searchedEvents.filter((item) => {
           return ((item.description.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1) ||
-            (item.title.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1));
-
-        });
+            (item.title.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1) ||
+            (item.location_name !=null &&
+            (item.location_name.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)))
+           });
 
       }
 
@@ -92,8 +92,7 @@ autoplay: 3000};
                                 }, 
                                 () => {this.searchedEvents = this.events;
                                        this.populateSearchedEvents(this.events);
-                                       this.eventsLoaded = true;
-                                      });
+                                     });
                                 +    this.volunteerEventsService
          .getLocations().subscribe(
                                 locations => this.locations = locations, 
