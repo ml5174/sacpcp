@@ -68,8 +68,10 @@ export class RegisterIndividualProfilePage {
     emergency_contact: {}
   };
 
-  private availablePreferences: Array<any> = [];
-  private myPreferences: Array<any>;
+  private availablePreferences: any = {};
+  private myPreferences: any = {};
+
+  private formServiceAreas: Array<any> = [];
 
   private profileExists: boolean = false;
 
@@ -105,6 +107,8 @@ export class RegisterIndividualProfilePage {
           this.myPreferences = data[0];
           this.availablePreferences = data[1];
           this.myProfile = data[2];
+
+          this.translateToFormPreferences();
 
           this.profileExists = true;
           if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
@@ -147,12 +151,17 @@ export class RegisterIndividualProfilePage {
     this.showLoading();
     this.clearErrors();
     this.cleanBooleans();
-    this.userServices.updateMyProfile(this.myProfile)
+    this.translateFromFormPreferences();
+
+    let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
+    let updateMyPreferencesObservable =  this.userServices.updateMyPreferences(this.myPreferences);
+
+    Observable.forkJoin([updateMyProfileObservable, updateMyPreferencesObservable])
       .subscribe(
           key => {
             this.presentToast("Profile saved.")
             this.hideLoading();
-            this.key = key;
+            //this.key = key;
           }, 
           err => { 
             this.presentToast("Error saving profile.")
@@ -169,6 +178,47 @@ export class RegisterIndividualProfilePage {
     this.myProfile.comm_opt_in = (this.myProfile.comm_opt_in) ? 1 : 0;
     this.myProfile.tc_version = (this.myProfile.tc_version) ? 1 : null;
     this.myProfile.parent_consent = (this.myProfile.parent_consent) ? 1 : 0;
+  }
+  
+  isServiceAreaInMyPreferences(id: number) {
+    let serviceAreas = this.myPreferences.serviceareas;
+    for (let serviceArea of serviceAreas) {
+      if (serviceArea.servicearea_id == id) return true;
+    }
+    return false;
+  }
+
+  translateToFormPreferences() {
+    // empty the form array
+    this.formServiceAreas = [];
+
+    // Add all available preferences, and for those in "myPreferences.serviceareas", set the selected value to true
+    let serviceAreas = this.availablePreferences.serviceareas;
+    for (let serviceArea of serviceAreas) {
+      let selected = this.isServiceAreaInMyPreferences(serviceArea.id) ? true : false;
+      serviceArea.selected = selected; 
+      this.formServiceAreas.push(serviceArea);
+    }
+
+    console.log(this.formServiceAreas);
+  }
+
+  translateFromFormPreferences() {
+    // Start with empty serviceareas list in myPreferences
+    this.myPreferences.serviceareas = [];
+
+    // For every item on the form that is selected, add it to myPreferences
+    let formServiceAreas = this.formServiceAreas;
+    for (let serviceArea of formServiceAreas) {
+      if (serviceArea.selected) {
+        let newServiceArea = {
+          servicearea_id: serviceArea.id
+        };
+        this.myPreferences.serviceareas.push(newServiceArea); 
+      }
+    }
+    console.log(this.myPreferences.serviceareas);
+    
   }
 
   clearErrors() {

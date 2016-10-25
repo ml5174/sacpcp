@@ -10,7 +10,7 @@ export const GET_EVENTS_URI = '/api/v0.2/events/events/';
 export const GET_LOCATIONS_URI = '/api/v0.2/accounts/locations/';
 export const GET_EVENT_IMAGE_URI = '/api/v0.2/events/eventimages/';
 export const CHANGE_PASSWORD_URI = '/rest-auth/password/change/';   
-export const UPDATE_MY_PREFERENCES_URI = '/api/v0.2/salarmy/myprofile/';
+export const UPDATE_MY_PREFERENCES_URI = '/api/v0.2/salarmy/mypreferences/';
 
 export var SERVER = window['djangoserver'];
 if (document.location.hostname === '198.199.86.127')
