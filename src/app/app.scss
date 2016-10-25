@@ -122,3 +122,52 @@ button.readmore{
 .action-footer {
   background-color: black;
 }
+
+@media (min-width: 1024px) {
+  ion-nav > ng-component > ion-header > app-header > ion-navbar > ion-buttons > button {
+    visibility: hidden;
+  }
+  ion-menu {
+    left: auto;
+    width: 312px;
+    display: block;
+  } 
+  ion-menu > .menu-inner {
+    transform: translateX(0px);
+  }
+  ion-nav {
+    width: calc(100% - 312px);
+    @media (min-width: 1258px) {
+    #home-body {
+      max-width: 900px;
+      margin-left: calc(50% - 450px);
+    }
+    }
+  }
+  #home-header {
+    display: none;
+  }
+}
+
+#account-login {
+  display: block;
+  ion-icon {
+    font-size: 150px;
+    margin-left: 60px;
+    height: 50px
+  }
+  button {
+    margin-left: 104px;
+  }
+}
+#account-logout {
+  display: block;
+  ion-icon {
+    font-size: 150px;
+    margin-left: 82px;
+    height: 50px
+  }
+  button {
+    margin-left: 96px;
+  }
+}
