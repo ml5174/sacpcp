@@ -75,9 +75,6 @@ export class RegisterIndividualProfilePage {
 
   private loadingOverlay;
 
-  private getProfileDone: boolean = false;
-  private getPreferencesDone: boolean = false;
-
   private showpassword: string = "password";
 
   selectedTab: string = "personal";
@@ -102,47 +99,24 @@ export class RegisterIndividualProfilePage {
     this.cleanBooleans();
     this.showLoading();
 
-    // Get my profile if it exists
-    getMyProfileObservable.subscribe(
-      data => {
-        console.log('myprofile:'+JSON.stringify(this.userServices.user.profile));
-
-        if (this.userServices.user.profile) {
-          this.profileExists = true;
-          this.myProfile = this.userServices.user.profile;
-          if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
-          if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
-        }
-        this.getProfileDone=true;
-        if (this.getPreferencesDone) this.hideLoading();
-      }, 
-      err => {
-        if (err.status == "404") {
-          console.log("Profile not yet created");
-          this.profileExists = false;
-        } else {
-          console.log(err);
-        }
-        this.getProfileDone=true;
-        if (this.getPreferencesDone) this.hideLoading();
-      });
-
-    // Get preferences too
-    Observable.forkJoin([getMyPreferencesObservable, getAvailablePreferencesObservable])
+    // Get profile and preferences too
+    Observable.forkJoin([getMyPreferencesObservable, getAvailablePreferencesObservable, getMyProfileObservable])
         .subscribe(data => {
           this.myPreferences = data[0];
           this.availablePreferences = data[1];
+          this.myProfile = data[2];
+
+          this.profileExists = true;
+          if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
+          if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
 
           console.log(this.myPreferences);
           console.log(this.availablePreferences);
-          this.getPreferencesDone=true;
-          if (this.getProfileDone) this.hideLoading();
+          this.hideLoading();
         }, err => {
-          this.getPreferencesDone=true;
-          if (this.getProfileDone) this.hideLoading();
+          this.hideLoading();
           console.log(err);
         });
-
   }
 
   presentToast(message: string) {
@@ -166,32 +140,7 @@ export class RegisterIndividualProfilePage {
   }
 
   register() {
-
-    if (this.profileExists) {
-      this.updateProfile();
-    } else {
-      this.createProfile();
-    }
-  }
-
-  createProfile() {
-    this.showLoading();
-    this.errors = [];
-    this.cleanBooleans();
-    this.userServices.createMyProfile(this.myProfile)
-      .subscribe(
-          key => {
-            this.hideLoading();
-            this.presentToast("Profile saved.")
-            this.key = key;
-          }, 
-          err => { 
-            this.presentToast("Error saving profile.")
-            this.hideLoading();
-            console.log(err);
-            this.setError(err);
-          }),
-          val => this.val = val;
+    this.updateProfile();
   }
 
   updateProfile() {
@@ -220,7 +169,7 @@ export class RegisterIndividualProfilePage {
     this.myProfile.comm_opt_in = (this.myProfile.comm_opt_in) ? 1 : 0;
     this.myProfile.tc_version = (this.myProfile.tc_version) ? 1 : null;
     this.myProfile.parent_consent = (this.myProfile.parent_consent) ? 1 : 0;
-}
+  }
 
   clearErrors() {
         this.errors = [];

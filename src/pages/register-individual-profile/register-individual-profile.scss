@@ -68,6 +68,16 @@ ion-list.toggle-section .toggle-section-content {
   float: left;
   width: 200px;
 }
+.radio-choice {
+  float: left;
+  width: 150px;
+}
 .multi-choice ion-label {
   font-size: 0.9em;
+}
+
+ion-select, ion-datetime {
+  border: 1px solid;
+  padding-left: 10px !important;
+  border-radius: 5px;
 }

@@ -131,10 +131,19 @@
 						<ion-list>
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="my_contactmethod_iderror" *ngIf="my_contactmethod_iderror"></ion-icon>
+<!--
 								<ion-label stacked>{{"Contact Method" | translate }}</ion-label>
 								<ion-select [(ngModel)]="myProfile.contactmethod" required>
 									<ion-option *ngFor="let m of availablePreferences.contactmethods" [value]="m.id">{{m.name}}</ion-option>
 								</ion-select>
+-->
+							<section>
+								<div class="radio-choice" *ngFor="let m of availablePreferences.contactmethods">
+									<input [id]="'radio-' + m.id" type="radio" [(ngModel)]="myProfile.contactmethod" [value]="m.id" />
+									<label [attr.for]="'radio-' + m.id">{{m.name}}</label>
+								</div>
+							</section>
+
 							</ion-item>
 							<ion-item no-lines>
 								<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
