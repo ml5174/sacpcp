@@ -19,7 +19,7 @@ export class AppHeaderComponent {
   ) {
   }
   login() {
-    this.nav.setRoot(LoginPage);
+    this.nav.push(LoginPage);
   }
   logout() {
     this.storage.set('key', undefined);
@@ -31,6 +31,6 @@ export class AppHeaderComponent {
   }
   
   profile() {
-    this.nav.setRoot(RegisterIndividualProfilePage);
+    this.nav.push(RegisterIndividualProfilePage);
   }
 }
