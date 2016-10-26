@@ -1,6 +1,7 @@
 .login {
   background: silver;
 }
+
 .loginitem {
   background: silver;
   margin: 10px 0px 10px 0px;
@@ -8,44 +9,7 @@
     background: white;
     padding: 0 10px 0 10px;
   }
-}
-ion-footer {
-  text-align: center;
-}
-ion-footer button {
-  width: 8em;
-}
-ion-list.toggle-section.list-md {
-  margin-bottom: 0px !important;
-}
 
-ion-list.toggle-section {
-  margin-bottom: 10px !important;
-}
-
-ion-list.toggle-section ion-list-header {
-  margin-top: 0px;
-  border-top: 1px solid #ccc;
-} 
-
-ion-list.toggle-section ion-list-header.selected {
-  background-color: #ddd;
-  color: black;
-  border-bottom: 1px solid #ccc;
-  border-top: 1px solid #ccc;
-} 
-
-ion-list.toggle-section .toggle-section-content.hide-section {
-  max-height: 0px;
-}
-
-ion-list.toggle-section .toggle-section-content {
- -webkit-transition: max-height 0.2s ease-in-out;
-  -moz-transition: max-height 0.2s ease-in-out;
-  -ms-transition: max-height 0.2s ease-in-out;
-  transition: max-height 0.2s ease-in-out;
-  max-height: 800px;
-  overflow: hidden;
 }
 
 #register-individual-profile-page #show-link {    

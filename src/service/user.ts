@@ -11,6 +11,7 @@ import { GET_MY_PROFILE_URI } from '../provider/config';
 import { GET_MY_PREFERENCES_URI } from '../provider/config';
 import { SERVER } from '../provider/config';
 import { UPDATE_MY_PROFILE_URI } from '../provider/config';
+import { UPDATE_MY_PREFERENCES_URI } from '../provider/config';
 import { UserProfile } from '../model/user-profile';
 import { Storage } from '@ionic/storage';
 
@@ -83,6 +84,7 @@ export class UserServices {
             .map(res => {
                 console.log(user.profile);
                 user.profile = res.json();
+                return user.profile;
             })
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
@@ -121,4 +123,14 @@ export class UserServices {
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
+    updateMyPreferences(myPreferences): Observable<any> {
+        let headers = new Headers();
+        if (this.user) if (this.user.id) headers.append('Authorization', 'Token ' + this.user.id);
+        headers.append('Content-Type', 'application/json');
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put(SERVER + UPDATE_MY_PREFERENCES_URI, myPreferences, options)
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+
 }

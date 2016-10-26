@@ -68,15 +68,14 @@ export class RegisterIndividualProfilePage {
     emergency_contact: {}
   };
 
-  private availablePreferences: Array<any> = [];
-  private myPreferences: Array<any>;
+  private availablePreferences: any = {};
+  private myPreferences: any = {};
+
+  private formServiceAreas: Array<any> = [];
 
   private profileExists: boolean = false;
 
   private loadingOverlay;
-
-  private getProfileDone: boolean = false;
-  private getPreferencesDone: boolean = false;
 
   private showpassword: string = "password";
 
@@ -102,53 +101,33 @@ export class RegisterIndividualProfilePage {
     this.cleanBooleans();
     this.showLoading();
 
-    // Get my profile if it exists
-    getMyProfileObservable.subscribe(
-      data => {
-        console.log('myprofile:'+JSON.stringify(this.userServices.user.profile));
-
-        if (this.userServices.user.profile) {
-          this.profileExists = true;
-          this.myProfile = this.userServices.user.profile;
-          if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
-          if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
-        }
-        this.getProfileDone=true;
-        if (this.getPreferencesDone) this.hideLoading();
-      }, 
-      err => {
-        if (err.status == "404") {
-          console.log("Profile not yet created");
-          this.profileExists = false;
-        } else {
-          console.log(err);
-        }
-        this.getProfileDone=true;
-        if (this.getPreferencesDone) this.hideLoading();
-      });
-
-    // Get preferences too
-    Observable.forkJoin([getMyPreferencesObservable, getAvailablePreferencesObservable])
+    // Get profile and preferences too
+    Observable.forkJoin([getMyPreferencesObservable, getAvailablePreferencesObservable, getMyProfileObservable])
         .subscribe(data => {
           this.myPreferences = data[0];
           this.availablePreferences = data[1];
+          this.myProfile = data[2];
+
+          this.translateToFormPreferences();
+
+          this.profileExists = true;
+          if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
+          if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
 
           console.log(this.myPreferences);
           console.log(this.availablePreferences);
-          this.getPreferencesDone=true;
-          if (this.getProfileDone) this.hideLoading();
+          this.hideLoading();
         }, err => {
-          this.getPreferencesDone=true;
-          if (this.getProfileDone) this.hideLoading();
+          this.hideLoading();
           console.log(err);
         });
-
   }
 
   presentToast(message: string) {
     let toast = this.toastController.create({
       message: message,
-      duration: 2000
+      duration: 2000,
+      position: 'middle'
     });
     toast.present();
   }
@@ -165,44 +144,24 @@ export class RegisterIndividualProfilePage {
   }
 
   register() {
-
-    if (this.profileExists) {
-      this.updateProfile();
-    } else {
-      this.createProfile();
-    }
-  }
-
-  createProfile() {
-    this.showLoading();
-    this.errors = [];
-    this.cleanBooleans();
-    this.userServices.createMyProfile(this.myProfile)
-      .subscribe(
-          key => {
-            this.hideLoading();
-            this.presentToast("Profile saved.")
-            this.key = key;
-          }, 
-          err => { 
-            this.presentToast("Error saving profile.")
-            this.hideLoading();
-            console.log(err);
-            this.setError(err);
-          }),
-          val => this.val = val;
+    this.updateProfile();
   }
 
   updateProfile() {
     this.showLoading();
     this.clearErrors();
     this.cleanBooleans();
-    this.userServices.updateMyProfile(this.myProfile)
+    this.translateFromFormPreferences();
+
+    let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
+    let updateMyPreferencesObservable =  this.userServices.updateMyPreferences(this.myPreferences);
+
+    Observable.forkJoin([updateMyProfileObservable, updateMyPreferencesObservable])
       .subscribe(
           key => {
             this.presentToast("Profile saved.")
             this.hideLoading();
-            this.key = key;
+            //this.key = key;
           }, 
           err => { 
             this.presentToast("Error saving profile.")
@@ -219,7 +178,48 @@ export class RegisterIndividualProfilePage {
     this.myProfile.comm_opt_in = (this.myProfile.comm_opt_in) ? 1 : 0;
     this.myProfile.tc_version = (this.myProfile.tc_version) ? 1 : null;
     this.myProfile.parent_consent = (this.myProfile.parent_consent) ? 1 : 0;
-}
+  }
+  
+  isServiceAreaInMyPreferences(id: number) {
+    let serviceAreas = this.myPreferences.serviceareas;
+    for (let serviceArea of serviceAreas) {
+      if (serviceArea.servicearea_id == id) return true;
+    }
+    return false;
+  }
+
+  translateToFormPreferences() {
+    // empty the form array
+    this.formServiceAreas = [];
+
+    // Add all available preferences, and for those in "myPreferences.serviceareas", set the selected value to true
+    let serviceAreas = this.availablePreferences.serviceareas;
+    for (let serviceArea of serviceAreas) {
+      let selected = this.isServiceAreaInMyPreferences(serviceArea.id) ? true : false;
+      serviceArea.selected = selected; 
+      this.formServiceAreas.push(serviceArea);
+    }
+
+    console.log(this.formServiceAreas);
+  }
+
+  translateFromFormPreferences() {
+    // Start with empty serviceareas list in myPreferences
+    this.myPreferences.serviceareas = [];
+
+    // For every item on the form that is selected, add it to myPreferences
+    let formServiceAreas = this.formServiceAreas;
+    for (let serviceArea of formServiceAreas) {
+      if (serviceArea.selected) {
+        let newServiceArea = {
+          servicearea_id: serviceArea.id
+        };
+        this.myPreferences.serviceareas.push(newServiceArea); 
+      }
+    }
+    console.log(this.myPreferences.serviceareas);
+    
+  }
 
   clearErrors() {
         this.errors = [];

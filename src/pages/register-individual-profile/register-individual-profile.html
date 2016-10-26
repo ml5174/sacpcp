@@ -131,10 +131,19 @@
 						<ion-list>
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="my_contactmethod_iderror" *ngIf="my_contactmethod_iderror"></ion-icon>
+<!--
 								<ion-label stacked>{{"Contact Method" | translate }}</ion-label>
 								<ion-select [(ngModel)]="myProfile.contactmethod" required>
 									<ion-option *ngFor="let m of availablePreferences.contactmethods" [value]="m.id">{{m.name}}</ion-option>
 								</ion-select>
+-->
+							<section>
+								<div class="radio-choice" *ngFor="let m of availablePreferences.contactmethods">
+									<input [id]="'radio-' + m.id" type="radio" [(ngModel)]="myProfile.contactmethod" [value]="m.id" />
+									<label [attr.for]="'radio-' + m.id">{{m.name}}</label>
+								</div>
+							</section>
+
 							</ion-item>
 							<ion-item no-lines>
 								<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
@@ -298,6 +307,7 @@
 						<ion-icon *ngIf="serviceAreasSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
 					</ion-list-header>
 					<div class="toggle-section-content" [class.hide-section]="!serviceAreasSection">
+<!--
 						<ion-list>
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="my_servicearea_iderror" *ngIf="my_servicearea_iderror"></ion-icon>
@@ -307,6 +317,15 @@
 								</ion-select>
 							</ion-item>
 						</ion-list>
+-->
+						<div>
+							<div class="multi-choice" *ngFor="let m of formServiceAreas">
+								<ion-item no-lines>
+									<ion-label>{{m.name}}</ion-label>
+									<ion-checkbox dark [(ngModel)]="m.selected"></ion-checkbox>
+								</ion-item>
+							</div>
+						</div>
 					</div>
 				</ion-list>
 
