@@ -10,8 +10,8 @@
 	<ion-toolbar secondary>
 		<ion-buttons begin>
 			<button ion-button icon-left (click)="back()">
-       <ion-icon name="back"></ion-icon>
-        {{'< Back' | translate}}
+       <ion-icon name="ios-arrow-back"></ion-icon>
+        {{'Back' | translate}}
     </button>
 		</ion-buttons>
 	</ion-toolbar>
@@ -70,10 +70,14 @@
 			</ion-list-header>
 
 			<section id="pcm-choice">
-				<input type="radio" [(ngModel)]="pcmethod" value="email" />
-				<label>Email</label>
-				<input type="radio" [(ngModel)]="pcmethod" value="sms" style="margin-left: 10px;" />
-				<label>Mobile Phone</label>
+				<div class="radio-choice">
+					<input type="radio" id="email" [(ngModel)]="pcmethod" value="email" />
+					<label for="email">Email</label>
+				</div>
+				<div class="radio-choice">
+					<input type="radio" id="phone" [(ngModel)]="pcmethod" value="sms" style="margin-left: 10px;" />
+					<label for="phone">Mobile Phone</label>
+				</div>
 			</section>
 
 			<ion-item no-lines>
