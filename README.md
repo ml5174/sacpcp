@@ -14,6 +14,6 @@ a.	This will pull up your default browser with the app running.
 5.)	I recommend Visual Studio Code to edit.
 a.	https://code.visualstudio.com/download
 
+https://branch.io/resources/app-launch-checklist/
 
-
-Authors: Mauricio Lopez
+Authors: Mauricio Lopez, Blaine Fawcett, Michael Defibaugh, R 
