@@ -76,13 +76,13 @@ export class LoginPage {
       err => this.setError(err));
   }
   register() {
-    this.nav.setRoot(RegisterLoginPage);
+    this.nav.push(RegisterLoginPage);
   }
   forgot() {
-    this.nav.setRoot(ForgotPage);
+    this.nav.push(ForgotPage);
   }
   back() {
-    this.nav.setRoot(HomePage);
+    this.nav.pop();
   }
   showPassword() {
     if (this.showpassword === 'password') this.showpassword = 'text';

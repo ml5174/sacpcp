@@ -70,10 +70,15 @@ export class MyApp {
   }
 
   openPage(page) {
+    let currentPage = this.nav.getActive().component;
+    console.log(currentPage);
+    
     // close the menu when clicking a link from the menu
     this.menu.close();
     // navigate to the new page if it is not the current page
-    this.nav.setRoot(page.component);
+    if (page.component != currentPage) {
+      this.nav.push(page.component);
+    }
   }
   logout() {
     this.menu.close();

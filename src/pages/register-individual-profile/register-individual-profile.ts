@@ -306,11 +306,11 @@ export class RegisterIndividualProfilePage {
   }
 
   back() {
-    this.nav.setRoot(HomePage);
+    this.nav.pop();
   }
 
   goToChangePassword() {
-    this.nav.setRoot(ChangePasswordPage);
+    this.nav.push(ChangePasswordPage);
   }
 
   showPassword() {

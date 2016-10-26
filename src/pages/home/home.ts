@@ -125,9 +125,9 @@ autoplay: 3000};
     this.translate.use(userLang);
   }
   login() {
-   this.nav.setRoot(LoginPage);
+   this.nav.push(LoginPage);
   }
   noTabs() {
-    this.nav.setRoot(HomePage);
+    this.nav.pop();
   }
 }
