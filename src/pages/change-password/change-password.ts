@@ -73,7 +73,7 @@ export class ChangePasswordPage {
           .subscribe(
           key => {
             registerLogin.key = key;
-            registerLogin.nav.setRoot(RegisterIndividualProfilePage);
+            registerLogin.nav.push(RegisterIndividualProfilePage);
           },
           err => {
             console.log(err);
@@ -112,7 +112,7 @@ export class ChangePasswordPage {
   }
 
   back() {
-    this.nav.setRoot(HomePage);
+    this.nav.pop(HomePage);
   }
   showPassword() {
     if (this.showpassword === 'password') this.showpassword = 'text';

@@ -186,6 +186,20 @@ ion-list.toggle-section .toggle-section-content {
   overflow: hidden;
 }
 
+.toolbar-title {
+  margin-left: 35px;
+  font-size: 1.4rem;
+}
+
+.toolbar-title-ios {
+    font-size: 1.4rem;
+    text-align: left;
+}
+
+.toolbar-ios ion-title {
+  padding: 0 12px;
+}
+
 // Global features
 .absolute-container {
   display: inline-block;
