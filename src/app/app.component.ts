@@ -12,6 +12,7 @@ import { RegisterIndividualProfilePage } from '../pages/register-individual-prof
 import { UserProfile } from '../model/user-profile';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { AboutPage } from '../pages/about/about';
+import { ContactPage } from '../pages/contact/contact';
 
 @Component({
   templateUrl: 'app.html',
@@ -40,7 +41,8 @@ export class MyApp {
       { title: 'Login Registration', component: RegisterLoginPage },
       { title: 'Profile Registration', component: RegisterIndividualProfilePage },
       { title: 'Change Password', component: ChangePasswordPage },
-      { title: 'About', component: AboutPage }
+      { title: 'About', component: AboutPage },
+      { title: 'Contact Us', component: ContactPage }
 
     ];
   }
@@ -75,6 +77,8 @@ export class MyApp {
     
     // close the menu when clicking a link from the menu
     this.menu.close();
+    this.nav.setRoot(HomePage);
+    
     // navigate to the new page if it is not the current page
     if (page.component != currentPage) {
       this.nav.push(page.component);

@@ -40,7 +40,9 @@
 h1, h2, h3, h4, h5, h6 {
     font-family: TrajanPro;
 }
-
+h6 {
+  font-weight: bold;
+}
 .toolbar-content {
     font-family: TrajanPro;
 }
@@ -200,6 +202,9 @@ ion-list.toggle-section .toggle-section-content {
   padding: 0 12px;
 }
 
+.sal-att-logo-container {
+  text-align: center; 
+}
 // Global features
 .absolute-container {
   display: inline-block;
