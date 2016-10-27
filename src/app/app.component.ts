@@ -11,6 +11,8 @@ import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
 import { UserProfile } from '../model/user-profile';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
+import { AboutPage } from '../pages/about/about';
+import { ContactPage } from '../pages/contact/contact';
 
 @Component({
   templateUrl: 'app.html',
@@ -38,7 +40,9 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Login Registration', component: RegisterLoginPage },
       { title: 'Profile Registration', component: RegisterIndividualProfilePage },
-      { title: 'Change Password', component: ChangePasswordPage }
+      { title: 'Change Password', component: ChangePasswordPage },
+      { title: 'About', component: AboutPage },
+      { title: 'Contact Us', component: ContactPage }
 
     ];
   }
@@ -68,10 +72,17 @@ export class MyApp {
   }
 
   openPage(page) {
+    let currentPage = this.nav.getActive().component;
+    console.log(currentPage);
+    
     // close the menu when clicking a link from the menu
     this.menu.close();
+    this.nav.setRoot(HomePage);
+    
     // navigate to the new page if it is not the current page
-    this.nav.setRoot(page.component);
+    if (page.component != currentPage) {
+      this.nav.push(page.component);
+    }
   }
   logout() {
     this.menu.close();

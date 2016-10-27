@@ -7,36 +7,56 @@
 	<ion-content style="margin-top: 45px;">
 		<ion-list>
 			<ion-item icon-left (click)="openPage(pages[1])">
-				<ion-icon name="home"></ion-icon>
+				<!--ion-icon name="home"></ion-icon-->
 				Home
 			</ion-item>
 			<ion-item icon-left (click)="donate()">
-				<ion-icon name="medkit"></ion-icon>
+				<!--ion-icon name="medkit"></ion-icon-->
 				Donate
+			</ion-item>
+			<ion-item icon-left (click)="openPage(pages[5])">
+				<!--ion-icon name="ios-information-circle"></ion-icon-->
+				About 
+			</ion-item>
+			<ion-item icon-left (click)="openPage(pages[6])">
+				<!--ion-icon name="ios-information-circle"></ion-icon-->
+				Contact Us 
 			</ion-item>
 			<ion-list-header>
 				Account
 			</ion-list-header>
+
 			<ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[0])">
-				<ion-icon name="person-add"></ion-icon>
+				<!--ion-icon name="person-add"></ion-icon-->
 				Login
-			</ion-item>
+			</ion-item> 
 			<ion-item *ngIf="userServices.user.id" icon-left (click)="logout()">
-				<ion-icon name="log-out"></ion-icon>
+				<!--ion-icon name="log-out"></ion-icon-->
 				Logout
 			</ion-item>
 			<ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[2])">
-				<ion-icon name="create"></ion-icon>
+				<!--ion-icon name="create"></ion-icon-->
 				Register
 			</ion-item>
 			<ion-item *ngIf="userServices.user.id" icon-left (click)="openPage(pages[3])">
-				<ion-icon name="clipboard"></ion-icon>
+				<!--ion-icon name="clipboard"></ion-icon-->
 				Profile
 			</ion-item>
 			<ion-item *ngIf="userServices.user.id" icon-left (click)="openPage(pages[4])">
-				<ion-icon name="lock"></ion-icon>
+				<!--ion-icon name="lock"></ion-icon-->
 				Change Password
 			</ion-item>
+
+			<!--section id="account-login" *ngIf="!userServices.user.id">
+					<ion-icon name="person-add"></ion-icon>
+					<button color="primary" ion-button (click)="openPage(pages[0])">Login</button>
+			</section>
+
+			<section id="account-logout" *ngIf="userServices.user.id">
+					<ion-icon name="contact"></ion-icon>
+					<button color="primary" ion-button (click)="logout()">Logout</button>
+			</section-->
+
 		</ion-list>
 		<!--ion-list radio-group>
       <ion-list-header>

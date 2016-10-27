@@ -40,7 +40,9 @@
 h1, h2, h3, h4, h5, h6 {
     font-family: TrajanPro;
 }
-
+h6 {
+  font-weight: bold;
+}
 .toolbar-content {
     font-family: TrajanPro;
 }
@@ -74,7 +76,6 @@ button.readmore{
     margin-top: auto;
 }
 
-
 .item-label-stacked .text-input, .item-label-floating .text-input {
     border: 1px solid;   
     padding: 0 10px;
@@ -101,10 +102,109 @@ button.readmore{
   border-color: map-get($colors, primary);
 }
 
-.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner .text-input {
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner .text-input,
+.item-md ion-select, .item-md ion-datetime {
   border-color: map-get($colors, secondary);
 }
 
+.multi-choice {
+  float: left;
+  width: 200px;
+}
+
+.radio-choice {
+  float: left;
+  width: 150px;
+}
+
+.multi-choice ion-label {
+  font-size: 0.9em;
+}
+
+.label-ios[stacked],
+.label-md[stacked],
+.label-ios[stacked],
+ion-label {
+  font-size: 1.6rem;
+  color: black;
+}
+
+ion-select {
+  margin-right: 8px;
+}
+
+ion-select, ion-datetime {
+  border: 1px solid;
+  padding-left: 10px !important;
+  border-radius: 5px;
+}
+
+.scroll-content {
+  overflow: auto;
+}
+
+ion-footer {
+  text-align: center;
+}
+
+ion-footer button {
+  width: 8em;
+}
+
+ion-list.toggle-section.list-md {
+  margin-bottom: 0px !important;
+}
+
+ion-list.toggle-section {
+  margin-bottom: 10px !important;
+}
+
+ion-list.toggle-section ion-list-header {
+  margin-top: 0px;
+  border-top: 1px solid #ccc;
+} 
+
+ion-list.toggle-section:not(:last-child) ion-list-header {
+  border-bottom: none;
+} 
+
+ion-list.toggle-section ion-list-header.selected {
+  background-color: #ddd;
+  color: black;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+} 
+
+ion-list.toggle-section .toggle-section-content.hide-section {
+  max-height: 0px;
+}
+
+ion-list.toggle-section .toggle-section-content {
+ -webkit-transition: max-height 0.2s ease-in-out;
+  -moz-transition: max-height 0.2s ease-in-out;
+  -ms-transition: max-height 0.2s ease-in-out;
+  transition: max-height 0.2s ease-in-out;
+  max-height: 800px;
+  overflow: hidden;
+}
+
+.toolbar-title {
+  margin-left: 35px;
+  font-size: 1.4rem;
+}
+
+.toolbar-title-ios {
+    font-size: 1.4rem;
+    text-align: left;
+}
+
+.toolbar-ios ion-title {
+  padding: 0 12px;
+}
+
+.sal-att-logo-container {
+  text-align: center; 
+}
 // Global features
 .absolute-container {
   display: inline-block;
@@ -121,4 +221,53 @@ button.readmore{
 
 .action-footer {
   background-color: black;
+}
+
+@media (min-width: 1024px) {
+  ion-nav > ng-component > ion-header > app-header > ion-navbar > ion-buttons > button {
+    visibility: hidden;
+  }
+  ion-menu {
+    left: auto;
+    width: 312px;
+    display: block;
+  } 
+  ion-menu > .menu-inner {
+    transform: translateX(0px);
+  }
+  ion-nav {
+    width: calc(100% - 312px);
+    @media (min-width: 1258px) {
+    #home-body {
+      max-width: 900px;
+      margin-left: calc(50% - 450px);
+    }
+    }
+  }
+  #home-header {
+    display: none;
+  }
+}
+
+#account-login {
+  display: block;
+  ion-icon {
+    font-size: 150px;
+    margin-left: 60px;
+    height: 50px
+  }
+  button {
+    margin-left: 104px;
+  }
+}
+#account-logout {
+  display: block;
+  ion-icon {
+    font-size: 150px;
+    margin-left: 82px;
+    height: 50px
+  }
+  button {
+    margin-left: 96px;
+  }
 }

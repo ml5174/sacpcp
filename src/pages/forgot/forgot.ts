@@ -61,6 +61,6 @@ export class ForgotPage {
 
   }
   back() {
-    this.nav.setRoot(HomePage);
+    this.nav.pop();
   }
 }

@@ -132,7 +132,7 @@ export class RegisterLoginPage {
   }
 
   back() {
-    this.nav.setRoot(HomePage);
+    this.nav.pop();
   }
   showPassword() {
     if (this.showpassword === 'password') this.showpassword = 'text';
