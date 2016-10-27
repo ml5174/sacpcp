@@ -56,30 +56,13 @@ export class ChangePasswordPage {
     let register = {
       old_password: this.password,
       new_password1: this.password1,
-      new_password2: this.password2,
-   //   email: this.email,
-   //   phone: this.sms,
-   //   terms: this.terms
+      new_password2: this.password2
     }
 
     this.userServices.changePassword(register)
       .subscribe(
       key => {
         this.key = key;
-        let myProfile = {
-          'User': registerLogin.password
-        }
-        this.userServices.createMyProfile(myProfile)
-          .subscribe(
-          key => {
-            registerLogin.key = key;
-            registerLogin.nav.push(RegisterIndividualProfilePage);
-          },
-          err => {
-            console.log(err);
-            this.setError(err);
-          }),
-          val => this.val = val;
       },
       err => {
         console.log(err);
