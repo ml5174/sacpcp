@@ -119,7 +119,7 @@ export class UserServices {
         if (this.user) if (this.user.id) headers.append('Authorization', 'Token ' + this.user.id);
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this.http.put(SERVER + CHANGE_PASSWORD_URI, passwords, options)
+        return this.http.post(SERVER + CHANGE_PASSWORD_URI, passwords, options)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }

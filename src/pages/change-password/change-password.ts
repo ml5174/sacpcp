@@ -54,32 +54,15 @@ export class ChangePasswordPage {
     else this.sms=this.pcvalue;
 
     let register = {
-      old_password: this.password,
+  //    old_password: this.password,
       new_password1: this.password1,
-      new_password2: this.password2,
-   //   email: this.email,
-   //   phone: this.sms,
-   //   terms: this.terms
+      new_password2: this.password2
     }
 
     this.userServices.changePassword(register)
       .subscribe(
       key => {
         this.key = key;
-        let myProfile = {
-          'User': registerLogin.password
-        }
-        this.userServices.createMyProfile(myProfile)
-          .subscribe(
-          key => {
-            registerLogin.key = key;
-            registerLogin.nav.push(RegisterIndividualProfilePage);
-          },
-          err => {
-            console.log(err);
-            this.setError(err);
-          }),
-          val => this.val = val;
       },
       err => {
         console.log(err);
@@ -90,15 +73,22 @@ export class ChangePasswordPage {
   setError(error) {
     if (error.status === 400) {
       error = error.json();
+
+      if (error['detail']) {
+        console.log('error occured in change password: '+error['detail'])
+        this.errors.push(error['detail']);
+        return;
+      }
+
       for (let key in error) {
         for (let val in error[key]) {
           let field = '';
           if (STRINGS[key]) field = STRINGS[key] + ': ';
           this.errors.push(field + error[key][val].toString());
-          if (key === 'password') this.passworderror = true;
-          if (key === 'password1') this.password1error = true;
-          if (key === 'password2') this.password2error = true;
-          if (key === 'email') this.emailerror = true;
+          console.log('ERROR: '+field);
+     //     if (key === 'password') this.passworderror = true;
+          if (key === 'new_password1') this.password1error = true;
+          if (key === 'new_password2') this.password2error = true;
         }
       }
     }
