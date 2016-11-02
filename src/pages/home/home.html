@@ -27,9 +27,6 @@
 					<!--  NG REPEAT THIS -->
 					<ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents">
 						<ion-card class="flex-card">
-							<!--  ng repeat on this using search criteria and/or location data as input-->
-							<!--  throw ng-ifs on everything inside the card body. if the event has or doesnt have something, card dynamically changes to represent this -->
-							<!--  if short event descriptions are not given, need to truncate dynamically and put a read more button in too -->
 							<img *ngIf="e?.image && e.image[0].image != 'no image'" [src]="e.image[0].image" />
 
 							<ion-card-content>
@@ -37,17 +34,24 @@
 									{{e.title}}
 								</h2>
 								<ion-row>
+								<ion-icon name="calendar"></ion-icon> 
 									<ion-col>
-										<p>{{e.start | date:"MM/dd/yy"}}</p>
+										<p>{{e.start | date:"MM/dd"}} - {{e.end | date:"MM/dd"}}</p>
 									</ion-col>
 									<ion-col>
-										<p><b>{{e.start | date:'shortTime'}}</b></p>
-									</ion-col>
-									<ion-col>
-										<p>{{e.location_name}}</p>
+										<p><b>{{e.start | date:'shortTime'}}-{{e.end | date:'shortTime'}}</b></p>
 									</ion-col>
 								</ion-row>
-
+								<ion-row>
+									<ion-icon name="pin"></ion-icon>
+									<ion-col>
+									<p>{{e.location_name}}</p>
+									</ion-col>
+								</ion-row>
+								<ion-row>
+									<!-- XX is used to denote state which isn't in the back-end -->
+									<p>{{e.location_address1}}, {{e.location_city}}, XX {{e.location_zipcode}}</p>
+								</ion-row>
 								<p>{{e.description}}</p>
 							</ion-card-content>
 							<!--button padding ion-button class="readmore">Read more</button>
