@@ -13,6 +13,7 @@ import { PasswordPopover } from '../../popover/password';
 @Component({
   templateUrl: 'login.html'
 })
+
 export class LoginPage {
   
   @ViewChild('popoverContent', { read: ElementRef }) content: ElementRef;
