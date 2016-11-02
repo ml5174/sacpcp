@@ -60,6 +60,14 @@ ion-header > ion-navbar > div.toolbar-background {
     background-size: auto 85%;
     background-position: left 5px top 5px;
 }
+
+#right-menu > div {
+  text-align: right;
+}
+#right-menu-items > ion-item > div.item-inner > div > ion-label {
+  text-align: right;
+}
+
 //CUSTOM CONTENT
 .content-pad{
     max-width: 95%;
@@ -70,7 +78,9 @@ ion-header > ion-navbar > div.toolbar-background {
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
-    margin-bottom: 0px;
+    margin: 0 !important;
+    width: auto !important;
+    
 }
 
 button.readmore{
@@ -115,7 +125,7 @@ button.readmore{
 
 .radio-choice {
   float: left;
-  width: 150px;
+  width: 102px;
 }
 
 .multi-choice ion-label {
