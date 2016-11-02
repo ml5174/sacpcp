@@ -20,6 +20,9 @@
 			<div *ngSwitchCase="'events'">
 
 				<ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
+				<div id="results" *ngIf="searching">Search Results</div>
+				<div *ngIf="searching && noResults">No Results Found</div>
+
 				<ion-row responsive-sm wrap>
 					<!--  NG REPEAT THIS -->
 					<ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents">
