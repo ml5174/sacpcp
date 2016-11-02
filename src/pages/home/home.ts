@@ -34,6 +34,8 @@ autoplay: 3000};
   language: string = "en";
   val: string;
   values: Array<String>;
+  searching: Boolean = false;
+  noResults: Boolean = false;
 
   constructor(private navCtrl: NavController,
               private nav: Nav, 
@@ -47,6 +49,8 @@ autoplay: 3000};
     this.search=false;
   }
   getItems(ev: any) {
+    this.searching = true;
+    this.noResults = false;
     this.searchedEvents = this.events;
     // set val to the value of the searchbar
     this.val = ev.target.value;
@@ -62,7 +66,11 @@ autoplay: 3000};
            });
 
       }
-
+      if (this.searchedEvents.length==0){
+        this.noResults = true;
+      }
+    } else {
+      this.searching = false;
     }
   }
   populateSearchedEvents(ev: VolunteerEvent[]){
