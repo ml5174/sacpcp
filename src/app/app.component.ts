@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Platform, MenuController, Nav } from 'ionic-angular';
+import { Platform, MenuController, Nav, Select } from 'ionic-angular';
 
 import { StatusBar } from 'ionic-native';
 import { Storage } from '@ionic/storage';
@@ -26,6 +26,7 @@ export class MyApp {
   rootPage: any = HomePage;
   pages: Array<{ title: string, component: any }>;
   username: String = "";
+  appManager: any = {};
   constructor(
     public platform: Platform,
     public menu: MenuController,
@@ -49,6 +50,8 @@ export class MyApp {
 
   initializeApp() {
     let us = this.userServices;
+    this.detectOldIE();
+    
     this.storage.get('key')
       .then(
       value => {
@@ -74,11 +77,11 @@ export class MyApp {
   openPage(page) {
     let currentPage = this.nav.getActive().component;
     console.log(currentPage);
-    
+
     // close the menu when clicking a link from the menu
     this.menu.close();
     this.nav.setRoot(HomePage);
-    
+
     // navigate to the new page if it is not the current page
     if (page.component != currentPage) {
       this.nav.push(page.component);
@@ -89,7 +92,29 @@ export class MyApp {
     this.storage.set('key', undefined);
     this.userServices.user = new UserProfile();
   }
-  donate(){
-  	 window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank');
+  donate() {
+    window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank');
+  }
+
+  private detectOldIE() {
+
+    var isOldIE = navigator.userAgent.match(/Trident/);
+
+    if (isOldIE) {
+      document.body.classList.add("ie-old");
+      this.appManager.isOldIEVersion = true;
+
+      (<any>Select).prototype._click = function (ev) {
+        //alert("Monkey patched");
+        // monkey patch the _click method for ion-select for IE as UIEvent.detail not supported
+        /*if (ev.detail === 0) {
+            // do not continue if the click event came from a form submit
+            return;
+        }*/
+        ev.preventDefault();
+        ev.stopPropagation(); 
+        this.open();
+      };
+    }
   }
 }

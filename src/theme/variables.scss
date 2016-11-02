@@ -55,3 +55,8 @@ $colors: (
 $ionicons-font-path: "../assets/fonts";
 @import "ionicons";
 
+.ie-old {
+  .item-label-stacked .input-wrapper, .item-label-floating .input-wrapper { 
+    display: inline-block; 
+    }
+}
