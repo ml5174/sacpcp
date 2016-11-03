@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UserServices } from '../service/user';
 import { Nav } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
@@ -12,6 +12,9 @@ import { Storage } from '@ionic/storage';
 })
 
 export class AppHeaderComponent {
+  @Input('back') isBack: boolean = false;
+  @Input('title') title: string = 'Login'
+
   constructor(
     private nav: Nav,
     private userServices: UserServices,
@@ -32,5 +35,8 @@ export class AppHeaderComponent {
   
   profile() {
     this.nav.push(RegisterIndividualProfilePage);
+  }
+  back() {
+    this.nav.pop();
   }
 }

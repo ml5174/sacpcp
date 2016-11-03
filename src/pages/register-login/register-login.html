@@ -1,25 +1,21 @@
 <ion-header>
-	<ion-navbar class="navbar-background" hideBackButton="true">
-		<ion-title>Doing the Most Good</ion-title>
-	</ion-navbar>
+	<app-header back="true" title="Create New Account">
+	</app-header>
 </ion-header>
 
 
 <ion-content>
 
-	<ion-toolbar secondary>
+	<!--ion-toolbar secondary>
 		<ion-buttons begin>
 			<button ion-button icon-left (click)="back()">
-       <ion-icon name="ios-arrow-back"></ion-icon>
-        {{'Back' | translate}}
-    </button>
+				<ion-icon name="ios-arrow-back" style="padding: 1px 12px 1px 5px;"></ion-icon>
+				{{'Create New Account' | translate}}
+			</button>
 		</ion-buttons>
-	</ion-toolbar>
-
+	</ion-toolbar-->
 
 	<section id="register-login-page">
-		<h4 padding>Volunteer Login Registration</h4>
-
 		<ion-item no-lines *ngFor="let error of errors">
 			<ion-icon name="alert" item-left></ion-icon>
 			<p style="color: red">{{error}}</p>
@@ -86,7 +82,7 @@
 
 			<section style="padding: 15px;">
 				<ion-checkbox class="center" color="primary" [(ngModel)]="terms"></ion-checkbox>
-				<span class="center" style="margin-left: 15px;" (click)="viewTerms()">I agree Privacy &amp; Terms</span>
+				<span class="center" style="margin-left: 15px;" (click)="viewTerms()">I agree  to  the Privacy &amp; Terms</span>
 			</section>
 
 		</ion-list>

@@ -1,5 +1,15 @@
-<ion-header>
+<!--ion-header>
 	<app-header></app-header>
+</ion-header-->
+<ion-header>
+	<ion-navbar class="navbar-background" hideBackButton="true">
+		<ion-title>Doing the Most Good</ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only menuToggle style="display: inline-block;">
+			<ion-icon name="menu"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
 </ion-header>
 
 <ion-content padding-left padding-right padding-top>
@@ -26,7 +36,7 @@
 				<ion-row responsive-sm wrap>
 					<!--  NG REPEAT THIS -->
 					<ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents">
-						<ion-card class="flex-card">
+						<ion-card class="flex-card" style="">
 							<img *ngIf="e?.image && e.image[0].image != 'no image'" [src]="e.image[0].image" />
 
 							<ion-card-content>
@@ -34,7 +44,7 @@
 									{{e.title}}
 								</h2>
 								<ion-row>
-								<ion-icon name="calendar"></ion-icon> 
+									<ion-icon name="calendar"></ion-icon>
 									<ion-col>
 										<p>{{e.start | date:"MM/dd"}} - {{e.end | date:"MM/dd"}}</p>
 									</ion-col>
@@ -45,7 +55,7 @@
 								<ion-row>
 									<ion-icon name="pin"></ion-icon>
 									<ion-col>
-									<p>{{e.location_name}}</p>
+										<p>{{e.location_name}}</p>
 									</ion-col>
 								</ion-row>
 								<ion-row>
@@ -113,7 +123,7 @@
 								<span style="font-size: 12pt;">5302 Harry Hines Blvd.</span><br style="font-size: 12pt;">
 								<span style="font-size: 12pt;">Dallas,TX 75235</span><br style="font-size: 12pt;"><span style="font-size: 12pt;">(214) 424-7050</span>
 								<br style="font-size: 12pt;">
-								<span style="font-size: 12pt;">(214) 424-688-5234 Fax </span>
+								<span style="font-size: 12pt;">(214) 688-5234 Fax </span>
 							</div>
 						</div>
 						<div class="modulePageTextMedia">
@@ -125,7 +135,7 @@
 
 											<div> </div>
 											<div> </div>
-											<p>Located West of downtown Dallas, The Salvation Army Carr P. Collins Social Service Center is across from Parkland
+											<p>Located Nrth of downtown Dallas, The Salvation Army Carr P. Collins Social Service Center is next to Parkland
 												Hospital on Harry Hines Boulevard.</p>
 											<p>The 161,000 square foot center, which houses up to 600 people per night, is the largest multi-use facility in
 												The Salvation Army world. Every year, thousands of people find the spiritual and practical help they need to

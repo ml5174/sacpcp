@@ -1,77 +1,41 @@
-<ion-menu [content]="content" side="right">
+<ion-menu [content]="content" side="right" >
 
-	<ion-toolbar>
-		<ion-title>Menu</ion-title>
+	<ion-toolbar >
+		<ion-buttons begin *ngIf="!isBack">
+			<button *ngIf="userServices.user.id" ion-button icon-left (click)="profile()">
+				{{userServices.user.name}}
+			</button>
+		</ion-buttons>
+		<ion-title id="right-menu">Menu</ion-title>
 	</ion-toolbar>
 
-	<ion-content style="margin-top: 45px;">
-		<ion-list>
-			<ion-item icon-left (click)="openPage(pages[1])">
-				<!--ion-icon name="home"></ion-icon-->
+	<ion-content style="margin-top: 45px;" >
+		<ion-list id="right-menu-items" >
+			<ion-item icon-left (click)="openPage(pages[1])" >
 				Home
 			</ion-item>
 			<ion-item icon-left (click)="donate()">
-				<!--ion-icon name="medkit"></ion-icon-->
 				Donate
 			</ion-item>
 			<ion-item icon-left (click)="openPage(pages[5])">
-				<!--ion-icon name="ios-information-circle"></ion-icon-->
-				About 
+				About
 			</ion-item>
 			<ion-item icon-left (click)="openPage(pages[6])">
-				<!--ion-icon name="ios-information-circle"></ion-icon-->
-				Contact Us 
-			</ion-item>
-			<ion-list-header>
-				Account
-			</ion-list-header>
-
-			<ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[0])">
-				<!--ion-icon name="person-add"></ion-icon-->
-				Login
-			</ion-item> 
-			<ion-item *ngIf="userServices.user.id" icon-left (click)="logout()">
-				<!--ion-icon name="log-out"></ion-icon-->
-				Logout
+				Contact Us
 			</ion-item>
 			<ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[2])">
-				<!--ion-icon name="create"></ion-icon-->
 				Register
 			</ion-item>
 			<ion-item *ngIf="userServices.user.id" icon-left (click)="openPage(pages[3])">
-				<!--ion-icon name="clipboard"></ion-icon-->
 				Profile
 			</ion-item>
-			<ion-item *ngIf="userServices.user.id" icon-left (click)="openPage(pages[4])">
-				<!--ion-icon name="lock"></ion-icon-->
-				Change Password
+			<ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[0])">
+				Login
 			</ion-item>
-
-			<!--section id="account-login" *ngIf="!userServices.user.id">
-					<ion-icon name="person-add"></ion-icon>
-					<button color="primary" ion-button (click)="openPage(pages[0])">Login</button>
-			</section>
-
-			<section id="account-logout" *ngIf="userServices.user.id">
-					<ion-icon name="contact"></ion-icon>
-					<button color="primary" ion-button (click)="logout()">Logout</button>
-			</section-->
-
+			<ion-item *ngIf="userServices.user.id" icon-left (click)="logout()">
+				Logout
+			</ion-item>
 		</ion-list>
-		<!--ion-list radio-group>
-      <ion-list-header>
-        Language
-      </ion-list-header>
-      <ion-item>
-        <ion-label>English</ion-label>
-        <ion-radio checked="true" value="english"></ion-radio>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Espanol</ion-label>
-        <ion-radio value="spanish"></ion-radio>
-      </ion-item>
-    </ion-list-->
 	</ion-content>
 </ion-menu>
 
