@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { LOGIN_URI } from '../provider/config';
 import { REGISTER_URI } from '../provider/config';
 import { RESET_URI } from '../provider/config';
+import { RESET_CONFIRM_URI } from '../provider/config';
 import { CHANGE_PASSWORD_URI } from '../provider/config';
 import { REGISTER_USER_URI } from '../provider/config';
 import { GET_AVAILABLE_PREFERENCES_URI } from '../provider/config';
@@ -13,7 +14,6 @@ import { SERVER } from '../provider/config';
 import { UPDATE_MY_PROFILE_URI } from '../provider/config';
 import { UPDATE_MY_PREFERENCES_URI } from '../provider/config';
 import { UserProfile } from '../model/user-profile';
-import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class UserServices {
@@ -111,6 +111,13 @@ export class UserServices {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.post(SERVER + RESET_URI, email)
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }  
+    resetConfirm(resetObject) : Observable<any> {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(SERVER + RESET_CONFIRM_URI, resetObject)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }  

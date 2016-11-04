@@ -2,10 +2,9 @@ import { Component } from '@angular/core'
 import { UserServices } from '../../service/user';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { STRINGS } from '../../provider/config';
-import { TermsPage } from '../terms/terms';
+import { ConfirmEmailPage } from '../confirm-email/confirm-email';
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
-import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 import { PasswordPopover } from '../../popover/password';
 
 @Component({
@@ -31,12 +30,12 @@ export class ChangePasswordPage {
   private pcmethod: string = 'email'
   private pcvalue: string = '';
 
-  private terms: boolean = true;
-
   constructor(private nav: NavController,
+    private navParams: NavParams,
     private userServices: UserServices,
     private translate: TranslateService,
     private popoverCtrl: PopoverController) {
+      console.dir(navParams);
 
   }
   register() {
@@ -54,15 +53,18 @@ export class ChangePasswordPage {
     else this.sms=this.pcvalue;
 
     let register = {
-  //    old_password: this.password,
       new_password1: this.password1,
-      new_password2: this.password2
+      new_password2: this.password2,
+      uid: this.navParams.data.iud,
+      token: this.navParams.data.key
+      //, email: "test@email.com"
     }
 
-    this.userServices.changePassword(register)
+    this.userServices.resetConfirm(register)
       .subscribe(
       key => {
         this.key = key;
+        this.nav.setRoot(ConfirmEmailPage);
       },
       err => {
         console.log(err);
@@ -97,10 +99,6 @@ export class ChangePasswordPage {
     }
 
   }
-  viewTerms() {
-    this.nav.push(TermsPage);
-  }
-
   back() {
     this.nav.pop(HomePage);
   }

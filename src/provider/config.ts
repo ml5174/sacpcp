@@ -1,6 +1,7 @@
 export const LOGIN_URI = '/rest-auth/login/';
 export const REGISTER_URI = '/rest-auth/registration/';
 export const RESET_URI = '/rest-auth/password/reset/';
+export const RESET_CONFIRM_URI = '/rest-auth/password/reset/confirm/';
 export const REGISTER_USER_URI = '/api/v0.2/salarmy/myprofile/';
 export const GET_AVAILABLE_PREFERENCES_URI = '/api/v0.2/salarmy/availablepreferences/';
 export const GET_MY_PREFERENCES_URI = '/api/v0.2/salarmy/mypreferences/';
@@ -11,10 +12,12 @@ export const GET_LOCATIONS_URI = '/api/v0.2/accounts/locations/';
 export const GET_EVENT_IMAGE_URI = '/api/v0.2/events/eventimages/';
 export const CHANGE_PASSWORD_URI = '/rest-auth/password/change/';   
 export const UPDATE_MY_PREFERENCES_URI = '/api/v0.2/salarmy/mypreferences/';
-
 export var SERVER = window['djangoserver'];
 if (document.location.hostname === '198.199.86.127')
     SERVER = 'http://198.199.86.127:8282';
+if (document.location.hostname === 'localhost')
+    SERVER = 'http://198.199.86.127:8282';
+
 
 export const STRINGS = {
         first_name: 'First Name',

@@ -48,17 +48,19 @@ h6 {
 }
 
 app-header > ion-navbar > div.toolbar-background {
-    background-image: url("../assets/img/logo.svg");
+    background-image: url("../assets/img/logo2.jpg");
     background-repeat: no-repeat;
     background-size: auto 85%;
     background-position: left 5px top 5px;
+    background-color: white;
 }
 
 ion-header > ion-navbar > div.toolbar-background {
-    background-image: url("../assets/img/logo.svg");
+    background-image: url("../assets/img/logo2.jpg");
     background-repeat: no-repeat;
     background-size: auto 85%;
     background-position: left 5px top 5px;
+    background-color: white;
 }
 
 #right-menu > div {
