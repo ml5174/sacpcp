@@ -1,4 +1,4 @@
-<ion-menu [content]="content" side="right" >
+<ion-menu [content]="content" side="right" persistent="true">
 
 	<ion-toolbar >
 		<ion-buttons begin *ngIf="!isBack">
@@ -14,8 +14,8 @@
 			<ion-item icon-left (click)="openPage(pages[1])" >
 				Home
 			</ion-item>
-			<ion-item icon-left (click)="donate()">
-				Donate
+			<ion-item icon-left (click)="openPage(pages[1])">
+				Search Upcoming Events
 			</ion-item>
 			<ion-item icon-left (click)="openPage(pages[5])">
 				About

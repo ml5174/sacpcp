@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
 
 import {HttpModule, Http} from '@angular/http';
 import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
@@ -7,6 +7,7 @@ import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-trans
 import { MyApp } from './app.component';
 import { TermsPage } from '../pages/terms/terms';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
+import { ConfirmEmailPage } from '../pages/confirm-email/confirm-email';
 import { HomePage } from '../pages/home/home';
 import { DonatePage } from '../pages/donate/donate';
 import { ForgotPage } from '../pages/forgot/forgot';
@@ -23,10 +24,17 @@ import { PasswordPopover } from '../popover/password';
 
 import { UserServices } from '../service/user';
 
+export const deepLinkConfig: DeepLinkConfig = {
+  links: [
+    { component: ChangePasswordPage, name: 'Change Passowrd Page', segment: 'password-reset/confirm/:iud/:key' },
+  ]
+};
+
 @NgModule({
   declarations: [
     MyApp,
     TermsPage,
+    ConfirmEmailPage,
     ChangePasswordPage,
     HomePage,
     DonatePage,
@@ -43,6 +51,7 @@ import { UserServices } from '../service/user';
   imports: [
     HttpModule,
     IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {}, deepLinkConfig),
     TranslateModule.forRoot({ 
           provide: TranslateLoader,
           useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),
@@ -53,6 +62,7 @@ import { UserServices } from '../service/user';
   entryComponents: [
     MyApp,
     TermsPage,
+    ConfirmEmailPage,
     ChangePasswordPage,
     UseridPopover,
     PasswordPopover,
