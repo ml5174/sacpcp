@@ -58,6 +58,7 @@ export class MyApp {
         console.log('key: ' + value);
         if (value) us.user.id = value;
         us.getMyProfile();
+        
       });
 
     this.storage.get('username')
