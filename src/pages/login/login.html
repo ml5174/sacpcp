@@ -6,7 +6,7 @@
 	</app-header>
 </ion-header>
 
-<ion-content>
+<ion-content scroll="true" class="has-subheader">
 
 	<!--ion-toolbar secondary>
 			<button style="float: left;background-color: transparent;color: red; padding: 7px 2px 1px 10px;height: 1.1em;" ion-button icon-left (click)="back()">
@@ -21,7 +21,7 @@
 	<section id="login-page">
 
 		<ion-list>
-			<ion-item no-lines *ngFor="let error of errors">
+			<ion-item no-lines *ngFor="let error of errors" >
 				<ion-icon name="alert" item-left class="error"></ion-icon>
 				<p class="error">{{error | translate}}</p>
 			</ion-item>
@@ -33,7 +33,7 @@
 				<ion-item no-lines [class.error]="!username.valid && username.touched">
 					<ion-icon name="alert" [class.error]="!username.valid && username.touched" item-left isActive="false" *ngIf="!username.valid && username.touched"></ion-icon>
 					<ion-label stacked>{{ 'Username' | translate}}</ion-label>
-					<ion-input required type="text" placeholder="" [(ngModel)]="username"></ion-input>
+					<ion-input required type="text" placeholder="" [(ngModel)]="username" (focus)="errors=[]"></ion-input>
 				</ion-item>
 			</div>
 			<div class="absolute-container">
@@ -44,7 +44,7 @@
 				<ion-item no-lines [class.error]="!password.valid && password.touched">
 					<ion-icon *ngIf="passworderror" name="alert" item-left isActive="false" [class.error]="passworderror"></ion-icon>
 					<ion-label stacked>{{ 'Password' | translate}}</ion-label>
-					<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="password"></ion-input>
+					<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="password" (focus)="errors=[]"></ion-input>
 				</ion-item>
 			</div>
 			<ion-item no-lines>
