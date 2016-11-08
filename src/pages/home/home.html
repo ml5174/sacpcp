@@ -38,9 +38,9 @@
 									<ion-col>
 										<p>{{e.start | date:"MM/dd"}} - {{e.end | date:"MM/dd"}}</p>
 									</ion-col>
-									<ion-col>
-										<p><b>{{e.start | date:'shortTime'}}-{{e.end | date:'shortTime'}}</b></p>
-									</ion-col>
+								</ion-row>
+								<ion-row>
+									<p><b>{{e.start | date:'shortTime'}}-{{e.end | date:'shortTime'}} {{e.start | date:'Z'}}</b></p>
 								</ion-row>
 								<ion-row>
 									<ion-icon name="pin"></ion-icon>

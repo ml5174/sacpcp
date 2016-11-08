@@ -4,10 +4,9 @@ import {VolunteerEvent} from '../../model/volunteer-event';
 import {VolunteerEventsService} from '../../service/volunteer-events-service';
 import {EventImage} from '../../model/eventImage';
 import {Locations} from '../../model/locations';
-import { Observable } from 'rxjs/Observable';
 import {LoginPage} from '../login/login';
 import {TranslateService} from 'ng2-translate/ng2-translate';
-import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
+import { UserServices } from '../../service/user';
 
 @Component({
   templateUrl: 'home.html',
@@ -32,7 +31,7 @@ autoplay: 3000};
   image: Array<EventImage>;
   selectedTab: string = "home";
   language: string = "en";
-  val: string;
+  val: string ="";
   values: Array<String>;
   searching: Boolean = false;
   noResults: Boolean = false;
@@ -40,7 +39,8 @@ autoplay: 3000};
   constructor(private navCtrl: NavController,
               private nav: Nav, 
               private volunteerEventsService: VolunteerEventsService,
-              private translate: TranslateService
+              private translate: TranslateService,
+              private userServices: UserServices
   ) {  }
   ngOnInit(){
     this.getEvents();
@@ -49,12 +49,16 @@ autoplay: 3000};
     this.search=false;
   }
   getItems(ev: any) {
+    if(ev.target.value == undefined){
+      ev.target.value = '';
+    }
     this.searching = true;
     this.noResults = false;
     this.searchedEvents = this.events;
     // set val to the value of the searchbar
     this.val = ev.target.value;
     this.val = this.val.trim();
+    this.val = this.val.toLowerCase();
     this.values = this.val.split(" ");
     if (this.val && this.val.trim() != '') {
       for (var i = 0; i < this.values.length; ++i) {
@@ -62,8 +66,12 @@ autoplay: 3000};
           return ((item.description.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1) ||
             (item.title.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1) ||
             (item.location_name !=null &&
-            (item.location_name.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)))
-           });
+            (item.location_name.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (item.location_address1 !=null &&
+            (item.location_address1.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (item.location_city !=null &&
+            (item.location_city.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))
+            )});
 
       }
       if (this.searchedEvents.length==0){
@@ -137,5 +145,10 @@ autoplay: 3000};
   }
   noTabs() {
     this.nav.pop();
+  }
+  whoamI(){
+    if (this.userServices.user.id){
+      console.log(this.userServices.user.id);
+    }
   }
 }
