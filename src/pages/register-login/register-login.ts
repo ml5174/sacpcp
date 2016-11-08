@@ -35,7 +35,7 @@ export class RegisterLoginPage {
   private pcmethod: string = 'email'
   private pcvalue: string = '';
 
-  private terms: boolean = true;
+  private terms: boolean = false;
   private remember: boolean = true;
   private storage: Storage = new Storage();
 
