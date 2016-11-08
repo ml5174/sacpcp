@@ -14,6 +14,7 @@ import { ForgotPage } from '../pages/forgot/forgot';
 import { LoginPage } from '../pages/login/login';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
+import { EventPage } from '../pages/events/events';
 import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
 import { AppHeaderComponent } from '../components/app-header.component';
@@ -42,6 +43,7 @@ export const deepLinkConfig: DeepLinkConfig = {
     LoginPage,
     AboutPage,
     ContactPage,
+    EventPage,
     AppHeaderComponent,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
