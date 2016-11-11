@@ -2,13 +2,10 @@ import {Component} from '@angular/core';
 import {VolunteerEvent} from '../../model/volunteer-event';
 import {VolunteerEventsService} from '../../service/volunteer-events-service';
 import {EventImage} from '../../model/eventImage';
-import {Locations} from '../../model/locations';
-import { UserServices } from '../../service/user';
 
 @Component({
   templateUrl: 'events.html',
-  selector: 'events',
-  providers: [VolunteerEventsService],
+  selector: 'events'
 })
 
 export class EventPage {
@@ -20,7 +17,6 @@ export class EventPage {
   searchedEvents: Array<VolunteerEvent> = [];
   maxEvents: Array<VolunteerEvent> = [];
   minEvents: Array<VolunteerEvent> = [];
-  locations: Array<Locations> = [];
   image: Array<EventImage>;
   val: string ="";
   values: Array<String>;
@@ -28,7 +24,6 @@ export class EventPage {
   noResults: Boolean = false;
 
   constructor(private volunteerEventsService: VolunteerEventsService,
-              private userServices: UserServices
   ) {  }
   ngOnInit(){
     this.getEvents();
@@ -97,12 +92,6 @@ export class EventPage {
                                 () => {this.searchedEvents = this.events;
                                        this.populateSearchedEvents(this.events);
                                      });
-                                +    this.volunteerEventsService
-         .getLocations().subscribe(
-                                locations => this.locations = locations, 
-                                 err => {
-                                     console.log(err);
-                                 });
   }
   getEventsMax(maxTime) {
      this.volunteerEventsService
@@ -121,9 +110,4 @@ export class EventPage {
                                  });
   }
 
-  whoamI(){
-    if (this.userServices.user.id){
-      console.log(this.userServices.user.id);
-    }
-  }
 }

@@ -12,6 +12,7 @@ export class VolunteerEvent {
   location_address1: string;
   location_address2: string;
   location_city : string;
+  location_state : string;
   location_zipcode: string;
   created_by: string = "";
   image: Array<EventImage> = [new EventImage()];
