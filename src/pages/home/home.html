@@ -13,6 +13,9 @@
 				<ion-segment-button value="events">
 					Events
 				</ion-segment-button>
+				<ion-segment-button value="myevents">
+					My Events
+				</ion-segment-button>
 			</ion-segment>
 		</div>
 
@@ -111,6 +114,9 @@
 						<div class="clear dynamicPageSpacer"></div>
 					</div>
 				</div>
+			</div>
+			<div *ngSwitchCase="'myevents'">
+				<myevents></myevents>
 			</div>
 		</div>
 	</section>

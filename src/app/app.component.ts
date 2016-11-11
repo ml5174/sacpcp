@@ -16,11 +16,10 @@ import { ContactPage } from '../pages/contact/contact';
 
 @Component({
   templateUrl: 'app.html',
-  providers: [UserServices]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
+ 
   key: any = { key: 'key' };
   errors: Array<string> = [];
   rootPage: any = HomePage;
@@ -56,9 +55,11 @@ export class MyApp {
       .then(
       value => {
         console.log('key: ' + value);
-        if (value) us.user.id = value;
-        us.getMyProfile();
-        
+        if (value) {
+          us.user.id = value;
+          us.userIdSource.next(us.user.id);
+          us.getMyProfile();
+        }
       });
 
     this.storage.get('username')

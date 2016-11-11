@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import { LOGIN_URI } from '../provider/config';
 import { REGISTER_URI } from '../provider/config';
 import { RESET_URI } from '../provider/config';
@@ -16,8 +16,10 @@ import { UPDATE_MY_PREFERENCES_URI } from '../provider/config';
 import { UserProfile } from '../model/user-profile';
 
 @Injectable()
-export class UserServices {
+export class UserServices{
     public user: UserProfile = new UserProfile();
+    userIdSource: BehaviorSubject<number> = new BehaviorSubject<number>(this.user.id);
+    userIdChange$ = this.userIdSource.asObservable(); 
     constructor(private http: Http) {
     }
 
@@ -26,6 +28,7 @@ export class UserServices {
             .map(res => {
                 this.user.name = body.username;
                 this.user.id = res.json().key;
+                this.userIdSource.next(this.user.id);
             })
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
@@ -33,6 +36,7 @@ export class UserServices {
         return this.http.post(SERVER + REGISTER_URI, body, this.getOptions())
             .map(res => {
                 this.user.id = res.json().key;
+                this.userIdSource.next(this.user.id);
             })
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }

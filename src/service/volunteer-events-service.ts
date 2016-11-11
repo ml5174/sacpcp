@@ -1,13 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import {VolunteerEvent} from '../model/volunteer-event';
-import {Locations} from '../model/locations';
-import {EventImage} from '../model/eventImage';
-import {GET_EVENTS_URI} from '../provider/config';
-import {GET_LOCATIONS_URI} from '../provider/config';
-import {GET_EVENT_IMAGE_URI} from '../provider/config';
-import {SERVER} from '../provider/config';
+import { Injectable } from '@angular/core';
+import { Http, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import { VolunteerEvent } from '../model/volunteer-event';
+import { EventImage } from '../model/eventImage';
+import { GET_EVENTS_URI } from '../provider/config';
+import { GET_MYEVENTS_URI } from '../provider/config';
+import { GET_EVENT_IMAGE_URI } from '../provider/config';
+import { SERVER } from '../provider/config';
 
 @Injectable()
 export class VolunteerEventsService {
@@ -35,8 +34,11 @@ export class VolunteerEventsService {
              .map(res => res.json())
              .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
      }
-    getLocations(): Observable<Locations[]> {
-        return this.http.get(SERVER + GET_LOCATIONS_URI)
+    getMyEvents(token: number): Observable<VolunteerEvent[]> {
+        let header = new Headers();
+        header.append('Authorization', 'Token ' + token);
+        let requestoption = new RequestOptions({ headers: header });
+        return this.http.get(SERVER + GET_MYEVENTS_URI, requestoption)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
