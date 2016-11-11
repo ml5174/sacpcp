@@ -13,7 +13,7 @@
 				<ion-segment-button value="events">
 					Events
 				</ion-segment-button>
-				<ion-segment-button value="myevents">
+				<ion-segment-button value="myevents" [hidden]="!volunteerEventsService.myEvents.length>0">
 					My Events
 				</ion-segment-button>
 			</ion-segment>

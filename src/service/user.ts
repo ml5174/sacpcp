@@ -19,24 +19,31 @@ import { UserProfile } from '../model/user-profile';
 export class UserServices{
     public user: UserProfile = new UserProfile();
     userIdSource: BehaviorSubject<number> = new BehaviorSubject<number>(this.user.id);
-    userIdChange$ = this.userIdSource.asObservable(); 
+
     constructor(private http: Http) {
+    }
+    setId(id: number){
+        this.user.id = id;
+        this.userIdSource.next(id);
+
+    }
+
+    unsetId(){
+        this.setId(null);
     }
 
     login(body): Observable<any> {
         return this.http.post(SERVER + LOGIN_URI, body, this.getOptions())
             .map(res => {
                 this.user.name = body.username;
-                this.user.id = res.json().key;
-                this.userIdSource.next(this.user.id);
+                this.setId(res.json().key);
             })
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
     register(body): Observable<any> {
         return this.http.post(SERVER + REGISTER_URI, body, this.getOptions())
             .map(res => {
-                this.user.id = res.json().key;
-                this.userIdSource.next(this.user.id);
+                this.setId(res.json().key);
             })
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }

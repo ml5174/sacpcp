@@ -5,6 +5,8 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
 import { UserProfile } from '../model/user-profile';
 import { Storage } from '@ionic/storage';
+import { VolunteerEventsService } from '../service/volunteer-events-service';
+import { HomePage } from '../pages/home/home';
 
 @Component({
   selector: 'app-header',
@@ -15,10 +17,13 @@ export class AppHeaderComponent {
   @Input('back') isBack: boolean = false;
   @Input('title') title: string = 'Login'
 
+  rootPage: any = HomePage;
+
   constructor(
     private nav: Nav,
     private userServices: UserServices,
-    public storage: Storage
+    public storage: Storage,
+    private volunteerEvents : VolunteerEventsService
   ) {
   }
   login() {
@@ -27,6 +32,9 @@ export class AppHeaderComponent {
   logout() {
     this.storage.set('key', undefined);
     this.userServices.user = new UserProfile();
+    this.userServices.unsetId();
+    this.volunteerEvents.clearEvents();
+    this.nav.setRoot(HomePage);
   }
   
   donate(){

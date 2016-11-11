@@ -1,6 +1,6 @@
 <ion-row responsive-sm wrap>
     <!--  NG REPEAT THIS -->
-    <ion-col width-50 class="flex-card" *ngFor="let e of myEvents">
+    <ion-col width-50 class="flex-card" *ngFor="let e of volunteerEventsService.myEvents">
         <ion-card class="flex-card" style="">
             <img *ngIf="e?.image && e.image[0].image != 'no image'" [src]="e.image[0].image" />
 

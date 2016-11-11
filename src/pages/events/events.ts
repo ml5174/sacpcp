@@ -5,8 +5,7 @@ import {EventImage} from '../../model/eventImage';
 
 @Component({
   templateUrl: 'events.html',
-  selector: 'events',
-  providers: [VolunteerEventsService],
+  selector: 'events'
 })
 
 export class EventPage {

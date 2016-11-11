@@ -13,6 +13,7 @@ import { UserProfile } from '../model/user-profile';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
+import { VolunteerEventsService } from '../service/volunteer-events-service'
 
 @Component({
   templateUrl: 'app.html',
@@ -30,7 +31,8 @@ export class MyApp {
     public platform: Platform,
     public menu: MenuController,
     private userServices: UserServices,
-    public storage: Storage
+    public storage: Storage,
+    private volunteerEvents : VolunteerEventsService
   ) {
     this.initializeApp();
 
@@ -56,8 +58,7 @@ export class MyApp {
       value => {
         console.log('key: ' + value);
         if (value) {
-          us.user.id = value;
-          us.userIdSource.next(us.user.id);
+          us.setId(value);
           us.getMyProfile();
         }
       });
@@ -92,7 +93,10 @@ export class MyApp {
   logout() {
     this.menu.close();
     this.storage.set('key', undefined);
+    this.userServices.unsetId();
+    this.volunteerEvents.clearEvents();
     this.userServices.user = new UserProfile();
+    this.nav.setRoot(HomePage);
   }
   donate() {
     window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank');

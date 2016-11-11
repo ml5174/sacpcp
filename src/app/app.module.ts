@@ -25,6 +25,7 @@ import { UseridPopover } from '../popover/userid';
 import { PasswordPopover } from '../popover/password';
 
 import { UserServices } from '../service/user';
+import { VolunteerEventsService } from '../service/volunteer-events-service';
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -79,6 +80,6 @@ export const deepLinkConfig: DeepLinkConfig = {
     RegisterLoginPage,
     RegisterIndividualProfilePage
   ],
-  providers: [Storage, UseridPopover, PasswordPopover, UserServices]
+  providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService]
 })
 export class AppModule {}
