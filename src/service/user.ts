@@ -19,7 +19,8 @@ import { UserProfile } from '../model/user-profile';
 export class UserServices{
     public user: UserProfile = new UserProfile();
     userIdSource: BehaviorSubject<number> = new BehaviorSubject<number>(this.user.id);
-
+    userIdChange: Observable<number> = this.userIdSource.asObservable().share();
+    
     constructor(private http: Http) {
     }
     setId(id: number){

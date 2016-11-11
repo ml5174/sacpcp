@@ -28,8 +28,8 @@ autoplay: 3000};
               private userServices: UserServices
   ) { 
     this.userServices = userServices;
-    this.subscription = this.userServices.userIdSource.subscribe(
-                    (value) => {console.log("change" + value);
+    this.subscription = this.userServices.userIdChange.subscribe(
+                    (value) => {
                                 this.volunteerEventsService.loadMyEvents();
                                },
                                err => console.log(err) 

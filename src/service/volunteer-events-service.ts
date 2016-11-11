@@ -58,7 +58,6 @@ export class VolunteerEventsService {
     }
     loadMyEvents(){
      if(this.userServices.user.id){
-         console.log("calling myevents with Token: " + this.userServices.user.id)
          this.getMyEvents(this.userServices.user.id).subscribe(
                                 myEvents => this.myEvents = myEvents, 
                                  err => {
