@@ -16,7 +16,4 @@ a.	https://code.visualstudio.com/download
 
 https://branch.io/resources/app-launch-checklist/
 
-Authors: Mauricio Lopez, Blaine Fawcett, Michael Defibaugh, R 
-
-
-Mauricio(9:50:45 AM): looks like it gets fixed if you have .item-label-stacked .input-wrapper, .item-label-floating .input-wrapper { display: inline-block; }
+Authors: Mauricio Lopez, Blaine Fawcett, Michael Defibaugh, Roque Rios
