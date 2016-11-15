@@ -18,12 +18,12 @@
                     <p><b>{{e.start | date:'shortTime'}}-{{e.end | date:'shortTime'}} {{e.start | date:'Z'}}</b></p>
                 </ion-row>
                 <ion-row>
-                    <ion-icon name="pin"></ion-icon>
+                    <ion-icon name="pin" *ngIf="e.location_name"></ion-icon>
                     <ion-col>
                         <p>{{e.location_name}}</p>
                     </ion-col>
                 </ion-row>
-                <ion-row>
+                <ion-row *ngIf="e.location_address1">
                     <!-- XX is used to denote state which isn't in the back-end -->
                     <p>{{e.location_address1}}, {{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
                 </ion-row>
