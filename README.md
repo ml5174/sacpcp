@@ -16,4 +16,3 @@ a.	https://code.visualstudio.com/download
 
 https://branch.io/resources/app-launch-checklist/
 
-Authors: Mauricio Lopez, Blaine Fawcett, Michael Defibaugh, Roque Rios
