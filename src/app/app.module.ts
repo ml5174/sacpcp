@@ -7,7 +7,7 @@ import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-trans
 import { MyApp } from './app.component';
 import { TermsPage } from '../pages/terms/terms';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
-import { ConfirmEmailPage } from '../pages/confirm-email/confirm-email';
+import { PasswordUpdatedPage } from '../pages/password-updated/password-updated';
 import { HomePage } from '../pages/home/home';
 import { DonatePage } from '../pages/donate/donate';
 import { ForgotPage } from '../pages/forgot/forgot';
@@ -37,7 +37,7 @@ export const deepLinkConfig: DeepLinkConfig = {
   declarations: [
     MyApp,
     TermsPage,
-    ConfirmEmailPage,
+    PasswordUpdatedPage,
     ChangePasswordPage,
     HomePage,
     DonatePage,
@@ -67,7 +67,7 @@ export const deepLinkConfig: DeepLinkConfig = {
   entryComponents: [
     MyApp,
     TermsPage,
-    ConfirmEmailPage,
+    PasswordUpdatedPage,
     ChangePasswordPage,
     UseridPopover,
     PasswordPopover,

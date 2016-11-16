@@ -45,7 +45,7 @@
 			</section>
 
 			<ion-item no-lines>
-				<ion-input id="pcm-input" required type="text" [placeholder]="pcmethod" [(ngModel)]="pcvalue" required></ion-input>
+				<ion-input id="pcm-input" required type="text" [placeholder]="(pcmethod == 'email') ? 'Email' : 'Mobile'" [(ngModel)]="pcvalue" required></ion-input>
 			</ion-item>
 
 		</ion-list>

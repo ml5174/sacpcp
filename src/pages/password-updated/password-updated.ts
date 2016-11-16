@@ -3,9 +3,9 @@ import { UserServices } from '../../service/user';
 import { NavController } from 'ionic-angular';
 
 @Component({
-  templateUrl: 'confirm-email.html'
+  templateUrl: 'password-updated.html'
 })
-export class ConfirmEmailPage {
+export class PasswordUpdatedPage {
   constructor(private nav: NavController,
     private userServices: UserServices) {
   }

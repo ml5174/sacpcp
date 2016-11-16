@@ -11,13 +11,6 @@
 		<button *ngIf="userServices.user.id" ion-button icon-left (click)="profile()">
        {{userServices.user.name}}
     </button>
-		<button *ngIf="!userServices.user.id" ion-button icon-left (click)="login()">
-        Login
-    </button>
-		<!--button ion-button icon-left>
-      <ion-icon name="swap"></ion-icon>
-        Espanol?
-    </button-->
 	</ion-buttons>
 
   <ion-buttons *ngIf="isBack">
@@ -29,12 +22,7 @@
         <ng-content></ng-content>  
   </ion-buttons>
 
-	<!-- <ion-label *ngIf="!username">Welcome Guest</ion-label>
-	<ion-label *ngIf="username">Welcome {{username}}</ion-label> -->
-	<ion-buttons end *ngIf="!isBack">
-		<button ion-button icon-left *ngIf="userServices.user.id" (click)="logout()">
-    <ion-icon name="log-out"></ion-icon>
-     Logout
-    </button>
-	</ion-buttons>
+  <ion-buttons end *ngIf="!isBack">
+        <ng-content></ng-content>  
+  </ion-buttons>
 </ion-toolbar>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { UserServices } from '../../service/user';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { STRINGS } from '../../provider/config';
-import { ConfirmEmailPage } from '../confirm-email/confirm-email';
+import { PasswordUpdatedPage } from '../password-updated/password-updated';
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
 import { PasswordPopover } from '../../popover/password';
@@ -64,7 +64,7 @@ export class ChangePasswordPage {
       .subscribe(
       key => {
         this.key = key;
-        this.nav.setRoot(ConfirmEmailPage);
+        this.nav.setRoot(PasswordUpdatedPage);
       },
       err => {
         console.log(err);
