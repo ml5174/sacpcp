@@ -10,7 +10,9 @@
     "emulate:before": "build",
     "deploy:before": "build",
     "build:before": "build",
-    "run:before": "build"
+    "run:before": "build",
+    "ionic:build": "ionic-app-scripts build",
+    "ionic:serve": "ionic-app-scripts serve"
   },
   "dependencies": {
     "@angular/common": "^2.0.0",
@@ -32,7 +34,7 @@
     "zone.js": "^0.6.21"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "^0.0.34",
+    "@ionic/app-scripts": "0.0.43",
     "typescript": "^2.0.3"
   },
   "cordovaPlugins": [

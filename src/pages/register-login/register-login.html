@@ -77,7 +77,7 @@
 			</section>
 
 			<ion-item no-lines>
-				<ion-input id="pcm-input" required type="text" [placeholder]="pcmethod" [(ngModel)]="pcvalue" required></ion-input>
+				<ion-input id="pcm-input" required type="text" [placeholder]="(pcmethod==='email') ? 'user@domain.com' : 'xxx-xxx-xxxx'" [(ngModel)]="pcvalue" required></ion-input>
 			</ion-item>
 
 			<section style="padding: 15px;">

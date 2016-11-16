@@ -1,12 +1,9 @@
 import { Component } from '@angular/core'
 import { UserServices } from '../../service/user';
-import { NavController, NavParams, PopoverController } from 'ionic-angular';
+import { NavController, PopoverController } from 'ionic-angular';
 import { STRINGS } from '../../provider/config';
 import { TermsPage } from '../terms/terms';
-import { ConfirmEmailPage } from '../confirm-email/confirm-email';
-import { ConfirmSMSPage } from '../confirm-sms/confirm-sms';
 import { TranslateService } from "ng2-translate/ng2-translate";
-import { HomePage } from '../home/home';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 import { PasswordPopover } from '../../popover/password';
 import { UseridPopover } from '../../popover/userid';
