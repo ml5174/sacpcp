@@ -1,5 +1,15 @@
 <ion-header>
-	<app-header></app-header>
+	<app-header>
+		#
+		<button *ngIf="!userServices.user.id" style="float: right;color: #fff;background-color: #FF173D; margin: 0px 13px;padding: 15px 15px;font-size: 1.3rem;height: 1.8rem;"
+			ion-button color="primary" (click)="login()">
+			{{'Login' | translate}}
+		</button>#
+	   <button *ngIf="userServices.user.id" style="float: right;color: #fff;background-color: #FF173D; margin: 0px 13px;padding: 15px 15px;font-size: 1.3rem;height: 1.8rem;"
+	   		ion-button icon-left (click)="logout()">
+			{{'Logout' | translate}}
+		</button>#
+	</app-header>
 </ion-header>
 
 <ion-content padding-left padding-right padding-top>
@@ -72,7 +82,7 @@
 
 											<div> </div>
 											<div> </div>
-											<p>Located Nrth of downtown Dallas, The Salvation Army Carr P. Collins Social Service Center is next to Parkland
+											<p>Located North West of downtown Dallas, The Salvation Army Carr P. Collins Social Service Center is next to Parkland
 												Hospital on Harry Hines Boulevard.</p>
 											<p>The 161,000 square foot center, which houses up to 600 people per night, is the largest multi-use facility in
 												The Salvation Army world. Every year, thousands of people find the spiritual and practical help they need to
