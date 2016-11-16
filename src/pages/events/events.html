@@ -21,17 +21,17 @@
                 <ion-row>
                     <p><b>{{e.start | date:'shortTime'}}-{{e.end | date:'shortTime'}} {{e.start | date:'Z'}}</b></p>
                 </ion-row>
-                <ion-row>
+                <ion-row *ngIf="e.location_name">
                     <ion-icon name="pin"></ion-icon>
                     <ion-col>
                         <p>{{e.location_name}}</p>
                     </ion-col>
                 </ion-row>
-                <ion-row>
-                    <!-- XX is used to denote state which isn't in the back-end -->
+                <ion-row *ngIf="e.location_address1">
                     <p>{{e.location_address1}}, {{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
                 </ion-row>
                 <p>{{e.description}}</p>
+                <button *ngIf="!amISignedUp(e.id)" (click)="signup(e.id)" ion-button small item-right round>Register</button>
             </ion-card-content>
             <!--button padding ion-button class="readmore">Read more</button>
             <ion-row no-padding>
