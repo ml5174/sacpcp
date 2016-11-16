@@ -1,7 +1,7 @@
 import { EventImage } from './eventImage';
 
 export class VolunteerEvent {
-  id: number;
+  id: string;
   start: Date = new Date();
   end: Date = new Date();
   title: string = "";

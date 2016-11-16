@@ -24,10 +24,10 @@
                     </ion-col>
                 </ion-row>
                 <ion-row *ngIf="e.location_address1">
-                    <!-- XX is used to denote state which isn't in the back-end -->
                     <p>{{e.location_address1}}, {{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
                 </ion-row>
                 <p>{{e.description}}</p>
+                <button (click)="deRegister(e.event_id)" ion-button small item-right round>Deregister</button>
             </ion-card-content>
             <!--button padding ion-button class="readmore">Read more</button>
             <ion-row no-padding>

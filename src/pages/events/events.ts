@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {VolunteerEvent} from '../../model/volunteer-event';
+import {MyEvent} from '../../model/myEvent'
 import {VolunteerEventsService} from '../../service/volunteer-events-service';
 import {EventImage} from '../../model/eventImage';
 
@@ -22,6 +23,7 @@ export class EventPage {
   values: Array<String>;
   searching: Boolean = false;
   noResults: Boolean = false;
+  signedUpEvent: MyEvent;
 
   constructor(private volunteerEventsService: VolunteerEventsService,
   ) {  }
@@ -109,5 +111,22 @@ export class EventPage {
                                      console.log(err);
                                  });
   }
-
+  signup(id){
+    this.volunteerEventsService
+         .eventRegister(id).subscribe(
+                                event => this.signedUpEvent = event, 
+                                 err => {
+                                     console.log(err);
+                                 }, ()=> {
+                                     this.volunteerEventsService.loadMyEvents()
+                                 });
+  }
+  amISignedUp(id){
+     for (let i of this.volunteerEventsService.myEvents){
+       if (id == i.event_id){
+         return true;
+       }
+     }
+       return false;
+  }
 }

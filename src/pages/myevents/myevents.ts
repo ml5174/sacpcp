@@ -1,8 +1,5 @@
 import {Component} from '@angular/core';
-import {VolunteerEvent} from '../../model/volunteer-event';
 import {VolunteerEventsService} from '../../service/volunteer-events-service';
-import {EventImage} from '../../model/eventImage';
-
 
 @Component({
   templateUrl: 'myevents.html',
@@ -12,5 +9,17 @@ import {EventImage} from '../../model/eventImage';
 export class MyEventsPage{
 
   constructor(private volunteerEventsService: VolunteerEventsService) {  };
-  
+
+    result: any;
+
+    deRegister(id){
+    this.volunteerEventsService
+         .eventDeregister(id).subscribe(
+                                result => this.result = result, 
+                                 err => {
+                                     console.log(err);
+                                 }, ()=> {
+                                     this.volunteerEventsService.loadMyEvents()
+                                 });
+  }
 }
