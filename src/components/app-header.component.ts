@@ -4,7 +4,6 @@ import { Nav } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
 import { UserProfile } from '../model/user-profile';
-import { Storage } from '@ionic/storage';
 import { VolunteerEventsService } from '../service/volunteer-events-service';
 import { HomePage } from '../pages/home/home';
 
@@ -22,7 +21,6 @@ export class AppHeaderComponent {
   constructor(
     private nav: Nav,
     private userServices: UserServices,
-    public storage: Storage,
     private volunteerEvents : VolunteerEventsService
   ) {
   }
@@ -30,9 +28,7 @@ export class AppHeaderComponent {
     this.nav.push(LoginPage);
   }
   logout() {
-    this.storage.set('key', undefined);
-    this.userServices.user = new UserProfile();
-    this.userServices.unsetId();
+    this.userServices.logout();
     this.volunteerEvents.clearEvents();
     this.nav.setRoot(HomePage);
   }

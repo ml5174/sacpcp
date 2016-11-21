@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { VolunteerEvent } from '../model/volunteer-event';
-import { MyEvent } from '../model/myevent';
+import { MyEvent } from '../model/myEvent';
 import { EventImage } from '../model/eventImage';
 import { GET_EVENTS_URI } from '../provider/config';
 import { GET_MYEVENTS_URI } from '../provider/config';
