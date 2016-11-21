@@ -50,6 +50,11 @@ autoplay: 3000};
   login() {
    this.nav.push(LoginPage);
   }
+  logout() {
+    this.userServices.logout();
+    this.volunteerEventsService.clearEvents();
+    this.nav.setRoot(HomePage);
+  }
   noTabs() {
     this.nav.pop();
   }

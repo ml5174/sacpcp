@@ -14,25 +14,29 @@ import { SERVER } from '../provider/config';
 import { UPDATE_MY_PROFILE_URI } from '../provider/config';
 import { UPDATE_MY_PREFERENCES_URI } from '../provider/config';
 import { UserProfile } from '../model/user-profile';
+import { Storage } from '@ionic/storage';
 
 @Injectable()
-export class UserServices{
+export class UserServices {
     public user: UserProfile = new UserProfile();
     userIdSource: BehaviorSubject<number> = new BehaviorSubject<number>(this.user.id);
     userIdChange: Observable<number> = this.userIdSource.asObservable().share();
-    
-    constructor(private http: Http) {
+
+    constructor(private http: Http,
+    public storage: Storage) {
     }
-    setId(id: number){
+    setId(id: number) {
         this.user.id = id;
         this.userIdSource.next(id);
-
     }
-
-    unsetId(){
+    unsetId() {
         this.setId(null);
     }
-
+    logout() {
+        this.storage.set('key', undefined);
+        this.user = new UserProfile();
+        this.unsetId();
+    }
     login(body): Observable<any> {
         return this.http.post(SERVER + LOGIN_URI, body, this.getOptions())
             .map(res => {
@@ -93,17 +97,17 @@ export class UserServices{
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
-    reset(email) : Observable<any> {
+    reset(email): Observable<any> {
         return this.http.post(SERVER + RESET_URI, email, this.getOptions())
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
-    }  
-    resetConfirm(resetObject) : Observable<any> {
+    }
+    resetConfirm(resetObject): Observable<any> {
         return this.http.post(SERVER + RESET_CONFIRM_URI, resetObject, this.getOptions())
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
-    }  
-    changePassword(passwords) : Observable<any> {
+    }
+    changePassword(passwords): Observable<any> {
         return this.http.post(SERVER + CHANGE_PASSWORD_URI, passwords, this.getOptions())
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
@@ -116,7 +120,7 @@ export class UserServices{
     getOptions() {
         let headers = new Headers();
         if (this.user) if (this.user.id) headers.append('Authorization', 'Token ' + this.user.id);
-        headers.append('Content-Type', 'application/json;q=0.9');        
+        headers.append('Content-Type', 'application/json;q=0.9');
         headers.append('Accept', 'application/json;q=0.9');
         return new RequestOptions({ headers: headers });
     }
