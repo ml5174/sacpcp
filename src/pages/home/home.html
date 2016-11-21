@@ -1,5 +1,14 @@
 <ion-header>
-	<app-header></app-header>
+	<app-header>
+		<!--button *ngIf="!userServices.user.id" style="float: right;color: #fff;background-color: #FF173D; margin: 0px 13px;padding: 15px 15px;font-size: 2.3rem;height: 3.8rem;"
+			ion-button color="primary" (click)="login()">
+		</button-->
+		<button *ngIf="!userServices.user.id" ion-button color="primary" (click)="login()">{{'Login' | translate}}</button>
+	   <!--button *ngIf="userServices.user.id" style="float: right;color: #fff;background-color: #FF173D; margin: 0px 13px;padding: 15px 15px;font-size: 2.3rem;height: 3.8rem;"
+	   		ion-button icon-left (click)="logout()">
+		</button-->
+		<button *ngIf="userServices.user.id" ion-button color="primary" (click)="logout()">{{'Logout' | translate}}</button>
+	</app-header>
 </ion-header>
 
 <ion-content padding-left padding-right padding-top>
@@ -13,61 +22,15 @@
 				<ion-segment-button value="events">
 					Events
 				</ion-segment-button>
+				<ion-segment-button value="myevents" [hidden]="!volunteerEventsService.myEvents.length>0">
+					My Events
+				</ion-segment-button>
 			</ion-segment>
 		</div>
 
 		<div [ngSwitch]="selectedTab">
 			<div *ngSwitchCase="'events'">
-
-				<ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
-				<ion-row responsive-sm wrap>
-					<!--  NG REPEAT THIS -->
-					<ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents">
-						<ion-card class="flex-card">
-							<!--  ng repeat on this using search criteria and/or location data as input-->
-							<!--  throw ng-ifs on everything inside the card body. if the event has or doesnt have something, card dynamically changes to represent this -->
-							<!--  if short event descriptions are not given, need to truncate dynamically and put a read more button in too -->
-							<img *ngIf="e?.image && e.image[0].image != 'no image'" [src]="e.image[0].image" />
-
-							<ion-card-content>
-								<h2 class="card-title">
-									{{e.title}}
-								</h2>
-								<ion-row>
-									<ion-col>
-										<p>{{e.start | date:"MM/dd/yy"}}</p>
-									</ion-col>
-									<ion-col>
-										<p><b>{{e.start | date:'shortTime'}}</b></p>
-									</ion-col>
-									<ion-col>
-										<p>{{e.location_name}}</p>
-									</ion-col>
-								</ion-row>
-
-								<p>{{e.description}}</p>
-							</ion-card-content>
-							<!--button padding ion-button class="readmore">Read more</button>
-            <ion-row no-padding>
-              <ion-col>
-                <button icon-only ion-button clear small color="danger" icon-left>
-          <ion-icon name='star'></ion-icon>
-        </button>
-              </ion-col>
-              <ion-col text-center>
-                <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='calendar'></ion-icon>
-          Attend
-        </button>
-              </ion-col>
-              <ion-col text-right>
-                <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='share-alt'></ion-icon>
-          Share
-        </button-->
-						</ion-card>
-					</ion-col>
-				</ion-row>
+				<events></events>
 			</div>
 			<div *ngSwitchCase="'home'" padding>
 				<ion-slides [options]="homeSlideOptions" style="width:100%; height:200px;">
@@ -106,7 +69,7 @@
 								<span style="font-size: 12pt;">5302 Harry Hines Blvd.</span><br style="font-size: 12pt;">
 								<span style="font-size: 12pt;">Dallas,TX 75235</span><br style="font-size: 12pt;"><span style="font-size: 12pt;">(214) 424-7050</span>
 								<br style="font-size: 12pt;">
-								<span style="font-size: 12pt;">(214) 424-688-5234 Fax </span>
+								<span style="font-size: 12pt;">(214) 688-5234 Fax </span>
 							</div>
 						</div>
 						<div class="modulePageTextMedia">
@@ -118,7 +81,7 @@
 
 											<div> </div>
 											<div> </div>
-											<p>Located West of downtown Dallas, The Salvation Army Carr P. Collins Social Service Center is across from Parkland
+											<p>Located North West of downtown Dallas, The Salvation Army Carr P. Collins Social Service Center is next to Parkland
 												Hospital on Harry Hines Boulevard.</p>
 											<p>The 161,000 square foot center, which houses up to 600 people per night, is the largest multi-use facility in
 												The Salvation Army world. Every year, thousands of people find the spiritual and practical help they need to
@@ -160,6 +123,9 @@
 						<div class="clear dynamicPageSpacer"></div>
 					</div>
 				</div>
+			</div>
+			<div *ngSwitchCase="'myevents'">
+				<myevents></myevents>
 			</div>
 		</div>
 	</section>

@@ -46,19 +46,30 @@ h6 {
 .toolbar-content {
     font-family: TrajanPro;
 }
+
 app-header > ion-navbar > div.toolbar-background {
-    background-image: url("../assets/img/logo.svg");
+    background-image: url("../assets/img/logo2.svg");
     background-repeat: no-repeat;
     background-size: auto 85%;
     background-position: left 5px top 5px;
+ //   background-color: white;
 }
 
 ion-header > ion-navbar > div.toolbar-background {
-    background-image: url("../assets/img/logo.svg");
+    background-image: url("../assets/img/logo2.svg");
     background-repeat: no-repeat;
     background-size: auto 85%;
     background-position: left 5px top 5px;
+  //  background-color: white;
 }
+
+#right-menu > div {
+  text-align: right;
+}
+#right-menu-items > ion-item > div.item-inner > div > ion-label {
+  text-align: right;
+}
+
 //CUSTOM CONTENT
 .content-pad{
     max-width: 95%;
@@ -69,7 +80,9 @@ ion-header > ion-navbar > div.toolbar-background {
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
-    margin-bottom: 0px;
+    margin: 0 !important;
+    width: auto !important;
+    
 }
 
 button.readmore{
@@ -114,7 +127,7 @@ button.readmore{
 
 .radio-choice {
   float: left;
-  width: 150px;
+  width: 102px;
 }
 
 .multi-choice ion-label {
@@ -245,7 +258,7 @@ ion-list.toggle-section .toggle-section-content {
     }
   }
   #home-header {
-    display: none;
+   // display: none;
   }
 }
 

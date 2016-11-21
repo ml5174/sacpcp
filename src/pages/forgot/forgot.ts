@@ -12,7 +12,7 @@ export class ForgotPage {
   private username: string = '';
   private password1: string = '';
   private password2: string = '';
-  private email: string = '';
+  private pcvalue: string = '';
 
   private usernameerror: boolean = false;
   private password1error: boolean = false;
@@ -33,7 +33,7 @@ export class ForgotPage {
 
   forgot() {
     let resetObject = {
-      email: this.email
+      email: this.pcvalue
     }
     this.userServices.reset(resetObject)
       .subscribe(

@@ -1,27 +1,20 @@
 <ion-header>
-	<ion-navbar class="navbar-background" hideBackButton="true">
-		<ion-title>Doing the Most Good</ion-title>
-	</ion-navbar>
+	<app-header back="true" title="About">
+	</app-header>
 </ion-header>
 
 <ion-content>
 
-	<ion-toolbar secondary>
+	<!--ion-toolbar secondary>
 		<ion-buttons begin>
 			<button ion-button icon-left (click)="back()">
        <ion-icon name="ios-arrow-back"></ion-icon>
-        {{'Back' | translate}}
+        {{'About' | translate}}
 		</button>
 		</ion-buttons>
-	</ion-toolbar>
+	</ion-toolbar-->
 
 	<section id="tab-content" padding>
-		<h4>About</h4>
-
-		<div class="sal-att-logo-container">
-			<img src="assets/img/collaboration.png" />
-		</div>
-
 		<p>
 			The Salvation Army - DFW Application was developed by AT&amp;T in association with The Salvation Army – DFW. 
 		</p>
@@ -37,5 +30,8 @@
 			or the completeness of the content or information or the reliability of any advice, opinion, statement or other information
 			as displayed or distributed through the Application.
 		</p>
+		<div class="sal-att-logo-container">
+			<img src="assets/img/collaboration.png" />
+		</div>
 	</section>
 </ion-content>

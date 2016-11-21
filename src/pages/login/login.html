@@ -1,31 +1,27 @@
 <ion-header>
-	<ion-navbar class="navbar-background" hideBackButton="true">
-		<ion-title>Doing the Most Good</ion-title>
-	</ion-navbar>
+	<app-header back="true">
+		<button style="float: right;color: #fff;background-color: #FF173D; margin: 0px 13px;padding: 15px 15px;font-size: 1.3rem;height: 1.8rem;" ion-button color="primary" (click)="register()">
+			{{'Create New Account' | translate}}
+		</button>
+	</app-header>
 </ion-header>
 
+<ion-content scroll="true" class="has-subheader">
 
-<ion-content>
-
-	<ion-toolbar secondary>
-		<ion-buttons begin>
-			<button ion-button icon-left (click)="back()">
-       <ion-icon name="ios-arrow-back"></ion-icon>
-        {{'Back' | translate}}
-    </button>
-			<button style="float: right" ion-button icon-left (click)="register()">
-       <ion-icon name="back"></ion-icon>
-        {{'Create New Account' | translate}}
-    </button>
-		</ion-buttons>
-	</ion-toolbar>
+	<!--ion-toolbar secondary>
+			<button style="float: left;background-color: transparent;color: red; padding: 7px 2px 1px 10px;height: 1.1em;" ion-button icon-left (click)="back()">
+				<ion-icon name="ios-arrow-back"></ion-icon>
+			</button>
+			<p style="float: left; padding-top: 2spx;background-color: transparent;color: red;font-size: 1.7rem;margin: 8px 1px 1px 1px;">	{{'Login' | translate}}</p>
+			<button style="float: right;color: #fff;background-color: #FF173D; margin: 0px 13px;padding: 15px 15px;font-size: 1.3rem;height: 1.8rem;" ion-button color="primary" (click)="register()">
+				{{'Create New Account' | translate}}
+			</button>
+	</ion-toolbar-->
 
 	<section id="login-page">
 
-		<h4 padding>{{ 'Volunteer Login' | translate}}</h4>
-
 		<ion-list>
-			<ion-item no-lines *ngFor="let error of errors">
+			<ion-item no-lines *ngFor="let error of errors" >
 				<ion-icon name="alert" item-left class="error"></ion-icon>
 				<p class="error">{{error | translate}}</p>
 			</ion-item>
@@ -35,9 +31,9 @@
 				<ion-icon class="popover-icon" name="information-circle" (click)="presentPopover($event)"></ion-icon>
 
 				<ion-item no-lines [class.error]="!username.valid && username.touched">
-					<ion-icon name="contact" item-left isActive="false" [class.error]="usernameerror"></ion-icon>
+					<ion-icon name="alert" [class.error]="!username.valid && username.touched" item-left isActive="false" *ngIf="!username.valid && username.touched"></ion-icon>
 					<ion-label stacked>{{ 'Username' | translate}}</ion-label>
-					<ion-input required type="text" placeholder="" [(ngModel)]="username"></ion-input>
+					<ion-input required type="text" placeholder="" [(ngModel)]="username" (focus)="errors=[]"></ion-input>
 				</ion-item>
 			</div>
 			<div class="absolute-container">
@@ -46,9 +42,9 @@
 				<ion-icon class="popover-icon" name="information-circle" (click)="presentPasswordPopover($event)"></ion-icon>
 
 				<ion-item no-lines [class.error]="!password.valid && password.touched">
-					<ion-icon name="lock" item-left isActive="false" [class.error]="passworderror"></ion-icon>
-					<ion-label stacked>{{ 'Password' | translate}} </ion-label>
-					<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="password"></ion-input>
+					<ion-icon *ngIf="passworderror" name="alert" item-left isActive="false" [class.error]="passworderror"></ion-icon>
+					<ion-label stacked>{{ 'Password' | translate}}</ion-label>
+					<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="password" (focus)="errors=[]"></ion-input>
 				</ion-item>
 			</div>
 			<ion-item no-lines>

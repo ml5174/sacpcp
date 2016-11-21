@@ -1,8 +1,7 @@
 <ion-header>
-	<ion-navbar class="navbar-background" hideBackButton="true">
-		<ion-title>Doing the Most Good</ion-title>
-	</ion-navbar>
-	<ion-toolbar secondary>
+	<app-header back="true" title="My Profile">
+	</app-header>
+	<!--ion-toolbar secondary>
 		<ion-buttons begin>
 			<button *ngIf="userServices.user.id" ion-button icon-left (click)="back()">
 			<ion-icon name="contact"></ion-icon>
@@ -19,7 +18,7 @@
 					{{'Back' | translate}}
     		</button>
 		</ion-buttons>
-	</ion-toolbar>
+	</ion-toolbar-->
 </ion-header>
 
 <ion-content>

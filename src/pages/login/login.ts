@@ -13,6 +13,7 @@ import { PasswordPopover } from '../../popover/password';
 @Component({
   templateUrl: 'login.html'
 })
+
 export class LoginPage {
   
   @ViewChild('popoverContent', { read: ElementRef }) content: ElementRef;
@@ -48,7 +49,6 @@ export class LoginPage {
   }
   login() {
     var loginPage = this;
-    this.errors = [];
     this.usernameerror = false;
     this.passworderror = false;
 
@@ -89,7 +89,8 @@ export class LoginPage {
     else this.showpassword = 'password';
   }
   setError(error) {
-
+    this.errors = [];
+    
     if (error.status === 400) {
       error = error.json();
       if (error['detail']) {

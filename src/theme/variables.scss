@@ -27,12 +27,14 @@ $font-family-wp-base: AJensonPro, "Trebuchet MS", Arial, Helvetica, sans-serif;
 // The "primary" color is the only required color in the map.
 $sa-primary: #FF173D;
 $sa-secondary: #bd5e6e;
+$sa-dark: #2c2c2c;
+
 $colors: (
   primary:    $sa-primary,
   secondary:  $sa-secondary,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222,
+  dark:       $sa-dark,
   favorite:   #69BB7B
 );
 
@@ -55,3 +57,8 @@ $colors: (
 $ionicons-font-path: "../assets/fonts";
 @import "ionicons";
 
+.ie-old {
+  .item-label-stacked .input-wrapper, .item-label-floating .input-wrapper { 
+    display: inline-block; 
+    }
+}

@@ -1,44 +1,47 @@
 <ion-header>
-  <ion-navbar class="navbar-background" hideBackButton="true">
-    <ion-title>Doing the Most Good</ion-title>
-  </ion-navbar>
+	<app-header back="true" title="Recover ID and Password">
+	</app-header>
 </ion-header>
 
 <ion-content>
 
-  <ion-toolbar secondary>
-    <ion-buttons begin>
-      <button ion-button icon-left (click)="back()">
+	<!--ion-toolbar secondary>
+		<ion-buttons begin>
+			<button ion-button icon-left (click)="back()">
        <ion-icon name="ios-arrow-back"></ion-icon>
         {{'Back' | translate}}
     </button>
-    </ion-buttons>
-  </ion-toolbar>
+		</ion-buttons>
+	</ion-toolbar-->
 
-  <section id="tab-content" padding>
-  <h1>{{ 'Recover My User ID / Password' | translate}}</h1>
-  <p>Hello,</p>
-  <p>We are happy to help.</p>
-  <p>We will send you your User ID / Password to your registered Email ID / Mobile Phone</p>
-
-
-  <ion-item no-lines *ngFor="let error of errors">
-    <ion-icon name="alert" item-left class="error"></ion-icon>
-    <p class="error">{{error | translate}}</p>
-  </ion-item>
+	<section id="tab-content" padding>
+		<!--h1>{{ 'Recover My User ID / Password' | translate}}</h1-->
+		<p>Hello,</p>
+		<p>We are happy to help.</p>
+		<p>We will send you your User ID / Password to your registered Email ID / Mobile Phone</p>
 
 
-	<ion-list>
+		<ion-item no-lines *ngFor="let error of errors">
+			<ion-icon name="alert" item-left class="error"></ion-icon>
+			<p class="error">{{error | translate}}</p>
+		</ion-item>
+
+
+		<ion-list>
 
 			<ion-list-header>
 				Please select prefered contact method.
 			</ion-list-header>
 
 			<section id="pcm-choice">
-      <input type="radio" [(ngModel)]="pcmethod" value="email"/>
-				<label>Email</label>
-      <input type="radio" [(ngModel)]="pcmethod" value="sms" style="margin-left: 10px;"/>
-				<label>Mobile Phone</label>
+				<div class="radio-choice">
+					<input type="radio" id="email" [(ngModel)]="pcmethod" value="email" />
+					<label for="email">Email</label>
+				</div>
+				<div class="radio-choice">
+					<input type="radio" id="phone" [(ngModel)]="pcmethod" value="sms" style="margin-left: 10px;" />
+					<label for="phone">Mobile Phone</label>
+				</div>
 			</section>
 
 			<ion-item no-lines>
@@ -47,11 +50,11 @@
 
 		</ion-list>
 
-  <!--ion-item no-lines class="">
+		<!--ion-item no-lines class="">
     <button ion-button color="primary" block large round (click)="forgot()">{{'Submit' | translate}}</button>
   </ion-item-->
 
-  </section>
+	</section>
 </ion-content>
 <ion-footer class="action-footer">
 	<ion-grid>
