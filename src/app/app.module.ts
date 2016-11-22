@@ -55,7 +55,6 @@ export const deepLinkConfig: DeepLinkConfig = {
   ],
   imports: [
     HttpModule,
-    IonicModule.forRoot(MyApp),
     IonicModule.forRoot(MyApp, {}, deepLinkConfig),
     TranslateModule.forRoot({ 
           provide: TranslateLoader,
