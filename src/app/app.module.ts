@@ -27,6 +27,8 @@ import { PasswordPopover } from '../popover/password';
 import { UserServices } from '../service/user';
 import { VolunteerEventsService } from '../service/volunteer-events-service';
 
+import { ReferralSourcePipe } from '../pipe/referralsource.pipe';
+
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
     { component: ChangePasswordPage, name: 'Change Passowrd Page', segment: 'password-reset/confirm/:iud/:key' },
@@ -51,7 +53,8 @@ export const deepLinkConfig: DeepLinkConfig = {
     RegisterLoginPage,
     RegisterIndividualProfilePage,
     UseridPopover,
-    PasswordPopover
+    PasswordPopover,
+    ReferralSourcePipe
   ],
   imports: [
     HttpModule,
