@@ -49,6 +49,7 @@ export class RegisterIndividualProfilePage {
   private eclastnameerror:  boolean = false;
   private ecrelationerror:  boolean = false;
   private ecmobilenumbererror:  boolean = false;
+  private ecaltnumbererror:  boolean = false;
 
   private relationships = [
     "Parent/Guardian",
@@ -113,6 +114,7 @@ export class RegisterIndividualProfilePage {
           this.profileExists = true;
           if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
           if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
+          if (!this.myProfile.my_volunteertype_id) this.myProfile.my_volunteertype_id = 7;
 
           console.log(this.myPreferences);
           console.log(this.availablePreferences);
@@ -251,6 +253,7 @@ export class RegisterIndividualProfilePage {
         this.eclastnameerror=false;
         this.ecrelationerror=false;
         this.ecmobilenumbererror=false;
+        this.ecaltnumbererror=false;
   }
   
   setError(error) {
@@ -289,6 +292,9 @@ export class RegisterIndividualProfilePage {
             let object = error[key];
             if (object.mobilenumber) {
               this.ecmobilenumbererror=true;
+            }
+            if (object.altnumber) {
+              this.ecaltnumbererror=true;
             }
           }
           if (key==='emergency_contact_first_name') this.ecfirstnameerror=true;
