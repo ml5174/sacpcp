@@ -19,6 +19,7 @@ import { MyEventsPage } from '../pages/myevents/myevents';
 import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
 import { AppHeaderComponent } from '../components/app-header.component';
+import { HomeTab } from '../components/home-tab';
 import { Storage } from '@ionic/storage';
 
 import { UseridPopover } from '../popover/userid';
@@ -50,6 +51,7 @@ export const deepLinkConfig: DeepLinkConfig = {
     EventPage,
     MyEventsPage,
     AppHeaderComponent,
+    HomeTab,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
     UseridPopover,
