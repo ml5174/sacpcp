@@ -49,6 +49,7 @@ export class RegisterIndividualProfilePage {
   private eclastnameerror:  boolean = false;
   private ecrelationerror:  boolean = false;
   private ecmobilenumbererror:  boolean = false;
+  private ecaltnumbererror:  boolean = false;
 
   private relationships = [
     "Parent/Guardian",
@@ -252,6 +253,7 @@ export class RegisterIndividualProfilePage {
         this.eclastnameerror=false;
         this.ecrelationerror=false;
         this.ecmobilenumbererror=false;
+        this.ecaltnumbererror=false;
   }
   
   setError(error) {
@@ -290,6 +292,9 @@ export class RegisterIndividualProfilePage {
             let object = error[key];
             if (object.mobilenumber) {
               this.ecmobilenumbererror=true;
+            }
+            if (object.altnumber) {
+              this.ecaltnumbererror=true;
             }
           }
           if (key==='emergency_contact_first_name') this.ecfirstnameerror=true;

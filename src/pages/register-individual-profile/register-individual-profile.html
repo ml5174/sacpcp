@@ -288,9 +288,18 @@
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="my_volunteertype_iderror" *ngIf="my_volunteertype_iderror"></ion-icon>
 								<ion-label stacked>{{"Volunteer Type" | translate }}</ion-label>
-								<ion-select [(ngModel)]="myProfile.my_volunteertype_id" required>
+								<!--<ion-select [(ngModel)]="myProfile.my_volunteertype_id" required>
 									<ion-option *ngFor="let m of availablePreferences.volunteertypes" [value]="m.id">{{m.name}}</ion-option>
-								</ion-select>
+								</ion-select>-->
+
+							</ion-item>
+							<ion-item no-lines class="">
+								<section>
+									<div class="radio-choice" *ngFor="let m of availablePreferences.volunteertypes">
+										<input [id]="'radio-' + m.id" type="radio" [(ngModel)]="myProfile.my_volunteertype_id" [value]="m.id" />
+										<label [attr.for]="'radio-' + m.id">{{m.name}}</label>
+									</div>
+								</section>
 							</ion-item>
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="my_referalsource_iderror" *ngIf="my_referalsource_iderror"></ion-icon>
