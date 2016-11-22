@@ -12,11 +12,6 @@ import { UserServices } from '../../service/user';
 })
 export class HomePage {
 
-homeSlideOptions = {
-loop: true, 
-pager: true, 
-autoplay: 3000};
-
   selectedTab: string = "home";
   language: string = "en";
   subscription: Subscription;
