@@ -80,6 +80,18 @@ export class RegisterIndividualProfilePage {
 
   private showpassword: string = "password";
 
+  private mobileNumberAreaCode = "";
+  private mobileNumberPrefix = "";
+  private mobileNumberLineNumber = "";
+
+  private ecMobileNumberAreaCode = "";
+  private ecMobileNumberPrefix = "";
+  private ecMobileNumberLineNumber = "";
+
+  private ecAltNumberAreaCode = "";
+  private ecAltNumberPrefix = "";
+  private ecAltNumberLineNumber = "";
+
   selectedTab: string = "personal";
 
   // Constructor
@@ -110,6 +122,7 @@ export class RegisterIndividualProfilePage {
           this.myProfile = data[2];
 
           this.translateToFormPreferences();
+          this.translateToFormPhoneNumbers();
 
           this.profileExists = true;
           if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
@@ -154,6 +167,7 @@ export class RegisterIndividualProfilePage {
     this.clearErrors();
     this.cleanBooleans();
     this.translateFromFormPreferences();
+    this.translateFromFormPhoneNumbers();
 
     let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
     let updateMyPreferencesObservable =  this.userServices.updateMyPreferences(this.myPreferences);
@@ -188,6 +202,46 @@ export class RegisterIndividualProfilePage {
       if (serviceArea.servicearea_id == id) return true;
     }
     return false;
+  }
+
+  translateToFormPhoneNumbers() {
+    // Clear all parsed numbers
+    this.mobileNumberAreaCode = "";
+    this.mobileNumberPrefix = "";
+    this.mobileNumberLineNumber = "";
+
+    this.mobileNumberAreaCode = "";
+    this.mobileNumberPrefix = "";
+    this.mobileNumberLineNumber = "";
+
+    this.mobileNumberAreaCode = "";
+    this.mobileNumberPrefix = "";
+    this.mobileNumberLineNumber = "";
+
+    // Parse profile mobile number
+    if (this.myProfile.mobilenumber && this.myProfile.mobilenumber.length == 11) {
+      this.mobileNumberAreaCode = this.myProfile.mobilenumber.substring(1, 4);
+      this.mobileNumberPrefix = this.myProfile.mobilenumber.substring(4, 7);
+      this.mobileNumberLineNumber = this.myProfile.mobilenumber.substring(7, 11);
+    }
+    // Parse emergency contact mobile number
+    if (this.myProfile.emergency_contact.mobilenumber && this.myProfile.emergency_contact.mobilenumber.length == 11) {
+      this.ecMobileNumberAreaCode = this.myProfile.emergency_contact.mobilenumber.substring(1, 4);
+      this.ecMobileNumberPrefix = this.myProfile.emergency_contact.mobilenumber.substring(4, 7);
+      this.ecMobileNumberLineNumber = this.myProfile.emergency_contact.mobilenumber.substring(7, 11);
+    }
+    // Parse emergency contact alternate number
+    if (this.myProfile.emergency_contact.altnumber && this.myProfile.emergency_contact.altnumber.length == 11) {
+      this.ecAltNumberAreaCode = this.myProfile.emergency_contact.altnumber.substring(1, 4);
+      this.ecAltNumberPrefix = this.myProfile.emergency_contact.altnumber.substring(4, 7);
+      this.ecAltNumberLineNumber = this.myProfile.emergency_contact.altnumber.substring(7, 11);
+    }
+  }
+
+  translateFromFormPhoneNumbers() {
+    this.myProfile.mobilenumber = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
+    this.myProfile.emergency_contact.mobilenumberr = "1" + this.ecMobileNumberAreaCode + this.ecMobileNumberPrefix + this.ecMobileNumberLineNumber;
+    this.myProfile.emergency_contact.altnumber = "1" + this.ecAltNumberAreaCode + this.ecAltNumberPrefix + this.ecAltNumberLineNumber;    
   }
 
   translateToFormPreferences() {
