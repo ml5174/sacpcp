@@ -284,3 +284,12 @@ ion-list.toggle-section .toggle-section-content {
     margin-left: 96px;
   }
 }
+.phone-number {
+  margin-top: -20px;
+}
+.phone-number ion-label {
+  display: none;
+}
+.phone-number ion-col ion-item {
+  padding-left: 6px;
+}
