@@ -122,7 +122,7 @@ button.readmore{
 
 .multi-choice {
   float: left;
-  width: 200px;
+  width: 230px;
 }
 
 .radio-choice {
@@ -283,4 +283,13 @@ ion-list.toggle-section .toggle-section-content {
   button {
     margin-left: 96px;
   }
+}
+.phone-number {
+  margin-top: -20px;
+}
+.phone-number ion-label {
+  display: none;
+}
+.phone-number ion-col ion-item {
+  padding-left: 6px;
 }

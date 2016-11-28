@@ -19,6 +19,7 @@ import { MyEventsPage } from '../pages/myevents/myevents';
 import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
 import { AppHeaderComponent } from '../components/app-header.component';
+import { HomeTab } from '../components/home-tab';
 import { Storage } from '@ionic/storage';
 
 import { UseridPopover } from '../popover/userid';
@@ -26,6 +27,8 @@ import { PasswordPopover } from '../popover/password';
 
 import { UserServices } from '../service/user';
 import { VolunteerEventsService } from '../service/volunteer-events-service';
+
+import { ReferralSourcePipe } from '../pipe/referralsource.pipe';
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -48,14 +51,15 @@ export const deepLinkConfig: DeepLinkConfig = {
     EventPage,
     MyEventsPage,
     AppHeaderComponent,
+    HomeTab,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
     UseridPopover,
-    PasswordPopover
+    PasswordPopover,
+    ReferralSourcePipe
   ],
   imports: [
     HttpModule,
-    IonicModule.forRoot(MyApp),
     IonicModule.forRoot(MyApp, {}, deepLinkConfig),
     TranslateModule.forRoot({ 
           provide: TranslateLoader,

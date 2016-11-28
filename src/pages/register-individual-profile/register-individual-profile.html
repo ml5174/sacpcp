@@ -147,9 +147,29 @@
 							<ion-item no-lines>
 								<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
 								<ion-label stacked>{{"Mobile Number" | translate }}</ion-label>
-								<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.mobilenumber" required></ion-input>
 							</ion-item>
-
+							<ion-grid class="phone-number">
+								<ion-row>
+									<ion-col width-25>
+										<ion-item no-lines>
+											<ion-label stacked></ion-label>
+											<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberAreaCode" required minlength="3" maxlength="3"></ion-input>
+										</ion-item>
+									</ion-col>
+									<ion-col width-25>
+										<ion-item no-lines>
+											<ion-label stacked></ion-label>
+											<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberPrefix" required minlength="3" maxlength="3"></ion-input>
+										</ion-item>
+									</ion-col>
+									<ion-col width-50>
+										<ion-item no-lines>
+											<ion-label stacked></ion-label>
+											<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberLineNumber" required minlength="4" maxlength="4"></ion-input>
+										</ion-item>
+									</ion-col>
+								</ion-row>
+							</ion-grid>
 							<ion-item no-lines>
 								<ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
 								<ion-label stacked>{{"Email" | translate }}</ion-label>
@@ -191,8 +211,57 @@
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="ecmobilenumbererror" *ngIf="ecmobilenumbererror"></ion-icon>
 								<ion-label stacked>{{"Emergency Contact's Phone" | translate }}</ion-label>
-								<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.emergency_contact.mobilenumber"></ion-input>
 							</ion-item>
+							<ion-grid class="phone-number">
+								<ion-row>
+									<ion-col width-25>
+										<ion-item no-lines>
+											<ion-label stacked></ion-label>
+											<ion-input type="tel" placeholder="" class="" [(ngModel)]="ecMobileNumberAreaCode" required minlength="3" maxlength="3"></ion-input>
+										</ion-item>
+									</ion-col>
+									<ion-col width-25>
+										<ion-item no-lines>
+											<ion-label stacked></ion-label>
+											<ion-input type="tel" placeholder="" class="" [(ngModel)]="ecMobileNumberPrefix" required minlength="3" maxlength="3"></ion-input>
+										</ion-item>
+									</ion-col>
+									<ion-col width-50>
+										<ion-item no-lines>
+											<ion-label stacked></ion-label>
+											<ion-input type="tel" placeholder="" class="" [(ngModel)]="ecMobileNumberLineNumber" required minlength="4" maxlength="4"></ion-input>
+										</ion-item>
+									</ion-col>
+								</ion-row>
+							</ion-grid>
+
+							<ion-item no-lines class="">
+								<ion-icon name="alert" item-left [class.error]="ecaltnumbererror" *ngIf="ecaltnumbererror"></ion-icon>
+								<ion-label stacked>{{"Emergency Contact's Alternate Phone" | translate }}</ion-label>
+							</ion-item>
+							<ion-grid class="phone-number">
+								<ion-row>
+									<ion-col width-25>
+										<ion-item no-lines>
+											<ion-label stacked></ion-label>
+											<ion-input type="tel" placeholder="" class="" [(ngModel)]="ecAltNumberAreaCode" required minlength="3" maxlength="3"></ion-input>
+										</ion-item>
+									</ion-col>
+									<ion-col width-25>
+										<ion-item no-lines>
+											<ion-label stacked></ion-label>
+											<ion-input type="tel" placeholder="" class="" [(ngModel)]="ecAltNumberPrefix" required minlength="3" maxlength="3"></ion-input>
+										</ion-item>
+									</ion-col>
+									<ion-col width-50>
+										<ion-item no-lines>
+											<ion-label stacked></ion-label>
+											<ion-input type="tel" placeholder="" class="" [(ngModel)]="ecAltNumberLineNumber" required minlength="4" maxlength="4"></ion-input>
+										</ion-item>
+									</ion-col>
+								</ion-row>
+							</ion-grid>
+
 <!--
 							<ion-item no-lines class="">
 								<ion-icon name="globe" item-left [class.error]="ecaddress1error" *ngIf="ecaddress1error"></ion-icon>
@@ -282,15 +351,24 @@
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="my_volunteertype_iderror" *ngIf="my_volunteertype_iderror"></ion-icon>
 								<ion-label stacked>{{"Volunteer Type" | translate }}</ion-label>
-								<ion-select [(ngModel)]="myProfile.my_volunteertype_id" required>
+								<!--<ion-select [(ngModel)]="myProfile.my_volunteertype_id" required>
 									<ion-option *ngFor="let m of availablePreferences.volunteertypes" [value]="m.id">{{m.name}}</ion-option>
-								</ion-select>
+								</ion-select>-->
+
+							</ion-item>
+							<ion-item no-lines class="">
+								<section>
+									<div class="radio-choice" *ngFor="let m of availablePreferences.volunteertypes">
+										<input [id]="'radio-' + m.id" type="radio" [(ngModel)]="myProfile.my_volunteertype_id" [value]="m.id" />
+										<label [attr.for]="'radio-' + m.id">{{m.name}}</label>
+									</div>
+								</section>
 							</ion-item>
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="my_referalsource_iderror" *ngIf="my_referalsource_iderror"></ion-icon>
 								<ion-label stacked>{{"Referral Source" | translate }}</ion-label>
 								<ion-select [(ngModel)]="myProfile.my_referalsource_id" >
-									<ion-option *ngFor="let m of availablePreferences.referalsources" [value]="m.id">{{m.name}}</ion-option>
+									<ion-option *ngFor="let m of availablePreferences.referalsources | referralsource:myProfile.my_volunteertype_id" [value]="m.id">{{m.name}}</ion-option>
 								</ion-select>
 							</ion-item>
 

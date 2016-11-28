@@ -73,6 +73,9 @@ export class RegisterLoginPage {
       tandc: 1
     }
 
+    if (!register.email) delete register.email;
+    if (!register.phone) delete register.phone;
+    
     this.userServices.register(register)
       .subscribe(
       key => {
