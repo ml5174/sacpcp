@@ -15,11 +15,11 @@
                 <ion-row>
                     <ion-icon name="calendar"></ion-icon>
                     <ion-col>
-                        <p>{{e.start | date:"MM/dd"}} - {{e.end | date:"MM/dd"}}</p>
+                        <p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p>
                     </ion-col>
                 </ion-row>
                 <ion-row>
-                    <p><b>{{e.start | date:'shortTime'}}-{{e.end | date:'shortTime'}} {{e.start | date:'Z'}}</b></p>
+                    <p><b>{{e.start | parseTimeZone: 'h:mm A'}}}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</b></p>
                 </ion-row>
                 <ion-row *ngIf="e.location_name">
                     <ion-icon name="pin"></ion-icon>
