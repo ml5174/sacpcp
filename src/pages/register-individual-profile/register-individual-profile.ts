@@ -122,12 +122,13 @@ export class RegisterIndividualProfilePage {
           this.myProfile = data[2];
 
           this.translateToFormPreferences();
-          this.translateToFormPhoneNumbers();
 
           this.profileExists = true;
           if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
           if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
           if (!this.myProfile.my_volunteertype_id) this.myProfile.my_volunteertype_id = 7;
+
+          this.translateToFormPhoneNumbers();
 
           console.log(this.myPreferences);
           console.log(this.availablePreferences);
