@@ -34,6 +34,9 @@ export class RegisterLoginPage {
   private errors: Array<string> = [];
   private pcmethod: string = 'email'
   private pcvalue: string = '';
+  private mobileNumberAreaCode = '';
+  private mobileNumberPrefix = '';
+  private mobileNumberLineNumber = '';
 
   private terms: boolean = false;
   private remember: boolean = true;
@@ -57,7 +60,7 @@ export class RegisterLoginPage {
     this.sms = '';
 
     if (this.pcmethod === 'email') this.email = this.pcvalue;
-    else this.sms = this.pcvalue;
+    else this.sms = this.mobileNumberAreaCode+this.mobileNumberPrefix+this.mobileNumberLineNumber;
     console.log("terms: " + this.terms);
     if (!this.terms) {
       this.errors.push("You must accept Privacy and Terms to proceed.");

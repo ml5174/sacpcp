@@ -3,7 +3,6 @@ import { UserServices } from '../service/user';
 import { Nav } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
-import { UserProfile } from '../model/user-profile';
 import { VolunteerEventsService } from '../service/volunteer-events-service';
 import { HomePage } from '../pages/home/home';
 
