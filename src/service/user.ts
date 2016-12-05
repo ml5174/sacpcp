@@ -80,7 +80,6 @@ export class UserServices {
     getMyProfile(): Observable<any> {
         return this.http.get(SERVER + GET_MY_PROFILE_URI, this.getOptions())
             .map(res => {
-                console.log(this.user.profile);
                 this.user.profile = res.json();
                 return this.user.profile;
             })
