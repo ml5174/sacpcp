@@ -7,16 +7,16 @@
 </ion-navbar>
 <ion-toolbar secondary id="home-header">
   <ion-buttons>
-    <button *ngIf="userServices.user.id && !isBack" style="float: left;background-color: transparent;color: red; padding: 24px 2px 1px 10px;height: 1.1em;"
+    <button class="app-header-back-button" *ngIf="userServices.user.id && !isBack" color="primary"
       ion-button icon-left (click)="profile()">
        {{userServices.user.name}}
     </button>
-    <button *ngIf="isBack" style="float: left;background-color: transparent;color: red; padding: 11px 2px 1px 10px;height: 1.1em;"
+    <button class="app-header-back-button" *ngIf="isBack"  color="primary"
       ion-button icon-left (click)="back()">
 				<ion-icon name="ios-arrow-back"></ion-icon>
 			</button>
-    <p *ngIf="isBack" style="float: left; padding-top: 2spx;background-color: transparent;color: red;font-size: 1.7rem;margin: 6px 1px 1px 1px;">
-      {{title | translate}}</p>
+    <div *ngIf="isBack" class="app-header-title">
+      {{title | translate}}</div>
     <div style="float: right;">
       <ng-content></ng-content>
     </div>  

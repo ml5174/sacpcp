@@ -1,7 +1,7 @@
 <ion-header>
 	<app-header>
-		<button *ngIf="!userServices.user.id" ion-button color="primary" (click)="login()">{{'Login' | translate}}</button>
-		<button *ngIf="userServices.user.id" ion-button color="primary" (click)="logout()">{{'Logout' | translate}}</button>
+		<button *ngIf="!userServices.user.id" ion-button small color="primary" (click)="login()">{{'Login' | translate}}</button>
+		<button *ngIf="userServices.user.id" ion-button small color="primary" (click)="logout()">{{'Logout' | translate}}</button>
 	</app-header>
 </ion-header>
 
