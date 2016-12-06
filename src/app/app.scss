@@ -296,3 +296,12 @@ ion-list.toggle-section .toggle-section-content {
 .phone-number ion-col ion-item {
   padding-left: 6px;
 }
+.app-header-back-button {
+  float: left;
+}
+.app-header-title {
+  float: left;
+  color: map-get($colors, primary);
+  font-size: 1.7rem;
+  line-height: 32px;
+}
