@@ -8,7 +8,6 @@ import { UserServices } from '../../service/user';
 
 @Component({
   templateUrl: 'home.html'
- // pipes: [TranslatePipe]
 })
 export class HomePage {
 
