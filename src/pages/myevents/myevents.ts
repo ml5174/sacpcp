@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {VolunteerEventsService} from '../../service/volunteer-events-service';
-
+import {HomePage} from '../home/home'
 @Component({
   templateUrl: 'myevents.html',
   selector: 'myevents'
@@ -8,7 +8,8 @@ import {VolunteerEventsService} from '../../service/volunteer-events-service';
 
 export class MyEventsPage{
 
-  constructor(private volunteerEventsService: VolunteerEventsService) {  };
+  constructor(private volunteerEventsService: VolunteerEventsService,
+              private home: HomePage) {  };
 
     result: any;
 
@@ -19,7 +20,12 @@ export class MyEventsPage{
                                  err => {
                                      console.log(err);
                                  }, ()=> {
-                                     this.volunteerEventsService.loadMyEvents()
+                                     this.volunteerEventsService.loadMyEvents();
+                                     console.log(this.volunteerEventsService.myEvents.length);
+                                     if(this.volunteerEventsService.myEvents.length==1){
+                                       this.home.selectedTab="events";
+                                     }
+                                     
                                  });
   }
 }
