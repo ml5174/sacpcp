@@ -14,11 +14,11 @@
 	</ion-buttons>
 
   <ion-buttons *ngIf="isBack">
-  			<button style="float: left;background-color: transparent;color: red; padding: 11px 2px 1px 10px;height: 1.1em;" ion-button icon-left (click)="back()">
-				<ion-icon name="ios-arrow-back"></ion-icon>
+  			<button ion-button icon-left color="secondary" clear (click)="back()">
+				<ion-icon name="ios-arrow-back"></ion-icon> {{title | translate}}
 			</button>
-			<p style="float: left; padding-top: 2spx;background-color: transparent;color: red;font-size: 1.7rem;margin: 6px 1px 1px 1px;">
-        {{title | translate}}</p>
+			<!--  A whole lotta unneccessary styling for a back button. <p style="float: left; padding-top: 2spx;background-color: transparent;color: red;font-size: 1.7rem;margin: 6px 1px 1px 1px;">
+       </p> style="float: left;background-color: transparent;color: red; padding: 11px 2px 1px 10px;height: 1.1em;"-->
         <ng-content></ng-content>  
   </ion-buttons>
 
