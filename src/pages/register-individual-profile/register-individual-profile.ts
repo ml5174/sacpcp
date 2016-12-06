@@ -127,6 +127,7 @@ export class RegisterIndividualProfilePage {
           if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
           if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
           if (!this.myProfile.my_volunteertype_id) this.myProfile.my_volunteertype_id = 7;
+          if (!this.myProfile.volunteertype) this.myProfile.volunteertype = "Individual";
 
           this.translateToFormPhoneNumbers();
 
