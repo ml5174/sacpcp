@@ -43,7 +43,7 @@ h1, h2, h3, h4, h5, h6 {
 h6 {
   font-weight: bold;
 }
-.toolbar-content {
+.toolbar-content, ion-footer button {
     font-family: TrajanPro;
 }
 
@@ -303,5 +303,5 @@ ion-list.toggle-section .toggle-section-content {
   float: left;
   color: map-get($colors, primary);
   font-size: 1.7rem;
-  line-height: 32px;
+  line-height: 36px;
 }
