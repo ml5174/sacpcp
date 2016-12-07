@@ -58,8 +58,13 @@ export class MyApp {
       value => {
         console.log('key: ' + value);
         if (value) {
+          console.log("value is true, profile call should happen");
           us.setId(value);
-          us.getMyProfile();
+          us.getMyProfile().subscribe(
+                                 result => result, 
+                                 err => {
+                                     console.log(err);
+                                 });
         }
       });
 
