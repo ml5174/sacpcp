@@ -70,7 +70,11 @@ export class LoginPage {
           loginPage.storage.set('key', loginPage.userServices.user.id);
       //  loginPage.storage.set('test', 'test');
 
-        loginPage.userServices.getMyProfile();
+        loginPage.userServices.getMyProfile().subscribe(
+                                 result => result, 
+                                 err => {
+                                     console.log(err);
+                                 });
         loginPage.nav.setRoot(HomePage);
       },
       err => this.setError(err));
