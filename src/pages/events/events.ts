@@ -31,7 +31,15 @@ export class EventPage {
   }
 
   ngOnInit(){
+    
+    if(this.userServices.user.profile.accounttype){
+      //check account for admin status
+      console.log(this.userServices.user.profile.accounttype)
+      //if they have admin status load admin view of events
+    }
+    //otherwise load regular event view
     this.getEvents();
+
   }
   onCancel(event: any) {
     this.search=false;
