@@ -62,7 +62,10 @@ export const deepLinkConfig: DeepLinkConfig = {
   ],
   imports: [
     HttpModule,
-    IonicModule.forRoot(MyApp, {}, deepLinkConfig),
+    IonicModule.forRoot(MyApp, {
+      scrollAssist: false,
+      autoFocusAssist: false
+    }, deepLinkConfig),
     TranslateModule.forRoot({ 
           provide: TranslateLoader,
           useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),
