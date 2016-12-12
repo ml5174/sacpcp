@@ -59,9 +59,6 @@ export class RegisterLoginPage {
     this.email = '';
     this.sms = '';
 
-    if (this.pcmethod === 'email') this.email = this.pcvalue;
-    else this.sms = this.mobileNumberAreaCode+this.mobileNumberPrefix+this.mobileNumberLineNumber;
-    console.log("terms: " + this.terms);
     if (!this.terms) {
       this.errors.push("You must accept Privacy and Terms to proceed.");
       return;
@@ -71,9 +68,18 @@ export class RegisterLoginPage {
       username: this.username,
       password1: this.password1,
       password2: this.password2,
-      email: this.email,
-      phone: this.sms,
+      email: undefined,
+      phone: undefined,
       tandc: 1
+    }
+
+    if (this.pcmethod === 'email') {
+      this.email = this.pcvalue;
+      register.email = this.email;
+    }
+    else {
+      this.sms = '1'+this.mobileNumberAreaCode+this.mobileNumberPrefix+this.mobileNumberLineNumber;
+      register.phone = this.sms;
     }
 
     if (!register.email) delete register.email;
@@ -94,6 +100,7 @@ export class RegisterLoginPage {
         }
         else this.storage.set('username', '');
         registerLogin.nav.setRoot(RegisterIndividualProfilePage);
+
         /* this.userServices.createMyProfile(myProfile)
            .subscribe(
            key => {

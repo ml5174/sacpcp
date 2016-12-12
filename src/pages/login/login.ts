@@ -80,7 +80,7 @@ export class LoginPage {
       err => this.setError(err));
   }
   register() {
-    this.nav.push(RegisterLoginPage);
+    this.nav.setRoot(RegisterLoginPage);
   }
   forgot() {
     this.nav.push(ForgotPage);
