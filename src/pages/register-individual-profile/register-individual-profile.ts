@@ -71,6 +71,7 @@ export class RegisterIndividualProfilePage {
 
   private availablePreferences: any = {};
   private myPreferences: any = {};
+  private passwordForm: any = {};
 
   private formServiceAreas: Array<any> = [];
 
@@ -173,13 +174,22 @@ export class RegisterIndividualProfilePage {
 
     let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
     let updateMyPreferencesObservable =  this.userServices.updateMyPreferences(this.myPreferences);
+    let changeMyPasswordObservable = null;
 
-    Observable.forkJoin([updateMyProfileObservable, updateMyPreferencesObservable])
+    let observables = [updateMyProfileObservable, updateMyPreferencesObservable];
+
+    // Only call change password if one or more of the form fields are entered    
+    if (this.passwordForm.old_password ||  this.passwordForm.new_password1 || this.passwordForm.new_password2) {
+      changeMyPasswordObservable = this.userServices.changePassword(this.passwordForm);
+      observables.push(changeMyPasswordObservable);
+    }
+
+    Observable.forkJoin(observables)
       .subscribe(
           key => {
             this.presentToast("Profile saved.")
             this.hideLoading();
-            //this.key = key;
+            this.passwordForm={};
           }, 
           err => { 
             this.presentToast("Error saving profile.")
