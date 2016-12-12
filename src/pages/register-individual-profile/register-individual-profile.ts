@@ -51,6 +51,10 @@ export class RegisterIndividualProfilePage {
   private ecmobilenumbererror:  boolean = false;
   private ecaltnumbererror:  boolean = false;
 
+  private passworderror:  boolean = false;
+  private password1error:  boolean = false;
+  private password2error:  boolean = false;
+
   private relationships = [
     "Parent/Guardian",
     "Brother/Sister",
@@ -320,6 +324,10 @@ export class RegisterIndividualProfilePage {
         this.ecrelationerror=false;
         this.ecmobilenumbererror=false;
         this.ecaltnumbererror=false;
+
+        this.passworderror=false;
+        this.password1error=false;
+        this.password2error=false;
   }
   
   setError(error) {
@@ -354,6 +362,19 @@ export class RegisterIndividualProfilePage {
           if (key==='my_referalsource_id') this.my_referalsource_iderror=true;
           if (key==='my_donationtype_id') this.my_donationtype_iderror=true;
 
+          if (key==='old_password') this.passworderror=true;
+          if (key==='new_password1') this.password1error=true;
+          if (key==='new_password2') this.password2error=true;
+
+          if (key==='contact')  {
+            let object = error[key];
+            if (object.mobilenumber) {
+              this.mobilenumbererror=true;
+            }
+            if (object.email) {
+              this.emailerror=true;
+            }
+          }
           if (key==='emergency_contact')  {
             let object = error[key];
             if (object.mobilenumber) {

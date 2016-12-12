@@ -22,7 +22,7 @@
 				<ion-item no-lines [class.error]="!username.valid && username.touched">
 					<ion-icon name="alert" [class.error]="!username.valid && username.touched" item-left isActive="false" *ngIf="!username.valid && username.touched"></ion-icon>
 					<ion-label stacked>{{ 'Username' | translate}}</ion-label>
-					<ion-input required type="text" placeholder="" [(ngModel)]="username" (focus)="errors=[]"></ion-input>
+					<ion-input required type="text" placeholder="" [(ngModel)]="username" (focus)="errors=[]" autocapitalize="off"></ion-input>
 				</ion-item>
 			</div>
 			<div class="absolute-container">
