@@ -46,7 +46,9 @@ h6 {
 .toolbar-content, ion-footer button {
     font-family: TrajanPro;
 }
-
+.toolbar-content .button-default-ios.button-small, ion-footer button .button-default-ios.button-small {
+  padding-top: 4px;
+}
 app-header > ion-navbar > div.toolbar-background {
     background-image: url("../assets/img/logo2.svg");
     background-repeat: no-repeat;
