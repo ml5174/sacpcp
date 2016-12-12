@@ -16,3 +16,9 @@ a.	https://code.visualstudio.com/download
 
 https://branch.io/resources/app-launch-checklist/
 
+imports: [ 
+    HttpModule, 
+    IonicModule.forRoot(MyApp, { 
+      scrollAssist: false, 
+      autoFocusAssist: false 
+    }, deepLinkConfig),
