@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 
 import { Platform, MenuController, Nav, Select } from 'ionic-angular';
 
-import { StatusBar } from 'ionic-native';
+import { StatusBar, Keyboard } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 import { UserServices } from '../service/user';
 import { HomePage } from '../pages/home/home';
@@ -78,6 +78,7 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
+      Keyboard.disableScroll(true);
 
     });
   }

@@ -312,7 +312,7 @@
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left isActive="false" [class.error]="passworderror" *ngIf="passworderror"></ion-icon>
 								<ion-label stacked>Old Password</ion-label>
-								<ion-input required type="text" class="" [(ngModel)]="password" required></ion-input>
+								<ion-input required type="password" class="" [(ngModel)]="passwordForm.old_password" required></ion-input>
 							</ion-item>
 							<div class="absolute-container">
 								<a id="show-link" (click)="showPassword()">{{(showpassword==='password') ? 'Show' : 'Hide'}}</a>
@@ -321,13 +321,13 @@
 								<ion-item no-lines [class.error]="password1error">
 									<ion-icon name="alert" item-left isActive="false" [class.error]="password1error" *ngIf="password1error"></ion-icon>
 									<ion-label stacked>{{ 'New Password' | translate}} </ion-label>
-									<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="password1"></ion-input>
+									<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="passwordForm.new_password1"></ion-input>
 								</ion-item>
 							</div>
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left isActive="false" [class.error]="password2error" *ngIf="password2error"></ion-icon>
 								<ion-label stacked>Confirm New Password</ion-label>
-								<ion-input required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
+								<ion-input required type="password" placeholder="" class="" [(ngModel)]="passwordForm.new_password2" required></ion-input>
 							</ion-item>
 
 						</ion-list>
