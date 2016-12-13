@@ -5,6 +5,8 @@ import { VolunteerEvent } from '../model/volunteer-event';
 import { MyEvent } from '../model/myEvent';
 import { EventImage } from '../model/eventImage';
 import { GET_EVENTS_URI } from '../provider/config';
+import { GET_ADMIN_EVENTS_URI } from '../provider/config';
+import { GET_ADMIN_EVENT_DETAILS_URI } from '../provider/config';
 import { GET_MYEVENTS_URI } from '../provider/config';
 import { GET_EVENT_IMAGE_URI } from '../provider/config';
 import { EVENT_SIGNUP_URI } from '../provider/config';
@@ -29,6 +31,16 @@ export class VolunteerEventsService {
     }
     getVolunteerEvents(): Observable<VolunteerEvent[]> {
         return this.http.get(SERVER + GET_EVENTS_URI)
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+    getAdminEvents(): Observable<VolunteerEvent[]> {
+        return this.http.get(SERVER + GET_ADMIN_EVENTS_URI, this.getOptions())
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+    getAdminEventDetails(eventId: string): Observable<VolunteerEvent[]> {
+        return this.http.get(SERVER + GET_ADMIN_EVENT_DETAILS_URI + eventId + "/", this.getOptions())
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }

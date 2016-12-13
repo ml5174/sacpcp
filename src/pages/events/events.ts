@@ -32,14 +32,15 @@ export class EventPage {
 
   ngOnInit(){
     
-    if(this.userServices.user.profile.accounttype){
+    if(this.userServices.isAdmin()){
       //check account for admin status
-      console.log(this.userServices.user.profile.accounttype)
+      console.log(this.userServices.user.profile.accounttype);
+      this.getAdminEvents();
       //if they have admin status load admin view of events
     }
-    //otherwise load regular event view
-    this.getEvents();
-
+    else{
+      this.getEvents();
+    }
   }
   onCancel(event: any) {
     this.search=false;
@@ -104,6 +105,17 @@ export class EventPage {
   getEvents() {
     this.volunteerEventsService
         .getVolunteerEvents().subscribe(
+                               event => this.events = event, 
+                                err => {
+                                    console.log(err);
+                                }, 
+                                () => {this.searchedEvents = this.events;
+                                       this.populateSearchedEvents(this.events);
+                                     });
+  }
+  getAdminEvents() {
+    this.volunteerEventsService
+        .getAdminEvents().subscribe(
                                event => this.events = event, 
                                 err => {
                                     console.log(err);
