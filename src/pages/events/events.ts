@@ -13,8 +13,6 @@ import { UserServices } from '../../service/user';
 export class EventPage {
 
   search: boolean = false;
-  previousevents: boolean = true;
-  yourevents: boolean = true;
   events: Array<VolunteerEvent> = [];
   searchedEvents: Array<VolunteerEvent> = [];
   maxEvents: Array<VolunteerEvent> = [];
@@ -25,7 +23,8 @@ export class EventPage {
   searching: Boolean = false;
   noResults: Boolean = false;
   signedUpEvent: MyEvent;
-
+  eventDetails: VolunteerEvent;
+  
   constructor(private volunteerEventsService: VolunteerEventsService,
               private userServices: UserServices) {
   }
@@ -162,5 +161,8 @@ export class EventPage {
        }
      }
        return false;
+  }
+  getEventDetails(id: string){
+
   }
 }

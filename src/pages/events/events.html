@@ -34,10 +34,7 @@
                 <p>{{e.description}}</p>
                 </ion-row>
                 <ion-row *ngIf="e.volunteercount !=null">
-                    <ion-col center text-center>Number of volunteers: {{e.volunteercount}}</ion-col>
-                    <ion-col>
-                    <button ion-button icon-right small round>Details</button>
-                    </ion-col>
+                    <ion-col>Number of volunteers: {{e.volunteercount}}</ion-col>
                 </ion-row>
                 <button *ngIf="!amISignedUp(e.id)" (click)="signup(e.id)" ion-button small item-right round>Register</button>
             </ion-card-content>
