@@ -399,7 +399,7 @@ export class RegisterIndividualProfilePage {
   }
 
   back() {
-    this.nav.pop();
+    this.nav.popToRoot();
   }
 
   goToChangePassword() {
