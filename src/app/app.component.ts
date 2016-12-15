@@ -83,9 +83,8 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
+  openPage(page, tab) {
     let currentPage = this.nav.getActive().component;
-    console.log(currentPage);
 
     // close the menu when clicking a link from the menu
     this.menu.close();
@@ -93,7 +92,9 @@ export class MyApp {
 
     // navigate to the new page if it is not the current page
     if (page.component != currentPage) {
-      this.nav.push(page.component);
+      this.nav.push(page.component, {tab:tab});
+    } else {
+      this.nav.push(page.component, {tab:tab}, {animate: false});
     }
   }
   logout() {
