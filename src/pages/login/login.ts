@@ -85,9 +85,6 @@ export class LoginPage {
   forgot() {
     this.nav.push(ForgotPage);
   }
-  back() {
-    this.nav.pop();
-  }
   showPassword() {
     if (this.showpassword === 'password') this.showpassword = 'text';
     else this.showpassword = 'password';
