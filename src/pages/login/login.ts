@@ -70,7 +70,11 @@ export class LoginPage {
           loginPage.storage.set('key', loginPage.userServices.user.id);
       //  loginPage.storage.set('test', 'test');
 
-        loginPage.userServices.getMyProfile();
+        loginPage.userServices.getMyProfile().subscribe(
+                                 result => result, 
+                                 err => {
+                                     console.log(err);
+                                 });
         loginPage.nav.setRoot(HomePage);
       },
       err => this.setError(err));
@@ -80,9 +84,6 @@ export class LoginPage {
   }
   forgot() {
     this.nav.push(ForgotPage);
-  }
-  back() {
-    this.nav.pop();
   }
   showPassword() {
     if (this.showpassword === 'password') this.showpassword = 'text';

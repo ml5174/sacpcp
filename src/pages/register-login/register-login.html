@@ -77,11 +77,37 @@
 		<div class="absolute-container">
 
 			
-			<ion-item no-lines class="" [ngSwitch]="pcmethod" >
-				<ion-label stacked *ngSwitchCase="'email'">Email Address</ion-label>
-				<ion-label stacked *ngSwitchDefault >Mobile Number</ion-label>
+			<div [ngSwitch]="pcmethod">
+			<ion-item no-lines *ngSwitchCase="'email'">
+				<ion-label stacked >Email Address</ion-label>
 				<ion-input required type="text" class="" [(ngModel)]="pcvalue" required></ion-input>
 			</ion-item>
+			
+				<!--<ion-label stacked *ngSwitchDefault >Mobile Number</ion-label> -->
+				<ion-grid class="phone-number" *ngSwitchDefault > 
+				<ion-row>
+					<ion-col width-25>
+						<ion-item no-lines>
+							<ion-label stacked></ion-label>
+							<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberAreaCode" required minlength="3" maxlength="3"></ion-input>
+						</ion-item>
+					</ion-col>
+					<ion-col width-25>
+						<ion-item no-lines>
+							<ion-label stacked></ion-label>
+							<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberPrefix" required minlength="3" maxlength="3"></ion-input>
+						</ion-item>
+					</ion-col>
+					<ion-col width-50>
+						<ion-item no-lines>
+							<ion-label stacked></ion-label>
+							<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberLineNumber" required minlength="4" maxlength="4"></ion-input>
+						</ion-item>
+					</ion-col>
+				</ion-row>
+				</ion-grid>
+				</div>
+			
 		</div>
 
 		<ion-item>

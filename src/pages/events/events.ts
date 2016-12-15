@@ -3,6 +3,7 @@ import {VolunteerEvent} from '../../model/volunteer-event';
 import {MyEvent} from '../../model/myEvent'
 import {VolunteerEventsService} from '../../service/volunteer-events-service';
 import {EventImage} from '../../model/eventImage';
+import { UserServices } from '../../service/user';
 
 @Component({
   templateUrl: 'events.html',
@@ -26,9 +27,19 @@ export class EventPage {
   signedUpEvent: MyEvent;
 
   constructor(private volunteerEventsService: VolunteerEventsService,
-  ) {  }
+              private userServices: UserServices) {
+  }
+
   ngOnInit(){
+    
+    if(this.userServices.user.profile.accounttype){
+      //check account for admin status
+      console.log(this.userServices.user.profile.accounttype)
+      //if they have admin status load admin view of events
+    }
+    //otherwise load regular event view
     this.getEvents();
+
   }
   onCancel(event: any) {
     this.search=false;
@@ -55,7 +66,13 @@ export class EventPage {
             (item.location_address1 !=null &&
             (item.location_address1.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
             (item.location_city !=null &&
-            (item.location_city.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))
+            (item.location_city.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (item.location_state !=null &&
+            (item.location_state.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (item.location_zipcode !=null &&
+            (item.location_zipcode.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (item.location_address2 !=null &&
+            (item.location_address2.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))
             )});
 
       }
@@ -122,6 +139,11 @@ export class EventPage {
                                  });
   }
   amISignedUp(id){
+    //we return true if there is no user logged in, this prevents the ability
+    //to sign up for an event 
+     if (!this.userServices.user.id){
+       return true;
+     }
      for (let i of this.volunteerEventsService.myEvents){
        if (id == i.event_id){
          return true;

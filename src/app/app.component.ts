@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 
 import { Platform, MenuController, Nav, Select } from 'ionic-angular';
 
-import { StatusBar } from 'ionic-native';
+import { StatusBar, Keyboard } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 import { UserServices } from '../service/user';
 import { HomePage } from '../pages/home/home';
@@ -58,8 +58,13 @@ export class MyApp {
       value => {
         console.log('key: ' + value);
         if (value) {
+          console.log("value is true, profile call should happen");
           us.setId(value);
-          us.getMyProfile();
+          us.getMyProfile().subscribe(
+                                 result => result, 
+                                 err => {
+                                     console.log(err);
+                                 });
         }
       });
 
@@ -73,13 +78,13 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
+      Keyboard.disableScroll(true);
 
     });
   }
 
-  openPage(page) {
+  openPage(page, tab) {
     let currentPage = this.nav.getActive().component;
-    console.log(currentPage);
 
     // close the menu when clicking a link from the menu
     this.menu.close();
@@ -87,7 +92,9 @@ export class MyApp {
 
     // navigate to the new page if it is not the current page
     if (page.component != currentPage) {
-      this.nav.push(page.component);
+      this.nav.push(page.component, {tab:tab});
+    } else {
+      this.nav.push(page.component, {tab:tab}, {animate: false});
     }
   }
   logout() {

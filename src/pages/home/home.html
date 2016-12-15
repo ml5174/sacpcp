@@ -1,29 +1,30 @@
 <ion-header>
 	<app-header>
-		<!--button *ngIf="!userServices.user.id" style="float: right;color: #fff;background-color: #FF173D; margin: 0px 13px;padding: 15px 15px;font-size: 2.3rem;height: 3.8rem;"
-			ion-button color="primary" (click)="login()">
-		</button-->
-		<button *ngIf="!userServices.user.id" ion-button color="primary" (click)="login()">{{'Login' | translate}}</button>
-	   <!--button *ngIf="userServices.user.id" style="float: right;color: #fff;background-color: #FF173D; margin: 0px 13px;padding: 15px 15px;font-size: 2.3rem;height: 3.8rem;"
-	   		ion-button icon-left (click)="logout()">
-		</button-->
-		<button *ngIf="userServices.user.id" ion-button color="primary" (click)="logout()">{{'Logout' | translate}}</button>
+		<button *ngIf="!userServices.user.id" ion-button small color="primary" (click)="login()">{{'Login' | translate}}</button>
+		<button *ngIf="userServices.user.id" ion-button small color="primary" (click)="logout()">{{'Logout' | translate}}</button>
 	</app-header>
 </ion-header>
 
 <ion-content padding-left padding-right padding-top>
 	<section id="home-body">
 		<div>
-			<ion-segment [(ngModel)]="selectedTab" padding-bottom>
-
+			<ion-segment [(ngModel)]="selectedTab" padding-bottom [hidden]="!volunteerEventsService.myEvents.length>0">
 				<ion-segment-button value="home">
 					Home
 				</ion-segment-button>
 				<ion-segment-button value="events">
 					Events
 				</ion-segment-button>
-				<ion-segment-button value="myevents" [hidden]="!volunteerEventsService.myEvents.length>0">
+				<ion-segment-button value="myevents">
 					My Events
+				</ion-segment-button>
+			</ion-segment>
+			<ion-segment [(ngModel)]="selectedTab" padding-bottom [hidden]="volunteerEventsService.myEvents.length>0">
+				<ion-segment-button value="home">
+					Home
+				</ion-segment-button>
+				<ion-segment-button value="events">
+					Events
 				</ion-segment-button>
 			</ion-segment>
 		</div>

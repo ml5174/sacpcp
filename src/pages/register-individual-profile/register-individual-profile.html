@@ -312,7 +312,7 @@
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left isActive="false" [class.error]="passworderror" *ngIf="passworderror"></ion-icon>
 								<ion-label stacked>Old Password</ion-label>
-								<ion-input required type="text" class="" [(ngModel)]="password" required></ion-input>
+								<ion-input required type="password" class="" [(ngModel)]="passwordForm.old_password" required></ion-input>
 							</ion-item>
 							<div class="absolute-container">
 								<a id="show-link" (click)="showPassword()">{{(showpassword==='password') ? 'Show' : 'Hide'}}</a>
@@ -321,13 +321,13 @@
 								<ion-item no-lines [class.error]="password1error">
 									<ion-icon name="alert" item-left isActive="false" [class.error]="password1error" *ngIf="password1error"></ion-icon>
 									<ion-label stacked>{{ 'New Password' | translate}} </ion-label>
-									<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="password1"></ion-input>
+									<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="passwordForm.new_password1"></ion-input>
 								</ion-item>
 							</div>
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left isActive="false" [class.error]="password2error" *ngIf="password2error"></ion-icon>
 								<ion-label stacked>Confirm New Password</ion-label>
-								<ion-input required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
+								<ion-input required type="password" placeholder="" class="" [(ngModel)]="passwordForm.new_password2" required></ion-input>
 							</ion-item>
 
 						</ion-list>
@@ -350,12 +350,14 @@
 						<ion-list>
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="my_volunteertype_iderror" *ngIf="my_volunteertype_iderror"></ion-icon>
-								<ion-label stacked>{{"Volunteer Type" | translate }}</ion-label>
+								<ion-label stacked>{{"Volunteer Type" | translate }}: {{myProfile.volunteertype}}</ion-label>
+
 								<!--<ion-select [(ngModel)]="myProfile.my_volunteertype_id" required>
 									<ion-option *ngFor="let m of availablePreferences.volunteertypes" [value]="m.id">{{m.name}}</ion-option>
 								</ion-select>-->
 
 							</ion-item>
+							<!-- This is commented temporarily because R1 is for individual only
 							<ion-item no-lines class="">
 								<section>
 									<div class="radio-choice" *ngFor="let m of availablePreferences.volunteertypes">
@@ -364,6 +366,7 @@
 									</div>
 								</section>
 							</ion-item>
+							-->
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="my_referalsource_iderror" *ngIf="my_referalsource_iderror"></ion-icon>
 								<ion-label stacked>{{"Referral Source" | translate }}</ion-label>

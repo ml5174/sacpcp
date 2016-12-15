@@ -11,10 +11,11 @@
 
 	<ion-content style="margin-top: 45px;" >
 		<ion-list id="right-menu-items" >
-			<button ion-item icon-left (click)="openPage(pages[1])" >
+
+			<button ion-item icon-left (click)="openPage(pages[1], 'home')" >
 				Home
 			</button>
-			<button ion-item icon-left (click)="openPage(pages[1])">
+			<button ion-item icon-left (click)="openPage(pages[1], 'events')">
 				Search Upcoming Events
 			</button>
 			<button ion-item icon-left (click)="openPage(pages[5])">

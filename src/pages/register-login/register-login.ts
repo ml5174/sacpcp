@@ -34,6 +34,9 @@ export class RegisterLoginPage {
   private errors: Array<string> = [];
   private pcmethod: string = 'email'
   private pcvalue: string = '';
+  private mobileNumberAreaCode = '';
+  private mobileNumberPrefix = '';
+  private mobileNumberLineNumber = '';
 
   private terms: boolean = false;
   private remember: boolean = true;
@@ -56,9 +59,6 @@ export class RegisterLoginPage {
     this.email = '';
     this.sms = '';
 
-    if (this.pcmethod === 'email') this.email = this.pcvalue;
-    else this.sms = this.pcvalue;
-    console.log("terms: " + this.terms);
     if (!this.terms) {
       this.errors.push("You must accept Privacy and Terms to proceed.");
       return;
@@ -68,9 +68,18 @@ export class RegisterLoginPage {
       username: this.username,
       password1: this.password1,
       password2: this.password2,
-      email: this.email,
-      phone: this.sms,
+      email: undefined,
+      phone: undefined,
       tandc: 1
+    }
+
+    if (this.pcmethod === 'email') {
+      this.email = this.pcvalue;
+      register.email = this.email;
+    }
+    else {
+      this.sms = '1'+this.mobileNumberAreaCode+this.mobileNumberPrefix+this.mobileNumberLineNumber;
+      register.phone = this.sms;
     }
 
     if (!register.email) delete register.email;
@@ -90,7 +99,10 @@ export class RegisterLoginPage {
           this.storage.set('key', this.userServices.user.id);
         }
         else this.storage.set('username', '');
-        registerLogin.nav.setRoot(RegisterIndividualProfilePage);
+       // registerLogin.nav.insert(registerLogin.nav.length(),HomePage);
+        registerLogin.nav.setPages([HomePage,RegisterIndividualProfilePage]);
+
+
         /* this.userServices.createMyProfile(myProfile)
            .subscribe(
            key => {
@@ -134,9 +146,6 @@ export class RegisterLoginPage {
     this.nav.push(TermsPage);
   }
 
-  back() {
-    this.nav.pop();
-  }
   showPassword() {
     if (this.showpassword === 'password') this.showpassword = 'text';
     else this.showpassword = 'password';

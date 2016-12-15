@@ -51,6 +51,10 @@ export class RegisterIndividualProfilePage {
   private ecmobilenumbererror:  boolean = false;
   private ecaltnumbererror:  boolean = false;
 
+  private passworderror:  boolean = false;
+  private password1error:  boolean = false;
+  private password2error:  boolean = false;
+
   private relationships = [
     "Parent/Guardian",
     "Brother/Sister",
@@ -71,6 +75,7 @@ export class RegisterIndividualProfilePage {
 
   private availablePreferences: any = {};
   private myPreferences: any = {};
+  private passwordForm: any = {};
 
   private formServiceAreas: Array<any> = [];
 
@@ -127,6 +132,7 @@ export class RegisterIndividualProfilePage {
           if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
           if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
           if (!this.myProfile.my_volunteertype_id) this.myProfile.my_volunteertype_id = 7;
+          if (!this.myProfile.volunteertype) this.myProfile.volunteertype = "Individual";
 
           this.translateToFormPhoneNumbers();
 
@@ -172,13 +178,22 @@ export class RegisterIndividualProfilePage {
 
     let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
     let updateMyPreferencesObservable =  this.userServices.updateMyPreferences(this.myPreferences);
+    let changeMyPasswordObservable = null;
 
-    Observable.forkJoin([updateMyProfileObservable, updateMyPreferencesObservable])
+    let observables = [updateMyProfileObservable, updateMyPreferencesObservable];
+
+    // Only call change password if one or more of the form fields are entered    
+    if (this.passwordForm.old_password ||  this.passwordForm.new_password1 || this.passwordForm.new_password2) {
+      changeMyPasswordObservable = this.userServices.changePassword(this.passwordForm);
+      observables.push(changeMyPasswordObservable);
+    }
+
+    Observable.forkJoin(observables)
       .subscribe(
           key => {
             this.presentToast("Profile saved.")
             this.hideLoading();
-            //this.key = key;
+            this.passwordForm={};
           }, 
           err => { 
             this.presentToast("Error saving profile.")
@@ -240,9 +255,23 @@ export class RegisterIndividualProfilePage {
   }
 
   translateFromFormPhoneNumbers() {
-    this.myProfile.mobilenumber = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
-    this.myProfile.emergency_contact.mobilenumberr = "1" + this.ecMobileNumberAreaCode + this.ecMobileNumberPrefix + this.ecMobileNumberLineNumber;
-    this.myProfile.emergency_contact.altnumber = "1" + this.ecAltNumberAreaCode + this.ecAltNumberPrefix + this.ecAltNumberLineNumber;    
+    if (this.mobileNumberAreaCode || this.mobileNumberPrefix || this.mobileNumberLineNumber) {
+      this.myProfile.mobilenumber = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
+    } else {
+      this.myProfile.mobilenumber = "";
+    }
+
+    if (this.ecMobileNumberAreaCode || this.ecMobileNumberPrefix || this.ecMobileNumberLineNumber) {
+      this.myProfile.emergency_contact.mobilenumber = "1" + this.ecMobileNumberAreaCode + this.ecMobileNumberPrefix + this.ecMobileNumberLineNumber;
+    } else {
+      this.myProfile.emergency_contact.mobilenumber = "";
+    }
+
+    if (this.ecAltNumberAreaCode || this.ecAltNumberPrefix || this.ecAltNumberLineNumber) {
+      this.myProfile.emergency_contact.altnumber = "1" + this.ecAltNumberAreaCode + this.ecAltNumberPrefix + this.ecAltNumberLineNumber;    
+    } else {
+      this.myProfile.emergency_contact.altnumber = "";
+    }
   }
 
   translateToFormPreferences() {
@@ -309,6 +338,10 @@ export class RegisterIndividualProfilePage {
         this.ecrelationerror=false;
         this.ecmobilenumbererror=false;
         this.ecaltnumbererror=false;
+
+        this.passworderror=false;
+        this.password1error=false;
+        this.password2error=false;
   }
   
   setError(error) {
@@ -343,6 +376,19 @@ export class RegisterIndividualProfilePage {
           if (key==='my_referalsource_id') this.my_referalsource_iderror=true;
           if (key==='my_donationtype_id') this.my_donationtype_iderror=true;
 
+          if (key==='old_password') this.passworderror=true;
+          if (key==='new_password1') this.password1error=true;
+          if (key==='new_password2') this.password2error=true;
+
+          if (key==='contact')  {
+            let object = error[key];
+            if (object.mobilenumber) {
+              this.mobilenumbererror=true;
+            }
+            if (object.email) {
+              this.emailerror=true;
+            }
+          }
           if (key==='emergency_contact')  {
             let object = error[key];
             if (object.mobilenumber) {
@@ -367,7 +413,7 @@ export class RegisterIndividualProfilePage {
   }
 
   back() {
-    this.nav.pop();
+    this.nav.popToRoot();
   }
 
   goToChangePassword() {
