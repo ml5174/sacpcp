@@ -3,22 +3,23 @@
     <button ion-button icon-only menuToggle style="display: inline-block;">
       <ion-icon name="menu"></ion-icon>
     </button>
-  </ion-buttons>
+	</ion-buttons>
+
 </ion-navbar>
 <ion-toolbar secondary id="home-header">
-  <ion-buttons>
-    <button class="app-header-back-button" *ngIf="userServices.user.id && !isBack" color="primary"
-      ion-button icon-left (click)="profile()">
+	<ion-buttons begin *ngIf="!isBack">
+		<button *ngIf="userServices.user.id" ion-button icon-left (click)="profile()">
        {{userServices.user.name}}
     </button>
-    <button class="app-header-back-button" *ngIf="isBack"  color="primary"
-      ion-button icon-left (click)="back()">
-				<ion-icon name="ios-arrow-back"></ion-icon>
+	</ion-buttons>
+
+  <ion-buttons *ngIf="isBack">
+  			<button ion-button icon-left color="secondary" clear (click)="back()">
+				<ion-icon name="ios-arrow-back"></ion-icon> {{title | translate}}
 			</button>
-    <div *ngIf="isBack" class="app-header-title">
-      {{title | translate}}</div>
-    <div style="float: right;">
-      <ng-content></ng-content>
-    </div>  
+  </ion-buttons>
+
+  <ion-buttons end *ngIf="!isBack">
+        <ng-content></ng-content>  
   </ion-buttons>
 </ion-toolbar>

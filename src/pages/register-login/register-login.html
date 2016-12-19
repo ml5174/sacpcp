@@ -59,27 +59,32 @@
 			<ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>
 		</ion-item>
 
-		<ion-list>
+		<ion-list radio-group [(ngModel)]="pcmethod">
 
 			<ion-list-header>
-				Please select prefered contact method.
+				Prefered contact method
 			</ion-list-header>
+				<ion-item><ion-label>Email</ion-label>
+					<ion-radio value="email"></ion-radio>
+				</ion-item>
+				
+				<ion-item><ion-label>Mobile Phone</ion-label>
+					<ion-radio value="sms"></ion-radio>
+				</ion-item>
+				
+				</ion-list>
+				
+		<div class="absolute-container">
 
-			<section id="pcm-choice">
-				<div class="radio-choice">
-					<input type="radio" id="email" [(ngModel)]="pcmethod" value="email" />
-					<label for="email">Email</label>
-				</div>
-				<div class="radio-choice">
-					<input type="radio" id="phone" [(ngModel)]="pcmethod" value="sms" style="margin-left: 10px;" />
-					<label for="phone">Mobile Phone</label>
-				</div>
-			</section>
-
-			<ion-item no-lines  *ngIf="pcmethod==='email'" >
-				<ion-input id="pcm-input" required type="text"[(ngModel)]="pcvalue" required></ion-input>
+			
+			<div [ngSwitch]="pcmethod">
+			<ion-item no-lines *ngSwitchCase="'email'">
+				<ion-label stacked >Email Address</ion-label>
+				<ion-input required type="text" class="" [(ngModel)]="pcvalue" required></ion-input>
 			</ion-item>
-			<ion-grid class="phone-number" *ngIf="pcmethod !== 'email'" >
+			
+				<!--<ion-label stacked *ngSwitchDefault >Mobile Number</ion-label> -->
+				<ion-grid class="phone-number" *ngSwitchDefault > 
 				<ion-row>
 					<ion-col width-25>
 						<ion-item no-lines>
@@ -100,18 +105,16 @@
 						</ion-item>
 					</ion-col>
 				</ion-row>
-			</ion-grid>
+				</ion-grid>
+				</div>
+			
+		</div>
 
-			<section style="padding: 15px;">
-				<ion-checkbox class="center" color="primary" [(ngModel)]="terms"></ion-checkbox>
-				<span class="center" style="margin-left: 15px;" (click)="viewTerms()">I agree  to  the Privacy &amp; Terms</span>
-			</section>
-
-		</ion-list>
-
-		<!--ion-item no-lines class="">
-			<button ion-button color="primary" block large round (click)="register()">Register</button>
-		</ion-item-->
+		<ion-item>
+			<ion-label>I agree to the</ion-label>
+			<ion-checkbox item-left [(ngModel)]="terms"></ion-checkbox>
+			<button item-right ion-button large color="secondary" clear (click)="viewTerms()">Privacy &amp; Terms</button>
+		</ion-item>
 	</section>
 
 </ion-content>
