@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
     <li>Upper case English letters A-Z</li>
     <li>Lower case English letters a-z</li>
     <li>Number 0 to 9</li>
-    <li>Non-alphanumeric characters " # $ % & ' ( ) * + , - . : ; < = > ? @ [ \ ] ^ _  </li>
+    <li>Non-alphanumeric characters " # $ % & ' ( ) * + , - . : ; < = > ? @ [ \ ] ^ _ { }   </li>
     </ul>
     <p>Minimum password length of 8 characters</p>
     <p>Maximum password length of 32 characters.
