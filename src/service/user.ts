@@ -123,5 +123,16 @@ export class UserServices {
         headers.append('Accept', 'application/json;q=0.9');
         return new RequestOptions({ headers: headers });
     }
+    isAdmin(){
+       if(this.user.profile.accounttype && this.user.profile.accounttype.length >0){
+          var i = this.user.profile.accounttype.length;
+          while (i--) {
+               if (this.user.profile.accounttype[i] === "A") {
+                  return true;
+                }
+          }
+       }
+       return false;
+    }
 
 }

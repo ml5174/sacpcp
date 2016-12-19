@@ -30,7 +30,12 @@
                 <ion-row *ngIf="e.location_address1">
                     <p>{{e.location_address1}}, {{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
                 </ion-row>
+                <ion-row>
                 <p>{{e.description}}</p>
+                </ion-row>
+                <ion-row *ngIf="e.volunteercount !=null">
+                    <ion-col>Number of volunteers: {{e.volunteercount}}</ion-col>
+                </ion-row>
                 <button *ngIf="!amISignedUp(e.id)" (click)="signup(e.id)" ion-button small item-right round>Register</button>
             </ion-card-content>
             <!--button padding ion-button class="readmore">Read more</button>
