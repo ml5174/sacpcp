@@ -13,8 +13,6 @@ import { UserServices } from '../../service/user';
 export class EventPage {
 
   search: boolean = false;
-  previousevents: boolean = true;
-  yourevents: boolean = true;
   events: Array<VolunteerEvent> = [];
   searchedEvents: Array<VolunteerEvent> = [];
   maxEvents: Array<VolunteerEvent> = [];
@@ -25,21 +23,23 @@ export class EventPage {
   searching: Boolean = false;
   noResults: Boolean = false;
   signedUpEvent: MyEvent;
-
+  eventDetails: VolunteerEvent;
+  
   constructor(private volunteerEventsService: VolunteerEventsService,
               private userServices: UserServices) {
   }
 
   ngOnInit(){
     
-    if(this.userServices.user.profile.accounttype){
+    if(this.userServices.isAdmin()){
       //check account for admin status
-      console.log(this.userServices.user.profile.accounttype)
+      console.log(this.userServices.user.profile.accounttype);
+      this.getAdminEvents();
       //if they have admin status load admin view of events
     }
-    //otherwise load regular event view
-    this.getEvents();
-
+    else{
+      this.getEvents();
+    }
   }
   onCancel(event: any) {
     this.search=false;
@@ -112,6 +112,17 @@ export class EventPage {
                                        this.populateSearchedEvents(this.events);
                                      });
   }
+  getAdminEvents() {
+    this.volunteerEventsService
+        .getAdminEvents().subscribe(
+                               event => this.events = event, 
+                                err => {
+                                    console.log(err);
+                                }, 
+                                () => {this.searchedEvents = this.events;
+                                       this.populateSearchedEvents(this.events);
+                                     });
+  }
   getEventsMax(maxTime) {
      this.volunteerEventsService
          .getVolunteerEventsMaxTime(maxTime).subscribe(
@@ -150,5 +161,8 @@ export class EventPage {
        }
      }
        return false;
+  }
+  getEventDetails(id: string){
+
   }
 }
