@@ -136,8 +136,6 @@ export class RegisterIndividualProfilePage {
 
           this.translateToFormPhoneNumbers();
 
-          console.log(this.myPreferences);
-          console.log(this.availablePreferences);
           this.hideLoading();
         }, err => {
           this.hideLoading();
@@ -286,7 +284,6 @@ export class RegisterIndividualProfilePage {
       this.formServiceAreas.push(serviceArea);
     }
 
-    console.log(this.formServiceAreas);
   }
 
   translateFromFormPreferences() {
@@ -303,7 +300,6 @@ export class RegisterIndividualProfilePage {
         this.myPreferences.serviceareas.push(newServiceArea); 
       }
     }
-    console.log(this.myPreferences.serviceareas);
     
   }
 
