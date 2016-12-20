@@ -15,6 +15,12 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+/**
+@font-face{
+	font-family: Arial, sans-serif !important;
+}
+*/
+/**
 @font-face {
   font-family: "TrajanPro";
   src: url("../assets/fonts/TrajanPro-Regular.otf") format("truetype");
@@ -35,20 +41,20 @@
   font-style: italic;
   src: local("AJensonPro-Italic"), local("AJensonPro-Italic"), url("../assets/fonts/AJensonPro-It.otf") format("truetype"); 
 }
-
+*/
 
 h1, h2, h3, h4, h5, h6 {
     font-family: TrajanPro;
+    //font-family: Arial;
 }
 h6 {
   font-weight: bold;
 }
 .toolbar-content, ion-footer button {
     font-family: TrajanPro;
+    //font-family: Arial;
 }
-.toolbar-content .button-default-ios.button-small, ion-footer button .button-default-ios.button-small {
-  padding-top: 4px;
-}
+
 app-header > ion-navbar > div.toolbar-background {
     background-image: url("../assets/img/logo2.svg");
     background-repeat: no-repeat;
@@ -127,9 +133,6 @@ button.readmore{
   width: 230px;
 }
 
-.multi-choice ion-label {
-  white-space: normal;
-}
 .radio-choice {
   float: left;
   width: 102px;
@@ -297,13 +300,4 @@ ion-list.toggle-section .toggle-section-content {
 }
 .phone-number ion-col ion-item {
   padding-left: 6px;
-}
-.app-header-back-button {
-  float: left;
-}
-.app-header-title {
-  float: left;
-  color: map-get($colors, primary);
-  font-size: 1.7rem;
-  line-height: 36px;
 }

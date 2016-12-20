@@ -99,7 +99,9 @@ export class RegisterLoginPage {
           this.storage.set('key', this.userServices.user.id);
         }
         else this.storage.set('username', '');
-        registerLogin.nav.setRoot(RegisterIndividualProfilePage);
+       // registerLogin.nav.insert(registerLogin.nav.length(),HomePage);
+        registerLogin.nav.setPages([HomePage,RegisterIndividualProfilePage]);
+
 
         /* this.userServices.createMyProfile(myProfile)
            .subscribe(
@@ -144,9 +146,6 @@ export class RegisterLoginPage {
     this.nav.push(TermsPage);
   }
 
-  back() {
-    this.nav.pop();
-  }
   showPassword() {
     if (this.showpassword === 'password') this.showpassword = 'text';
     else this.showpassword = 'password';

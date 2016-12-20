@@ -80,13 +80,10 @@ export class LoginPage {
       err => this.setError(err));
   }
   register() {
-    this.nav.setRoot(RegisterLoginPage);
+    this.nav.push(RegisterLoginPage);
   }
   forgot() {
     this.nav.push(ForgotPage);
-  }
-  back() {
-    this.nav.pop();
   }
   showPassword() {
     if (this.showpassword === 'password') this.showpassword = 'text';

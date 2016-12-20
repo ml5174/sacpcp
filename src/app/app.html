@@ -11,30 +11,31 @@
 
 	<ion-content style="margin-top: 45px;" >
 		<ion-list id="right-menu-items" >
-			<ion-item icon-left (click)="openPage(pages[1])" >
+
+			<button ion-item icon-left (click)="openPage(pages[1], 'home')" >
 				Home
-			</ion-item>
-			<ion-item icon-left (click)="openPage(pages[1])">
+			</button>
+			<button ion-item icon-left (click)="openPage(pages[1], 'events')">
 				Search Upcoming Events
-			</ion-item>
-			<ion-item icon-left (click)="openPage(pages[5])">
+			</button>
+			<button ion-item icon-left (click)="openPage(pages[5])">
 				About
-			</ion-item>
-			<ion-item icon-left (click)="openPage(pages[6])">
+			</button>
+			<button ion-item icon-left (click)="openPage(pages[6])">
 				Contact Us
-			</ion-item>
-			<ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[2])">
+			</button>
+			<button ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[2])">
 				Register
-			</ion-item>
-			<ion-item *ngIf="userServices.user.id" icon-left (click)="openPage(pages[3])">
+			</button>
+			<button ion-item *ngIf="userServices.user.id" icon-left (click)="openPage(pages[3])">
 				Profile
-			</ion-item>
-			<ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[0])">
+			</button>
+			<button ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[0])">
 				Login
-			</ion-item>
-			<ion-item *ngIf="userServices.user.id" icon-left (click)="logout()">
+			</button>
+			<button ion-item *ngIf="userServices.user.id" icon-left (click)="logout()">
 				Logout
-			</ion-item>
+			</button>
 		</ion-list>
 	</ion-content>
 </ion-menu>

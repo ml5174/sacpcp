@@ -13,7 +13,7 @@ import { HomePage } from '../pages/home/home';
 
 export class AppHeaderComponent {
   @Input('back') isBack: boolean = false;
-  @Input('title') title: string = 'Login'
+  @Input('title') title: string = 'Login';
 
   rootPage: any = HomePage;
 

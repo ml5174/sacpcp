@@ -255,9 +255,23 @@ export class RegisterIndividualProfilePage {
   }
 
   translateFromFormPhoneNumbers() {
-    this.myProfile.mobilenumber = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
-    this.myProfile.emergency_contact.mobilenumber = "1" + this.ecMobileNumberAreaCode + this.ecMobileNumberPrefix + this.ecMobileNumberLineNumber;
-    this.myProfile.emergency_contact.altnumber = "1" + this.ecAltNumberAreaCode + this.ecAltNumberPrefix + this.ecAltNumberLineNumber;    
+    if (this.mobileNumberAreaCode || this.mobileNumberPrefix || this.mobileNumberLineNumber) {
+      this.myProfile.mobilenumber = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
+    } else {
+      this.myProfile.mobilenumber = "";
+    }
+
+    if (this.ecMobileNumberAreaCode || this.ecMobileNumberPrefix || this.ecMobileNumberLineNumber) {
+      this.myProfile.emergency_contact.mobilenumber = "1" + this.ecMobileNumberAreaCode + this.ecMobileNumberPrefix + this.ecMobileNumberLineNumber;
+    } else {
+      this.myProfile.emergency_contact.mobilenumber = "";
+    }
+
+    if (this.ecAltNumberAreaCode || this.ecAltNumberPrefix || this.ecAltNumberLineNumber) {
+      this.myProfile.emergency_contact.altnumber = "1" + this.ecAltNumberAreaCode + this.ecAltNumberPrefix + this.ecAltNumberLineNumber;    
+    } else {
+      this.myProfile.emergency_contact.altnumber = "";
+    }
   }
 
   translateToFormPreferences() {
@@ -399,7 +413,7 @@ export class RegisterIndividualProfilePage {
   }
 
   back() {
-    this.nav.pop();
+    this.nav.popToRoot();
   }
 
   goToChangePassword() {
