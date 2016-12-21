@@ -124,6 +124,10 @@ export class LoginPage {
     });
   }
 
+  back() {
+    this.nav.popToRoot();
+  }
+
   presentPasswordPopover(ev) {
 
     let popover = this.popoverCtrl.create(PasswordPopover, {
