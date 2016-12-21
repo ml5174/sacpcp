@@ -56,6 +56,6 @@ export const STRINGS = {
         donationtype: "Donation Type",
         my_donationtype_id: "Donation Type",
         emergency_contact_first_name: "Emergency Contact First Name",
-        emergency_contact_last_name: "Emergency Contact First Name",
+        emergency_contact_last_name: "Emergency Contact Last Name",
         emergency_contact_relation: "Emergency Contact Relationship"
     }
