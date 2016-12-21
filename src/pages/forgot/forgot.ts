@@ -14,6 +14,11 @@ export class ForgotPage {
   private password2: string = '';
   private pcvalue: string = '';
 
+  private email: string = '';
+  private mobileNumberAreaCode = "";
+  private mobileNumberPrefix = "";
+  private mobileNumberLineNumber = "";
+
   private usernameerror: boolean = false;
   private password1error: boolean = false;
   private password2error: boolean = false;
@@ -32,9 +37,20 @@ export class ForgotPage {
   }
 
   forgot() {
-    let resetObject = {
-      email: this.pcvalue
+    this.errors = [];
+    let resetObject: any = {
     }
+
+    if (this.pcmethod == "email") {
+      resetObject.email = this.email;
+    } else if (this.pcmethod == "sms") {
+      let phone = null;
+      if (this.mobileNumberAreaCode || this.mobileNumberLineNumber || this.mobileNumberPrefix) {
+        phone = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
+      }
+      resetObject.phone = phone;
+    }
+
     this.userServices.reset(resetObject)
       .subscribe(
       key => {
