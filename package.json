@@ -1,6 +1,7 @@
 {
   "name": "savi",
   "author": "att",
+  "version": "0.9.1",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
