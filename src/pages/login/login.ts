@@ -59,10 +59,7 @@ export class LoginPage {
       username: this.username,
       password: this.password
     }
-    
 
-
-    console.log(loginobject);
     this.userServices.login(loginobject)
       .subscribe(
       key => {
