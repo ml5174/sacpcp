@@ -20,7 +20,6 @@
 	font-family: Arial, sans-serif !important;
 }
 */
-/**
 @font-face {
   font-family: "TrajanPro";
   src: url("../assets/fonts/TrajanPro-Regular.otf") format("truetype");
@@ -41,7 +40,6 @@
   font-style: italic;
   src: local("AJensonPro-Italic"), local("AJensonPro-Italic"), url("../assets/fonts/AJensonPro-It.otf") format("truetype"); 
 }
-*/
 
 h1, h2, h3, h4, h5, h6 {
     font-family: TrajanPro;
@@ -140,6 +138,7 @@ button.readmore{
 
 .multi-choice ion-label {
   font-size: 0.9em;
+  white-space: normal;
 }
 
 .label-ios[stacked],

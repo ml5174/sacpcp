@@ -20,9 +20,7 @@ export var SERVER = window['djangoserver'];
 if (document.location.hostname === '198.199.86.127')
     SERVER = 'http://52.206.230.237:8001';
 if (document.location.hostname === 'localhost')
-    SERVER = 'http://52.206.230.237:8001';
-//SERVER = 'https://api.testing-volunteers.tsadfw.org'
-//SERVER = 'http://52.206.230.237:8001'
+    SERVER = 'https://api.testing-volunteers.tsadfw.org'
 
 export const STRINGS = {
         first_name: 'First Name',
@@ -56,6 +54,6 @@ export const STRINGS = {
         donationtype: "Donation Type",
         my_donationtype_id: "Donation Type",
         emergency_contact_first_name: "Emergency Contact First Name",
-        emergency_contact_last_name: "Emergency Contact First Name",
+        emergency_contact_last_name: "Emergency Contact Last Name",
         emergency_contact_relation: "Emergency Contact Relationship"
     }

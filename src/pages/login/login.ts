@@ -59,10 +59,7 @@ export class LoginPage {
       username: this.username,
       password: this.password
     }
-    
 
-
-    console.log(loginobject);
     this.userServices.login(loginobject)
       .subscribe(
       key => {
@@ -122,6 +119,10 @@ export class LoginPage {
     popover.present({
       ev: ev
     });
+  }
+
+  back() {
+    this.nav.popToRoot();
   }
 
   presentPasswordPopover(ev) {

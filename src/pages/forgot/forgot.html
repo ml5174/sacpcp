@@ -30,22 +30,54 @@
 		<ion-list>
 
 			<ion-list-header>
-				Please select prefered contact method.
+				Please select contact method.
 			</ion-list-header>
 
-			<section id="pcm-choice">
-				<div class="radio-choice">
-					<input type="radio" id="email" [(ngModel)]="pcmethod" value="email" />
-					<label for="email">Email</label>
-				</div>
-				<div class="radio-choice">
-					<input type="radio" id="phone" [(ngModel)]="pcmethod" value="sms" style="margin-left: 10px;" />
-					<label for="phone">Mobile Phone</label>
-				</div>
-			</section>
-
 			<ion-item no-lines>
-				<ion-input id="pcm-input" required type="text" [placeholder]="pcmethod" [(ngModel)]="pcvalue" required></ion-input>
+				<section>
+					<div class="radio-choice">
+						<input type="radio" id="email" [(ngModel)]="pcmethod" value="email" />
+						<label for="email">Email</label>
+					</div>
+					<div class="radio-choice">
+						<input type="radio" id="phone" [(ngModel)]="pcmethod" value="sms" style="margin-left: 10px;" />
+						<label for="phone">Mobile Phone</label>
+					</div>
+				</section>
+			</ion-item>
+
+			<ion-item no-lines [hidden]="pcmethod!='sms'">
+				<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
+				<ion-label stacked>{{"Mobile Number" | translate }}</ion-label>
+			</ion-item>
+
+			<ion-grid class="phone-number" [hidden]="pcmethod!='sms'">
+				<ion-row>
+					<ion-col width-25>
+						<ion-item no-lines>
+							<ion-label stacked></ion-label>
+							<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberAreaCode" required minlength="3" maxlength="3"></ion-input>
+						</ion-item>
+					</ion-col>
+					<ion-col width-25>
+						<ion-item no-lines>
+							<ion-label stacked></ion-label>
+							<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberPrefix" required minlength="3" maxlength="3"></ion-input>
+						</ion-item>
+					</ion-col>
+					<ion-col width-50>
+						<ion-item no-lines>
+							<ion-label stacked></ion-label>
+							<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberLineNumber" required minlength="4" maxlength="4"></ion-input>
+						</ion-item>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+
+			<ion-item no-lines [hidden]="pcmethod!='email'">
+				<ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
+				<ion-label stacked>{{"Email" | translate }}</ion-label>
+				<ion-input type="string" placeholder="" class="" [(ngModel)]="email" required></ion-input>
 			</ion-item>
 
 		</ion-list>

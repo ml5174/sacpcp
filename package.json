@@ -1,6 +1,7 @@
 {
   "name": "savi",
   "author": "att",
+  "version": "0.9.1",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
@@ -23,7 +24,7 @@
     "@angular/platform-browser-dynamic": "^2.0.0",
     "@angular/platform-server": "^2.0.0",
     "@ionic/cloud-angular": "^0.7.0",
-    "@ionic/storage": "^1.0.3",
+    "@ionic/storage": "1.1.6",
     "ionic-angular": "^2.0.0-rc.1",
     "ionic-native": "^2.2.3",
     "ionicons": "^3.0.0",
