@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component , ViewChild} from '@angular/core'
 import { UserServices } from '../../service/user';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { STRINGS } from '../../provider/config';
@@ -11,7 +11,7 @@ import { RegisterIndividualProfilePage } from '../register-individual-profile/re
 import { PasswordPopover } from '../../popover/password';
 import { UseridPopover } from '../../popover/userid';
 import { Storage } from '@ionic/storage';
-
+import { ContactMethod } from '../../components/ContactMethod/contactMethod.component';
 @Component({
   templateUrl: 'register-login.html'
 })
@@ -41,6 +41,10 @@ export class RegisterLoginPage {
   private terms: boolean = false;
   private remember: boolean = true;
   private storage: Storage = new Storage();
+
+  @ViewChild(ContactMethod)
+  private contactMethod: ContactMethod;
+
 
   constructor(private nav: NavController,
     private userServices: UserServices,
@@ -74,11 +78,14 @@ export class RegisterLoginPage {
     }
 
     if (this.pcmethod === 'email') {
-      this.email = this.pcvalue;
+      this.email = this.contactMethod.pcvalue;
       register.email = this.email;
     }
     else {
-      this.sms = '1'+this.mobileNumberAreaCode+this.mobileNumberPrefix+this.mobileNumberLineNumber;
+     /*
+       this.sms = '1'+this.mobileNumberAreaCode+this.mobileNumberPrefix+this.mobileNumberLineNumber;
+    */
+     this.sms = '1'+this.contactMethod.mobileNumberAreaCode +this.contactMethod.mobileNumberPrefix+this.contactMethod.mobileNumberLineNumber;    
       register.phone = this.sms;
     }
 
