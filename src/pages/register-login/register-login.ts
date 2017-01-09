@@ -32,19 +32,21 @@ export class RegisterLoginPage {
   private key: string = '';
   private val: string = '';
   private errors: Array<string> = [];
-  private pcmethod: string = 'email'
-  private pcvalue: string = '';
-  private mobileNumberAreaCode = '';
-  private mobileNumberPrefix = '';
-  private mobileNumberLineNumber = '';
+  /* Move the email, Phone contact details to a common component -
+     ViewChild(ContactMethod)
+     This can be reused at multiple pages.
+   */
+  //public pcmethod: string = 'email'
+  //public pcvalue: string = '';
+  //public mobileNumberAreaCode = '';
+  //public mobileNumberPrefix = '';
+ // public mobileNumberLineNumber = '';
+  @ViewChild(ContactMethod)
+  public contactMethod: ContactMethod;
 
   private terms: boolean = false;
   private remember: boolean = true;
   private storage: Storage = new Storage();
-
-  @ViewChild(ContactMethod)
-  private contactMethod: ContactMethod;
-
 
   constructor(private nav: NavController,
     private userServices: UserServices,
@@ -77,18 +79,18 @@ export class RegisterLoginPage {
       tandc: 1
     }
 
-    if (this.pcmethod === 'email') {
+    if (this.contactMethod.pcmethod === 'email') {
       this.email = this.contactMethod.pcvalue;
       register.email = this.email;
     }
-    else {
-     /*
-       this.sms = '1'+this.mobileNumberAreaCode+this.mobileNumberPrefix+this.mobileNumberLineNumber;
-    */
-     this.sms = '1'+this.contactMethod.mobileNumberAreaCode +this.contactMethod.mobileNumberPrefix+this.contactMethod.mobileNumberLineNumber;    
+    else 
+    {
+      this.sms = '1'+this.contactMethod.mobileNumberAreaCode +
+      this.contactMethod.mobileNumberPrefix+
+      this.contactMethod.mobileNumberLineNumber;    
       register.phone = this.sms;
     }
-
+   
     if (!register.email) delete register.email;
     if (!register.phone) delete register.phone;
     
@@ -141,6 +143,7 @@ export class RegisterLoginPage {
           if (key === 'password1') this.password1error = true;
           if (key === 'password2') this.password2error = true;
           if (key === 'email') this.emailerror = true;
+          if (key === 'sms') this.smserror = true;
         }
       }
     }

@@ -5,10 +5,12 @@ import { Component, Input } from '@angular/core';
 })
 
 export class ContactMethod{
-@Input('email') pcvalue: string;
+@Input('email') pcmethod: string;
+@Input('emailValue') pcvalue: string;
 @Input('smsMobileNumberAreaCode') mobileNumberAreaCode : string;
 @Input('smsMobileNumberPrefix') mobileNumberPrefix : string;
 @Input('smsMobileNumberLineNumber') mobileNumberLineNumber : string;
+
 constructor(){
   }
 }

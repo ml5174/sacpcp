@@ -58,13 +58,9 @@
 			<ion-label>{{ 'Save My Login' | translate}}</ion-label>
 			<ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>
 		</ion-item>
-
-		<contactMethod name="ep"  
-		[email]="pcvalue"  
-		[smsMobileNumberAreaCode]="mobileNumberAreaCode"
-		[smsMobileNumberPrefix]="mobileNumberPrefix"
-		[smsMobileNumberLineNumber]="mobileNumberLineNumber"> </contactMethod>
 		
+        <!-- Move the email, Phone contact details to a common component - ViewChild(ContactMethod)-->
+		<contactMethod name="ep" [email]="pcmethod"></contactMethod>
 				
 		<ion-item>
 			<ion-label>I agree to the</ion-label>
