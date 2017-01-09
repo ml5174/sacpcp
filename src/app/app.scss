@@ -300,3 +300,31 @@ ion-list.toggle-section .toggle-section-content {
 .phone-number ion-col ion-item {
   padding-left: 6px;
 }
+
+.homeslider{
+	width:100%; 
+	height:30vh;
+	
+	div{
+		max-height: 30vh;
+		width: 100%;
+	}
+	
+	img{
+		object-fit:contain !important;
+		max-height: 30vh !important;	
+	}
+	
+	
+}
+/*
+div.slide{
+	
+}
+
+ion-slide img{
+
+
+
+}
+*/
