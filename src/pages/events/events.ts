@@ -37,7 +37,7 @@ export class EventPage {
     
     if(this.userServices.isAdmin()){
       //check account for admin status
-      console.log(this.userServices.user.profile.accounttype);
+      console.log("User is admin");
       this.getAdminEvents();
       //if they have admin status load admin view of events
     }
@@ -47,7 +47,7 @@ export class EventPage {
   }
 
   eventDetailModal(id) {
-   let eventDetailModal = this.modalCtrl.create(EventDetailModal, id);
+   let eventDetailModal = this.modalCtrl.create(EventDetailModal, {"id": id});
    eventDetailModal.present();
   }
 

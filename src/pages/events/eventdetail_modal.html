@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Description
+      Event ID is: {{this.eventId}}
     </ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
@@ -12,11 +12,35 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="eventDetail">
+  <ion-col>
+
   <ion-list>
-      <ion-item>
-        <h2>Header</h2>
-        <p>content</p>
-      </ion-item>
+    <ion-row>
+      <ion-icon name="calendar"></ion-icon>
+      <ion-col>
+        <p>{{eventDetail.start | parseTimeZone:"MMM DD"}} - {{eventDetail.end | parseTimeZone:"MMM DD"}} {{eventDetail.end | parseTimeZone:"YYYY"}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <p><b>{{eventDetail.start | parseTimeZone: 'h:mm A'}}}}-{{eventDetail.end | parseTimeZone: 'h:mm A'}} {{eventDetail.start | parseTimeZone:'z'}}</b></p>
+    </ion-row>
+    <ion-row *ngIf="eventDetail.location_name">
+      <ion-icon name="pin"></ion-icon>
+      <ion-col>
+        <p>{{eventDetail.location_name}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="eventDetail.location_address1">
+      <p>{{eventDetail.location_address1}}, {{eventDetail.location_city}}, {{eventDetail.location_state}} {{eventDetail.location_zipcode}}</p>
+    </ion-row>
+    <ion-row>
+      <p>{{eventDetail.description}}</p>
+    </ion-row>
+    <ion-row *ngIf="eventDetail.volunteercount !=null">
+      <ion-col>Number of volunteers: {{eventDetail.volunteercount}}</ion-col>
+    </ion-row>
   </ion-list>
+  </ion-col>
+
 </ion-content>
