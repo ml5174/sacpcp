@@ -1,43 +1,39 @@
-<ion-header>
+<ion-header no-border>
   <ion-toolbar>
     <ion-title *ngIf="eventDetail">
       {{eventDetail.title}}
-      <button ion-button small item-right round (click)="dismiss()">
+    </ion-title>
+      <ion-buttons start>
+      <button ion-button small round (click)="dismiss()">
         Close
       </button>
-    </ion-title>
+      </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="eventDetail">
-  <ion-col>
+<ion-content *ngIf="eventDetail" padding-top>
 
   <ion-list>
-    <ion-row>
-      <ion-icon name="calendar"></ion-icon>
-      <ion-col>
-        <p>{{eventDetail.start | parseTimeZone:"MMM DD"}} - {{eventDetail.end | parseTimeZone:"MMM DD"}} {{eventDetail.end | parseTimeZone:"YYYY"}}</p>
-      </ion-col>
-    </ion-row>
-    <ion-row>
+    <ion-item>
+      <ion-icon name="calendar" item-left></ion-icon>
+      {{eventDetail.start | parseTimeZone:"MMM DD"}} - {{eventDetail.end | parseTimeZone:"MMM DD"}} {{eventDetail.end | parseTimeZone:"YYYY"}}
+    </ion-item>
+    <ion-item>
       <p><b>{{eventDetail.start | parseTimeZone: 'h:mm A'}}}}-{{eventDetail.end | parseTimeZone: 'h:mm A'}} {{eventDetail.start | parseTimeZone:'z'}}</b></p>
-    </ion-row>
-    <ion-row *ngIf="eventDetail.location_name">
-      <ion-icon name="pin"></ion-icon>
-      <ion-col>
-        <p>{{eventDetail.location_name}}</p>
-      </ion-col>
-    </ion-row>
-    <ion-row *ngIf="eventDetail.location_address1">
-      <p>{{eventDetail.location_address1}}, {{eventDetail.location_city}}, {{eventDetail.location_state}} {{eventDetail.location_zipcode}}</p>
-    </ion-row>
-    <ion-row>
-      <p>{{eventDetail.description}}</p>
-    </ion-row>
-    <ion-row *ngIf="eventDetail.volunteercount !=null">
-      <ion-col>Number of volunteers: {{eventDetail.volunteercount}}</ion-col>
-    </ion-row>
+    </ion-item>
+    <ion-item *ngIf="eventDetail.location_name">
+      <ion-icon name="pin" item-left></ion-icon>
+      {{eventDetail.location_name}}
+    </ion-item>
+    <ion-item *ngIf="eventDetail.location_address1">
+      {{eventDetail.location_address1}}, {{eventDetail.location_city}}, {{eventDetail.location_state}} {{eventDetail.location_zipcode}}
+    </ion-item>
+    <ion-item>
+      {{eventDetail.description}}
+    </ion-item>
+    <ion-item *ngIf="eventDetail.volunteercount !=null">
+      Number of volunteers: {{eventDetail.volunteercount}}
+    </ion-item>
   </ion-list>
-  </ion-col>
 
 </ion-content>
