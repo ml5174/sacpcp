@@ -1,3 +1,4 @@
+import { EventDetailModal } from './../pages/events/eventdetail-modal';
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
 
@@ -58,7 +59,8 @@ export const deepLinkConfig: DeepLinkConfig = {
     UseridPopover,
     PasswordPopover,
     ReferralSourcePipe,
-    MomentTimeZonePipe
+    MomentTimeZonePipe,
+    EventDetailModal
   ],
   imports: [
     HttpModule,
@@ -87,7 +89,8 @@ export const deepLinkConfig: DeepLinkConfig = {
     AboutPage,
     ContactPage,
     RegisterLoginPage,
-    RegisterIndividualProfilePage
+    RegisterIndividualProfilePage,
+    EventDetailModal
   ],
   providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService]
 })

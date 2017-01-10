@@ -9,7 +9,7 @@
             <img *ngIf="e?.image && e.image[0].image != 'no image'" [src]="e.image[0].image" />
 
             <ion-card-content>
-                <h2 class="card-title">
+                <h2 class="card-title" (click)="eventDetailModal(id)">
                     {{e.title}}
                 </h2>
                 <ion-row>

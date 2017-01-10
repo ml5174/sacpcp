@@ -4,6 +4,8 @@ import {MyEvent} from '../../model/myEvent'
 import {VolunteerEventsService} from '../../service/volunteer-events-service';
 import {EventImage} from '../../model/eventImage';
 import { UserServices } from '../../service/user';
+import { EventDetailModal } from './eventdetail-modal';
+import { ModalController, NavParams, ViewController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'events.html',
@@ -26,7 +28,9 @@ export class EventPage {
   eventDetails: VolunteerEvent;
   
   constructor(private volunteerEventsService: VolunteerEventsService,
-              private userServices: UserServices) {
+              private userServices: UserServices,
+              public modalCtrl: ModalController,
+              public viewCtrl: ViewController ) {
   }
 
   ngOnInit(){
@@ -41,6 +45,12 @@ export class EventPage {
       this.getEvents();
     }
   }
+
+  eventDetailModal(id) {
+   let eventDetailModal = this.modalCtrl.create(EventDetailModal, id);
+   eventDetailModal.present();
+  }
+
   onCancel(event: any) {
     this.search=false;
   }
