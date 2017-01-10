@@ -1,14 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Event ID is: {{this.eventId}}
-    </ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <span color="primary" showWhen="ios">Cancel</span>
-        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+    <ion-title *ngIf="eventDetail">
+      {{eventDetail.title}}
+      <button ion-button small item-right round (click)="dismiss()">
+        Close
       </button>
-    </ion-buttons>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
