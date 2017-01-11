@@ -1,32 +1,34 @@
-<ion-header no-border>
-  <ion-toolbar>
-    <ion-title *ngIf="eventDetail">
-      {{eventDetail.title}}
-    </ion-title>
-      <ion-buttons start>
-      <button ion-button small round (click)="dismiss()">
+<ion-content>
+  <ion-list *ngIf="eventDetail">
+    <ion-list-header>
+        <h2>{{eventDetail.title}}</h2>
+      <button ion-button item-right small round (click)="dismiss()">
         Close
       </button>
-      </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content *ngIf="eventDetail" padding-top>
-
-  <ion-list>
+    </ion-list-header>
+    <ion-item>
+      Event Status: {{eventDetail.status}}
+    </ion-item>
     <ion-item>
       <ion-icon name="calendar" item-left></ion-icon>
       {{eventDetail.start | parseTimeZone:"MMM DD"}} - {{eventDetail.end | parseTimeZone:"MMM DD"}} {{eventDetail.end | parseTimeZone:"YYYY"}}
     </ion-item>
     <ion-item>
-      <p><b>{{eventDetail.start | parseTimeZone: 'h:mm A'}}}}-{{eventDetail.end | parseTimeZone: 'h:mm A'}} {{eventDetail.start | parseTimeZone:'z'}}</b></p>
+      <b>{{eventDetail.start | parseTimeZone: 'h:mm A'}}}}-{{eventDetail.end | parseTimeZone: 'h:mm A'}} {{eventDetail.start | parseTimeZone:'z'}}</b>
+    </ion-item>
+    <ion-item>
+      Time until event: {{eventDetail.start | timeFromNow}}
     </ion-item>
     <ion-item *ngIf="eventDetail.location_name">
       <ion-icon name="pin" item-left></ion-icon>
       {{eventDetail.location_name}}
     </ion-item>
     <ion-item *ngIf="eventDetail.location_address1">
-      {{eventDetail.location_address1}}, {{eventDetail.location_city}}, {{eventDetail.location_state}} {{eventDetail.location_zipcode}}
+      <p>{{eventDetail.location_address1}}</p>
+      <span *ngIf="eventDetail.location_address2">
+      <p>{{eventDetail.location_address2}}</p>
+      </span>
+      <p>{{eventDetail.location_city}}, {{eventDetail.location_state}} {{eventDetail.location_zipcode}}</p>
     </ion-item>
     <ion-item>
       {{eventDetail.description}}

@@ -31,6 +31,7 @@ import { VolunteerEventsService } from '../service/volunteer-events-service';
 
 import { ReferralSourcePipe } from '../pipe/referralsource.pipe';
 import { MomentTimeZonePipe } from '../pipe/moment-timezone.pipe';
+import { TimeFromNowPipe } from '../pipe/timefromnow.pipe';
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -60,6 +61,7 @@ export const deepLinkConfig: DeepLinkConfig = {
     PasswordPopover,
     ReferralSourcePipe,
     MomentTimeZonePipe,
+    TimeFromNowPipe,
     EventDetailModal
   ],
   imports: [
