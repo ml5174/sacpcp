@@ -3,7 +3,6 @@ import { NavParams, ViewController } from 'ionic-angular';
 import { UserServices } from '../../service/user';
 import { EventDetail } from '../../model/event-detail';
 import { VolunteerEventsService } from '../../service/volunteer-events-service';
-import { Observable } from 'rxjs/Rx';
 
 @Component({
     templateUrl: 'eventdetail_modal.html'

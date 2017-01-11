@@ -14,9 +14,15 @@ export class VolunteerEvent {
   location_city : string;
   location_state : string;
   location_zipcode: string;
+  status: string;
+  visibility: string;
+
+  //these four attributes only show up if admin call is made
+  volunteercount: string;
   created_by_first_name: string = "";
   created_by_last_name: string = "";
   created_by: string;
+  //to be removed, general event list has no pictures
   image: Array<EventImage> = [new EventImage()];
 
 }

@@ -5,7 +5,7 @@ import {VolunteerEventsService} from '../../service/volunteer-events-service';
 import {EventImage} from '../../model/eventImage';
 import { UserServices } from '../../service/user';
 import { EventDetailModal } from './eventdetail-modal';
-import { ModalController, NavParams, ViewController } from 'ionic-angular';
+import { ModalController, ViewController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'events.html',
