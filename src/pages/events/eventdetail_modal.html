@@ -1,7 +1,7 @@
 <ion-content>
   <ion-list *ngIf="eventDetail">
     <ion-list-header>
-        <h2>{{eventDetail.title}}</h2>
+      <h3>{{eventDetail.title}}</h3>
       <button ion-button item-right small round (click)="dismiss()">
         Close
       </button>
@@ -11,30 +11,27 @@
     </ion-item>
     <ion-item>
       <ion-icon name="calendar" item-left></ion-icon>
-      {{eventDetail.start | parseTimeZone:"MMM DD"}} - {{eventDetail.end | parseTimeZone:"MMM DD"}} {{eventDetail.end | parseTimeZone:"YYYY"}}
-    </ion-item>
-    <ion-item>
-      <b>{{eventDetail.start | parseTimeZone: 'h:mm A'}}}}-{{eventDetail.end | parseTimeZone: 'h:mm A'}} {{eventDetail.start | parseTimeZone:'z'}}</b>
-    </ion-item>
-    <ion-item>
-      Time until event: {{eventDetail.start | timeFromNow}}
+      <p>{{eventDetail.start | parseTimeZone:"MMM DD"}} - {{eventDetail.end | parseTimeZone:"MMM DD"}} {{eventDetail.end | parseTimeZone:"YYYY"}}</p>
+      <p>{{eventDetail.start | parseTimeZone: 'h:mm A'}}}}-{{eventDetail.end | parseTimeZone: 'h:mm A'}} {{eventDetail.start
+        | parseTimeZone:'z'}}</p>
+      <p>Time until event: {{eventDetail.start | timeFromNow}}</p>
     </ion-item>
     <ion-item *ngIf="eventDetail.location_name">
       <ion-icon name="pin" item-left></ion-icon>
-      {{eventDetail.location_name}}
-    </ion-item>
-    <ion-item *ngIf="eventDetail.location_address1">
+      <p>{{eventDetail.location_name}}</p>
+      <span *ngIf="eventDetail.location_address1">
       <p>{{eventDetail.location_address1}}</p>
+    </span>
       <span *ngIf="eventDetail.location_address2">
       <p>{{eventDetail.location_address2}}</p>
-      </span>
+    </span>
       <p>{{eventDetail.location_city}}, {{eventDetail.location_state}} {{eventDetail.location_zipcode}}</p>
     </ion-item>
     <ion-item>
-      {{eventDetail.description}}
+      <p>{{eventDetail.description}}</p>
     </ion-item>
     <ion-item *ngIf="eventDetail.volunteercount !=null">
-      Number of volunteers: {{eventDetail.volunteercount}}
+      <p>Number of volunteers: {{eventDetail.volunteercount}}</p>
     </ion-item>
   </ion-list>
 

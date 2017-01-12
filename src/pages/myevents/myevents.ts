@@ -21,7 +21,6 @@ export class MyEventsPage{
                                      console.log(err);
                                  }, ()=> {
                                      this.volunteerEventsService.loadMyEvents();
-                                     console.log(this.volunteerEventsService.myEvents.length);
                                      if(this.volunteerEventsService.myEvents.length==1){
                                        this.home.selectedTab="events";
                                      }

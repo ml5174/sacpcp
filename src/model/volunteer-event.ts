@@ -22,7 +22,5 @@ export class VolunteerEvent {
   created_by_first_name: string = "";
   created_by_last_name: string = "";
   created_by: string;
-  //to be removed, general event list has no pictures
-  image: Array<EventImage> = [new EventImage()];
 
 }

@@ -93,7 +93,11 @@ export class EventPage {
       this.searching = false;
     }
   }
-  populateSearchedEvents(ev: VolunteerEvent[]){
+
+/* we are not displaying event pictures on the event page, this function will still be
+   useful in the future for displaying pictures on the event detail view */
+
+/*  populateSearchedEvents(ev: VolunteerEvent[]){
     this.events = ev;
     this.searchedEvents = this.events;
     for (let event of this.events) {
@@ -110,7 +114,8 @@ export class EventPage {
                                 }, 
                                 () => this.searchedEvents = this.events);
     }
-  }
+  } */
+
   getEvents() {
     this.volunteerEventsService
         .getVolunteerEvents().subscribe(
@@ -118,9 +123,7 @@ export class EventPage {
                                 err => {
                                     console.log(err);
                                 }, 
-                                () => {this.searchedEvents = this.events;
-                                       this.populateSearchedEvents(this.events);
-                                     });
+                                () => this.searchedEvents = this.events);
   }
   getAdminEvents() {
     this.volunteerEventsService
@@ -130,8 +133,7 @@ export class EventPage {
                                     console.log(err);
                                 }, 
                                 () => {this.searchedEvents = this.events;
-                                       this.populateSearchedEvents(this.events);
-                                     });
+                                      });
   }
   getEventsMax(maxTime) {
      this.volunteerEventsService

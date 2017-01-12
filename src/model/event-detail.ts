@@ -35,7 +35,7 @@ export class EventDetail {
   //volunteers array only shows up if admin call is made
   volunteers: string[];
 
-  //remove, if images are needed, eventimage array should cover it
+  
   image: Array<EventImage> = [new EventImage()];
 
 }
