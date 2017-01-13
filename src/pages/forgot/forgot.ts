@@ -1,9 +1,12 @@
-import {Component} from '@angular/core'
+import {Component, ViewChild} from '@angular/core'
 import {NavController, Nav} from 'ionic-angular';
 import {STRINGS} from '../../provider/config';
 import { UserServices } from '../../service/user';
 import {TranslateService} from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
+import { ContactMethod } from '../../components/ContactMethod/contactMethod.component';
+
+
 
 @Component({
   templateUrl: 'forgot.html'
@@ -30,6 +33,10 @@ export class ForgotPage {
   private val: string = '';
   private errors: Array<string> = [];
   private pcmethod: string = 'email'
+
+  @ViewChild(ContactMethod)
+  public contactMethod: ContactMethod;
+
   constructor(private nav: NavController,
     private userServices: UserServices,
               private translate: TranslateService) {
@@ -40,7 +47,7 @@ export class ForgotPage {
     this.errors = [];
     let resetObject: any = {
     }
-
+/*
     if (this.pcmethod == "email") {
       resetObject.email = this.email;
     } else if (this.pcmethod == "sms") {
@@ -50,6 +57,23 @@ export class ForgotPage {
       }
       resetObject.phone = phone;
     }
+
+*/
+  
+if (this.contactMethod.pcmethod == "email") {
+      resetObject.email = this.contactMethod.pcvalue;
+    } else if (this.contactMethod.pcmethod  == "sms") {
+      let phone = null;
+      if (this.contactMethod.mobileNumberAreaCode || this.contactMethod.mobileNumberLineNumber || this.contactMethod.mobileNumberPrefix) {
+        phone = "1" + this.contactMethod.mobileNumberAreaCode + this.contactMethod.mobileNumberPrefix + this.contactMethod.mobileNumberLineNumber;
+        resetObject.phone = phone;
+      }
+      else
+      {
+        resetObject= { };
+      } 
+    }
+    
 
     this.userServices.reset(resetObject)
       .subscribe(
