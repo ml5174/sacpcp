@@ -30,7 +30,7 @@ import { VolunteerEventsService } from '../service/volunteer-events-service';
 
 import { ReferralSourcePipe } from '../pipe/referralsource.pipe';
 import { MomentTimeZonePipe } from '../pipe/moment-timezone.pipe';
-
+import { ContactMethod } from '../components/ContactMethod/contactMethod.component';
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
     { component: ChangePasswordPage, name: 'Change Password Page', segment: 'password-reset/confirm/:iud/:key' },
@@ -58,7 +58,8 @@ export const deepLinkConfig: DeepLinkConfig = {
     UseridPopover,
     PasswordPopover,
     ReferralSourcePipe,
-    MomentTimeZonePipe
+    MomentTimeZonePipe,
+    ContactMethod
   ],
   imports: [
     HttpModule,
