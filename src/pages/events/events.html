@@ -1,21 +1,26 @@
 <ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
 <div id="results" *ngIf="searching">Search Results</div>
+<img src="/assets/img/logo2.jpg" />
 <div *ngIf="searching && noResults">No Results Found</div>
 
 <ion-row responsive-sm wrap>
-    <!--  NG REPEAT THIS -->
     <ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents">
         <ion-card class="flex-card" style="">
             <ion-card-content>
                 <ion-list no-lines>
-                    <button ion-item (click)="eventDetailModal(e.id)">
+                    <button ion-item (click)="showDetails = !showDetails">
                         <h2>{{e.title}}</h2>
                     </button>
+                    <ion-item *ngIf="showDetails">
+                        <img src="/assets/img/logo2.jpg" />
+                        <p>{{e.description}}</p>
+                    </ion-item>
                     <ion-item>
                         <ion-icon item-left name="calendar"></ion-icon>
                         <p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p>
                         <p>{{e.start | parseTimeZone: 'h:mm A'}}}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p>
                     </ion-item>
+                    <!--location removed until clarification
                     <ion-item *ngIf="e.location_name">
                         <ion-icon item-left name="pin"></ion-icon>
                         <p>{{e.location_name}}</p>
@@ -24,10 +29,17 @@
                         <p>{{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
                         </span>
                     </ion-item>
-                    <ion-item *ngIf="e.volunteercount !=null">
-                        <p>Number of volunteers: {{e.volunteercount}}</p>
+                    -->
+                    <ion-item>
+                        <p *ngIf="e.volunteercount == null">Number of volunteers not available</p>
+                        <p *ngIf="e.volunteercount !=null">Number of volunteers: {{e.volunteercount}}</p>
+                        <p *ngIf="e.max_volunteers == null">Maximum number of volunteers not available</p>
+                        <p *ngIf="e.max_volunteers !=null">Maximum number of volunteers: {{e.volunteercount}}</p>
+                        <p>Waiting list status: fields yet to be determined</p>
                     </ion-item>
-                    <button ion-item *ngIf="!amISignedUp(e.id)" (click)="signup(e.id)" >Register</button>
+                    <!--button ion-item *ngIf="!amISignedUp(e.id)" (click)="signup(e.id)" >Register/Details</button-->
+                    <button ion-item (click)="eventDetailModal(e.id)" >Register/Details</button>
+                
                 </ion-list>
             </ion-card-content>
             <!--button padding ion-button class="readmore">Read more</button>
