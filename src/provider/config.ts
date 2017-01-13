@@ -10,6 +10,7 @@ export const UPDATE_MY_PROFILE_URI = '/api/v0.2/salarmy/myprofile/';
 export const GET_EVENTS_URI = '/api/v0.2/events/events/';
 export const GET_ADMIN_EVENTS_URI = '/api/v0.2/admin/events/events/';
 export const GET_ADMIN_EVENT_DETAILS_URI = '/api/v0.2/admin/event/expanded/';
+export const GET_EVENT_DETAILS_URI = '/api/v0.2/events/event/expanded/';
 export const GET_MYEVENTS_URI = '/api/v0.2/events/myevents/';
 export const EVENT_SIGNUP_URI = '/api/v0.2/events/myevents/';
 export const GET_EVENT_IMAGE_URI = '/api/v0.2/events/eventimages/';

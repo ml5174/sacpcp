@@ -1,3 +1,4 @@
+import { EventDetailModal } from './../pages/events/eventdetail-modal';
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
 
@@ -30,7 +31,9 @@ import { VolunteerEventsService } from '../service/volunteer-events-service';
 
 import { ReferralSourcePipe } from '../pipe/referralsource.pipe';
 import { MomentTimeZonePipe } from '../pipe/moment-timezone.pipe';
+import { TimeFromNowPipe } from '../pipe/timefromnow.pipe';
 import { ContactMethod } from '../components/ContactMethod/contactMethod.component';
+
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
     { component: ChangePasswordPage, name: 'Change Password Page', segment: 'password-reset/confirm/:iud/:key' },
@@ -59,6 +62,8 @@ export const deepLinkConfig: DeepLinkConfig = {
     PasswordPopover,
     ReferralSourcePipe,
     MomentTimeZonePipe,
+    TimeFromNowPipe,
+    EventDetailModal,
     ContactMethod
   ],
   imports: [
@@ -88,7 +93,8 @@ export const deepLinkConfig: DeepLinkConfig = {
     AboutPage,
     ContactPage,
     RegisterLoginPage,
-    RegisterIndividualProfilePage
+    RegisterIndividualProfilePage,
+    EventDetailModal
   ],
   providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService]
 })

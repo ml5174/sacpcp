@@ -4,6 +4,8 @@ import {MyEvent} from '../../model/myEvent'
 import {VolunteerEventsService} from '../../service/volunteer-events-service';
 import {EventImage} from '../../model/eventImage';
 import { UserServices } from '../../service/user';
+import { EventDetailModal } from './eventdetail-modal';
+import { ModalController, ViewController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'events.html',
@@ -26,14 +28,16 @@ export class EventPage {
   eventDetails: VolunteerEvent;
   
   constructor(private volunteerEventsService: VolunteerEventsService,
-              private userServices: UserServices) {
+              private userServices: UserServices,
+              public modalCtrl: ModalController,
+              public viewCtrl: ViewController ) {
   }
 
   ngOnInit(){
     
     if(this.userServices.isAdmin()){
       //check account for admin status
-      console.log(this.userServices.user.profile.accounttype);
+      console.log("User is admin");
       this.getAdminEvents();
       //if they have admin status load admin view of events
     }
@@ -41,6 +45,12 @@ export class EventPage {
       this.getEvents();
     }
   }
+
+  eventDetailModal(id) {
+   let eventDetailModal = this.modalCtrl.create(EventDetailModal, {"id": id});
+   eventDetailModal.present();
+  }
+
   onCancel(event: any) {
     this.search=false;
   }
@@ -83,7 +93,11 @@ export class EventPage {
       this.searching = false;
     }
   }
-  populateSearchedEvents(ev: VolunteerEvent[]){
+
+/* we are not displaying event pictures on the event page, this function will still be
+   useful in the future for displaying pictures on the event detail view */
+
+/*  populateSearchedEvents(ev: VolunteerEvent[]){
     this.events = ev;
     this.searchedEvents = this.events;
     for (let event of this.events) {
@@ -100,7 +114,8 @@ export class EventPage {
                                 }, 
                                 () => this.searchedEvents = this.events);
     }
-  }
+  } */
+
   getEvents() {
     this.volunteerEventsService
         .getVolunteerEvents().subscribe(
@@ -108,9 +123,7 @@ export class EventPage {
                                 err => {
                                     console.log(err);
                                 }, 
-                                () => {this.searchedEvents = this.events;
-                                       this.populateSearchedEvents(this.events);
-                                     });
+                                () => this.searchedEvents = this.events);
   }
   getAdminEvents() {
     this.volunteerEventsService
@@ -120,8 +133,7 @@ export class EventPage {
                                     console.log(err);
                                 }, 
                                 () => {this.searchedEvents = this.events;
-                                       this.populateSearchedEvents(this.events);
-                                     });
+                                      });
   }
   getEventsMax(maxTime) {
      this.volunteerEventsService
