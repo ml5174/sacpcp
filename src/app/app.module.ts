@@ -32,6 +32,7 @@ import { VolunteerEventsService } from '../service/volunteer-events-service';
 import { ReferralSourcePipe } from '../pipe/referralsource.pipe';
 import { MomentTimeZonePipe } from '../pipe/moment-timezone.pipe';
 import { TimeFromNowPipe } from '../pipe/timefromnow.pipe';
+import { ContactMethod } from '../components/ContactMethod/contactMethod.component';
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -62,7 +63,8 @@ export const deepLinkConfig: DeepLinkConfig = {
     ReferralSourcePipe,
     MomentTimeZonePipe,
     TimeFromNowPipe,
-    EventDetailModal
+    EventDetailModal,
+    ContactMethod
   ],
   imports: [
     HttpModule,
