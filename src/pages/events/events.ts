@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {VolunteerEvent} from '../../lib/model/volunteer-event';
-import {MyEvent} from '../../lib/model/myEvent'
 import {VolunteerEventsService} from '../../lib/service/volunteer-events-service';
 import {EventImage} from '../../lib/model/eventImage';
 import { UserServices } from '../../lib/service/user';
@@ -24,9 +23,9 @@ export class EventPage {
   values: Array<String>;
   searching: Boolean = false;
   noResults: Boolean = false;
-  signedUpEvent: MyEvent;
   eventDetails: VolunteerEvent;
-  
+  showDetails: Boolean = false;
+
   constructor(private volunteerEventsService: VolunteerEventsService,
               private userServices: UserServices,
               public modalCtrl: ModalController,
@@ -47,7 +46,11 @@ export class EventPage {
   }
 
   eventDetailModal(id) {
-   let eventDetailModal = this.modalCtrl.create(EventDetailModal, {"id": id});
+
+   let eventDetailModal = this.modalCtrl.create(EventDetailModal, {
+     "id": id,
+     "registered" : this.amISignedUp(id)
+   });
    eventDetailModal.present();
   }
 
@@ -151,16 +154,7 @@ export class EventPage {
                                      console.log(err);
                                  });
   }
-  signup(id){
-    this.volunteerEventsService
-         .eventRegister(id).subscribe(
-                                event => this.signedUpEvent = event, 
-                                 err => {
-                                     console.log(err);
-                                 }, ()=> {
-                                     this.volunteerEventsService.loadMyEvents()
-                                 });
-  }
+
   amISignedUp(id){
     //we return true if there is no user logged in, this prevents the ability
     //to sign up for an event 

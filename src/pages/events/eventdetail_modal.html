@@ -7,7 +7,14 @@
       </button>
     </ion-list-header>
     <ion-item>
-      Event Status: {{eventDetail.status}}
+      <ion-icon name="add" item-right (click)="showStatus=!showStatus"></ion-icon>
+      <p>Event Status: {{eventDetail.status}}</p>
+    </ion-item>
+    <ion-item *ngIf="showStatus">
+      <p>Status notes go here</p>
+    </ion-item>
+    <ion-item *ngIf="signedUp">
+      Registration status: Registered
     </ion-item>
     <ion-item>
       <ion-icon name="calendar" item-left></ion-icon>
@@ -29,10 +36,24 @@
     </ion-item>
     <ion-item>
       <p>{{eventDetail.description}}</p>
+      <span *ngIf="eventDetail.eventimages.length !=0">
+       <img src="eventDetail.eventimages[0]" />
+       </span>
+       <p *ngIf="eventDetail.eventimages.length ==0">There are no images for this event</p>
+      <p>There is no information on service areas</p>
+      <p>Gender restrictions: {{eventDetail.gender_restriction}}</p>
+      <p>Under 16 allowed: {{eventDetail.age_restriction}}</p>
+      <p>Volunteer type restrictions: {{eventDetail.volunteer_restriction}}</p>
+      <p>Same day sign in allowed: {{eventDetail.same_day_registration}}</p>
+      <p>Event notification: {{eventDetail.notification_option}}</p>
+      <p>There is no information on special instructions</p>
     </ion-item>
-    <ion-item *ngIf="eventDetail.volunteercount !=null">
-      <p>Number of volunteers: {{eventDetail.volunteercount}}</p>
+    <ion-item>
+      <p *ngIf="eventDetail.contacts.length !=0">{{eventDetail.contacts[0]}}</p>
+      <p *ngIf="eventDetail.contacts.length == 0">No contacts for this event</p>
     </ion-item>
+    <button ion-item *ngIf="!signedUp" (click)="signup(eventDetail.id)">Register</button>
+
   </ion-list>
 
 </ion-content>
