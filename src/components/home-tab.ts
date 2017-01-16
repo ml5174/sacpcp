@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'home-tab',
-  templateUrl: '/pages/home.html'
+  templateUrl: window['djangoserver']+'/pages/home.html'
 })
 
-export class HomeTab {
+export class HomeTab { 
 
   program: string = "selection";
   
