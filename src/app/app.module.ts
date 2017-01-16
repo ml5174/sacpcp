@@ -19,20 +19,20 @@ import { EventPage } from '../pages/events/events';
 import { MyEventsPage } from '../pages/myevents/myevents';
 import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
-import { AppHeaderComponent } from '../components/app-header.component';
-import { HomeTab } from '../components/home-tab';
+import { AppHeaderComponent } from '../lib/components/app-header.component';
+import { HomeTab } from '../lib/components/home-tab';
 import { Storage } from '@ionic/storage';
 
 import { UseridPopover } from '../popover/userid';
 import { PasswordPopover } from '../popover/password';
 
-import { UserServices } from '../service/user';
-import { VolunteerEventsService } from '../service/volunteer-events-service';
+import { UserServices } from '../lib/service/user';
+import { VolunteerEventsService } from '../lib/service/volunteer-events-service';
 
-import { ReferralSourcePipe } from '../pipe/referralsource.pipe';
-import { MomentTimeZonePipe } from '../pipe/moment-timezone.pipe';
-import { TimeFromNowPipe } from '../pipe/timefromnow.pipe';
-import { ContactMethod } from '../components/ContactMethod/contactMethod.component';
+import { ReferralSourcePipe } from '../lib/pipe/referralsource.pipe';
+import { MomentTimeZonePipe } from '../lib/pipe/moment-timezone.pipe';
+import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
+import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [

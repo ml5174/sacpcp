@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
-import { UserServices } from '../../service/user';
-import { EventDetail } from '../../model/event-detail';
-import { VolunteerEventsService } from '../../service/volunteer-events-service';
+import { UserServices } from '../../lib/service/user';
+import { EventDetail } from '../../lib/model/event-detail';
+import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 
 @Component({
     templateUrl: 'eventdetail_modal.html'

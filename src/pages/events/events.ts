@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {VolunteerEvent} from '../../model/volunteer-event';
-import {MyEvent} from '../../model/myEvent'
-import {VolunteerEventsService} from '../../service/volunteer-events-service';
-import {EventImage} from '../../model/eventImage';
-import { UserServices } from '../../service/user';
+import {VolunteerEvent} from '../../lib/model/volunteer-event';
+import {MyEvent} from '../../lib/model/myEvent'
+import {VolunteerEventsService} from '../../lib/service/volunteer-events-service';
+import {EventImage} from '../../lib/model/eventImage';
+import { UserServices } from '../../lib/service/user';
 import { EventDetailModal } from './eventdetail-modal';
 import { ModalController, ViewController } from 'ionic-angular';
 

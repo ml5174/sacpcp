@@ -1,12 +1,12 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { UserServices } from '../../service/user';
+import { UserServices } from '../../lib/service/user';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { RegisterLoginPage } from '../register-login/register-login';
 import { ForgotPage } from '../forgot/forgot';
 import { HomePage } from '../home/home';
 import { TranslateService } from "ng2-translate/ng2-translate";
-import { STRINGS } from '../../provider/config';
+import { STRINGS } from '../../lib/provider/config';
 import { UseridPopover } from '../../popover/userid';
 import { PasswordPopover } from '../../popover/password';
 

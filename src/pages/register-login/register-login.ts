@@ -1,7 +1,7 @@
 import { Component , ViewChild} from '@angular/core'
-import { UserServices } from '../../service/user';
+import { UserServices } from '../../lib/service/user';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
-import { STRINGS } from '../../provider/config';
+import { STRINGS } from '../../lib/provider/config';
 import { TermsPage } from '../terms/terms';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email';
 import { ConfirmSMSPage } from '../confirm-sms/confirm-sms';
@@ -11,7 +11,7 @@ import { RegisterIndividualProfilePage } from '../register-individual-profile/re
 import { PasswordPopover } from '../../popover/password';
 import { UseridPopover } from '../../popover/userid';
 import { Storage } from '@ionic/storage';
-import { ContactMethod } from '../../components/ContactMethod/contactMethod.component';
+import { ContactMethod } from '../../lib/components/ContactMethod/contactMethod.component';
 @Component({
   templateUrl: 'register-login.html'
 })

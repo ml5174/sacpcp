@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {VolunteerEventsService} from '../../service/volunteer-events-service';
+import {VolunteerEventsService} from '../../lib/service/volunteer-events-service';
 import {HomePage} from '../home/home'
 @Component({
   templateUrl: 'myevents.html',
