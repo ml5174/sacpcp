@@ -4,16 +4,16 @@ import { Platform, MenuController, Nav, Select } from 'ionic-angular';
 
 import { StatusBar, Keyboard } from 'ionic-native';
 import { Storage } from '@ionic/storage';
-import { UserServices } from '../service/user';
+import { UserServices } from '../lib/service/user';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
-import { UserProfile } from '../model/user-profile';
+import { UserProfile } from '../lib/model/user-profile';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
-import { VolunteerEventsService } from '../service/volunteer-events-service'
+import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 
 @Component({
   templateUrl: 'app.html',

@@ -1,9 +1,9 @@
 import {Component} from '@angular/core'
 import {ViewChild} from '@angular/core'
 import {Observable} from 'rxjs/Rx';
-import {UserServices} from '../../service/user';
+import {UserServices} from '../../lib/service/user';
 import {NavController, Nav} from 'ionic-angular';
-import {STRINGS} from '../../provider/config';
+import {STRINGS} from '../../lib/provider/config';
 import {TranslateService} from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
 import { ChangePasswordPage } from '../change-password/change-password';

@@ -1,8 +1,8 @@
 import {Component} from '@angular/core'
 import {NavController, Nav} from 'ionic-angular';
-import {STRINGS} from '../../provider/config';
-import { UserServices } from '../../service/user';
-import {TranslateService} from "ng2-translate/ng2-translate";
+import {STRINGS} from '../../lib/provider/config';
+import { UserServices } from '../../lib/service/user';
+import { TranslateService } from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
 
 @Component({
