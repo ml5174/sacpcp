@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 import {NavController, Nav, NavParams} from 'ionic-angular';
-import {VolunteerEventsService} from '../../service/volunteer-events-service';
+import {VolunteerEventsService} from '../../lib/service/volunteer-events-service';
 import {LoginPage} from '../login/login';
 import {TranslateService} from 'ng2-translate/ng2-translate';
-import { UserServices } from '../../service/user';
+import { UserServices } from '../../lib/service/user';
 
 @Component({
   templateUrl: 'home.html'
