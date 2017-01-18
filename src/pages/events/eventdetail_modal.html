@@ -17,6 +17,12 @@
       Registration status: Registered
     </ion-item>
     <ion-item>
+      <p *ngIf="eventDetail.volunteercount == null">Number of volunteers not available</p>
+      <p *ngIf="eventDetail.volunteercount !=null">Number of volunteers: {{eventDetail.volunteercount}}</p>
+      <p *ngIf="eventDetail.max_volunteers == null">Maximum number of volunteers not available</p>
+      <p *ngIf="eventDetail.max_volunteers !=null">Maximum number of volunteers: {{eventDetail.max_volunteers}}</p>
+    </ion-item>
+    <ion-item>
       <ion-icon name="calendar" item-left></ion-icon>
       <p>{{eventDetail.start | parseTimeZone:"MMM DD"}} - {{eventDetail.end | parseTimeZone:"MMM DD"}} {{eventDetail.end | parseTimeZone:"YYYY"}}</p>
       <p>{{eventDetail.start | parseTimeZone: 'h:mm A'}}}}-{{eventDetail.end | parseTimeZone: 'h:mm A'}} {{eventDetail.start
@@ -39,8 +45,7 @@
       <span *ngIf="eventDetail.eventimages.length !=0">
        <img src="eventDetail.eventimages[0]" />
        </span>
-       <p *ngIf="eventDetail.eventimages.length ==0">There are no images for this event</p>
-      <p>There is no information on service areas</p>
+      <p *ngIf="eventDetail.eventimages.length ==0">There are no images for this event</p>
       <p>Gender restrictions: {{eventDetail.gender_restriction}}</p>
       <p>Under 16 allowed: {{eventDetail.age_restriction}}</p>
       <p>Volunteer type restrictions: {{eventDetail.volunteer_restriction}}</p>
