@@ -25,10 +25,22 @@
 			<ion-icon name="alert" item-left class="error"></ion-icon>
 			<p class="error">{{error | translate}}</p>
 		</ion-item>
-
-
+      
+	<!--
+			<ion-item no-lines [hidden]="pcmethod!='sms'">
+				<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
+				<ion-label stacked>{{"Mobile Number" | translate }}</ion-label>
+			</ion-item>
+			<ion-item no-lines [hidden]="pcmethod!='email'">
+				<ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
+				<ion-label stacked>{{"Email" | translate }}</ion-label>
+				<ion-input type="string" placeholder="" class="" [(ngModel)]="email" required></ion-input>
+			</ion-item>
+			-->
 		<ion-list>
-
+                    <!-- Move the email, Phone contact details to a common component - ViewChild(ContactMethod) -->
+		<contactMethod name="ep" [email]="pcmethod"></contactMethod>
+<!--
 			<ion-list-header>
 				Please select contact method.
 			</ion-list-header>
@@ -46,10 +58,7 @@
 				</section>
 			</ion-item>
 
-			<ion-item no-lines [hidden]="pcmethod!='sms'">
-				<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
-				<ion-label stacked>{{"Mobile Number" | translate }}</ion-label>
-			</ion-item>
+
 
 			<ion-grid class="phone-number" [hidden]="pcmethod!='sms'">
 				<ion-row>
@@ -74,11 +83,7 @@
 				</ion-row>
 			</ion-grid>
 
-			<ion-item no-lines [hidden]="pcmethod!='email'">
-				<ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
-				<ion-label stacked>{{"Email" | translate }}</ion-label>
-				<ion-input type="string" placeholder="" class="" [(ngModel)]="email" required></ion-input>
-			</ion-item>
+-->
 
 		</ion-list>
 
