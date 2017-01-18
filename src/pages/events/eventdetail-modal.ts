@@ -11,7 +11,9 @@ import { VolunteerEventsService } from '../../lib/service/volunteer-events-servi
 export class EventDetailModal {
     eventId: String;
     eventDetail: EventDetail;
-
+    signedUp: Boolean = false;
+    showStatus: Boolean = false;
+    
     constructor(params: NavParams,
         private volunteerEventsService: VolunteerEventsService,
         private userServices: UserServices,
@@ -19,7 +21,7 @@ export class EventDetailModal {
 
         this.viewCtrl = viewCtrl;
         this.eventId = params.get('id');
-
+        this.signedUp = params.get('registered');
     }
 
     ngOnInit() {
@@ -55,6 +57,17 @@ export class EventDetailModal {
                                  () => console.log(this.eventDetail[0]));
     }
 
+  signup(id){
+    this.volunteerEventsService
+         .eventRegister(id).subscribe(
+                                event => console.log("signed up for event "  + id), 
+                                 err => {
+                                     console.log(err);
+                                 }, ()=> {
+                                     this.signedUp = true;
+                                     this.volunteerEventsService.loadMyEvents()
+                                 });
+  }
     dismiss() {
         this.viewCtrl.dismiss();
     }
