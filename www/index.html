@@ -31,8 +31,9 @@
 
 
   <script>
-
-    window['djangoserver']='__django_server_url__';
+    if (document.location.hostname === 'localhost')
+      window['djangoserver'] = 'http://localhost:8100'
+    else window['djangoserver']='__django_server_url__';
       
  </script>
 

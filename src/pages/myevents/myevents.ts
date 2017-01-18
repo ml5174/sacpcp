@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {VolunteerEventsService} from '../../service/volunteer-events-service';
+import {VolunteerEventsService} from '../../lib/service/volunteer-events-service';
 import {HomePage} from '../home/home'
 @Component({
   templateUrl: 'myevents.html',
@@ -21,7 +21,6 @@ export class MyEventsPage{
                                      console.log(err);
                                  }, ()=> {
                                      this.volunteerEventsService.loadMyEvents();
-                                     console.log(this.volunteerEventsService.myEvents.length);
                                      if(this.volunteerEventsService.myEvents.length==1){
                                        this.home.selectedTab="events";
                                      }

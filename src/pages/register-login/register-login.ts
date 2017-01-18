@@ -1,7 +1,7 @@
-import { Component } from '@angular/core'
-import { UserServices } from '../../service/user';
+import { Component , ViewChild} from '@angular/core'
+import { UserServices } from '../../lib/service/user';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
-import { STRINGS } from '../../provider/config';
+import { STRINGS } from '../../lib/provider/config';
 import { TermsPage } from '../terms/terms';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email';
 import { ConfirmSMSPage } from '../confirm-sms/confirm-sms';
@@ -11,7 +11,7 @@ import { RegisterIndividualProfilePage } from '../register-individual-profile/re
 import { PasswordPopover } from '../../popover/password';
 import { UseridPopover } from '../../popover/userid';
 import { Storage } from '@ionic/storage';
-
+import { ContactMethod } from '../../lib/components/ContactMethod/contactMethod.component';
 @Component({
   templateUrl: 'register-login.html'
 })
@@ -32,11 +32,17 @@ export class RegisterLoginPage {
   private key: string = '';
   private val: string = '';
   private errors: Array<string> = [];
-  private pcmethod: string = 'email'
-  private pcvalue: string = '';
-  private mobileNumberAreaCode = '';
-  private mobileNumberPrefix = '';
-  private mobileNumberLineNumber = '';
+  /* Move the email, Phone contact details to a common component -
+     ViewChild(ContactMethod)
+     This can be reused at multiple pages.
+   */
+  //public pcmethod: string = 'email'
+  //public pcvalue: string = '';
+  //public mobileNumberAreaCode = '';
+  //public mobileNumberPrefix = '';
+ // public mobileNumberLineNumber = '';
+  @ViewChild(ContactMethod)
+  public contactMethod: ContactMethod;
 
   private terms: boolean = false;
   private remember: boolean = true;
@@ -73,15 +79,18 @@ export class RegisterLoginPage {
       tandc: 1
     }
 
-    if (this.pcmethod === 'email') {
-      this.email = this.pcvalue;
+    if (this.contactMethod.pcmethod === 'email') {
+      this.email = this.contactMethod.pcvalue;
       register.email = this.email;
     }
-    else {
-      this.sms = '1'+this.mobileNumberAreaCode+this.mobileNumberPrefix+this.mobileNumberLineNumber;
+    else 
+    {
+      this.sms = '1'+this.contactMethod.mobileNumberAreaCode +
+      this.contactMethod.mobileNumberPrefix+
+      this.contactMethod.mobileNumberLineNumber;    
       register.phone = this.sms;
     }
-
+   
     if (!register.email) delete register.email;
     if (!register.phone) delete register.phone;
     
@@ -134,6 +143,7 @@ export class RegisterLoginPage {
           if (key === 'password1') this.password1error = true;
           if (key === 'password2') this.password2error = true;
           if (key === 'email') this.emailerror = true;
+          if (key === 'sms') this.smserror = true;
         }
       }
     }
