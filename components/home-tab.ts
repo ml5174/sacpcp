@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'home-tab',
-  templateUrl: window['djangoserver']+'/pages/home.html'
+  templateUrl: 'https://www.volunteers.tsadfw.org/pages/home.html'
 })
 
 export class HomeTab { 
