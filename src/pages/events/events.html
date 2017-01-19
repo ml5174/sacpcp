@@ -5,7 +5,7 @@
 
 <ion-row responsive-sm wrap>
     <ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents">
-        <ion-card class="flex-card" style="">
+        <ion-card *ngIf="e.visibility==0" class="flex-card" style="">
             <ion-card-content>
                 <ion-list no-lines>
                     <button ion-item (click)="showDetails = !showDetails">
