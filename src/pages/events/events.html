@@ -18,7 +18,7 @@
                     <ion-item>
                         <ion-icon item-left name="calendar"></ion-icon>
                         <p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p>
-                        <p>{{e.start | parseTimeZone: 'h:mm A'}}}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p>
+                        <p>{{e.start | parseTimeZone: 'h:mm A'}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p>
                     </ion-item>
                     <ion-item *ngIf="e.location_name">
                         <ion-icon item-left name="pin"></ion-icon>
