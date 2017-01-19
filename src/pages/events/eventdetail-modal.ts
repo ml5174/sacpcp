@@ -3,6 +3,7 @@ import { NavParams, ViewController } from 'ionic-angular';
 import { UserServices } from '../../lib/service/user';
 import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
+import { AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION } from './../../lib/provider/eventConstants';
 
 @Component({
     templateUrl: 'eventdetail_modal.html'
@@ -13,6 +14,12 @@ export class EventDetailModal {
     eventDetail: EventDetail;
     signedUp: Boolean = false;
     showStatus: Boolean = false;
+    showDetails: Boolean = false;
+    gender = GENDER_RESTRICTION;
+    vRestriction = VOLUNTEER_RESTRICTION;
+    eStatus = EVENT_STATUS;
+    sdRestriction = SAMEDAY_RESTRICTION;
+    aRestriction = AGE_RESTRICTION;
     
     constructor(params: NavParams,
         private volunteerEventsService: VolunteerEventsService,
