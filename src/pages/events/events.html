@@ -5,7 +5,7 @@
 
 <ion-row responsive-sm wrap>
     <ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents">
-        <ion-card class="flex-card" style="">
+        <ion-card *ngIf="e.visibility==0" class="flex-card" style="">
             <ion-card-content>
                 <ion-list no-lines>
                     <button ion-item (click)="showDetails = !showDetails">
@@ -20,22 +20,16 @@
                         <p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p>
                         <p>{{e.start | parseTimeZone: 'h:mm A'}}}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p>
                     </ion-item>
-                    <!--location removed until clarification
                     <ion-item *ngIf="e.location_name">
                         <ion-icon item-left name="pin"></ion-icon>
                         <p>{{e.location_name}}</p>
                         <span *ngIf="e.location_address1">
                         <p>{{e.location_address1}}</p>
+                        <span *ngIf="e.location_address2">
+                        <p>{{e.location_address2}}</p>
+                        </span>
                         <p>{{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
                         </span>
-                    </ion-item>
-                    -->
-                    <ion-item>
-                        <p *ngIf="e.volunteercount == null">Number of volunteers not available</p>
-                        <p *ngIf="e.volunteercount !=null">Number of volunteers: {{e.volunteercount}}</p>
-                        <p *ngIf="e.max_volunteers == null">Maximum number of volunteers not available</p>
-                        <p *ngIf="e.max_volunteers !=null">Maximum number of volunteers: {{e.volunteercount}}</p>
-                        <p>Waiting list status: fields yet to be determined</p>
                     </ion-item>
                     <!--button ion-item *ngIf="!amISignedUp(e.id)" (click)="signup(e.id)" >Register/Details</button-->
                     <button ion-item (click)="eventDetailModal(e.id)" >Register/Details</button>

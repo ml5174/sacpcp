@@ -74,16 +74,20 @@ export class MyApp {
         console.log('username: ' + value);
         if (value) us.user.name = value;
       });
+
+    console.log("before ready!"); 
     this.platform.ready().then(() => {
+    console.log("after ready!");
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
+      StatusBar.hide();
       Keyboard.disableScroll(true);
 
     });
   }
 
   openPage(page, tab) {
+    console.log("open page!");
     let currentPage = this.nav.getActive().component;
 
     // close the menu when clicking a link from the menu

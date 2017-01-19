@@ -26,17 +26,25 @@
 
   <link href="build/main.css" rel="stylesheet">
   <script src="assets/js/shims_for_IE.js"></script>
-</head>
 
 
 
 
   <script>
-
-    window['djangoserver']='http://52.55.253.107:8000';
+    window['wwwserver'] = '';
+    if (document.location.hostname === 'localhost') {
+      window['djangoserver'] = 'https://api.testing-volunteers.tsadfw.org';
+    }
+    else if (document.location.hostname === '') {
+      window['djangoserver'] = 'https://api.volunteers.tsadfw.org';
+      window['wwwserver'] = 'https://www.volunteers.tsadfw.org';
+    }
+    else window['djangoserver']='__django_server_url__';
       
+
  </script>
 
+</head>
 <body>
 
   <!-- Ionic's root component and where the app will load -->
@@ -50,5 +58,6 @@
 
   <!-- The bundle js is generated during the build process -->
   <script src="build/main.js"></script>
+
 </body>
 </html>
