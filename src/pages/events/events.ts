@@ -24,7 +24,7 @@ export class EventPage {
   searching: Boolean = false;
   noResults: Boolean = false;
   eventDetails: VolunteerEvent;
-  showDetails: Boolean = false;
+  showDetails: Array<Boolean> = [];
 
   constructor(private volunteerEventsService: VolunteerEventsService,
               private userServices: UserServices,

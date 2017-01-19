@@ -4,14 +4,14 @@
 <div *ngIf="searching && noResults">No Results Found</div>
 
 <ion-row responsive-sm wrap>
-    <ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents">
+    <ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents; let i=index">
         <ion-card *ngIf="e.visibility==0" class="flex-card" style="">
             <ion-card-content>
                 <ion-list no-lines>
-                    <button ion-item (click)="showDetails = !showDetails">
+                    <button ion-item (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">
                         <h2>{{e.title}}</h2>
                     </button>
-                    <ion-item *ngIf="showDetails">
+                    <ion-item *ngIf="showDetails[i]">
                         <img src="/assets/img/logo2.jpg" />
                         <p>{{e.description}}</p>
                     </ion-item>
@@ -31,8 +31,10 @@
                         <p>{{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
                         </span>
                     </ion-item>
-                    <!--button ion-item *ngIf="!amISignedUp(e.id)" (click)="signup(e.id)" >Register/Details</button-->
-                    <button ion-item (click)="eventDetailModal(e.id)" >Register/Details</button>
+                    <span *ngIf="userServices.user.id">
+                    <button ion-item *ngIf="!amISignedUp(e.id)" (click)="eventDetailModal(e.id)" >Register/Details</button>
+                    <button ion-item *ngIf="amISignedUp(e.id)" (click)="eventDetailModal(e.id)" >Details</button>
+                    </span>
                 
                 </ion-list>
             </ion-card-content>

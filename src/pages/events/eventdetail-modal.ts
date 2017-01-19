@@ -20,7 +20,8 @@ export class EventDetailModal {
     eStatus = EVENT_STATUS;
     sdRestriction = SAMEDAY_RESTRICTION;
     aRestriction = AGE_RESTRICTION;
-    
+    deregisterResult: any;
+
     constructor(params: NavParams,
         private volunteerEventsService: VolunteerEventsService,
         private userServices: UserServices,
@@ -33,6 +34,10 @@ export class EventDetailModal {
 
     ngOnInit() {
 
+        this.loadDetails();
+
+    }
+    loadDetails() {
         if (this.userServices.isAdmin()) {
             //check account for admin status
             console.log("User is admin");
@@ -43,38 +48,48 @@ export class EventDetailModal {
             this.getEventDetails(this.eventId);
         }
     }
-
-    getAdminEventDetails(id){
-         this.volunteerEventsService
-         .getAdminEventDetails(id).subscribe(
-                                event => this.eventDetail = event, 
-                                 err => {
-                                     console.log(err);
-                                 },
-                                 () => console.log(this.eventDetail));
+    getAdminEventDetails(id) {
+        this.volunteerEventsService
+            .getAdminEventDetails(id).subscribe(
+            event => this.eventDetail = event,
+            err => {
+                console.log(err);
+            });
     }
 
-    getEventDetails(id){
-         this.volunteerEventsService
-         .getVolunteerEventDetails(id).subscribe(
-                                event => this.eventDetail = event, 
-                                 err => {
-                                     console.log(err);
-                                 },
-                                 () => console.log(this.eventDetail[0]));
+    getEventDetails(id) {
+        this.volunteerEventsService
+            .getVolunteerEventDetails(id).subscribe(
+            event => this.eventDetail = event,
+            err => {
+                console.log(err);
+            });
     }
 
-  signup(id){
-    this.volunteerEventsService
-         .eventRegister(id).subscribe(
-                                event => console.log("signed up for event "  + id), 
-                                 err => {
-                                     console.log(err);
-                                 }, ()=> {
-                                     this.signedUp = true;
-                                     this.volunteerEventsService.loadMyEvents()
-                                 });
-  }
+    signup(id) {
+        this.volunteerEventsService
+            .eventRegister(id).subscribe(
+            event => console.log("signed up for event " + id),
+            err => {
+                console.log(err);
+            }, () => {
+                this.signedUp = true;
+                this.volunteerEventsService.loadMyEvents();
+                this.loadDetails();
+            });
+    }
+    deRegister(id) {
+        this.volunteerEventsService
+            .eventDeregister(id).subscribe(
+            result => this.deregisterResult = result,
+            err => {
+                console.log(err);
+            }, () => {
+                this.signedUp = false;
+                this.volunteerEventsService.loadMyEvents();
+                this.loadDetails();
+            });
+    }
     dismiss() {
         this.viewCtrl.dismiss();
     }

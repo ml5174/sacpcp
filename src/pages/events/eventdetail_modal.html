@@ -61,6 +61,7 @@
       <p *ngIf="eventDetail.contacts.length == 0">No contacts for this event</p>
     </ion-item>
     <button ion-item *ngIf="!signedUp" (click)="signup(eventDetail.id)">Register</button>
+    <button ion-item *ngIf="signedUp" (click)="deRegister(eventDetail.id)">Deregister</button>
 
   </ion-list>
 
