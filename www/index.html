@@ -32,9 +32,12 @@
 
   <script>
     if (document.location.hostname === 'localhost')
-      window['djangoserver'] = 'http://localhost:8100'
+      window['djangoserver'] = 'https://api.testing-volunteers.tsadfw.org';
+    else if (document.location.hostname === '')
+      window['djangoserver'] = 'https://api.volunteers.tsadfw.org';
     else window['djangoserver']='__django_server_url__';
       
+
  </script>
 
 </head>
