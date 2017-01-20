@@ -5,38 +5,43 @@
 
 <ion-row responsive-sm wrap>
     <ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents; let i=index">
-        <ion-card *ngIf="e.visibility==0" class="flex-card" style="">
+        <ion-card *ngIf="e.visibility==0" class="flex-card">
             <ion-card-content>
-                <ion-list no-lines>
-                    <button ion-item (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">
+                <ion-list-header (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">
+                    <h2>{{e.title}}</h2>
+                    <ion-icon *ngIf="!showDetails[i]" primary item-right name="ios-add-circle-outline"></ion-icon>
+                    <ion-icon *ngIf="showDetails[i]" primary item-right name="ios-remove-circle-outline"></ion-icon>
+                </ion-list-header>
+                    <ion-list no-lines>
+                        <!--button ion-item (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">
                         <h2>{{e.title}}</h2>
-                    </button>
-                    <ion-item *ngIf="showDetails[i]">
-                        <img src="/assets/img/logo2.jpg" />
-                        <p>{{e.description}}</p>
-                    </ion-item>
-                    <ion-item>
-                        <ion-icon item-left name="calendar"></ion-icon>
-                        <p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p>
-                        <p>{{e.start | parseTimeZone: 'h:mm A'}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p>
-                    </ion-item>
-                    <ion-item *ngIf="e.location_name">
-                        <ion-icon item-left name="pin"></ion-icon>
-                        <p>{{e.location_name}}</p>
-                        <span *ngIf="e.location_address1">
+                    </button-->
+                        <ion-item *ngIf="showDetails[i]">
+                            <img src="/assets/img/logo2.jpg" />
+                            <p>{{e.description}}</p>
+                        </ion-item>
+                        <ion-item>
+                            <ion-icon item-left name="calendar"></ion-icon>
+                            <p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p>
+                            <p>{{e.start | parseTimeZone: 'h:mm A'}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p>
+                        </ion-item>
+                        <ion-item *ngIf="e.location_name">
+                            <ion-icon item-left name="pin"></ion-icon>
+                            <p>{{e.location_name}}</p>
+                            <span *ngIf="e.location_address1">
                         <p>{{e.location_address1}}</p>
                         <span *ngIf="e.location_address2">
                         <p>{{e.location_address2}}</p>
                         </span>
-                        <p>{{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
-                        </span>
-                    </ion-item>
-                    <span *ngIf="userServices.user.id">
-                    <button ion-item *ngIf="!amISignedUp(e.id)" (click)="eventDetailModal(e.id)" >Register/Details</button>
-                    <button ion-item *ngIf="amISignedUp(e.id)" (click)="eventDetailModal(e.id)" >Details</button>
+                            <p>{{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
+                            </span>
+                        </ion-item>
+                        <span *ngIf="userServices.user.id">
+                    <button ion-button small color="primary" *ngIf="!amISignedUp(e.id)" (click)="eventDetailModal(e.id)" >Register/Details</button>
+                    <button ion-button small color="primary" *ngIf="amISignedUp(e.id)" (click)="eventDetailModal(e.id)" >Details</button>
                     </span>
-                
-                </ion-list>
+
+                    </ion-list>
             </ion-card-content>
             <!--button padding ion-button class="readmore">Read more</button>
             <ion-row no-padding>
