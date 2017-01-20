@@ -13,21 +13,21 @@ import { ModalController, ViewController } from 'ionic-angular';
 
 export class EventPage {
 
-  search: boolean = false;
-  events: Array<VolunteerEvent> = [];
-  searchedEvents: Array<VolunteerEvent> = [];
-  maxEvents: Array<VolunteerEvent> = [];
-  minEvents: Array<VolunteerEvent> = [];
-  image: Array<EventImage>;
-  val: string ="";
-  values: Array<String>;
-  searching: Boolean = false;
-  noResults: Boolean = false;
-  eventDetails: VolunteerEvent;
-  showDetails: Array<Boolean> = [];
+  public search: boolean = false;
+  public events: Array<VolunteerEvent> = [];
+  public searchedEvents: Array<VolunteerEvent> = [];
+  public maxEvents: Array<VolunteerEvent> = [];
+  public minEvents: Array<VolunteerEvent> = [];
+  public image: Array<EventImage>;
+  public val: string ="";
+  public values: Array<String>;
+  public searching: Boolean = false;
+  public noResults: Boolean = false;
+  public eventDetails: VolunteerEvent;
+  public showDetails: Array<Boolean> = [];
 
-  constructor(private volunteerEventsService: VolunteerEventsService,
-              private userServices: UserServices,
+  constructor(public volunteerEventsService: VolunteerEventsService,
+              public userServices: UserServices,
               public modalCtrl: ModalController,
               public viewCtrl: ViewController ) {
   }

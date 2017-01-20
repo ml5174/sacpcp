@@ -16,22 +16,22 @@ import { ContactMethod } from '../../lib/components/ContactMethod/contactMethod.
   templateUrl: 'register-login.html'
 })
 export class RegisterLoginPage {
-  private username: string = '';
-  private password1: string = '';
-  private showpassword: string = 'password';
-  private password2: string = '';
-  private email: string = '';
-  private sms: string = '';
+  public username: string = '';
+  public password1: string = '';
+  public showpassword: string = 'password';
+  public password2: string = '';
+  public email: string = '';
+  public sms: string = '';
 
-  private usernameerror: boolean = false;
-  private password1error: boolean = false;
-  private password2error: boolean = false;
-  private emailerror: boolean = false;
-  private smserror: boolean = false;
+  public usernameerror: boolean = false;
+  public password1error: boolean = false;
+  public password2error: boolean = false;
+  public emailerror: boolean = false;
+  public smserror: boolean = false;
 
-  private key: string = '';
-  private val: string = '';
-  private errors: Array<string> = [];
+  public key: string = '';
+  public val: string = '';
+  public errors: Array<string> = [];
   /* Move the email, Phone contact details to a common component -
      ViewChild(ContactMethod)
      This can be reused at multiple pages.
@@ -44,14 +44,14 @@ export class RegisterLoginPage {
   @ViewChild(ContactMethod)
   public contactMethod: ContactMethod;
 
-  private terms: boolean = false;
-  private remember: boolean = true;
-  private storage: Storage = new Storage();
+  public terms: boolean = false;
+  public remember: boolean = true;
+  public storage: Storage = new Storage();
 
-  constructor(private nav: NavController,
-    private userServices: UserServices,
-    private translate: TranslateService,
-    private popoverCtrl: PopoverController
+  constructor(public nav: NavController,
+    public userServices: UserServices,
+    public translate: TranslateService,
+    public popoverCtrl: PopoverController
   ) { }
 
   register() {

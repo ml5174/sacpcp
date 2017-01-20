@@ -6,7 +6,7 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'confirm-email.html'
 })
 export class ConfirmEmailPage {
-  constructor(private nav: NavController,
-    private userServices: UserServices) {
+  constructor(public nav: NavController,
+    public userServices: UserServices) {
   }
 }

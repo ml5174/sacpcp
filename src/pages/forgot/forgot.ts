@@ -12,34 +12,34 @@ import { ContactMethod } from '../../lib/components/ContactMethod/contactMethod.
   templateUrl: 'forgot.html'
 })
 export class ForgotPage {
-  private username: string = '';
-  private password1: string = '';
-  private password2: string = '';
-  private pcvalue: string = '';
+  public username: string = '';
+  public password1: string = '';
+  public password2: string = '';
+  public pcvalue: string = '';
 
-  private email: string = '';
-  private mobileNumberAreaCode = "";
-  private mobileNumberPrefix = "";
-  private mobileNumberLineNumber = "";
+  public email: string = '';
+  public mobileNumberAreaCode = "";
+  public mobileNumberPrefix = "";
+  public mobileNumberLineNumber = "";
 
-  private usernameerror: boolean = false;
-  private password1error: boolean = false;
-  private password2error: boolean = false;
-  private emailerror: boolean = false;
-  private smserror: boolean = false;
+  public usernameerror: boolean = false;
+  public password1error: boolean = false;
+  public password2error: boolean = false;
+  public emailerror: boolean = false;
+  public smserror: boolean = false;
 
 
-  private key: string = '';
-  private val: string = '';
-  private errors: Array<string> = [];
-  private pcmethod: string = 'email'
+  public key: string = '';
+  public val: string = '';
+  public errors: Array<string> = [];
+  public pcmethod: string = 'email'
 
   @ViewChild(ContactMethod)
   public contactMethod: ContactMethod;
 
-  constructor(private nav: NavController,
-    private userServices: UserServices,
-              private translate: TranslateService) {
+  constructor(public nav: NavController,
+              public userServices: UserServices,
+              public translate: TranslateService) {
 
   }
 
