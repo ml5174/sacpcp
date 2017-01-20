@@ -2,19 +2,12 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'home-tab',
-  templateUrl: window['wwwserver']+'/pages/home.html'
+  templateUrl: 'home.html'
 })
 
 export class HomeTab { 
 
   program: string = "selection";
-  
-
-
-homeSlideOptions = {
-loop: true, 
-pager: true, 
-autoplay: 3000};
 
   constructor(
   ) {
