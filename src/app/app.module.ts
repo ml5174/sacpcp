@@ -33,6 +33,7 @@ import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { ReferralSourcePipe } from '../lib/pipe/referralsource.pipe';
 import { MomentTimeZonePipe } from '../lib/pipe/moment-timezone.pipe';
 import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
+import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
 
 export const deepLinkConfig: DeepLinkConfig = {
@@ -69,6 +70,7 @@ export function translateFactory(http: Http) {
     ReferralSourcePipe,
     MomentTimeZonePipe,
     TimeFromNowPipe,
+    ParseTimePipe,
     EventDetailModal,
     ContactMethod
   ],
