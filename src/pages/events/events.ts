@@ -154,7 +154,14 @@ export class EventPage {
                                      console.log(err);
                                  });
   }
-
+  getEventsTimeRange(minTime, maxTime) {
+     this.volunteerEventsService
+         .getVolunteerEventsMinTime(minTime).subscribe(
+                                events => this.minEvents = events, 
+                                 err => {
+                                     console.log(err);
+                                 });
+  }
   amISignedUp(id){
     //we return true if there is no user logged in, this prevents the ability
     //to sign up for an event 
