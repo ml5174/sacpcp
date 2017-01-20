@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { TermsPage } from '../pages/terms/terms';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { ConfirmEmailPage } from '../pages/confirm-email/confirm-email';
+import { ConfirmSMSPage } from '../pages/confirm-sms/confirm-sms';
 import { HomePage } from '../pages/home/home';
 import { DonatePage } from '../pages/donate/donate';
 import { ForgotPage } from '../pages/forgot/forgot';
@@ -40,11 +41,16 @@ export const deepLinkConfig: DeepLinkConfig = {
   ]
 };
 
+export function translateFactory(http: Http) {
+  return new TranslateStaticLoader(http, '/assets/i18n', '.json');
+}
+
 @NgModule({
   declarations: [
     MyApp,
     TermsPage,
     ConfirmEmailPage,
+    ConfirmSMSPage,
     ChangePasswordPage,
     HomePage,
     DonatePage,
@@ -74,7 +80,7 @@ export const deepLinkConfig: DeepLinkConfig = {
     }, deepLinkConfig),
     TranslateModule.forRoot({ 
           provide: TranslateLoader,
-          useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),
+          useFactory: translateFactory,
           deps: [Http]
         })
   ],
@@ -83,6 +89,7 @@ export const deepLinkConfig: DeepLinkConfig = {
     MyApp,
     TermsPage,
     ConfirmEmailPage,
+    ConfirmSMSPage,
     ChangePasswordPage,
     UseridPopover,
     PasswordPopover,
