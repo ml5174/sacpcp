@@ -1,4 +1,3 @@
-import { GET_EVENT_DETAILS_URI } from './../../lib/provider/config';
 import { Component } from '@angular/core';
 import { VolunteerEvent } from '../../lib/model/volunteer-event';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
