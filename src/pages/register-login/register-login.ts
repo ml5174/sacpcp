@@ -47,6 +47,7 @@ export class RegisterLoginPage {
   public terms: boolean = false;
   public remember: boolean = true;
   public storage: Storage = new Storage();
+  public pcmethod: string = 'email'
 
   constructor(public nav: NavController,
     public userServices: UserServices,
@@ -131,6 +132,11 @@ export class RegisterLoginPage {
       });
 
   }
+
+  back() {
+    this.nav.popToRoot();
+  }
+
   setError(error) {
     if (error.status === 400) {
       error = error.json();

@@ -1,7 +1,7 @@
 <ion-menu [content]="content" side="right" persistent="true">
 
 	<ion-toolbar >
-		<ion-buttons begin *ngIf="!isBack">
+		<ion-buttons begin>
 			<button *ngIf="userServices.user.id" ion-button icon-left (click)="profile()">
 				{{userServices.user.name}}
 			</button>
@@ -18,19 +18,19 @@
 			<button ion-item icon-left (click)="openPage(pages[1], 'events')">
 				Search Upcoming Events
 			</button>
-			<button ion-item icon-left (click)="openPage(pages[5])">
+			<button ion-item icon-left (click)="openPage(pages[5], '')">
 				About
 			</button>
-			<button ion-item icon-left (click)="openPage(pages[6])">
+			<button ion-item icon-left (click)="openPage(pages[6], '')">
 				Contact Us
 			</button>
-			<button ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[2])">
+			<button ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[2], '')">
 				Register
 			</button>
-			<button ion-item *ngIf="userServices.user.id" icon-left (click)="openPage(pages[3])">
+			<button ion-item *ngIf="userServices.user.id" icon-left (click)="openPage(pages[3], '')">
 				Profile
 			</button>
-			<button ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[0])">
+			<button ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[0], '')">
 				Login 
 			</button>
 			<button ion-item *ngIf="userServices.user.id" icon-left (click)="logout()">

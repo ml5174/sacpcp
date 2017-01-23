@@ -8,7 +8,7 @@
 <ion-content padding-left padding-right padding-top>
 	<section id="home-body">
 		<div>
-			<ion-segment [(ngModel)]="selectedTab" padding-bottom [hidden]="!volunteerEventsService.myEvents.length>0">
+			<ion-segment [(ngModel)]="selectedTab" padding-bottom [hidden]="!(volunteerEventsService.myEvents.length>0)">
 				<ion-segment-button value="home">
 					Home 
 				</ion-segment-button>
