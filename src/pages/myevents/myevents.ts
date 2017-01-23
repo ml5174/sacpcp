@@ -8,8 +8,8 @@ import {HomePage} from '../home/home'
 
 export class MyEventsPage{
 
-  constructor(private volunteerEventsService: VolunteerEventsService,
-              private home: HomePage) {  };
+  constructor(public volunteerEventsService: VolunteerEventsService,
+              public home: HomePage) {  };
 
     result: any;
 

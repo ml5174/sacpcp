@@ -15,12 +15,12 @@ export class HomePage {
   language: string = "en";
   subscription: Subscription;
   
-  constructor(private navCtrl: NavController,
-              private nav: Nav, 
-              private params: NavParams, 
-              private volunteerEventsService: VolunteerEventsService,
-              private translate: TranslateService,
-              private userServices: UserServices
+  constructor(public navCtrl: NavController,
+              public nav: Nav, 
+              public params: NavParams, 
+              public volunteerEventsService: VolunteerEventsService,
+              public translate: TranslateService,
+              public userServices: UserServices
   ) { 
     this.userServices = userServices;
     this.subscription = this.userServices.userIdChange.subscribe(

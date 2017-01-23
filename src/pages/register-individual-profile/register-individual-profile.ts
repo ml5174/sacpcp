@@ -17,95 +17,95 @@ export class RegisterIndividualProfilePage {
 
   @ViewChild(Content) content: Content;
 
-  private key: string = '';
-  private val: string = '';
-  private errors: Array<string> = [];
+  public key: string = '';
+  public val: string = '';
+  public errors: Array<string> = [];
 
   // Error booleans
-  private firstnameerror: boolean = false;
-  private lastnameerror: boolean = false;
-  private birthdateerror:  boolean = false;
-  private my_contactmethod_iderror:  boolean = false;
-  private my_volunteertype_iderror:  boolean = false;
-  private acceptedwaivererror: boolean = false;
-  private acceptedpolicyerror: boolean = false;
-  private com_opt_inerror: boolean = false;
+  public firstnameerror: boolean = false;
+  public lastnameerror: boolean = false;
+  public birthdateerror:  boolean = false;
+  public my_contactmethod_iderror:  boolean = false;
+  public my_volunteertype_iderror:  boolean = false;
+  public acceptedwaivererror: boolean = false;
+  public acceptedpolicyerror: boolean = false;
+  public com_opt_inerror: boolean = false;
   
-  private mobilenumbererror: boolean = false;
-  private emailerror: boolean = false;
-  private parent_consenterror: boolean = false;
+  public mobilenumbererror: boolean = false;
+  public emailerror: boolean = false;
+  public parent_consenterror: boolean = false;
 
-  private gendererror: boolean = false;
-  private address1error: boolean = false;
-  private address2error: boolean = false;
-  private cityerror: boolean = false;
-  private stateerror: boolean = false;
-  private zipcodeerror:  boolean = false;
-  private my_servicearea_iderror:  boolean = false;
-  private my_referalsource_iderror:  boolean = false;
-  private my_donationtype_iderror:  boolean = false;
+  public gendererror: boolean = false;
+  public address1error: boolean = false;
+  public address2error: boolean = false;
+  public cityerror: boolean = false;
+  public stateerror: boolean = false;
+  public zipcodeerror:  boolean = false;
+  public my_servicearea_iderror:  boolean = false;
+  public my_referalsource_iderror:  boolean = false;
+  public my_donationtype_iderror:  boolean = false;
 
-  private ecfirstnameerror:  boolean = false;
-  private eclastnameerror:  boolean = false;
-  private ecrelationerror:  boolean = false;
-  private ecmobilenumbererror:  boolean = false;
-  private ecaltnumbererror:  boolean = false;
+  public ecfirstnameerror:  boolean = false;
+  public eclastnameerror:  boolean = false;
+  public ecrelationerror:  boolean = false;
+  public ecmobilenumbererror:  boolean = false;
+  public ecaltnumbererror:  boolean = false;
 
-  private passworderror:  boolean = false;
-  private password1error:  boolean = false;
-  private password2error:  boolean = false;
+  public passworderror:  boolean = false;
+  public password1error:  boolean = false;
+  public password2error:  boolean = false;
 
-  private relationships = [
+  public relationships = [
     "Parent/Guardian",
     "Brother/Sister",
     "Relative",
     "Friend"
   ];
 
-  private genders = [
+  public genders = [
     {id:"1", value: "Male"},
     {id:"2", value: "Female"},
     {id:"3", value: "Other"}
   ];
 
   // Other private variables
-  private myProfile: any = {
+  public myProfile: any = {
     emergency_contact: {}
   };
 
-  private availablePreferences: any = {};
-  private myPreferences: any = {};
-  private passwordForm: any = {};
+  public availablePreferences: any = {};
+  public myPreferences: any = {};
+  public passwordForm: any = {};
 
-  private formServiceAreas: Array<any> = [];
+  public formServiceAreas: Array<any> = [];
 
-  private profileExists: boolean = false;
+  public profileExists: boolean = false;
 
-  private loadingOverlay;
+  public loadingOverlay;
 
-  private showpassword: string = "password";
+  public showpassword: string = "password";
 
-  private mobileNumberAreaCode = "";
-  private mobileNumberPrefix = "";
-  private mobileNumberLineNumber = "";
+  public mobileNumberAreaCode = "";
+  public mobileNumberPrefix = "";
+  public mobileNumberLineNumber = "";
 
-  private ecMobileNumberAreaCode = "";
-  private ecMobileNumberPrefix = "";
-  private ecMobileNumberLineNumber = "";
+  public ecMobileNumberAreaCode = "";
+  public ecMobileNumberPrefix = "";
+  public ecMobileNumberLineNumber = "";
 
-  private ecAltNumberAreaCode = "";
-  private ecAltNumberPrefix = "";
-  private ecAltNumberLineNumber = "";
+  public ecAltNumberAreaCode = "";
+  public ecAltNumberPrefix = "";
+  public ecAltNumberLineNumber = "";
 
-  selectedTab: string = "personal";
+  public selectedTab: string = "personal";
 
   // Constructor
-  constructor(private nav: NavController,
-              private userServices: UserServices,
-              private translate: TranslateService,
+  constructor(public nav: NavController,
+              public userServices: UserServices,
+              public translate: TranslateService,
               public loadingController: LoadingController,
               public toastController: ToastController,
-              private popoverCtrl: PopoverController) {
+              public popoverCtrl: PopoverController) {
 
   }
 

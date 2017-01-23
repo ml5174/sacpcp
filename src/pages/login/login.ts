@@ -19,21 +19,22 @@ export class LoginPage {
   @ViewChild('popoverContent', { read: ElementRef }) content: ElementRef;
   @ViewChild('popoverText', { read: ElementRef }) text: ElementRef;
 
-  username: string = '';
-  password: string = '';
-  showpassword: string = 'password';
-  usernameerror: boolean = false;
-  passworderror: boolean = false;
-  remember: boolean = true;
-  key: any = { key: 'key' };
-  errors: Array<string> = [];
-  val: any;
-  constructor(private nav: NavController,
-    private navParams: NavParams,
-    private userServices: UserServices,
-    private translate: TranslateService,
+  public username: string = '';
+  public password: string = '';
+  public showpassword: string = 'password';
+  public usernameerror: boolean = false;
+  public passworderror: boolean = false;
+  public remember: boolean = true;
+  public key: any = { key: 'key' };
+  public errors: Array<string> = [];
+  public val: any;
+
+  constructor(public nav: NavController,
+    public navParams: NavParams,
+    public userServices: UserServices,
+    public translate: TranslateService,
     public storage: Storage,
-    private popoverCtrl: PopoverController
+    public popoverCtrl: PopoverController
     ) {
 
     /* Temp solution until login validation is implemented */

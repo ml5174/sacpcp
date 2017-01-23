@@ -30,9 +30,9 @@ export class MyApp {
   constructor(
     public platform: Platform,
     public menu: MenuController,
-    private userServices: UserServices,
+    public userServices: UserServices,
     public storage: Storage,
-    private volunteerEvents : VolunteerEventsService
+    public volunteerEvents : VolunteerEventsService
   ) {
     this.initializeApp();
 

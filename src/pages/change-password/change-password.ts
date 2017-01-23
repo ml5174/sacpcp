@@ -11,30 +11,30 @@ import { PasswordPopover } from '../../popover/password';
   templateUrl: 'change-password.html'
 })
 export class ChangePasswordPage {
-  private password: string = '';
-  private password1: string = '';
-  private showpassword: string = 'password';
-  private password2: string = '';
-  private email: string = '';
-  private sms: string = '';
+  public password: string = '';
+  public password1: string = '';
+  public showpassword: string = 'password';
+  public password2: string = '';
+  public email: string = '';
+  public sms: string = '';
 
-  private passworderror: boolean = false;
-  private password1error: boolean = false;
-  private password2error: boolean = false;
-  private emailerror: boolean = false;
-  private smserror: boolean = false;
+  public passworderror: boolean = false;
+  public password1error: boolean = false;
+  public password2error: boolean = false;
+  public emailerror: boolean = false;
+  public smserror: boolean = false;
 
-  private key: string = '';
-  private val: string = '';
-  private errors: Array<string> = [];
-  private pcmethod: string = 'email'
-  private pcvalue: string = '';
+  public key: string = '';
+  public val: string = '';
+  public errors: Array<string> = [];
+  public pcmethod: string = 'email'
+  public pcvalue: string = '';
 
-  constructor(private nav: NavController,
-    private navParams: NavParams,
-    private userServices: UserServices,
-    private translate: TranslateService,
-    private popoverCtrl: PopoverController) {
+  constructor(public nav: NavController,
+    public navParams: NavParams,
+    public userServices: UserServices,
+    public translate: TranslateService,
+    public popoverCtrl: PopoverController) {
       console.dir(navParams);
 
   }
