@@ -7,6 +7,8 @@ import {NavController, Nav} from 'ionic-angular';
 })
 export class DonatePage {
   language: string = "english";
+  public username: string;
+
   constructor(public navCtrl: NavController,
               public nav: Nav) {
   }

@@ -19,8 +19,8 @@
 
 				<ion-icon class="popover-icon" name="information-circle" (click)="presentPopover($event)"></ion-icon>
 
-				<ion-item no-lines [class.error]="!username.valid && username.touched">
-					<ion-icon name="alert" [class.error]="!username.valid && username.touched" item-left isActive="false" *ngIf="!username.valid && username.touched"></ion-icon>
+				<ion-item no-lines>
+					<ion-icon *ngIf="usernameerror"  name="alert" item-left isActive="false" [class.error]="passworderror"></ion-icon>
 					<ion-label stacked>{{ 'Username' | translate}}</ion-label>
 					<ion-input required type="text" placeholder="" [(ngModel)]="username" autocapitalize="off"></ion-input>
 				</ion-item>
@@ -30,7 +30,7 @@
 
 				<ion-icon class="popover-icon" name="information-circle" (click)="presentPasswordPopover($event)"></ion-icon>
 
-				<ion-item no-lines [class.error]="!password.valid && password.touched">
+				<ion-item no-lines>
 					<ion-icon *ngIf="passworderror" name="alert" item-left isActive="false" [class.error]="passworderror"></ion-icon>
 					<ion-label stacked>{{ 'Password' | translate}}</ion-label>
 					<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="password" ></ion-input>

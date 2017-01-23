@@ -19,7 +19,7 @@
       <p class="error">{{error}}</p>
     </ion-item>
 
-    <ion-item no-lines [class.error]="!code.valid && code.touched">
+    <ion-item no-lines>
       <ion-icon name="code" item-left  isActive="false" [class.error]="codeerror"></ion-icon>
       <ion-label floating>{{ 'Code' | translate}}</ion-label>
       <ion-input required type="text" placeholder="" [(ngModel)]="code"></ion-input>
