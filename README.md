@@ -5,11 +5,11 @@ https://github.com/ml5174/sacpcp
 
 from your personal copy clone it to your desktop.
 
-1.	You need to install [node] {https://nodejs.org/en/download/}
+1.	You need to install [node] (https://nodejs.org/en/download/)
 2.	Once you cloned the repo to your desktop and have node installed you need to cd to the project and type: 'npm install'
 3.	Then you type: 'npm install -g cordova ionic' to install ionic command line utilities
 4.	Then you can type: 'ionic serve' to run the app, this will automatically pull up your default browser
-5.	I recommend [Visual Studio Code] {https://code.visualstudio.com/download} to edit.
+5.	I recommend [Visual Studio Code] (https://code.visualstudio.com/download) to edit.
 
 ## How to properly synch your repository with the main repository
 
