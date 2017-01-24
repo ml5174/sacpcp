@@ -13,7 +13,7 @@ from your personal copy clone it to your desktop.
 
 ## How to properly synch your repository with the main repository
 
-- Add the main repository as your upstream repository 'git remote add upstream https://github.com/ml5174/sacpcp.git'
+- Add the main repository as your upstream repository `git remote add upstream https://github.com/ml5174/sacpcp.git`
 - This only needs to be done once
 
 1. get changes from upstream `git fetch upstream`
