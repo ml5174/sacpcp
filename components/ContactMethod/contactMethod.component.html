@@ -1,4 +1,4 @@
-<ion-list radio-group [(ngModel)]="pcmethod">
+		<ion-list radio-group [(ngModel)]="pcmethod">
 			<ion-list-header>
 				 Prefered contact method
 			</ion-list-header>
@@ -11,14 +11,11 @@
 				</ion-item>
 				
 		</ion-list>
-		<div class="absolute-container">
-
-			
 			<div [ngSwitch]="pcmethod">
-			<ion-item no-lines *ngSwitchCase="'email'">
-				<ion-label stacked >Email Address</ion-label>
-				<ion-input required type="text" class="" [(ngModel)]="pcvalue" required></ion-input>
-			</ion-item>
+				<ion-item no-lines *ngSwitchCase="'email'">
+					<ion-label stacked >Email Address</ion-label>
+					<ion-input required type="text" class="" [(ngModel)]="pcvalue" required></ion-input>
+				</ion-item>
 			
 				<!--<ion-label stacked *ngSwitchDefault >Mobile Number</ion-label> -->
 				<ion-grid class="phone-number" *ngSwitchDefault > 
@@ -43,6 +40,4 @@
 					</ion-col>
 				</ion-row>
 				</ion-grid>
-				</div>
-			
-		</div>
+			</div>
