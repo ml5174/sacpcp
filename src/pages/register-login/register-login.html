@@ -21,13 +21,14 @@
 			<p style="color: red">{{error}}</p>
 		</ion-item>
 
+		<form (ngSubmit)="register()">
 		<div class="absolute-container">
 
 			<ion-icon class="popover-icon" name="information-circle" (click)="presentUserPopover($event)"></ion-icon>
 			<ion-item no-lines class="">
 				<ion-icon *ngIf="usernameerror" name="alert" item-left isActive="false" [class.error]="usernameerror"></ion-icon>
 				<ion-label stacked>User ID</ion-label>
-				<ion-input required type="text" class="" [(ngModel)]="username" required></ion-input>
+				<ion-input name="username" required type="text" class="" [(ngModel)]="username" required></ion-input>
 			</ion-item>
 		</div>
 
@@ -38,7 +39,7 @@
 			<ion-item no-lines [class.error]="password1error">
 				<ion-icon *ngIf="password1error" name="alert" item-left isActive="false" [class.error]="password1error"></ion-icon>
 				<ion-label stacked>{{ 'Password' | translate}} </ion-label>
-				<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="password1"></ion-input>
+				<ion-input name="password1" required [type]="showpassword" placeholder="" [(ngModel)]="password1"></ion-input>
 			</ion-item>
 		</div>
 
@@ -51,22 +52,25 @@
 		<ion-item no-lines class="">
 			<ion-icon *ngIf="password2error" name="alert" item-left isActive="false" [class.error]="password2error"></ion-icon>
 			<ion-label stacked>Confirm Password</ion-label>
-			<ion-input required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
+			<ion-input name="password2" required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
 		</ion-item>
 
 		<ion-item no-lines>
 			<ion-label>{{ 'Save My Login' | translate}}</ion-label>
-			<ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>
+			<ion-checkbox name="remember"dark [(ngModel)]="remember"></ion-checkbox>
 		</ion-item>
 		
         <!-- Move the email, Phone contact details to a common component - ViewChild(ContactMethod)-->
 		<contactMethod name="ep" [email]="pcmethod"></contactMethod>
+
+		<input type="submit" hidden>
 				
 		<ion-item>
 			<ion-label>I agree to the</ion-label>
-			<ion-checkbox item-left [(ngModel)]="terms"></ion-checkbox>
+			<ion-checkbox name="terms" item-left [(ngModel)]="terms"></ion-checkbox>
 			<button item-right ion-button large color="secondary" clear (click)="viewTerms()">Privacy &amp; Terms</button>
 		</ion-item>
+		</form>
 	</section>
 
 </ion-content>
