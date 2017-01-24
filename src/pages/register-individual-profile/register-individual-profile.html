@@ -30,8 +30,11 @@
 			<p style="color: red">{{error}}</p>
 		</ion-item>
 
+		<form (ngSubmit)="register()">
+			<input type="submit" hidden>
+
 		<div padding>
-			<ion-segment [(ngModel)]="selectedTab">
+			<ion-segment name="selectedTab" [(ngModel)]="selectedTab">
 				<ion-segment-button value="personal">
 					Personal
 				</ion-segment-button>
@@ -60,25 +63,25 @@
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="firstnameerror" *ngIf="firstnameerror"></ion-icon>
 								<ion-label stacked>{{"First Name" | translate }}</ion-label>
-								<ion-input type="string" placeholder="Type your First name" class="" [(ngModel)]="myProfile.first_name" required></ion-input>
+								<ion-input name="myProfile.first_name" type="string" placeholder="Type your First name" class="" [(ngModel)]="myProfile.first_name" required></ion-input>
 							</ion-item>
 
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="lastnameerror" *ngIf="lastnameerror"></ion-icon>
 								<ion-label stacked>{{"Last Name" | translate }}</ion-label>
-								<ion-input type="string" placeholder="Type your Last name" class="" [(ngModel)]="myProfile.last_name" required></ion-input>
+								<ion-input name="myProfile.last_name" type="string" placeholder="Type your Last name" class="" [(ngModel)]="myProfile.last_name" required></ion-input>
 							</ion-item>
 
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="birthdateerror" *ngIf="birthdateerror"></ion-icon>
 								<ion-label stacked>{{"Birth Date" | translate }}</ion-label>
-								<ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="myProfile.birthdate"></ion-datetime>
+								<ion-datetime name="myProfile.birthdate" displayFormat="MMM DD YYYY" [(ngModel)]="myProfile.birthdate"></ion-datetime>
 							</ion-item>
 
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="gendererror" *ngIf="gendererror"></ion-icon>
 								<ion-label stacked>{{"Gender" | translate }}</ion-label>
-								<ion-select [(ngModel)]="myProfile.gender" >
+								<ion-select name ="myProfile.gender" [(ngModel)]="myProfile.gender" >
 									<ion-option *ngFor="let m of genders" [value]="m.id">{{m.value}}</ion-option>
 								</ion-select>
 							</ion-item>
@@ -86,25 +89,25 @@
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="address1error" *ngIf="address1error"></ion-icon>
 								<ion-label stacked>{{"Address 1" | translate }}</ion-label>
-								<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.address1" ></ion-input>
+								<ion-input name="myProfile.address1" type="string" placeholder="" class="" [(ngModel)]="myProfile.address1" ></ion-input>
 							</ion-item>
 
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="address2error" *ngIf="address2error"></ion-icon>
 								<ion-label stacked>{{"Address 2" | translate }}</ion-label>
-								<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.address2" ></ion-input>
+								<ion-input name="myProfile.address2" type="string" placeholder="" class="" [(ngModel)]="myProfile.address2" ></ion-input>
 							</ion-item>
 
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="cityerror" *ngIf="cityerror"></ion-icon>
 								<ion-label stacked>{{"City" | translate }}</ion-label>
-								<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.city" ></ion-input>
+								<ion-input name="myProfile.city" type="string" placeholder="" class="" [(ngModel)]="myProfile.city" ></ion-input>
 							</ion-item>
 
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="stateerror" *ngIf="stateerror"></ion-icon>
 								<ion-label stacked>{{"State" | translate }}</ion-label>
-								<ion-select [(ngModel)]="myProfile.state" >
+								<ion-select name="myProfile.state" [(ngModel)]="myProfile.state" >
 									<ion-option *ngFor="let m of availablePreferences.usstates" [value]="m[0]">{{m[1]}}</ion-option>
 								</ion-select>
 							</ion-item>
@@ -112,7 +115,7 @@
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="zipcodeerror" *ngIf="zipcodeerror"></ion-icon>
 								<ion-label stacked>{{"Zip Code" | translate }}</ion-label>
-								<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.zipcode" ></ion-input>
+								<ion-input name="myProfile.zipcode" type="string" placeholder="" class="" [(ngModel)]="myProfile.zipcode" ></ion-input>
 							</ion-item>
 
 						</ion-list>
@@ -138,7 +141,7 @@
 -->
 							<section>
 								<div class="radio-choice" *ngFor="let m of availablePreferences.contactmethods">
-									<input [id]="'radio-' + m.id" type="radio" [(ngModel)]="myProfile.contactmethod" [value]="m.id" />
+									<input name="myProfile.contactmethod" [id]="'radio-' + m.id" type="radio" [(ngModel)]="myProfile.contactmethod" [value]="m.id" />
 									<label [attr.for]="'radio-' + m.id">{{m.name}}</label>
 								</div>
 							</section>
@@ -155,19 +158,19 @@
 									<ion-col width-25>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
-											<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberAreaCode" required minlength="3" maxlength="3"></ion-input>
+											<ion-input name="mobileNumberAreaCode" type="tel" placeholder="" class="" [(ngModel)]="mobileNumberAreaCode" minlength="3" maxlength="3"></ion-input>
 										</ion-item>
 									</ion-col>
 									<ion-col width-25>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
-											<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberPrefix" required minlength="3" maxlength="3"></ion-input>
+											<ion-input name="mobileNumberPrefix" type="tel" placeholder="" class="" [(ngModel)]="mobileNumberPrefix" minlength="3" maxlength="3"></ion-input>
 										</ion-item>
 									</ion-col>
 									<ion-col width-50>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
-											<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberLineNumber" required minlength="4" maxlength="4"></ion-input>
+											<ion-input name="mobileNumberLineNumber" type="tel" placeholder="" class="" [(ngModel)]="mobileNumberLineNumber" minlength="4" maxlength="4"></ion-input>
 										</ion-item>
 									</ion-col>
 								</ion-row>
@@ -175,7 +178,7 @@
 							<ion-item no-lines>
 								<ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
 								<ion-label stacked>{{"Email" | translate }}</ion-label>
-								<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.email" required></ion-input>
+								<ion-input name="myProfile.email" type="string" placeholder="" class="" [(ngModel)]="myProfile.email"></ion-input>
 							</ion-item>
 						</ion-list>
 					</div>
@@ -193,19 +196,19 @@
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="ecfirstnameerror" *ngIf="ecfirstnameerror"></ion-icon>
 								<ion-label stacked>{{"First Name" | translate }}</ion-label>
-								<ion-input type="string" placeholder="Type Emergency Contact's First name" class="" [(ngModel)]="myProfile.emergency_contact.first_name" required></ion-input>
+								<ion-input name="myProfile.emergency_contact.first_name" type="string" placeholder="Type Emergency Contact's First name" class="" [(ngModel)]="myProfile.emergency_contact.first_name"></ion-input>
 							</ion-item>
 
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="eclastnameerror" *ngIf="eclastnameerror"></ion-icon>
 								<ion-label stacked>{{"Last Name" | translate }}</ion-label>
-								<ion-input type="string" placeholder="Type Emergency Contact's Last name" class="" [(ngModel)]="myProfile.emergency_contact.last_name" required></ion-input>
+								<ion-input name="myProfile.emergency_contact.last_name" type="string" placeholder="Type Emergency Contact's Last name" class="" [(ngModel)]="myProfile.emergency_contact.last_name"></ion-input>
 							</ion-item>
 
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="ecrelationerror" *ngIf="ecrelationerror"></ion-icon>
 								<ion-label stacked>{{"Relationship" | translate }}</ion-label>
-								<ion-select [(ngModel)]="myProfile.emergency_contact.relation" >
+								<ion-select name="myProfile.emergency_contact.relation" [(ngModel)]="myProfile.emergency_contact.relation" >
 									<ion-option *ngFor="let m of relationships" [value]="m">{{m}}</ion-option>
 								</ion-select>
 							</ion-item>
@@ -219,19 +222,19 @@
 									<ion-col width-25>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
-											<ion-input type="tel" placeholder="" class="" [(ngModel)]="ecMobileNumberAreaCode" required minlength="3" maxlength="3"></ion-input>
+											<ion-input name="ecMobileNumberAreaCode" type="tel" placeholder="" class="" [(ngModel)]="ecMobileNumberAreaCode" minlength="3" maxlength="3"></ion-input>
 										</ion-item>
 									</ion-col>
 									<ion-col width-25>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
-											<ion-input type="tel" placeholder="" class="" [(ngModel)]="ecMobileNumberPrefix" required minlength="3" maxlength="3"></ion-input>
+											<ion-input name="ecMobileNumberPrefix" type="tel" placeholder="" class="" [(ngModel)]="ecMobileNumberPrefix" minlength="3" maxlength="3"></ion-input>
 										</ion-item>
 									</ion-col>
 									<ion-col width-50>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
-											<ion-input type="tel" placeholder="" class="" [(ngModel)]="ecMobileNumberLineNumber" required minlength="4" maxlength="4"></ion-input>
+											<ion-input name="ecMobileNumberLineNumber" type="tel" placeholder="" class="" [(ngModel)]="ecMobileNumberLineNumber" minlength="4" maxlength="4"></ion-input>
 										</ion-item>
 									</ion-col>
 								</ion-row>
@@ -246,19 +249,19 @@
 									<ion-col width-25>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
-											<ion-input type="tel" placeholder="" class="" [(ngModel)]="ecAltNumberAreaCode" required minlength="3" maxlength="3"></ion-input>
+											<ion-input name="ecAltNumberAreaCode" type="tel" placeholder="" class="" [(ngModel)]="ecAltNumberAreaCode" minlength="3" maxlength="3"></ion-input>
 										</ion-item>
 									</ion-col>
 									<ion-col width-25>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
-											<ion-input type="tel" placeholder="" class="" [(ngModel)]="ecAltNumberPrefix" required minlength="3" maxlength="3"></ion-input>
+											<ion-input name="ecAltNumberPrefix" type="tel" placeholder="" class="" [(ngModel)]="ecAltNumberPrefix" minlength="3" maxlength="3"></ion-input>
 										</ion-item>
 									</ion-col>
 									<ion-col width-50>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
-											<ion-input type="tel" placeholder="" class="" [(ngModel)]="ecAltNumberLineNumber" required minlength="4" maxlength="4"></ion-input>
+											<ion-input name="ecAltNumberLineNumber" type="tel" placeholder="" class="" [(ngModel)]="ecAltNumberLineNumber" minlength="4" maxlength="4"></ion-input>
 										</ion-item>
 									</ion-col>
 								</ion-row>
@@ -314,7 +317,7 @@
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left isActive="false" [class.error]="passworderror" *ngIf="passworderror"></ion-icon>
 								<ion-label stacked>Old Password</ion-label>
-								<ion-input required type="password" class="" [(ngModel)]="passwordForm.old_password" required></ion-input>
+								<ion-input name="passwordForm.old_password" type="password" class="" [(ngModel)]="passwordForm.old_password"></ion-input>
 							</ion-item>
 							<div class="absolute-container">
 								<a id="show-link" (click)="showPassword()">{{(showpassword==='password') ? 'Show' : 'Hide'}}</a>
@@ -323,13 +326,13 @@
 								<ion-item no-lines [class.error]="password1error">
 									<ion-icon name="alert" item-left isActive="false" [class.error]="password1error" *ngIf="password1error"></ion-icon>
 									<ion-label stacked>{{ 'New Password' | translate}} </ion-label>
-									<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="passwordForm.new_password1"></ion-input>
+									<ion-input name="passwordForm.new_password1" [type]="showpassword" placeholder="" [(ngModel)]="passwordForm.new_password1"></ion-input>
 								</ion-item>
 							</div>
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left isActive="false" [class.error]="password2error" *ngIf="password2error"></ion-icon>
 								<ion-label stacked>Confirm New Password</ion-label>
-								<ion-input required type="password" placeholder="" class="" [(ngModel)]="passwordForm.new_password2" required></ion-input>
+								<ion-input name="passwordForm.new_password2" type="password" placeholder="" class="" [(ngModel)]="passwordForm.new_password2"></ion-input>
 							</ion-item>
 
 						</ion-list>
@@ -372,7 +375,7 @@
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="my_referalsource_iderror" *ngIf="my_referalsource_iderror"></ion-icon>
 								<ion-label stacked>{{"Referral Source" | translate }}</ion-label>
-								<ion-select [(ngModel)]="myProfile.my_referalsource_id" >
+								<ion-select name="myProfile.my_referalsource_id" [(ngModel)]="myProfile.my_referalsource_id" >
 									<ion-option *ngFor="let m of availablePreferences.referalsources | referralsource:myProfile.my_volunteertype_id" [value]="m.id">{{m.name}}</ion-option>
 								</ion-select>
 							</ion-item>
@@ -404,7 +407,7 @@
 							<div class="multi-choice" *ngFor="let m of formServiceAreas">
 								<ion-item no-lines>
 									<ion-label>{{m.name}}</ion-label>
-									<ion-checkbox dark [(ngModel)]="m.selected"></ion-checkbox>
+									<ion-checkbox name="m.selected" dark [(ngModel)]="m.selected"></ion-checkbox>
 								</ion-item>
 							</div>
 						</div>
@@ -478,6 +481,7 @@
 			</div>
 -->
 		</div>
+		</form>
 	</section>
 
 </ion-content>

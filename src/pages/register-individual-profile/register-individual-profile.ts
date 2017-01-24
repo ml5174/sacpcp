@@ -129,10 +129,20 @@ export class RegisterIndividualProfilePage {
           this.translateToFormPreferences();
 
           this.profileExists = true;
+
+          let defaultVolunteerType: string = "Individual";
+          let defaultVolunteerTypeId: number = 1;
+          for (let volunteerType of this.availablePreferences.volunteertypes) {
+            if (volunteerType.name == defaultVolunteerType) {
+              defaultVolunteerTypeId = volunteerType.id;
+              break;
+            }
+          }
+
           if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
           if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
-          if (!this.myProfile.my_volunteertype_id) this.myProfile.my_volunteertype_id = 7;
-          if (!this.myProfile.volunteertype) this.myProfile.volunteertype = "Individual";
+          if (!this.myProfile.my_volunteertype_id) this.myProfile.my_volunteertype_id = defaultVolunteerTypeId;
+          if (!this.myProfile.volunteertype) this.myProfile.volunteertype = defaultVolunteerType;
 
           this.translateToFormPhoneNumbers();
 

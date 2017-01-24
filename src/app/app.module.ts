@@ -76,10 +76,7 @@ export function translateFactory(http: Http) {
   ],
   imports: [
     HttpModule,
-    IonicModule.forRoot(MyApp, {
-      scrollAssist: false,
-      autoFocusAssist: false
-    }, deepLinkConfig),
+    IonicModule.forRoot(MyApp, {}, deepLinkConfig),
     TranslateModule.forRoot({ 
           provide: TranslateLoader,
           useFactory: translateFactory,
