@@ -1,6 +1,6 @@
 <ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
 <div id="results" *ngIf="searching">Search Results</div>
-<img src="/assets/img/logo2.jpg" />
+<img src="assets/img/logo2.jpg" />
 <div *ngIf="searching && noResults">No Results Found</div>
 
 <ion-row responsive-sm wrap>
@@ -17,7 +17,7 @@
                         <h2>{{e.title}}</h2>
                     </button-->
                         <ion-item *ngIf="showDetails[i]">
-                            <img src="/assets/img/logo2.jpg" />
+                            <img src="assets/img/logo2.jpg" />
                             <p>{{e.description}}</p>
                         </ion-item>
                         <ion-item>
