@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Platform, MenuController, Nav, Select } from 'ionic-angular';
+import { Platform, MenuController, Nav, Select, Config } from 'ionic-angular';
 
 import { StatusBar, Keyboard } from 'ionic-native';
 import { Storage } from '@ionic/storage';
@@ -29,6 +29,7 @@ export class MyApp {
   appManager: any = {};
   constructor(
     public platform: Platform,
+    public config: Config,
     public menu: MenuController,
     public userServices: UserServices,
     public storage: Storage,
@@ -83,6 +84,11 @@ export class MyApp {
       StatusBar.hide();
       //Keyboard.disableScroll(true);
 
+      //Only turn these off if its not android.
+      if (!this.platform.is("android")) {
+        this.config.set("scrollAssist", false);
+        this.config.set("autoFocusAssist", false);
+      }
     });
   }
 

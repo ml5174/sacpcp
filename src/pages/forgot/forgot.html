@@ -25,7 +25,7 @@
 			<ion-icon name="alert" item-left class="error"></ion-icon>
 			<p class="error">{{error | translate}}</p>
 		</ion-item>
-      
+		<form (ngSubmit)="forgot()">
 	<!--
 			<ion-item no-lines [hidden]="pcmethod!='sms'">
 				<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
@@ -37,7 +37,6 @@
 				<ion-input type="string" placeholder="" class="" [(ngModel)]="email" required></ion-input>
 			</ion-item>
 			-->
-		<ion-list>
                     <!-- Move the email, Phone contact details to a common component - ViewChild(ContactMethod) -->
 		<contactMethod name="ep" [email]="pcmethod"></contactMethod>
 <!--
@@ -84,8 +83,8 @@
 			</ion-grid>
 
 -->
-
-		</ion-list>
+			<input type="submit" hidden>
+		</form>
 
 		<!--ion-item no-lines class="">
     <button ion-button color="primary" block large round (click)="forgot()">{{'Submit' | translate}}</button>

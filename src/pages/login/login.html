@@ -14,7 +14,7 @@
 				<ion-icon name="alert" item-left class="error"></ion-icon>
 				<p class="error">{{error | translate}}</p>
 			</ion-item>
-
+			<form (ngSubmit)="login()">
 			<div class="absolute-container">
 
 				<ion-icon class="popover-icon" name="information-circle" (click)="presentPopover($event)"></ion-icon>
@@ -22,7 +22,7 @@
 				<ion-item no-lines>
 					<ion-icon *ngIf="usernameerror"  name="alert" item-left isActive="false" [class.error]="passworderror"></ion-icon>
 					<ion-label stacked>{{ 'Username' | translate}}</ion-label>
-					<ion-input required type="text" placeholder="" [(ngModel)]="username" autocapitalize="off"></ion-input>
+					<ion-input name="username" required type="text" placeholder="" [(ngModel)]="username" autocapitalize="off"></ion-input>
 				</ion-item>
 			</div>
 			<div class="absolute-container">
@@ -33,12 +33,12 @@
 				<ion-item no-lines>
 					<ion-icon *ngIf="passworderror" name="alert" item-left isActive="false" [class.error]="passworderror"></ion-icon>
 					<ion-label stacked>{{ 'Password' | translate}}</ion-label>
-					<ion-input required [type]="showpassword" placeholder="" [(ngModel)]="password" ></ion-input>
+					<ion-input name="password" required [type]="showpassword" placeholder="" [(ngModel)]="password" ></ion-input>
 				</ion-item>
 			</div>
 			<ion-item no-lines>
 				<ion-label>{{ 'Save My Login' | translate}}</ion-label>
-				<ion-checkbox dark [(ngModel)]="remember"></ion-checkbox>
+				<ion-checkbox name="remember" dark [(ngModel)]="remember"></ion-checkbox>
 			</ion-item>
 			<!--ion-item no-lines>
 				<button ion-button color="primary" block large (click)="login()">{{ 'Login' | translate}}</button>
@@ -47,6 +47,8 @@
 			<ion-item no-lines>
 				<p clear (click)="forgot()">{{ 'Forgot User ID/Password' | translate}}</p>
 			</ion-item>
+			<input type="submit" hidden>
+			</form>
 		</ion-list>
 	</section>
 </ion-content>
