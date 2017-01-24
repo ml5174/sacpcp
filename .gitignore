@@ -10,3 +10,4 @@ hooks/
 *.swp
 .DS_Store
 Thumbs.db
+.tmp
