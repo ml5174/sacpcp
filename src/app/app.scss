@@ -199,6 +199,9 @@ ion-list.toggle-section .toggle-section-content.hide-section {
   max-height: 0px;
 }
 
+.list-md .item-input:last-child {
+    border-bottom: 0px;
+}
 ion-list.toggle-section .toggle-section-content {
  -webkit-transition: max-height 0.2s ease-in-out;
   -moz-transition: max-height 0.2s ease-in-out;
