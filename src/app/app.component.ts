@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 
 import { Platform, MenuController, Nav, Select, Config } from 'ionic-angular';
 
-import { StatusBar, Keyboard } from 'ionic-native';
+import { StatusBar } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 import { UserServices } from '../lib/service/user';
 import { HomePage } from '../pages/home/home';

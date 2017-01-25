@@ -18,7 +18,7 @@ from your personal copy clone it to your desktop.
 
 1. get changes from upstream `git fetch upstream`
 2. make sure you are on your master branch `git checkout master`
-3. merge upstream changes and reorder commits properly `git rebase upstream/master`
+3. merge upstream changes and reorder commits properly `git merge upstream/master`
 4. push changes to your fork `git push`
 
 - If you have pending commits, you may have to handle merge conflicts between steps 2 and 4
