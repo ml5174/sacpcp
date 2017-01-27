@@ -4,6 +4,7 @@ Definitions for clarity
 - Upstream: The main remote repo which you forked.
 - Origin: your remote repo (fork of upstream)
 - Local: your local clone of fork
+- added line for demo
 
 
 ## Only once
