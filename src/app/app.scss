@@ -318,3 +318,22 @@ ion-list.toggle-section .toggle-section-content {
 		max-height: 30vh !important;	
 	}
 }
+
+.title-card{
+	ion-item{
+		min-height: 1.5rem !important;
+	}
+	ion-card-header{
+		//white-space: normal;
+		font-size: 2.6rem !important;
+		font-weight: 500 !important;
+	}
+	ion-label{
+		margin-top: 0px !important;
+		margin-bottom: 6px !important;
+	}
+}
+
+ion-card-header{
+	white-space: normal !important;
+}
