@@ -21,9 +21,8 @@ export class UserServices {
     public user: UserProfile = new UserProfile();
     userIdSource: BehaviorSubject<number> = new BehaviorSubject<number>(this.user.id);
     userIdChange: Observable<number> = this.userIdSource.asObservable().share();
-
-    constructor(private http: Http,
-    public storage: Storage) {
+   
+    constructor(private http: Http, public storage: Storage) {
     }
     setId(id: number) {
         this.user.id = id;
@@ -34,8 +33,12 @@ export class UserServices {
     }
     logout() {
         this.storage.set('key', undefined);
+        this.storage.remove('key');/* To remove key tokens */
+        var _userName = this.user.name.toString();
+        this.storage.clear();/* Clearing any residual content */
+        this.storage.set('username',_userName);/* Retain UserName */
         this.user = new UserProfile();
-        this.unsetId();
+        this.unsetId();       
     }
     login(body): Observable<any> {
         return this.http.post(SERVER + LOGIN_URI, body, this.getOptions())
