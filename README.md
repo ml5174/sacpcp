@@ -1,8 +1,8 @@
 # savi-lib
 
 To add to your Angular project type:
-cd src
-git clone {repo url} lib
+"cd src" and
+"git clone {repo url} lib"
 
 
 This will create a lib directory inside your src directory. 
