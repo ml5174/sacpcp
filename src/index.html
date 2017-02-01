@@ -31,13 +31,11 @@
 
 
   <script>
-    window['wwwserver'] = '';
     if (document.location.hostname === 'localhost') {
       window['djangoserver'] = 'https://api.testing-volunteers.tsadfw.org';
     }
     else if (document.location.hostname === '') {
-      window['djangoserver'] = 'https://api.volunteers.tsadfw.org';
-      window['wwwserver'] = 'https://www.volunteers.tsadfw.org';
+      window['djangoserver'] = 'https://api.testing-volunteers.tsadfw.org';
     }
     else window['djangoserver']='__django_server_url__';
       
