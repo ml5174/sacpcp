@@ -26,6 +26,8 @@ import { Storage } from '@ionic/storage';
 
 import { UseridPopover } from '../popover/userid';
 import { PasswordPopover } from '../popover/password';
+import { EventFilterPopover } from '../popover/eventsearch-filter';
+import { SearchTypeSelector } from '../pages/events/eventsort-popover';
 
 import { UserServices } from '../lib/service/user';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service';
@@ -67,6 +69,8 @@ export function translateFactory(http: Http) {
     RegisterIndividualProfilePage,
     UseridPopover,
     PasswordPopover,
+    EventFilterPopover,
+    SearchTypeSelector,
     ReferralSourcePipe,
     MomentTimeZonePipe,
     TimeFromNowPipe,
@@ -92,6 +96,8 @@ export function translateFactory(http: Http) {
     ChangePasswordPage,
     UseridPopover,
     PasswordPopover,
+    EventFilterPopover,
+    SearchTypeSelector,
     HomePage,
     DonatePage,
     ForgotPage,
