@@ -27,7 +27,7 @@ import { Storage } from '@ionic/storage';
 import { UseridPopover } from '../popover/userid';
 import { PasswordPopover } from '../popover/password';
 import { EventFilterPopover } from '../popover/eventsearch-filter';
-import { SearchTypeSelector } from '../pages/events/eventsearch-pipe';
+import { SearchTypeSelector } from '../pages/events/eventsort-popover';
 
 import { UserServices } from '../lib/service/user';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service';

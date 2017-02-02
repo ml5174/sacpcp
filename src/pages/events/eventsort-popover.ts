@@ -2,8 +2,6 @@ import {Pipe, Component, PipeTransform} from '@angular/core';
 import { ViewController,NavController} from 'ionic-angular';
 import { EventPage } from '../events/events';
 
-
-
 @Component({
   template: `
              <h4>

@@ -45,7 +45,10 @@ export class EventFilterPopover {
 
   
    doSubmit(value){
-    this.sortBy = value;
+       if(value != null || value != undefined){
+           this.sortBy = value;
+        }
+    
        let  data = {'sortBy':this.sortBy};
     this.viewCtrl.dismiss(
     data

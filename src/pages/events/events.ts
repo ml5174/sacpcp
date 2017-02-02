@@ -5,7 +5,7 @@ import { EventImage } from '../../lib/model/eventImage';
 import { UserServices } from '../../lib/service/user';
 import { EventDetailModal } from './eventdetail-modal';
 import { ModalController, ViewController } from 'ionic-angular';
-import { SearchTypeSelector} from '../events/eventsearch-pipe';
+import { SearchTypeSelector} from '../events/eventsort-popover';
 import { PopoverController } from 'ionic-angular';
 import { EventFilterPopover } from '../../popover/eventsearch-filter';
 
@@ -152,8 +152,7 @@ export class EventPage {
    }
    //Pass in flags from the popover for filter
    filterBy(EventName, City, State, StartTime){
-      
-
+    
    }
 
    isPreferenceSelected(preferences){
@@ -175,7 +174,6 @@ export class EventPage {
       }
       console.log(searchType);
           return searchType;
-      
    }
 
     doZipSearch(){     
@@ -318,7 +316,7 @@ export class EventPage {
           
         this.selectedSort = '';
         }
-     console.log(this.selectedSort)
+     
     })   
   }
 

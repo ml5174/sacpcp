@@ -1,3 +1,4 @@
+<div *ngIf = 'false'>
 <div  *ngIf="!showAdvancedItems">
 <button ion-button style="font-size:12px" icon-only id="filter" (click)="showAdvancedItems = !showAdvancedItems">
   Advanced Options:
@@ -13,6 +14,7 @@
 <button ion-button style="font-size:12px" icon-only id="filter" (click)="showAdvancedItems = !showAdvancedItems">
   Hide Options:
 </button>
+</div>
 </div>
 <ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
 <div id="results" *ngIf="searching">Search Results</div>
