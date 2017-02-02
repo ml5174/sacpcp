@@ -1,4 +1,4 @@
-import {Pipe, Component, PipeTransform} from '@angular/core';
+import { Component} from '@angular/core';
 import { ViewController,NavController} from 'ionic-angular';
 import { EventPage } from '../events/events';
 
@@ -47,7 +47,7 @@ export class SearchTypeSelector {
      let data = {'eventLocations':this.eventLocations,'eventZip':this.eventZip,'serviceAreas':this.serviceAreas}
      
     this.viewCtrl.dismiss(data);
-
+  
    }
 }
 /*

@@ -37,10 +37,12 @@ import { EventPage } from '../pages/events/events';
 
 export class EventFilterPopover {
   private sortBy: string = 'eventName';
+  private modaldata;
   
   constructor(public viewCtrl: ViewController ) {
 
     this.viewCtrl = viewCtrl;
+    this.modaldata = {};
   }
 
   
@@ -48,10 +50,10 @@ export class EventFilterPopover {
        if(value != null || value != undefined){
            this.sortBy = value;
         }
-    
-       let  data = {'sortBy':this.sortBy};
+       
+       this.modaldata = {'sortBy':this.sortBy};
     this.viewCtrl.dismiss(
-    data
+    this.modaldata
     );
    }
   

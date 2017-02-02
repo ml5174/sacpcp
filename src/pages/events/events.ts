@@ -24,7 +24,7 @@ export class EventPage {
   public stubEvents: Array<VolunteerEvent> = [];
 
   public selectedSort: string = '';
-  public selectedPreferences: any;
+  public selectedPreferences: any = {};
   public showAdvancedOptions: Boolean = false;
   public image: Array<EventImage>;
   public val: string = "";
@@ -104,9 +104,9 @@ export class EventPage {
     if (this.val && this.val.trim() != '') {
 
 
-        if(this.isPreferenceSelected(this.selectedPreferences) == 1 || this.isPreferenceSelected(this.selectedPreferences) == 2 || this.isPreferenceSelected(this.selectedPreferences) == 3 ){
+          if(this.isPreferenceSelected(this.selectedPreferences) == 1 || this.isPreferenceSelected(this.selectedPreferences) == 2 || this.isPreferenceSelected(this.selectedPreferences) == 3 ){
          
-         this.preferenceSearch();
+      this.preferenceSearch();
         }else{
               for (var i = 0; i < this.values.length; ++i) {
                     this.searchedEvents = this.searchedEvents.filter((item) => {
@@ -128,7 +128,7 @@ export class EventPage {
 
                   }
 
-        }
+       }
       if (this.searchedEvents.length==0){
         this.noResults = true;
       }
@@ -309,13 +309,11 @@ export class EventPage {
     });
     
     popover.onDidDismiss(data => {
-      console.log('Test:' + data.sortBy);
-      if(data != null || data != undefined){ 
+      if(data != null  || data != undefined){
         this.selectedSort = data.sortBy;
-        }else{
-          
-        this.selectedSort = '';
-        }
+        console.log(this.selectedSort);
+      }
+    
      
     })   
   }
