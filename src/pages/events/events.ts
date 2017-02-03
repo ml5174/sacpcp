@@ -128,8 +128,10 @@ export class EventPage {
         }else{
               for (var i = 0; i < this.values.length; ++i) {
                     this.searchedEvents = this.searchedEvents.filter((item) => {
-                      return ((item.description.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1) ||
-                        (item.title.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1) ||
+                      return ((item.description !=null && 
+                        (item.description.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) || 
+                        (item.title !=null && 
+                        (item.title.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
                         (item.location_name !=null &&
                         (item.location_name.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
                         (item.location_address1 !=null &&
