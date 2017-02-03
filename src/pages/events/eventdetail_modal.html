@@ -51,7 +51,8 @@
     <ion-item *ngIf="showDetails">
       <p>{{eventDetail.description}}</p>
       <span *ngIf="eventDetail.eventimages.length !=0">
-       <img src="eventDetail.eventimages[0]" />
+       <img src="{{eventDetail.eventimages[0].image}}" />
+
        </span>
       <p *ngIf="eventDetail.eventimages.length ==0">There are no images for this event</p>
       <p *ngIf="eventDetail.serviceareas.length ==0">There are no service areas associated with this event</p>
