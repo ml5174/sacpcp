@@ -59,12 +59,14 @@
       <p>Age restriction: {{aRestriction[eventDetail.age_restriction]}}</p>
       <p>Volunteer type restrictions: {{vRestriction[eventDetail.volunteer_restriction]}}</p>
       <p>Same day sign in allowed: {{sdRestriction[eventDetail.same_day_registration]}}</p>
-      <p>Event notification: {{eventDetail.notification_option}}</p>
+      <p>Event notification: {{nOptions[eventDetail.notification_option]}}</p>
       <p>Special instructions: {{eventDetail.special_instructions}}</p>
     </ion-item>
     <ion-item>
+      <p>Contact information:</p>
+      <a href="mailto:Somebody@SalvationArmy.com">Somebody@SalvationArmy.com</a>
       <p *ngIf="eventDetail.contacts.length !=0">{{eventDetail.contacts[0]}}</p>
-      <p *ngIf="eventDetail.contacts.length == 0">No contacts for this event</p>
+      <!--p *ngIf="eventDetail.contacts.length == 0">No contacts for this event</p-->
     </ion-item>
   </ion-list>
 
@@ -74,11 +76,12 @@
 	<ion-grid>
 		<ion-row>
 			<ion-col width-50>
-    <button ion-button small color="primary" *ngIf="!signedUp" (click)="signup(eventDetail.id)">Register</button>
+    <button ion-button small color="primary" *ngIf="!signedUp" (click)="signup(eventDetail.id)">Sign Up</button>
     <button ion-button small color="primary" *ngIf="signedUp" (click)="deRegister(eventDetail.id)">Deregister</button>
 			</ion-col>
 			<ion-col width-50>
-      <button ion-button small color="primary" (click)="dismiss()">Close</button>
+      <button ion-button small color="primary" *ngIf="signedUp" (click)="dismiss()">Close</button>
+      <button ion-button small color="primary" *ngIf="!signedUp" (click)="dismiss()">Cancel</button>
 			</ion-col>
 		</ion-row>
 	</ion-grid>

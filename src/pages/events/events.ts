@@ -6,7 +6,7 @@ import { UserServices } from '../../lib/service/user';
 import { EventDetailModal } from './eventdetail-modal';
 import { ModalController, ViewController } from 'ionic-angular';
 import { SearchTypeSelector} from '../events/eventsort-popover';
-import { PopoverController } from 'ionic-angular';
+import { PopoverController, LoadingController } from 'ionic-angular';
 import { EventFilterPopover } from '../../popover/eventsearch-filter';
 
 @Component({
@@ -15,6 +15,8 @@ import { EventFilterPopover } from '../../popover/eventsearch-filter';
 })
 
 export class EventPage {
+
+  public loadingOverlay;
 
   public search: boolean = false;
   public events: Array<VolunteerEvent> = [];
@@ -33,6 +35,7 @@ export class EventPage {
   public noResults: Boolean = false;
   public eventDetails: VolunteerEvent;
   public showDetails: Array<Boolean> = [];
+
   public moreInterval = 30;
   public moreIntervalIncrease = 30;
 
@@ -40,21 +43,36 @@ export class EventPage {
     public userServices: UserServices,
     public modalCtrl: ModalController,
     private popoverCtrl: PopoverController,
-    public viewCtrl: ViewController) {
+    public viewCtrl: ViewController,
+    public loadingController: LoadingController,) {
   }
 
   ngOnInit() {
 
     this.loadEvents();
+    this.showLoading();
+  }
 
+  showLoading() {
+    this.loadingOverlay = this.loadingController.create({
+      content: 'Please wait...'
+    });
+    this.loadingOverlay.present();
+  }
+
+  hideLoading() {
+    this.loadingOverlay.dismiss();
   }
 
   loadEvents() {
     let now = new Date();
     let until = new Date();
+    let future = new Date();
     until.setDate(now.getDate() + this.moreInterval);
+    future.setDate(until.getDate() + this.moreInterval);
     this.getEventsTimeRange(now.toISOString(), until.toISOString());
-    
+    this.getFutureEvents(until.toISOString(), future.toISOString());
+
     //Temporarily disabling admin call until I get more GET_EVENT_DETAILS_URI
     //upon re-enabling, will need to be modified to utilize above call//
 
@@ -275,12 +293,24 @@ export class EventPage {
   getEventsTimeRange(minTime, maxTime) {
     this.volunteerEventsService
       .getVolunteerEventsTimeRange(minTime, maxTime).subscribe(
-      events => this.events = events,
-      err => {
+      events => {this.events = events;
+      }, err => {
+        this.hideLoading();
         console.log(err);
       },
-      () => this.searchedEvents = this.events);
+      () => {this.searchedEvents = this.events;
+             this.hideLoading();
+        });
   }
+    getFutureEvents(minTime, maxTime) {
+    this.volunteerEventsService
+      .getVolunteerEventsTimeRange(minTime, maxTime).subscribe(
+      events => this.stubEvents = events,
+      err => {
+        console.log(err);
+      });
+  }
+
   amISignedUp(id) {
     //we return true if there is no user logged in, this prevents the ability
     //to sign up for an event 
