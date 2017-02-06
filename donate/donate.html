@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <ion-title id="doing">Doing the Most Good</ion-title>
+    <button menuToggle right>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<section id="login-bar" *ngIf="!username">
+  <ion-select id="language-select" [(ngModel)]="language">
+    <ion-option value="english">English</ion-option>
+    <ion-option value="spanish">Espanol</ion-option>
+  </ion-select>
+  <button id="login-button" (click)="login()">Login</button>
+</section>
+<section id="logout-bar" *ngIf="username">
+  <h1>Welcome back {{username}}</h1>
+  <button (click)="login()">Lout</button>
+  <section id="tab-content">
+    <ion-searchbar (ionInput)="getItems($event)" showCancelButton="true" (ionCancel)="onCancel($event)"></ion-searchbar>
+    <ion-card>
+      <ion-item no-lines class="closed-tab" (click)="yourevents=!yourevents">
+        Your Volunteer Events
+        <ion-icon name="arrow-down" item-right *ngIf="!yourevents"></ion-icon>
+        <ion-icon name="arrow-up" item-right *ngIf="yourevents"></ion-icon>
+      </ion-item>
+      <section *ngIf="!yourevents">
+        <ion-item *ngFor="let e of events">
+          <p class="thin-item">{{e.title}}</p>
+          <ion-row>
+            <ion-col>
+              <p>{{e.start | date:"MM/dd/yy"}}</p>
+            </ion-col>
+            <ion-col>
+              <p><b>{{e.start | date:'shortTime'}}</b></p>
+            </ion-col>
+            <ion-col>
+              <p>{{e.location_name}}</p>
+            </ion-col>
+          </ion-row>
+          <h4>Details:</h4>
+          <p>{{e.description}}</p>
+        </ion-item>
+      </section>
+    </ion-card>
+  </section>
+</section>

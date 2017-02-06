@@ -26,8 +26,8 @@ import { Storage } from '@ionic/storage';
 
 import { UseridPopover } from '../popover/userid';
 import { PasswordPopover } from '../popover/password';
-import { EventFilterPopover } from '../popover/eventsearch-filter';
-import { SearchTypeSelector } from '../pages/events/eventsort-popover';
+import { EventSortPopover } from '../popover/eventsort-popover';
+import { PreferredSearchPopover } from '../popover/preferredsearch-popover';
 
 import { UserServices } from '../lib/service/user';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service';
@@ -35,6 +35,7 @@ import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { ReferralSourcePipe } from '../lib/pipe/referralsource.pipe';
 import { MomentTimeZonePipe } from '../lib/pipe/moment-timezone.pipe';
 import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
+import { EventSortPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
 
@@ -69,8 +70,8 @@ export function translateFactory(http: Http) {
     RegisterIndividualProfilePage,
     UseridPopover,
     PasswordPopover,
-    EventFilterPopover,
-    SearchTypeSelector,
+    EventSortPopover,
+    PreferredSearchPopover,
     ReferralSourcePipe,
     MomentTimeZonePipe,
     TimeFromNowPipe,
@@ -96,8 +97,8 @@ export function translateFactory(http: Http) {
     ChangePasswordPage,
     UseridPopover,
     PasswordPopover,
-    EventFilterPopover,
-    SearchTypeSelector,
+    EventSortPopover,
+    PreferredSearchPopover,
     HomePage,
     DonatePage,
     ForgotPage,

@@ -1,22 +1,21 @@
-<div *ngIf = 'false'>
+<ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
 <div  *ngIf="!showAdvancedItems">
-<button ion-button style="font-size:12px" icon-only id="filter" (click)="showAdvancedItems = !showAdvancedItems">
-  Advanced Options:
+<button ion-button small color="primary" icon-only  (click)="showAdvancedItems = !showAdvancedItems">
+ &#160;Advanced Search&#160;
 </button>
 </div>
 <div  *ngIf="showAdvancedItems">
-    <button ion-button style="font-size:12px" icon-only id="filter" (click)="presentPopover($event)">
-  Sort Select:
+    <button ion-button small color="primary" icon-only  (click)="presentPopover($event)">
+  &#160;Sort By &#160;
 </button>
-<button ion-button style="font-size:12px" icon-only id="filter" (click)="presentPreferences($event)">
-  Preferred Search:
+<button ion-button small color="primary"icon-only  (click)="presentPreferences($event)">
+  Preferred Search
 </button>
-<button ion-button style="font-size:12px" icon-only id="filter" (click)="showAdvancedItems = !showAdvancedItems">
-  Hide Options:
+<button ion-button small color="primary" icon-only  (click)="showAdvancedItems = !showAdvancedItems">
+  &#160;Hide Options&#160;
 </button>
 </div>
-</div>
-<ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
+
 <div id="results" *ngIf="searching">Search Results</div>
 <img class="main" src="assets/img/logo2.jpg" />
 <div *ngIf="searching && noResults">No Results Found</div>
