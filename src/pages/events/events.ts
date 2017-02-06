@@ -5,12 +5,10 @@ import { EventImage } from '../../lib/model/eventImage';
 import { UserServices } from '../../lib/service/user';
 import { EventDetailModal } from './eventdetail-modal';
 import { ModalController, ViewController } from 'ionic-angular';
-import { PopoverController, LoadingController } from 'ionic-angular';
+import { PopoverController, ToastController, LoadingController } from 'ionic-angular';
 import { PreferredSearchPopover } from '../../popover/preferredsearch-popover';
 import { EventSortPopover} from '../../popover/eventsort-popover';
 import {EventSortPipe} from '../../lib/pipe/eventsortpipe';
-
-
 
 @Component({
   templateUrl: 'events.html',
@@ -53,8 +51,8 @@ export class EventPage {
     private popoverCtrl: PopoverController,
     public viewCtrl: ViewController,
     public loadingController: LoadingController,
-    private sortPipe: EventSortPipe) {
-   
+    private sortPipe: EventSortPipe,
+    public toastController: ToastController) {
   }
 
   ngOnInit() {
@@ -73,6 +71,15 @@ export class EventPage {
 
   hideLoading() {
     this.loadingOverlay.dismiss();
+  }
+
+  presentToast(message: string) {
+    let toast = this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: 'middle'
+    });
+    toast.present();
   }
 
   loadEvents() {
@@ -354,10 +361,34 @@ export class EventPage {
     }
     return false;
   }
-  getEventDetails(id: string) {
-
-  }
-
+    signup(id) {
+        this.volunteerEventsService
+            .eventRegister(id).subscribe(
+            event => {
+                      console.log("signed up for event " + id);
+                      this.presentToast("Event sign-up successful.");
+            },
+            err => {
+                    console.log(err);
+                    this.presentToast("Error signing up for event");
+            }, () => {
+                this.volunteerEventsService.loadMyEvents();
+            });
+    }
+     deRegister(id) {
+        this.volunteerEventsService
+            .eventDeregister(id).subscribe(
+            result => {
+                       console.log("canceled event registration " + id);
+                       this.presentToast("You are no longer signed up for this event");
+            },
+            err => {
+                console.log(err);
+                this.presentToast("Error cancelling event registration");
+            }, () => {
+                this.volunteerEventsService.loadMyEvents();
+            });
+    }
 //Popover Stuff
  presentPopover(ev) {
    

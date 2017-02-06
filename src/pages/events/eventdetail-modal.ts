@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController, ToastController } from 'ionic-angular';
 import { UserServices } from '../../lib/service/user';
 import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
@@ -29,7 +29,8 @@ export class EventDetailModal {
     constructor(params: NavParams,
         private volunteerEventsService: VolunteerEventsService,
         private userServices: UserServices,
-        public viewCtrl: ViewController) {
+        public viewCtrl: ViewController,
+        public toastController: ToastController) {
 
         this.viewCtrl = viewCtrl;
         this.eventId = params.get('id');
@@ -41,6 +42,16 @@ export class EventDetailModal {
         this.loadDetails();
 
     }
+
+    presentToast(message: string) {
+     let toast = this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: 'middle'
+     });
+     toast.present();
+    }
+
     loadDetails() {
         if (this.userServices.isAdmin()) {
             //check account for admin status
@@ -73,9 +84,13 @@ export class EventDetailModal {
     signup(id) {
         this.volunteerEventsService
             .eventRegister(id).subscribe(
-            event => console.log("signed up for event " + id),
+            event => {
+                      console.log("signed up for event " + id);
+                      this.presentToast("Event sign-up successful.");
+            },
             err => {
                 console.log(err);
+                this.presentToast("Error signing up for event");               
             }, () => {
                 this.signedUp = true;
                 this.volunteerEventsService.loadMyEvents();
@@ -85,9 +100,13 @@ export class EventDetailModal {
     deRegister(id) {
         this.volunteerEventsService
             .eventDeregister(id).subscribe(
-            result => this.deregisterResult = result,
+            result => {
+                       this.deregisterResult = result;
+                       this.presentToast("You are no longer signed up for this event");                     
+            },
             err => {
                 console.log(err);
+                this.presentToast("Error cancelling event registration");                
             }, () => {
                 this.signedUp = false;
                 this.volunteerEventsService.loadMyEvents();

@@ -27,11 +27,11 @@
   <link href="build/main.css" rel="stylesheet">
   <script src="assets/js/shims_for_IE.js"></script>
 
-
-
-
   <script>
-    if (document.location.hostname === 'localhost') {
+    if (document.location.hostname === 'ml5174.github.io') {
+      window['djangoserver'] = 'https://api.testing-volunteers.tsadfw.org';
+    }
+    else if (document.location.hostname === 'localhost') {
       window['djangoserver'] = 'https://api.testing-volunteers.tsadfw.org';
     }
     else if (document.location.hostname === '') {

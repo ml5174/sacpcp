@@ -56,10 +56,12 @@
                             <p>{{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
                             </span>
                         </ion-item>
-                        <span *ngIf="userServices.user.id">
-                    <button ion-button small color="primary" *ngIf="!amISignedUp(e.id)" (click)="eventDetailModal(e.id)" >Register/Details</button>
-                    <button ion-button small color="primary" *ngIf="amISignedUp(e.id)" (click)="eventDetailModal(e.id)" >Details</button>
-                    </span>
+                        <ion-item *ngIf="userServices.user.id">
+                        <button ion-button item-left small color="primary" (click)="eventDetailModal(e.id)" >Details</button>
+                        <button ion-button item-right small color="primary" *ngIf="!amISignedUp(e.id)" (click)="signup(e.id)" >Sign up</button>
+                        <button ion-button item-right small color="primary" *ngIf="amISignedUp(e.id)" (click)="deRegister(e.id)" >Cancel</button>
+                   
+                        </ion-item>
 
                     </ion-list>
             </ion-card-content>
