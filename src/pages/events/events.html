@@ -6,10 +6,10 @@
 </div>
 <div  *ngIf="showAdvancedItems">
     <button ion-button small color="primary" icon-only  (click)="presentPopover($event)">
-  &#160;Sort By &#160;
+ &#160; &#160;Sort By &#160; &#160;
 </button>
-<button ion-button small color="primary"icon-only  (click)="presentPreferences($event)">
-  Preferred Search
+<button ion-button small color="primary"icon-only disabled="true" (click)="presentPreferences($event)">
+ &#160; My Preferences &#160;
 </button>
 <button ion-button small color="primary" icon-only  (click)="showAdvancedItems = !showAdvancedItems">
   &#160;Hide Options&#160;
