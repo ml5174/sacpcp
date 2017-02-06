@@ -402,7 +402,7 @@ export class EventPage {
     popover.onDidDismiss(data => {
       if(data != null  || data != undefined){
         this.selectedSort = data.sortBy;
-        console.log(this.selectedSort);
+        
       }
     
      
