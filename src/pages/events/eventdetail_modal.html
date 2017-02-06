@@ -51,7 +51,7 @@
     <ion-item *ngIf="showDetails">
       <p>{{eventDetail.description}}</p>
       <span *ngIf="eventDetail.eventimages.length !=0">
-       <img src="{{eventDetail.eventimages[0].image}}" />
+       <img [src]="eventDetail.eventimages[0].thumbnail" />
 
        </span>
       <p *ngIf="eventDetail.eventimages.length ==0">There are no images for this event</p>
@@ -78,7 +78,7 @@
 		<ion-row>
 			<ion-col width-50>
     <button ion-button small color="primary" *ngIf="!signedUp" (click)="signup(eventDetail.id)">Sign Up</button>
-    <button ion-button small color="primary" *ngIf="signedUp" (click)="deRegister(eventDetail.id)">Deregister</button>
+    <button ion-button small color="primary" *ngIf="signedUp" (click)="deRegister(eventDetail.id)">Cancel</button>
 			</ion-col>
 			<ion-col width-50>
       <button ion-button small color="primary" *ngIf="signedUp" (click)="dismiss()">Close</button>

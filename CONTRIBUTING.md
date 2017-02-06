@@ -33,7 +33,7 @@ Definitions for clarity
 - finish work
 - merge your work back into master 
   * `git checkout master`
-  * `git merge --squah <branch name>`
+  * `git merge --squash <branch name>`
   * `git commit`
 - push master to origin
   * `git push origin master`
