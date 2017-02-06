@@ -326,10 +326,26 @@ export class EventPage {
     }
     return false;
   }
-  getEventDetails(id: string) {
-
-  }
-
+    signup(id) {
+        this.volunteerEventsService
+            .eventRegister(id).subscribe(
+            event => console.log("signed up for event " + id),
+            err => {
+                console.log(err);
+            }, () => {
+                this.volunteerEventsService.loadMyEvents();
+            });
+    }
+     deRegister(id) {
+        this.volunteerEventsService
+            .eventDeregister(id).subscribe(
+            result => console.log("canceled event registration " + id),
+            err => {
+                console.log(err);
+            }, () => {
+                this.volunteerEventsService.loadMyEvents();
+            });
+    }
 //Popover Stuff
  presentPopover(ev) {
    
