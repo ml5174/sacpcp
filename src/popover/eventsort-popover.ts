@@ -2,41 +2,39 @@ import { ViewController } from 'ionic-angular';
 import { Component, Input} from '@angular/core';
 import { EventPage } from '../pages/events/events';
 
-
 @Component({
   template: `
-              <h4>
-                  Filter Options
+              <h4 class="header">
+                  Sort Options
               </h4>
                 <ion-list radio-group [(ngModel)]="sortBy">
                   <ion-item>
                     <ion-label>Event Name</ion-label>
-                    <ion-radio value="eventName" checked></ion-radio>
+                    <ion-radio value="title" checked></ion-radio>
                   </ion-item>
                    <ion-item>
                     <ion-label>City</ion-label>
-                    <ion-radio value="city"></ion-radio>
+                    <ion-radio value="location_city"></ion-radio>
                   </ion-item>
                    <ion-item>
                     <ion-label>State</ion-label>
-                    <ion-radio value="state"></ion-radio>
+                    <ion-radio value="location_state"></ion-radio>
                   </ion-item>
                    <ion-item>
                     <ion-label>Start Time</ion-label>
-                    <ion-radio value="startTime"></ion-radio>
+                    <ion-radio value="start"></ion-radio>
                   </ion-item>
               </ion-list> 
-              <ion-list>
-        <button ion-button ion-icon-left small color="danger" (click)="doSubmit(sortBy)">
+        <button ion-button ion-icon-left small class="header"  (click)="doSubmit(sortBy)">
         <ion-icon name="checkmark"> </ion-icon>
         Submit</button>
-        <button ion-button ion-icon-left small color="danger">
-        Clear</button>
-    `
+    `,
+    selector:'eventsortpopover'
 })
 
-export class EventFilterPopover {
-  private sortBy: string = 'eventName';
+export class EventSortPopover {
+  private sortBy: string = 'title';
+
   private modaldata;
   
   constructor(public viewCtrl: ViewController ) {

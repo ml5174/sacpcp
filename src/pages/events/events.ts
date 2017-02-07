@@ -5,13 +5,15 @@ import { EventImage } from '../../lib/model/eventImage';
 import { UserServices } from '../../lib/service/user';
 import { EventDetailModal } from './eventdetail-modal';
 import { ModalController, ViewController } from 'ionic-angular';
-import { SearchTypeSelector} from '../events/eventsort-popover';
 import { PopoverController, ToastController, LoadingController } from 'ionic-angular';
-import { EventFilterPopover } from '../../popover/eventsearch-filter';
+import { PreferredSearchPopover } from '../../popover/preferredsearch-popover';
+import { EventSortPopover} from '../../popover/eventsort-popover';
+import {EventSortPipe} from '../../lib/pipe/eventsortpipe';
 
 @Component({
   templateUrl: 'events.html',
-  selector: 'events'
+  selector: 'events',
+  providers:[EventSortPipe]
 })
 
 export class EventPage {
@@ -24,7 +26,11 @@ export class EventPage {
   public maxEvents: Array<VolunteerEvent> = [];
   public minEvents: Array<VolunteerEvent> = [];
   public stubEvents: Array<VolunteerEvent> = [];
+  public monthNames: Array<String> = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
 
+ // public preferenceModel: Array<MyPreferences> = [];
+ // public currentPreferences: Array<MyPreferences> = [];
   public selectedSort: string = '';
   public selectedPreferences: any = {};
   public showAdvancedOptions: Boolean = false;
@@ -45,12 +51,14 @@ export class EventPage {
     private popoverCtrl: PopoverController,
     public viewCtrl: ViewController,
     public loadingController: LoadingController,
+    private sortPipe: EventSortPipe,
     public toastController: ToastController) {
   }
 
   ngOnInit() {
 
     this.loadEvents();
+    // this.getPreferences();
     this.showLoading();
   }
 
@@ -137,13 +145,21 @@ export class EventPage {
       this.preferenceSearch();
         }else{
               for (var i = 0; i < this.values.length; ++i) {
+                
                     this.searchedEvents = this.searchedEvents.filter((item) => {
-                      return ((item.description !=null && 
-                        (item.description.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) || 
-                        (item.title !=null && 
-                        (item.title.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+                    let d = new Date(item.start)
+                    let month = this.monthNames[d.getMonth()];
+                    let year  = d.getUTCFullYear().toString();
+                   
+
+                      return ((item.description !=null &&
+                        (item.description.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+                         (item.title !=null &&
+                        (item.title.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))  ||
                         (item.location_name !=null &&
-                        (item.location_name.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+                        (item.location_name.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))  ||
+                        (item.id !=null &&
+                        (item.id.toString().toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))  ||
                         (item.location_address1 !=null &&
                         (item.location_address1.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
                         (item.location_city !=null &&
@@ -153,10 +169,19 @@ export class EventPage {
                         (item.location_zipcode !=null &&
                         (item.location_zipcode.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
                         (item.location_address2 !=null &&
-                        (item.location_address2.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) 
+                        (item.location_address2.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+                        (d.getUTCDate().toString() !=null &&
+                        (d.getUTCDate().toString().toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))||
+                        (month.toString() !=null &&
+                        (month.toString().toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+                        (year.toString() !=null &&
+                        (year.toString().toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))
                         )});
 
                   }
+
+                    this.searchedEvents.map(Array, this.sortPipe.transform(this.searchedEvents, this.selectedSort));
+                 // this.pipe.transform(this.searchedEvents, this.selectedSort);
 
        }
       if (this.searchedEvents.length==0){
@@ -367,7 +392,7 @@ export class EventPage {
 //Popover Stuff
  presentPopover(ev) {
    
-    let popover = this.popoverCtrl.create(EventFilterPopover, {
+    let popover = this.popoverCtrl.create(EventSortPopover, {
     });
 
     popover.present({
@@ -377,7 +402,7 @@ export class EventPage {
     popover.onDidDismiss(data => {
       if(data != null  || data != undefined){
         this.selectedSort = data.sortBy;
-        console.log(this.selectedSort);
+        
       }
     
      
@@ -386,7 +411,7 @@ export class EventPage {
 
     presentPreferences(ev) {
    
-    let popover2 = this.popoverCtrl.create(SearchTypeSelector, {
+    let popover2 = this.popoverCtrl.create(PreferredSearchPopover, {
     });
 
     popover2.present({

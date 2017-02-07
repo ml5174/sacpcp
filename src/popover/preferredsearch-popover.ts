@@ -4,7 +4,7 @@ import { EventPage } from '../events/events';
 
 @Component({
   template: `
-             <h4>
+             <h4 class="header">
                 Personal Preferences 
               </h4>
               <ion-list>
@@ -24,11 +24,11 @@ import { EventPage } from '../events/events';
         <button ion-button ion-icon-left small color="danger" (click)="doSubmit(eventLocations, eventZip, serviceAreas)">
         <ion-icon name="checkmark"> </ion-icon>
         Submit</button>
-        <button ion-button ion-icon-left small color="danger">
-        Clear</button>
+        <button ion-button ion-icon-left small color="danger" (click)="cancel()">
+        Cancel</button>
   `,
 })
-export class SearchTypeSelector {
+export class PreferredSearchPopover {
   private  eventLocations: boolean = false;
   private  eventZip: boolean = false;
   private  serviceAreas: boolean = false;
@@ -38,7 +38,11 @@ export class SearchTypeSelector {
     ){
             this.viewCtrl = viewCtrl;
     }
-    
+
+   cancel(){
+     this.viewCtrl.dismiss();
+   } 
+
    doSubmit(locations, zip, areas){
      this.eventLocations = locations;
      this.eventZip = zip;
@@ -50,24 +54,3 @@ export class SearchTypeSelector {
   
    }
 }
-/*
-interface Preferences {
-    eventStart: boolean,
-    eventZip: boolean,
-    serviceAreas: boolean
-}*/
-/*
-// Tell Angular2 we're creating a Pipe with TypeScript decorators
-@Pipe({name: 'EventSearchPipe'})
-export class EventSearchPipe implements PipeTransform {
-
-  // Transform is the new "return function(value, args)" in Angular 1.x
-  transform(value, args?) {
-    // ES6 array destructuring
-    let [minAge] = args;
-    return value.filter(person => {
-      return person.age >= +minAge;
-    });
-  }
-}
-*/
