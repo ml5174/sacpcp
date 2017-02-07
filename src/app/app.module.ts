@@ -76,6 +76,7 @@ export function translateFactory(http: Http) {
     MomentTimeZonePipe,
     TimeFromNowPipe,
     ParseTimePipe,
+    EventSortPipe,
     EventDetailModal,
     ContactMethod
   ],
