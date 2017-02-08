@@ -1,39 +1,38 @@
 <ion-menu [content]="content" side="right" persistent="true">
 
-	<ion-toolbar >
-		<ion-buttons begin>
-			<button *ngIf="userServices.user.id" ion-button icon-left (click)="profile()">
+	
+		<div class="menutop">
+		<button ion-button color="primary" clear *ngIf="userServices.user.id"  (click)="profile()">
 				{{userServices.user.name}}
-			</button>
-		</ion-buttons>
-		<ion-title id="right-menu">Menu</ion-title>
-	</ion-toolbar>
-
-	<ion-content style="margin-top: 65px;" >
+		</button>
+		<span class="menuspan">Menu</span>
+		</div>
+	
+	<ion-content style="margin-top: 50px;" >
 		<ion-list id="right-menu-items" >
 
-			<button ion-item icon-left (click)="openPage(pages[1], 'home')" >
+			<button ion-item (click)="openPage(pages[1], 'home')" >
 				Home
 			</button>
-			<button ion-item icon-left (click)="openPage(pages[1], 'events')">
+			<button ion-item (click)="openPage(pages[1], 'events')">
 				Search Upcoming Events
 			</button>
-			<button ion-item icon-left (click)="openPage(pages[5], '')">
+			<button ion-item (click)="openPage(pages[5], '')">
 				About
 			</button>
-			<button ion-item icon-left (click)="openPage(pages[6], '')">
+			<button ion-item (click)="openPage(pages[6], '')">
 				Contact Us
 			</button>
-			<button ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[2], '')">
+			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[2], '')">
 				Register
 			</button>
-			<button ion-item *ngIf="userServices.user.id" icon-left (click)="openPage(pages[3], '')">
+			<button ion-item *ngIf="userServices.user.id" (click)="openPage(pages[3], '')">
 				Profile
 			</button>
-			<button ion-item *ngIf="!userServices.user.id" icon-left (click)="openPage(pages[0], '')">
+			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')">
 				Login 
 			</button>
-			<button ion-item *ngIf="userServices.user.id" icon-left (click)="logout()">
+			<button ion-item *ngIf="userServices.user.id" (click)="logout()">
 				Logout 
 			</button>
 		</ion-list>

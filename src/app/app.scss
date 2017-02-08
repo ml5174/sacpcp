@@ -337,3 +337,26 @@ ion-list.toggle-section .toggle-section-content {
 ion-card-header{
 	white-space: normal !important;
 }
+
+//Added this to fix ionic being STUPID ABOUT AUTO CAPSING BUTTONS
+.button, .label, .segment-button{
+	text-transform: capitalize !important;
+}
+
+//.label{
+//	text-transform: capitalize !important;
+//}
+
+
+.menutop{
+margin-left: 1%;
+display:table;
+width: 75%;
+.menuspan{
+display:table-cell;
+vertical-align:middle;
+font-size:2.5rem;
+font-family: TrajanPro;
+
+	}
+}
