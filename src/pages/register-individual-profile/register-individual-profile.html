@@ -130,23 +130,31 @@
 						<ion-icon *ngIf="preferredContactSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
 					</ion-list-header>
 					<div class="toggle-section-content" [class.hide-section]="!preferredContactSection">
+						<ion-list radio-group name="myProfile.contactmethod" [(ngModel)]="myProfile.contactmethod">
+						<ion-item *ngFor="let m of availablePreferences.contactmethods">
+						<ion-icon name="alert" item-left [class.error]="my_contactmethod_iderror" *ngIf="my_contactmethod_iderror"></ion-icon>
+							<ion-label [attr.for]="'radio-' + m.id">{{m.name}}</ion-label>
+							<ion-radio name="myProfile.contactmethod" [id]="'radio-' + m.id" [(ngModel)]="myProfile.contactmethod" [value]="m.id"></ion-radio>
+						</ion-item>
+		</ion-list>
 						<ion-list>
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="my_contactmethod_iderror" *ngIf="my_contactmethod_iderror"></ion-icon>
+								
 <!--
 								<ion-label stacked>{{"Contact Method" | translate }}</ion-label>
 								<ion-select [(ngModel)]="myProfile.contactmethod" required>
 									<ion-option *ngFor="let m of availablePreferences.contactmethods" [value]="m.id">{{m.name}}</ion-option>
 								</ion-select>
 -->
-							<section>
+
+						
+
+							<!-- <section>
 								<div class="radio-choice" *ngFor="let m of availablePreferences.contactmethods">
 									<input name="myProfile.contactmethod" [id]="'radio-' + m.id" type="radio" [(ngModel)]="myProfile.contactmethod" [value]="m.id" />
 									<label [attr.for]="'radio-' + m.id">{{m.name}}</label>
 								</div>
 							</section>
-
-							</ion-item>
+ -->
 														
 							<ion-item no-lines>
 								<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
