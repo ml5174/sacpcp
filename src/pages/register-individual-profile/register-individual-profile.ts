@@ -418,7 +418,7 @@ export class RegisterIndividualProfilePage {
     }
 
   }
-
+  
   back() {
     this.nav.popToRoot();
   }
