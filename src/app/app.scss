@@ -347,6 +347,12 @@ ion-card-header{
 //	text-transform: capitalize !important;
 //}
 
+.fatty{
+	span{
+		font-size: 2rem;
+	}
+}
+
 
 .menutop{
 margin-left: 1%;
@@ -359,4 +365,33 @@ font-size:2.5rem;
 font-family: TrajanPro;
 
 	}
+}
+
+
+.alert-button-group {
+justify-content: center !important;
+}
+
+.alert-button{
+    width: 45% !important;
+    .button-inner{
+        justify-content: center !important;
+        }
+}
+
+.alert-title {
+	text-align: center !important;
+	}
+	
+.picker-toolbar{
+	display: inline-block !important;
+	justify-content: center;
+	
+	.picker-toolbar-cancel{
+	float: left !important;
+	}
+	.picker-button{
+	float: right;
+	}
+
 }

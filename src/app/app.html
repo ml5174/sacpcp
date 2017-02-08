@@ -2,7 +2,7 @@
 
 	
 		<div class="menutop">
-		<button ion-button color="primary" clear *ngIf="userServices.user.id"  (click)="profile()">
+		<button ion-button color="primary" clear *ngIf="userServices.user.id"  (click)="openPage(pages[3], '')">
 				{{userServices.user.name}}
 		</button>
 		<span class="menuspan">Menu</span>
