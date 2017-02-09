@@ -63,13 +63,13 @@
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="firstnameerror" *ngIf="firstnameerror"></ion-icon>
 								<ion-label stacked>{{"First Name" | translate }}</ion-label>
-								<ion-input name="myProfile.first_name" type="string" placeholder="Type your First name" class="" [(ngModel)]="myProfile.first_name" required></ion-input>
+								<ion-input name="myProfile.first_name" type="string"  class="" [(ngModel)]="myProfile.first_name" required></ion-input>
 							</ion-item>
 
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="lastnameerror" *ngIf="lastnameerror"></ion-icon>
 								<ion-label stacked>{{"Last Name" | translate }}</ion-label>
-								<ion-input name="myProfile.last_name" type="string" placeholder="Type your Last name" class="" [(ngModel)]="myProfile.last_name" required></ion-input>
+								<ion-input name="myProfile.last_name" type="string"  class="" [(ngModel)]="myProfile.last_name" required></ion-input>
 							</ion-item>
 
 							<ion-item no-lines class="">
@@ -162,7 +162,7 @@
 							</ion-item>
 							
 							<ion-grid class="phone-number">
-								<ion-row>
+								<!-- <ion-row>
 									<ion-col width-25>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
@@ -172,7 +172,7 @@
 									<ion-col width-25>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
-											<ion-input name="mobileNumberPrefix" type="tel" placeholder="" class="" [(ngModel)]="mobileNumberPrefix" minlength="3" maxlength="3"></ion-input>
+											<ion-input name="mobileNumberPrefix" type="tel" placeholder="" class="" [(ngModel)]="mobileNumberPrefix" minlength="3" maxlength="3" ></ion-input>
 										</ion-item>
 									</ion-col>
 									<ion-col width-50>
@@ -181,7 +181,8 @@
 											<ion-input name="mobileNumberLineNumber" type="tel" placeholder="" class="" [(ngModel)]="mobileNumberLineNumber" minlength="4" maxlength="4"></ion-input>
 										</ion-item>
 									</ion-col>
-								</ion-row>
+								</ion-row> -->
+								<phone-input idsuffix="preferred" [ac]="mobileNumberAreaCode" [np]="mobileNumberPrefix" [nn]="mobileNumberLineNumber"></phone-input>
 							</ion-grid>
 							<ion-item no-lines>
 								<ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
@@ -226,7 +227,8 @@
 								<ion-label stacked>{{"Emergency Contact's Phone" | translate }}</ion-label>
 							</ion-item>
 							<ion-grid class="phone-number">
-								<ion-row>
+							<phone-input idsuffix="emergency" [ac]="ecMobileNumberAreaCode" [np]="ecMobileNumberPrefix" [nn]="ecMobileNumberLineNumber"></phone-input>
+								<!-- <ion-row>
 									<ion-col width-25>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
@@ -246,6 +248,7 @@
 										</ion-item>
 									</ion-col>
 								</ion-row>
+								 -->
 							</ion-grid>
 
 							<ion-item no-lines class="">
@@ -253,7 +256,8 @@
 								<ion-label stacked>{{"Emergency Contact's Alternate Phone" | translate }}</ion-label>
 							</ion-item>
 							<ion-grid class="phone-number">
-								<ion-row>
+							<phone-input idsuffix="emergencyalt" [ac]="ecAltMobileNumberAreaCode" [np]="ecAltMobileNumberPrefix" [nn]="ecAltMobileNumberLineNumber"></phone-input>
+								<!-- <ion-row>
 									<ion-col width-25>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
@@ -272,7 +276,7 @@
 											<ion-input name="ecAltNumberLineNumber" type="tel" placeholder="" class="" [(ngModel)]="ecAltNumberLineNumber" minlength="4" maxlength="4"></ion-input>
 										</ion-item>
 									</ion-col>
-								</ion-row>
+								</ion-row> -->
 							</ion-grid>
 
 <!--
