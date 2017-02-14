@@ -66,9 +66,9 @@
 		<input type="submit" hidden>
 				
 		<ion-item no-lines>
-			<ion-label>I agree to the</ion-label>
 			<ion-checkbox name="terms" item-left [(ngModel)]="terms"></ion-checkbox>
-			<button item-right ion-button large color="secondary" clear (click)="viewTerms()">Privacy &amp; Terms</button>
+			<ion-label>
+			<button ion-button large color="secondary" clear (click)="viewTerms()">I Agree to the Privacy &amp; Terms</button></ion-label>
 		</ion-item>
 		</form>
 	</section>
@@ -78,10 +78,10 @@
 	<ion-grid>
 		<ion-row>
 			<ion-col width-50>
-				<button ion-button color="primary" (click)="back()">Cancel</button>
+				<button class="fatty" ion-button color="primary" (click)="back()">Cancel</button>
 			</ion-col>
 			<ion-col width-50>
-				<button ion-button color="primary" (click)="register()">Register</button>
+				<button class="fatty" ion-button color="primary" (click)="register()">Register</button>
 			</ion-col>
 		</ion-row>
 	</ion-grid>

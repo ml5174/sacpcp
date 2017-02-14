@@ -123,6 +123,7 @@ export class RegisterIndividualProfilePage {
     Observable.forkJoin([getMyPreferencesObservable, getAvailablePreferencesObservable, getMyProfileObservable])
         .subscribe(data => {
           this.myPreferences = data[0];
+          console.log(this.myPreferences);
           this.availablePreferences = data[1];
           this.myProfile = data[2];
 
@@ -417,7 +418,7 @@ export class RegisterIndividualProfilePage {
     }
 
   }
-
+  
   back() {
     this.nav.popToRoot();
   }

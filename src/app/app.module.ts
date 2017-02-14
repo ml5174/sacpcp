@@ -22,6 +22,7 @@ import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
 import { AppHeaderComponent } from '../lib/components/app-header.component';
 import { HomeTab } from '../lib/components/home-tab';
+import { PhoneInput } from '../lib/components/phone-input.component';
 import { Storage } from '@ionic/storage';
 
 import { UseridPopover } from '../popover/userid';
@@ -78,7 +79,8 @@ export function translateFactory(http: Http) {
     ParseTimePipe,
     EventSortPipe,
     EventDetailModal,
-    ContactMethod
+    ContactMethod,
+    PhoneInput
   ],
   imports: [
     HttpModule,
