@@ -8,25 +8,25 @@
     },
     "installed_plugins": {
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
+            "PACKAGE_NAME": "com.att.ent.savi"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
+            "PACKAGE_NAME": "com.att.ent.savi"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
+            "PACKAGE_NAME": "com.att.ent.savi"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
+            "PACKAGE_NAME": "com.att.ent.savi"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
+            "PACKAGE_NAME": "com.att.ent.savi"
         },
         "ionic-plugin-deploy": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
+            "PACKAGE_NAME": "com.att.ent.savi"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
+            "PACKAGE_NAME": "com.att.ent.savi"
         }
     },
     "dependent_plugins": {}
