@@ -1,3 +1,14 @@
+# Version Management
+
+When we update the master repository we must update the version of the application in the following places.
+- package.json, config.xml, src/pages/about/about.html
+- versioning is based on semver http://semver.org
+
+# Commit Messages
+
+ Usefull commit messages in the following format.
+ - '[DEFECT NUMBER] Detailed message about what was fixed'
+ 
 # Git Workflow
 
 Definitions for clarity
