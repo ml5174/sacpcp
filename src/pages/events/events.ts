@@ -150,7 +150,7 @@ export class EventPage {
                     let d = new Date(item.start)
                     let month = this.monthNames[d.getMonth()];
                     let year  = d.getUTCFullYear().toString();
-                   
+                    //let time = d.toTimeString();
 
                       return ((item.description !=null &&
                         (item.description.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
