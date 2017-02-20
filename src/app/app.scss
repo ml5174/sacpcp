@@ -395,3 +395,11 @@ justify-content: center !important;
 	}
 
 }
+.hidden-submit {
+    height: 0px;
+    width: 0px;
+    opacity: 0;
+    font-size: 0px;
+    border: none;
+    background: transparent;
+}
