@@ -129,16 +129,16 @@
           <button ion-button small color="primary" *ngIf="this.userServices.isAdmin()" (click)="editEventDetailsAdmin('visible');cancelEventDetailsEdit('hidden')">
             Cancel Edit Details
           </button>
-          <button ion-button small color="primary" *ngIf="this.userServices.isAdmin()" (click)="updateEventDetails()">
+          <button ion-button small color="primary" *ngIf="this.userServices.isAdmin()" (click)="updateEventDetails();editEventDetailsAdmin('visible');cancelEventDetailsEdit('hidden');">
             Submit
           </button>          
-      </ion-item>
-	    <ion-item>
-	      <p>Contact information:</p>
-	      <a href="mailto:Somebody@SalvationArmy.com">Somebody@SalvationArmy.com</a>
-	      <p *ngIf="eventDetail.contacts.length !=0">{{eventDetail.contacts[0]}}</p>
-	      <!--p *ngIf="eventDetail.contacts.length == 0">No contacts for this event</p-->
-	    </ion-item>
+	      </ion-item>
+		    <ion-item>
+		      <p>Contact information:</p>
+		      <a href="mailto:Somebody@SalvationArmy.com">Somebody@SalvationArmy.com</a>
+		      <p *ngIf="eventDetail.contacts.length !=0">{{eventDetail.contacts[0]}}</p>
+		      <!--p *ngIf="eventDetail.contacts.length == 0">No contacts for this event</p-->
+		    </ion-item>
   </ion-list>
 
 </ion-content>

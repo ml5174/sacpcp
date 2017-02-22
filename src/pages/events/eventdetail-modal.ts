@@ -128,14 +128,16 @@ export class EventDetailModal {
     {
         this.cancelEditDetails = toggle;
     }
+    
    // Update EventDetail
    updateEventDetails() {
         this.volunteerEventsService
             .updateEventDetails(this.eventDetail).subscribe(
             result => {
                        this.eventDetail = result;
-                       this.presentToast("Event Detail Updated successful!");                     
-            },
+                       this.presentToast("Event Detail Updated successful!");    
+						   
+            }, 
             err => {
                 console.log(err);
                 this.presentToast("Error in updating Event Details!");                
