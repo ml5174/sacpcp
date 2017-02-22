@@ -23,8 +23,9 @@ export class EventDetailModal {
     aRestriction = AGE_RESTRICTION;
     nSchedule = NOTIFICATION_SCHEDULE;
     nOptions = NOTIFICATION_OPTIONS;
-
     deregisterResult: any;
+    showEditDetails:string ="hidden"; 
+    cancelEditDetails:string ="hidden";     
 
     constructor(params: NavParams,
         private volunteerEventsService: VolunteerEventsService,
@@ -116,4 +117,33 @@ export class EventDetailModal {
     dismiss() {
         this.viewCtrl.dismiss();
     }
+
+
+    editEventDetailsAdmin(toggle)
+    {
+         this.showEditDetails = toggle;
+    }
+    
+    cancelEventDetailsEdit(toggle)
+    {
+        this.cancelEditDetails = toggle;
+    }
+
+   updateEventDetails() {
+        this.volunteerEventsService
+            .updateEventDetails(this.eventDetail).subscribe(
+            result => {
+                       this.eventDetail = result;
+                       this.presentToast("Event Detail Updated successful!");                     
+            },
+            err => {
+                console.log(err);
+                this.presentToast("Error in updating Event Details!");                
+            }, () => {
+              //  this.volunteerEventsService.loadMyEvents();
+               // this.loadDetails();
+            });
+    }
+
+
 }
