@@ -128,7 +128,7 @@ export class EventDetailModal {
     {
         this.cancelEditDetails = toggle;
     }
-
+   // Update EventDetail
    updateEventDetails() {
         this.volunteerEventsService
             .updateEventDetails(this.eventDetail).subscribe(
