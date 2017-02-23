@@ -9,11 +9,12 @@ import { PopoverController, ToastController, LoadingController } from 'ionic-ang
 import { PreferredSearchPopover } from '../../popover/preferredsearch-popover';
 import { EventSortPopover} from '../../popover/eventsort-popover';
 import {EventSortPipe} from '../../lib/pipe/eventsortpipe';
+import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
 
 @Component({
   templateUrl: 'events.html',
   selector: 'events',
-  providers:[EventSortPipe]
+  providers:[EventSortPipe, ParseTimePipe]
 })
 
 export class EventPage {
@@ -52,6 +53,7 @@ export class EventPage {
     public viewCtrl: ViewController,
     public loadingController: LoadingController,
     private sortPipe: EventSortPipe,
+    private parseTimePipe: ParseTimePipe,
     public toastController: ToastController) {
   }
 
@@ -150,8 +152,8 @@ export class EventPage {
                     let d = new Date(item.start)
                     let month = this.monthNames[d.getMonth()];
                     let year  = d.getUTCFullYear().toString();
-                    //let time = d.toTimeString();
-
+                    let time = this.parseTimePipe.transform(item.start.toString(), 'h:mm A');
+                   
                       return ((item.description !=null &&
                         (item.description.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
                          (item.title !=null &&
@@ -170,6 +172,8 @@ export class EventPage {
                         (item.location_zipcode.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
                         (item.location_address2 !=null &&
                         (item.location_address2.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+                        (time !=null &&
+                        (time.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))||
                         (d.getUTCDate().toString() !=null &&
                         (d.getUTCDate().toString().toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))||
                         (month.toString() !=null &&
