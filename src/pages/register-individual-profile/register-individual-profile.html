@@ -158,7 +158,7 @@
 														
 							<ion-item no-lines>
 								<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
-								<ion-label stacked>{{"Mobile Number" | translate }}</ion-label>
+								<ion-label stacked>{{"Mobile Phone" | translate }}</ion-label>
 							</ion-item>
 							
 							<ion-grid class="phone-number">
@@ -205,13 +205,13 @@
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="ecfirstnameerror" *ngIf="ecfirstnameerror"></ion-icon>
 								<ion-label stacked>{{"First Name" | translate }}</ion-label>
-								<ion-input name="myProfile.emergency_contact.first_name" type="string" placeholder="Type Emergency Contact's First name" class="" [(ngModel)]="myProfile.emergency_contact.first_name"></ion-input>
+								<ion-input name="myProfile.emergency_contact.first_name" type="string" placeholder="" class="" [(ngModel)]="myProfile.emergency_contact.first_name"></ion-input>
 							</ion-item>
 
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="eclastnameerror" *ngIf="eclastnameerror"></ion-icon>
 								<ion-label stacked>{{"Last Name" | translate }}</ion-label>
-								<ion-input name="myProfile.emergency_contact.last_name" type="string" placeholder="Type Emergency Contact's Last name" class="" [(ngModel)]="myProfile.emergency_contact.last_name"></ion-input>
+								<ion-input name="myProfile.emergency_contact.last_name" type="string" placeholder="" class="" [(ngModel)]="myProfile.emergency_contact.last_name"></ion-input>
 							</ion-item>
 
 							<ion-item no-lines class="">
