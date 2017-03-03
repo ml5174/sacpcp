@@ -130,58 +130,22 @@
 						<ion-icon *ngIf="preferredContactSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
 					</ion-list-header>
 					<div class="toggle-section-content" [class.hide-section]="!preferredContactSection">
-						<ion-list radio-group name="myProfile.contactmethod" [(ngModel)]="myProfile.contactmethod">
-						<ion-item *ngFor="let m of availablePreferences.contactmethods">
-						<ion-icon name="alert" item-left [class.error]="my_contactmethod_iderror" *ngIf="my_contactmethod_iderror"></ion-icon>
-							<ion-label [attr.for]="'radio-' + m.id">{{m.name}}</ion-label>
-							<ion-radio name="myProfile.contactmethod" [id]="'radio-' + m.id" [(ngModel)]="myProfile.contactmethod" [value]="m.id"></ion-radio>
-						</ion-item>
-		</ion-list>
+							<ion-item no-lines class="">
+							<ion-icon name="alert" item-left [class.error]="my_contactmethod_iderror" *ngIf="my_contactmethod_iderror"></ion-icon>
+								<section>
+									<div class="radio-choice" *ngFor="let m of availablePreferences.contactmethods">
+										<input name="myProfile.contactmethod" [id]="'radio-' + m.id" type="radio" [(ngModel)]="myProfile.contactmethod" [value]="m.id" />
+										<label [attr.for]="'radio-' + m.id">{{m.name}}</label>
+									</div>
+								</section>
+							</ion-item>						
 						<ion-list>
-								
-<!--
-								<ion-label stacked>{{"Contact Method" | translate }}</ion-label>
-								<ion-select [(ngModel)]="myProfile.contactmethod" required>
-									<ion-option *ngFor="let m of availablePreferences.contactmethods" [value]="m.id">{{m.name}}</ion-option>
-								</ion-select>
--->
-
-						
-
-							<!-- <section>
-								<div class="radio-choice" *ngFor="let m of availablePreferences.contactmethods">
-									<input name="myProfile.contactmethod" [id]="'radio-' + m.id" type="radio" [(ngModel)]="myProfile.contactmethod" [value]="m.id" />
-									<label [attr.for]="'radio-' + m.id">{{m.name}}</label>
-								</div>
-							</section>
- -->
-														
 							<ion-item no-lines>
 								<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
 								<ion-label stacked>{{"Mobile Phone" | translate }}</ion-label>
 							</ion-item>
 							
 							<ion-grid class="phone-number">
-								<!-- <ion-row>
-									<ion-col width-25>
-										<ion-item no-lines>
-											<ion-label stacked></ion-label>
-											<ion-input name="mobileNumberAreaCode" type="tel" placeholder="" class="" [(ngModel)]="mobileNumberAreaCode" minlength="3" maxlength="3"></ion-input>
-										</ion-item>
-									</ion-col>
-									<ion-col width-25>
-										<ion-item no-lines>
-											<ion-label stacked></ion-label>
-											<ion-input name="mobileNumberPrefix" type="tel" placeholder="" class="" [(ngModel)]="mobileNumberPrefix" minlength="3" maxlength="3" ></ion-input>
-										</ion-item>
-									</ion-col>
-									<ion-col width-50>
-										<ion-item no-lines>
-											<ion-label stacked></ion-label>
-											<ion-input name="mobileNumberLineNumber" type="tel" placeholder="" class="" [(ngModel)]="mobileNumberLineNumber" minlength="4" maxlength="4"></ion-input>
-										</ion-item>
-									</ion-col>
-								</ion-row> -->
 								<phone-input idsuffix="preferred" [ac]="mobileNumberAreaCode" [np]="mobileNumberPrefix" [nn]="mobileNumberLineNumber"></phone-input>
 							</ion-grid>
 							<ion-item no-lines>
