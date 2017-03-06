@@ -32,7 +32,8 @@ $font-family-wp-base: Arial, sans-serif;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-$sa-primary: #FF173D;
+//$sa-primary: #FF173D;
+$sa-primary: #CC1F2C;
 $sa-secondary: #bd5e6e;
 $sa-dark: #2c2c2c;
 
@@ -40,7 +41,7 @@ $colors: (
   primary:    $sa-primary,
   secondary:  $sa-secondary,
   danger:     #f53d3d,
-  light:      #f4f4f4,
+  light:      #FEFEFC,
   dark:       $sa-dark,
   favorite:   #69BB7B
 );
