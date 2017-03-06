@@ -3,38 +3,47 @@
 Fork my repo in github here: 
 https://github.com/ml5174/sacpcp
 
-from your personal copy clone it to your desktop.
+Also for the lib repot in github here:
+https://github.com/ml5174/savi-lib
 
-1.	You need to install [node] (https://nodejs.org/en/download/)
-2.	Once you cloned the repo to your desktop and have node installed you need to cd to the project and type: `npm install`
-3.	Then you type: `npm install -g cordova ionic` to install ionic command line utilities
-4.	Then you can type: `ionic serve` to run the app, this will automatically pull up your default browser
-5.	I recommend [Visual Studio Code] (https://code.visualstudio.com/download) to edit.
+1.      You need to install [node] (https://nodejs.org/en/download/)
+2.      Clone from your sacpcp repo 
+        git clone https://github.com/<repo>/sacpcp.git 
+        where <repo> is your repo on github
+3.      cd sacpcp
+4.      cd src
+5.      Clone from your savi-lib repo
+        git clone https://github.com/<repo>/savi-lib.git lib
+6.      cd lib
+7.      Set the upstream master for lib
+        git remote add upstream https://github.com/ml5174/savi-lib.git
+8.      git checkout master
+9.      git pull upstream master
+10.     cd ../..
+11.     Set the upstream master for the main source
+        git remote add upstream https://github.com/ml5174/sacpcp.git
+12.     git checkout master
+13.     git pull upstream master
+14.     Once you cloned the repo to your desktop and have node installed you need to cd to the project and type: 
+        npm install
+15.     Now install cordova and ionic. if on macOS, you may need to prefix this command with sudo 
+        npm install -g cordova ionic
+16.     Launch the application to your default browser
+        ionic serve
+17.     If on macOS, then try adding ios platform
+        ionic platform add ios
+18.     if you get errors with bower, then try 
+        sudo npm install -g bower
+19.     You may also try adding android platform
+        ionic platform add android
 
-## How to properly synch your repository with the main repository
+After checking out the code, please see CONTRIBUTING.md for more information about git commands and working with github
 
-- Add the main repository as your upstream repository `git remote add upstream https://github.com/ml5174/sacpcp.git`
-- This only needs to be done once
+For TypeScript sensitive/aware editors, see http://www.typescriptlang.org
+We recommend Visual Studio Code
 
-1. get changes from upstream `git fetch upstream`
-2. make sure you are on your master branch `git checkout master`
-3. merge upstream changes and reorder commits properly `git merge upstream/master`
-4. push changes to your fork `git push`
-
-- If you have pending commits, you may have to handle merge conflicts between steps 2 and 4
-
-
-https://branch.io/resources/app-launch-checklist/
-
-imports: [ 
-    HttpModule, 
-    IonicModule.forRoot(MyApp, { 
-      scrollAssist: false, 
-      autoFocusAssist: false 
-    }, deepLinkConfig),
-
-
-Change 1: 9:36
-Change 2: 9:40 to test squash
-Change 3: 10:15 after mergin with upstream/master 
-Change 4: 11:48 change to localdev separate from upstream/master
+Other important links:
+http://ionicframework.com/docs/v2/resources/editors_and_ides/
+http://ionicframework.com/docs/
+https://angular.io
+http://sass-lang.com
