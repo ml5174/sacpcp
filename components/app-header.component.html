@@ -1,4 +1,6 @@
 <ion-navbar class="navbar-background" hideBackButton="true">
+ <!-- <p style="font-size:18px;margin-bottom: 0px;">Volunteers</p>
+  <p style="font-size:12px;margin-top:0px;">Doing the Most Good</p> -->
   <ion-buttons end>
     <button ion-button icon-only menuToggle style="display: inline-block;">
       <ion-icon name="menu"></ion-icon>
@@ -16,7 +18,7 @@
   <ion-buttons *ngIf="isBack">
   			<button ion-button icon-left color="secondary" clear (click)="back()">
 				<ion-icon name="ios-arrow-back"></ion-icon> {{title | translate}}
-			</button>
+			</button> 
   </ion-buttons>
 
   <ion-buttons end *ngIf="!isBack">
