@@ -222,44 +222,10 @@
 	</ion-card-content>
 </ion-card>
 <ion-card>
-	<ion-card-header>Contact Info</ion-card-header>
+	<ion-card-header>Useful Links</ion-card-header>
 	<ion-card-content>
-
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="address=!address" [class.selected]="address">
-				{{"Address" | translate }}
-				<ion-icon *ngIf="!address" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="address" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!address">
-				<p>5302 Harry Hines Blvd. Dallas,TX 75235
-				</p>
-			</div>
-		</ion-list>
-
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="number=!number" [class.selected]="number">
-				{{"Phone" | translate }}
-				<ion-icon *ngIf="!number" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="number" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!number">
-				<p>(214) 424-7050
-				</p>
-			</div>
-		</ion-list>
-
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="fax=!fax" [class.selected]="fax">
-				{{"Fax" | translate }}
-				<ion-icon *ngIf="!fax" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="fax" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!fax">
-				<p>(214) 688-5234
-				</p>
-			</div>
-		</ion-list>
+		<p><a [navPush]="contactPage">Contact us</a></p>
+		<p><a [navPush]="aboutPage">About us</a></p>
 	</ion-card-content>
 </ion-card>
 
