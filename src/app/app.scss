@@ -249,6 +249,7 @@ ion-list.toggle-section .toggle-section-content {
 @media (min-width: 1024px) {
   ion-nav > ng-component > ion-header > app-header > ion-navbar > ion-buttons > button {
     visibility: hidden;
+    color: #532211;
   }
   ion-menu {
     left: auto;
@@ -403,3 +404,7 @@ justify-content: center !important;
     border: none;
     background: transparent;
 }
+
+.ion-ios-menu{
+   color: #424242;
+ }
