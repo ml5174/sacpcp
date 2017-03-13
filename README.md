@@ -21,20 +21,21 @@
         git clone https://github.com/githubusername/savi-lib.git lib<br>
         where githubusername is your username on github<br>
         and the path give to clone is for your lib fork<br>
-        NOTE: your lib subfolder of src needs to be named lib
+        NOTE: your lib subfolder of src needs to be named lib<br>
+        If you failed to give the lib argument as target name, then rename the lib folder to lib
 1.      cd lib
 1.      Set the upstream master for lib:
         git remote add upstream https://github.com/ml5174/savi-lib.git
 1.      git checkout master
 1.      git pull upstream master
 1.      cd ../..
-1.      Set the upstream master for the main source:
+1.      Set the upstream master for the main source:<br>
         git remote add upstream https://github.com/ml5174/sacpcp.git
 1.      git checkout master
 1.      git pull upstream master
-1.      Once you cloned the repo to your desktop and have node installed you need to cd to the project and type:
+1.      Once you cloned the repo to your desktop and have node installed you need to cd to the project and type:<br>
         npm install
-1.      Now install cordova and ionic. if on macOS, you may need to prefix this command with sudo:
+1.      Now install cordova and ionic. if on macOS, you may need to prefix this command with sudo:<br>
         npm install -g cordova ionic
 
 
