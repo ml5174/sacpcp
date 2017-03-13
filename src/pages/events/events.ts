@@ -147,7 +147,7 @@ export class EventPage {
               for (var i = 0; i < this.values.length; ++i) {
                 
                     this.searchedEvents = this.searchedEvents.filter((item) => {
-                    let d = new Date(item.start)
+                    let d = new Date(item.start);
                     let month = this.monthNames[d.getMonth()];
                     let year  = d.getUTCFullYear().toString();
                    

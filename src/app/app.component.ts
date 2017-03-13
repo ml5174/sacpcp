@@ -14,6 +14,8 @@ import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
+import { admin} from '../pages/admin/admin';
+
 
 @Component({
   templateUrl: 'app.html',
@@ -45,7 +47,9 @@ export class MyApp {
       { title: 'Profile Registration', component: RegisterIndividualProfilePage },
       { title: 'Change Password', component: ChangePasswordPage },
       { title: 'About', component: AboutPage },
-      { title: 'Contact Us', component: ContactPage }
+      { title: 'Contact Us', component: ContactPage },
+      { title: 'Admin', component: admin }
+
 
     ];
   }

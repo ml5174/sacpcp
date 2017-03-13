@@ -23,6 +23,7 @@
 			<button ion-item (click)="openPage(pages[6], '')">
 				Contact Us
 			</button>
+
 			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[2], '')">
 				Register
 			</button>
@@ -31,6 +32,9 @@
 			</button>
 			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')">
 				Login 
+			</button>
+			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[7], '')">
+				Admin
 			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="logout()">
 				Logout 

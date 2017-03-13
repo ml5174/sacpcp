@@ -38,3 +38,4 @@
     <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
     <plugin name="ionic-plugin-deploy" spec="~0.6.5" />
 </widget>
+

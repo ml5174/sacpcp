@@ -39,7 +39,7 @@ import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
 import { EventSortPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
-
+import { admin} from '../pages/admin/admin';
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
     { component: ChangePasswordPage, name: 'Change Password Page', segment: 'password-reset/confirm/:iud/:key' },
@@ -80,7 +80,8 @@ export function translateFactory(http: Http) {
     EventSortPipe,
     EventDetailModal,
     ContactMethod,
-    PhoneInput
+    PhoneInput,
+    admin
   ],
   imports: [
     HttpModule,
@@ -110,7 +111,8 @@ export function translateFactory(http: Http) {
     ContactPage,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
-    EventDetailModal
+    EventDetailModal,
+    admin
   ],
   providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService]
 })
