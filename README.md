@@ -20,7 +20,8 @@
 1.      Clone from your savi-lib repo into a subfolder of src:<br>
         git clone https://github.com/githubusername/savi-lib.git lib<br>
         where githubusername is your username on github<br>
-        and the path give to clone is for your lib fork 
+        and the path give to clone is for your lib fork<br>
+        NOTE: your lib subfolder of src needs to be named lib
 1.      cd lib
 1.      Set the upstream master for lib:
         git remote add upstream https://github.com/ml5174/savi-lib.git
@@ -48,7 +49,7 @@
 *	You may also try adding android platform:<br>
         ionic platform add android
         
-##### If having issues, then check your software installation versions with ionic info and npm --version output:
+### If having issues, then check your software installation versions with ionic info and npm --version output:
 
 ionic info <br>
 
@@ -67,3 +68,5 @@ Xcode version: Xcode 8.2.1 Build version 8C1002 <br>
 <br>
 npm --version <br>
 3.10.10
+
+### See CONTRIBUTING.md for detailed git operations where developers follow a preferred workflow with pull requests to upstream master coming from their github forks
