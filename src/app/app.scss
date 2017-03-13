@@ -48,13 +48,36 @@ h1, h2, h3, h4, h5, h6 {
 h6 {
   font-weight: bold;
 }
+
+
+.app-header-title .toolbar-title { 
+  text-align: center; 
+  margin-left: 0; 
+  font-size: 1.2em; 
+  font-weight: normal; 
+  color: map-get($colors, primary); 
+} 
+ 
+#home-header { 
+  text-align: initial; 
+} 
+ 
+#home-header button.app-header-back-button { 
+  min-width: 80px; 
+  text-align: left; 
+} 
+ 
+#home-header button.app-header-back-button .button-inner { 
+  display: inline; 
+}
+
 .toolbar-content, ion-footer button {
     font-family: TrajanPro;
     //font-family: Arial;
 }
 
 app-header > ion-navbar > div.toolbar-background {
-    background-image: url("../assets/img/logo2.svg");
+ //   background-image: url("../assets/img/logo2.svg");
     background-repeat: no-repeat;
     background-size: auto 85%;
     background-position: left 5px top 5px;
@@ -62,7 +85,7 @@ app-header > ion-navbar > div.toolbar-background {
 }
 
 ion-header > ion-navbar > div.toolbar-background {
-    background-image: url("../assets/img/logo2.svg");
+ //   background-image: url("../assets/img/logo2.svg");
     background-repeat: no-repeat;
     background-size: auto 85%;
     background-position: left 5px top 5px;
@@ -249,6 +272,7 @@ ion-list.toggle-section .toggle-section-content {
 @media (min-width: 1024px) {
   ion-nav > ng-component > ion-header > app-header > ion-navbar > ion-buttons > button {
     visibility: hidden;
+    color: #532211;
   }
   ion-menu {
     left: auto;
@@ -403,3 +427,7 @@ justify-content: center !important;
     border: none;
     background: transparent;
 }
+
+.ion-ios-menu{
+   color: #424242;
+ }

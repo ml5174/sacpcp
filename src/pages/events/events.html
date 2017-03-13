@@ -1,21 +1,21 @@
 <ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
 <div  *ngIf="!showAdvancedItems">
-<button ion-button small color="primary" class="sortButton" (click)="showAdvancedItems = !showAdvancedItems">Advanced Search</button>
+<button ion-button small color="primary" (click)="showAdvancedItems = !showAdvancedItems">Advanced Search</button>
 </div>
 <div  *ngIf="showAdvancedItems">
-    <button ion-button small color="primary" class="sortButton" icon-only  (click)="presentPopover($event)">
+    <button ion-button small color="primary" (click)="presentPopover($event)">
     Sort By
 </button>
-<button ion-button small color="primary" class="sortButton" icon-only disabled="true" (click)="presentPreferences($event)">
+<button ion-button small color="primary" disabled="true" (click)="presentPreferences($event)">
  My Preferences 
 </button>
-<button ion-button small color="primary" class="sortButton" icon-only  (click)="showAdvancedItems = !showAdvancedItems">
+<button ion-button small color="primary"  (click)="showAdvancedItems = !showAdvancedItems">
   Hide Options 
 </button>
 </div>
 
 <div id="results" *ngIf="searching">Search Results</div>
-<img class="main" src="assets/img/logo2.jpg" />
+<!-- Removed per Requirements  <img class="main" src="assets/img/logo2.jpg" /> -->
 <div *ngIf="searching && noResults">No Results Found</div>
 
 <ion-row responsive-sm wrap>
