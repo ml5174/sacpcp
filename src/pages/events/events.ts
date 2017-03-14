@@ -12,6 +12,7 @@ import {EventSortPipe} from '../../lib/pipe/eventsortpipe';
 import { EditEventDetailPage } from '../../pages/admin/editEventDetail';
 import { EventDetail } from '../../lib/model/event-detail';
 
+
 @Component({
   templateUrl: 'events.html',
   selector: 'events',

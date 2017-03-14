@@ -4,7 +4,6 @@ import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
 
 import {HttpModule, Http} from '@angular/http';
 import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
-
 import { MyApp } from './app.component';
 import { TermsPage } from '../pages/terms/terms';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
