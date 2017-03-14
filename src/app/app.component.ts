@@ -13,6 +13,7 @@ import { UserProfile } from '../lib/model/user-profile';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
+import { TermsPage } from '../pages/terms/terms';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 
 @Component({
@@ -45,7 +46,8 @@ export class MyApp {
       { title: 'Profile Registration', component: RegisterIndividualProfilePage },
       { title: 'Change Password', component: ChangePasswordPage },
       { title: 'About', component: AboutPage },
-      { title: 'Contact Us', component: ContactPage }
+      { title: 'Contact Us', component: ContactPage },
+      { title: 'Privacy & Terms', component: TermsPage }
 
     ];
   }
