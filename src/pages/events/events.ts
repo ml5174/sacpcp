@@ -4,11 +4,13 @@ import { VolunteerEventsService } from '../../lib/service/volunteer-events-servi
 import { EventImage } from '../../lib/model/eventImage';
 import { UserServices } from '../../lib/service/user';
 import { EventDetailModal } from './eventdetail-modal';
-import { ModalController, ViewController } from 'ionic-angular';
+import { ModalController, ViewController ,Nav} from 'ionic-angular';
 import { PopoverController, ToastController, LoadingController } from 'ionic-angular';
 import { PreferredSearchPopover } from '../../popover/preferredsearch-popover';
 import { EventSortPopover} from '../../popover/eventsort-popover';
 import {EventSortPipe} from '../../lib/pipe/eventsortpipe';
+import { EditEventDetailPage } from '../../pages/admin/editEventDetail';
+import { EventDetail } from '../../lib/model/event-detail';
 
 @Component({
   templateUrl: 'events.html',
@@ -44,7 +46,8 @@ export class EventPage {
 
   public moreInterval = 30;
   public moreIntervalIncrease = 30;
-
+  public eventDetail : EventDetail;
+  public signedUp: Boolean = false;
   constructor(public volunteerEventsService: VolunteerEventsService,
     public userServices: UserServices,
     public modalCtrl: ModalController,
@@ -52,7 +55,8 @@ export class EventPage {
     public viewCtrl: ViewController,
     public loadingController: LoadingController,
     private sortPipe: EventSortPipe,
-    public toastController: ToastController) {
+    public toastController: ToastController,
+    public nav : Nav) {
   }
 
   ngOnInit() {
@@ -120,6 +124,30 @@ export class EventPage {
     });
     eventDetailModal.present();
   }
+
+ openEventDetail(id) {
+    console.log("open page!");
+    this.getEventDetails(id);
+    this.signedUp = this.amISignedUp(id)
+   }
+
+   getEventDetails(id) {
+        this.volunteerEventsService
+            .getAdminEventDetails(id).
+            subscribe(
+            event =>{
+                this.eventDetail = event, this.assignEventDetail(this.eventDetail)},
+             err => {
+                console.log(err);
+            });
+                
+    }
+     
+   assignEventDetail(ed:EventDetail)
+   {
+     this.eventDetail=ed;
+     this.nav.push(EditEventDetailPage,{eventDetailKey:this.eventDetail,"signedUp": this.signedUp});
+   }
 
   onCancel(event: any) {
     this.search = false;
@@ -300,6 +328,9 @@ export class EventPage {
       },
       () => this.searchedEvents = this.events);
   }
+
+
+
   getAdminEvents() {
     this.volunteerEventsService
       .getAdminEvents().subscribe(
