@@ -9,6 +9,7 @@ import { GET_EVENTS_URI } from '../provider/config';
 import { GET_EVENT_DETAILS_URI } from '../provider/config';
 import { GET_ADMIN_EVENTS_URI } from '../provider/config';
 import { GET_ADMIN_EVENT_DETAILS_URI } from '../provider/config';
+import { EVENT_CANCEL_URI } from '../provider/config';
 import { GET_MYEVENTS_URI } from '../provider/config';
 import { GET_EVENT_IMAGE_URI } from '../provider/config';
 import { EVENT_SIGNUP_URI } from '../provider/config';
@@ -100,14 +101,21 @@ export class VolunteerEventsService {
   }
     
 
-    //Update EventDetails 
+    //Update EventDetails --
     updateEventDetails( eventDetail : EventDetail ): Observable<any>{
-          
-       console.log("ReQ String ===>> "+SERVER + GET_ADMIN_EVENT_DETAILS_URI+eventDetail.id+"/");
        return this.http.put(SERVER + GET_ADMIN_EVENT_DETAILS_URI+eventDetail.id+"/", eventDetail, this.getOptions())
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
+
+
+    //Update EventDetails --
+    cancelEvent( eventId: string ): Observable<any>{
+       return this.http.delete(SERVER + EVENT_CANCEL_URI+eventId+"/", this.getOptions())
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+
 
     getOptions() {
         let headers = new Headers();
