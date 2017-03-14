@@ -98,7 +98,8 @@
 	<ion-grid>
 		<ion-row>
 			<ion-col width-30>
-          <button ion-button small color="primary" >Cancel EVent</button>
+          <button ion-button small color="primary" *ngIf="(this.userServices.isAdmin())" 
+          (click)="cancelEvent(eventDetail.id)">Cancel EVent</button>
 			</ion-col>
 			<ion-col width-30>
           <button ion-button small color="primary" *ngIf="(this.userServices.isAdmin() && (showEditDetails=='hidden'))" 
