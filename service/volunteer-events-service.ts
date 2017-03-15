@@ -106,7 +106,6 @@ export class VolunteerEventsService {
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
 
-
     //Cancel Event
     cancelEvent( eventId: string ): Observable<any>{
        return this.http.delete(SERVER + EVENT_CANCEL_URI+eventId+"/", this.getOptions())
