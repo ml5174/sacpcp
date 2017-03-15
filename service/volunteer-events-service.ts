@@ -109,7 +109,7 @@ export class VolunteerEventsService {
     }
 
 
-    //Update EventDetails --
+    //Cancel Event --
     cancelEvent( eventId: string ): Observable<any>{
        return this.http.delete(SERVER + EVENT_CANCEL_URI+eventId+"/", this.getOptions())
             .map(res => res.json())

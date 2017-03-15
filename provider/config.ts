@@ -23,8 +23,7 @@ if (document.location.hostname === '198.199.86.127')
     SERVER = 'http://52.206.230.237:8001';
 if (document.location.hostname === 'localhost')
     SERVER = 'https://api.testing-volunteers.tsadfw.org'
-if (document.location.hostname === 'localhost')
-    SERVER = 'http://52.206.230.237:8001';
+
 export const STRINGS = {
         first_name: 'First Name',
         last_name: 'Last Name',
