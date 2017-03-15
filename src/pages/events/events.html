@@ -2,6 +2,7 @@
 <div  *ngIf="!showAdvancedItems">
 <button ion-button small color="primary" class="sortButton" (click)="showAdvancedItems = !showAdvancedItems">Advanced Search</button>
 </div>
+
 <div  *ngIf="showAdvancedItems">
     <button ion-button small color="primary" class="sortButton" icon-only  (click)="presentPopover($event)">
     Sort By
