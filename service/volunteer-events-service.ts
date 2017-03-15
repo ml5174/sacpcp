@@ -99,11 +99,17 @@ export class VolunteerEventsService {
                                  })};
   }
   
-    //Update EventDetails 
+    //Update EventDetails --
     updateEventDetails( eventDetail : EventDetail ): Observable<any>{
-          
-       console.log("ReQ String ===>> "+SERVER + GET_ADMIN_EVENT_DETAILS_URI+eventDetail.id+"/");
        return this.http.put(SERVER + GET_ADMIN_EVENT_DETAILS_URI+eventDetail.id+"/", eventDetail, this.getOptions())
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+
+
+    //Cancel Event
+    cancelEvent( eventId: string ): Observable<any>{
+       return this.http.delete(SERVER + EVENT_CANCEL_URI+eventId+"/", this.getOptions())
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
