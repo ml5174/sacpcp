@@ -108,7 +108,7 @@ export class VolunteerEventsService {
 
     //Cancel Event
     cancelEvent( eventId: string ): Observable<any>{
-       return this.http.delete(SERVER + EVENT_CANCEL_URI+eventId+"/", this.getOptions())
+       return this.http.delete(SERVER + GET_ADMIN_EVENT_DETAILS_URI+eventId+"/", this.getOptions())
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
