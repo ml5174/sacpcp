@@ -16,6 +16,7 @@ import { EVENT_SIGNUP_URI } from '../provider/config';
 import { SERVER } from '../provider/config';
 import { UserServices } from '../service/user';
 
+
 @Injectable()
 export class VolunteerEventsService {
 

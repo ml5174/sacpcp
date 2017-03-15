@@ -24,6 +24,7 @@ if (document.location.hostname === '198.199.86.127')
 if (document.location.hostname === 'localhost')
     SERVER = 'https://api.testing-volunteers.tsadfw.org'
 
+    	
 export const STRINGS = {
         first_name: 'First Name',
         last_name: 'Last Name',
