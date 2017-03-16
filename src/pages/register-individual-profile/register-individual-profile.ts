@@ -431,6 +431,14 @@ export class RegisterIndividualProfilePage {
     if (this.showpassword === 'password') this.showpassword = 'text';
     else this.showpassword = 'password';
   }
+  onClick(event){
+  	var target = event.target.parentElement;
+  	setTimeout(function(){
+  	target.scrollIntoView(true);
+  	}
+  	, 100);
+  	
+  }
   presentPasswordPopover(ev) {
 
     let popover = this.popoverCtrl.create(PasswordPopover, {
