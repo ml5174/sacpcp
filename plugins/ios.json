@@ -27,6 +27,9 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.att.ent.savi"
+        },
+        "cordova-plugin-app-version": {
+            "PACKAGE_NAME": "com.att.ent.savi"
         }
     },
     "dependent_plugins": {}
