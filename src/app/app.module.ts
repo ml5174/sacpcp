@@ -23,6 +23,7 @@ import { RegisterIndividualProfilePage } from '../pages/register-individual-prof
 import { AppHeaderComponent } from '../lib/components/app-header.component';
 import { HomeTab } from '../lib/components/home-tab';
 import { PhoneInput } from '../lib/components/phone-input.component';
+import { PrivacyTermsContent } from '../lib/components/privacy-terms-content';
 import { Storage } from '@ionic/storage';
 
 import { UseridPopover } from '../popover/userid';
@@ -85,7 +86,8 @@ export function translateFactory(http: Http) {
     EventSortPipe,
     EventDetailModal,
     ContactMethod,
-    PhoneInput
+    PhoneInput,
+    PrivacyTermsContent
   ],
   imports: [
     HttpModule,
