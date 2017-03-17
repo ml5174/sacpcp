@@ -24,6 +24,12 @@
 <ion-content>
 
 	<section id="register-individual-profile-page">
+	<ion-card><ion-card-header>Profile Image</ion-card-header>
+  <img src="https://openclipart.org/image/2400px/svg_to_png/177482/ProfilePlaceholderSuit.png"/>
+<ion-row><ion-col>
+<button ion-button block icon-left><ion-icon name="cloud-upload"></ion-icon>Upload New Profile Image</button>
+</ion-col></ion-row>
+</ion-card>
 
 		<ion-item no-lines *ngFor="let error of errors">
 			<ion-icon name="alert" item-left></ion-icon>
@@ -382,10 +388,10 @@
 -->
 
 				<!-- Your Preferred Locations for Service -->
-<!--
+
 				<ion-list class="toggle-section">
 					<ion-list-header (click)="locationsSection=!locationsSection"  [class.selected]="locationsSection">
-						{{"Your Preferred Locations for Service" | translate }}
+						{{"Event Preferences" | translate }}
 						<ion-icon *ngIf="!locationsSection" primary item-right name="ios-add-circle-outline"></ion-icon>
 						<ion-icon *ngIf="locationsSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
 					</ion-list-header>
@@ -394,7 +400,7 @@
 						</ion-list>
 					</div>
 				</ion-list>
--->
+
 			
 <!-- Not sure what is going in here				
 			<div *ngSwitchCase="'acknowledgements'">

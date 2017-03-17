@@ -7,8 +7,9 @@ import {STRINGS} from '../../lib/provider/config';
 import {TranslateService} from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
 import { ChangePasswordPage } from '../change-password/change-password';
-import { Content, LoadingController, ToastController, PopoverController } from 'ionic-angular';
+import { Content, LoadingController, ToastController, PopoverController, ModalController } from 'ionic-angular';
 import { PasswordPopover } from '../../popover/password';
+import { ParentVerifyModal } from '../../modals/parent-verify-modal';
 
 @Component({
   templateUrl: 'register-individual-profile.html'
@@ -105,8 +106,8 @@ export class RegisterIndividualProfilePage {
               public translate: TranslateService,
               public loadingController: LoadingController,
               public toastController: ToastController,
-              public popoverCtrl: PopoverController) {
-
+              public popoverCtrl: PopoverController,
+              public modalCtrl: ModalController) {
   }
 
   // On initialization, get the latest info from the server
@@ -175,7 +176,35 @@ export class RegisterIndividualProfilePage {
   }
 
   register() {
+    //check if of age
+    //if not, throw a modal up and ask some questions
+    //otherwise continue
+    var myAge = this.checkAge(this.myProfile.birthdate);
+    //console.log("My age: " + myAge);
+    if(myAge < 17){ //TODO:  Once there is a persistent variable that indicates this user has already submitted for parental verfication, stop doing this check.
+    	//toss up a modal.
+    	this.openModal(myAge);
+    }else{
     this.updateProfile();
+    }
+    
+  }
+  
+  checkAge(birthdate: string): number{
+  	var enteredDate = new Date(birthdate);
+  	var ageDifMs = Date.now() - enteredDate.getTime();
+  	var ageDate = new Date(ageDifMs); 
+  	return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
+  
+  openModal(age:number){
+  	let modal = this.modalCtrl.create(ParentVerifyModal, {age: age});
+  	modal.onDidDismiss(data => { 
+  	console.log(data);
+  	//set a varible here that indicates this profile is in a pending state
+  	this.updateProfile(); //update this method to handle that pending state
+  	});
+  	modal.present();
   }
 
   updateProfile() {
