@@ -4,11 +4,15 @@ import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import { NOTIFICATION_OPTIONS, NOTIFICATION_SCHEDULE, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION } from './../../lib/provider/eventConstants';
 import { UserServices } from '../../lib/service/user';
-
+import { VolunteerEvent } from '../../lib/model/volunteer-event';
+import { HomePage } from '../../pages/home/home';
+import {  parseTime } from '../../pipe';
+import moment from 'moment';
 @Component({
     templateUrl: 'editEventDetail.html'
 })
 export class EditEventDetailPage {
+    public volunteerEvents: Array<VolunteerEvent> = [];
     public eventDetail: EventDetail;
     gender = GENDER_RESTRICTION;
     aRestriction = AGE_RESTRICTION;
@@ -20,7 +24,7 @@ export class EditEventDetailPage {
     showEditDetails: string = "hidden";
     cancelEditDetails: string = "hidden";
     eventCancellation: any;
-
+    daysLeftUntilStartDate : number;
     constructor(private volunteerEventsService: VolunteerEventsService,
         private userServices: UserServices,
         public nav: NavController,
@@ -30,6 +34,10 @@ export class EditEventDetailPage {
         this.eventDetail = this.navParams.get('eventDetailKey');
         this.signedUp = this.navParams.get('signedUp');
         this.viewCtrl = viewCtrl;
+        if(this.eventDetail.creation_date)
+        {
+            this.daysLeftUntilStartDate = moment(this.eventDetail.creation_date).days();
+        }
     }
 
     back() {
@@ -107,7 +115,6 @@ export class EditEventDetailPage {
                 this.presentToast("Error in updating Event Details!");
             }, () => {
                 this.getAdminEventDetails(id);
-               // this.volunteerEventsService.loadMyEvents();
 
             });
     }
@@ -141,26 +148,14 @@ export class EditEventDetailPage {
                 console.log(err);
                 this.presentToast("Error cancelling event ");
             }, () => {
-                this.returnToEventListPage();
+                this.nav.push(HomePage, { tab: 'events' });
             });
 
     }
 
+   backToEventList(date:String)
+   {
+      this.nav.push(HomePage, { tab: 'events' });
+   }
 
-    returnToEventListPage() {
-
-        this.volunteerEventsService
-            .getVolunteerEvents().subscribe(
-            result => {
-                this.eventCancellation = result;
-                this.presentToast("Event is successfully cancelled");
-            },
-            err => {
-                console.log(err);
-                this.presentToast("Error cancelling event ");
-            }, () => {
-                this.back();
-            });
-
-    }
 }

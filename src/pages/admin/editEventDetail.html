@@ -8,12 +8,62 @@
 
 <ion-content>
   <ion-list *ngIf="eventDetail">
+    <ion-item *ngIf="(this.showEditDetails=='hidden')" >
+             <p>Event Type: {{eventDetail.title}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Event Id: {{eventDetail.id}}</p>
+    </ion-item>
+    <ion-item *ngIf="(this.showEditDetails=='hidden')" >
+            <p>Description: {{eventDetail.description}}</p>
+    </ion-item>
+    <ion-item  *ngIf="(this.showEditDetails=='hidden' && eventDetail.eventimages.length !=0)" >
+           <span >
+              <img [src]="eventDetail.eventimages[0].thumbnail" />
+           </span>
+    </ion-item>
+    <ion-item *ngIf="(this.showEditDetails=='hidden')"  >
+            <p *ngIf="eventDetail.eventimages.length ==0">There are no images for this event</p>
+    </ion-item>
+    <ion-item *ngIf="(this.showEditDetails=='hidden')" >
+            <p *ngIf="eventDetail.serviceareas.length ==0">There are no service areas associated with this event</p>
+    </ion-item>
     <ion-item *ngIf="(this.showEditDetails=='hidden')">
+           <p>Gender restrictions: {{gender[eventDetail.gender_restriction]}}</p> 
+    </ion-item>   
+    <ion-item *ngIf="(this.showEditDetails=='hidden')">
+           <p>Age restriction: {{aRestriction[eventDetail.age_restriction]}}</p> 
+    </ion-item>
+    <ion-item *ngIf="(this.showEditDetails=='hidden')">
+           <p>Volunteer type restrictions: {{vRestriction[eventDetail.volunteer_restriction]}}</p> 
+    </ion-item>
+    <ion-item *ngIf="(this.showEditDetails=='hidden')">
+           <p>Same day sign in allowed: {{sdRestriction[eventDetail.same_day_registration]}}</p> 
+    </ion-item>
+    <ion-item *ngIf="(this.showEditDetails=='hidden')">
+           <p>Event notification: {{nOptions[eventDetail.notification_option]}}</p> 
+    </ion-item>
+    <ion-item *ngIf="(this.showEditDetails=='hidden')">
+            <p>Special instructions: {{eventDetail.special_instructions}}</p> 
+    </ion-item> 
+    <ion-item *ngIf="(this.showEditDetails=='hidden')">
+           <p>Max Volunteers Needed: {{eventDetail.max_registered}}</p> 
+    </ion-item> 
+    <ion-item *ngIf="(this.showEditDetails=='hidden')">
+           <p>Min Volunteers Needed: {{eventDetail.min_registered}}</p> 
+    </ion-item>         
+    <ion-item *ngIf="(this.showEditDetails=='hidden')">
+           <p>No of Volunteers Registered to Date: {{eventDetail.volunteers.length}}</p> 
+    </ion-item> 
+    <ion-item *ngIf="(this.showEditDetails=='hidden')">
+           <p>Days Left Until Start Date:  {{this.daysLeftUntilStartDate}}</p> 
+    </ion-item>
+  <!--
+    <ion-item *ngIf="(this.showEditDetails=='hidden')">
+     
       <p>Event Type: {{eventDetail.title}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Event Id: {{eventDetail.id}}</p>
       <p>Description: {{eventDetail.description}}</p>
       <span *ngIf="eventDetail.eventimages.length !=0">
            <img [src]="eventDetail.eventimages[0].thumbnail" />
        </span>
+       
       <p *ngIf="eventDetail.eventimages.length ==0">There are no images for this event</p>
       <p *ngIf="eventDetail.serviceareas.length ==0">There are no service areas associated with this event</p>
       <p>Gender restrictions: {{gender[eventDetail.gender_restriction]}}</p> 
@@ -26,6 +76,7 @@
       <p>Min Volunteers Needed: {{eventDetail.min_registered}}</p>
       <p>No of Volunteers Registered to Date: {{eventDetail.volunteers.length}}</p>
      </ion-item>
+  -->
      <ion-item *ngIf="(this.showEditDetails=='visible')">
           <ion-label stacked>{{"Description" | translate }}</ion-label>
           <ion-input name="eventDetail.description" type="string"  class="" [(ngModel)]="eventDetail.description"></ion-input>
@@ -92,7 +143,8 @@
       <ion-item *ngIf="(this.showEditDetails=='visible')">
           <ion-label stacked>{{"Min Volunteers Needed:" | translate }}</ion-label>
           <ion-input name="eventDetail.min_registered" type="string"  class="" [(ngModel)]="eventDetail.min_registered"></ion-input>
-      </ion-item>      
+      </ion-item>  
+
   </ion-list>
 </ion-content>
 <ion-footer class="action-footer">
@@ -119,6 +171,9 @@
           (click)="updateEventDetails(eventDetail.id);editEventDetailsAdmin('hidden');cancelEventDetailsEdit('hidden');">
             Submit
           </button>           
+			</ion-col>
+      <ion-col width-30>
+          <button ion-button small color="primary"  (click)="backToEventList(eventDetail.creation_date)">Back</button>
 			</ion-col>
 			<ion-col width-30>
           <button ion-button small color="primary" *ngIf="!signedUp" (click)="signup(eventDetail.id)">Register</button>
