@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AboutPage } from '../../pages/about/about';
+import { ContactPage } from '../../pages/contact/contact';
 
 @Component({
   selector: 'home-tab',
@@ -8,7 +10,8 @@ import { Component } from '@angular/core';
 export class HomeTab { 
 
   program: string = "selection";
-
+  aboutPage = AboutPage;
+  contactPage = ContactPage
   constructor(
   ) {
   }
