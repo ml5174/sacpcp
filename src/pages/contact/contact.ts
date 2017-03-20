@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Platform, MenuController, Nav, Select, Config } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'contact.html'
@@ -10,11 +11,36 @@ export class ContactPage {
   mapsGoogleString: string = "https://www.google.com/maps/place/5302+Harry+Hines+Blvd/@32.8129391,-96.8383961,17z/data=!4m6!3m5!1s0x864e9c1d2f591113:0xca55213bf944996d!4b1!8m2!3d32.8142175!4d-96.8373807";
   mapsURL: string = this.mapsGoogleString;
   constructor(
+    public alertCtrl: AlertController,
     public platform: Platform, 
     public nav: NavController) {
     if(this.platform.is('ios')) {
       this.mapsURL = this.mapsAppleString;
     }
+  }
+
+  call_TSACPC(phoneNumber) {
+    let confirm = this.alertCtrl.create({
+      title: phoneNumber,
+      message: '',
+      buttons: [
+      {
+        text: 'Cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Dial',
+        handler: () => {
+          console.log('Dial clicked');
+           phoneNumber = encodeURIComponent(phoneNumber);
+           window.open('tel:'+phoneNumber,'_self');
+        }
+      }
+      ]
+    });
+    confirm.present();
   }
 
   back() {
