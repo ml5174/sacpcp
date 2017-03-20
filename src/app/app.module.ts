@@ -23,12 +23,16 @@ import { RegisterIndividualProfilePage } from '../pages/register-individual-prof
 import { AppHeaderComponent } from '../lib/components/app-header.component';
 import { HomeTab } from '../lib/components/home-tab';
 import { PhoneInput } from '../lib/components/phone-input.component';
+import { PrivacyTermsContent } from '../lib/components/privacy-terms-content';
 import { Storage } from '@ionic/storage';
 
 import { UseridPopover } from '../popover/userid';
 import { PasswordPopover } from '../popover/password';
 import { EventSortPopover } from '../popover/eventsort-popover';
 import { PreferredSearchPopover } from '../popover/preferredsearch-popover';
+
+import { ParentVerifyModal } from '../modals/parent-verify-modal';
+import { PrivacyTermsModal } from '../modals/privacy-terms-modal';
 
 import { UserServices } from '../lib/service/user';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service';
@@ -73,6 +77,8 @@ export function translateFactory(http: Http) {
     PasswordPopover,
     EventSortPopover,
     PreferredSearchPopover,
+    ParentVerifyModal,
+    PrivacyTermsModal,
     ReferralSourcePipe,
     MomentTimeZonePipe,
     TimeFromNowPipe,
@@ -80,7 +86,8 @@ export function translateFactory(http: Http) {
     EventSortPipe,
     EventDetailModal,
     ContactMethod,
-    PhoneInput
+    PhoneInput,
+    PrivacyTermsContent
   ],
   imports: [
     HttpModule,
@@ -102,6 +109,8 @@ export function translateFactory(http: Http) {
     PasswordPopover,
     EventSortPopover,
     PreferredSearchPopover,
+    ParentVerifyModal,
+    PrivacyTermsModal,
     HomePage,
     DonatePage,
     ForgotPage,
