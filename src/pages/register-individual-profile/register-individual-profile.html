@@ -24,6 +24,12 @@
 <ion-content>
 
 	<section id="register-individual-profile-page">
+	<ion-card><ion-card-header>Profile Image</ion-card-header>
+  <img src="https://openclipart.org/image/2400px/svg_to_png/177482/ProfilePlaceholderSuit.png"/>
+<ion-row><ion-col>
+<button ion-button block icon-left><ion-icon name="cloud-upload"></ion-icon>Upload New Profile Image</button>
+</ion-col></ion-row>
+</ion-card>
 
 		<ion-item no-lines *ngFor="let error of errors">
 			<ion-icon name="alert" item-left></ion-icon>
@@ -32,28 +38,9 @@
 
 		<form (ngSubmit)="register()">
 			<input type="submit" class="hidden-submit">
-
-		<div padding>
-			<ion-segment name="selectedTab" [(ngModel)]="selectedTab">
-				<ion-segment-button value="personal">
-					Personal
-				</ion-segment-button>
-				<ion-segment-button value="preferences">
-					Preferences
-				</ion-segment-button>
-<!--
-				<ion-segment-button value="acknowledgements">
-					Acknowledgements
-				</ion-segment-button>
--->
-			</ion-segment>
-		</div>
-
-		<div [ngSwitch]="selectedTab">
-			<div *ngSwitchCase="'personal'">
 				<!-- My Credentials -->
 				<ion-list class="toggle-section">
-					<ion-list-header (click)="myCredentials=!myCredentials" [class.selected]="myCredentials">
+					<ion-list-header (click)="myCredentials=!myCredentials; onClick($event)" [class.selected]="myCredentials">
 						{{"My Credentials" | translate }}
 						<ion-icon *ngIf="!myCredentials" primary item-right name="ios-add-circle-outline"></ion-icon>
 						<ion-icon *ngIf="myCredentials" primary item-right name="ios-remove-circle-outline"></ion-icon>
@@ -124,7 +111,7 @@
 
 				<!-- Preferred Contact -->
 				<ion-list class="toggle-section">
-					<ion-list-header (click)="preferredContactSection=!preferredContactSection" [class.selected]="preferredContactSection">
+					<ion-list-header (click)="preferredContactSection=!preferredContactSection; onClick($event)" [class.selected]="preferredContactSection">
 						{{"Preferred Contact Method" | translate }}
 						<ion-icon *ngIf="!preferredContactSection" primary item-right name="ios-add-circle-outline"></ion-icon>
 						<ion-icon *ngIf="preferredContactSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
@@ -159,7 +146,7 @@
 
 				<!-- Emergency Contact -->
 				<ion-list class="toggle-section">
-					<ion-list-header (click)="emergencyContactSection=!emergencyContactSection" [class.selected]="emergencyContactSection">
+					<ion-list-header (click)="emergencyContactSection=!emergencyContactSection; onClick($event)" [class.selected]="emergencyContactSection">
 						{{"Emergency Contact" | translate }}
 						<ion-icon *ngIf="!emergencyContactSection" primary item-right name="ios-add-circle-outline"></ion-icon>
 						<ion-icon *ngIf="emergencyContactSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
@@ -282,7 +269,7 @@
 
 				<!-- Change Password -->
 				<ion-list class="toggle-section">
-					<ion-list-header (click)="changePasswordSection=!changePasswordSection" [class.selected]="changePasswordSection">
+					<ion-list-header (click)="changePasswordSection=!changePasswordSection; onClick($event)" [class.selected]="changePasswordSection">
 						{{"Change Password" | translate }}
 						<ion-icon *ngIf="!changePasswordSection" primary item-right name="ios-add-circle-outline"></ion-icon>
 						<ion-icon *ngIf="changePasswordSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
@@ -315,14 +302,9 @@
 					</div>
 				</ion-list>
 
-
-			</div>
-
-			<div *ngSwitchCase="'preferences'">
-
 				<!-- Volunteer Types -->
 				<ion-list class="toggle-section">
-					<ion-list-header (click)="volunteerTypesSection=!volunteerTypesSection"  [class.selected]="volunteerTypesSection">
+					<ion-list-header (click)="volunteerTypesSection=!volunteerTypesSection; onClick($event)"  [class.selected]="volunteerTypesSection">
 						{{"Volunteer Types" | translate }}
 						<ion-icon *ngIf="!volunteerTypesSection" primary item-right name="ios-add-circle-outline"></ion-icon>
 						<ion-icon *ngIf="volunteerTypesSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
@@ -362,7 +344,7 @@
 
 				<!-- Interested Service Areas -->
 				<ion-list class="toggle-section">
-					<ion-list-header (click)="serviceAreasSection=!serviceAreasSection"  [class.selected]="serviceAreasSection">
+					<ion-list-header (click)="serviceAreasSection=!serviceAreasSection; onClick($event)"  [class.selected]="serviceAreasSection">
 						{{"Interested Service Areas" | translate }}
 						<ion-icon *ngIf="!serviceAreasSection" primary item-right name="ios-add-circle-outline"></ion-icon>
 						<ion-icon *ngIf="serviceAreasSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
@@ -406,10 +388,10 @@
 -->
 
 				<!-- Your Preferred Locations for Service -->
-<!--
+
 				<ion-list class="toggle-section">
 					<ion-list-header (click)="locationsSection=!locationsSection"  [class.selected]="locationsSection">
-						{{"Your Preferred Locations for Service" | translate }}
+						{{"Event Preferences" | translate }}
 						<ion-icon *ngIf="!locationsSection" primary item-right name="ios-add-circle-outline"></ion-icon>
 						<ion-icon *ngIf="locationsSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
 					</ion-list-header>
@@ -418,8 +400,7 @@
 						</ion-list>
 					</div>
 				</ion-list>
--->
-			</div>
+
 			
 <!-- Not sure what is going in here				
 			<div *ngSwitchCase="'acknowledgements'">
@@ -456,7 +437,6 @@
 				</ion-item>
 			</div>
 -->
-		</div>
 		</form>
 	</section>
 

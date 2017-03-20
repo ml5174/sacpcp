@@ -1,6 +1,6 @@
 import { Component , ViewChild} from '@angular/core'
 import { UserServices } from '../../lib/service/user';
-import { NavController, NavParams, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, PopoverController, ModalController } from 'ionic-angular';
 import { STRINGS } from '../../lib/provider/config';
 import { TermsPage } from '../terms/terms';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email';
@@ -10,6 +10,7 @@ import { HomePage } from '../home/home';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 import { PasswordPopover } from '../../popover/password';
 import { UseridPopover } from '../../popover/userid';
+import { PrivacyTermsModal } from '../../modals/privacy-terms-modal';
 import { Storage } from '@ionic/storage';
 import { ContactMethod } from '../../lib/components/ContactMethod/contactMethod.component';
 @Component({
@@ -28,6 +29,8 @@ export class RegisterLoginPage {
   public password2error: boolean = false;
   public emailerror: boolean = false;
   public smserror: boolean = false;
+  
+  private modalClicked: boolean = false;
 
   public key: string = '';
   public val: string = '';
@@ -52,7 +55,8 @@ export class RegisterLoginPage {
   constructor(public nav: NavController,
     public userServices: UserServices,
     public translate: TranslateService,
-    public popoverCtrl: PopoverController
+    public popoverCtrl: PopoverController,
+    public modalCtrl: ModalController
   ) { }
 
   register() {
@@ -136,6 +140,17 @@ export class RegisterLoginPage {
   back() {
     this.nav.popToRoot();
   }
+  
+  openModal(){
+  	let modal = this.modalCtrl.create(PrivacyTermsModal);
+  	modal.onDidDismiss(data => { 
+  	console.log(data);
+  	this.modalClicked=true;
+  	this.terms = data.agree;
+  	});
+  	modal.present();
+  }
+  
 
   setError(error) {
     if (error.status === 400) {
@@ -159,7 +174,8 @@ export class RegisterLoginPage {
 
   }
   viewTerms() {
-    this.nav.push(TermsPage);
+    this.openModal();
+    //this.nav.push(TermsPage);
   }
 
   showPassword() {
