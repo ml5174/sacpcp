@@ -37,15 +37,10 @@
 
 		<form (ngSubmit)="register()">
 			<input type="submit" class="hidden-submit">
+				
 				<!-- My Credentials -->
-				<ion-list class="toggle-section">
-					<ion-list-header (click)="myCredentials=!myCredentials; onClick($event)" [class.selected]="myCredentials">
-						{{"My Info" | translate }}
-						<ion-icon *ngIf="!myCredentials" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="myCredentials" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!myCredentials">
-						<ion-list>
+				<accordion-box accordionTitle="{{'My Info' | translate}}" >
+				<ion-list class="accordion-content">
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="firstnameerror" *ngIf="firstnameerror"></ion-icon>
 								<ion-label stacked>*{{"First Name" | translate }}</ion-label>
@@ -105,18 +100,11 @@
 							</ion-item>
 
 						</ion-list>
-					</div>
-				</ion-list>
-
+						</accordion-box>
+				
 				<!-- Preferred Contact -->
-				<ion-list class="toggle-section">
-					<ion-list-header (click)="preferredContactSection=!preferredContactSection; onClick($event)" [class.selected]="preferredContactSection">
-						{{"Preferred Contact Method" | translate }}
-						<ion-icon *ngIf="!preferredContactSection" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="preferredContactSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!preferredContactSection">
-							<ion-item no-lines class="">
+				<accordion-box accordionTitle="{{'Preferred Contact Method' | translate}}" >
+				<div class="accordion-content"><ion-item no-lines class="">
 							<ion-icon name="alert" item-left [class.error]="my_contactmethod_iderror" *ngIf="my_contactmethod_iderror"></ion-icon>
 								<section>
 									<div class="radio-choice" *ngFor="let m of availablePreferences.contactmethods">
@@ -143,19 +131,11 @@
 							<ion-label>*{{"Notify me about upcoming events" | translate }}</ion-label>
 							<ion-toggle></ion-toggle>
 							</ion-item>
-						</ion-list>
-					</div>
-				</ion-list>
+						</ion-list></div></accordion-box>
 
 				<!-- Emergency Contact -->
-				<ion-list class="toggle-section">
-					<ion-list-header (click)="emergencyContactSection=!emergencyContactSection; onClick($event)" [class.selected]="emergencyContactSection">
-						{{"Emergency Contact" | translate }}
-						<ion-icon *ngIf="!emergencyContactSection" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="emergencyContactSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!emergencyContactSection">
-						<ion-list>
+				<accordion-box accordionTitle="{{'Emergency Contact' | translate}}">
+						<ion-list class="accordion-content">
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="ecfirstnameerror" *ngIf="ecfirstnameerror"></ion-icon>
 								<ion-label stacked>*{{"First Name" | translate }}</ion-label>
@@ -267,20 +247,13 @@
 							</ion-item>
 -->
 						</ion-list>
-					</div>
-				</ion-list>
+					</accordion-box>
 
 				
 
 				<!-- Volunteer Types -->
-				<ion-list class="toggle-section" style="display: none;">
-					<ion-list-header (click)="volunteerTypesSection=!volunteerTypesSection; onClick($event)"  [class.selected]="volunteerTypesSection">
-						{{"Volunteer Types" | translate }}
-						<ion-icon *ngIf="!volunteerTypesSection" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="volunteerTypesSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!volunteerTypesSection">
-						<ion-list>
+				<accordion-box accordionTitle="{{'Volunteer Types' | translate}}">
+						<ion-list class="accordion-content">
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left [class.error]="my_volunteertype_iderror" *ngIf="my_volunteertype_iderror"></ion-icon>
 								<ion-label stacked>{{"Volunteer Type" | translate }}: {{myProfile.volunteertype}}</ion-label>
@@ -309,8 +282,7 @@
 							</ion-item>
 
 						</ion-list>
-					</div>
-				</ion-list>
+</accordion-box>
 
 				
 
@@ -330,14 +302,8 @@
 -->
 
 				<!-- Your Preferred Locations for Service -->
-
-				<ion-list class="toggle-section">
-					<ion-list-header (click)="locationsSection=!locationsSection"  [class.selected]="locationsSection">
-						{{"Event Preferences" | translate }}
-						<ion-icon *ngIf="!locationsSection" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="locationsSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!locationsSection">
+				<accordion-box accordionTitle="{{'Event Preferences' | translate}}">
+					<div class="accordion-content">
 						<ion-searchbar></ion-searchbar>
 						<ion-row wrap responsive-sm padding>
 						<ion-col width-33><p>Carr P Collins Center<br/>5302 Harry Hines Blvd<br/>Dallas, TX 75235</p></ion-col>
@@ -350,28 +316,11 @@
 						<ion-col width-33><p>Carr P Collins Center<br/>5302 Harry Hines Blvd<br/>Dallas, TX 75235</p></ion-col>
 						</ion-row>
 					</div>
-				</ion-list>
+					</accordion-box>
 				
 				<!-- Interested Service Areas -->
-				<ion-list class="toggle-section">
-					<ion-list-header (click)="serviceAreasSection=!serviceAreasSection; onClick($event)"  [class.selected]="serviceAreasSection">
-						{{"Interested Service Areas" | translate }}
-						<ion-icon *ngIf="!serviceAreasSection" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="serviceAreasSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!serviceAreasSection">
-<!--
-						<ion-list>
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="my_servicearea_iderror" *ngIf="my_servicearea_iderror"></ion-icon>
-								<ion-label stacked>{{"Service Area" | translate }}</ion-label>
-								<ion-select [(ngModel)]="myProfile.my_servicearea_id" >
-									<ion-option *ngFor="let m of availablePreferences.serviceareas" [value]="m.id">{{m.name}}</ion-option>
-								</ion-select>
-							</ion-item>
-						</ion-list>
--->
-						<div>
+				<accordion-box accordionTitle="{{'Interested Service Areas' | translate}}">
+				<div class="accordion-content">
 							<div class="multi-choice" *ngFor="let m of formServiceAreas">
 								<ion-item no-lines>
 									<ion-label>{{m.name}}</ion-label>
@@ -379,18 +328,12 @@
 								</ion-item>
 							</div>
 						</div>
-					</div>
-				</ion-list>
+</accordion-box>
 				
 				<!-- Change Password -->
-				<ion-list class="toggle-section">
-					<ion-list-header (click)="changePasswordSection=!changePasswordSection; onClick($event)" [class.selected]="changePasswordSection">
-						{{"Change Password" | translate }}
-						<ion-icon *ngIf="!changePasswordSection" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="changePasswordSection" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!changePasswordSection">
-						<ion-list>
+				<accordion-box accordionTitle="{{'Change Password' | translate}}">
+				
+				<ion-list class="accordion-content">
 
 							<ion-item no-lines class="">
 								<ion-icon name="alert" item-left isActive="false" [class.error]="passworderror" *ngIf="passworderror"></ion-icon>
@@ -414,8 +357,7 @@
 							</ion-item>
 
 						</ion-list>
-					</div>
-				</ion-list>
+</accordion-box>
 
 			
 <!-- Not sure what is going in here				
