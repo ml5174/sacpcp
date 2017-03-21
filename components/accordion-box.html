@@ -1,0 +1,12 @@
+<!--  every accordion needs its own name, which can be used as the class selector -->
+
+<ion-list class="toggle-section">
+					<ion-list-header (click)="onClick($event)" [class.selected]="expanded">
+						{{ title }}
+						<ion-icon *ngIf="!expanded" primary item-right name="ios-add-circle-outline"></ion-icon>
+						<ion-icon *ngIf="expanded" primary item-right name="ios-remove-circle-outline"></ion-icon>
+					</ion-list-header>
+					<div class="toggle-section-content" [class.hide-section]="!expanded">
+					<ng-content select=".accordion-content"></ng-content>
+					</div>
+				</ion-list>

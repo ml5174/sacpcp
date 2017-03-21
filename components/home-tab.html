@@ -46,13 +46,8 @@
 <ion-card>
 	<ion-card-header>Programs</ion-card-header>
 	<ion-card-content>
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="substance=!substance" [class.selected]="substance">
-				{{"Substance Abuse Treatment Program" | translate }}
-				<ion-icon *ngIf="!substance" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="substance" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!substance">
+	<accordion-box accordionTitle="{{'Substance Abuse Treatment Program' | translate}}">
+			<div class="accordion-content" >
 				<p>The Substance Abuse Treatment Program serves adult men and women who are battling addiction and who are on probation
 					or parole for a felony crime related to their addiction. With 255 beds, this is the largest treatment program in North
 					Texas working with the Texas Department of Criminal Justice. The goal of the 90-day program is to provide clients with
@@ -60,15 +55,10 @@
 					substance free lives.
 				</p>
 			</div>
-		</ion-list>
-
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="veterans=!veterans" [class.selected]="veterans">
-				{{"Veterans Programs" | translate }}
-				<ion-icon *ngIf="!veterans" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="veterans" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!veterans">
+			</accordion-box>
+			
+			<accordion-box accordionTitle="{{'Veterans Programs' | translate}}">
+			<div class="accordion-content">
 				<p>The Carr P. Collins Center offers temporary housing and supportive services for male and female veterans experiencing
 					homelessness. Veterans who are other than dishonorably discharged are screened and referred for placement by the Veteran's
 					Administration. The program can serve 110 veterans at a given time, and they can stay for up to 2 years. The overall
@@ -76,30 +66,20 @@
 					to achieve self-sufficiency.
 				</p>
 			</div>
-		</ion-list>
+			</accordion-box>
 
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="emergency=!emergency" [class.selected]="emergency">
-				{{"Emergency Shelter" | translate }}
-				<ion-icon *ngIf="!emergency" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="emergency" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!emergency">
+<accordion-box accordionTitle="{{'Emergency Shelter' | translate}}">
+			<div class="accordion-content">
 				<p>The Carr P. Collins Center's emergency shelter provides men, women, and women with children who are experiencing homelessness
 					a safe refuge from the streets with sleeping accommodations, two hot meals a day, showers, clothes, and use of laundry
 					facilities. Through the emergency shelter, clients have access to longer term programming and additional services that
 					address immediate barriers to stability.
 				</p>
 			</div>
-		</ion-list>
+			</accordion-box>
 
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="transitional=!transitional" [class.selected]="transitional">
-				{{"Transitional Shelter" | translate }}
-				<ion-icon *ngIf="!transitional" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="transitional" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!transitional">
+<accordion-box accordionTitle="{{'Transitional Shelter' | translate}}">
+			<div class="accordion-content">
 				<p>Thrive and Step-up transitional shelter programs serve men, women, and women with children who are experiencing homelessness.
 					The Thrive program addresses the needs of those already working or work-ready. The Step-up Program addresses the needs
 					of those who are disabled due to mental illness, medical conditions, and/or substance abuse. The goals are to address
@@ -107,114 +87,77 @@
 					and resources so they can demonstrate housing stability six months after placement.
 				</p>
 			</div>
-		</ion-list>
+</accordion-box>
 
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="domestic=!domestic" [class.selected]="domestic">
-				{{"Domestic Violence Program (Confidential Location)" | translate }}
-				<ion-icon *ngIf="!domestic" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="domestic" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!domestic">
+<accordion-box accordionTitle="{{'Domestic Violence Program (Confidential Location)' | translate}}">
+			<div class="accordion-content">
 				<p>The Domestic Violence Program offers safe shelter in a confidential location for battered women and their children. The
 					program utilizes a trauma informed approach to service delivery, which includes safety planning, children's programming,
 					individual and group therapy, legal advocacy, and case management.
 				</p>
-			</div>
-		</ion-list>
+			</div></accordion-box>
 
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="homesw=!homesw" [class.selected]="homesw">
-				{{"Home Sweet Home" | translate }}
-				<ion-icon *ngIf="!homesw" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="homesw" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!homesw">
+<accordion-box accordionTitle="{{'Home Sweet Home' | translate}}">
+			<div class="accordion-content">
 				<p>The Home Sweet Home Program uses a combination of classroom and one-on-one client centered financial education coupled
 					with limited direct financial assistance in order to prevent homelessness and support residential stability for at-risk
 					households. The goal is that through financial education, clients are empowered with the knowledge to effectively manage
 					their finances to achieve and maintain residential stability.
 				</p>
 			</div>
-		</ion-list>
+</accordion-box>
 
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="summer=!summer" [class.selected]="summer">
-				{{"Summer Heat Relief - Cooling Station" | translate }}
-				<ion-icon *ngIf="!summer" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="summer" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!summer">
+<accordion-box accordionTitle="{{'Summer Heat Relief - Cooling Station' | translate}}">
+			<div class="accordion-content">
 				<p>Extreme heat can be life-threatening. During the summer months, we provide an air-conditioned sitting area and water
 					to keep people hydrated.
 				</p>
 			</div>
-		</ion-list>
 
+</accordion-box>
 
 	</ion-card-content>
 </ion-card>
 <ion-card>
 	<ion-card-header>Services</ion-card-header>
 	<ion-card-content>
-
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="meals=!meals" [class.selected]="meals">
-				{{"Meals" | translate }}
-				<ion-icon *ngIf="!meals" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="meals" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!meals">
+<accordion-box accordionTitle="{{'Meals' | translate}}">
+			<div class="accordion-content">
 				<p>Between 1,200 and 1,500 meals are served to clients at this center each day. Sack lunches are provided for clients going
 					to work or for other community members needing a meal. At Thanksgiving and Christmas, the center opens its doors to
 					the community, offering a holiday feast to those individuals and families who may not otherwise have the opportunity.
 				</p>
 			</div>
-		</ion-list>
+</accordion-box>
 
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="food=!food" [class.selected]="food">
-				{{"Food Pantry" | translate }}
-				<ion-icon *ngIf="!food" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="food" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!food">
+<accordion-box accordionTitle="{{'Food Pantry' | translate}}">
+			<div class="accordion-content">
 				<p>The Carr P. Collins Center distributes over 800 bags of groceries a month to community members in need. Households receive
 					one bag per adult and additional bags for children based on family size. They are eligible to receive food pantry services
 					once every 30 days.
 				</p>
 			</div>
-		</ion-list>
+</accordion-box>
 
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="worship=!worship" [class.selected]="worship">
-				{{"Worship Programs" | translate }}
-				<ion-icon *ngIf="!worship" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="worship" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!worship">
+<accordion-box accordionTitle="{{'Worship Programs' | translate}}">
+			<div class="accordion-content">
 				<p>The Salvation Army is an evangelical part of the universal Christian church. Its message is based on the Bible. Its ministry
 					is motivated by the love of God. Its mission is to preach the Gospel of Jesus Christ and to meet human needs in His
 					name without discrimination. The Carr P. Collins Center offers mainstream Christian teaching at Sunday School and worship
 					services on Sunday, as well as Bible study and fellowship groups during the week.
 				</p>
-			</div>
-		</ion-list>
+			</div> 
+</accordion-box>
 
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="life=!life" [class.selected]="life">
-				{{"Life-Skills Classes" | translate }}
-				<ion-icon *ngIf="!life" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="life" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!life">
+<accordion-box accordionTitle="{{'Life-Skills Classes' | translate}}">
+			<div class="accordion-content">
 				<p>Life-skills classes are an essential component of each of our programs and are designed to provide valuable education
 					and information on the tools that will help our clients be successful as they move towards stability and independence.
 					Topics for life-skills classes include resume building, interview skills, health and nutrition, relapse prevention,
 					coping skills and parenting.
 				</p>
 			</div>
-		</ion-list>
+			</accordion-box>
 
 
 
