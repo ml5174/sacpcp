@@ -50,7 +50,7 @@
     "ionic-plugin-deploy": {
         "source": {
             "type": "registry",
-            "id": "ionic-plugin-deploy"
+            "id": "ionic-plugin-deploy@~0.6.5"
         },
         "is_top_level": true,
         "variables": {}
