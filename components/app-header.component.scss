@@ -27,6 +27,9 @@
   
 }
 
-.username{
-    font-size:12px;
+.registerBanner{
+    font-size:9px;
+    background-color: map-get($colors, primary);
+    color: map-get($colors ,light);
+    font-weight: bold;
 }
