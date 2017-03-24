@@ -4,7 +4,6 @@ import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
 
 import {HttpModule, Http} from '@angular/http';
 import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
-
 import { MyApp } from './app.component';
 import { TermsPage } from '../pages/terms/terms';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
@@ -39,7 +38,7 @@ import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
 import { EventSortPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
-
+import { EditEventDetailPage } from '../pages/admin/editEventDetail';
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
     { component: ChangePasswordPage, name: 'Change Password Page', segment: 'password-reset/confirm/:iud/:key' },
@@ -80,7 +79,8 @@ export function translateFactory(http: Http) {
     EventSortPipe,
     EventDetailModal,
     ContactMethod,
-    PhoneInput
+    PhoneInput,
+    EditEventDetailPage
   ],
   imports: [
     HttpModule,
@@ -110,7 +110,8 @@ export function translateFactory(http: Http) {
     ContactPage,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
-    EventDetailModal
+    EventDetailModal,
+    EditEventDetailPage
   ],
   providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService]
 })
