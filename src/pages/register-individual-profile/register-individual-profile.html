@@ -30,7 +30,7 @@
 </ion-col></ion-row>
 </ion-card>
 
-		<ion-item no-lines *ngFor="let error of errors">
+		<ion-item no-lines *ngFor="let error of errors" class="word-wrap: break-word;" text-wrap>
 			<ion-icon name="alert" item-left></ion-icon>
 			<p style="color:#CC1F2C">{{error}}</p>
 		</ion-item>
