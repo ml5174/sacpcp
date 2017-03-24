@@ -2,183 +2,245 @@
   <ion-navbar class="navbar-background" hideBackButton="true">
   </ion-navbar>
   <ion-toolbar>
-        <span *ngIf="eventDetail">{{eventDetail.title}}</span>
+    <span *ngIf="eventDetail">{{eventDetail.title}}</span>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-list *ngIf="eventDetail">
-    <ion-item *ngIf="(this.showEditDetails=='hidden')" >
-             <p>Event Type: {{eventDetail.title}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Event Id: {{eventDetail.id}}</p>
+    <ion-item *ngIf="eventDetail">
+      <p>Event Type: {{eventDetail.title}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Event
+        Id: {{eventDetail.id}}</p>
     </ion-item>
-    <ion-item *ngIf="(this.showEditDetails=='hidden')" >
-            <p>Description: {{eventDetail.description}}</p>
+
+    <!-- Event Details Info -->
+    <ion-item (click)="(showDetails=!showDetails)">
+      <p>Event Details</p>
+      <ion-icon *ngIf="!showDetails" primary item-right name="ios-add-circle-outline"></ion-icon>
+      <ion-icon *ngIf="showDetails" primary item-right name="ios-remove-circle-outline"></ion-icon>
     </ion-item>
-    <ion-item  *ngIf="(this.showEditDetails=='hidden' && eventDetail.eventimages.length !=0)" >
-           <span >
-              <img [src]="eventDetail.eventimages[0].thumbnail" />
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+      <p>Event Name: {{eventDetail.title}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showDetails  && this.showEditDetails=='visible')" class="logo">
+        <ion-label stacked>{{"Event Name: " | translate }}</ion-label>
+        <ion-input name="eventDetail.title" type="string"  class="" [(ngModel)]="eventDetail.title"></ion-input>
+    </ion-item> 
+    
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+      <p>Event Status: {{eStatus[eventDetail.status]}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showDetails && showEditDetails=='visible')" class="logo">
+      <p>Event Status: {{eStatus[eventDetail.status]}}</p>
+    </ion-item>
+    <!--
+    <ion-item *ngIf="(showDetails  && this.showEditDetails=='visible')">
+        <ion-label stacked>{{"Event Status: " | translate }}</ion-label>
+         <ion-select [(ngModel)]="eventDetail.status" name="eventDetail.status"> 
+              <ion-option value="0"  selected="true">Scheduled</ion-option>
+              <ion-option value="1">Pending</ion-option>
+              <ion-option value="2">Cancelled</ion-option>
+          </ion-select>
+    </ion-item>  
+    --> 
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+      <p>Event Date: {{eventDetail.start | parseTime:"MMM DD"}} {{eventDetail.end | parseTime:"YYYY"}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showDetails && showEditDetails=='visible')" class="logo">
+      <ion-label stacked>{{"Event Date: " | translate }}</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="eventDetail.start"  name="eventDetail.start"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+      <p>Event Start Time: {{eventDetail.start | parseTime:"h:mm A"}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showDetails && showEditDetails=='visible')" class="logo">
+      <ion-label stacked>{{"Event Start Time: " | translate }}</ion-label>
+      <ion-datetime displayFormat="hh:mm A" [(ngModel)]="eventDetail.start" name="eventDetail.start"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+      <p>Event End Time: {{eventDetail.end | parseTime:"h:mm A"}}</p>
+    </ion-item>   
+    <ion-item *ngIf="(showDetails && showEditDetails=='visible')" class="logo">
+      <ion-label stacked>{{"Event End Time: " | translate }}</ion-label>
+      <ion-datetime displayFormat="hh:mm A" [(ngModel)]="eventDetail.end" name="eventDetail.end"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+      <p>Event Location: {{eventDetail.location_name}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+      <p>Event Description: {{eventDetail.description}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+      <p>Service Area: {{eventDetail.title}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+      <p>Days Left Until Start Date: {{this.daysLeftUntilStartDate}}</p>
+    </ion-item>
+    <ion-item *ngIf="(eventDetail.eventimages.length !=0) && (showDetails && showEditDetails=='hidden')" class="logo">
+      <span>
+             Event Photos: <img [src]="eventDetail.eventimages[0].thumbnail" />
            </span>
     </ion-item>
-    <ion-item *ngIf="(this.showEditDetails=='hidden')"  >
-            <p *ngIf="eventDetail.eventimages.length ==0">There are no images for this event</p>
+
+    <!-- Volunteer Info -->
+    <ion-item (click)="(showVolunteerDetails=!showVolunteerDetails)">
+      <p>Volunteer Information</p>
+      <ion-icon *ngIf="!showVolunteerDetails" primary item-right name="ios-add-circle-outline"></ion-icon>
+      <ion-icon *ngIf="showVolunteerDetails" primary item-right name="ios-remove-circle-outline"></ion-icon>
     </ion-item>
-    <ion-item *ngIf="(this.showEditDetails=='hidden')" >
-            <p *ngIf="eventDetail.serviceareas.length ==0">There are no service areas associated with this event</p>
-    </ion-item>
-    <ion-item *ngIf="(this.showEditDetails=='hidden')">
-           <p>Gender restrictions: {{gender[eventDetail.gender_restriction]}}</p> 
-    </ion-item>   
-    <ion-item *ngIf="(this.showEditDetails=='hidden')">
-           <p>Age restriction: {{aRestriction[eventDetail.age_restriction]}}</p> 
-    </ion-item>
-    <ion-item *ngIf="(this.showEditDetails=='hidden')">
-           <p>Volunteer type restrictions: {{vRestriction[eventDetail.volunteer_restriction]}}</p> 
-    </ion-item>
-    <ion-item *ngIf="(this.showEditDetails=='hidden')">
-           <p>Same day sign in allowed: {{sdRestriction[eventDetail.same_day_registration]}}</p> 
-    </ion-item>
-    <ion-item *ngIf="(this.showEditDetails=='hidden')">
-           <p>Event notification: {{nOptions[eventDetail.notification_option]}}</p> 
-    </ion-item>
-    <ion-item *ngIf="(this.showEditDetails=='hidden')">
-            <p>Special instructions: {{eventDetail.special_instructions}}</p> 
-    </ion-item> 
-    <ion-item *ngIf="(this.showEditDetails=='hidden')">
-           <p>Max Volunteers Needed: {{eventDetail.max_registered}}</p> 
-    </ion-item> 
-    <ion-item *ngIf="(this.showEditDetails=='hidden')">
-           <p>Min Volunteers Needed: {{eventDetail.min_registered}}</p> 
-    </ion-item>         
-    <ion-item *ngIf="(this.showEditDetails=='hidden')">
-           <p>No of Volunteers Registered to Date: {{eventDetail.volunteers.length}}</p> 
-    </ion-item> 
-    <ion-item *ngIf="(this.showEditDetails=='hidden')">
-           <p>Days Left Until Start Date:  {{this.daysLeftUntilStartDate}}</p> 
-    </ion-item>
-  <!--
-    <ion-item *ngIf="(this.showEditDetails=='hidden')">
-     
-      <p>Event Type: {{eventDetail.title}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Event Id: {{eventDetail.id}}</p>
-      <p>Description: {{eventDetail.description}}</p>
-      <span *ngIf="eventDetail.eventimages.length !=0">
-           <img [src]="eventDetail.eventimages[0].thumbnail" />
-       </span>
-       
-      <p *ngIf="eventDetail.eventimages.length ==0">There are no images for this event</p>
-      <p *ngIf="eventDetail.serviceareas.length ==0">There are no service areas associated with this event</p>
-      <p>Gender restrictions: {{gender[eventDetail.gender_restriction]}}</p> 
-      <p>Age restriction: {{aRestriction[eventDetail.age_restriction]}}</p>
-      <p>Volunteer type restrictions: {{vRestriction[eventDetail.volunteer_restriction]}}</p>
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
       <p>Same day sign in allowed: {{sdRestriction[eventDetail.same_day_registration]}}</p>
-      <p>Event notification: {{nOptions[eventDetail.notification_option]}}</p>
-      <p>Special instructions: {{eventDetail.special_instructions}}</p>
-      <p>Max Volunteers Needed: {{eventDetail.max_registered}}</p>
-      <p>Min Volunteers Needed: {{eventDetail.min_registered}}</p>
-      <p>No of Volunteers Registered to Date: {{eventDetail.volunteers.length}}</p>
-     </ion-item>
-  -->
-     <ion-item *ngIf="(this.showEditDetails=='visible')">
-          <ion-label stacked>{{"Description" | translate }}</ion-label>
-          <ion-input name="eventDetail.description" type="string"  class="" [(ngModel)]="eventDetail.description"></ion-input>
-     </ion-item>
-      <ion-item *ngIf="(this.showEditDetails=='visible')">
-          <ion-label stacked>{{"Gender restrictions:" | translate }}</ion-label>
-            <ion-select [(ngModel)]="eventDetail.gender_restriction">
-            <ion-option value="0"  selected="true">None</ion-option>
-            <ion-option value="1">Male</ion-option>
-            <ion-option value="2">Female</ion-option>
-            <ion-option value="3">Other</ion-option>
-          </ion-select>
-      </ion-item>  
-      <ion-item *ngIf="(this.showEditDetails=='visible')">
-          <ion-label stacked>{{"Age restrictions:" | translate }}</ion-label>
-            <ion-select [(ngModel)]="eventDetail.age_restriction" name="eventDetail.age_restriction">
-              <!--              
-              <ion-option *ngFor="let m of aRestriction" value="m">{{m}}</ion-option>
-              -->
-              <ion-option value="0"  selected="true">None</ion-option>
-              <ion-option value="1">16 and over</ion-option>
-              <ion-option value="2">under 16</ion-option>
-            </ion-select>
-      </ion-item>  
-      <ion-item *ngIf="(this.showEditDetails=='visible')">
-          <ion-label stacked>{{"Volunteer type restrictions:" | translate }}</ion-label>
-            <ion-select [(ngModel)]="eventDetail.volunteer_restriction" name="eventDetail.volunteer_restriction"> 
-              <!--        
-              <ion-option *ngFor="let mr of aRestriction" value="mr">{{mr}}</ion-option>
-              -->          
-            <ion-option value="0"  selected="true">None</ion-option>
-            <ion-option value="1">Guest</ion-option>
-            <ion-option value="2">Volunteer</ion-option>
-            <ion-option value="3">Staff</ion-option>
-          </ion-select>
-      </ion-item>
-      <ion-item *ngIf="(this.showEditDetails=='visible')">
+    </ion-item>
+    <ion-item *ngIf="(showVolunteerDetails && this.showEditDetails=='visible')">
           <ion-label stacked>{{"Same day sign in allowed:" | translate }}</ion-label>
             <ion-select [(ngModel)]="eventDetail.same_day_registration" name="eventDetail.same_day_registration"> 
-              <!--        
-              <ion-option *ngFor="let mr of aRestriction" value="mr">{{mr}}</ion-option>
-              -->          
             <ion-option value="0"  selected="true">None</ion-option>
             <ion-option value="1">Yes</ion-option>
             <ion-option value="2">No</ion-option>
             <ion-option value="3">IF STAFF</ion-option>
           </ion-select>
-      </ion-item> 
-      <ion-item *ngIf="(this.showEditDetails=='visible')">
-          <ion-label stacked>{{"Event notification:" | translate }}</ion-label>
-            <ion-select [(ngModel)]="eventDetail.notification_option" name="eventDetail.notification_option"> 
-            <ion-option value="0"  selected="true">No</ion-option>
-            <ion-option value="1">Yes</ion-option>
+    </ion-item>    
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+      <p>Event notification: {{nOptions[eventDetail.notification_option]}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showVolunteerDetails  && this.showEditDetails=='visible')">
+        <ion-label stacked>{{"Event notification:" | translate }}</ion-label>
+          <ion-select [(ngModel)]="eventDetail.notification_option" name="eventDetail.notification_option"> 
+          <ion-option value="0"  selected="true">No</ion-option>
+          <ion-option value="1">Yes</ion-option>
+        </ion-select>
+    </ion-item> 
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" >
+      <p>Event notification Schedule: {{nSchedule[eventDetail.notification_schedule]}}</p>
+    </ion-item>
+    <!--
+    <ion-item *ngIf="(showVolunteerDetails  && this.showEditDetails=='visible')">
+        <ion-label stacked>{{"Event notification Schedule:" | translate }}</ion-label>
+          <ion-select [(ngModel)]="eventDetail.notification_schedule" name="eventDetail.notification_schedule"> 
+          <ion-option value="0"  selected="true">None</ion-option>
+          <ion-option value="1">1 day</ion-option>
+          <ion-option value="7">1 Week</ion-option>
+          <ion-option value="14">2 Week</ion-option>
+        </ion-select>
+    </ion-item>      
+    -->     
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+      <p>Min Volunteers Needed: {{eventDetail.min_registered}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showVolunteerDetails  && this.showEditDetails=='visible')">
+        <ion-label stacked>{{"Min Volunteers Needed:" | translate }}</ion-label>
+        <ion-input name="eventDetail.min_registered" type="string"  class="" [(ngModel)]="eventDetail.min_registered"></ion-input>
+    </ion-item>     
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+      <p>Max Volunteers Needed: {{eventDetail.max_registered}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showVolunteerDetails  && this.showEditDetails=='visible')">
+        <ion-label stacked>{{"Max Volunteers Needed:" | translate }}</ion-label>
+        <ion-input name="eventDetail.max_registered" type="string"  class="" [(ngModel)]="eventDetail.max_registered"></ion-input>
+    </ion-item>     
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+      <p>No of Volunteers Registered to Date: {{eventDetail.volunteers.length}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+      <p>Same day sign up allowed: {{sdRestriction[eventDetail.same_day_registration]}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+      <p>No of Volunteers Registered to Date: {{eventDetail.volunteers.length}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+      <p>Volunteer type restrictions: {{vRestriction[eventDetail.volunteer_restriction]}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showVolunteerDetails && this.showEditDetails=='visible')">
+          <ion-label stacked>{{"Volunteer type restrictions:" | translate }}</ion-label>
+            <ion-select [(ngModel)]="eventDetail.volunteer_restriction" name="eventDetail.volunteer_restriction"> 
+            <ion-option value="0"  selected="true">None</ion-option>
+            <ion-option value="1">Guest</ion-option>
+            <ion-option value="2">Volunteer</ion-option>
+            <ion-option value="3">Staff</ion-option>
           </ion-select>
-      </ion-item>
-      <ion-item *ngIf="(this.showEditDetails=='visible')">
-          <ion-label stacked>{{"Special instructions:" | translate }}</ion-label>
-          <ion-input name="eventDetail.special_instructions" type="string"  class="" [(ngModel)]="eventDetail.special_instructions"></ion-input>
-      </ion-item> 
-      <ion-item *ngIf="(this.showEditDetails=='visible')">
-          <ion-label stacked>{{"Max Volunteers Needed:" | translate }}</ion-label>
-          <ion-input name="eventDetail.max_registered" type="string"  class="" [(ngModel)]="eventDetail.max_registered"></ion-input>
-      </ion-item> 
-      <ion-item *ngIf="(this.showEditDetails=='visible')">
-          <ion-label stacked>{{"Min Volunteers Needed:" | translate }}</ion-label>
-          <ion-input name="eventDetail.min_registered" type="string"  class="" [(ngModel)]="eventDetail.min_registered"></ion-input>
-      </ion-item>  
+    </ion-item>
 
+    <!-- Special instructions Info -->
+    <ion-item (click)="(showSpecialInstructions=!showSpecialInstructions)" >
+      <p>Special Instructions</p>
+      <ion-icon *ngIf="!showSpecialInstructions" primary item-right name="ios-add-circle-outline"></ion-icon>
+      <ion-icon *ngIf="showSpecialInstructions" primary item-right name="ios-remove-circle-outline"></ion-icon>
+    </ion-item>
+    <ion-item class="logo" *ngIf="(showSpecialInstructions  && showEditDetails=='hidden')" class="logo">
+      <p>Age restriction: {{aRestriction[eventDetail.age_restriction]}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showSpecialInstructions  && this.showEditDetails=='visible')">
+        <ion-label stacked>{{"Age restrictions:" | translate }}</ion-label>
+          <ion-select [(ngModel)]="eventDetail.age_restriction" name="eventDetail.age_restriction">
+            <ion-option value="0"  selected="true">None</ion-option>
+            <ion-option value="1">16 and over</ion-option>
+            <ion-option value="2">under 16</ion-option>
+          </ion-select>
+    </ion-item>    
+    <ion-item *ngIf="(showSpecialInstructions  && showEditDetails=='hidden')" class="logo">
+      <p>Gender restrictions: {{gender[eventDetail.gender_restriction]}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showSpecialInstructions  && this.showEditDetails=='visible')">
+        <ion-label stacked>{{"Gender restrictions:" | translate }}</ion-label>
+          <ion-select [(ngModel)]="eventDetail.gender_restriction">
+          <ion-option value="0"  selected="true">None</ion-option>
+          <ion-option value="1">Male</ion-option>
+          <ion-option value="2">Female</ion-option>
+          <ion-option value="3">Other</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item *ngIf="(showSpecialInstructions  && showEditDetails=='hidden')" class="logo">
+      <p>Special instructions: {{eventDetail.special_instructions}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showSpecialInstructions  && this.showEditDetails=='visible')">
+        <ion-label stacked>{{"Special instructions:" | translate }}</ion-label>
+        <ion-input name="eventDetail.special_instructions" type="string"  class="" [(ngModel)]="eventDetail.special_instructions"></ion-input>
+    </ion-item>     
+
+    <!-- Contact Information -->
+    <ion-item (click)="(showContactInformation=!showContactInformation)" >
+      <p>Contacts</p>
+      <ion-icon *ngIf="!showContactInformation" primary item-right name="ios-add-circle-outline"></ion-icon>
+      <ion-icon *ngIf="showContactInformation" primary item-right name="ios-remove-circle-outline"></ion-icon>
+    </ion-item>
+    <ion-item class="logo" *ngIf="(showContactInformation && showEditDetails=='hidden')" class="logo">
+      <p>Name: {{aRestriction[eventDetail.age_restriction]}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showContactInformation && showEditDetails=='hidden')" class="logo">
+      <p>Email Address: {{gender[eventDetail.gender_restriction]}}</p>
+    </ion-item>
+    <ion-item *ngIf="(showContactInformation && showEditDetails=='hidden')" class="logo">
+      <p>Contact #: {{gender[eventDetail.gender_restriction]}}</p>
+    </ion-item>
   </ion-list>
 </ion-content>
 <ion-footer class="action-footer">
-	<ion-grid>
-		<ion-row>
-			<ion-col width-30>
-          <button ion-button small color="primary" *ngIf="(this.userServices.isAdmin())" 
-          (click)="cancelEvent(eventDetail.id)">Cancel EVent</button>
-			</ion-col>
-			<ion-col width-30>
-          <button ion-button small color="primary" *ngIf="(this.userServices.isAdmin() && (showEditDetails=='hidden'))" 
-          (click)="editEventDetailsAdmin('visible');cancelEventDetailsEdit('hidden')">
+  <ion-grid>
+    <ion-row>
+      <ion-col width-30>
+        <button ion-button small color="primary" *ngIf="(this.userServices.isAdmin())" (click)="cancelEvent(eventDetail.id)">Cancel EVent</button>
+      </ion-col>
+      <ion-col width-30>
+        <button ion-button small color="primary" *ngIf="(this.userServices.isAdmin() && (showEditDetails=='hidden'))" (click)="editEventDetailsAdmin('visible');cancelEventDetailsEdit('hidden')">
             Edit Event
           </button>
-          <button ion-button small color="primary" *ngIf="(this.userServices.isAdmin() && (showEditDetails=='visible'))" 
-          (click)="editEventDetailsAdmin('hidden');cancelEventDetailsEdit('visible')">
+        <button ion-button small color="primary" *ngIf="(this.userServices.isAdmin() && (showEditDetails=='visible'))" (click)="editEventDetailsAdmin('hidden');cancelEventDetailsEdit('visible')">
             Cancel Edit
           </button>
-         <!-- <button ion-button small color="primary" *ngIf="(this.userServices.isAdmin() && (showEditDetails=='visible'))" 
+        <!-- <button ion-button small color="primary" *ngIf="(this.userServices.isAdmin() && (showEditDetails=='visible'))" 
           (click)="editEventDetailsAdmin('hidden');cancelEventDetailsEdit('visible')">
             Save Edit
-          </button> -->       
-          <button ion-button small color="primary" *ngIf="(this.userServices.isAdmin() && (showEditDetails=='visible'))" 
-          (click)="updateEventDetails(eventDetail.id);editEventDetailsAdmin('hidden');cancelEventDetailsEdit('hidden');">
+          </button> -->
+        <button ion-button small color="primary" *ngIf="(this.userServices.isAdmin() && (showEditDetails=='visible'))" (click)="updateEventDetails(eventDetail.id);editEventDetailsAdmin('hidden');cancelEventDetailsEdit('hidden');">
             Submit
-          </button>           
-			</ion-col>
+          </button>
+      </ion-col>
       <ion-col width-30>
-          <button ion-button small color="primary"  (click)="backToEventList(eventDetail.creation_date)">Back</button>
-			</ion-col>
-			<ion-col width-30>
-          <button ion-button small color="primary" *ngIf="!signedUp" (click)="signup(eventDetail.id)">Register</button>
-          <button ion-button small color="primary" *ngIf="signedUp" (click)="deRegister(eventDetail.id)">Un-Register</button>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
+        <button ion-button small color="primary" (click)="backToEventList(eventDetail.creation_date)">Back</button>
+      </ion-col>
+      <ion-col width-30>
+        <button ion-button small color="primary" *ngIf="!signedUp" (click)="signup(eventDetail.id)">Register</button>
+        <button ion-button small color="primary" *ngIf="signedUp" (click)="deRegister(eventDetail.id)">Un-Register</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-footer>

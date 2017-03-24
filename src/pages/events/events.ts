@@ -397,7 +397,7 @@ export class EventPage {
     }
     return false;
   }
-  /*
+  
   signup(id) {
     this.volunteerEventsService
       .eventRegister(id).subscribe(
@@ -427,7 +427,7 @@ export class EventPage {
         this.volunteerEventsService.loadMyEvents();
       });
   }
-  */
+  
   //Popover Stuff
   presentPopover(ev) {
 

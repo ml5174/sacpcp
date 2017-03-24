@@ -6,7 +6,7 @@ import { NOTIFICATION_OPTIONS, NOTIFICATION_SCHEDULE, AGE_RESTRICTION, GENDER_RE
 import { UserServices } from '../../lib/service/user';
 import { VolunteerEvent } from '../../lib/model/volunteer-event';
 import { HomePage } from '../../pages/home/home';
-import {  parseTime } from '../../pipe';
+import { parseTime } from '../../pipe';
 import moment from 'moment';
 @Component({
     templateUrl: 'editEventDetail.html'
@@ -19,12 +19,22 @@ export class EditEventDetailPage {
     vRestriction = VOLUNTEER_RESTRICTION;
     sdRestriction = SAMEDAY_RESTRICTION;
     nOptions = NOTIFICATION_OPTIONS;
+    nSchedule = NOTIFICATION_SCHEDULE;
     signedUp: Boolean = false;
     deregisterResult: any;
     showEditDetails: string = "hidden";
     cancelEditDetails: string = "hidden";
     eventCancellation: any;
-    daysLeftUntilStartDate : number;
+    daysLeftUntilStartDate: number;
+    showDetails: Boolean = false;
+    eStatus = EVENT_STATUS;
+    eventDate: any;
+    endDateTime: any;
+    startDateTime : any;
+    showVolunteerDetails: Boolean = false;
+    showSpecialInstructions: Boolean = false;
+    showContactInformation: Boolean = false;
+   
     constructor(private volunteerEventsService: VolunteerEventsService,
         private userServices: UserServices,
         public nav: NavController,
@@ -34,11 +44,22 @@ export class EditEventDetailPage {
         this.eventDetail = this.navParams.get('eventDetailKey');
         this.signedUp = this.navParams.get('signedUp');
         this.viewCtrl = viewCtrl;
-        if(this.eventDetail.creation_date)
-        {
-            this.daysLeftUntilStartDate = moment(this.eventDetail.creation_date).days();
+        if (this.eventDetail.creation_date) {
+            this.daysLeftUntilStartDate = moment(this.eventDetail.creation_date).date();
         }
+        if (this.eventDetail.start) {
+            //this.startDateTime = moment(this.eventDetail.start).format('hh:mm A');// Time
+            //sthis.startDateTime= moment(this.eventDetail.start).hours();
+        }                    
+        
+        if (this.eventDetail.end) {
+            this.endDateTime = moment(this.eventDetail.end).hours();//Time
+           
+        }     
+           
     }
+
+
 
     back() {
         this.nav.pop();
@@ -153,9 +174,8 @@ export class EditEventDetailPage {
 
     }
 
-   backToEventList(date:String)
-   {
-      this.nav.push(HomePage, { tab: 'events' });
-   }
+    backToEventList(date: String) {
+        this.nav.push(HomePage, { tab: 'events' });
+    }
 
 }
