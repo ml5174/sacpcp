@@ -20,7 +20,7 @@
   </ion-buttons> 
   -->
    <ion-buttons style="text-align:center;" begin *ngIf="!isBack"> 
-    <button class="registerBanner" *ngIf="!userServices.user.id" ion-button icon-left> 
+    <button class="registerBanner" *ngIf="!userServices.user.id" [navPush]="registerPage" ion-button icon-left> 
        Want to volunteer? Register Today!
     </button> 
   </ion-buttons>
