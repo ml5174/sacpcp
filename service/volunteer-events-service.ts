@@ -98,6 +98,21 @@ export class VolunteerEventsService {
                                      console.log(err);
                                  })};
   }
+  
+    //Update EventDetails --
+    updateEventDetails( eventDetail : EventDetail ): Observable<any>{
+       return this.http.put(SERVER + GET_ADMIN_EVENT_DETAILS_URI+eventDetail.id+"/", eventDetail, this.getOptions())
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+
+    //Cancel Event
+    cancelEvent( eventId: string ): Observable<any>{
+       return this.http.delete(SERVER + GET_ADMIN_EVENT_DETAILS_URI+eventId+"/", this.getOptions())
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+  
     getOptions() {
         let headers = new Headers();
         if (this.userServices) if (this.userServices.user.id) headers.append('Authorization', 'Token ' + this.userServices.user.id);
