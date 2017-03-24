@@ -3,6 +3,7 @@ import { UserServices } from '../../lib/service/user';
 import { Nav } from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
 import { RegisterIndividualProfilePage } from '../../pages/register-individual-profile/register-individual-profile';
+import { RegisterLoginPage } from '../../pages/register-login/register-login';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import { HomePage } from '../../pages/home/home';
 
@@ -16,6 +17,7 @@ export class AppHeaderComponent {
   @Input('title') title: string = 'Login';
 
   rootPage: any = HomePage;
+  registerPage: any = RegisterLoginPage;
 
   constructor(
     private nav: Nav,
