@@ -291,6 +291,9 @@ ion-footer button {
 
 .phone-number {
     margin-top: -20px;
+    ion-col {
+        padding-right: 0px;
+    }
 }
 
 .phone-number ion-label {
