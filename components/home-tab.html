@@ -30,7 +30,7 @@
   <ion-item>(214) 424-7050</ion-item>
   <ion-item>(214) 688-5234 Fax</ion-item> -->
 		</ion-list>
-		<p style="text-align:center;margin-top:10px;">From serving meals, sorting clothes, making sandwiches and much more, volunteers can find their niche at The Salvation
+		<p style="text-align:left;margin-top:10px;">From serving meals, sorting clothes, making sandwiches and much more, volunteers can find their niche at The Salvation
 			Army. Located west of downtown Dallas, The Carr P. Collins Social Service Center is next to Parkland Hospital on Harry
 			Hines Boulevard. The 161,000 square foot center, which houses up to 600 people per night, is the largest multi-use facility
 			in The Salvation Army world. Every year, thousands of people find the spiritual and practical help they need to change
@@ -80,7 +80,7 @@
 
 		<ion-list text-wrap class="toggle-section">
 			<ion-list-header (click)="emergency=!emergency" [class.selected]="emergency">
-				{{"Emergency Shelter" | translate }}
+				{{"Emergency Shelters" | translate }}
 				<ion-icon *ngIf="!emergency" primary item-right name="ios-add-circle-outline"></ion-icon>
 				<ion-icon *ngIf="emergency" primary item-right name="ios-remove-circle-outline"></ion-icon>
 			</ion-list-header>
@@ -185,6 +185,17 @@
 				</p>
 			</div>
 		</ion-list>
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="clothing=!clothing" [class.selected]="clothing">
+				{{"Clothing Warehouse" | translate }}
+				<ion-icon *ngIf="!clothing" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="clothing" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!clothing">
+				<p>
+				</p>
+			</div>
+		</ion-list>
 
 		<ion-list text-wrap class="toggle-section">
 			<ion-list-header (click)="worship=!worship" [class.selected]="worship">
@@ -203,7 +214,7 @@
 
 		<ion-list text-wrap class="toggle-section">
 			<ion-list-header (click)="life=!life" [class.selected]="life">
-				{{"Life-Skills Classes" | translate }}
+				{{"Life-Skills" | translate }}
 				<ion-icon *ngIf="!life" primary item-right name="ios-add-circle-outline"></ion-icon>
 				<ion-icon *ngIf="life" primary item-right name="ios-remove-circle-outline"></ion-icon>
 			</ion-list-header>
@@ -212,6 +223,17 @@
 					and information on the tools that will help our clients be successful as they move towards stability and independence.
 					Topics for life-skills classes include resume building, interview skills, health and nutrition, relapse prevention,
 					coping skills and parenting.
+				</p>
+			</div>
+		</ion-list>
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="offsite=!offsite" [class.selected]="offsite">
+				{{"Offsite Volunteer Opportunities" | translate }}
+				<ion-icon *ngIf="!offsite" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="offsite" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!offsite">
+				<p>
 				</p>
 			</div>
 		</ion-list>
