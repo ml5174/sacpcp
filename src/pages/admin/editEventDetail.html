@@ -18,18 +18,18 @@
       <ion-icon *ngIf="!showDetails" primary item-right name="ios-add-circle-outline"></ion-icon>
       <ion-icon *ngIf="showDetails" primary item-right name="ios-remove-circle-outline"></ion-icon>
     </ion-item>
-    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="shiftMid">
       <p>Event Name: {{eventDetail.title}}</p>
     </ion-item>
-    <ion-item *ngIf="(showDetails  && this.showEditDetails=='visible')" class="logo">
+    <ion-item *ngIf="(showDetails  && this.showEditDetails=='visible')" class="shiftMid">
         <ion-label stacked>{{"Event Name: " | translate }}</ion-label>
         <ion-input name="eventDetail.title" type="string"  class="" [(ngModel)]="eventDetail.title"></ion-input>
     </ion-item> 
     
-    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="shiftMid">
       <p>Event Status: {{eStatus[eventDetail.status]}}</p>
     </ion-item>
-    <ion-item *ngIf="(showDetails && showEditDetails=='visible')" class="logo">
+    <ion-item *ngIf="(showDetails && showEditDetails=='visible')" class="shiftMid">
       <p>Event Status: {{eStatus[eventDetail.status]}}</p>
     </ion-item>
     <!--
@@ -42,40 +42,40 @@
           </ion-select>
     </ion-item>  
     --> 
-    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="shiftMid">
       <p>Event Date: {{eventDetail.start | parseTime:"MMM DD"}} {{eventDetail.end | parseTime:"YYYY"}}</p>
     </ion-item>
-    <ion-item *ngIf="(showDetails && showEditDetails=='visible')" class="logo">
+    <ion-item *ngIf="(showDetails && showEditDetails=='visible')" class="shiftMid">
       <ion-label stacked>{{"Event Date: " | translate }}</ion-label>
       <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="eventDetail.start"  name="eventDetail.start"></ion-datetime>
     </ion-item>
-    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="shiftMid">
       <p>Event Start Time: {{eventDetail.start | parseTime:"h:mm A"}}</p>
     </ion-item>
-    <ion-item *ngIf="(showDetails && showEditDetails=='visible')" class="logo">
+    <ion-item *ngIf="(showDetails && showEditDetails=='visible')" class="shiftMid">
       <ion-label stacked>{{"Event Start Time: " | translate }}</ion-label>
       <ion-datetime displayFormat="hh:mm A" [(ngModel)]="eventDetail.start" name="eventDetail.start"></ion-datetime>
     </ion-item>
-    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="shiftMid">
       <p>Event End Time: {{eventDetail.end | parseTime:"h:mm A"}}</p>
     </ion-item>   
-    <ion-item *ngIf="(showDetails && showEditDetails=='visible')" class="logo">
+    <ion-item *ngIf="(showDetails && showEditDetails=='visible')" class="shiftMid">
       <ion-label stacked>{{"Event End Time: " | translate }}</ion-label>
       <ion-datetime displayFormat="hh:mm A" [(ngModel)]="eventDetail.end" name="eventDetail.end"></ion-datetime>
     </ion-item>
-    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="shiftMid">
       <p>Event Location: {{eventDetail.location_name}}</p>
     </ion-item>
-    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="shiftMid">
       <p>Event Description: {{eventDetail.description}}</p>
     </ion-item>
-    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="shiftMid">
       <p>Service Area: {{eventDetail.title}}</p>
     </ion-item>
-    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showDetails && showEditDetails=='hidden')" class="shiftMid">
       <p>Days Left Until Start Date: {{this.daysLeftUntilStartDate}}</p>
     </ion-item>
-    <ion-item *ngIf="(eventDetail.eventimages.length !=0) && (showDetails && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(eventDetail.eventimages.length !=0) && (showDetails && showEditDetails=='hidden')" class="shiftMid">
       <span>
              Event Photos: <img [src]="eventDetail.eventimages[0].thumbnail" />
            </span>
@@ -87,7 +87,7 @@
       <ion-icon *ngIf="!showVolunteerDetails" primary item-right name="ios-add-circle-outline"></ion-icon>
       <ion-icon *ngIf="showVolunteerDetails" primary item-right name="ios-remove-circle-outline"></ion-icon>
     </ion-item>
-    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="shiftMid">
       <p>Same day sign in allowed: {{sdRestriction[eventDetail.same_day_registration]}}</p>
     </ion-item>
     <ion-item *ngIf="(showVolunteerDetails && this.showEditDetails=='visible')">
@@ -99,7 +99,7 @@
             <ion-option value="3">IF STAFF</ion-option>
           </ion-select>
     </ion-item>    
-    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="shiftMid">
       <p>Event notification: {{nOptions[eventDetail.notification_option]}}</p>
     </ion-item>
     <ion-item *ngIf="(showVolunteerDetails  && this.showEditDetails=='visible')">
@@ -123,30 +123,30 @@
         </ion-select>
     </ion-item>      
     -->     
-    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="shiftMid">
       <p>Min Volunteers Needed: {{eventDetail.min_registered}}</p>
     </ion-item>
     <ion-item *ngIf="(showVolunteerDetails  && this.showEditDetails=='visible')">
         <ion-label stacked>{{"Min Volunteers Needed:" | translate }}</ion-label>
         <ion-input name="eventDetail.min_registered" type="string"  class="" [(ngModel)]="eventDetail.min_registered"></ion-input>
     </ion-item>     
-    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="shiftMid">
       <p>Max Volunteers Needed: {{eventDetail.max_registered}}</p>
     </ion-item>
     <ion-item *ngIf="(showVolunteerDetails  && this.showEditDetails=='visible')">
         <ion-label stacked>{{"Max Volunteers Needed:" | translate }}</ion-label>
         <ion-input name="eventDetail.max_registered" type="string"  class="" [(ngModel)]="eventDetail.max_registered"></ion-input>
     </ion-item>     
-    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="shiftMid">
       <p>No of Volunteers Registered to Date: {{eventDetail.volunteers.length}}</p>
     </ion-item>
-    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="shiftMid">
       <p>Same day sign up allowed: {{sdRestriction[eventDetail.same_day_registration]}}</p>
     </ion-item>
-    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="shiftMid">
       <p>No of Volunteers Registered to Date: {{eventDetail.volunteers.length}}</p>
     </ion-item>
-    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showVolunteerDetails  && showEditDetails=='hidden')" class="shiftMid">
       <p>Volunteer type restrictions: {{vRestriction[eventDetail.volunteer_restriction]}}</p>
     </ion-item>
     <ion-item *ngIf="(showVolunteerDetails && this.showEditDetails=='visible')">
@@ -165,7 +165,7 @@
       <ion-icon *ngIf="!showSpecialInstructions" primary item-right name="ios-add-circle-outline"></ion-icon>
       <ion-icon *ngIf="showSpecialInstructions" primary item-right name="ios-remove-circle-outline"></ion-icon>
     </ion-item>
-    <ion-item class="logo" *ngIf="(showSpecialInstructions  && showEditDetails=='hidden')" class="logo">
+    <ion-item class="shiftMid" *ngIf="(showSpecialInstructions  && showEditDetails=='hidden')" class="shiftMid">
       <p>Age restriction: {{aRestriction[eventDetail.age_restriction]}}</p>
     </ion-item>
     <ion-item *ngIf="(showSpecialInstructions  && this.showEditDetails=='visible')">
@@ -176,7 +176,7 @@
             <ion-option value="2">under 16</ion-option>
           </ion-select>
     </ion-item>    
-    <ion-item *ngIf="(showSpecialInstructions  && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showSpecialInstructions  && showEditDetails=='hidden')" class="shiftMid">
       <p>Gender restrictions: {{gender[eventDetail.gender_restriction]}}</p>
     </ion-item>
     <ion-item *ngIf="(showSpecialInstructions  && this.showEditDetails=='visible')">
@@ -188,7 +188,7 @@
           <ion-option value="3">Other</ion-option>
         </ion-select>
     </ion-item>
-    <ion-item *ngIf="(showSpecialInstructions  && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showSpecialInstructions  && showEditDetails=='hidden')" class="shiftMid">
       <p>Special instructions: {{eventDetail.special_instructions}}</p>
     </ion-item>
     <ion-item *ngIf="(showSpecialInstructions  && this.showEditDetails=='visible')">
@@ -202,13 +202,13 @@
       <ion-icon *ngIf="!showContactInformation" primary item-right name="ios-add-circle-outline"></ion-icon>
       <ion-icon *ngIf="showContactInformation" primary item-right name="ios-remove-circle-outline"></ion-icon>
     </ion-item>
-    <ion-item class="logo" *ngIf="(showContactInformation && showEditDetails=='hidden')" class="logo">
+    <ion-item class="shiftMid" *ngIf="(showContactInformation && showEditDetails=='hidden')" class="shiftMid">
       <p>Name: {{aRestriction[eventDetail.age_restriction]}}</p>
     </ion-item>
-    <ion-item *ngIf="(showContactInformation && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showContactInformation && showEditDetails=='hidden')" class="shiftMid">
       <p>Email Address: {{gender[eventDetail.gender_restriction]}}</p>
     </ion-item>
-    <ion-item *ngIf="(showContactInformation && showEditDetails=='hidden')" class="logo">
+    <ion-item *ngIf="(showContactInformation && showEditDetails=='hidden')" class="shiftMid">
       <p>Contact #: {{gender[eventDetail.gender_restriction]}}</p>
     </ion-item>
   </ion-list>
