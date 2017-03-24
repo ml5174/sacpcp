@@ -1,175 +1,255 @@
-	<ion-slides class="homeslider" autoplay="3000" loop pager> <!-- [options]="homeSlideOptions" -->
-		<ion-slide>
-			<div class="slide"><img src="assets/img/gentleman.jpg" /> </div>
-		</ion-slide>
-		<ion-slide>
-			<div class="slide"><img src="assets/img/Homeless.jpg" /></div>
-		</ion-slide>
-		<ion-slide>
-			<div class="slide"><img src="assets/img/Veterans.jpg" /></div>
-		</ion-slide>
-		<ion-slide>
-			<div class="slide"><img src="assets/img/Volunteers.jpg" /> </div>
-		</ion-slide>
-		<ion-slide>
-			<div class="slide"><img src="assets/img/Building.jpg"
-			/> </div>
-		</ion-slide>
-	</ion-slides>
+<ion-slides class="homeslider" autoplay="3000" loop pager>
+	<!-- [options]="homeSlideOptions" -->
+	<ion-slide>
+		<div class="slide"><img src="assets/img/Volunteers.jpg" /> </div>
+	</ion-slide>
+	<ion-slide>
+		<div class="slide"><img src="assets/img/Homeless.jpg" /></div>
+	</ion-slide>
+	<ion-slide>
+		<div class="slide"><img src="assets/img/Veterans.jpg" /></div>
+	</ion-slide>
+	<ion-slide>
+		<div class="slide"><img src="assets/img/gentleman.jpg" /> </div>
+	</ion-slide>
+	<ion-slide>
+		<div class="slide"><img src="assets/img/Building.jpg" /> </div>
+	</ion-slide>
+</ion-slides>
 
 <ion-card class="title-card">
-<ion-card-header>Carr P. Collins Social Service Center</ion-card-header>
-<ion-card-content>
-<ion-list>
-  <ion-item>5302 Harry Hines Blvd.</ion-item>
+	<h2 style="text-align:center;margin-top:10px; margin-bottom: 0px;font-size:20px;font-weight:bold;">THE SALVATION ARMY</h2>
+	<p style="font-size:18px;text-align:center;margin-top:0px;margin-bottom:0px">Carr P. Collins Social Service Center</p>
+	<ion-card-content>
+		<ion-list>
+			<h3 style="font-weight:bold;text-align:center;margin-bottom:1px;">5,000 People Served</h3>
+			<h3 style="font-weight:bold;text-align:center;margin-top:0px;">8,000 Volunteers</h3>
+			<h3 style="font-weight:bold;text-align:center;margin-top:0px;">Annually</h3>
+			<!-- <ion-item>5302 Harry Hines Blvd.</ion-item>
   <ion-item>Dallas,TX 75235</ion-item>
   <ion-item>(214) 424-7050</ion-item>
-  <ion-item>(214) 688-5234 Fax</ion-item>
-</ion-list>
+  <ion-item>(214) 688-5234 Fax</ion-item> -->
+		</ion-list>
+		<p style="text-align:left;margin-top:10px;">From serving meals, sorting clothes, making sandwiches and much more, volunteers can find their niche at The Salvation
+			Army. Located west of downtown Dallas, The Carr P. Collins Social Service Center is next to Parkland Hospital on Harry
+			Hines Boulevard. The 161,000 square foot center, which houses up to 600 people per night, is the largest multi-use facility
+			in The Salvation Army world. Every year, thousands of people find the spiritual and practical help they need to change
+			their lives. Nowhere else in Dallas will people find so many resources under one roof.</p>
+		<!--
   <p>Located North West of downtown Dallas, The Salvation Army Carr P. Collins Social Service Center is next to Parkland Hospital on Harry Hines Boulevard.
   </p>
 
   <p>The 161,000 square foot center, which houses up to 600 people per night, is the largest multi-use facility in The Salvation Army world. Every year, thousands of people find the spiritual and practical help they need to change their lives at The Salvation Army Carr P. Collins Social Service Center. Nowhere else in Dallas will people find so many resources under one roof.
-  </p>
-</ion-card-content>
-</ion-card>					
+  </p> -->
+	</ion-card-content>
+</ion-card>
 <ion-card>
-								<ion-card-header>Programs &amp; Services</ion-card-header>
-								<ion-card-content>
-					<ion-list text-wrap class="toggle-section">
-					<ion-list-header  (click)="substance=!substance" [class.selected]="substance">
-						{{"Substance Abuse Treatment Program" | translate }}
-						<ion-icon *ngIf="!substance" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="substance" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!substance">
-						<p>The Substance Abuse Treatment Program serves adult men and women who are battling addiction and who are on probation or parole for a felony crime related to their addiction.  With 255 beds, this is the largest treatment program in North Texas working with the Texas Department of Criminal Justice.  The goal of the 90-day program is to provide clients with the tools to strengthen themselves against the stronghold of drug and alcohol addiction so they may live stable and substance free lives.
-						</p>
-					</div>
-					</ion-list>
-					
-					<ion-list text-wrap class="toggle-section">
-					<ion-list-header (click)="veterans=!veterans" [class.selected]="veterans">
-						{{"Veterans Programs" | translate }}
-						<ion-icon *ngIf="!veterans" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="veterans" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!veterans">
-						<p>The Carr P. Collins Center offers temporary housing and supportive services for male and female veterans experiencing homelessness. Veterans who are other than dishonorably discharged are screened and referred for placement by the Veteran's Administration.  The program can serve 110 veterans at a given time, and they can stay for up to 2 years.  The overall goal is to provide a safe stable residential environment that meets their basic needs, while assisting the veterans to achieve self-sufficiency.
-						</p>
-					</div>
-					</ion-list>
-					
-					<ion-list text-wrap class="toggle-section">
-					<ion-list-header (click)="emergency=!emergency" [class.selected]="emergency">
-						{{"Emergency Shelter" | translate }}
-						<ion-icon *ngIf="!emergency" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="emergency" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!emergency">
-						<p>The Carr P. Collins Center's emergency shelter provides men, women, and women with children who are experiencing homelessness a safe refuge from the streets with sleeping accommodations, two hot meals a day, showers, clothes, and use of laundry facilities. Through the emergency shelter, clients have access to longer term programming and additional services that address immediate barriers to stability.
-						</p>
-					</div>
-					</ion-list>
-					
-					<ion-list text-wrap class="toggle-section">
-					<ion-list-header (click)="transitional=!transitional" [class.selected]="transitional">
-						{{"Transitional Shelter" | translate }}
-						<ion-icon *ngIf="!transitional" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="transitional" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!transitional">
-						<p>Thrive and Step-up transitional shelter programs serve men, women, and women with children who are experiencing homelessness.  The Thrive program addresses the needs of those already working or work-ready.  The Step-up Program addresses the needs of those who are disabled due to mental illness, medical conditions, and/or substance abuse.  The goals are to address barriers to stability, assist clients to successfully transition to permanent housing, and provide clients the tools and resources so they can demonstrate housing stability six months after placement.
-						</p>
-					</div>
-					</ion-list>
-					
-					<ion-list text-wrap class="toggle-section">
-					<ion-list-header (click)="domestic=!domestic" [class.selected]="domestic">
-						{{"Domestic Violence Program (Confidential Location)" | translate }}
-						<ion-icon *ngIf="!domestic" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="domestic" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!domestic">
-						<p>The Domestic Violence Program offers safe shelter in a confidential location for battered women and their children. The program utilizes a trauma informed approach to service delivery, which includes safety planning, children's programming, individual and group therapy, legal advocacy, and case management.
-						</p>
-					</div>
-					</ion-list>
-					
-					<ion-list text-wrap class="toggle-section">
-					<ion-list-header (click)="homesw=!homesw" [class.selected]="homesw">
-						{{"Home Sweet Home" | translate }}
-						<ion-icon *ngIf="!homesw" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="homesw" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!homesw">
-						<p>The Home Sweet Home Program uses a combination of classroom and one-on-one client centered financial education coupled with limited direct financial assistance in order to prevent homelessness and support residential stability for at-risk households. The goal is that through financial education, clients are empowered with the knowledge to effectively manage their finances to achieve and maintain residential stability.
-						</p>
-					</div>
-					</ion-list>
-					
-					<ion-list text-wrap class="toggle-section">
-					<ion-list-header (click)="worship=!worship" [class.selected]="worship">
-						{{"Worship Programs" | translate }}
-						<ion-icon *ngIf="!worship" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="worship" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!worship">
-						<p>The Salvation Army is an evangelical part of the universal Christian church. Its message is based on the Bible. Its ministry is motivated by the love of God. Its mission is to preach the Gospel of Jesus Christ and to meet human needs in His name without discrimination. The Carr P. Collins Center offers mainstream Christian teaching at Sunday School and worship services on Sunday, as well as Bible study and fellowship groups during the week.
-						</p>
-					</div>
-					</ion-list>
-					
-					<ion-list text-wrap class="toggle-section">
-					<ion-list-header (click)="life=!life" [class.selected]="life">
-						{{"Life-Skills Classes" | translate }}
-						<ion-icon *ngIf="!life" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="life" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!life">
-						<p>Life-skills classes are an essential component of each of our programs and are designed to provide valuable education and information on the tools that will help our clients be successful as they move towards stability and independence. Topics for life-skills classes include resume building, interview skills, health and nutrition, relapse prevention, coping skills and parenting.
-						</p>
-					</div>
-					</ion-list>
-					
-					<ion-list text-wrap class="toggle-section">
-					<ion-list-header (click)="food=!food" [class.selected]="food">
-						{{"Food Pantry" | translate }}
-						<ion-icon *ngIf="!food" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="food" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!food">
-						<p>The Carr P. Collins Center distributes over 800 bags of groceries a month to community members in need.  Households receive one bag per adult and additional bags for children based on family size.  They are eligible to receive food pantry services once every 30 days.
-						</p>
-					</div>
-					</ion-list>
-					
-					<ion-list text-wrap class="toggle-section">
-					<ion-list-header (click)="meals=!meals" [class.selected]="meals">
-						{{"Meals" | translate }}
-						<ion-icon *ngIf="!meals" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="meals" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!meals">
-						<p>Between 1,200 and 1,500 meals are served to clients at this center each day. Sack lunches are provided for clients going to work or for other community members needing a meal.  At Thanksgiving and Christmas, the center opens its doors to the community, offering a holiday feast to those individuals and families who may not otherwise have the opportunity.
-						</p>
-					</div>
-					</ion-list>
-					
-					<ion-list text-wrap class="toggle-section">
-					<ion-list-header (click)="summer=!summer" [class.selected]="summer">
-						{{"Summer Heat Relief - Cooling Station" | translate }}
-						<ion-icon *ngIf="!summer" primary item-right name="ios-add-circle-outline"></ion-icon>
-						<ion-icon *ngIf="summer" primary item-right name="ios-remove-circle-outline"></ion-icon>
-					</ion-list-header>
-					<div class="toggle-section-content" [class.hide-section]="!summer">
-						<p>Extreme heat can be life-threatening. During the summer months, we provide an air-conditioned sitting area and water to keep people hydrated.
-						</p>
-					</div>
-					</ion-list>
-					
-					
-								</ion-card-content>
-								</ion-card>
-			<div class="clear"></div>
-			<div class="clear dynamicPageSpacer"></div>
+	<ion-card-header>Programs</ion-card-header>
+	<ion-card-content>
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="substance=!substance" [class.selected]="substance">
+				{{"Substance Abuse Treatment Program" | translate }}
+				<ion-icon *ngIf="!substance" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="substance" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!substance">
+				<p>The Substance Abuse Treatment Program serves adult men and women who are battling addiction and who are on probation
+					or parole for a felony crime related to their addiction. With 255 beds, this is the largest treatment program in North
+					Texas working with the Texas Department of Criminal Justice. The goal of the 90-day program is to provide clients with
+					the tools to strengthen themselves against the stronghold of drug and alcohol addiction so they may live stable and
+					substance free lives.
+				</p>
+			</div>
+		</ion-list>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="veterans=!veterans" [class.selected]="veterans">
+				{{"Veterans Programs" | translate }}
+				<ion-icon *ngIf="!veterans" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="veterans" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!veterans">
+				<p>The Carr P. Collins Center offers temporary housing and supportive services for male and female veterans experiencing
+					homelessness. Veterans who are other than dishonorably discharged are screened and referred for placement by the Veteran's
+					Administration. The program can serve 110 veterans at a given time, and they can stay for up to 2 years. The overall
+					goal is to provide a safe stable residential environment that meets their basic needs, while assisting the veterans
+					to achieve self-sufficiency.
+				</p>
+			</div>
+		</ion-list>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="emergency=!emergency" [class.selected]="emergency">
+				{{"Emergency Shelters" | translate }}
+				<ion-icon *ngIf="!emergency" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="emergency" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!emergency">
+				<p>The Carr P. Collins Center's emergency shelter provides men, women, and women with children who are experiencing homelessness
+					a safe refuge from the streets with sleeping accommodations, two hot meals a day, showers, clothes, and use of laundry
+					facilities. Through the emergency shelter, clients have access to longer term programming and additional services that
+					address immediate barriers to stability.
+				</p>
+			</div>
+		</ion-list>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="transitional=!transitional" [class.selected]="transitional">
+				{{"Transitional Shelter" | translate }}
+				<ion-icon *ngIf="!transitional" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="transitional" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!transitional">
+				<p>Thrive and Step-up transitional shelter programs serve men, women, and women with children who are experiencing homelessness.
+					The Thrive program addresses the needs of those already working or work-ready. The Step-up Program addresses the needs
+					of those who are disabled due to mental illness, medical conditions, and/or substance abuse. The goals are to address
+					barriers to stability, assist clients to successfully transition to permanent housing, and provide clients the tools
+					and resources so they can demonstrate housing stability six months after placement.
+				</p>
+			</div>
+		</ion-list>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="domestic=!domestic" [class.selected]="domestic">
+				{{"Domestic Violence Program (Confidential Location)" | translate }}
+				<ion-icon *ngIf="!domestic" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="domestic" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!domestic">
+				<p>The Domestic Violence Program offers safe shelter in a confidential location for battered women and their children. The
+					program utilizes a trauma informed approach to service delivery, which includes safety planning, children's programming,
+					individual and group therapy, legal advocacy, and case management.
+				</p>
+			</div>
+		</ion-list>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="homesw=!homesw" [class.selected]="homesw">
+				{{"Home Sweet Home" | translate }}
+				<ion-icon *ngIf="!homesw" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="homesw" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!homesw">
+				<p>The Home Sweet Home Program uses a combination of classroom and one-on-one client centered financial education coupled
+					with limited direct financial assistance in order to prevent homelessness and support residential stability for at-risk
+					households. The goal is that through financial education, clients are empowered with the knowledge to effectively manage
+					their finances to achieve and maintain residential stability.
+				</p>
+			</div>
+		</ion-list>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="summer=!summer" [class.selected]="summer">
+				{{"Summer Heat Relief - Cooling Station" | translate }}
+				<ion-icon *ngIf="!summer" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="summer" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!summer">
+				<p>Extreme heat can be life-threatening. During the summer months, we provide an air-conditioned sitting area and water
+					to keep people hydrated.
+				</p>
+			</div>
+		</ion-list>
+
+
+	</ion-card-content>
+</ion-card>
+<ion-card>
+	<ion-card-header>Services</ion-card-header>
+	<ion-card-content>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="meals=!meals" [class.selected]="meals">
+				{{"Meals" | translate }}
+				<ion-icon *ngIf="!meals" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="meals" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!meals">
+				<p>Between 1,200 and 1,500 meals are served to clients at this center each day. Sack lunches are provided for clients going
+					to work or for other community members needing a meal. At Thanksgiving and Christmas, the center opens its doors to
+					the community, offering a holiday feast to those individuals and families who may not otherwise have the opportunity.
+				</p>
+			</div>
+		</ion-list>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="food=!food" [class.selected]="food">
+				{{"Food Pantry" | translate }}
+				<ion-icon *ngIf="!food" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="food" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!food">
+				<p>The Carr P. Collins Center distributes over 800 bags of groceries a month to community members in need. Households receive
+					one bag per adult and additional bags for children based on family size. They are eligible to receive food pantry services
+					once every 30 days.
+				</p>
+			</div>
+		</ion-list>
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="clothing=!clothing" [class.selected]="clothing">
+				{{"Clothing Warehouse" | translate }}
+				<ion-icon *ngIf="!clothing" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="clothing" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!clothing">
+				<p>
+				</p>
+			</div>
+		</ion-list>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="worship=!worship" [class.selected]="worship">
+				{{"Worship Programs" | translate }}
+				<ion-icon *ngIf="!worship" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="worship" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!worship">
+				<p>The Salvation Army is an evangelical part of the universal Christian church. Its message is based on the Bible. Its ministry
+					is motivated by the love of God. Its mission is to preach the Gospel of Jesus Christ and to meet human needs in His
+					name without discrimination. The Carr P. Collins Center offers mainstream Christian teaching at Sunday School and worship
+					services on Sunday, as well as Bible study and fellowship groups during the week.
+				</p>
+			</div>
+		</ion-list>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="life=!life" [class.selected]="life">
+				{{"Life-Skills" | translate }}
+				<ion-icon *ngIf="!life" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="life" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!life">
+				<p>Life-skills classes are an essential component of each of our programs and are designed to provide valuable education
+					and information on the tools that will help our clients be successful as they move towards stability and independence.
+					Topics for life-skills classes include resume building, interview skills, health and nutrition, relapse prevention,
+					coping skills and parenting.
+				</p>
+			</div>
+		</ion-list>
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="offsite=!offsite" [class.selected]="offsite">
+				{{"Offsite Volunteer Opportunities" | translate }}
+				<ion-icon *ngIf="!offsite" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="offsite" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!offsite">
+				<p>
+				</p>
+			</div>
+		</ion-list>
+
+
+
+
+	</ion-card-content>
+</ion-card>
+<ion-card>
+	<ion-card-header>Useful Links</ion-card-header>
+	<ion-card-content>
+		<p><a [navPush]="contactPage">Contact us</a></p>
+		<p><a [navPush]="aboutPage">About us</a></p>
+	</ion-card-content>
+</ion-card>
+
+<div class="clear"></div>
+<div class="clear dynamicPageSpacer"></div>
