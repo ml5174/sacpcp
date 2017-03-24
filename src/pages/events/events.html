@@ -13,7 +13,6 @@
   Hide Options 
 </button>
 </div>
-
 <div id="results" *ngIf="searching">Search Results</div>
 <!-- Removed per Requirements  <img class="main" src="assets/img/logo2.jpg" /> -->
 <div *ngIf="searching && noResults">No Results Found</div>
@@ -39,7 +38,7 @@
                         <ion-item>
                             <ion-icon item-left name="calendar"></ion-icon>
                             <!--p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p-->
-                            <p>{{e.start | parseTime:"MMM DD"}} - {{e.end | parseTime:"MMM DD"}} {{e.end | parseTime:"YYYY"}}</p>
+                            <p>{{e.start | parseTime:"MMM DD"}} {{e.end | parseTime:"YYYY"}}</p>
                             <!--p>{{e.start | parseTimeZone: 'h:mm A'}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p-->
                             <p>{{e.start | parseTime: 'h:mm A'}}-{{e.end | parseTime: 'h:mm A'}}</p>
                         </ion-item>

@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav, Select, Config } from 'ionic-angular';
 
 import { StatusBar } from 'ionic-native';
+import { Keyboard } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 import { UserServices } from '../lib/service/user';
 import { HomePage } from '../pages/home/home';
@@ -96,6 +97,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.hide();
       //Keyboard.disableScroll(true);
+      Keyboard.hideKeyboardAccessoryBar(false);
 
       //Only turn these off if its not android.
       if (!this.platform.is("android")) {
