@@ -19,7 +19,6 @@ import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { AppVersion } from 'ionic-native';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package';
-import { config } from '../../config.xml';
 
 @Component({
   templateUrl: 'app.html',
