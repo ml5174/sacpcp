@@ -190,8 +190,6 @@ export class MyApp {
 
   private getAndWriteVersionInfo(){
 
-    console.dir(config);
-
     if(this.platform.is('ios') || this.platform.is('android')) {
       AppVersion.getAppName().then((version) => {
         this.appName = version;
