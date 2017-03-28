@@ -13,6 +13,7 @@ export const GET_ADMIN_EVENT_DETAILS_URI = '/api/v0.2/admin/event/expanded/';
 export const GET_EVENT_DETAILS_URI = '/api/v0.2/events/event/expanded/';
 export const GET_MYEVENTS_URI = '/api/v0.2/events/myevents/';
 export const EVENT_SIGNUP_URI = '/api/v0.2/events/myevents/';
+export const EVENT_CANCEL_URI = '/api/v0.2/admin/event/expanded/';
 export const GET_EVENT_IMAGE_URI = '/api/v0.2/events/eventimages/';
 export const CHANGE_PASSWORD_URI = '/rest-auth/password/change/';   
 export const UPDATE_MY_PREFERENCES_URI = '/api/v0.2/salarmy/mypreferences/';
@@ -23,6 +24,7 @@ if (document.location.hostname === '198.199.86.127')
 if (document.location.hostname === 'localhost')
     SERVER = 'https://api.testing-volunteers.tsadfw.org'
 
+    	
 export const STRINGS = {
         first_name: 'First Name',
         last_name: 'Last Name',

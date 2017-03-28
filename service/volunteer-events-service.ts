@@ -9,11 +9,13 @@ import { GET_EVENTS_URI } from '../provider/config';
 import { GET_EVENT_DETAILS_URI } from '../provider/config';
 import { GET_ADMIN_EVENTS_URI } from '../provider/config';
 import { GET_ADMIN_EVENT_DETAILS_URI } from '../provider/config';
+import { EVENT_CANCEL_URI } from '../provider/config';
 import { GET_MYEVENTS_URI } from '../provider/config';
 import { GET_EVENT_IMAGE_URI } from '../provider/config';
 import { EVENT_SIGNUP_URI } from '../provider/config';
 import { SERVER } from '../provider/config';
 import { UserServices } from '../service/user';
+
 
 @Injectable()
 export class VolunteerEventsService {
@@ -98,6 +100,24 @@ export class VolunteerEventsService {
                                      console.log(err);
                                  })};
   }
+    
+
+    //Update EventDetails --
+    updateEventDetails( eventDetail : EventDetail ): Observable<any>{
+       return this.http.put(SERVER + GET_ADMIN_EVENT_DETAILS_URI+eventDetail.id+"/", eventDetail, this.getOptions())
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+
+
+    //Cancel Event --
+    cancelEvent( eventId: string ): Observable<any>{
+       return this.http.delete(SERVER + EVENT_CANCEL_URI+eventId+"/", this.getOptions())
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+
+
     getOptions() {
         let headers = new Headers();
         if (this.userServices) if (this.userServices.user.id) headers.append('Authorization', 'Token ' + this.userServices.user.id);
@@ -105,4 +125,5 @@ export class VolunteerEventsService {
         headers.append('Accept', 'application/json;q=0.9');
         return new RequestOptions({ headers: headers });
     }
+
 }
