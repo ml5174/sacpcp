@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
 
 import {HttpModule, Http} from '@angular/http';
 import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
+
 import { MyApp } from './app.component';
 import { TermsPage } from '../pages/terms/terms';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
@@ -22,6 +23,7 @@ import { RegisterIndividualProfilePage } from '../pages/register-individual-prof
 import { AppHeaderComponent } from '../lib/components/app-header.component';
 import { HomeTab } from '../lib/components/home-tab';
 import { PhoneInput } from '../lib/components/phone-input.component';
+import { AccordionBox } from '../lib/components/accordion-box';
 import { PrivacyTermsContent } from '../lib/components/privacy-terms-content';
 import { Storage } from '@ionic/storage';
 
@@ -42,7 +44,7 @@ import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
 import { EventSortPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
-import { EditEventDetailPage } from '../pages/admin/editEventDetail';
+
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
     { component: ChangePasswordPage, name: 'Change Password Page', segment: 'password-reset/confirm/:iud/:key' },
@@ -86,11 +88,8 @@ export function translateFactory(http: Http) {
     EventDetailModal,
     ContactMethod,
     PhoneInput,
-<<<<<<< .merge_file_a03364
+    AccordionBox,
     PrivacyTermsContent
-=======
-    EditEventDetailPage
->>>>>>> .merge_file_a08640
   ],
   imports: [
     HttpModule,
@@ -122,8 +121,7 @@ export function translateFactory(http: Http) {
     ContactPage,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
-    EventDetailModal,
-    EditEventDetailPage
+    EventDetailModal
   ],
   providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService]
 })

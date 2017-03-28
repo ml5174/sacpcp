@@ -17,6 +17,7 @@ import { TermsPage } from '../pages/terms/terms';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { AppVersion } from 'ionic-native';
 import { ServerVersion } from '../providers/server-version';
+import { version } from '../../package';
 
 @Component({
   templateUrl: 'app.html',
@@ -187,6 +188,7 @@ export class MyApp {
    }
 
   private getAndWriteVersionInfo(){
+
     if(this.platform.is('ios') || this.platform.is('android')) {
       AppVersion.getAppName().then((version) => {
         this.appName = version;
@@ -211,6 +213,13 @@ export class MyApp {
           console.log('Storing Build Version: ' + this.appBuildVersion);
         });
       })   
+    } else {
+      this.storage.set('version', version).then((resource) => {
+          console.log('Storing Marketing Version: ' + this.appMarketingVersion);
+        });
+      this.storage.set('build', version).then((resource) => {
+          console.log('Storing Build Version: ' + this.appBuildVersion);
+        });
     }
   }
 }
