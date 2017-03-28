@@ -2,6 +2,7 @@
 <div  *ngIf="!showAdvancedItems">
 <button ion-button small color="primary" (click)="showAdvancedItems = !showAdvancedItems">Advanced Search</button>
 </div>
+
 <div  *ngIf="showAdvancedItems">
     <button ion-button small color="primary" (click)="presentPopover($event)">
     Sort By
@@ -54,7 +55,8 @@
                             </span>
                         </ion-item>
                         <ion-item *ngIf="userServices.user.id">
-                        <button ion-button item-left small color="primary" (click)="eventDetailModal(e.id)" >Details</button>
+                        <button ion-button item-left small color="primary"  (click)="openEventDetail(e.id)" >Details</button>
+                      <!--  <button ion-button item-left small color="primary" (click)="eventDetailModal(e.id)" >Details</button> -->
                         <button ion-button item-right small color="primary" *ngIf="!amISignedUp(e.id)" (click)="signup(e.id)" >Sign up</button>
                         <button ion-button item-right small color="primary" *ngIf="amISignedUp(e.id)" (click)="deRegister(e.id)" >Cancel</button>
                    

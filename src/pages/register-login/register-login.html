@@ -16,9 +16,9 @@
 	</ion-toolbar-->
 
 	<section id="register-login-page">
-		<ion-item no-lines *ngFor="let error of errors" class="word-wrap: break-word;">
+		<ion-item no-lines *ngFor="let error of errors" class="word-wrap: break-word;" text-wrap>
 			<ion-icon name="alert" item-left></ion-icon>
-			<p style="color: red" item-left>{{error}}</p>
+			<p style="color: #CC1F2C" item-left>{{error}}</p>
 		</ion-item>
 
 		<form (ngSubmit)="register()">

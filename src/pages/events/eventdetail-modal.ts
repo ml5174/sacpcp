@@ -3,7 +3,7 @@ import { NavParams, ViewController, ToastController } from 'ionic-angular';
 import { UserServices } from '../../lib/service/user';
 import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
-import { NOTIFICATION_SCHEDULE, NOTIFICATION_OPTIONS, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION } from './../../lib/provider/eventConstants';
+import { NOTIFICATION_OPTIONS, NOTIFICATION_SCHEDULE, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION } from './../../lib/provider/eventConstants';
 
 @Component({
     templateUrl: 'eventdetail_modal.html'
@@ -23,8 +23,9 @@ export class EventDetailModal {
     aRestriction = AGE_RESTRICTION;
     nSchedule = NOTIFICATION_SCHEDULE;
     nOptions = NOTIFICATION_OPTIONS;
-
     deregisterResult: any;
+    showEditDetails:string ="hidden"; 
+    cancelEditDetails:string ="hidden";     
 
     constructor(params: NavParams,
         private volunteerEventsService: VolunteerEventsService,
@@ -116,4 +117,35 @@ export class EventDetailModal {
     dismiss() {
         this.viewCtrl.dismiss();
     }
+
+
+    editEventDetailsAdmin(toggle)
+    {
+         this.showEditDetails = toggle;
+    }
+    
+    cancelEventDetailsEdit(toggle)
+    {
+        this.cancelEditDetails = toggle;
+    }
+    
+   // Update EventDetail
+   updateEventDetails() {
+        this.volunteerEventsService
+            .updateEventDetails(this.eventDetail).subscribe(
+            result => {
+                       this.eventDetail = result;
+                       this.presentToast("Event Detail Updated successful!");    
+						   
+            }, 
+            err => {
+                console.log(err);
+                this.presentToast("Error in updating Event Details!");                
+            }, () => {
+              //  this.volunteerEventsService.loadMyEvents();
+               // this.loadDetails();
+            });
+    }
+
+
 }
