@@ -1,45 +1,44 @@
 <ion-header>
-	<app-header>
-		<button *ngIf="!userServices.user.id" ion-button small color="primary" (click)="login()">{{'Login' | translate}}</button>
-		<button *ngIf="userServices.user.id" ion-button small color="primary" (click)="logout()">{{'Logout' | translate}}</button>
-	</app-header>
+    <app-header>
+        <button *ngIf="!userServices.user.id" ion-button small color="primary" (click)="login()">{{'Login' | translate}}</button>
+        <button *ngIf="userServices.user.id" ion-button small color="primary" (click)="logout()">{{'Logout' | translate}}</button>
+    </app-header>
 </ion-header>
 
 <ion-content padding-left padding-right padding-top>
-	<section id="home-body">
-		<div>
-			<ion-segment [(ngModel)]="selectedTab" padding-bottom [hidden]="!(volunteerEventsService.myEvents.length>0)">
-				<ion-segment-button value="home">
-					Home 
-				</ion-segment-button>
-				<ion-segment-button value="events">
-					Volunteer Opportunities
-				</ion-segment-button>
-				<ion-segment-button value="myevents">
-					My Events
-				</ion-segment-button>
-			</ion-segment>
-			<ion-segment [(ngModel)]="selectedTab" padding-bottom [hidden]="volunteerEventsService.myEvents.length>0">
-				<ion-segment-button value="home">
-					Home
-				</ion-segment-button>
-				<ion-segment-button value="events">
-					Volunteer Opportunities
-				</ion-segment-button>
-			</ion-segment>
-		</div>
+    <section id="home-body">
+        <div>
+            <ion-segment [(ngModel)]="selectedTab" padding-bottom [hidden]="!(volunteerEventsService.myEvents.length>0)">
+                <ion-segment-button value="home">
+                    Home
+                </ion-segment-button>
+                <ion-segment-button value="events">
+                    Volunteer Opportunities
+                </ion-segment-button>
+                <ion-segment-button value="myevents">
+                    My Events
+                </ion-segment-button>
+            </ion-segment>
+            <ion-segment [(ngModel)]="selectedTab" padding-bottom [hidden]="volunteerEventsService.myEvents.length>0">
+                <ion-segment-button value="home">
+                    Home
+                </ion-segment-button>
+                <ion-segment-button value="events">
+                    Volunteer Opportunities
+                </ion-segment-button>
+            </ion-segment>
+        </div>
 
-		<div [ngSwitch]="selectedTab">
-			<div *ngSwitchCase="'events'">
-				<events></events>
-			</div>
-			<div *ngSwitchCase="'home'" padding>
-					<home-tab></home-tab>
-			</div>
-			<div *ngSwitchCase="'myevents'">
-				<myevents></myevents>
-			</div>
-		</div>
-	</section>
+        <div [ngSwitch]="selectedTab">
+            <div *ngSwitchCase="'events'">
+                <events></events>
+            </div>
+            <div *ngSwitchCase="'home'">
+                <home-tab></home-tab>
+            </div>
+            <div *ngSwitchCase="'myevents'">
+                <myevents></myevents>
+            </div>
+        </div>
+    </section>
 </ion-content>
-
