@@ -44,6 +44,95 @@
 	</ion-card-content>
 </ion-card>
 <ion-card>
+	<ion-card-header>Services</ion-card-header>
+	<ion-card-content>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="meals=!meals" [class.selected]="meals">
+				{{"Meals" | translate }}
+				<ion-icon *ngIf="!meals" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="meals" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!meals">
+				<p>Between 1,200 and 1,500 meals are served to clients at this center each day. Sack lunches are provided for clients going
+					to work or for other community members needing a meal. At Thanksgiving and Christmas, the center opens its doors to
+					the community, offering a holiday feast to those individuals and families who may not otherwise have the opportunity.
+				</p>
+			</div>
+		</ion-list>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="food=!food" [class.selected]="food">
+				{{"Food Pantry" | translate }}
+				<ion-icon *ngIf="!food" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="food" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!food">
+				<p>The Carr P. Collins Center distributes over 800 bags of groceries a month to community members in need. Households receive
+					one bag per adult and additional bags for children based on family size. They are eligible to receive food pantry services
+					once every 30 days.
+				</p>
+			</div>
+		</ion-list>
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="clothing=!clothing" [class.selected]="clothing">
+				{{"Clothing Warehouse" | translate }}
+				<ion-icon *ngIf="!clothing" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="clothing" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!clothing">
+				<p>
+				</p>
+			</div>
+		</ion-list>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="worship=!worship" [class.selected]="worship">
+				{{"Worship Programs" | translate }}
+				<ion-icon *ngIf="!worship" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="worship" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!worship">
+				<p>The Salvation Army is an evangelical part of the universal Christian church. Its message is based on the Bible. Its ministry
+					is motivated by the love of God. Its mission is to preach the Gospel of Jesus Christ and to meet human needs in His
+					name without discrimination. The Carr P. Collins Center offers mainstream Christian teaching at Sunday School and worship
+					services on Sunday, as well as Bible study and fellowship groups during the week.
+				</p>
+			</div>
+		</ion-list>
+
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="life=!life" [class.selected]="life">
+				{{"Life-Skills" | translate }}
+				<ion-icon *ngIf="!life" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="life" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!life">
+				<p>Life-skills classes are an essential component of each of our programs and are designed to provide valuable education
+					and information on the tools that will help our clients be successful as they move towards stability and independence.
+					Topics for life-skills classes include resume building, interview skills, health and nutrition, relapse prevention,
+					coping skills and parenting.
+				</p>
+			</div>
+		</ion-list>
+		<ion-list text-wrap class="toggle-section">
+			<ion-list-header (click)="offsite=!offsite" [class.selected]="offsite">
+				{{"Offsite Volunteer Opportunities" | translate }}
+				<ion-icon *ngIf="!offsite" primary item-right name="ios-add-circle-outline"></ion-icon>
+				<ion-icon *ngIf="offsite" primary item-right name="ios-remove-circle-outline"></ion-icon>
+			</ion-list-header>
+			<div class="toggle-section-content" [class.hide-section]="!offsite">
+				<p>
+				</p>
+			</div>
+		</ion-list>
+
+
+
+
+	</ion-card-content>
+</ion-card>
+<ion-card>
 	<ion-card-header>Programs</ion-card-header>
 	<ion-card-content>
 		<ion-list text-wrap class="toggle-section">
@@ -154,95 +243,7 @@
 
 	</ion-card-content>
 </ion-card>
-<ion-card>
-	<ion-card-header>Services</ion-card-header>
-	<ion-card-content>
 
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="meals=!meals" [class.selected]="meals">
-				{{"Meals" | translate }}
-				<ion-icon *ngIf="!meals" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="meals" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!meals">
-				<p>Between 1,200 and 1,500 meals are served to clients at this center each day. Sack lunches are provided for clients going
-					to work or for other community members needing a meal. At Thanksgiving and Christmas, the center opens its doors to
-					the community, offering a holiday feast to those individuals and families who may not otherwise have the opportunity.
-				</p>
-			</div>
-		</ion-list>
-
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="food=!food" [class.selected]="food">
-				{{"Food Pantry" | translate }}
-				<ion-icon *ngIf="!food" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="food" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!food">
-				<p>The Carr P. Collins Center distributes over 800 bags of groceries a month to community members in need. Households receive
-					one bag per adult and additional bags for children based on family size. They are eligible to receive food pantry services
-					once every 30 days.
-				</p>
-			</div>
-		</ion-list>
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="clothing=!clothing" [class.selected]="clothing">
-				{{"Clothing Warehouse" | translate }}
-				<ion-icon *ngIf="!clothing" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="clothing" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!clothing">
-				<p>
-				</p>
-			</div>
-		</ion-list>
-
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="worship=!worship" [class.selected]="worship">
-				{{"Worship Programs" | translate }}
-				<ion-icon *ngIf="!worship" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="worship" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!worship">
-				<p>The Salvation Army is an evangelical part of the universal Christian church. Its message is based on the Bible. Its ministry
-					is motivated by the love of God. Its mission is to preach the Gospel of Jesus Christ and to meet human needs in His
-					name without discrimination. The Carr P. Collins Center offers mainstream Christian teaching at Sunday School and worship
-					services on Sunday, as well as Bible study and fellowship groups during the week.
-				</p>
-			</div>
-		</ion-list>
-
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="life=!life" [class.selected]="life">
-				{{"Life-Skills" | translate }}
-				<ion-icon *ngIf="!life" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="life" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!life">
-				<p>Life-skills classes are an essential component of each of our programs and are designed to provide valuable education
-					and information on the tools that will help our clients be successful as they move towards stability and independence.
-					Topics for life-skills classes include resume building, interview skills, health and nutrition, relapse prevention,
-					coping skills and parenting.
-				</p>
-			</div>
-		</ion-list>
-		<ion-list text-wrap class="toggle-section">
-			<ion-list-header (click)="offsite=!offsite" [class.selected]="offsite">
-				{{"Offsite Volunteer Opportunities" | translate }}
-				<ion-icon *ngIf="!offsite" primary item-right name="ios-add-circle-outline"></ion-icon>
-				<ion-icon *ngIf="offsite" primary item-right name="ios-remove-circle-outline"></ion-icon>
-			</ion-list-header>
-			<div class="toggle-section-content" [class.hide-section]="!offsite">
-				<p>
-				</p>
-			</div>
-		</ion-list>
-
-
-
-
-	</ion-card-content>
-</ion-card>
 <ion-card>
 	<ion-card-header>Useful Links</ion-card-header>
 	<ion-card-content>
