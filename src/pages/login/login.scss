@@ -11,7 +11,7 @@
 }
 
 .error {
-  color: red;
+  color: map-get($colors, primary);
   background: white;
 }
 
@@ -60,5 +60,5 @@
     left: 122px;
     margin-top: 9px;
     font-size: larger;
-    color: #FF173D;
+    color: map-get($colors, primary);
 }
