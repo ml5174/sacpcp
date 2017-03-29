@@ -11,8 +11,9 @@
 }
 
 .error {
-  color: map-get($colors, primary);
+  color: #CC1F2C;
   background: white;
+  word-wrap: break-word;
 }
 
 .button-clear {
@@ -60,5 +61,5 @@
     left: 122px;
     margin-top: 9px;
     font-size: larger;
-    color: map-get($colors, primary);
+    color: #FF173D;
 }
