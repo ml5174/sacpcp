@@ -15,7 +15,7 @@
 				Home
 			</button>
 			<button ion-item (click)="openPage(pages[1], 'events')">
-				Search Upcoming Events
+				Search Volunteer Opportunities
 			</button>
 			<button ion-item (click)="openPage(pages[5], '')">
 				About
@@ -23,12 +23,14 @@
 			<button ion-item (click)="openPage(pages[6], '')">
 				Contact Us
 			</button>
-
+			<button ion-item (click)="openPage(pages[7], '')">
+				Privacy &amp; Terms
+			</button>
 			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[2], '')">
 				Register
 			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="openPage(pages[3], '')">
-				Profile
+				About Me
 			</button>
 			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')">
 				Login 

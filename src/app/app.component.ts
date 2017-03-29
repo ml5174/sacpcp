@@ -1,8 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-
 import { Platform, MenuController, Nav, Select, Config } from 'ionic-angular';
-
 import { StatusBar } from 'ionic-native';
+import { Keyboard } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 import { UserServices } from '../lib/service/user';
 import { HomePage } from '../pages/home/home';
@@ -13,12 +12,15 @@ import { UserProfile } from '../lib/model/user-profile';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
+import { TermsPage } from '../pages/terms/terms';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { admin} from '../pages/admin/admin';
-
-
+import { AppVersion } from 'ionic-native';
+import { ServerVersion } from '../providers/server-version';
+import { version } from '../../package';
 @Component({
   templateUrl: 'app.html',
+  providers:[ServerVersion]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -28,6 +30,13 @@ export class MyApp {
   rootPage: any = HomePage;
   pages: Array<{ title: string, component: any }>;
   username: String = "";
+  appName: String = "";
+  appPkgName: String = "";
+  appMarketingVersion: String = "";
+  appBuildVersion: String = "";
+  serverENV: string = "";
+  serverVersionNumber: string = "";
+ 
   appManager: any = {};
   constructor(
     public platform: Platform,
@@ -35,7 +44,8 @@ export class MyApp {
     public menu: MenuController,
     public userServices: UserServices,
     public storage: Storage,
-    public volunteerEvents : VolunteerEventsService
+    public volunteerEvents : VolunteerEventsService,
+    public serverVersion:ServerVersion 
   ) {
     this.initializeApp();
 
@@ -48,10 +58,10 @@ export class MyApp {
       { title: 'Change Password', component: ChangePasswordPage },
       { title: 'About', component: AboutPage },
       { title: 'Contact Us', component: ContactPage },
-      { title: 'Admin', component: admin }
-
-
+      { title: 'Admin', component: admin },
+      { title: 'Privacy & Terms', component: TermsPage }
     ];
+
   }
 
   initializeApp() {
@@ -87,13 +97,19 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.hide();
       //Keyboard.disableScroll(true);
+      Keyboard.hideKeyboardAccessoryBar(false);
 
       //Only turn these off if its not android.
       if (!this.platform.is("android")) {
         this.config.set("scrollAssist", false);
         this.config.set("autoFocusAssist", false);
       }
-    });
+       
+      this.getAndWriteVersionInfo();
+      this.getServerEnv();
+  });
+
+   
   }
 
   openPage(page, tab) {
@@ -144,4 +160,67 @@ export class MyApp {
       };
     }
   }
+
+   private getServerEnv() {
+    this.serverVersion.getJsonData().subscribe(
+      result => {
+        this.serverENV=result.ENV_NAME;
+        this.serverVersionNumber=result.version;
+        console.log("server environment : "+this.serverENV + '@ ' + this.serverVersionNumber);
+        let serverVersionNumber: string = this.serverVersionNumber;
+        let serverEnv: string = this.serverENV;
+        this.storage.set('serverVersion', serverVersionNumber).then((resource) => {
+         console.log('Storing Server Version: ' + serverVersionNumber);
+       });
+
+       this.storage.set('serverEnv', serverEnv).then((resource) => {
+         console.log('Storing Server Environment: ' + serverEnv);
+       });
+
+      },
+      err =>{
+        console.error("Error : "+err);
+      } ,
+      () => {
+        console.log('getData completed');
+      }
+    );
+   }
+
+  private getAndWriteVersionInfo(){
+
+    if(this.platform.is('ios') || this.platform.is('android')) {
+      AppVersion.getAppName().then((version) => {
+        this.appName = version;
+        console.log('AppName: ' + this.appName);
+      })
+      AppVersion.getPackageName().then((pkg) => {
+        this.appPkgName = pkg;
+        if (this.platform.is('android')) console.log('Package: ' + this.appPkgName);
+        else console.log('BundleID: ' + this.appPkgName);
+      })    
+      AppVersion.getVersionNumber().then((marketingVersion) => {
+        this.appMarketingVersion = marketingVersion;
+        console.log('Marketing Version: ' + this.appMarketingVersion);
+        this.storage.set('version', this.appMarketingVersion.toString()).then((resource) => {
+          console.log('Storing Marketing Version: ' + this.appMarketingVersion);
+        });
+      })
+      AppVersion.getVersionCode().then((buildVersion) => {
+        this.appBuildVersion = buildVersion;
+        console.log('Build Version: ' + this.appBuildVersion);
+        this.storage.set('build', this.appBuildVersion.toString()).then((resource) => {
+          console.log('Storing Build Version: ' + this.appBuildVersion);
+        });
+      })   
+    } else {
+      this.storage.set('version', version).then((resource) => {
+          console.log('Storing Marketing Version: ' + this.appMarketingVersion);
+        });
+      this.storage.set('build', version).then((resource) => {
+          console.log('Storing Build Version: ' + this.appBuildVersion);
+        });
+    }
+  }
 }
+

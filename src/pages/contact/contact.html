@@ -21,12 +21,19 @@
 		<div id="MainContent_content_pnl_modules">
 			<div class="clear dynamicPageSpacer"></div>
 			<div class="clear dynamicPageSpacer"></div>
-
+			<img class="image" src="assets/img/Building.jpg">
+ 
 			<div class="textGalleryModule module">
 
 				<div class="moduleItemsWrapper">
-					<span style="font-size: 12pt;">5302 Harry Hines Blvd.</span><br style="font-size: 12pt;">
-					<span style="font-size: 12pt;">Dallas,TX 75235</span><br style="font-size: 12pt;"><span style="font-size: 12pt;">(214) 424-7050</span>
+					<a href="{{mapsURL}}">
+						<span style="font-size: 12pt;">5302 Harry Hines Blvd.</span><br style="font-size: 12pt;">
+							<span style="font-size: 12pt;">Dallas,TX 75235</span><br style="font-size: 12pt;">
+					</a>
+					<span style="font-size: 12pt;">
+					<button ion-button clear small (click)="call_TSACPC('(214) 424-7050')">(214) 424-7050</button>
+					<!--a href="tel:1-214-424-7050">(214) 424-7050</a-->
+					</span>
 					<br style="font-size: 12pt;">
 					<span style="font-size: 12pt;">(214) 688-5234 Fax </span>
 				</div>
