@@ -153,6 +153,7 @@ export class EventPage {
     this.nav.push(EditEventDetailPage, { eventDetailKey: this.eventDetail, "signedUp": this.signedUp });
   }
 
+
   onCancel(event: any) {
     this.search = false;
   }
