@@ -90,9 +90,10 @@ export class RegisterLoginPage {
     }
     else 
     {
-      this.sms = '1'+this.contactMethod.mobileNumberAreaCode +
-      this.contactMethod.mobileNumberPrefix+
-      this.contactMethod.mobileNumberLineNumber;    
+      // this.sms = '1'+this.contactMethod.mobileNumberAreaCode +
+      // this.contactMethod.mobileNumberPrefix+
+      // this.contactMethod.mobileNumberLineNumber;
+      this.sms = '1'+this.contactMethod.mobileNumber;    
       register.phone = this.sms;
     }
    
