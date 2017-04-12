@@ -1,4 +1,5 @@
 import { EventDetailModal } from './../pages/events/eventdetail-modal';
+import { EventDetailPopup } from './../pages/events/eventdetail-popup';
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
 
@@ -86,6 +87,7 @@ export function translateFactory(http: Http) {
     ParseTimePipe,
     EventSortPipe,
     EventDetailModal,
+    EventDetailPopup,
     ContactMethod,
     PhoneInput,
     AccordionBox,
@@ -121,7 +123,8 @@ export function translateFactory(http: Http) {
     ContactPage,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
-    EventDetailModal
+    EventDetailModal,
+    EventDetailPopup,
   ],
   providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService]
 })

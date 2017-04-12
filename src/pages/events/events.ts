@@ -4,6 +4,7 @@ import { VolunteerEventsService } from '../../lib/service/volunteer-events-servi
 import { EventImage } from '../../lib/model/eventImage';
 import { UserServices } from '../../lib/service/user';
 import { EventDetailModal } from './eventdetail-modal';
+import { EventDetailPopup } from './eventdetail-popup';
 import { ModalController, ViewController } from 'ionic-angular';
 import { PopoverController, ToastController, LoadingController } from 'ionic-angular';
 import { PreferredSearchPopover } from '../../popover/preferredsearch-popover';
@@ -121,6 +122,28 @@ export class EventPage {
       "registered": this.amISignedUp(id)
     });
     eventDetailModal.present();
+  }
+
+  eventDetailPopup(id){
+    let eventDetailPopup = this.popoverCtrl.create(EventDetailPopup, {
+      "id": id,
+      "registered": this.amISignedUp(id)
+    }, {cssClass: 'detail-popover'});
+
+    let ev = {
+  target : {
+    getBoundingClientRect : () => {
+      return {
+        top: '200'
+      };
+    }
+  }
+};
+    eventDetailPopup.present({ev});
+
+    function dismiss(){
+      eventDetailPopup.dismiss();
+    }
   }
 
   onCancel(event: any) {
