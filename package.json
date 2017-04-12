@@ -1,60 +1,61 @@
 {
-    "name": "DFW",
-    "author": "att",
-    "version": "1.0.0",
-    "homepage": "http://ionicframework.com/",
-    "private": true,
-    "scripts": {
-        "build": "ionic-app-scripts build",
-        "clean": "ionic-app-scripts clean",
-        "ionic:build": "ionic-app-scripts build",
-        "ionic:serve": "ionic-app-scripts serve",
-        "setup_powershell": "cd src; git clone ",
-        "postsetup_powershell": "cd src; rename savi-lib lib; cd lib; (git remote add upstream https://github.com/ml5174/savi-lib.git || echo skipping, moving on); git checkout master; git pull upstream master; cd ../..; (git remote add upstream https://github.com/ml5174/sacpcp.git || echo skipping, moving on); git checkout master; git pull upstream master; npm install -g ionic cordova; npm install; ionic serve",
-        "setup": "cd src && git clone ",
-        "postsetup": "cd src && (rename savi-lib lib || mv savi-lib lib) && cd lib && (git remote add upstream https://github.com/ml5174/savi-lib.git || echo skipping, moving on) && git checkout master && git pull upstream master && cd ../.. && (git remote add upstream https://github.com/ml5174/sacpcp.git || echo skipping, moving on) && git checkout master && git pull upstream master && npm install -g ionic cordova && npm install && ionic serve"
-    },
-    "dependencies": {
-        "@angular/common": "2.2.1",
-        "@angular/compiler": "2.2.1",
-        "@angular/compiler-cli": "2.2.1",
-        "@angular/core": "2.2.1",
-        "@angular/forms": "2.2.1",
-        "@angular/http": "2.2.1",
-        "@angular/platform-browser": "2.2.1",
-        "@angular/platform-browser-dynamic": "2.2.1",
-        "@angular/platform-server": "2.2.1",
-        "@ionic/storage": "1.1.7",
-        "ionic-angular": "2.0.0-rc.5-201701112208",
-        "ionic-native": "2.2.11",
-        "ionicons": "3.0.0",
-        "moment": "^2.17.0",
-        "moment-timezone": "^0.5.10",
-        "ng2-translate": "^3.0.0",
-        "rxjs": "5.0.0-beta.12",
-        "sw-toolbox": "3.4.0",
-        "zone.js": "0.6.26"
-    },
-    "devDependencies": {
-        "@ionic/app-scripts": "1.0.0",
-        "@types/moment-timezone": "^0.2.32",
-        "typescript": "2.0.9"
-    },
-    "cordovaPlugins": [
-        "cordova-plugin-device",
-        "cordova-plugin-console",
-        "cordova-plugin-whitelist",
-        "cordova-plugin-splashscreen",
-        "cordova-plugin-statusbar",
-        "ionic-plugin-keyboard"
-    ],
-    "cordovaPlatforms": [
-        "ios",
-        {
-            "platform": "ios",
-            "version": "",
-            "locator": "ios"
-        }
-    ],
-    "description": "savi: An Ionic project"
+  "name": "DFW",
+  "author": "att",
+  "version": "1.0.0",
+  "homepage": "http://ionicframework.com/",
+  "private": true,
+  "scripts": {
+    "build": "ionic-app-scripts build",
+    "clean": "ionic-app-scripts clean",
+    "ionic:build": "ionic-app-scripts build",
+    "ionic:serve": "ionic-app-scripts serve",
+    "setup_powershell": "cd src; git clone ",
+    "postsetup_powershell": "cd src; rename savi-lib lib; cd lib; (git remote add upstream https://github.com/ml5174/savi-lib.git || echo skipping, moving on); git checkout master; git pull upstream master; cd ../..; (git remote add upstream https://github.com/ml5174/sacpcp.git || echo skipping, moving on); git checkout master; git pull upstream master; npm install -g ionic cordova; npm install; ionic serve",
+    "setup": "cd src && git clone ",
+    "postsetup": "cd src && (rename savi-lib lib || mv savi-lib lib) && cd lib && (git remote add upstream https://github.com/ml5174/savi-lib.git || echo skipping, moving on) && git checkout master && git pull upstream master && cd ../.. && (git remote add upstream https://github.com/ml5174/sacpcp.git || echo skipping, moving on) && git checkout master && git pull upstream master && npm install -g ionic cordova && npm install && ionic serve"
+  },
+  "dependencies": {
+    "@angular/common": "2.2.1",
+    "@angular/compiler": "2.2.1",
+    "@angular/compiler-cli": "2.2.1",
+    "@angular/core": "2.2.1",
+    "@angular/forms": "2.2.1",
+    "@angular/http": "2.2.1",
+    "@angular/platform-browser": "2.2.1",
+    "@angular/platform-browser-dynamic": "2.2.1",
+    "@angular/platform-server": "2.2.1",
+    "@ionic-native/in-app-browser": "^3.4.4",
+    "@ionic/storage": "1.1.7",
+    "ionic-angular": "2.0.0-rc.5-201701112208",
+    "ionic-native": "2.2.11",
+    "ionicons": "3.0.0",
+    "moment": "^2.17.0",
+    "moment-timezone": "^0.5.10",
+    "ng2-translate": "^3.0.0",
+    "rxjs": "5.0.0-beta.12",
+    "sw-toolbox": "3.4.0",
+    "zone.js": "0.6.26"
+  },
+  "devDependencies": {
+    "@ionic/app-scripts": "1.0.0",
+    "@types/moment-timezone": "^0.2.32",
+    "typescript": "2.0.9"
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-device",
+    "cordova-plugin-console",
+    "cordova-plugin-whitelist",
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-statusbar",
+    "ionic-plugin-keyboard"
+  ],
+  "cordovaPlatforms": [
+    "ios",
+    {
+      "platform": "ios",
+      "version": "",
+      "locator": "ios"
+    }
+  ],
+  "description": "savi: An Ionic project"
 }
