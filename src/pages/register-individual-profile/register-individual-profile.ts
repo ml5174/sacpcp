@@ -58,15 +58,14 @@ export class RegisterIndividualProfilePage {
 
   public relationships = [
     "Parent/Guardian",
-    "Brother/Sister",
+    "Spouse",
     "Relative",
     "Friend"
   ];
 
   public genders = [
     {id:"1", value: "Male"},
-    {id:"2", value: "Female"},
-    {id:"3", value: "Other"}
+    {id:"2", value: "Female"}
   ];
 
   // Other private variables
