@@ -78,6 +78,7 @@ export class RegisterIndividualProfilePage {
   public passwordForm: any = {};
 
   public formServiceAreas: Array<any> = [];
+  public formLocations: Array<any> = [];
 
   public profileExists: boolean = false;
 
@@ -257,6 +258,14 @@ export class RegisterIndividualProfilePage {
     return false;
   }
 
+  isLocationInMyPreferences(id: number) {
+    let locations = this.myPreferences.locations;
+    for (let location of locations) {
+      if (location.location_id == id) return true;
+    }
+    return false;
+  }
+
   translateToFormPhoneNumbers() {
     // Clear all parsed numbers
     this.mobileNumberAreaCode = "";
@@ -323,6 +332,16 @@ export class RegisterIndividualProfilePage {
       this.formServiceAreas.push(serviceArea);
     }
 
+    this.formLocations = [];
+
+    // Add all available preferences, and for those in "myPreferences.serviceareas", set the selected value to true
+    let locations = this.availablePreferences.locations;
+    for (let location of locations) {
+      let selected = this.isLocationInMyPreferences(location.id) ? true : false;
+      location.selected = selected; 
+      this.formLocations.push(location);
+    }
+
   }
 
   translateFromFormPreferences() {
@@ -337,6 +356,20 @@ export class RegisterIndividualProfilePage {
           servicearea_id: serviceArea.id
         };
         this.myPreferences.serviceareas.push(newServiceArea); 
+      }
+    }
+    
+    // Start with empty locations list in myPreferences
+    this.myPreferences.locations = [];
+
+    // For every item on the form that is selected, add it to myPreferences
+    let formLocations = this.formLocations;
+    for (let location of formLocations) {
+      if (location.selected) {
+        let newLocation = {
+          location_id: location.id
+        };
+        this.myPreferences.locations.push(newLocation); 
       }
     }
     
