@@ -99,10 +99,10 @@ export class MyApp {
     console.log("after ready!");
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.hide();
-      //StatusBar.overlaysWebView(false);
-      //StatusBar.styleDefault();
-      //console.log(StatusBar);
+      StatusBar.show();
+      StatusBar.overlaysWebView(false);
+      StatusBar.styleDefault();
+      console.log(StatusBar);
       //Keyboard.disableScroll(true);
       Keyboard.hideKeyboardAccessoryBar(false);
 
