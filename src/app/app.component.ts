@@ -20,6 +20,9 @@ import { AppVersion } from 'ionic-native';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package';
 
+declare var window;
+declare var cordova;
+
 @Component({
   templateUrl: 'app.html',
   providers:[ServerVersion]
@@ -194,6 +197,9 @@ export class MyApp {
   private getAndWriteVersionInfo(){
 
     if(this.platform.is('ios') || this.platform.is('android')) {
+      if (cordova && cordova.InAppBrowser) {
+        window.open = cordova.InAppBrowser.open;
+      }
       AppVersion.getAppName().then((version) => {
         this.appName = version;
         console.log('AppName: ' + this.appName);
