@@ -20,8 +20,8 @@ import { AppVersion } from 'ionic-native';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package';
 
-declare var window;
-declare var cordova;
+//declare var window;
+//declare var cordova;
 
 @Component({
   templateUrl: 'app.html',
@@ -143,11 +143,11 @@ export class MyApp {
     this.nav.setRoot(HomePage);
   }
   donate() {
-    if(this.platform.is('ios') || this.platform.is('android')) {
-      if (cordova && cordova.InAppBrowser) {
-        window.open = cordova.InAppBrowser.open;
-      }
-    }
+//    if(this.platform.is('ios') || this.platform.is('android')) {
+//      if (cordova && cordova.InAppBrowser) {
+//        window.open = cordova.InAppBrowser.open;
+//      }
+//    }
     window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank');
   }
 
