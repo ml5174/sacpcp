@@ -143,6 +143,11 @@ export class MyApp {
     this.nav.setRoot(HomePage);
   }
   donate() {
+    if(this.platform.is('ios') || this.platform.is('android')) {
+      if (cordova && cordova.InAppBrowser) {
+        window.open = cordova.InAppBrowser.open;
+      }
+    }
     window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank');
   }
 
@@ -197,9 +202,6 @@ export class MyApp {
   private getAndWriteVersionInfo(){
 
     if(this.platform.is('ios') || this.platform.is('android')) {
-      if (cordova && cordova.InAppBrowser) {
-        window.open = cordova.InAppBrowser.open;
-      }
       AppVersion.getAppName().then((version) => {
         this.appName = version;
         console.log('AppName: ' + this.appName);
