@@ -6,11 +6,12 @@ import {Component, Input} from '@angular/core';
 })
 
 export class PhoneInput {
-	@Input() idsuffix;
-	@Input() ac;
-	@Input() np;
-	@Input() nn;
-	
+	 @Input() idsuffix;
+	// @Input() ac;
+	// @Input() np;
+	// @Input() nn;
+	@Input() pn;
+
 	private suffix: string;
 	
 	constructor() { }

@@ -19,7 +19,8 @@
 			
 				<!--<ion-label stacked *ngSwitchDefault >Mobile Number</ion-label> -->
 				<ion-grid class="phone-number" *ngSwitchDefault > 
-				<phone-input idsuffix="reg" [ac]="mobileNumberAreaCode" [np]="mobileNumberPrefix" [nn]="mobileNumberLineNumber"></phone-input>
+				<!--<phone-input idsuffix="reg" [ac]="mobileNumberAreaCode" [np]="mobileNumberPrefix" [nn]="mobileNumberLineNumber"></phone-input>-->
+				<phone-input idsuffix="reg" [pn]="mobileNumber"></phone-input>
 				<!-- <ion-row>
 					<ion-col width-25>
 						<ion-item no-lines>
