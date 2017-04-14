@@ -22,3 +22,21 @@ img.main{
 .sortButton{
 
 }
+.platform-android .alertReminder{
+    background-color: white;
+    color: black;
+    button{
+        background-color: #cc1f2c;       
+        color:white;
+        border:1px solid;
+    }
+}
+.platform-ios .alertReminder{
+    background-color: white;
+    color: black;   
+    button{       
+        background-color: #cc1f2c;
+        color:white;
+        border:2px solid;      
+    }
+}
