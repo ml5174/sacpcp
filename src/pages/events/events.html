@@ -13,12 +13,21 @@
   Hide Options 
 </button>
 </div> -->
+<ion-item>
+    <ion-label>Opportunity Type:</ion-label>
+  <ion-select id="selectbar" [(ngModel)]="oppType">
+    <ion-option value="0" selected="true">All</ion-option>
+    <ion-option value="1" >Food Service</ion-option>
+    <ion-option value="2">Food Pantry</ion-option>
+    <ion-option value="3">Clothing Warehouse</ion-option>
+  </ion-select>
+</ion-item>
 <div id="results" *ngIf="searching">Search Results</div>
 <!-- Removed per Requirements  <img class="main" src="assets/img/logo2.jpg" /> -->
 <div *ngIf="searching && noResults">No Results Found</div>
 
 <ion-row responsive-sm wrap>
-    <ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents; let i=index">
+    <ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents | OpportunityPipe:oppType; let i=index">
         <ion-card *ngIf="e.visibility==0" class="flex-card">
             <ion-card-content>
                 <ion-list-header (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">

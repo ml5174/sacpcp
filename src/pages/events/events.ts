@@ -9,13 +9,13 @@ import { ModalController, ViewController } from 'ionic-angular';
 import { PopoverController, ToastController, LoadingController } from 'ionic-angular';
 import { PreferredSearchPopover } from '../../popover/preferredsearch-popover';
 import { EventSortPopover} from '../../popover/eventsort-popover';
-import {EventSortPipe} from '../../lib/pipe/eventsortpipe';
+import {EventSortPipe, OpportunityPipe} from '../../lib/pipe/eventsortpipe';
 import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
 
 @Component({
   templateUrl: 'events.html',
   selector: 'events',
-  providers:[EventSortPipe, ParseTimePipe]
+  providers:[EventSortPipe, ParseTimePipe, OpportunityPipe]
 })
 
 export class EventPage {
@@ -33,7 +33,7 @@ export class EventPage {
 
  // public preferenceModel: Array<MyPreferences> = [];
  // public currentPreferences: Array<MyPreferences> = [];
-  public selectedSort: string = '';
+ // public selectedSort: string = '';
   public selectedPreferences: any = {};
   public showAdvancedOptions: Boolean = false;
   public image: Array<EventImage>;
@@ -53,7 +53,7 @@ export class EventPage {
     private popoverCtrl: PopoverController,
     public viewCtrl: ViewController,
     public loadingController: LoadingController,
-    private sortPipe: EventSortPipe,
+  //  private sortPipe: EventSortPipe,
     private parseTimePipe: ParseTimePipe,
     public toastController: ToastController) {
   }
@@ -165,10 +165,10 @@ export class EventPage {
     if (this.val && this.val.trim() != '') {
 
 
-          if(this.isPreferenceSelected(this.selectedPreferences) == 1 || this.isPreferenceSelected(this.selectedPreferences) == 2 || this.isPreferenceSelected(this.selectedPreferences) == 3 ){
+/*          if(this.isPreferenceSelected(this.selectedPreferences) == 1 || this.isPreferenceSelected(this.selectedPreferences) == 2 || this.isPreferenceSelected(this.selectedPreferences) == 3 ){
          
       this.preferenceSearch();
-        }else{
+        }else{ */
               for (var i = 0; i < this.values.length; ++i) {
                 
                     this.searchedEvents = this.searchedEvents.filter((item) => {
@@ -207,10 +207,10 @@ export class EventPage {
 
                   }
 
-                    this.searchedEvents.map(Array, this.sortPipe.transform(this.searchedEvents, this.selectedSort));
+                 //   this.searchedEvents.map(Array, this.sortPipe.transform(this.searchedEvents, this.selectedSort));
                  // this.pipe.transform(this.searchedEvents, this.selectedSort);
 
-       }
+     //  }
       if (this.searchedEvents.length==0){
         this.noResults = true;
       }
@@ -221,6 +221,7 @@ export class EventPage {
 
 
 //Sort Stuff ja999b
+/*
   preferenceSearch(){
       if(this.isPreferenceSelected(this.selectedPreferences) == 1 ){ 
              this.doLocationSearch();
@@ -289,9 +290,7 @@ export class EventPage {
                           )});
                     }
    }
-
-
-
+*/
 
 
 
@@ -416,7 +415,7 @@ export class EventPage {
                 this.volunteerEventsService.loadMyEvents();
             });
     }
-//Popover Stuff
+/*Popover Stuff
  presentPopover(ev) {
    
     let popover = this.popoverCtrl.create(EventSortPopover, {
@@ -454,5 +453,5 @@ export class EventPage {
    
     })   
     
-  }
+  } */
 }
