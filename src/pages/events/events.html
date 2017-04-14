@@ -53,6 +53,9 @@
                             <p>{{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
                             </span>
                         </ion-item>
+                        <ion-item *ngIf="!userServices.user.id">
+                            <button ion-button item-left small color="primary" (click)="eventDetailModal(e.id)" >Details</button>
+                        </ion-item>  
                         <ion-item *ngIf="userServices.user.id">
                         <button ion-button item-left small color="primary" (click)="eventDetailModal(e.id)" >Details</button>
                         <button ion-button item-right small color="primary" *ngIf="!amISignedUp(e.id)" (click)="showConfirm(e.id)" >Sign up</button>
