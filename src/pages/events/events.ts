@@ -11,6 +11,8 @@ import { PreferredSearchPopover } from '../../popover/preferredsearch-popover';
 import { EventSortPopover} from '../../popover/eventsort-popover';
 import {EventSortPipe, OpportunityPipe} from '../../lib/pipe/eventsortpipe';
 import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
+import { AlertController } from 'ionic-angular';
+import { EventDetail } from '../../lib/model/event-detail';
 
 @Component({
   templateUrl: 'events.html',
@@ -21,7 +23,7 @@ import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
 export class EventPage {
 
   public loadingOverlay;
-
+  eventDetail: EventDetail;
   public search: boolean = false;
   public events: Array<VolunteerEvent> = [];
   public searchedEvents: Array<VolunteerEvent> = [];
@@ -55,6 +57,7 @@ export class EventPage {
     public loadingController: LoadingController,
   //  private sortPipe: EventSortPipe,
     private parseTimePipe: ParseTimePipe,
+    public alertCtrl: AlertController,
     public toastController: ToastController) {
   }
 
@@ -387,9 +390,9 @@ export class EventPage {
     }
     return false;
   }
-    signup(id) {
+    signup(id,noti_opt,noti_sched) {
         this.volunteerEventsService
-            .eventRegister(id).subscribe(
+            .eventRegisterAndSetReminder(id, noti_opt,noti_sched).subscribe(
             event => {
                       console.log("signed up for event " + id);
                       this.presentToast("Event sign-up successful.");
@@ -454,4 +457,44 @@ export class EventPage {
     })   
     
   } */
+
+    showConfirm(id) {
+        this.getEventDetails(id);
+        if (this.eventDetail.notification_schedule !="0") {
+            let confirm = this.alertCtrl.create({
+                title: '',
+                cssClass: 'alertReminder',
+                message: 'Thank you for signing up to volunteer. <br>  <br> Would you like to receive reminders as the event approaches?',
+                buttons: [
+                    {
+                        text: 'No, Thanks',
+                        handler: () => {
+                            console.log('No, Thanks clicked');
+                            this.signup(id, 0, 0);
+                        }
+                    },
+                    {
+                        text: 'Yes',
+                        handler: () => {
+                            console.log('Yes clicked');
+                            this.signup(id, this.eventDetail.notification_option, this.eventDetail.notification_schedule);
+                        }
+                    }
+                ]
+            });
+            confirm.present();
+        }
+        else {
+            this.signup(id, 0, 0);
+        }
+    }
+    getEventDetails(id) {
+        this.volunteerEventsService
+            .getVolunteerEventDetails(id).subscribe(
+            event => this.eventDetail = event,
+            err => {
+                console.log(err);
+            });
+    }
+
 }

@@ -1,20 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Privacy &amp; Terms - Agreement Required
-    </ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
         <span ion-text color="primary">Cancel</span>
       </button>
     </ion-buttons>
+    <ion-title>Privacy &amp; Terms</ion-title>
+    <ion-buttons end></ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 <privacy-terms-content></privacy-terms-content>
 					
-					<button ion-button full (click)="agree()">Agree</button>
-<button ion-button full (click)="dismiss()">Disagree</button>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+  <button ion-button large color="danger" (click)="dismiss()">Decline</button>
+  <button ion-button large color="primary" (click)="agree()">Accept</button>
+
+  </ion-toolbar>
+</ion-footer>
 
