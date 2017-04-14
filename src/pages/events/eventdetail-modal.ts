@@ -3,6 +3,7 @@ import { NavParams, ViewController, ToastController } from 'ionic-angular';
 import { UserServices } from '../../lib/service/user';
 import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
+import { AlertController } from 'ionic-angular';
 import { NOTIFICATION_SCHEDULE, NOTIFICATION_OPTIONS, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION } from './../../lib/provider/eventConstants';
 
 @Component({
@@ -30,6 +31,7 @@ export class EventDetailModal {
         private volunteerEventsService: VolunteerEventsService,
         private userServices: UserServices,
         public viewCtrl: ViewController,
+        public alertCtrl: AlertController,
         public toastController: ToastController) {
 
         this.viewCtrl = viewCtrl;
@@ -80,10 +82,38 @@ export class EventDetailModal {
                 console.log(err);
             });
     }
-
-    signup(id) {
+    showConfirm(id,noti_option,noti_schedule) {       
+        if (noti_schedule != "0") {
+            let confirm = this.alertCtrl.create({
+                title: '',
+                cssClass: 'alertReminder',
+                message: 'Thank you for signing up to volunteer. <br>  <br> Would you like to receive reminders as the event approaches?',
+                buttons: [
+                    {
+                        text: 'No, Thanks',
+                        handler: () => {
+                            console.log('No, Thanks clicked');
+                            this.signup(id, 0, 0);
+                        }
+                    },
+                    {
+                        text: 'Yes',
+                        handler: () => {
+                            console.log('Yes clicked');
+                            this.signup(id, noti_option, noti_schedule);
+                        }
+                    }
+                ]
+            });
+            confirm.present();
+        }
+        else {
+            this.signup(id, 0, 0);
+        }
+    }
+    signup(id, noti_opt, noti_sched) {
         this.volunteerEventsService
-            .eventRegister(id).subscribe(
+            .eventRegisterAndSetReminder(id, noti_opt, noti_sched).subscribe(
             event => {
                       console.log("signed up for event " + id);
                       this.presentToast("Event sign-up successful.");

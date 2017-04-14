@@ -1,3 +1,4 @@
+
 <ion-row responsive-sm wrap>
     <!--  NG REPEAT THIS -->
     <ion-col width-50 class="flex-card" *ngFor="let e of volunteerEventsService.myEvents">
@@ -5,29 +6,41 @@
             <img *ngIf="e?.image && e.image[0].image != 'no image'" [src]="e.image[0].image" />
 
             <ion-card-content>
-                <h2 class="card-title">
-                    {{e.title}}
-                </h2>
-                <ion-row>
-                    <ion-icon name="calendar"></ion-icon>
-                    <ion-col>
-                        <p>{{e.start | parseTime:"MMM DD"}} {{e.end | parseTime:"YYYY"}}</p>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <p><b>{{e.start | date:'shortTime'}}-{{e.end | date:'shortTime'}} {{e.start | date:'Z'}}</b></p>
-                </ion-row>
-                <ion-row>
-                    <ion-icon name="pin" *ngIf="e.location_name"></ion-icon>
-                    <ion-col>
-                        <p>{{e.location_name}}</p>
-                    </ion-col>
-                </ion-row>
-                <ion-row *ngIf="e.location_address1">
-                    <p>{{e.location_address1}}, {{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
-                </ion-row>
-                <p>{{e.description}}</p>
-                <button (click)="deRegister(e.event_id)" ion-button small item-right round>Cancel Sign-Up</button>
+                <ion-item>
+                    <h2 class="card-title">
+                        {{e.title}}
+                    </h2>
+                </ion-item>
+
+                <ion-item>
+                    <ion-icon item-left name="calendar"></ion-icon>
+                    <!--p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p-->
+                    <p>{{e.start | parseTime:"MMM DD"}} {{e.end | parseTime:"YYYY"}}</p>
+                    <!--p>{{e.start | parseTimeZone: 'h:mm A'}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p-->
+                    <p>{{e.start | parseTime: 'h:mm A'}}-{{e.end | parseTime: 'h:mm A'}}</p>
+                </ion-item>
+                
+                <ion-item *ngIf="e.location_name">
+                    <ion-icon item-left name="pin"></ion-icon>
+                    <p>{{e.location_name}}</p>
+                    <span *ngIf="e.location_address1">
+                        <p>{{e.location_address1}}</p>
+                        <span *ngIf="e.location_address2">
+                            <p>{{e.location_address2}}</p>
+                        </span>
+                        <p>{{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
+                    </span>
+                </ion-item>
+                <!--<p>{{e.description}}</p>-->
+                <ion-item >
+                    <ion-label class="togglelabel" >Would you like to receive event reminders?</ion-label>
+                    <ion-toggle class="toggleswitch" id="toggleReminder" (ionChange)="showConfirm(e.event_id,$event)" checked="{{e.notification_schedule>0}}"></ion-toggle>
+          
+                </ion-item>
+                <ion-item >
+                    <button (click)="eventDetailModal(e.event_id)" ion-button small item-left round>Details</button>
+                    <button (click)="deRegister(e.event_id)" ion-button small item-right round>Cancel Sign-Up</button>
+                </ion-item>
             </ion-card-content>
             <!--button padding ion-button class="readmore">Read more</button>
             <ion-row no-padding>

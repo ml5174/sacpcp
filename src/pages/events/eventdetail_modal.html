@@ -76,11 +76,11 @@
 <ion-footer class="action-footer">
 	<ion-grid>
 		<ion-row>
-			<ion-col width-50>
-    <button ion-button small color="primary" *ngIf="!signedUp" (click)="signup(eventDetail.id)">Sign Up</button>
-    <button ion-button small color="primary" *ngIf="signedUp" (click)="deRegister(eventDetail.id)">Cancel</button>
+			<ion-col>
+    <button ion-button small color="primary" *ngIf="!signedUp" (click)="showConfirm(eventDetail.id,eventDetail.notification_option,eventDetail.notification_schedule)">Sign Up</button>
+    <button ion-button item-left small color="primary" *ngIf="signedUp" (click)="deRegister(eventDetail.id)">Cancel Sign-Up</button>
 			</ion-col>
-			<ion-col width-50>
+			<ion-col>
       <button ion-button small color="primary" *ngIf="signedUp" (click)="dismiss()">Close</button>
       <button ion-button small color="primary" *ngIf="!signedUp" (click)="dismiss()">Cancel</button>
 			</ion-col>
