@@ -45,6 +45,11 @@ import { EventSortPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
 
+//Added for text-mask, phone number formatting
+import { FormsModule } from '@angular/forms';
+import { TextMaskModule } from 'angular2-text-mask';
+
+
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
     { component: ChangePasswordPage, name: 'Change Password Page', segment: 'password-reset/confirm/:iud/:key' },
@@ -98,7 +103,10 @@ export function translateFactory(http: Http) {
           provide: TranslateLoader,
           useFactory: translateFactory,
           deps: [Http]
-        })
+        }),
+    //Added for text-mask, for phone number formatting
+    FormsModule,
+    TextMaskModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
