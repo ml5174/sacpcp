@@ -16,3 +16,23 @@ export class EventSortPipe {
   }
 }
 
+@Pipe({name: "OpportunityPipe"})
+export class OpportunityPipe {
+  transform(object: any, args?: any): any {
+    console.log('object: ' + args);
+	 
+			if(args < 1 || args === undefined){
+				return object;
+			}else{
+				return object.filter(function(param){
+					if(param.category_id == args){
+						return param;
+					}
+
+				});
+
+			}
+
+    
+  }
+}
