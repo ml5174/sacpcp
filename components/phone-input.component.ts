@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 
 @Component({
     selector: 'phone-input',
-    templateUrl: 'phone-input.component.html'
+    templateUrl: 'phone-input.component.html',
 })
 
 export class PhoneInput {
@@ -12,6 +12,7 @@ export class PhoneInput {
 	// @Input() nn;
 	@Input() pn;
 
+	public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
 	private suffix: string;
 	
 	constructor() { }

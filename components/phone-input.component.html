@@ -20,7 +20,8 @@
 	<ion-col width-25>
 		<ion-item no-lines>
 			<ion-label stacked></ion-label>
-			<ion-input id="PN{{idsuffix}}" name="{{pn}}" type="tel" placeholder="" class="" [(ngModel)]="pn" minlength="10" maxlength="10"></ion-input>
+			<!--<ion-input id="PN{{idsuffix}}" name="{{pn}}" type="tel" placeholder="" class="" [(ngModel)]="pn" minlength="10" maxlength="10"></ion-input>-->
+			<ion-input [textMask]="{mask: mask}" id="PN{{idsuffix}}" name="{{pn}}" type="text" placeholder="(123) 456-7890" class="" [(ngModel)]="pn" ></ion-input>
 		</ion-item>
 	</ion-col>
 </ion-row>
