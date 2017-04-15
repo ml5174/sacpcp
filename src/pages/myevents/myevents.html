@@ -11,7 +11,7 @@
                 <ion-row>
                     <ion-icon name="calendar"></ion-icon>
                     <ion-col>
-                        <p>{{e.start | date:"MM/dd"}} - {{e.end | date:"MM/dd"}}</p>
+                         <p>{{e.start | parseTime:"MMM DD"}} {{e.end | parseTime:"YYYY"}}</p>
                     </ion-col>
                 </ion-row>
                 <ion-row>

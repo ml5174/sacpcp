@@ -153,6 +153,7 @@ export class EventPage {
     this.nav.push(EditEventDetailPage, { eventDetailKey: this.eventDetail, "signedUp": this.signedUp });
   }
 
+
   onCancel(event: any) {
     this.search = false;
   }
@@ -397,7 +398,7 @@ export class EventPage {
     }
     return false;
   }
-  /*
+  
   signup(id) {
     this.volunteerEventsService
       .eventRegister(id).subscribe(
@@ -427,7 +428,7 @@ export class EventPage {
         this.volunteerEventsService.loadMyEvents();
       });
   }
-  */
+  
   //Popover Stuff
   presentPopover(ev) {
 
