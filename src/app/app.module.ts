@@ -1,4 +1,5 @@
 import { EventDetailModal } from './../pages/events/eventdetail-modal';
+import { EventDetailPopup } from './../pages/events/eventdetail-popup';
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
 
@@ -41,7 +42,7 @@ import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { ReferralSourcePipe } from '../lib/pipe/referralsource.pipe';
 import { MomentTimeZonePipe } from '../lib/pipe/moment-timezone.pipe';
 import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
-import { EventSortPipe } from '../lib/pipe/eventsortpipe';
+import { EventSortPipe, OpportunityPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
 
@@ -85,7 +86,9 @@ export function translateFactory(http: Http) {
     TimeFromNowPipe,
     ParseTimePipe,
     EventSortPipe,
+    OpportunityPipe,
     EventDetailModal,
+    EventDetailPopup,
     ContactMethod,
     PhoneInput,
     AccordionBox,
@@ -121,7 +124,8 @@ export function translateFactory(http: Http) {
     ContactPage,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
-    EventDetailModal
+    EventDetailModal,
+    EventDetailPopup,
   ],
   providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService]
 })
