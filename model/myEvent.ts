@@ -1,4 +1,3 @@
-import { EventImage } from './eventImage';
 export class MyEvent {
   event_id: string;
   contact_id: number;
