@@ -1,20 +1,27 @@
 <ion-row>
+	<!--<ion-col width-25>
+		<ion-item no-lines>
+			<ion-label stacked></ion-label>
+			<ion-input  id="AC{{idsuffix}}" name="{{ac}}" type="tel" (keyup)="processKeyUp($event, 'NP')" placeholder="" class="" [(ngModel)]="ac" minlength="3" maxlength="3"></ion-input>
+		</ion-item>
+	</ion-col>
 	<ion-col width-25>
-										<ion-item no-lines>
-											<ion-label stacked></ion-label>
-											<ion-input  id="AC{{idsuffix}}" name="{{ac}}" type="tel" (keyup)="processKeyUp($event, 'NP')" placeholder="" class="" [(ngModel)]="ac" minlength="3" maxlength="3"></ion-input>
-										</ion-item>
-									</ion-col>
-									<ion-col width-25>
-										<ion-item no-lines>
-											<ion-label stacked></ion-label>
-											<ion-input id="NP{{idsuffix}}" name="{{np}}" (keyup)="processKeyUp($event, 'NN')" type="tel" placeholder="" class="" [(ngModel)]="np" minlength="3" maxlength="3" ></ion-input>
-										</ion-item>
-									</ion-col>
-									<ion-col width-50>
-										<ion-item no-lines>
-											<ion-label stacked></ion-label>
-											<ion-input id="NN{{idsuffix}}" name="{{nn}}" type="tel" placeholder="" class="" [(ngModel)]="nn" minlength="4" maxlength="4"></ion-input>
-										</ion-item>
-									</ion-col>
-								</ion-row>
+		<ion-item no-lines>
+			<ion-label stacked></ion-label>
+			<ion-input id="NP{{idsuffix}}" name="{{np}}" (keyup)="processKeyUp($event, 'NN')" type="tel" placeholder="" class="" [(ngModel)]="np" minlength="3" maxlength="3" ></ion-input>
+		</ion-item>
+	</ion-col>
+	<ion-col width-50>
+		<ion-item no-lines>
+			<ion-label stacked></ion-label>
+			<ion-input id="NN{{idsuffix}}" name="{{nn}}" type="tel" placeholder="" class="" [(ngModel)]="nn" minlength="4" maxlength="4"></ion-input>
+		</ion-item>
+	</ion-col>-->
+	<ion-col width-25>
+		<ion-item no-lines>
+			<ion-label stacked></ion-label>
+			<!--<ion-input id="PN{{idsuffix}}" name="{{pn}}" type="tel" placeholder="" class="" [(ngModel)]="pn" minlength="10" maxlength="10"></ion-input>-->
+			<ion-input [textMask]="{mask: mask}" id="PN{{idsuffix}}" name="{{pn}}" type="text" placeholder="(123) 456-7890" class="" [(ngModel)]="pn" ></ion-input>
+		</ion-item>
+	</ion-col>
+</ion-row>
