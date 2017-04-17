@@ -9,19 +9,39 @@
 
 
 ### Development Environment Setup
-
+####  Development Environment Setup - Preliminary
 1.      install LTS build of node from https://nodejs.org/en/download/  
 1.      Clone from your sacpcp fork:<br>
         git clone https://github.com/githubusername/sacpcp.git<br>
         where githubusername is your username on github<br>
         and the path given to clone is for your sacpcp fork
 1.      cd sacpcp
-1.      Fork the https://github.com/ml5174/savi-lib.git repo in github, and<br>
-        copy the newly created repo link similar to<br>
-        https://github.com/githubusername/savi-lib.git where githubusername<br>
-        will be your username.
-1.      npm run setup savi-lib-link where savi-lib-link is the copied link<br>
-        from the previous step
+1.      cd src
+1.      Clone from your savi-lib repo into a subfolder of src:<br>
+        git clone https://github.com/githubusername/savi-lib.git lib<br>
+        where githubusername is your username on github<br>
+        and the path give to clone is for your lib fork<br>
+        NOTE: your lib subfolder of src needs to be named lib<br>
+        If you failed to give the lib argument as target name, then rename the lib folder to lib
+####  Development Environment Setup - Secondary
+1.      At this point you could run Thaddeus's npm command:<br>
+        npm run setup<br>
+        See npm_setup.md for more information
+1.      -OR- do the detailed steps that follow:
+1.      cd lib
+1.      Set the upstream master for lib:
+        git remote add upstream https://github.com/ml5174/savi-lib.git
+1.      git checkout master
+1.      git pull upstream master
+1.      cd ../..
+1.      Set the upstream master for the main source:<br>
+        git remote add upstream https://github.com/ml5174/sacpcp.git
+1.      git checkout master
+1.      git pull upstream master
+1.      Once you cloned the repo to your desktop and have node installed you need to cd to the project and type:<br>
+        npm install
+1.      Now install cordova and ionic. if on macOS, you may need to prefix this command with sudo:<br>
+        npm install -g cordova ionic
 
 
 ### Launching the application

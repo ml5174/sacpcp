@@ -30,6 +30,9 @@
         },
         "cordova-plugin-app-version": {
             "PACKAGE_NAME": "com.att.ent.savi"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.att.TSA.DFW"
         }
     },
     "dependent_plugins": {}

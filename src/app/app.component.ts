@@ -20,6 +20,9 @@ import { AppVersion } from 'ionic-native';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package';
 
+declare var window;
+declare var cordova;
+
 @Component({
   templateUrl: 'app.html',
   providers:[ServerVersion]
@@ -96,7 +99,10 @@ export class MyApp {
     console.log("after ready!");
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.hide();
+      StatusBar.show();
+      StatusBar.overlaysWebView(false);
+      StatusBar.styleDefault();
+      console.log(StatusBar);
       //Keyboard.disableScroll(true);
       Keyboard.hideKeyboardAccessoryBar(false);
 
@@ -137,6 +143,11 @@ export class MyApp {
     this.nav.setRoot(HomePage);
   }
   donate() {
+    if(this.platform.is('ios') || this.platform.is('android')) {
+      if (cordova && cordova.InAppBrowser) {
+        window.open = cordova.InAppBrowser.open;
+      }
+    }
     window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank');
   }
 
