@@ -23,7 +23,9 @@ export class VolunteerEventsService {
     myEvents: Array<MyEvent> = [];
     image: Array<EventImage>;
     private event: any = {
-        event_id: <string>{}
+        event_id: <string>{},
+        notification_option: <number>{},
+        notification_schedule : <number>{}
     };
     constructor(private http: Http,
                 private userServices: UserServices) {
@@ -67,6 +69,14 @@ export class VolunteerEventsService {
          return this.http.get(SERVER + GET_EVENTS_URI + "?timeMin=" + minTime + "&timeMax=" + maxTime)
              .map(res => res.json())
              .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+    eventRegisterAndSetReminder(eventId: number, notification_opt: number, notification_sched :number): Observable<any> {
+        this.event.event_id = eventId;
+        this.event.notification_option = notification_opt;
+        this.event.notification_schedule = notification_sched;
+        return this.http.post(SERVER + EVENT_SIGNUP_URI, this.event, this.getOptions())
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
     }
     eventRegister(eventId: string): Observable<any> {
         this.event.event_id = eventId;

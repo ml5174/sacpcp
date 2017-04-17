@@ -14,7 +14,7 @@ export class AccordionBox {
 
 	constructor() { }
 	
-	ngAfterViewInit(){
+	ngOnInit(){
 	this.title = this.accordionTitle;
 	}
 	
