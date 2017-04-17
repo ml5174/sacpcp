@@ -18,9 +18,10 @@ export class ForgotPage {
   public pcvalue: string = '';
 
   public email: string = '';
-  public mobileNumberAreaCode = "";
-  public mobileNumberPrefix = "";
-  public mobileNumberLineNumber = "";
+  // public mobileNumberAreaCode = "";
+  // public mobileNumberPrefix = "";
+  // public mobileNumberLineNumber = "";
+  public mobileNumber = "";
 
   public usernameerror: boolean = false;
   public password1error: boolean = false;
@@ -64,9 +65,12 @@ if (this.contactMethod.pcmethod == "email") {
       resetObject.email = this.contactMethod.pcvalue;
     } else if (this.contactMethod.pcmethod  == "sms") {
       let phone = null;
-      if (this.contactMethod.mobileNumberAreaCode || this.contactMethod.mobileNumberLineNumber || this.contactMethod.mobileNumberPrefix) {
-        phone = "1" + this.contactMethod.mobileNumberAreaCode + this.contactMethod.mobileNumberPrefix + this.contactMethod.mobileNumberLineNumber;
-        resetObject.phone = phone;
+      // if (this.contactMethod.mobileNumberAreaCode || this.contactMethod.mobileNumberLineNumber || this.contactMethod.mobileNumberPrefix) {
+      //   phone = "1" + this.contactMethod.mobileNumberAreaCode + this.contactMethod.mobileNumberPrefix + this.contactMethod.mobileNumberLineNumber;
+      //   resetObject.phone = phone;
+      // }
+      if (this.contactMethod.mobileNumber) {
+        phone = "1" + this.contactMethod.mobileNumber;
       }
       else
       {

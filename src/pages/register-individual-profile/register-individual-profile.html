@@ -22,7 +22,7 @@
 </ion-header>
 
 <ion-content>
-    <section id="register-individual-profile-page">
+	<section id="register-individual-profile-page">
         <ion-card>
             <ion-card-header>Profile Image</ion-card-header>
             <img src="https://openclipart.org/image/2400px/svg_to_png/177482/ProfilePlaceholderSuit.png" />
@@ -42,7 +42,7 @@
             <input type="submit" class="hidden-submit">
 
             <!-- My Credentials -->
-            <accordion-box accordionTitle="{{'My Info' | translate}}">
+				<accordion-box accordionTitle="{{'My Info' | translate}}">
                 <ion-list class="accordion-content">
                     <ion-item no-lines class="">
                         <ion-icon name="alert" item-left [class.error]="firstnameerror" *ngIf="firstnameerror"></ion-icon>
@@ -104,8 +104,8 @@
 
                 </ion-list>
             </accordion-box>
-
-            <!-- Preferred Contact -->
+				
+				<!-- Preferred Contact -->
             <accordion-box accordionTitle="{{'Preferred Contact Method' | translate}}">
                 <div class="accordion-content">
                     <ion-item no-lines class="">
@@ -124,9 +124,10 @@
                         </ion-item>
 
                         <ion-grid class="phone-number">
-                            <phone-input idsuffix="preferred" [ac]="mobileNumberAreaCode" [np]="mobileNumberPrefix" [nn]="mobileNumberLineNumber"></phone-input>
-                        </ion-grid>
-                        <ion-item no-lines>
+								<!--<phone-input idsuffix="preferred" [ac]="mobileNumberAreaCode" [np]="mobileNumberPrefix" [nn]="mobileNumberLineNumber"></phone-input>-->
+								<phone-input idsuffix="preferred" [pn]="mobileNumber"></phone-input>
+							</ion-grid>
+							<ion-item no-lines>
                             <ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
                             <ion-label stacked>{{"Email" | translate }}</ion-label>
                             <ion-input name="myProfile.email" type="string" placeholder="" class="" [(ngModel)]="myProfile.email"></ion-input>
@@ -139,7 +140,7 @@
                 </div>
             </accordion-box>
 
-            <!-- Emergency Contact -->
+				<!-- Emergency Contact -->
             <accordion-box accordionTitle="{{'Emergency Contact' | translate}}">
                 <ion-list class="accordion-content">
                     <ion-item no-lines class="">
@@ -167,8 +168,9 @@
                         <ion-label stacked>*{{"Emergency Contact's Phone" | translate }}</ion-label>
                     </ion-item>
                     <ion-grid class="phone-number">
-                        <phone-input idsuffix="emergency" [ac]="ecMobileNumberAreaCode" [np]="ecMobileNumberPrefix" [nn]="ecMobileNumberLineNumber"></phone-input>
-                        <!-- <ion-row>
+							<!--<phone-input idsuffix="emergency" [ac]="ecMobileNumberAreaCode" [np]="ecMobileNumberPrefix" [nn]="ecMobileNumberLineNumber"></phone-input>-->
+							<phone-input idsuffix="emergency" [pn]="ecMobileNumber"></phone-input>
+								<!-- <ion-row>
 									<ion-col width-25>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
@@ -189,15 +191,16 @@
 									</ion-col>
 								</ion-row>
 								 -->
-                    </ion-grid>
+							</ion-grid>
 
-                    <ion-item no-lines class="">
-                        <ion-icon name="alert" item-left [class.error]="ecaltnumbererror" *ngIf="ecaltnumbererror"></ion-icon>
-                        <ion-label stacked>{{"Emergency Contact's Alternate Phone" | translate }}</ion-label>
-                    </ion-item>
-                    <ion-grid class="phone-number">
-                        <phone-input idsuffix="emergencyalt" [ac]="ecAltMobileNumberAreaCode" [np]="ecAltMobileNumberPrefix" [nn]="ecAltMobileNumberLineNumber"></phone-input>
-                        <!-- <ion-row>
+							<ion-item no-lines class="">
+								<ion-icon name="alert" item-left [class.error]="ecaltnumbererror" *ngIf="ecaltnumbererror"></ion-icon>
+								<ion-label stacked>{{"Emergency Contact's Alternate Phone" | translate }}</ion-label>
+							</ion-item>
+							<ion-grid class="phone-number">
+							<!--<phone-input idsuffix="emergencyalt" [ac]="ecAltMobileNumberAreaCode" [np]="ecAltMobileNumberPrefix" [nn]="ecAltMobileNumberLineNumber"></phone-input>-->
+							<phone-input idsuffix="emergencyalt" [pn]="ecAltMobileNumber"></phone-input>
+								<!-- <ion-row>
 									<ion-col width-25>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
