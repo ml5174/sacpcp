@@ -5,7 +5,6 @@ import {UserServices} from '../../lib/service/user';
 import {NavController} from 'ionic-angular';
 import {STRINGS} from '../../lib/provider/config';
 import {TranslateService} from "ng2-translate/ng2-translate";
-import { HomePage } from '../home/home';
 import { ChangePasswordPage } from '../change-password/change-password';
 import { Content, LoadingController, ToastController, PopoverController, ModalController } from 'ionic-angular';
 import { PasswordPopover } from '../../popover/password';

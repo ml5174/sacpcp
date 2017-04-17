@@ -1,6 +1,5 @@
 import { Component} from '@angular/core';
-import { ViewController,NavController} from 'ionic-angular';
-import { EventPage } from '../events/events';
+import { ViewController } from 'ionic-angular';
 
 @Component({
   template: `
@@ -32,7 +31,6 @@ export class PreferredSearchPopover {
   private  eventLocations: boolean = false;
   private  eventZip: boolean = false;
   private  serviceAreas: boolean = false;
-  private preferences: any[] = [];
   
     constructor (public viewCtrl: ViewController      
     ){

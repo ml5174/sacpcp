@@ -7,8 +7,6 @@ import { EventDetailModal } from './eventdetail-modal';
 import { EventDetailPopup } from './eventdetail-popup';
 import { ModalController, ViewController } from 'ionic-angular';
 import { PopoverController, ToastController, LoadingController } from 'ionic-angular';
-import { PreferredSearchPopover } from '../../popover/preferredsearch-popover';
-import { EventSortPopover} from '../../popover/eventsort-popover';
 import {EventSortPipe, OpportunityPipe} from '../../lib/pipe/eventsortpipe';
 import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
 import { AlertController } from 'ionic-angular';
@@ -143,10 +141,6 @@ export class EventPage {
   }
 };
     eventDetailPopup.present({ev});
-
-    function dismiss(){
-      eventDetailPopup.dismiss();
-    }
   }
 
   onCancel(event: any) {
