@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Platform, MenuController, Nav, Select, Config } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
 @Component({

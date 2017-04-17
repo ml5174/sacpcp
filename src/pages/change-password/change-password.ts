@@ -39,7 +39,6 @@ export class ChangePasswordPage {
 
   }
   register() {
-    let registerLogin = this;
     this.errors = [];
     this.passworderror = false;
     this.password1error = false;

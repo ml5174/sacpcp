@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import { UserServices } from '../../lib/service/user';
 import { EventDetailModal } from '../../pages/events/eventdetail-modal';
-import { ModalController, ViewController } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { HomePage } from '../home/home';
 import { AlertController } from 'ionic-angular';

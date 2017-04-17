@@ -7,7 +7,6 @@ import {Platform, NavParams, ViewController } from 'ionic-angular';
 
 export class ParentVerifyModal{
 	private childAge: number;
-	private email: string;
 	constructor(public platform: Platform,
     	public params: NavParams,
     	public viewCtrl: ViewController) 
