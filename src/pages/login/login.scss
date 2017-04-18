@@ -11,7 +11,7 @@
 }
 
 .error {
-  color: #CC1F2C;
+  color: map-get($colors, primary);
   background: white;
   word-wrap: break-word;
 }
@@ -61,5 +61,5 @@
     left: 122px;
     margin-top: 9px;
     font-size: larger;
-    color: #FF173D;
+    color: map-get($colors, primary);
 }

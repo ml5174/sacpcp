@@ -1,7 +1,7 @@
 <ion-header>
-	<app-header back="true" title="About Me">
-	</app-header>
-	<!--ion-toolbar secondary>
+    <app-header back="true" title="My Profile">
+    </app-header>
+    <!--ion-toolbar secondary>
 		<ion-buttons begin>
 			<button *ngIf="userServices.user.id" ion-button icon-left (click)="back()">
 			<ion-icon name="contact"></ion-icon>
@@ -23,145 +23,153 @@
 
 <ion-content>
 	<section id="register-individual-profile-page">
-	<ion-card><ion-card-header>Profile Image</ion-card-header>
-  <img src="https://openclipart.org/image/2400px/svg_to_png/177482/ProfilePlaceholderSuit.png"/>
-<ion-row><ion-col>
-<button ion-button block icon-left><ion-icon name="cloud-upload"></ion-icon>Upload New Profile Image</button>
-</ion-col></ion-row>
-</ion-card>
+        <ion-card>
+            <ion-card-header>Profile Image</ion-card-header>
+            <img src="https://openclipart.org/image/2400px/svg_to_png/177482/ProfilePlaceholderSuit.png" />
+            <ion-row>
+                <ion-col>
+                    <button ion-button block icon-left><ion-icon name="cloud-upload"></ion-icon>Upload New Profile Image</button>
+                </ion-col>
+            </ion-row>
+        </ion-card>
 
-		<ion-item no-lines *ngFor="let error of errors" class="word-wrap: break-word;" text-wrap>
-			<ion-icon name="alert" item-left></ion-icon>
-			<p style="color:#CC1F2C">{{error}}</p>
-		</ion-item>
+        <ion-item no-lines *ngFor="let error of errors" class="word-wrap: break-word;" text-wrap>
+            <ion-icon name="alert" item-left></ion-icon>
+            <p style="color:#CC1F2C">{{error}}</p>
+        </ion-item>
 
-		<form (ngSubmit)="register()">
-			<input type="submit" class="hidden-submit">
-				
-				<!-- My Credentials -->
-				<accordion-box accordionTitle="{{'My Info' | translate}}" >
-				<ion-list class="accordion-content">
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="firstnameerror" *ngIf="firstnameerror"></ion-icon>
-								<ion-label stacked>*{{"First Name" | translate }}</ion-label>
-								<ion-input name="myProfile.first_name" type="string"  class="" [(ngModel)]="myProfile.first_name" required></ion-input>
-							</ion-item>
+        <form (ngSubmit)="register()">
+            <input type="submit" class="hidden-submit">
 
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="lastnameerror" *ngIf="lastnameerror"></ion-icon>
-								<ion-label stacked>*{{"Last Name" | translate }}</ion-label>
-								<ion-input name="myProfile.last_name" type="string"  class="" [(ngModel)]="myProfile.last_name" required></ion-input>
-							</ion-item>
+            <!-- My Credentials -->
+				<accordion-box accordionTitle="{{'My Info' | translate}}">
+                <ion-list class="accordion-content">
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="firstnameerror" *ngIf="firstnameerror"></ion-icon>
+                        <ion-label stacked>*{{"First Name" | translate }}</ion-label>
+                        <ion-input name="myProfile.first_name" type="string" class="" [(ngModel)]="myProfile.first_name" required></ion-input>
+                    </ion-item>
 
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="birthdateerror" *ngIf="birthdateerror"></ion-icon>
-								<ion-label stacked>*{{"Birth Date" | translate }}</ion-label>
-								<ion-datetime name="myProfile.birthdate" displayFormat="MMM DD YYYY" [(ngModel)]="myProfile.birthdate"></ion-datetime>
-							</ion-item>
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="lastnameerror" *ngIf="lastnameerror"></ion-icon>
+                        <ion-label stacked>*{{"Last Name" | translate }}</ion-label>
+                        <ion-input name="myProfile.last_name" type="string" class="" [(ngModel)]="myProfile.last_name" required></ion-input>
+                    </ion-item>
 
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="gendererror" *ngIf="gendererror"></ion-icon>
-								<ion-label stacked>*{{"Gender" | translate }}</ion-label>
-								<ion-select name ="myProfile.gender" [(ngModel)]="myProfile.gender" >
-									<ion-option *ngFor="let m of genders" [value]="m.id">{{m.value}}</ion-option>
-								</ion-select>
-							</ion-item>
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="birthdateerror" *ngIf="birthdateerror"></ion-icon>
+                        <ion-label stacked>*{{"Birth Date" | translate }}</ion-label>
+                        <ion-datetime name="myProfile.birthdate" displayFormat="MMM DD YYYY" [(ngModel)]="myProfile.birthdate"></ion-datetime>
+                    </ion-item>
 
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="address1error" *ngIf="address1error"></ion-icon>
-								<ion-label stacked>{{"Address 1" | translate }}</ion-label>
-								<ion-input name="myProfile.address1" type="string" placeholder="" class="" [(ngModel)]="myProfile.address1" ></ion-input>
-							</ion-item>
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="gendererror" *ngIf="gendererror"></ion-icon>
+                        <ion-label stacked>*{{"Gender" | translate }}</ion-label>
+                        <ion-select name="myProfile.gender" [(ngModel)]="myProfile.gender">
+                            <ion-option *ngFor="let m of genders" [value]="m.id">{{m.value}}</ion-option>
+                        </ion-select>
+                    </ion-item>
 
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="address2error" *ngIf="address2error"></ion-icon>
-								<ion-label stacked>{{"Address 2" | translate }}</ion-label>
-								<ion-input name="myProfile.address2" type="string" placeholder="" class="" [(ngModel)]="myProfile.address2" ></ion-input>
-							</ion-item>
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="address1error" *ngIf="address1error"></ion-icon>
+                        <ion-label stacked>{{"Address 1" | translate }}</ion-label>
+                        <ion-input name="myProfile.address1" type="string" placeholder="" class="" [(ngModel)]="myProfile.address1"></ion-input>
+                    </ion-item>
 
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="cityerror" *ngIf="cityerror"></ion-icon>
-								<ion-label stacked>{{"City" | translate }}</ion-label>
-								<ion-input name="myProfile.city" type="string" placeholder="" class="" [(ngModel)]="myProfile.city" ></ion-input>
-							</ion-item>
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="address2error" *ngIf="address2error"></ion-icon>
+                        <ion-label stacked>{{"Address 2" | translate }}</ion-label>
+                        <ion-input name="myProfile.address2" type="string" placeholder="" class="" [(ngModel)]="myProfile.address2"></ion-input>
+                    </ion-item>
 
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="stateerror" *ngIf="stateerror"></ion-icon>
-								<ion-label stacked>{{"State" | translate }}</ion-label>
-								<ion-select name="myProfile.state" [(ngModel)]="myProfile.state" >
-									<ion-option *ngFor="let m of availablePreferences.usstates" [value]="m[0]">{{m[1]}}</ion-option>
-								</ion-select>
-							</ion-item>
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="cityerror" *ngIf="cityerror"></ion-icon>
+                        <ion-label stacked>{{"City" | translate }}</ion-label>
+                        <ion-input name="myProfile.city" type="string" placeholder="" class="" [(ngModel)]="myProfile.city"></ion-input>
+                    </ion-item>
 
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="zipcodeerror" *ngIf="zipcodeerror"></ion-icon>
-								<ion-label stacked>{{"Zip Code" | translate }}</ion-label>
-								<ion-input name="myProfile.zipcode" type="string" placeholder="" class="" [(ngModel)]="myProfile.zipcode" ></ion-input>
-							</ion-item>
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="stateerror" *ngIf="stateerror"></ion-icon>
+                        <ion-label stacked>{{"State" | translate }}</ion-label>
+                        <ion-select name="myProfile.state" [(ngModel)]="myProfile.state">
+                            <ion-option *ngFor="let m of availablePreferences.usstates" [value]="m[0]">{{m[1]}}</ion-option>
+                        </ion-select>
+                    </ion-item>
 
-						</ion-list>
-						</accordion-box>
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="zipcodeerror" *ngIf="zipcodeerror"></ion-icon>
+                        <ion-label stacked>{{"Zip Code" | translate }}</ion-label>
+                        <ion-input name="myProfile.zipcode" type="string" placeholder="" class="" [(ngModel)]="myProfile.zipcode"></ion-input>
+                    </ion-item>
+
+                </ion-list>
+            </accordion-box>
 				
 				<!-- Preferred Contact -->
-				<accordion-box accordionTitle="{{'Preferred Contact Method' | translate}}" >
-				<div class="accordion-content"><ion-item no-lines class="">
-							<ion-icon name="alert" item-left [class.error]="my_contactmethod_iderror" *ngIf="my_contactmethod_iderror"></ion-icon>
-								<section>
-									<div class="radio-choice" *ngFor="let m of availablePreferences.contactmethods">
-										<input name="myProfile.contactmethod" [id]="'radio-' + m.id" type="radio" [(ngModel)]="myProfile.contactmethod" [value]="m.id" />
-										<label [attr.for]="'radio-' + m.id">{{m.name}}</label>
-									</div>
-								</section>
-							</ion-item>						
-						<ion-list>
-							<ion-item no-lines>
-								<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
-								<ion-label stacked>{{"Mobile Phone" | translate }}</ion-label>
-							</ion-item>
-							
-							<ion-grid class="phone-number">
-								<phone-input idsuffix="preferred" [ac]="mobileNumberAreaCode" [np]="mobileNumberPrefix" [nn]="mobileNumberLineNumber"></phone-input>
+            <accordion-box accordionTitle="{{'Preferred Contact Method' | translate}}">
+                <div class="accordion-content">
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="my_contactmethod_iderror" *ngIf="my_contactmethod_iderror"></ion-icon>
+                        <section>
+                            <div class="radio-choice" *ngFor="let m of availablePreferences.contactmethods">
+                                <input name="myProfile.contactmethod" [id]="'radio-' + m.id" type="radio" [(ngModel)]="myProfile.contactmethod" [value]="m.id" />
+                                <label [attr.for]="'radio-' + m.id">{{m.name}}</label>
+                            </div>
+                        </section>
+                    </ion-item>
+                    <ion-list>
+                        <ion-item no-lines>
+                            <ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
+                            <ion-label stacked>{{"Mobile Phone" | translate }}</ion-label>
+                        </ion-item>
+
+                        <ion-grid class="phone-number">
+								<!--<phone-input idsuffix="preferred" [ac]="mobileNumberAreaCode" [np]="mobileNumberPrefix" [nn]="mobileNumberLineNumber"></phone-input>-->
+								<phone-input idsuffix="preferred" [pn]="mobileNumber"></phone-input>
 							</ion-grid>
 							<ion-item no-lines>
-								<ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
-								<ion-label stacked>{{"Email" | translate }}</ion-label>
-								<ion-input name="myProfile.email" type="string" placeholder="" class="" [(ngModel)]="myProfile.email"></ion-input>
-							</ion-item>
-							<ion-item no-lines>
-							<ion-label>*{{"Notify me about upcoming events" | translate }}</ion-label>
-							<ion-toggle></ion-toggle>
-							</ion-item>
-						</ion-list></div></accordion-box>
+                            <ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
+                            <ion-label stacked>{{"Email" | translate }}</ion-label>
+                            <ion-input name="myProfile.email" type="string" placeholder="" class="" [(ngModel)]="myProfile.email"></ion-input>
+                        </ion-item>
+                        <ion-item no-lines>
+                            <ion-label>*{{"Notify me about upcoming events" | translate }}</ion-label>
+                            <ion-toggle></ion-toggle>
+                        </ion-item>
+                    </ion-list>
+                </div>
+            </accordion-box>
 
 				<!-- Emergency Contact -->
-				<accordion-box accordionTitle="{{'Emergency Contact' | translate}}">
-						<ion-list class="accordion-content">
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="ecfirstnameerror" *ngIf="ecfirstnameerror"></ion-icon>
-								<ion-label stacked>*{{"First Name" | translate }}</ion-label>
-								<ion-input name="myProfile.emergency_contact.first_name" type="string" placeholder="" class="" [(ngModel)]="myProfile.emergency_contact.first_name"></ion-input>
-							</ion-item>
+            <accordion-box accordionTitle="{{'Emergency Contact' | translate}}">
+                <ion-list class="accordion-content">
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="ecfirstnameerror" *ngIf="ecfirstnameerror"></ion-icon>
+                        <ion-label stacked>*{{"First Name" | translate }}</ion-label>
+                        <ion-input name="myProfile.emergency_contact.first_name" type="string" placeholder="" class="" [(ngModel)]="myProfile.emergency_contact.first_name"></ion-input>
+                    </ion-item>
 
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="eclastnameerror" *ngIf="eclastnameerror"></ion-icon>
-								<ion-label stacked>*{{"Last Name" | translate }}</ion-label>
-								<ion-input name="myProfile.emergency_contact.last_name" type="string" placeholder="" class="" [(ngModel)]="myProfile.emergency_contact.last_name"></ion-input>
-							</ion-item>
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="eclastnameerror" *ngIf="eclastnameerror"></ion-icon>
+                        <ion-label stacked>*{{"Last Name" | translate }}</ion-label>
+                        <ion-input name="myProfile.emergency_contact.last_name" type="string" placeholder="" class="" [(ngModel)]="myProfile.emergency_contact.last_name"></ion-input>
+                    </ion-item>
 
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="ecrelationerror" *ngIf="ecrelationerror"></ion-icon>
-								<ion-label stacked>*{{"Relationship" | translate }}</ion-label>
-								<ion-select name="myProfile.emergency_contact.relation" [(ngModel)]="myProfile.emergency_contact.relation" >
-									<ion-option *ngFor="let m of relationships" [value]="m">{{m}}</ion-option>
-								</ion-select>
-							</ion-item>
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="ecrelationerror" *ngIf="ecrelationerror"></ion-icon>
+                        <ion-label stacked>*{{"Relationship" | translate }}</ion-label>
+                        <ion-select name="myProfile.emergency_contact.relation" [(ngModel)]="myProfile.emergency_contact.relation">
+                            <ion-option *ngFor="let m of relationships" [value]="m">{{m}}</ion-option>
+                        </ion-select>
+                    </ion-item>
 
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="ecmobilenumbererror" *ngIf="ecmobilenumbererror"></ion-icon>
-								<ion-label stacked>*{{"Emergency Contact's Phone" | translate }}</ion-label>
-							</ion-item>
-							<ion-grid class="phone-number">
-							<phone-input idsuffix="emergency" [ac]="ecMobileNumberAreaCode" [np]="ecMobileNumberPrefix" [nn]="ecMobileNumberLineNumber"></phone-input>
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="ecmobilenumbererror" *ngIf="ecmobilenumbererror"></ion-icon>
+                        <ion-label stacked>*{{"Emergency Contact's Phone" | translate }}</ion-label>
+                    </ion-item>
+                    <ion-grid class="phone-number">
+							<!--<phone-input idsuffix="emergency" [ac]="ecMobileNumberAreaCode" [np]="ecMobileNumberPrefix" [nn]="ecMobileNumberLineNumber"></phone-input>-->
+							<phone-input idsuffix="emergency" [pn]="ecMobileNumber"></phone-input>
 								<!-- <ion-row>
 									<ion-col width-25>
 										<ion-item no-lines>
@@ -190,7 +198,8 @@
 								<ion-label stacked>{{"Emergency Contact's Alternate Phone" | translate }}</ion-label>
 							</ion-item>
 							<ion-grid class="phone-number">
-							<phone-input idsuffix="emergencyalt" [ac]="ecAltMobileNumberAreaCode" [np]="ecAltMobileNumberPrefix" [nn]="ecAltMobileNumberLineNumber"></phone-input>
+							<!--<phone-input idsuffix="emergencyalt" [ac]="ecAltMobileNumberAreaCode" [np]="ecAltMobileNumberPrefix" [nn]="ecAltMobileNumberLineNumber"></phone-input>-->
+							<phone-input idsuffix="emergencyalt" [pn]="ecAltMobileNumber"></phone-input>
 								<!-- <ion-row>
 									<ion-col width-25>
 										<ion-item no-lines>
@@ -211,9 +220,9 @@
 										</ion-item>
 									</ion-col>
 								</ion-row> -->
-							</ion-grid>
+                    </ion-grid>
 
-<!--
+                    <!--
 							<ion-item no-lines class="">
 								<ion-icon name="globe" item-left [class.error]="ecaddress1error" *ngIf="ecaddress1error"></ion-icon>
 								<ion-label stacked>{{"Address 1" | translate }}</ion-label>
@@ -246,24 +255,24 @@
 								<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.emergency_contact.zipcode" ></ion-input>
 							</ion-item>
 -->
-						</ion-list>
-					</accordion-box>
+                </ion-list>
+            </accordion-box>
 
-				
 
-				<!-- Volunteer Types -->
-				<accordion-box accordionTitle="{{'Volunteer Types' | translate}}">
-						<ion-list class="accordion-content">
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="my_volunteertype_iderror" *ngIf="my_volunteertype_iderror"></ion-icon>
-								<ion-label stacked>{{"Volunteer Type" | translate }}: {{myProfile.volunteertype}}</ion-label>
 
-								<!--<ion-select [(ngModel)]="myProfile.my_volunteertype_id" required>
+            <!-- Volunteer Types -->
+            <accordion-box accordionTitle="{{'Volunteer Types' | translate}}">
+                <ion-list class="accordion-content">
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="my_volunteertype_iderror" *ngIf="my_volunteertype_iderror"></ion-icon>
+                        <ion-label stacked>{{"Volunteer Type" | translate }}: {{myProfile.volunteertype}}</ion-label>
+
+                        <!--<ion-select [(ngModel)]="myProfile.my_volunteertype_id" required>
 									<ion-option *ngFor="let m of availablePreferences.volunteertypes" [value]="m.id">{{m.name}}</ion-option>
 								</ion-select>-->
 
-							</ion-item>
-							<!-- This is commented temporarily because R1 is for individual only
+                    </ion-item>
+                    <!-- This is commented temporarily because R1 is for individual only
 							<ion-item no-lines class="">
 								<section>
 									<div class="radio-choice" *ngFor="let m of availablePreferences.volunteertypes">
@@ -273,21 +282,21 @@
 								</section>
 							</ion-item>
 							-->
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left [class.error]="my_referalsource_iderror" *ngIf="my_referalsource_iderror"></ion-icon>
-								<ion-label stacked>{{"Referral Source" | translate }}</ion-label>
-								<ion-select name="myProfile.my_referalsource_id" [(ngModel)]="myProfile.my_referalsource_id" >
-									<ion-option *ngFor="let m of availablePreferences.referalsources | referralsource:myProfile.my_volunteertype_id" [value]="m.id">{{m.name}}</ion-option>
-								</ion-select>
-							</ion-item>
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="my_referalsource_iderror" *ngIf="my_referalsource_iderror"></ion-icon>
+                        <ion-label stacked>{{"Referral Source" | translate }}</ion-label>
+                        <ion-select name="myProfile.my_referalsource_id" [(ngModel)]="myProfile.my_referalsource_id">
+                            <ion-option *ngFor="let m of availablePreferences.referalsources | referralsource:myProfile.my_volunteertype_id" [value]="m.id">{{m.name}}</ion-option>
+                        </ion-select>
+                    </ion-item>
 
-						</ion-list>
-</accordion-box>
+                </ion-list>
+            </accordion-box>
 
-				
 
-				<!-- Your Skills -->
-<!--
+
+            <!-- Your Skills -->
+            <!--
 				<ion-list class="toggle-section">
 					<ion-list-header (click)="skillsSection=!skillsSection"  [class.selected]="skillsSection">
 						{{"Your Skills" | translate }}
@@ -301,66 +310,64 @@
 				</ion-list>
 -->
 
-				<!-- Your Preferred Locations for Service -->
-				<accordion-box accordionTitle="{{'Event Preferences' | translate}}">
-					<div class="accordion-content">
-						<ion-searchbar></ion-searchbar>
-						<ion-row wrap responsive-sm padding>
-						<ion-col width-33><p>Carr P Collins Center<br/>5302 Harry Hines Blvd<br/>Dallas, TX 75235</p></ion-col>
-						<ion-col width-33><p>Carr P Collins Center<br/>5302 Harry Hines Blvd<br/>Dallas, TX 75235</p></ion-col>
-						<ion-col width-33><p>Carr P Collins Center<br/>5302 Harry Hines Blvd<br/>Dallas, TX 75235</p></ion-col>
-						<ion-col width-33><p>Carr P Collins Center<br/>5302 Harry Hines Blvd<br/>Dallas, TX 75235</p></ion-col>
-						<ion-col width-33><p>Carr P Collins Center<br/>5302 Harry Hines Blvd<br/>Dallas, TX 75235</p></ion-col>
-						<ion-col width-33><p>Carr P Collins Center<br/>5302 Harry Hines Blvd<br/>Dallas, TX 75235</p></ion-col>
-						<ion-col width-33><p>Carr P Collins Center<br/>5302 Harry Hines Blvd<br/>Dallas, TX 75235</p></ion-col>
-						<ion-col width-33><p>Carr P Collins Center<br/>5302 Harry Hines Blvd<br/>Dallas, TX 75235</p></ion-col>
-						</ion-row>
-					</div>
-					</accordion-box>
-				
-				<!-- Interested Service Areas -->
-				<accordion-box accordionTitle="{{'Interested Service Areas' | translate}}">
-				<div class="accordion-content">
-							<div class="multi-choice" *ngFor="let m of formServiceAreas">
-								<ion-item no-lines>
-									<ion-label>{{m.name}}</ion-label>
-									<ion-checkbox [ngModelOptions]="{standalone: true}" dark [(ngModel)]="m.selected"></ion-checkbox>
-								</ion-item>
-							</div>
-						</div>
-</accordion-box>
-				
-				<!-- Change Password -->
-				<accordion-box accordionTitle="{{'Change Password' | translate}}">
-				
-				<ion-list class="accordion-content">
+            <!-- Your Preferred Locations for Service -->
+            <accordion-box accordionTitle="{{'Event Location Preferences' | translate}}">
+                <div class="accordion-content">
+                    <ion-searchbar></ion-searchbar>
+                    <ion-row wrap responsive-sm padding>
+                        <div class="multi-choice" *ngFor="let m of formLocations">
+                            <ion-item no-lines>
+                                <ion-label>{{m.name}}<br>{{m.address1}}<br>{{m.city}}, {{m.state}} {{m.zip}}</ion-label>
+                                <ion-checkbox [ngModelOptions]="{standalone: true}" dark [(ngModel)]="m.selected"></ion-checkbox>
+                            </ion-item>
+                        </div>
+                    </ion-row>
+                </div>
+            </accordion-box>
 
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left isActive="false" [class.error]="passworderror" *ngIf="passworderror"></ion-icon>
-								<ion-label stacked>Old Password</ion-label>
-								<ion-input name="passwordForm.old_password" type="password" class="" [(ngModel)]="passwordForm.old_password"></ion-input>
-							</ion-item>
-							<div class="absolute-container">
-								<a id="show-link" (click)="showPassword()">{{(showpassword==='password') ? 'Show' : 'Hide'}}</a>
+            <!-- Interested Service Areas -->
+            <accordion-box accordionTitle="{{'Interested Service Areas' | translate}}">
+                <div class="accordion-content">
+                    <div class="multi-choice" *ngFor="let m of formServiceAreas">
+                        <ion-item no-lines>
+                            <ion-label>{{m.name}}</ion-label>
+                            <ion-checkbox [ngModelOptions]="{standalone: true}" dark [(ngModel)]="m.selected"></ion-checkbox>
+                        </ion-item>
+                    </div>
+                </div>
+            </accordion-box>
 
-								<ion-icon class="popover-icon" name="information-circle" (click)="presentPasswordPopover($event)"></ion-icon>
-								<ion-item no-lines [class.error]="password1error">
-									<ion-icon name="alert" item-left isActive="false" [class.error]="password1error" *ngIf="password1error"></ion-icon>
-									<ion-label stacked>{{ 'New Password' | translate}} </ion-label>
-									<ion-input name="passwordForm.new_password1" [type]="showpassword" placeholder="" [(ngModel)]="passwordForm.new_password1"></ion-input>
-								</ion-item>
-							</div>
-							<ion-item no-lines class="">
-								<ion-icon name="alert" item-left isActive="false" [class.error]="password2error" *ngIf="password2error"></ion-icon>
-								<ion-label stacked>Confirm New Password</ion-label>
-								<ion-input name="passwordForm.new_password2" type="password" placeholder="" class="" [(ngModel)]="passwordForm.new_password2"></ion-input>
-							</ion-item>
+            <!-- Change Password -->
+            <accordion-box accordionTitle="{{'Change Password' | translate}}">
 
-						</ion-list>
-</accordion-box>
+                <ion-list class="accordion-content">
 
-			
-<!-- Not sure what is going in here				
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left isActive="false" [class.error]="passworderror" *ngIf="passworderror"></ion-icon>
+                        <ion-label stacked>Old Password</ion-label>
+                        <ion-input name="passwordForm.old_password" type="password" class="" [(ngModel)]="passwordForm.old_password"></ion-input>
+                    </ion-item>
+                    <div class="absolute-container">
+                        <a id="show-link" (click)="showPassword()">{{(showpassword==='password') ? 'Show' : 'Hide'}}</a>
+
+                        <ion-icon class="popover-icon" name="information-circle" (click)="presentPasswordPopover($event)"></ion-icon>
+                        <ion-item no-lines [class.error]="password1error">
+                            <ion-icon name="alert" item-left isActive="false" [class.error]="password1error" *ngIf="password1error"></ion-icon>
+                            <ion-label stacked>{{ 'New Password' | translate}} </ion-label>
+                            <ion-input name="passwordForm.new_password1" [type]="showpassword" placeholder="" [(ngModel)]="passwordForm.new_password1"></ion-input>
+                        </ion-item>
+                    </div>
+                    <ion-item no-lines class="">
+                        <ion-icon name="alert" item-left isActive="false" [class.error]="password2error" *ngIf="password2error"></ion-icon>
+                        <ion-label stacked>Confirm New Password</ion-label>
+                        <ion-input name="passwordForm.new_password2" type="password" placeholder="" class="" [(ngModel)]="passwordForm.new_password2"></ion-input>
+                    </ion-item>
+
+                </ion-list>
+            </accordion-box>
+
+
+            <!-- Not sure what is going in here				
 			<div *ngSwitchCase="'acknowledgements'">
 				<ion-item no-lines class="">
 					<ion-icon name="alarm" item-left [class.error]="notification_optionerror"></ion-icon>
@@ -395,20 +402,20 @@
 				</ion-item>
 			</div>
 -->
-		</form>
-	</section>
+        </form>
+    </section>
 
 </ion-content>
 
 <ion-footer class="action-footer">
-	<ion-grid>
-		<ion-row>
-			<ion-col width-50>
-				<button ion-button color="primary" (click)="back()">Cancel</button>
-			</ion-col>
-			<ion-col width-50>
-				<button ion-button color="primary" (click)="register()">Save</button>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
+    <ion-grid>
+        <ion-row>
+            <ion-col width-50>
+                <button ion-button color="primary" (click)="back()">Cancel</button>
+            </ion-col>
+            <ion-col width-50>
+                <button ion-button color="primary" (click)="register()">Save</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-footer>

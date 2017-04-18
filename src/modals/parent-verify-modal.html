@@ -22,7 +22,8 @@
 							</ion-item>
 							
 							<ion-grid class="phone-number">
-								<phone-input idsuffix="parent" [ac]="mobileNumberAreaCode" [np]="mobileNumberPrefix" [nn]="mobileNumberLineNumber"></phone-input>
+								<!--<phone-input idsuffix="parent" [ac]="mobileNumberAreaCode" [np]="mobileNumberPrefix" [nn]="mobileNumberLineNumber"></phone-input>-->
+								<phone-input idsuffix="parent" [pn]="mobileNumber"></phone-input>
 							</ion-grid>
 							<ion-item no-lines>
 								<ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>

@@ -12,7 +12,7 @@
 		<ion-list>
 			<ion-item no-lines *ngFor="let error of errors" class="word-wrap: break-word;" text-wrap>
 				<ion-icon name="alert" item-left class="error"></ion-icon>
-				<p class="error" style="color:#CC1F2C">{{error | translate}}</p>
+				<p class="error" style="color:#CC1F2C" item-left>{{error | translate}}</p>
 			</ion-item>
 			<form (ngSubmit)="login()">
 			<div class="absolute-container">

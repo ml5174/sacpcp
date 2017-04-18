@@ -42,5 +42,9 @@ ion-label[stacked] {
     left: 115px;
     margin-top: 9px;
     font-size: larger;
-    color: #FF173D;
+    color: map-get($colors, primary);
+}
+
+.item-checkbox-right{
+	flex-direction: row-reverse;
 }
