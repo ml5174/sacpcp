@@ -229,8 +229,9 @@ export class MyApp {
       this.storage.set('version', version).then((resource) => {
           console.log('Storing Marketing Version: ' + this.appMarketingVersion);
         });
-      this.storage.set('build', version).then((resource) => {
-          console.log('Storing Build Version: ' + this.appBuildVersion);
+      let buildNumberNonMobileFE = "_build_number_";
+      this.storage.set('build', buildNumberNonMobileFE).then((resource) => {
+         console.log('Storing Build Version: ' + buildNumberNonMobileFE);
         });
     }
   }
