@@ -126,6 +126,14 @@ export class EventPage {
     eventDetailModal.present();
   }
 
+  eventDetailGuestModal(id) {
+    let eventDetailModal = this.modalCtrl.create(EventDetailModal, {
+      "id": id,
+      "registered": false
+    });
+    eventDetailModal.present();
+  }
+
   onCancel(event: any) {
     this.search = false;
   }
