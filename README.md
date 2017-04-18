@@ -11,21 +11,22 @@
 ### Development Environment Setup
 ####  Development Environment Setup - Preliminary
 1.      install LTS build of node from https://nodejs.org/en/download/  
-1.      Clone from your sacpcp fork:<br>
-        git clone https://github.com/githubusername/sacpcp.git<br>
-        where githubusername is your username on github<br>
+1.      Clone from your sacpcp fork:
+        git clone https://github.com/githubusername/sacpcp.git
+        where githubusername is your username on github
         and the path given to clone is for your sacpcp fork
 1.      cd sacpcp
 1.      cd src
-1.      Clone from your savi-lib repo into a subfolder of src:<br>
-        git clone https://github.com/githubusername/savi-lib.git lib<br>
-        where githubusername is your username on github<br>
-        and the path give to clone is for your lib fork<br>
-        NOTE: your lib subfolder of src needs to be named lib<br>
+1.      Clone from your savi-lib repo into a subfolder of src:
+        git clone https://github.com/githubusername/savi-lib.git lib
+        where githubusername is your username on github
+        and the path give to clone is for your lib fork
+        NOTE: your lib subfolder of src needs to be named lib
         If you failed to give the lib argument as target name, then rename the lib folder to lib
 ####  Development Environment Setup - Secondary
-1.      At this point you could run Thaddeus's npm command:<br>
-        npm run setup<br>
+1.      At this point you could run Thaddeus's npm command:
+        npm run setup https://github.com/githubusername/sacpcp.git
+        where githubusername is your username on github
         See npm_setup.md for more information
 1.      -OR- do the detailed steps that follow:
 1.      cd lib
@@ -34,11 +35,11 @@
 1.      git checkout master
 1.      git pull upstream master
 1.      cd ../..
-1.      Set the upstream master for the main source:<br>
+1.      Set the upstream master for the main source:
         git remote add upstream https://github.com/ml5174/sacpcp.git
 1.      git checkout master
 1.      git pull upstream master
-1.      Once you cloned the repo to your desktop and have node installed you need to cd to the project and type:<br>
+1.      Once you cloned the repo to your desktop and have node installed you need to cd to the project and type:
         npm install
 1.      Now install cordova and ionic. if on macOS, you may need to prefix this command with sudo:<br>
         npm install -g cordova ionic
