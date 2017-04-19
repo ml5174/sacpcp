@@ -125,7 +125,7 @@
 
                         <ion-grid class="phone-number">
 								<!--<phone-input idsuffix="preferred" [ac]="mobileNumberAreaCode" [np]="mobileNumberPrefix" [nn]="mobileNumberLineNumber"></phone-input>-->
-								<phone-input idsuffix="preferred" [pn]="mobileNumber"></phone-input>
+								<phone-input #preferredNumber idsuffix="preferred" [pn]="mobileNumber"></phone-input>
 							</ion-grid>
 							<ion-item no-lines>
                             <ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
@@ -169,7 +169,7 @@
                     </ion-item>
                     <ion-grid class="phone-number">
 							<!--<phone-input idsuffix="emergency" [ac]="ecMobileNumberAreaCode" [np]="ecMobileNumberPrefix" [nn]="ecMobileNumberLineNumber"></phone-input>-->
-							<phone-input idsuffix="emergency" [pn]="ecMobileNumber"></phone-input>
+							<phone-input #emergencyNumber idsuffix="emergency" [pn]="ecMobileNumber"></phone-input>
 								<!-- <ion-row>
 									<ion-col width-25>
 										<ion-item no-lines>
@@ -199,7 +199,7 @@
 							</ion-item>
 							<ion-grid class="phone-number">
 							<!--<phone-input idsuffix="emergencyalt" [ac]="ecAltMobileNumberAreaCode" [np]="ecAltMobileNumberPrefix" [nn]="ecAltMobileNumberLineNumber"></phone-input>-->
-							<phone-input idsuffix="emergencyalt" [pn]="ecAltMobileNumber"></phone-input>
+							<phone-input #emergencyAlternate idsuffix="emergencyalt" [pn]="ecAltNumber"></phone-input>
 								<!-- <ion-row>
 									<ion-col width-25>
 										<ion-item no-lines>
