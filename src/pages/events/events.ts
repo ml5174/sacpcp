@@ -120,7 +120,17 @@ export class EventPage {
 
     let eventDetailModal = this.modalCtrl.create(EventDetailModal, {
       "id": id,
+      "guestUser": false,
       "registered": this.amISignedUp(id)
+    });
+    eventDetailModal.present();
+  }
+
+  eventDetailGuestModal(id) {
+    let eventDetailModal = this.modalCtrl.create(EventDetailModal, {
+      "id": id,
+      "registered": false,
+      "guestUser": true
     });
     eventDetailModal.present();
   }
