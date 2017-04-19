@@ -1,5 +1,4 @@
-import {Component} from '@angular/core'
-import {ViewChild} from '@angular/core'
+import {Component, ViewChild} from '@angular/core'
 import {Observable} from 'rxjs/Rx';
 import {UserServices} from '../../lib/service/user';
 import {NavController} from 'ionic-angular';
@@ -9,6 +8,7 @@ import { ChangePasswordPage } from '../change-password/change-password';
 import { Content, LoadingController, ToastController, PopoverController, ModalController } from 'ionic-angular';
 import { PasswordPopover } from '../../popover/password';
 import { ParentVerifyModal } from '../../modals/parent-verify-modal';
+import { PhoneInput } from '../../lib/components/phone-input.component';
 
 @Component({
   templateUrl: 'register-individual-profile.html'
@@ -16,7 +16,10 @@ import { ParentVerifyModal } from '../../modals/parent-verify-modal';
 export class RegisterIndividualProfilePage {
 
   @ViewChild(Content) content: Content;
-
+  @ViewChild('preferredNumber') preferredNumber : PhoneInput;
+  @ViewChild('emergencyNumber') emergencyNumber : PhoneInput;
+  @ViewChild('emergencyAlternate') emergencyAlternate : PhoneInput;
+  
   public key: string = '';
   public val: string = '';
   public errors: Array<string> = [];
@@ -114,9 +117,9 @@ export class RegisterIndividualProfilePage {
 
   // On initialization, get the latest info from the server
   ngOnInit() {
-    let getMyProfileObservable =  this.userServices.getMyProfile()
-    let getMyPreferencesObservable =  this.userServices.getMyPreferences()
-    let getAvailablePreferencesObservable =  this.userServices.getAvailablePreferences()
+    let getMyProfileObservable =  this.userServices.getMyProfile();
+    let getMyPreferencesObservable =  this.userServices.getMyPreferences();
+    let getAvailablePreferencesObservable =  this.userServices.getAvailablePreferences();
 
     this.clearErrors();
     this.cleanBooleans();
@@ -142,7 +145,7 @@ export class RegisterIndividualProfilePage {
               break;
             }
           }
-
+			console.log("Onload myProfile " + JSON.stringify(this.myProfile));
           if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
           if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
           if (!this.myProfile.my_volunteertype_id) this.myProfile.my_volunteertype_id = defaultVolunteerTypeId;
@@ -187,6 +190,7 @@ export class RegisterIndividualProfilePage {
     	//toss up a modal.
     	this.openModal(myAge);
     }else{
+    console.log("calling update profile");
     this.updateProfile();
     }
     
@@ -215,7 +219,8 @@ export class RegisterIndividualProfilePage {
     this.cleanBooleans();
     this.translateFromFormPreferences();
     this.translateFromFormPhoneNumbers();
-
+	console.log("myprofile" + JSON.stringify(this.myProfile));
+	console.log("myprefs" + JSON.stringify(this.myPreferences));
     let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
     let updateMyPreferencesObservable =  this.userServices.updateMyPreferences(this.myPreferences);
     let changeMyPasswordObservable = null;
@@ -293,7 +298,9 @@ export class RegisterIndividualProfilePage {
     //   this.mobileNumberLineNumber = this.myProfile.mobilenumber.substring(7, 11);
     // }
     if (this.myProfile.mobilenumber && this.myProfile.mobilenumber.length == 11) {
-      this.mobileNumber = this.myProfile.mobileNumber;
+       this.mobileNumber = this.myProfile.mobilenumber;
+       this.mobileNumber = "(" + this.myProfile.mobilenumber.substring(1,4) + ") " + this.myProfile.mobilenumber.substring(4, 7) + "-"  + this.myProfile.mobilenumber.substring(7, 11);
+       //console.log("Mobile Number:" + this.mobileNumber);
     }
 
     // Parse emergency contact mobile number
@@ -302,8 +309,9 @@ export class RegisterIndividualProfilePage {
     //   this.ecMobileNumberPrefix = this.myProfile.emergency_contact.mobilenumber.substring(4, 7);
     //   this.ecMobileNumberLineNumber = this.myProfile.emergency_contact.mobilenumber.substring(7, 11);
     // }
-    if (this.myProfile.emergency_contact.mobileNumber && this.myProfile.emergency_contact.mobileNumber.length == 11) {
-      this.ecMobileNumber = this.myProfile.emergency_contact.mobileNumber;
+    if (this.myProfile.emergency_contact.mobilenumber && this.myProfile.emergency_contact.mobilenumber.length == 11) {
+      this.ecMobileNumber = this.myProfile.emergency_contact.mobilenumber;
+      this.ecMobileNumber = "(" + this.myProfile.emergency_contact.mobilenumber.substring(1, 4) + ") " + this.myProfile.emergency_contact.mobilenumber.substring(4, 7) + "-" + this.myProfile.emergency_contact.mobilenumber.substring(7, 11);
     }
 
 
@@ -315,6 +323,7 @@ export class RegisterIndividualProfilePage {
     // }
     if (this.myProfile.emergency_contact.altnumber && this.myProfile.emergency_contact.altnumber.length == 11) {
       this.ecAltNumber = this.myProfile.emergency_contact.altnumber;
+      this.ecAltNumber = "(" + this.myProfile.emergency_contact.altnumber.substring(1, 4) + ") " + this.myProfile.emergency_contact.altnumber.substring(4, 7) + "-" + this.myProfile.emergency_contact.altnumber.substring(7, 11);
     }
 
 
@@ -326,8 +335,8 @@ export class RegisterIndividualProfilePage {
     // } else {
     //   this.myProfile.mobilenumber = "";
     // }
-    if (this.mobileNumber) {
-      this.myProfile.mobileNumber = "1" + this.mobileNumber;
+    if (this.preferredNumber.getPN()) {
+      this.myProfile.mobilenumber = this.preferredNumber.getPN();
     }
 
     // if (this.ecMobileNumberAreaCode || this.ecMobileNumberPrefix || this.ecMobileNumberLineNumber) {
@@ -335,8 +344,8 @@ export class RegisterIndividualProfilePage {
     // } else {
     //   this.myProfile.emergency_contact.mobilenumber = "";
     // }
-    if (this.ecMobileNumber) {
-      this.myProfile.emergency_contact.mobileNumber = "1" + this.ecMobileNumber;
+    if (this.emergencyNumber.getPN()) {
+      this.myProfile.emergency_contact.mobilenumber = this.emergencyNumber.getPN();
     }
 
     // if (this.ecAltNumberAreaCode || this.ecAltNumberPrefix || this.ecAltNumberLineNumber) {
@@ -344,8 +353,8 @@ export class RegisterIndividualProfilePage {
     // } else {
     //   this.myProfile.emergency_contact.altnumber = "";
     // }
-    if (this.ecAltNumber) {
-      this.myProfile.emergency_contact.altnumber = "1" + this.ecAltNumber;
+    if (this.emergencyAlternate.getPN()) {
+      this.myProfile.emergency_contact.altnumber = this.emergencyAlternate.getPN();
     }
 
   }
