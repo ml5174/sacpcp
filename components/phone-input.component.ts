@@ -21,7 +21,11 @@ export class PhoneInput {
 	this.suffix = this.idsuffix;
 	}
 	
-	processKeyUp(e, elID) {
+	getPN(){
+		return "1" + this.pn.replace(/\D+/g, '');
+	}
+	
+	/*processKeyUp(e, elID) {
   	//console.log("in keyup");
   	//console.log(e.target.value.length);
   	//console.log(e.target.maxLength);
@@ -32,7 +36,7 @@ export class PhoneInput {
     	console.log(elID + this.suffix);
       	(<HTMLInputElement>document.getElementById(elID + this.suffix).getElementsByTagName("INPUT")[0]).focus();
     }
-  }
+  }*/
 
 	
 	

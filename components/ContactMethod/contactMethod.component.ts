@@ -13,7 +13,7 @@ export class ContactMethod {
   // @Input('smsMobileNumberPrefix') mobileNumberPrefix : string;
   // @Input('smsMobileNumberLineNumber') mobileNumberLineNumber : string;
   @Input('pn') mobile: string;
-  @ViewChild('phoneinput') mobilenumber;
+  @ViewChild('phoneinput') mobilenumber: PhoneInput;
 constructor(){}
 
 }
