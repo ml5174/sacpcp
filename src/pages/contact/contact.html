@@ -30,12 +30,23 @@
 						<span style="font-size: 12pt;">5302 Harry Hines Blvd.</span><br style="font-size: 12pt;">
 							<span style="font-size: 12pt;">Dallas,TX 75235</span><br style="font-size: 12pt;">
 					</a>
-					<span style="font-size: 12pt;">
-					<button ion-button clear small (click)="call_TSACPC('(214) 424-7050')">(214) 424-7050</button>
-					<!--a href="tel:1-214-424-7050">(214) 424-7050</a-->
-					</span>
-					<br style="font-size: 12pt;">
-					<span style="font-size: 12pt;">(214) 688-5234 Fax </span>
+					<span style="font-size: 12pt;">Contact Number :</span>
+					<a href="javascript:void(0);" (click)="call_TSACPC('(214) 424-7050');">
+						<span style="font-size: 12pt;"> (214) 424-7050</span><br style="font-size: 12pt;">
+					</a>
+					<span style="font-size: 12pt;">Fax Number : (214) 688-5234</span><br style="font-size: 12pt;">
+					<button ion-button icon-left target="_blank" (click)="openLink('https://www.facebook.com/salarmydfw')">
+ 						<ion-icon name="logo-facebook"></ion-icon>
+					</button>
+					<button ion-button icon-left target="_blank" (click)="openLink('https://twitter.com/SalArmyDFW')">
+ 						<ion-icon name="logo-twitter"></ion-icon>
+					</button>
+					<button ion-button icon-left target="_blank" (click)="openLink('https://www.youtube.com/salvationarmydfw')">
+ 						<ion-icon name="logo-youtube"></ion-icon>
+					</button>
+					<button ion-button icon-left target="_blank" (click)="openLink('https://www.instagram.com/salarmydfw')">
+ 						<ion-icon name="logo-instagram"></ion-icon>
+					</button>
 				</div>
 			</div>
 		</div>

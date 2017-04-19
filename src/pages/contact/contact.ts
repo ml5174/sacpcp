@@ -47,4 +47,8 @@ export class ContactPage {
     this.nav.pop();
   }
 
+  openLink(link){
+    window.open(link);
+  }
+
 }
