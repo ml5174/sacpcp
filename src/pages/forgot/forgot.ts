@@ -69,8 +69,10 @@ if (this.contactMethod.pcmethod == "email") {
       //   phone = "1" + this.contactMethod.mobileNumberAreaCode + this.contactMethod.mobileNumberPrefix + this.contactMethod.mobileNumberLineNumber;
       //   resetObject.phone = phone;
       // }
-      if (this.contactMethod.mobileNumber) {
-        phone = "1" + this.contactMethod.mobileNumber;
+      if (this.contactMethod.mobilenumber) {
+        phone = "1" + this.contactMethod.mobilenumber.pn;
+        phone = phone.replace(/\D+/g, '')
+      console.log('about to call forgot API with: ' + phone);
       }
       else
       {

@@ -90,8 +90,10 @@ export class RegisterLoginPage {
       // this.sms = '1'+this.contactMethod.mobileNumberAreaCode +
       // this.contactMethod.mobileNumberPrefix+
       // this.contactMethod.mobileNumberLineNumber;
-      this.sms = '1'+this.contactMethod.mobileNumber;    
+      this.sms = '1'+this.contactMethod.mobilenumber.pn;    
       register.phone = this.sms;
+      register.phone = register.phone.replace(/\D+/g, '')
+      console.log('about to register with: ' + register.phone);
     }
    
     if (!register.email) delete register.email;
