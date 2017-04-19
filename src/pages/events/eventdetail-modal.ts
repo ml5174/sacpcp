@@ -16,6 +16,7 @@ export class EventDetailModal {
     signedUp: Boolean = false;
     showStatus: Boolean = false;
     showDetails: Boolean = false;
+    guestUser: Boolean = false;
 
     gender = GENDER_RESTRICTION;
     vRestriction = VOLUNTEER_RESTRICTION;
@@ -37,6 +38,7 @@ export class EventDetailModal {
         this.viewCtrl = viewCtrl;
         this.eventId = params.get('id');
         this.signedUp = params.get('registered');
+        this.guestUser = params.get('guestUser');
     }
 
     ngOnInit() {
