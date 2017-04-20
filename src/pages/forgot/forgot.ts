@@ -6,8 +6,6 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
 import { ContactMethod } from '../../lib/components/ContactMethod/contactMethod.component';
 
-
-
 @Component({
   templateUrl: 'forgot.html'
 })

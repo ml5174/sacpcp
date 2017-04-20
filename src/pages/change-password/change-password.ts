@@ -4,7 +4,7 @@ import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { STRINGS } from '../../lib/provider/config';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email';
 import { TranslateService } from "ng2-translate/ng2-translate";
-import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login';
 import { PasswordPopover } from '../../popover/password';
 
 @Component({
@@ -99,7 +99,7 @@ export class ChangePasswordPage {
 
   }
   back() {
-    this.nav.pop(HomePage);
+    this.nav.push(LoginPage);
   }
   showPassword() {
     if (this.showpassword === 'password') this.showpassword = 'text';
