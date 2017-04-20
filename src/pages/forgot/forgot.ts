@@ -71,6 +71,7 @@ export class ForgotPage {
         phone = "1" + this.contactMethod.mobilenumber.pn;
         phone = phone.replace(/\D+/g, '')
         console.log('about to call forgot API with: ' + phone);
+        resetObject.phone = phone;
       }
       else {
         resetObject = {};
