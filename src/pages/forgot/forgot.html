@@ -4,92 +4,18 @@
 </ion-header>
 
 <ion-content>
-
-    <!--ion-toolbar secondary>
-		<ion-buttons begin>
-			<button ion-button icon-left (click)="back()">
-       <ion-icon name="ios-arrow-back"></ion-icon>
-        {{'Back' | translate}}
-    </button>
-		</ion-buttons>
-	</ion-toolbar-->
-
     <section id="tab-content" padding>
-        <!--h1>{{ 'Recover My User ID / Password' | translate}}</h1-->
         <p>Hello,</p>
         <p>We are happy to help.</p>
         <p>We will send you your User ID / Password to your registered Email ID / Mobile Phone</p>
-
-
         <ion-item no-lines *ngFor="let error of errors">
             <ion-icon name="alert" item-left class="error"></ion-icon>
             <p class="error">{{error | translate}}</p>
         </ion-item>
         <form (ngSubmit)="forgot()">
-            <!--
-			<ion-item no-lines [hidden]="pcmethod!='sms'">
-				<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
-				<ion-label stacked>{{"Mobile Number" | translate }}</ion-label>
-			</ion-item>
-			<ion-item no-lines [hidden]="pcmethod!='email'">
-				<ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
-				<ion-label stacked>{{"Email" | translate }}</ion-label>
-				<ion-input type="string" placeholder="" class="" [(ngModel)]="email" required></ion-input>
-			</ion-item>
-			-->
-            <!-- Move the email, Phone contact details to a common component - ViewChild(ContactMethod) -->
             <contactMethod name="ep" [email]="pcmethod"></contactMethod>
-            <!--
-			<ion-list-header>
-				Please select contact method.
-			</ion-list-header>
-
-			<ion-item no-lines>
-				<section>
-					<div class="radio-choice">
-						<input type="radio" id="email" [(ngModel)]="pcmethod" value="email" />
-						<label for="email">Email</label>
-					</div>
-					<div class="radio-choice">
-						<input type="radio" id="phone" [(ngModel)]="pcmethod" value="sms" style="margin-left: 10px;" />
-						<label for="phone">Mobile Phone</label>
-					</div>
-				</section>
-			</ion-item>
-
-
-
-			<ion-grid class="phone-number" [hidden]="pcmethod!='sms'">
-				<ion-row>
-					<ion-col width-25>
-						<ion-item no-lines>
-							<ion-label stacked></ion-label>
-							<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberAreaCode" required minlength="3" maxlength="3"></ion-input>
-						</ion-item>
-					</ion-col>
-					<ion-col width-25>
-						<ion-item no-lines>
-							<ion-label stacked></ion-label>
-							<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberPrefix" required minlength="3" maxlength="3"></ion-input>
-						</ion-item>
-					</ion-col>
-					<ion-col width-50>
-						<ion-item no-lines>
-							<ion-label stacked></ion-label>
-							<ion-input type="tel" placeholder="" class="" [(ngModel)]="mobileNumberLineNumber" required minlength="4" maxlength="4"></ion-input>
-						</ion-item>
-					</ion-col>
-				</ion-row>
-			</ion-grid>
-
--->
             <input type="submit" class="hidden-submit">
         </form>
-
-        <!--ion-item no-lines class="">
-    <button ion-button color="primary" block large round (click)="forgot()">{{'Submit' | translate}}</button>
-  </ion-item-->
-
     </section>
 </ion-content>
 <ion-footer class="action-footer">

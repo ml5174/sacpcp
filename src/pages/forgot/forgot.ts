@@ -14,25 +14,17 @@ export class ForgotPage {
   public password1: string = '';
   public password2: string = '';
   public pcvalue: string = '';
-
   public email: string = '';
-  // public mobileNumberAreaCode = "";
-  // public mobileNumberPrefix = "";
-  // public mobileNumberLineNumber = "";
   public mobileNumber = "";
-
   public usernameerror: boolean = false;
   public password1error: boolean = false;
   public password2error: boolean = false;
   public emailerror: boolean = false;
   public smserror: boolean = false;
-
-
   public key: string = '';
   public val: string = '';
   public errors: Array<string> = [];
   public pcmethod: string = 'email'
-
   @ViewChild(ContactMethod)
   public contactMethod: ContactMethod;
 
@@ -45,39 +37,20 @@ export class ForgotPage {
   forgot() {
     this.errors = [];
     let resetObject: any = {}
-    /*
-        if (this.pcmethod == "email") {
-          resetObject.email = this.email;
-        } else if (this.pcmethod == "sms") {
-          let phone = null;
-          if (this.mobileNumberAreaCode || this.mobileNumberLineNumber || this.mobileNumberPrefix) {
-            phone = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
-          }
-          resetObject.phone = phone;
-        }
-    
-    */
-
+    // set the reset object in api call to the proper value entered
+    // empty reset object sent to server will result in error feedbacks to display to user
     if (this.contactMethod.pcmethod == "email") {
       resetObject.email = this.contactMethod.pcvalue;
-    } else if (this.contactMethod.pcmethod == "sms") {
+    }
+    else if (this.contactMethod.pcmethod == "sms") {
       let phone = null;
-      // if (this.contactMethod.mobileNumberAreaCode || this.contactMethod.mobileNumberLineNumber || this.contactMethod.mobileNumberPrefix) {
-      //   phone = "1" + this.contactMethod.mobileNumberAreaCode + this.contactMethod.mobileNumberPrefix + this.contactMethod.mobileNumberLineNumber;
-      //   resetObject.phone = phone;
-      // }
       if (this.contactMethod.mobilenumber) {
         phone = "1" + this.contactMethod.mobilenumber.pn;
         phone = phone.replace(/\D+/g, '')
-        console.log('about to call forgot API with: ' + phone);
         resetObject.phone = phone;
       }
-      else {
-        resetObject = {};
-      }
     }
-
-
+    // call api
     this.userServices.reset(resetObject)
       .subscribe(
       key => {
@@ -99,10 +72,10 @@ export class ForgotPage {
       }
     }
     if (error.status === 500) {
-      this.errors.push('Backend returned 500 error, talk to JOHN :) ');
+      this.errors.push('Looks like our servers are down at the moment, please try again later');
     }
-
   }
+
   back() {
     this.nav.pop();
   }
