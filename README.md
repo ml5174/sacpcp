@@ -43,6 +43,7 @@
         npm install
 1.      Now install cordova and ionic. if on macOS, you may need to prefix this command with sudo:<br>
         npm install -g cordova ionic
+        test push
 
 
 ### Launching the application
