@@ -1,10 +1,11 @@
-import {Component, ViewChild} from '@angular/core'
-import {NavController } from 'ionic-angular';
-import {STRINGS} from '../../lib/provider/config';
+import { Component, ViewChild } from '@angular/core'
+import { NavController } from 'ionic-angular';
+import { STRINGS } from '../../lib/provider/config';
 import { UserServices } from '../../lib/service/user';
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
 import { ContactMethod } from '../../lib/components/ContactMethod/contactMethod.component';
+import { RecoverSuccessPage } from '../recover-success/recover-success.ts';
 
 @Component({
   templateUrl: 'forgot.html'
@@ -37,31 +38,30 @@ export class ForgotPage {
   public contactMethod: ContactMethod;
 
   constructor(public nav: NavController,
-              public userServices: UserServices,
-              public translate: TranslateService) {
+    public userServices: UserServices,
+    public translate: TranslateService) {
 
   }
 
   forgot() {
     this.errors = [];
-    let resetObject: any = {
-    }
-/*
-    if (this.pcmethod == "email") {
-      resetObject.email = this.email;
-    } else if (this.pcmethod == "sms") {
-      let phone = null;
-      if (this.mobileNumberAreaCode || this.mobileNumberLineNumber || this.mobileNumberPrefix) {
-        phone = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
-      }
-      resetObject.phone = phone;
-    }
+    let resetObject: any = {}
+    /*
+        if (this.pcmethod == "email") {
+          resetObject.email = this.email;
+        } else if (this.pcmethod == "sms") {
+          let phone = null;
+          if (this.mobileNumberAreaCode || this.mobileNumberLineNumber || this.mobileNumberPrefix) {
+            phone = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
+          }
+          resetObject.phone = phone;
+        }
+    
+    */
 
-*/
-  
-if (this.contactMethod.pcmethod == "email") {
+    if (this.contactMethod.pcmethod == "email") {
       resetObject.email = this.contactMethod.pcvalue;
-    } else if (this.contactMethod.pcmethod  == "sms") {
+    } else if (this.contactMethod.pcmethod == "sms") {
       let phone = null;
       // if (this.contactMethod.mobileNumberAreaCode || this.contactMethod.mobileNumberLineNumber || this.contactMethod.mobileNumberPrefix) {
       //   phone = "1" + this.contactMethod.mobileNumberAreaCode + this.contactMethod.mobileNumberPrefix + this.contactMethod.mobileNumberLineNumber;
@@ -70,19 +70,18 @@ if (this.contactMethod.pcmethod == "email") {
       if (this.contactMethod.mobilenumber) {
         phone = "1" + this.contactMethod.mobilenumber.pn;
         phone = phone.replace(/\D+/g, '')
-      console.log('about to call forgot API with: ' + phone);
+        console.log('about to call forgot API with: ' + phone);
       }
-      else
-      {
-        resetObject= { };
-      } 
+      else {
+        resetObject = {};
+      }
     }
-    
+
 
     this.userServices.reset(resetObject)
       .subscribe(
       key => {
-        this.nav.push(HomePage);
+        this.nav.push(RecoverSuccessPage);
       },
       err => this.setError(err));
   }
