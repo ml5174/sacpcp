@@ -1,4 +1,5 @@
 import { EventDetailModal } from './../pages/events/eventdetail-modal';
+import { EventDetailPopup } from './../pages/events/eventdetail-popup';
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
 
@@ -41,18 +42,19 @@ import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { ReferralSourcePipe } from '../lib/pipe/referralsource.pipe';
 import { MomentTimeZonePipe } from '../lib/pipe/moment-timezone.pipe';
 import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
-import { EventSortPipe } from '../lib/pipe/eventsortpipe';
+import { EventSortPipe, OpportunityPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
 import { EventReportPage } from '../pages/event-report/event-report';
-
-
+import { admin} from '../pages/admin/admin';
+//Added for text-mask, phone number formatting
+import { FormsModule } from '@angular/forms';
+import { TextMaskModule } from 'angular2-text-mask';
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
     { component: ChangePasswordPage, name: 'Change Password Page', segment: 'password-reset/confirm/:iud/:key' },
   ]
 };
-
 export function translateFactory(http: Http) {
   return new TranslateStaticLoader(http, '/assets/i18n', '.json');
 }
@@ -88,9 +90,12 @@ export function translateFactory(http: Http) {
     ParseTimePipe,
     EventSortPipe,
     EventReportPage,
+    OpportunityPipe,
     EventDetailModal,
+    EventDetailPopup,
     ContactMethod,
     PhoneInput,
+    admin,
     AccordionBox,
     PrivacyTermsContent
   ],
@@ -101,7 +106,10 @@ export function translateFactory(http: Http) {
           provide: TranslateLoader,
           useFactory: translateFactory,
           deps: [Http]
-        })
+        }),
+    //Added for text-mask, for phone number formatting
+    FormsModule,
+    TextMaskModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -125,7 +133,9 @@ export function translateFactory(http: Http) {
     ContactPage,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
-    EventDetailModal
+    EventDetailModal,
+    admin,
+    EventDetailPopup,
   ],
   providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService]
 })

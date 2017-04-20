@@ -1,7 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-
 import { Platform, MenuController, Nav, Select, Config } from 'ionic-angular';
-
 import { StatusBar } from 'ionic-native';
 import { Keyboard } from 'ionic-native';
 import { Storage } from '@ionic/storage';
@@ -16,10 +14,14 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { TermsPage } from '../pages/terms/terms';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
+import { admin} from '../pages/admin/admin';
 import { AppVersion } from 'ionic-native';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package';
 import { EventReportPage } from '../pages/event-report/event-report'
+
+declare var window;
+declare var cordova;
 
 @Component({
   templateUrl: 'app.html',
@@ -63,6 +65,8 @@ export class MyApp {
       { title: 'Contact Us', component: ContactPage },
       { title: 'Privacy & Terms', component: TermsPage },
       { title: 'Event Details', component: EventReportPage }
+      { title: 'Admin', component: admin },
+      { title: 'Privacy & Terms', component: TermsPage }
     ];
 
   }
@@ -98,7 +102,10 @@ export class MyApp {
     console.log("after ready!");
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.hide();
+      StatusBar.show();
+      StatusBar.overlaysWebView(false);
+      StatusBar.styleDefault();
+      console.log(StatusBar);
       //Keyboard.disableScroll(true);
       Keyboard.hideKeyboardAccessoryBar(false);
 
@@ -139,6 +146,11 @@ export class MyApp {
     this.nav.setRoot(HomePage);
   }
   donate() {
+    if(this.platform.is('ios') || this.platform.is('android')) {
+      if (cordova && cordova.InAppBrowser) {
+        window.open = cordova.InAppBrowser.open;
+      }
+    }
     window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank');
   }
 

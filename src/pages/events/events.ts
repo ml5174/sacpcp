@@ -4,23 +4,24 @@ import { VolunteerEventsService } from '../../lib/service/volunteer-events-servi
 import { EventImage } from '../../lib/model/eventImage';
 import { UserServices } from '../../lib/service/user';
 import { EventDetailModal } from './eventdetail-modal';
+import { EventDetailPopup } from './eventdetail-popup';
 import { ModalController, ViewController } from 'ionic-angular';
 import { PopoverController, ToastController, LoadingController } from 'ionic-angular';
-import { PreferredSearchPopover } from '../../popover/preferredsearch-popover';
-import { EventSortPopover} from '../../popover/eventsort-popover';
-import {EventSortPipe} from '../../lib/pipe/eventsortpipe';
+import {EventSortPipe, OpportunityPipe} from '../../lib/pipe/eventsortpipe';
 import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
+import { AlertController } from 'ionic-angular';
+import { EventDetail } from '../../lib/model/event-detail';
 
 @Component({
   templateUrl: 'events.html',
   selector: 'events',
-  providers:[EventSortPipe, ParseTimePipe]
+  providers:[EventSortPipe, ParseTimePipe, OpportunityPipe]
 })
 
 export class EventPage {
 
   public loadingOverlay;
-
+  eventDetail: EventDetail;
   public search: boolean = false;
   public events: Array<VolunteerEvent> = [];
   public searchedEvents: Array<VolunteerEvent> = [];
@@ -32,7 +33,7 @@ export class EventPage {
 
  // public preferenceModel: Array<MyPreferences> = [];
  // public currentPreferences: Array<MyPreferences> = [];
-  public selectedSort: string = '';
+ // public selectedSort: string = '';
   public selectedPreferences: any = {};
   public showAdvancedOptions: Boolean = false;
   public image: Array<EventImage>;
@@ -52,8 +53,9 @@ export class EventPage {
     private popoverCtrl: PopoverController,
     public viewCtrl: ViewController,
     public loadingController: LoadingController,
-    private sortPipe: EventSortPipe,
+  //  private sortPipe: EventSortPipe,
     private parseTimePipe: ParseTimePipe,
+    public alertCtrl: AlertController,
     public toastController: ToastController) {
   }
 
@@ -123,6 +125,24 @@ export class EventPage {
     eventDetailModal.present();
   }
 
+  eventDetailPopup(id){
+    let eventDetailPopup = this.popoverCtrl.create(EventDetailPopup, {
+      "id": id,
+      "registered": this.amISignedUp(id)
+    }, {cssClass: 'detail-popover'});
+
+    let ev = {
+  target : {
+    getBoundingClientRect : () => {
+      return {
+        top: '200'
+      };
+    }
+  }
+};
+    eventDetailPopup.present({ev});
+  }
+
   onCancel(event: any) {
     this.search = false;
   }
@@ -142,10 +162,10 @@ export class EventPage {
     if (this.val && this.val.trim() != '') {
 
 
-          if(this.isPreferenceSelected(this.selectedPreferences) == 1 || this.isPreferenceSelected(this.selectedPreferences) == 2 || this.isPreferenceSelected(this.selectedPreferences) == 3 ){
+/*          if(this.isPreferenceSelected(this.selectedPreferences) == 1 || this.isPreferenceSelected(this.selectedPreferences) == 2 || this.isPreferenceSelected(this.selectedPreferences) == 3 ){
          
       this.preferenceSearch();
-        }else{
+        }else{ */
               for (var i = 0; i < this.values.length; ++i) {
                 
                     this.searchedEvents = this.searchedEvents.filter((item) => {
@@ -184,10 +204,10 @@ export class EventPage {
 
                   }
 
-                    this.searchedEvents.map(Array, this.sortPipe.transform(this.searchedEvents, this.selectedSort));
+                 //   this.searchedEvents.map(Array, this.sortPipe.transform(this.searchedEvents, this.selectedSort));
                  // this.pipe.transform(this.searchedEvents, this.selectedSort);
 
-       }
+     //  }
       if (this.searchedEvents.length==0){
         this.noResults = true;
       }
@@ -198,6 +218,7 @@ export class EventPage {
 
 
 //Sort Stuff ja999b
+/*
   preferenceSearch(){
       if(this.isPreferenceSelected(this.selectedPreferences) == 1 ){ 
              this.doLocationSearch();
@@ -266,9 +287,7 @@ export class EventPage {
                           )});
                     }
    }
-
-
-
+*/
 
 
 
@@ -365,9 +384,9 @@ export class EventPage {
     }
     return false;
   }
-    signup(id) {
+    signup(id,noti_opt,noti_sched) {
         this.volunteerEventsService
-            .eventRegister(id).subscribe(
+            .eventRegisterAndSetReminder(id, noti_opt,noti_sched).subscribe(
             event => {
                       console.log("signed up for event " + id);
                       this.presentToast("Event sign-up successful.");
@@ -393,7 +412,7 @@ export class EventPage {
                 this.volunteerEventsService.loadMyEvents();
             });
     }
-//Popover Stuff
+/*Popover Stuff
  presentPopover(ev) {
    
     let popover = this.popoverCtrl.create(EventSortPopover, {
@@ -431,5 +450,45 @@ export class EventPage {
    
     })   
     
-  }
+  } */
+
+    showConfirm(id) {
+        this.getEventDetails(id);
+        if (this.eventDetail.notification_schedule !="0") {
+            let confirm = this.alertCtrl.create({
+                title: '',
+                cssClass: 'alertReminder',
+                message: 'Thank you for signing up to volunteer. <br>  <br> Would you like to receive reminders as the event approaches?',
+                buttons: [
+                    {
+                        text: 'No, Thanks',
+                        handler: () => {
+                            console.log('No, Thanks clicked');
+                            this.signup(id, 0, 0);
+                        }
+                    },
+                    {
+                        text: 'Yes',
+                        handler: () => {
+                            console.log('Yes clicked');
+                            this.signup(id, this.eventDetail.notification_option, this.eventDetail.notification_schedule);
+                        }
+                    }
+                ]
+            });
+            confirm.present();
+        }
+        else {
+            this.signup(id, 0, 0);
+        }
+    }
+    getEventDetails(id) {
+        this.volunteerEventsService
+            .getVolunteerEventDetails(id).subscribe(
+            event => this.eventDetail = event,
+            err => {
+                console.log(err);
+            });
+    }
+
 }

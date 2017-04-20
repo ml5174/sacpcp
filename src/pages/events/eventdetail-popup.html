@@ -1,13 +1,10 @@
 <ion-header>
-  <ion-navbar class="navbar-background" hideBackButton="true">
-  </ion-navbar>
   <ion-toolbar>
   <span *ngIf="eventDetail">{{eventDetail.title}}</span>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
   <ion-list *ngIf="eventDetail">
     <ion-item>
       <ion-icon *ngIf="eventDetail.status_notes" name="add" item-right (click)="showStatus=!showStatus"></ion-icon>
@@ -20,13 +17,13 @@
       <p>Registration status: registered</p>
     </ion-item>
     <ion-item>
-      <p *ngIf="eventDetail.registeredcount !=null">Volunteers Participating: {{eventDetail.registeredcount}}</p>
-      <p *ngIf="eventDetail.max_registered !=null">Total Volunteers Needed: {{eventDetail.max_registered}}</p>
+      <p *ngIf="eventDetail.volunteercount !=null">Number of volunteers: {{eventDetail.volunteercount}}</p>
+      <p *ngIf="eventDetail.max_volunteers !=null">Maximum number of volunteers: {{eventDetail.max_volunteers}}</p>
     </ion-item>
     <ion-item>
       <ion-icon name="calendar" item-left></ion-icon>
       <!--p>{{eventDetail.start | parseTimeZone:"MMM DD"}} - {{eventDetail.end | parseTimeZone:"MMM DD"}} {{eventDetail.end | parseTimeZone:"YYYY"}}</p-->
-      <p>{{eventDetail.start | parseTime:"MMM DD"}} {{eventDetail.end | parseTime:"YYYY"}}</p>
+      <p>{{eventDetail.start | parseTime:"MMM DD"}} - {{eventDetail.end | parseTime:"MMM DD"}} {{eventDetail.end | parseTime:"YYYY"}}</p>
       <!--p>{{eventDetail.start | parseTimeZone: 'h:mm A'}}-{{eventDetail.end | parseTimeZone: 'h:mm A'}} {{eventDetail.start
         | parseTimeZone:'z'}}</p-->
       <p>{{eventDetail.start | parseTime: 'h:mm A'}}-{{eventDetail.end | parseTime: 'h:mm A'}}</p>
@@ -48,7 +45,7 @@
       <ion-icon *ngIf="!showDetails" primary item-right name="ios-add-circle-outline"></ion-icon>
       <ion-icon *ngIf="showDetails" primary item-right name="ios-remove-circle-outline"></ion-icon>
     </ion-item>
-    <ion-item *ngIf="showDetails">
+    <ion-item *ngIf="showDetails" text-wrap>
       <p>{{eventDetail.description}}</p>
       <span *ngIf="eventDetail.eventimages.length !=0">
        <img [src]="eventDetail.eventimages[0].thumbnail" />
@@ -59,7 +56,7 @@
       <p>Gender restrictions: {{gender[eventDetail.gender_restriction]}}</p>
       <p>Age restriction: {{aRestriction[eventDetail.age_restriction]}}</p>
       <p>Volunteer type restrictions: {{vRestriction[eventDetail.volunteer_restriction]}}</p>
-      <p>Same Day Sign Up Allowed: {{sdRestriction[eventDetail.same_day_registration]}}</p>
+      <p>Same day sign in allowed: {{sdRestriction[eventDetail.same_day_registration]}}</p>
       <p>Event notification: {{nOptions[eventDetail.notification_option]}}</p>
       <p>Special instructions: {{eventDetail.special_instructions}}</p>
     </ion-item>
@@ -76,11 +73,11 @@
 <ion-footer class="action-footer">
 	<ion-grid>
 		<ion-row>
-			<ion-col>
-    <button ion-button small color="primary" *ngIf="!signedUp" (click)="showConfirm(eventDetail.id,eventDetail.notification_option,eventDetail.notification_schedule)">Sign Up</button>
-    <button ion-button item-left small color="primary" *ngIf="signedUp" (click)="deRegister(eventDetail.id)">Cancel Sign-Up</button>
+			<ion-col width-50>
+    <button ion-button small color="primary" *ngIf="!signedUp" (click)="signup(eventDetail.id)">Sign Up</button>
+    <button ion-button small color="primary" *ngIf="signedUp" (click)="deRegister(eventDetail.id)">Cancel</button>
 			</ion-col>
-			<ion-col>
+			<ion-col width-50>
       <button ion-button small color="primary" *ngIf="signedUp" (click)="dismiss()">Close</button>
       <button ion-button small color="primary" *ngIf="!signedUp" (click)="dismiss()">Cancel</button>
 			</ion-col>

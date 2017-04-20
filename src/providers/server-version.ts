@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { SERVER } from '../lib/provider/config';
-import { Observable } from "rxjs/Observable";
 
 /*
   Generated class for the ServerVersion provider.
