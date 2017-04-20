@@ -19,6 +19,7 @@ import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { AppVersion } from 'ionic-native';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package';
+import { DONATE_URL } from '../lib/provider/config';
 
 declare var window;
 declare var cordova;
@@ -145,13 +146,13 @@ export class MyApp {
   donate() { 
      if(this.platform.is('ios') || this.platform.is('android')) { 
        if (cordova && cordova.InAppBrowser) { 
-         cordova.InAppBrowser.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank'); 
+         cordova.InAppBrowser.open(DONATE_URL, '_blank'); 
        } else {
-         window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank'); 
+         window.open(DONATE_URL, '_blank'); 
        }
      }
      else {
-       window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank'); 
+       window.open(DONATE_URL, '_blank'); 
      }
   }
 
