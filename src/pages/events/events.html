@@ -63,7 +63,7 @@
                             </span>
                         </ion-item>
                         <ion-item *ngIf="!userServices.user.id">
-                            <button ion-button item-left small color="primary" (click)="eventDetailGuestModal(e.id)" >Details</button>
+                            <button ion-button item-left small color="primary" (click)="eventDetailGuestPopup(e.id)" >Details</button>
                         </ion-item>  
                         <ion-item *ngIf="userServices.user.id">
                         <button ion-button item-left small color="primary" (click)="eventDetailPopup(e.id)" >Details</button>
