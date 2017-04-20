@@ -15,6 +15,7 @@ export class EventDetailPopup {
     signedUp: Boolean = false;
     showStatus: Boolean = false;
     showDetails: Boolean = false;
+    guestUser: Boolean = false;
 
     gender = GENDER_RESTRICTION;
     vRestriction = VOLUNTEER_RESTRICTION;
@@ -35,6 +36,7 @@ export class EventDetailPopup {
         this.viewCtrl = viewCtrl;
         this.eventId = params.get('id');
         this.signedUp = params.get('registered');
+        this.guestUser = params.get('guestUser');
     }
 
     ngOnInit() {

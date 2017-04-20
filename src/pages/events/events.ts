@@ -126,18 +126,28 @@ export class EventPage {
     eventDetailModal.present();
   }
 
-  eventDetailGuestModal(id) {
-    let eventDetailModal = this.modalCtrl.create(EventDetailModal, {
+  eventDetailGuestPopup(id) {
+    let eventDetailGuestPopup = this.popoverCtrl.create(EventDetailPopup, {
       "id": id,
       "registered": false,
       "guestUser": true
-    });
-    eventDetailModal.present();
+    }, {cssClass: 'detail-popover'});
+    let ev = {
+      target : {
+        getBoundingClientRect : () => {
+          return {
+            top: '200'
+          };
+        }
+      }
+    };
+    eventDetailGuestPopup.present({ev});
   }
 
   eventDetailPopup(id){
     let eventDetailPopup = this.popoverCtrl.create(EventDetailPopup, {
       "id": id,
+      "guestUser": false,
       "registered": this.amISignedUp(id)
     }, {cssClass: 'detail-popover'});
 
