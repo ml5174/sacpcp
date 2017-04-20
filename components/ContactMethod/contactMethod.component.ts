@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { PhoneInput } '../phone-input.component';
+import { PhoneInput } from '../phone-input.component';
 
 @Component({
     selector: 'contactMethod',
