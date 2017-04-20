@@ -142,13 +142,17 @@ export class MyApp {
     this.userServices.user = new UserProfile();
     this.nav.setRoot(HomePage);
   }
-  donate() {
-    if(this.platform.is('ios') || this.platform.is('android')) {
-      if (cordova && cordova.InAppBrowser) {
-        window.open = cordova.InAppBrowser.open;
-      }
-    }
-    window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank');
+  donate() { 
+     if(this.platform.is('ios') || this.platform.is('android')) { 
+       if (cordova && cordova.InAppBrowser) { 
+         cordova.InAppBrowser.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank'); 
+       } else {
+         window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank'); 
+       }
+     }
+     else {
+       window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank'); 
+     }
   }
 
   private detectOldIE() {
