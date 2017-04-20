@@ -17,6 +17,7 @@ export const EVENT_CANCEL_URI = '/api/v0.2/admin/event/expanded/';
 export const GET_EVENT_IMAGE_URI = '/api/v0.2/events/eventimages/';
 export const CHANGE_PASSWORD_URI = '/rest-auth/password/change/';   
 export const UPDATE_MY_PREFERENCES_URI = '/api/v0.2/salarmy/mypreferences/';
+export const DONATE_URL = 'http://www.salvationarmydfw.org/p/get-involved/437';
 
 export var SERVER = window['djangoserver'];
 if (document.location.hostname === '198.199.86.127')
