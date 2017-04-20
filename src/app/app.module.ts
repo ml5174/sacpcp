@@ -44,6 +44,8 @@ import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
 import { EventSortPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
+import { EventReportPage } from '../pages/event-report/event-report';
+
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -85,6 +87,7 @@ export function translateFactory(http: Http) {
     TimeFromNowPipe,
     ParseTimePipe,
     EventSortPipe,
+    EventReportPage,
     EventDetailModal,
     ContactMethod,
     PhoneInput,
@@ -116,6 +119,7 @@ export function translateFactory(http: Http) {
     HomePage,
     DonatePage,
     ForgotPage,
+    EventReportPage,
     LoginPage,
     AboutPage,
     ContactPage,

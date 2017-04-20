@@ -295,6 +295,7 @@ export class RegisterIndividualProfilePage {
   translateFromFormPhoneNumbers() {
     if (this.mobileNumberAreaCode || this.mobileNumberPrefix || this.mobileNumberLineNumber) {
       this.myProfile.mobilenumber = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
+      this.myProfile.mobilenumber = +this.myProfile.mobilenumber;
     } else {
       this.myProfile.mobilenumber = "";
     }

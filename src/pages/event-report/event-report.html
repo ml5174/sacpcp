@@ -1,0 +1,43 @@
+<ion-header>
+  <app-header back="true" title="Event Report Details">
+  </app-header>
+</ion-header>
+
+<ion-content>
+  <ion-list inset no-lines>
+    <ion-list-header>Data Export</ion-list-header>
+    <ion-item>
+      <ion-label>Event Registration Detail Report</ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Event Registration Summary Report</ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+    <ion-list-header>Select the Date Range</ion-list-header>
+
+      <ion-item>
+        <ion-label>Start Date</ion-label>
+        <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="startDate"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Start Date</ion-label>
+        <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="endDate"></ion-datetime>
+      </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer class="action-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col width-50>
+        <button class="fatty" small ion-button color="primary">Cancel</button>
+      </ion-col>
+      <ion-col width-50>
+        <button class="fatty" small ion-button color="primary" (click) = "getEventsTimeRange(startDate, endDate)">Export</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

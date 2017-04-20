@@ -19,6 +19,7 @@ import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { AppVersion } from 'ionic-native';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package';
+import { EventReportPage } from '../pages/event-report/event-report'
 
 @Component({
   templateUrl: 'app.html',
@@ -60,7 +61,8 @@ export class MyApp {
       { title: 'Change Password', component: ChangePasswordPage },
       { title: 'About', component: AboutPage },
       { title: 'Contact Us', component: ContactPage },
-      { title: 'Privacy & Terms', component: TermsPage }
+      { title: 'Privacy & Terms', component: TermsPage },
+      { title: 'Event Details', component: EventReportPage }
     ];
 
   }
