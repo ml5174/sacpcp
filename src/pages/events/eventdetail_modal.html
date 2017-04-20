@@ -77,8 +77,8 @@
 	<ion-grid>
 		<ion-row>
 			<ion-col>
-    <button ion-button small color="primary" *ngIf="!signedUp" (click)="showConfirm(eventDetail.id,eventDetail.notification_option,eventDetail.notification_schedule)">Sign Up</button>
-    <button ion-button item-left small color="primary" *ngIf="signedUp" (click)="deRegister(eventDetail.id)">Cancel Sign-Up</button>
+    <button ion-button small color="primary" *ngIf="!signedUp && !guestUser" (click)="showConfirm(eventDetail.id,eventDetail.notification_option,eventDetail.notification_schedule)">Sign Up1</button>
+    <button ion-button item-left small color="primary" *ngIf="signedUp && !guestUser" (click)="deRegister(eventDetail.id)">Cancel Sign-Up</button>
 			</ion-col>
 			<ion-col>
       <button ion-button small color="primary" *ngIf="signedUp" (click)="dismiss()">Close</button>
