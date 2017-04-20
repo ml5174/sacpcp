@@ -10,7 +10,7 @@ import { HomePage } from '../home/home';
 </ion-header>
 <ion-content>
     <section id="tab-content" padding>
-        You should receive an email/text shortly to complete your user ID/password reset
+        <p>You should receive an email/text shortly to complete your user ID/password reset</p>
     </section>
 </ion-content>
 <ion-footer class="action-footer">
