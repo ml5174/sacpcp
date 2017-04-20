@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component } from '@angular/core'
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
@@ -10,7 +10,7 @@ import { HomePage } from '../home/home';
 </ion-header>
 <ion-content>
     <section id="tab-content" padding>
-    We've sent out your password recovery through your selected method. Please try again in an hour and make sure the information is entered in correctly.
+        You should receive an email/text shortly to complete your user ID/password reset
     </section>
 </ion-content>
 <ion-footer class="action-footer">
