@@ -46,7 +46,8 @@ export class ContactPage {
   back() {
     this.nav.pop();
   }
-
+  
+  //function to open a link in a new window
   openLink(link){
     window.open(link);
   }
