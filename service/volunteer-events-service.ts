@@ -25,7 +25,8 @@ export class VolunteerEventsService {
     private event: any = {
         event_id: <string>{},
         notification_option: <number>{},
-        notification_schedule : <number>{}
+        notification_schedule: <number>{},
+        overlap_override: <boolean>{}
     };
     constructor(private http: Http,
                 private userServices: UserServices) {
@@ -73,6 +74,7 @@ export class VolunteerEventsService {
     eventRegisterAndSetReminder(eventId: number, notification_opt: number, notification_sched :number): Observable<any> {
         this.event.event_id = eventId;
         this.event.notification_option = notification_opt;
+        this.event.overlap_override = true;
         this.event.notification_schedule = notification_sched;
         return this.http.post(SERVER + EVENT_SIGNUP_URI, this.event, this.getOptions())
             .map(res => res.json())
