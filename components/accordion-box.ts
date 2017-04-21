@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild} from '@angular/core'
+import { Component, Input } from '@angular/core'
 
 @Component({
  selector: 'accordion-box',
@@ -14,7 +14,7 @@ export class AccordionBox {
 
 	constructor() { }
 	
-	ngAfterViewInit(){
+	ngOnInit(){
 	this.title = this.accordionTitle;
 	}
 	

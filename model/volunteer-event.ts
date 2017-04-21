@@ -1,5 +1,3 @@
-import { EventImage } from './eventImage';
-
 export class VolunteerEvent {
   id: string;
   start: Date = new Date();
