@@ -19,6 +19,10 @@ import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { AppVersion } from 'ionic-native';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package';
+import { DONATE_URL } from '../lib/provider/config';
+
+declare var window;
+declare var cordova;
 
 @Component({
   templateUrl: 'app.html',
@@ -96,7 +100,10 @@ export class MyApp {
     console.log("after ready!");
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.hide();
+      StatusBar.show();
+      StatusBar.overlaysWebView(false);
+      StatusBar.styleDefault();
+      console.log(StatusBar);
       //Keyboard.disableScroll(true);
       Keyboard.hideKeyboardAccessoryBar(false);
 
@@ -136,8 +143,17 @@ export class MyApp {
     this.userServices.user = new UserProfile();
     this.nav.setRoot(HomePage);
   }
-  donate() {
-    window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank');
+  donate() { 
+     if(this.platform.is('ios') || this.platform.is('android')) { 
+       if (cordova && cordova.InAppBrowser) { 
+         cordova.InAppBrowser.open(DONATE_URL, '_blank'); 
+       } else {
+         window.open(DONATE_URL, '_blank'); 
+       }
+     }
+     else {
+       window.open(DONATE_URL, '_blank'); 
+     }
   }
 
   private detectOldIE() {
@@ -218,8 +234,9 @@ export class MyApp {
       this.storage.set('version', version).then((resource) => {
           console.log('Storing Marketing Version: ' + this.appMarketingVersion);
         });
-      this.storage.set('build', version).then((resource) => {
-          console.log('Storing Build Version: ' + this.appBuildVersion);
+      let buildNumberNonMobileFE = "_build_number_";
+      this.storage.set('build', buildNumberNonMobileFE).then((resource) => {
+         console.log('Storing Build Version: ' + buildNumberNonMobileFE);
         });
     }
   }

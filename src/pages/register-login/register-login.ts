@@ -1,10 +1,7 @@
 import { Component , ViewChild} from '@angular/core'
 import { UserServices } from '../../lib/service/user';
-import { NavController, NavParams, PopoverController, ModalController } from 'ionic-angular';
+import { NavController, PopoverController, ModalController } from 'ionic-angular';
 import { STRINGS } from '../../lib/provider/config';
-import { TermsPage } from '../terms/terms';
-import { ConfirmEmailPage } from '../confirm-email/confirm-email';
-import { ConfirmSMSPage } from '../confirm-sms/confirm-sms';
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { HomePage } from '../home/home';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
@@ -93,8 +90,9 @@ export class RegisterLoginPage {
       // this.sms = '1'+this.contactMethod.mobileNumberAreaCode +
       // this.contactMethod.mobileNumberPrefix+
       // this.contactMethod.mobileNumberLineNumber;
-      this.sms = '1'+this.contactMethod.mobileNumber;    
+      this.sms = this.contactMethod.mobilenumber.getPN();    
       register.phone = this.sms;
+      console.log('about to register with: ' + register.phone);
     }
    
     if (!register.email) delete register.email;
@@ -104,9 +102,9 @@ export class RegisterLoginPage {
       .subscribe(
       key => {
         this.key = key;
-        let myProfile = {
-          'User': registerLogin.username
-        }
+        // let myProfile = {
+        //   'User': registerLogin.username
+        // }
         this.userServices.user.name = this.username;
         
         if (this.remember) {
