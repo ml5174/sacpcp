@@ -1,6 +1,6 @@
 
 
-.detail-popover ion-content {
+.detail-popover ion-content, .popover-ios .detail-popover ion-content,  {
  padding-top:65px;
  overflow-y:auto;
  max-height:400px;
@@ -12,12 +12,6 @@
 .detail-popover .action-footer{
 position:absolute;
 }
-
-
-.detail-popover{
-    
-}
-
 .popover-md .popover-content, .popover-ios .popover-content{
     width:80%;
 }
