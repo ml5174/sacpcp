@@ -472,7 +472,9 @@ export class EventPage {
     
   } */
 
-    showConfirm(id) {
+
+    signupEventRegistration(id) {
+
         this.getEventDetails(id);
         if (this.eventDetail.notification_schedule !="0") {
             let confirm = this.alertCtrl.create({
@@ -510,5 +512,27 @@ export class EventPage {
                 console.log(err);
             });
     }
-
+    cancelEventRegisteration(id) {      
+            let confirm = this.alertCtrl.create({
+                title: '',
+                cssClass: 'alertReminder',
+                message: 'Are you sure you want to cancel this event Registration?',
+                buttons: [
+                    {
+                        text: 'No',
+                        handler: () => {
+                            console.log('No clicked');                           
+                        }
+                    },
+                    {
+                        text: 'Yes',
+                        handler: () => {
+                            console.log('Yes clicked');
+                            this.deRegister(id);
+                        }
+                    }
+                ]
+            });
+            confirm.present();       
+    }
 }

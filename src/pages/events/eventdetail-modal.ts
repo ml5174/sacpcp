@@ -84,7 +84,7 @@ export class EventDetailModal {
                 console.log(err);
             });
     }
-    showConfirm(id,noti_option,noti_schedule) {       
+    signupEventRegistration(id,noti_option,noti_schedule) {       
         if (noti_schedule != "0") {
             let confirm = this.alertCtrl.create({
                 title: '',
@@ -147,5 +147,28 @@ export class EventDetailModal {
     }
     dismiss() {
         this.viewCtrl.dismiss();
+    }
+    cancelEventRegisteration(id) {
+        let confirm = this.alertCtrl.create({
+            title: '',
+            cssClass: 'alertReminder',
+            message: 'Are you sure you want to cancel this event Registration?',
+            buttons: [
+                {
+                    text: 'No',
+                    handler: () => {
+                        console.log('No clicked');
+                    }
+                },
+                {
+                    text: 'Yes',
+                    handler: () => {
+                        console.log('Yes clicked');
+                        this.deRegister(id);
+                    }
+                }
+            ]
+        });
+        confirm.present();
     }
 }
