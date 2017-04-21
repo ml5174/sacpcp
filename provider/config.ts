@@ -32,7 +32,7 @@ export const STRINGS = {
         emergency_contact: 'Emergency Contact',
         tc_version: 'Terms & Conditions',
         password: 'Password',
-        username: 'User Name',
+        username: 'Username',
         password1: 'Password',
         password2: 'Confirm Password',
         email: 'Email',
