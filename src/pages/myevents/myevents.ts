@@ -2,10 +2,11 @@ import {Component} from '@angular/core';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import { UserServices } from '../../lib/service/user';
 import { EventDetailModal } from '../../pages/events/eventdetail-modal';
+import { EventDetailPopup } from '../../pages/events/eventdetail-popup';
 import { ModalController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { HomePage } from '../home/home';
-import { AlertController } from 'ionic-angular';
+import { AlertController, PopoverController } from 'ionic-angular';
 @Component({
   templateUrl: 'myevents.html',
   selector: 'myevents'
@@ -17,6 +18,7 @@ export class MyEventsPage{
         public userServices: UserServices,
         public modalCtrl: ModalController,
         public alertCtrl: AlertController,
+        private popoverCtrl: PopoverController,
               public home: HomePage) {  };
 
     result: any;
@@ -42,6 +44,24 @@ export class MyEventsPage{
             "registered": this.amISignedUp(id)
         });
         eventDetailModal.present();
+    }
+    eventDetailPopup(id) {
+        let eventDetailPopup = this.popoverCtrl.create(EventDetailPopup, {
+            "id": id,
+            "guestUser": false,
+            "registered": this.amISignedUp(id)
+        }, { cssClass: 'detail-popover' });
+
+        let ev = {
+            target: {
+                getBoundingClientRect: () => {
+                    return {
+                        top: '200'
+                    };
+                }
+            }
+        };
+        eventDetailPopup.present({ ev });
     }
     amISignedUp(id) {
         //we return true if there is no user logged in, this prevents the ability
@@ -70,7 +90,7 @@ export class MyEventsPage{
                 this.volunteerEventsService.loadMyEvents();
             });
     }
-    showConfirm(id,toggleevent: any) {
+    signupEventRegistration(id,toggleevent: any) {
        
         if (toggleevent.checked) {
             this.getEventDetails(id);
@@ -88,5 +108,28 @@ export class MyEventsPage{
             err => {
                 console.log(err);
             });
+    }
+    cancelEventRegisteration(id) {
+        let confirm = this.alertCtrl.create({
+            title: '',
+            cssClass: 'alertReminder',
+            message: 'Are you sure you want to cancel this event Registration?',
+            buttons: [
+                {
+                    text: 'No',
+                    handler: () => {
+                        console.log('No clicked');
+                    }
+                },
+                {
+                    text: 'Yes',
+                    handler: () => {
+                        console.log('Yes clicked');
+                        this.deRegister(id);
+                    }
+                }
+            ]
+        });
+        confirm.present();
     }
 }
