@@ -27,7 +27,7 @@
 			<ion-icon class="popover-icon" name="information-circle" (click)="presentUserPopover($event)"></ion-icon>
 			<ion-item no-lines class="">
 				<ion-icon *ngIf="usernameerror" name="alert" item-left isActive="false" [class.error]="usernameerror"></ion-icon>
-				<ion-label stacked>User ID</ion-label>
+				<ion-label stacked>Username</ion-label>
 				<ion-input name="username" required type="text" class="" [(ngModel)]="username" required></ion-input>
 			</ion-item>
 		</div>
