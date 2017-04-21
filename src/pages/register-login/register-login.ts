@@ -160,6 +160,12 @@ export class RegisterLoginPage {
         for (let val in error[key]) {
           let field = '';
           if (STRINGS[key]) field = STRINGS[key] + ': ';
+          // if (key === 'username') {
+          //   this.usernameerror = true;
+          //   this.errors.push(field + 'Invalid Format');
+          // } else {
+          //   this.errors.push(field + error[key][val].toString());
+          // }
           this.errors.push(field + error[key][val].toString());
           if (key === 'username') this.usernameerror = true;
           if (key === 'password1') this.password1error = true;
