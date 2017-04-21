@@ -45,6 +45,7 @@ import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
 import { EventSortPipe, OpportunityPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
+import { RecoverSuccessPage } from '../pages/recover-success/recover-success';
 
 //Added for text-mask, phone number formatting
 import { FormsModule } from '@angular/forms';
@@ -97,7 +98,8 @@ export function translateFactory(http: Http) {
     ContactMethod,
     PhoneInput,
     AccordionBox,
-    PrivacyTermsContent
+    PrivacyTermsContent,
+    RecoverSuccessPage,
   ],
   imports: [
     HttpModule,
@@ -134,6 +136,7 @@ export function translateFactory(http: Http) {
     RegisterIndividualProfilePage,
     EventDetailModal,
     EventDetailPopup,
+    RecoverSuccessPage,
   ],
   providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService]
 })
