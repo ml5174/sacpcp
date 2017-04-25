@@ -32,6 +32,7 @@ export class RegisterLoginPage {
   public key: string = '';
   public val: string = '';
   public errors: Array<string> = [];
+  public errors2 = [] 
   /* Move the email, Phone contact details to a common component -
      ViewChild(ContactMethod)
      This can be reused at multiple pages.
@@ -59,6 +60,7 @@ export class RegisterLoginPage {
   register() {
     let registerLogin = this;
     this.errors = [];
+    this.errors2 = [];
     this.usernameerror = false;
     this.password1error = false;
     this.password2error = false;
@@ -69,6 +71,7 @@ export class RegisterLoginPage {
 
     if (!this.terms) {
       this.errors.push("You must accept Privacy and Terms to proceed.");
+      this.errors2.push({key: "terms", value: "You must accept Privacy and Terms to proceed."});
       return;
     }
 
@@ -165,6 +168,7 @@ export class RegisterLoginPage {
           //   this.errors.push(field + error[key][val].toString());
           // }
           this.errors.push(field + error[key][val].toString());
+          this.errors2.push({key: STRINGS[key], value: error[key][val].toString() });
           if (key === 'username') this.usernameerror = true;
           if (key === 'password1') this.password1error = true;
           if (key === 'password2') this.password2error = true;

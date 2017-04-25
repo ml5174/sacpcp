@@ -23,6 +23,7 @@ export class RegisterIndividualProfilePage {
   public key: string = '';
   public val: string = '';
   public errors: Array<string> = [];
+  public errors2 = [];
 
   // Error booleans
   public firstnameerror: boolean = false;
@@ -416,6 +417,7 @@ export class RegisterIndividualProfilePage {
 
   clearErrors() {
         this.errors = [];
+        this.errors2 = [];
 
         this.firstnameerror=false;
         this.lastnameerror=false;
@@ -459,6 +461,7 @@ export class RegisterIndividualProfilePage {
           let field = '';
           if (STRINGS[key]) field = STRINGS[key] + ': ';
           this.errors.push(field + error[key][val].toString());
+          this.errors2.push({key: key, value: val});
 //          this[key + "error"] = true;
           if (key==='first_name') this.firstnameerror=true;
           if (key==='last_name') this.lastnameerror=true;
