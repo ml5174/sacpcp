@@ -45,13 +45,18 @@
 				<accordion-box accordionTitle="{{'My Info' | translate}}">
                 <ion-list class="accordion-content">
                     <ion-item no-lines class="">
-                        <ion-icon name="alert" item-left [class.error]="firstnameerror" *ngIf="firstnameerror"></ion-icon>
+                        <ion-icon name="alert" item-left [class.error]="firstnameerror" *ngIf="firstnameerror">Tyler</ion-icon>
+                        <ion-card [hidden]="firstnameerror" style="color:#CC1F2C"><ion-card-content>CustomError</ion-card-content></ion-card>
                         <ion-label stacked>*{{"First Name" | translate }}</ion-label>
                         <ion-input name="myProfile.first_name" type="string" class="" [(ngModel)]="myProfile.first_name" required></ion-input>
                     </ion-item>
 
                     <ion-item no-lines class="">
-                        <ion-icon name="alert" item-left [class.error]="lastnameerror" *ngIf="lastnameerror"></ion-icon>
+                        <!--<ion-icon name="alert" item-left [class.error]="lastnameerror" *ngIf="lastnameerror"></ion-icon>-->
+                        <ion-item no-lines [class.error]="lastnameerror" ng-show="lastnameerror" class="word-wrap: break-word;" text-wrap>
+                            <ion-icon name="alert" item-left></ion-icon>
+                            <p style="color:#CC1F2C">LastNameError!</p>
+                        </ion-item>
                         <ion-label stacked>*{{"Last Name" | translate }}</ion-label>
                         <ion-input name="myProfile.last_name" type="string" class="" [(ngModel)]="myProfile.last_name" required></ion-input>
                     </ion-item>
@@ -97,7 +102,11 @@
                     </ion-item>
 
                     <ion-item no-lines class="">
-                        <ion-icon name="alert" item-left [class.error]="zipcodeerror" *ngIf="zipcodeerror"></ion-icon>
+                        <!--<ion-icon name="alert" item-left [class.error]="zipcodeerror" *ngIf="zipcodeerror"></ion-icon>-->
+                        <ion-item no-lines *ngIf="zipcodeerror" class="word-wrap: break-word;" text-wrap>
+                            <ion-icon name="alert" [class.error]="zipcodeerror" item-left></ion-icon>
+                            <p style="color:#CC1F2C">{{error}}</p>
+                        </ion-item>
                         <ion-label stacked>{{"Zip Code" | translate }}</ion-label>
                         <ion-input name="myProfile.zipcode" type="string" placeholder="" class="" [(ngModel)]="myProfile.zipcode"></ion-input>
                     </ion-item>
@@ -119,7 +128,11 @@
                     </ion-item>
                     <ion-list>
                         <ion-item no-lines>
-                            <ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
+                            <!--<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>-->
+                            <ion-item no-lines [class.error]="mobilenumbererror" *ngIf="mobilenumbererror" class="word-wrap: break-word;" text-wrap>
+                                <ion-icon name="alert" [class.error]="mobilenumbererror" item-left></ion-icon>
+                                <p style="color:#CC1F2C">{{error}}</p>
+                            </ion-item>
                             <ion-label stacked>{{"Mobile Phone" | translate }}</ion-label>
                         </ion-item>
 
