@@ -74,7 +74,7 @@
 	<ion-grid>
 		<ion-row>
 			<ion-col width-50>
-                <button ion-button small color="primary" *ngIf="!signedUp" (click)="signupEventRegistration(eventDetail.id,eventDetail.notification_option,eventDetail.notification_schedule)">Sign Up</button>
+                <button ion-button small color="primary" *ngIf="!signedUp" (click)="signupEventRegistration(eventDetail.id,eventDetail.notification_schedule)">Sign Up</button>
                 <button ion-button item-left small color="primary" *ngIf="signedUp" (click)="cancelEventRegisteration(eventDetail.id)">Cancel Sign-Up</button>
 			</ion-col>
 			<ion-col width-50>
