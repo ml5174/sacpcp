@@ -58,6 +58,8 @@ export class RegisterIndividualProfilePage {
   public password1error:  boolean = false;
   public password2error:  boolean = false;
 
+  public requiredFieldError: boolean = false;
+
   public relationships = [
     "Parent/Guardian",
     "Spouse",
@@ -131,7 +133,15 @@ export class RegisterIndividualProfilePage {
           this.myPreferences = data[0];
           console.log(this.myPreferences);
           this.availablePreferences = data[1];
-          this.myProfile = data[2];
+
+          const getProfileThenCheckRequiredFields = new Promise((resolve,reject) => {
+            this.myProfile = data[2];
+            resolve();
+          });
+          getProfileThenCheckRequiredFields.then((res) => {
+            this.checkRequiredFields();
+          });
+          
 
           this.translateToFormPreferences();
 
@@ -217,10 +227,16 @@ export class RegisterIndividualProfilePage {
     this.showLoading();
     this.clearErrors();
     this.cleanBooleans();
+    console.log(this.mobileNumber);
     this.translateFromFormPreferences();
     this.translateFromFormPhoneNumbers();
-	console.log("myprofile" + JSON.stringify(this.myProfile));
-	console.log("myprefs" + JSON.stringify(this.myPreferences));
+	  console.log("myprofile" + JSON.stringify(this.myProfile));
+	  console.log("myprefs" + JSON.stringify(this.myPreferences));
+
+    console.log(this.myProfile);
+
+    this.checkRequiredFields();
+
     let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
     let updateMyPreferencesObservable =  this.userServices.updateMyPreferences(this.myPreferences);
     let changeMyPasswordObservable = null;
@@ -247,6 +263,43 @@ export class RegisterIndividualProfilePage {
             this.setError(err);
           }),
           val => this.val = val;
+  }
+
+  checkRequiredFields() {
+    console.log(this.myProfile);
+    this.requiredFieldError=false;
+    if(this.myProfile.first_name===undefined) {
+      this.requiredFieldError=true;
+      console.log("first name: " + this.myProfile.first_name);
+    }
+    else if(this.myProfile.last_name===undefined) {
+      this.requiredFieldError=true;
+      console.log("last name: " + this.myProfile.last_name);
+    }
+    else if(this.myProfile.birthdate===undefined) {
+      this.requiredFieldError=true;
+      console.log("bday: " + this.myProfile.birthdate);
+    }
+    else if(this.myProfile.gender===undefined){
+      this.requiredFieldError=true;
+      console.log("gender: " + this.myProfile.gender);
+    }
+    else if(this.myProfile.emergency_contact.first_name===undefined) {
+      this.requiredFieldError=true;
+      console.log("ec first name: " + this.myProfile.emergency_contact.first_name);
+    }
+    else if(this.myProfile.emergency_contact.last_name===undefined) {
+      this.requiredFieldError=true;
+      console.log("ec last name: " + this.myProfile.emergency_contact.last_name);
+    }
+    else if(this.myProfile.emergency_contact.relation===undefined) {
+      this.requiredFieldError=true;
+      console.log("ec relation: " + this.myProfile.emergency_contact.relation);
+    }
+    else if(this.myProfile.emergency_contact.mobilenumber===undefined) {
+      this.requiredFieldError=true;
+      console.log("ec mobile number: " + this.myProfile.emergency_contact.mobilenumber);
+    }
   }
 
   cleanBooleans() {
@@ -345,6 +398,7 @@ export class RegisterIndividualProfilePage {
     //   this.myProfile.emergency_contact.mobilenumber = "";
     // }
     if (this.emergencyNumber.getPN()) {
+      console.log("emergency number: " + this.emergencyNumber.getPN())
       this.myProfile.emergency_contact.mobilenumber = this.emergencyNumber.getPN();
     }
 
@@ -454,6 +508,7 @@ export class RegisterIndividualProfilePage {
   setError(error) {
     if (error.status === 400) {
       error = error.json();
+      console.log(error);
       for (let key in error) {
         for (let val in error[key]) {
           let field = '';
@@ -463,6 +518,7 @@ export class RegisterIndividualProfilePage {
           if (key==='first_name') this.firstnameerror=true;
           if (key==='last_name') this.lastnameerror=true;
           if (key==='birthdate') this.birthdateerror=true;
+          /*
           if (key==='my_contactmethod_id') this.my_contactmethod_iderror=true;
           if (key==='my_volunteertype_id') this.my_volunteertype_iderror=true;
           if (key==='acceptedwaiver') this.acceptedwaivererror=true;
@@ -486,6 +542,7 @@ export class RegisterIndividualProfilePage {
           if (key==='old_password') this.passworderror=true;
           if (key==='new_password1') this.password1error=true;
           if (key==='new_password2') this.password2error=true;
+          */
 
           if (key==='contact')  {
             let object = error[key];
