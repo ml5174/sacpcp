@@ -49,6 +49,9 @@ export class EventPage {
   public eventDetail: EventDetail;
   public signedUp: Boolean = false;
   public volunteerEvents: Array<VolunteerEvent> = [];
+  public contacts: string[];
+  
+
   constructor(public volunteerEventsService: VolunteerEventsService,
     public userServices: UserServices,
     public modalCtrl: ModalController,
@@ -58,7 +61,7 @@ export class EventPage {
     private sortPipe: EventSortPipe,
     public toastController: ToastController,
     public nav: Nav,
-    public navParams: NavParams, ) {
+    public navParams: NavParams ) {
   }
 
   ngOnInit() {
@@ -131,32 +134,51 @@ export class EventPage {
 
   openEventDetail(id) {
     //console.log("open page!");
+    this.getContacts();
+    this.signedUp = this.amISignedUp(id);
     this.getEventDetails(id);
-    this.signedUp = this.amISignedUp(id)
+    
   }
 
-  getEventDetails(id) {
-    this.volunteerEventsService
-      .getAdminEventDetails(id).
+  getContacts(){     
+      let self = this;
+      this.volunteerEventsService
+      .getContacts().
       subscribe(
       event => {
-        this.eventDetail = event, this.assignEventDetail(this.eventDetail)
+        self.contacts = event;
+  
       },
       err => {
         console.log(err);
       });
-
+      
   }
+ 
+  getEventDetails(id) {
+    let self = this;
+    this.volunteerEventsService
+      .getAdminEventDetails(id)
+      .subscribe(
+            event => {
+              self.eventDetail = event, this.assignEventDetail( this.eventDetail );
+            },
+            err => {
+              console.log(err);
+            }
+          );
+  }
+
+
 
   assignEventDetail(ed: EventDetail) {
-    this.eventDetail = ed;
-    this.nav.push(EditEventDetailPage, { eventDetailKey: this.eventDetail, "signedUp": this.signedUp });
+    this.nav.push(EditEventDetailPage, { eventDetailKey: this.eventDetail, "signedUp": this.signedUp , "contacts":this.contacts });
   }
-
 
   onCancel(event: any) {
     this.search = false;
   }
+
   getItems(ev: any) {
 
     if (ev.target.value == undefined) {

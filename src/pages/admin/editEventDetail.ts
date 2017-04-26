@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, ToastController,AlertController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ToastController, AlertController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import { NOTIFICATION_OPTIONS, NOTIFICATION_SCHEDULE, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION } from './../../lib/provider/eventConstants';
@@ -30,11 +30,12 @@ export class EditEventDetailPage {
     eStatus = EVENT_STATUS;
     eventDate: any;
     endDateTime: any;
-    startDateTime : any;
+    startDateTime: any;
     showVolunteerDetails: Boolean = false;
     showSpecialInstructions: Boolean = false;
     showContactInformation: Boolean = false;
     contacts: string[];
+
     constructor(private volunteerEventsService: VolunteerEventsService,
         private userServices: UserServices,
         public nav: NavController,
@@ -42,23 +43,19 @@ export class EditEventDetailPage {
         public viewCtrl: ViewController,
         public toastController: ToastController,
         public alertCtrl: AlertController) {
+
         this.eventDetail = this.navParams.get('eventDetailKey');
+        this.contacts = this.navParams.get('contacts');
         this.signedUp = this.navParams.get('signedUp');
         this.viewCtrl = viewCtrl;
         if (this.eventDetail.creation_date) {
             this.daysLeftUntilStartDate = moment(this.eventDetail.creation_date).date();
         }
-        if (this.eventDetail.start) {
-            //this.startDateTime = moment(this.eventDetail.start).format('hh:mm A');// Time
-            //sthis.startDateTime= moment(this.eventDetail.start).hours();
-        }                    
-        
         if (this.eventDetail.end) {
             this.endDateTime = moment(this.eventDetail.end).hours();//Time
-        }     
-          
+        }
+  
     }
-
 
 
     back() {
@@ -92,6 +89,7 @@ export class EditEventDetailPage {
                 this.getAdminEventDetails(id);
             });
     }
+
     deRegister(id) {
         this.volunteerEventsService
             .eventDeregister(id).subscribe(
@@ -132,12 +130,11 @@ export class EditEventDetailPage {
 
     // Update EventDetail
     updateEventDetails(id) {
-  
-      for(var i in this.eventDetail.contacts)
-      {
-          console.log(" >>>>>>>>>FN ====>>> "+this.eventDetail.contacts[i]["user_contact"].first_name );
-          
-      }
+
+        // for(var i in this.eventDetail.contacts)
+        //   {
+        //     console.log(" >>>>>>>>>FN ====>>> "+this.eventDetail.contacts[i]["user_contact"].first_name );
+        // }
 
         this.volunteerEventsService
             .updateEventDetails(this.eventDetail).subscribe(
@@ -155,7 +152,25 @@ export class EditEventDetailPage {
             });
     }
 
+    updateContact( selected_owner_id ) {
+       console.log("====>>>> " + selected_owner_id);
+        var contact = {contacts : [{owner_id: selected_owner_id}]};
+        
+        this.volunteerEventsService
+            .updateContact(this.eventDetail, contact).subscribe(
+            result => {
+                this.eventDetail = result;
+                this.presentToast("Contact added for Event Detail successfully!");
 
+            },
+            err => {
+                console.log(err);
+                this.presentToast("Error in adding Contact for Event Details!");
+            }, () => {
+                this.getAdminEventDetails(this.eventDetail.id);
+
+            });
+    }
 
     getAdminEventDetails(id) {
         this.volunteerEventsService
@@ -170,7 +185,7 @@ export class EditEventDetailPage {
 
     assignEventDetail(ed: EventDetail) {
         this.eventDetail = ed;
-             
+
     }
 
     cancelEvent(id) {
@@ -196,39 +211,37 @@ export class EditEventDetailPage {
     }
 
 
+    confirmCancelEvent(event_Id) {
+        let confirm = this.alertCtrl.create({
+            //title: 'Use this lightsaber?',
+            message: 'Are you sure you want to cancel this oppurtunity?',
+            buttons: [
+                {
+                    text: 'No',
+                    handler: () => {
+                        console.log('No clicked');
 
+                    }
+                },
+                {
+                    text: 'Yes',
+                    handler: () => {
+                        console.log('Yes clicked');
+                        this.cancelEvent(event_Id);
 
- confirmCancelEvent(event_Id) {
-    let confirm = this.alertCtrl.create({
-      //title: 'Use this lightsaber?',
-      message: 'Are you sure you want to cancel this oppurtunity?',
-      buttons: [
-        {
-          text: 'No',
-          handler: () => {
-            console.log('No clicked');
+                    }
+                }
+            ]
+        });
+        confirm.present();
+    }
 
-          }
-        },
-        {
-          text: 'Yes',
-          handler: () => {
-            console.log('Yes clicked');
-            this.cancelEvent(event_Id);
-            
-          }
-        }
-      ]
-    });
-    confirm.present();
-  }
-
-  eventCancelledConfirmation() {
-    let alert = this.alertCtrl.create({
-      //title: 'New Friend!',
-      message: 'Opportunity successfully cancelled and email notification is sent to registered users',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
+    eventCancelledConfirmation() {
+        let alert = this.alertCtrl.create({
+            //title: 'New Friend!',
+            message: 'Opportunity successfully cancelled and email notification is sent to registered users',
+            buttons: ['OK']
+        });
+        alert.present();
+    }
 }

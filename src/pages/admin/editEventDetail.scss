@@ -3,3 +3,8 @@
        left: 5px; /* This will move it 20px to the right */
      
 }
+.twoColumn {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+}
