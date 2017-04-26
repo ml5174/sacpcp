@@ -251,11 +251,13 @@
             Save
           </button>
       </ion-col>
+      <!--
       <ion-col width-30>
         <button ion-button small color="primary" (click)="backToEventList(eventDetail.creation_date)">Back</button>
       </ion-col>
+      -->
       <ion-col width-30>
-        <button ion-button small color="primary" *ngIf="!signedUp" (click)="signup(eventDetail.id)">Register</button>
+        <button ion-button small color="primary" *ngIf="!signedUp" (click)="signup(eventDetail.id)">Sign up</button>
         <button ion-button small color="primary" *ngIf="signedUp" (click)="deRegister(eventDetail.id)">Un-Register</button>
       </ion-col>
     </ion-row>
