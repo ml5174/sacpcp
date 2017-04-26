@@ -1,6 +1,6 @@
 
 
-.detail-popover ion-content, .popover-ios .detail-popover ion-content,  {
+.detail-popover ion-content{
  padding-top:65px;
  overflow-y:auto;
  max-height:400px;
@@ -8,10 +8,18 @@
  display:inline-block;
  margin-bottom:30px;
 }
+.detail-popover ion-content.content.content-ios ::-webkit-scrollbar{
+ display:none;
+}
+.detail-popover ion-footer.action-footer{
 
-.detail-popover .action-footer{
+display:inline-flex;
+overflow:hidden;
 position:absolute;
 }
+
 .popover-md .popover-content, .popover-ios .popover-content{
     width:80%;
+    overflow:hidden;
+  
 }
