@@ -25,6 +25,7 @@ export class EventDetail {
   min_volunteers: string;
   notification_option: string;
   notification_schedule: string;
+  event_notification_schedule: string;
   occ_parent: string;
   occ_status: string;
   rule: string;

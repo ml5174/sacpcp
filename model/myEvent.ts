@@ -12,5 +12,7 @@ export class MyEvent {
   location_state: string;
   location_zipcode: string;
   description: string = "";
-  notification_options: number;
+  notification_options: string;
+  event_notification_schedule: string;
+  overlap_override: boolean;
 }
