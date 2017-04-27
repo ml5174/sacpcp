@@ -1,10 +1,12 @@
 {
   "name": "DFW",
-  "author": "att",
   "version": "1.0.0",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
+    "electron": "electron .",
+    "electron dist": "electron .",
+    "ebuild":"node_modules/.bin/build",
     "build": "ionic-app-scripts build",
     "clean": "ionic-app-scripts clean",
     "ionic:build": "ionic-app-scripts build",
@@ -39,7 +41,10 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "1.0.0",
+    "@types/electron": "^1.4.37",
     "@types/moment-timezone": "^0.2.32",
+    "electron": "^1.6.6",
+    "electron-builder": "^17.1.1",
     "typescript": "2.0.9"
   },
   "cordovaPlugins": [
@@ -58,5 +63,24 @@
       "locator": "ios"
     }
   ],
-  "description": "savi: An Ionic project"
+  "description": "savi: An Ionic project",
+  "author": {
+    "name": "att",
+    "email": "ml5174@att.com",
+    "url": "https://att.com/"
+  },
+  "main": "electron/electron.js",
+  "config": {
+    "ionic_bundler": "webpack",
+    "ionic_webpack": "./config/webpack.config.js"
+  },
+  "build": {
+    "appId": "com.lohanitech.ionic-electron-test",
+    "electronVersion": "1.6.2",
+    "asar":false,
+    "files": [
+      "www/**/*",
+      "electron/*"
+    ]
+  }
 }
