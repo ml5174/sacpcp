@@ -23,7 +23,7 @@ export class RegisterIndividualProfilePage {
   public key: string = '';
   public val: string = '';
   public errors: Array<string> = [];
-  public errors2 = [];
+  public errors2: any = [];
 
   // Error booleans
   public firstnameerror: boolean = false;
@@ -58,6 +58,41 @@ export class RegisterIndividualProfilePage {
   public passworderror:  boolean = false;
   public password1error:  boolean = false;
   public password2error:  boolean = false;
+
+  // Error values
+  public firstnameerrorvalue: string = "";
+  public lastnameerrorvalue: string = "";
+  public birthdateerrorvalue:  string = "";
+  public my_contactmethod_iderrorvalue:  string = "";
+  public my_volunteertype_iderrorvalue:  string = "";
+  public acceptedwaivererrorvalue: string = "";
+  public acceptedpolicyerrorvalue: string = "";
+  public com_opt_inerrorvalue: string = "";
+  
+  public mobilenumbererrorvalue: string = "";
+  public emailerrorvalue: string = "";
+  public parent_consenterrorvalue: string = "";
+
+  public gendererrorvalue: string = "";
+  public address1errorvalue: string = "";
+  public address2errorvalue: string = "";
+  public cityerrorvalue: string = "";
+  public stateerrorvalue: string = "";
+  public zipcodeerrorvalue:  string = "";
+  public my_servicearea_iderrorvalue:  string = "";
+  public my_referalsource_iderrorvalue:  string = "";
+  public my_donationtype_iderrorvalue:  string = "";
+
+  public ecfirstnameerrorvalue:  string = "";
+  public eclastnameerrorvalue:  string = "";
+  public ecrelationerrorvalue:  string = "";
+  public ecmobilenumbererrorvalue:  string = "";
+  public ecaltnumbererrorvalue:  string = "";
+
+  public passworderrorvalue:  string = "";
+  public password1errorvalue:  string = "";
+  public password2errorvalue:  string = "";
+
 
   public relationships = [
     "Parent/Guardian",
@@ -451,8 +486,42 @@ export class RegisterIndividualProfilePage {
         this.passworderror=false;
         this.password1error=false;
         this.password2error=false;
-  }
+
+        this.firstnameerrorvalue = "";
+        this.lastnameerrorvalue = "";
+        this.birthdateerrorvalue = "";
+        this.my_contactmethod_iderrorvalue = "";
+        this.my_volunteertype_iderrorvalue = "";
+        this.acceptedwaivererrorvalue = "";
+        this.acceptedpolicyerrorvalue = "";
+        this.com_opt_inerrorvalue = "";
   
+        this.mobilenumbererrorvalue = "";
+        this.emailerrorvalue = "";
+        this.parent_consenterrorvalue = "";
+
+        this.gendererrorvalue = "";
+        this.address1errorvalue = "";
+        this.address2errorvalue = "";
+        this.cityerrorvalue = "";
+        this.stateerrorvalue = "";
+        this.zipcodeerrorvalue = "";
+        this.my_servicearea_iderrorvalue = "";
+        this.my_referalsource_iderrorvalue = "";
+        this.my_donationtype_iderrorvalue = "";
+
+        this.ecfirstnameerrorvalue = "";
+        this.eclastnameerrorvalue = "";
+        this.ecrelationerrorvalue = "";
+        this.ecmobilenumbererrorvalue = "";
+        this.ecaltnumbererrorvalue = "";
+
+        this.passworderrorvalue = "";
+        this.password1errorvalue = "";
+        this.password2errorvalue = "";
+  }
+  //TS4124
+  //TODO
   setError(error) {
     if (error.status === 400) {
       error = error.json();
@@ -461,18 +530,36 @@ export class RegisterIndividualProfilePage {
           let field = '';
           if (STRINGS[key]) field = STRINGS[key] + ': ';
           this.errors.push(field + error[key][val].toString());
-          this.errors2.push({key: key, value: val});
+          var message = error[key][val].toString();
 //          this[key + "error"] = true;
-          if (key==='first_name') this.firstnameerror=true;
-          if (key==='last_name') this.lastnameerror=true;
-          if (key==='birthdate') this.birthdateerror=true;
-          if (key==='my_contactmethod_id') this.my_contactmethod_iderror=true;
-          if (key==='my_volunteertype_id') this.my_volunteertype_iderror=true;
-          if (key==='acceptedwaiver') this.acceptedwaivererror=true;
-          if (key==='acceptedpolicy') this.acceptedpolicyerror=true;
-          if (key==='com_opt_in') this.com_opt_inerror=true;
+          if (key==='first_name') {
+            this.firstnameerror=true;
+            this.firstnameerrorvalue=message;
+          }
+          if (key==='last_name') {
+            this.lastnameerror=true;
+          }
+          if (key==='birthdate') {
+            this.birthdateerror=true;}
+          if (key==='my_contactmethod_id') {
+            this.my_contactmethod_iderror=true;
+          }
+          if (key==='my_volunteertype_id') {
+            this.my_volunteertype_iderror=true;
+          }
+          if (key==='acceptedwaiver') {
+            this.acceptedwaivererror=true;
+          }
+          if (key==='acceptedpolicy') {
+            this.acceptedpolicyerror=true;
+          }
+          if (key==='com_opt_in') {
+            this.com_opt_inerror=true;
+          }
 
-          if (key==='mobilenumber') this.mobilenumbererror=true;
+          if (key==='mobilenumber') {
+            this.mobilenumbererror=true;
+          }
           if (key==='email') this.emailerror=true;
           if (key==='parent_consent') this.parent_consenterror=true;
 
@@ -550,6 +637,16 @@ export class RegisterIndividualProfilePage {
     popover.present({
       ev: ev
     });
+  }
+
+  filterErrors(key: string) {
+    var value;
+
+    var errors2json = this.errors2.JSON;
+    if (!!errors2json[key]){
+        return errors2json[key];
+    } 
+    return ('invalid' + key); 
   }
 
 }

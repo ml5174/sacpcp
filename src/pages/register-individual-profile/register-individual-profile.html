@@ -45,7 +45,7 @@
 				<accordion-box accordionTitle="{{'My Info' | translate}}">
                 <ion-list class="accordion-content">
                     <ion-item no-lines class="">
-                        <ion-icon name="alert" item-left [class.error]="firstnameerror" *ngIf="firstnameerror">Tyler</ion-icon>
+                        <ion-icon name="alert" item-left [class.error]="firstnameerror" *ngIf="firstnameerror">{{firstnameerrorvalue}}</ion-icon>
                         <ion-card [hidden]="firstnameerror" style="color:#CC1F2C"><ion-card-content>CustomError</ion-card-content></ion-card>
                         <ion-label stacked>*{{"First Name" | translate }}</ion-label>
                         <ion-input name="myProfile.first_name" type="string" class="" [(ngModel)]="myProfile.first_name" required></ion-input>
