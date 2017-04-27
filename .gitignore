@@ -4,6 +4,7 @@
 /src/lib/
 node_modules/
 www/
+dist/
 platforms/
 plugins/
 hooks/
