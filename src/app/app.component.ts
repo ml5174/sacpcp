@@ -197,6 +197,8 @@ export class MyApp {
       },
       err =>{
         console.error("Error : "+err);
+        this.storage.set('serverVersion', '0.0');
+        this.storage.set('serverEnv', 'N/A');
       } ,
       () => {
         console.log('getData completed');
