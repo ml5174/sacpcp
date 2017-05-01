@@ -538,66 +538,129 @@ export class RegisterIndividualProfilePage {
           }
           if (key==='last_name') {
             this.lastnameerror=true;
+            this.lastnameerrorvalue=message;
           }
           if (key==='birthdate') {
-            this.birthdateerror=true;}
+            this.birthdateerror=true;
+            this.birthdateerrorvalue=message;
+          }
           if (key==='my_contactmethod_id') {
             this.my_contactmethod_iderror=true;
+            this.my_contactmethod_iderrorvalue=message;
           }
           if (key==='my_volunteertype_id') {
             this.my_volunteertype_iderror=true;
+            this.my_volunteertype_iderrorvalue=message;
           }
           if (key==='acceptedwaiver') {
             this.acceptedwaivererror=true;
+            this.acceptedwaivererrorvalue=message;
           }
           if (key==='acceptedpolicy') {
             this.acceptedpolicyerror=true;
+            this.acceptedpolicyerrorvalue=message;
           }
           if (key==='com_opt_in') {
             this.com_opt_inerror=true;
+            this.com_opt_inerrorvalue=message;
           }
 
           if (key==='mobilenumber') {
             this.mobilenumbererror=true;
+            this.mobilenumbererror=message;
           }
-          if (key==='email') this.emailerror=true;
-          if (key==='parent_consent') this.parent_consenterror=true;
+          if (key==='email') {
+            this.emailerror=true;
+            this.emailerrorvalue=message;
+          }
+          if (key==='parent_consent') {
+            this.parent_consenterror=true;
+            this.parent_consenterrorvalue=message;
+          }
 
-          if (key==='gender') this.gendererror=true;
-          if (key==='address1') this.address1error=true;
-          if (key==='address2') this.address2error=true;
-          if (key==='city') this.cityerror=true;
-          if (key==='state') this.stateerror=true;
-          if (key==='zipcode') this.zipcodeerror=true;
-          if (key==='my_servicearea_id') this.my_servicearea_iderror=true;
-          if (key==='my_referalsource_id') this.my_referalsource_iderror=true;
-          if (key==='my_donationtype_id') this.my_donationtype_iderror=true;
+          if (key==='gender') {
+            this.gendererror=true;
+            this.gendererrorvalue=message;
+          }
+          if (key==='address1') {
+            this.address1error=true;
+            this.address1errorvalue=message;
+          }
+          if (key==='address2') {
+            this.address2error=true;
+            this.address2errorvalue=message;;
+          }
+          if (key==='city') {
+            this.cityerror=true;
+            this.cityerrorvalue=message;
+          }
+          if (key==='state') {
+            this.stateerror=true;
+            this.stateerrorvalue
+          }
+          if (key==='zipcode') {
+            this.zipcodeerror=true;
+            this.zipcodeerrorvalue=message;
+          }
+          if (key==='my_servicearea_id') {
+            this.my_servicearea_iderror=true;
+            this.my_servicearea_iderrorvalue=message;
+          }
+          if (key==='my_referalsource_id') {
+            this.my_referalsource_iderror=true;
+            this.my_referalsource_iderrorvalue=message;}
+          if (key==='my_donationtype_id') {
+            this.my_donationtype_iderror=true;
+            this.my_donationtype_iderrorvalue=message;
+          }
 
-          if (key==='old_password') this.passworderror=true;
-          if (key==='new_password1') this.password1error=true;
-          if (key==='new_password2') this.password2error=true;
+          if (key==='old_password') {
+            this.passworderror=true;
+            this.passworderrorvalue=message;
+          }
+          if (key==='new_password1') {
+            this.password1error=true;
+            this.password1errorvalue=message;
+          }
+          if (key==='new_password2') {
+            this.password2error=true;
+            this.password2errorvalue=message;
+          }
 
           if (key==='contact')  {
             let object = error[key];
             if (object.mobilenumber) {
               this.mobilenumbererror=true;
+              this.mobilenumbererrorvalue=message;
             }
             if (object.email) {
               this.emailerror=true;
+              this.emailerrorvalue=message;
             }
           }
           if (key==='emergency_contact')  {
             let object = error[key];
             if (object.mobilenumber) {
               this.ecmobilenumbererror=true;
+              this.ecmobilenumbererrorvalue=message;
             }
             if (object.altnumber) {
               this.ecaltnumbererror=true;
+              this.ecaltnumbererrorvalue=message;
             }
           }
-          if (key==='emergency_contact_first_name') this.ecfirstnameerror=true;
-          if (key==='emergency_contact_last_name') this.eclastnameerror=true;
-          if (key==='emergency_contact_relation') this.ecrelationerror=true;
+          if (key==='emergency_contact_first_name') {
+            this.ecfirstnameerror=true;
+            this.ecfirstnameerrorvalue=message;
+          }
+          if (key==='emergency_contact_last_name') {
+            this.eclastnameerror=true;
+            this.eclastnameerrorvalue=message;
+          }
+          if (key==='emergency_contact_relation') {
+            this.ecrelationerror=true;
+            this.ecrelationerrorvalue=message;
+          }
         }
       }
       this.content.scrollToTop();
