@@ -60,6 +60,41 @@ export class RegisterIndividualProfilePage {
 
   public requiredFieldError: boolean = false;
 
+  // Error values
+  public firstnameerrorvalue: string = "";
+  public lastnameerrorvalue: string = "";
+  public birthdateerrorvalue:  string = "";
+  public my_contactmethod_iderrorvalue:  string = "";
+  public my_volunteertype_iderrorvalue:  string = "";
+  public acceptedwaivererrorvalue: string = "";
+  public acceptedpolicyerrorvalue: string = "";
+  public com_opt_inerrorvalue: string = "";
+  
+  public mobilenumbererrorvalue: string = "";
+  public emailerrorvalue: string = "";
+  public parent_consenterrorvalue: string = "";
+
+  public gendererrorvalue: string = "";
+  public address1errorvalue: string = "";
+  public address2errorvalue: string = "";
+  public cityerrorvalue: string = "";
+  public stateerrorvalue: string = "";
+  public zipcodeerrorvalue:  string = "";
+  public my_servicearea_iderrorvalue:  string = "";
+  public my_referalsource_iderrorvalue:  string = "";
+  public my_donationtype_iderrorvalue:  string = "";
+
+  public ecfirstnameerrorvalue:  string = "";
+  public eclastnameerrorvalue:  string = "";
+  public ecrelationerrorvalue:  string = "";
+  public ecmobilenumbererrorvalue:  string = "";
+  public ecaltnumbererrorvalue:  string = "";
+
+  public passworderrorvalue:  string = "";
+  public password1errorvalue:  string = "";
+  public password2errorvalue:  string = "";
+
+
   public relationships = [
     "Parent/Guardian",
     "Spouse",
@@ -135,7 +170,7 @@ export class RegisterIndividualProfilePage {
           this.availablePreferences = data[1];
 
           const getProfileThenCheckRequiredFields = new Promise((resolve,reject) => {
-            this.myProfile = data[2];
+          this.myProfile = data[2];
             resolve();
           });
           getProfileThenCheckRequiredFields.then((res) => {
@@ -230,8 +265,8 @@ export class RegisterIndividualProfilePage {
     console.log(this.mobileNumber);
     this.translateFromFormPreferences();
     this.translateFromFormPhoneNumbers();
-	  console.log("myprofile" + JSON.stringify(this.myProfile));
-	  console.log("myprefs" + JSON.stringify(this.myPreferences));
+	console.log("myprofile" + JSON.stringify(this.myProfile));
+	console.log("myprefs" + JSON.stringify(this.myPreferences));
 
     console.log(this.myProfile);
 
@@ -503,6 +538,39 @@ export class RegisterIndividualProfilePage {
         this.passworderror=false;
         this.password1error=false;
         this.password2error=false;
+
+        this.firstnameerrorvalue = "";
+        this.lastnameerrorvalue = "";
+        this.birthdateerrorvalue = "";
+        this.my_contactmethod_iderrorvalue = "";
+        this.my_volunteertype_iderrorvalue = "";
+        this.acceptedwaivererrorvalue = "";
+        this.acceptedpolicyerrorvalue = "";
+        this.com_opt_inerrorvalue = "";
+  
+        this.mobilenumbererrorvalue = "";
+        this.emailerrorvalue = "";
+        this.parent_consenterrorvalue = "";
+
+        this.gendererrorvalue = "";
+        this.address1errorvalue = "";
+        this.address2errorvalue = "";
+        this.cityerrorvalue = "";
+        this.stateerrorvalue = "";
+        this.zipcodeerrorvalue = "";
+        this.my_servicearea_iderrorvalue = "";
+        this.my_referalsource_iderrorvalue = "";
+        this.my_donationtype_iderrorvalue = "";
+
+        this.ecfirstnameerrorvalue = "";
+        this.eclastnameerrorvalue = "";
+        this.ecrelationerrorvalue = "";
+        this.ecmobilenumbererrorvalue = "";
+        this.ecaltnumbererrorvalue = "";
+
+        this.passworderrorvalue = "";
+        this.password1errorvalue = "";
+        this.password2errorvalue = "";
   }
   
   setError(error) {
@@ -514,57 +582,137 @@ export class RegisterIndividualProfilePage {
           let field = '';
           if (STRINGS[key]) field = STRINGS[key] + ': ';
           this.errors.push(field + error[key][val].toString());
+          var message = error[key][val].toString();
 //          this[key + "error"] = true;
-          if (key==='first_name') this.firstnameerror=true;
-          if (key==='last_name') this.lastnameerror=true;
-          if (key==='birthdate') this.birthdateerror=true;
-          /*
-          if (key==='my_contactmethod_id') this.my_contactmethod_iderror=true;
-          if (key==='my_volunteertype_id') this.my_volunteertype_iderror=true;
-          if (key==='acceptedwaiver') this.acceptedwaivererror=true;
-          if (key==='acceptedpolicy') this.acceptedpolicyerror=true;
-          if (key==='com_opt_in') this.com_opt_inerror=true;
+          if (key==='first_name') {
+            this.firstnameerror=true;
+            this.firstnameerrorvalue=message;
+          }
+          if (key==='last_name') {
+            this.lastnameerror=true;
+            this.lastnameerrorvalue=message;
+          }
+          if (key==='birthdate') {
+            this.birthdateerror=true;
+            this.birthdateerrorvalue=message;
+          }
+          if (key==='my_contactmethod_id') {
+            this.my_contactmethod_iderror=true;
+            this.my_contactmethod_iderrorvalue=message;
+          }
+          if (key==='my_volunteertype_id') {
+            this.my_volunteertype_iderror=true;
+            this.my_volunteertype_iderrorvalue=message;
+          }
+          if (key==='acceptedwaiver') {
+            this.acceptedwaivererror=true;
+            this.acceptedwaivererrorvalue=message;
+          }
+          if (key==='acceptedpolicy') {
+            this.acceptedpolicyerror=true;
+            this.acceptedpolicyerrorvalue=message;
+          }
+          if (key==='com_opt_in') {
+            this.com_opt_inerror=true;
+            this.com_opt_inerrorvalue=message;
+          }
 
-          if (key==='mobilenumber') this.mobilenumbererror=true;
-          if (key==='email') this.emailerror=true;
-          if (key==='parent_consent') this.parent_consenterror=true;
+          if (key==='mobilenumber') {
+            this.mobilenumbererror=true;
+            this.mobilenumbererror=message;
+          }
+          if (key==='email') {
+            this.emailerror=true;
+            this.emailerrorvalue=message;
+          }
+          if (key==='parent_consent') {
+            this.parent_consenterror=true;
+            this.parent_consenterrorvalue=message;
+          }
 
-          if (key==='gender') this.gendererror=true;
-          if (key==='address1') this.address1error=true;
-          if (key==='address2') this.address2error=true;
-          if (key==='city') this.cityerror=true;
-          if (key==='state') this.stateerror=true;
-          if (key==='zipcode') this.zipcodeerror=true;
-          if (key==='my_servicearea_id') this.my_servicearea_iderror=true;
-          if (key==='my_referalsource_id') this.my_referalsource_iderror=true;
-          if (key==='my_donationtype_id') this.my_donationtype_iderror=true;
+          if (key==='gender') {
+            this.gendererror=true;
+            this.gendererrorvalue=message;
+          }
+          if (key==='address1') {
+            this.address1error=true;
+            this.address1errorvalue=message;
+          }
+          if (key==='address2') {
+            this.address2error=true;
+            this.address2errorvalue=message;;
+          }
+          if (key==='city') {
+            this.cityerror=true;
+            this.cityerrorvalue=message;
+          }
+          if (key==='state') {
+            this.stateerror=true;
+            this.stateerrorvalue
+          }
+          if (key==='zipcode') {
+            this.zipcodeerror=true;
+            this.zipcodeerrorvalue=message;
+          }
+          if (key==='my_servicearea_id') {
+            this.my_servicearea_iderror=true;
+            this.my_servicearea_iderrorvalue=message;
+          }
+          if (key==='my_referalsource_id') {
+            this.my_referalsource_iderror=true;
+            this.my_referalsource_iderrorvalue=message;}
+          if (key==='my_donationtype_id') {
+            this.my_donationtype_iderror=true;
+            this.my_donationtype_iderrorvalue=message;
+          }
 
-          if (key==='old_password') this.passworderror=true;
-          if (key==='new_password1') this.password1error=true;
-          if (key==='new_password2') this.password2error=true;
-          */
+          if (key==='old_password') {
+            this.passworderror=true;
+            this.passworderrorvalue=message;
+          }
+          if (key==='new_password1') {
+            this.password1error=true;
+            this.password1errorvalue=message;
+          }
+          if (key==='new_password2') {
+            this.password2error=true;
+            this.password2errorvalue=message;
+          }
 
           if (key==='contact')  {
             let object = error[key];
             if (object.mobilenumber) {
               this.mobilenumbererror=true;
+              this.mobilenumbererrorvalue=message;
             }
             if (object.email) {
               this.emailerror=true;
+              this.emailerrorvalue=message;
             }
           }
           if (key==='emergency_contact')  {
             let object = error[key];
             if (object.mobilenumber) {
               this.ecmobilenumbererror=true;
+              this.ecmobilenumbererrorvalue=message;
             }
             if (object.altnumber) {
               this.ecaltnumbererror=true;
+              this.ecaltnumbererrorvalue=message;
             }
           }
-          if (key==='emergency_contact_first_name') this.ecfirstnameerror=true;
-          if (key==='emergency_contact_last_name') this.eclastnameerror=true;
-          if (key==='emergency_contact_relation') this.ecrelationerror=true;
+          if (key==='emergency_contact_first_name') {
+            this.ecfirstnameerror=true;
+            this.ecfirstnameerrorvalue=message;
+          }
+          if (key==='emergency_contact_last_name') {
+            this.eclastnameerror=true;
+            this.eclastnameerrorvalue=message;
+          }
+          if (key==='emergency_contact_relation') {
+            this.ecrelationerror=true;
+            this.ecrelationerrorvalue=message;
+          }
         }
       }
       this.content.scrollToTop();

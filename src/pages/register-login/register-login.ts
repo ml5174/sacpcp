@@ -26,6 +26,15 @@ export class RegisterLoginPage {
   public password2error: boolean = false;
   public emailerror: boolean = false;
   public smserror: boolean = false;
+  public termserror: boolean = false;
+
+  // Error values
+  public usernameerrorvalue: string = '';
+  public password1errorvalue: string = '';
+  public password2errorvalue: string = '';
+  public emailerrorvalue: string = '';
+  public smserrorvalue: string = '';
+  public termserrorvalue: string = "You must accept Privacy and Terms to proceed.";
   
   private modalClicked: boolean = false;
 
@@ -67,8 +76,17 @@ export class RegisterLoginPage {
     this.email = '';
     this.sms = '';
 
+    this.usernameerrorvalue = '';
+    this.password1errorvalue = '';
+    this.password2errorvalue = '';
+    this.emailerrorvalue = '';
+    this.smserrorvalue = '';
+
+
+
     if (!this.terms) {
       this.errors.push("You must accept Privacy and Terms to proceed.");
+      this.termserror = true;
       return;
     }
 
@@ -165,11 +183,27 @@ export class RegisterLoginPage {
           //   this.errors.push(field + error[key][val].toString());
           // }
           this.errors.push(field + error[key][val].toString());
-          if (key === 'username') this.usernameerror = true;
-          if (key === 'password1') this.password1error = true;
-          if (key === 'password2') this.password2error = true;
-          if (key === 'email') this.emailerror = true;
-          if (key === 'sms') this.smserror = true;
+          var message = error[key][val].toString();
+          if (key === 'username') {
+            this.usernameerror = true;
+            this.usernameerrorvalue = message;
+          }
+          if (key === 'password1') {
+            this.password1error = true;
+            this.password1errorvalue = message;  
+          }
+          if (key === 'password2') {
+            this.password2error = true;
+            this.password2errorvalue = message;
+          }
+          if (key === 'email') {
+            this.emailerror = true;
+            this.emailerrorvalue = message;
+          }
+          if (key === 'sms') {
+            this.smserror = true;
+            this.smserrorvalue = message;
+          }
         }
       }
     }
