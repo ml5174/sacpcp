@@ -55,7 +55,7 @@ export class EventPage {
     public loadingController: LoadingController,
   //  private sortPipe: EventSortPipe,
     private parseTimePipe: ParseTimePipe,
-    public alertCtrl: AlertController,
+    public alertCtrl: AlertController,    
     public toastController: ToastController) {
   }
 
@@ -403,21 +403,48 @@ export class EventPage {
       }
     }
     return false;
-  }
-    signup(id,noti_opt,noti_sched) {
+    }
+    signup(id, noti_sched, overlap: boolean) {
         this.volunteerEventsService
-            .eventRegisterAndSetReminder(id, noti_opt,noti_sched).subscribe(
+            .eventRegisterAndSetReminder(id, noti_sched, overlap).subscribe(
             event => {
                       console.log("signed up for event " + id);
                       this.presentToast("Event sign-up successful.");
             },
             err => {
+                if (err._body.indexOf("overlaps")>0)
+                {
+                    let confirm = this.alertCtrl.create({
+                        title: '',
+                        cssClass: 'alertReminder',
+                        message: 'This event overlaps with another event that you already have scheduled. <br>  <br> Would you like to overlap the event?',
+                        buttons: [
+                            {
+                                text: 'No',
+                                handler: () => {
+                                    console.log('No, clicked');                                   
+                                }
+                            },
+                            {
+                                text: 'Yes',
+                                handler: () => {
+                                    console.log('Yes clicked');
+                                    this.signup(id, this.eventDetail.notification_schedule, true);
+                                }
+                            }
+                        ]
+                    });
+                    confirm.present();
+                }
+                else {
                     console.log(err);
                     this.presentToast("Error signing up for event");
+                }
             }, () => {
                 this.volunteerEventsService.loadMyEvents();
             });
-    }
+  }
+   
      deRegister(id) {
         this.volunteerEventsService
             .eventDeregister(id).subscribe(
@@ -486,14 +513,14 @@ export class EventPage {
                         text: 'No, Thanks',
                         handler: () => {
                             console.log('No, Thanks clicked');
-                            this.signup(id, 0, 0);
+                            this.signup(id, 0, false);
                         }
                     },
                     {
                         text: 'Yes',
                         handler: () => {
                             console.log('Yes clicked');
-                            this.signup(id, this.eventDetail.notification_option, this.eventDetail.notification_schedule);
+                            this.signup(id, this.eventDetail.notification_schedule, false);
                         }
                     }
                 ]
@@ -501,7 +528,7 @@ export class EventPage {
             confirm.present();
         }
         else {
-            this.signup(id, 0, 0);
+            this.signup(id, 0, false);
         }
     }
     getEventDetails(id) {
