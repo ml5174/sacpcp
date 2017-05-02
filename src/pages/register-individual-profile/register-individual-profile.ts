@@ -23,7 +23,6 @@ export class RegisterIndividualProfilePage {
   public key: string = '';
   public val: string = '';
   public errors: Array<string> = [];
-  public errors2: any = [];
 
   // Error booleans
   public firstnameerror: boolean = false;
