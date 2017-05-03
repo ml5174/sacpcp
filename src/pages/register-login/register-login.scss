@@ -45,6 +45,23 @@ ion-label[stacked] {
     color: map-get($colors, primary);
 }
 
+#register-login-page .reviewpandt {
+    padding: 1px;
+}
+
+#reviewptbtn {
+   font-size: small !important;
+}
+
+#register-login-page .iaccept {
+    padding: 1px;
+} 
+ 
+#acceptlbl {
+   font-size: small !important;
+}
+
 .item-checkbox-right{
 	flex-direction: row-reverse;
 }
+
