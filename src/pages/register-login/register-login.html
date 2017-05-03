@@ -86,13 +86,13 @@
 		<contactMethod name="ep" [email]="pcmethod"></contactMethod>
 
 		<input type="submit" class="hidden-submit"/>
-		<ion-row align-items-center justify-content-start >
-		<ion-col>
-			<button ion-button (click)="viewTerms()">Review Privacy &amp; Terms</button>
+		<ion-row align-items-center justify-content-center>
+		<ion-col class="reviewpandt">
+			<button ion-button id="reviewptbtn" (click)="viewTerms()">Review Privacy &amp; Terms</button>
 		</ion-col>
-		<ion-col>
+		<ion-col class="iaccept">
 			<ion-item class="item-checkbox-right" no-lines>
-				<ion-label text-right>I Accept</ion-label>
+				<ion-label id="acceptlbl" text-right>I Accept</ion-label>
 				<ion-checkbox name="terms" item-left [(ngModel)]="terms" [disabled]="!modalClicked" style="margin-top: auto; margin-bottom: auto;">
 				</ion-checkbox>
 			</ion-item>
