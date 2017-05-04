@@ -37,6 +37,7 @@ import { ParentVerifyModal } from '../modals/parent-verify-modal';
 import { PrivacyTermsModal } from '../modals/privacy-terms-modal';
 
 import { UserServices } from '../lib/service/user';
+import { SignupAssistant } from '../lib/service/signupassistant';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service';
 
 import { ReferralSourcePipe } from '../lib/pipe/referralsource.pipe';
@@ -138,6 +139,6 @@ export function translateFactory(http: Http) {
     EventDetailPopup,
     RecoverSuccessPage,
   ],
-  providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService]
+  providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService, SignupAssistant]
 })
 export class AppModule {}

@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController, ToastController } from 'ionic-angular';
+import { NavParams, ViewController, ToastController} from 'ionic-angular';
 import { UserServices } from '../../lib/service/user';
+import { SignupAssistant } from '../../lib/service/signupassistant';
 import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
-import { AlertController } from 'ionic-angular';
+import { AlertController, NavController, App} from 'ionic-angular';
 import { NOTIFICATION_SCHEDULE, NOTIFICATION_OPTIONS, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION } from './../../lib/provider/eventConstants';
-
+import { LoginPage } from '../login/login';
+import { RegisterLoginPage } from '../register-login/register-login';
 @Component({
-    templateUrl: 'eventdetail_modal.html'
+    templateUrl: 'eventdetail_modal.html',
 })
 
 export class EventDetailModal {
@@ -17,6 +19,7 @@ export class EventDetailModal {
     showStatus: Boolean = false;
     showDetails: Boolean = false;
     guestUser: Boolean = false;
+    registering: Boolean = false;
 
     gender = GENDER_RESTRICTION;
     vRestriction = VOLUNTEER_RESTRICTION;
@@ -33,8 +36,10 @@ export class EventDetailModal {
         private userServices: UserServices,
         public viewCtrl: ViewController,
         public alertCtrl: AlertController,
-        public toastController: ToastController) {
-
+        public toastController: ToastController,
+        public appCtrl: App,
+        public navController: NavController,
+        private signupAssistant: SignupAssistant) {
         this.viewCtrl = viewCtrl;
         this.eventId = params.get('id');
         this.signedUp = params.get('registered');
@@ -42,9 +47,9 @@ export class EventDetailModal {
     }
 
     ngOnInit() {
-
+       this.registering = false;
         this.loadDetails();
-
+        this.signupAssistant.setGuestSignup(false);
     }
 
     presentToast(message: string) {
@@ -84,8 +89,47 @@ export class EventDetailModal {
                 console.log(err);
             });
     }
-    signupEventRegistration(id,noti_option,noti_schedule) {       
-        if (noti_schedule != "0") {
+
+    unregisteredUserPopover(){
+             let confirm = this.alertCtrl.create({
+                        title: '',
+                        cssClass: 'alertReminder',
+                        message: 'Only registered users can sign up for events.', 
+                        buttons:[
+                            {
+                                text: 'Register',
+                                handler: () => {
+                                    this.signupAssistant.setCurrentEventId(this.eventId);
+                                    this.signupAssistant.setGuestSignup(true);
+                                    this.appCtrl.getRootNav().push(RegisterLoginPage);
+                                   this.viewCtrl.dismiss();
+                                  
+                                }
+                            },
+                            {
+                              text:'Login',
+                              handler: () => {
+                                    this.signupAssistant.setCurrentEventId(this.eventId);
+                                    this.signupAssistant.setGuestSignup(true);
+                                   this.appCtrl.getRootNav().push(LoginPage);
+                                   this.viewCtrl.dismiss();
+
+                              }
+                            }
+                        ]
+                    });
+                    confirm.present();
+    }
+       signupEventRegistration(id) {
+
+         if(!this.userServices.user.id){
+               this.unregisteredUserPopover();
+         } else{
+
+         
+
+        this.getEventDetails(id);
+        if (this.eventDetail.notification_schedule !="0") {
             let confirm = this.alertCtrl.create({
                 title: '',
                 cssClass: 'alertReminder',
@@ -95,14 +139,14 @@ export class EventDetailModal {
                         text: 'No, Thanks',
                         handler: () => {
                             console.log('No, Thanks clicked');
-                            this.signup(id, 0, 0);
+                            this.signup(id, 0, false);
                         }
                     },
                     {
                         text: 'Yes',
                         handler: () => {
                             console.log('Yes clicked');
-                            this.signup(id, noti_option, noti_schedule);
+                            this.signup(id, this.eventDetail.notification_schedule, false);
                         }
                     }
                 ]
@@ -110,23 +154,50 @@ export class EventDetailModal {
             confirm.present();
         }
         else {
-            this.signup(id, 0, 0);
+            this.signup(id, 0, false);
         }
+
+         }
     }
-    signup(id, noti_opt, noti_sched) {
+
+
+  signup(id, noti_sched, overlap: boolean) {
         this.volunteerEventsService
-            .eventRegisterAndSetReminder(id, noti_opt, noti_sched).subscribe(
+            .eventRegisterAndSetReminder(id, noti_sched, overlap).subscribe(
             event => {
-                      console.log("signed up for event " + id);
-                      this.presentToast("Event sign-up successful.");
+                console.log("signed up for event " + id);
+                this.presentToast("Event sign-up successful.");
             },
             err => {
-                console.log(err);
-                this.presentToast("Error signing up for event");               
+                if (err.status == 400) {
+                    let confirm = this.alertCtrl.create({
+                        title: '',
+                        cssClass: 'alertReminder',
+                        message: 'This event overlaps with another event that you already have scheduled. <br>  <br> Would you like to overlap the event?',
+                        buttons: [
+                            {
+                                text: 'No',
+                                handler: () => {
+                                    console.log('No, clicked');
+                                }
+                            },
+                            {
+                                text: 'Yes',
+                                handler: () => {
+                                    console.log('Yes clicked');
+                                    this.signup(id, this.eventDetail.notification_schedule, true);
+                                }
+                            }
+                        ]
+                    });
+                    confirm.present();
+                }
+                else {
+                    console.log(err);
+                    this.presentToast("Error signing up for event");
+                }
             }, () => {
-                this.signedUp = true;
                 this.volunteerEventsService.loadMyEvents();
-                this.loadDetails();
             });
     }
     deRegister(id) {
@@ -140,7 +211,6 @@ export class EventDetailModal {
                 console.log(err);
                 this.presentToast("Error cancelling event registration");                
             }, () => {
-                this.signedUp = false;
                 this.volunteerEventsService.loadMyEvents();
                 this.loadDetails();
             });
