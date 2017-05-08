@@ -25,7 +25,8 @@
         private event: any = {
             event_id: <string>{},           
             notification_schedule: <number>{},
-            overlap_override: <boolean>{}
+            overlap_override: <boolean>{},
+            notification_option: <number>{}
         };
         private updateEvent: any = {
             event_id: <string>{},
@@ -74,10 +75,11 @@
                  .map(res => res.json())
                  .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
         }
-        eventRegisterAndSetReminder(eventId: number, notification_sched: number, overlap_override: boolean): Observable<any> {
+        eventRegisterAndSetReminder(eventId: number, notification_sched: number, notification_opt: number, overlap_override: boolean): Observable<any> {
             this.event.event_id = eventId;           
             this.event.overlap_override = overlap_override;
             this.event.notification_schedule = notification_sched;
+            this.event.notification_option = 1;
             return this.http.post(SERVER + EVENT_SIGNUP_URI, this.event, this.getOptions())
                 .map(res => res.json())
                 .catch((error: any) => Observable.throw(error || 'Server error'));
