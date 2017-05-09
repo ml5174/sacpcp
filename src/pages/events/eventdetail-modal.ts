@@ -163,10 +163,11 @@ export class EventDetailModal {
 
   signup(id, noti_sched, overlap: boolean) {
         this.volunteerEventsService
-            .eventRegisterAndSetReminder(id, noti_sched, overlap).subscribe(
+            .eventRegisterAndSetReminder(id, noti_sched,1, overlap).subscribe(
             event => {
                 console.log("signed up for event " + id);
                 this.presentToast("Event sign-up successful.");
+                this.signedUp = true;
             },
             err => {
                 if (err.status == 400) {
@@ -205,7 +206,8 @@ export class EventDetailModal {
             .eventDeregister(id).subscribe(
             result => {
                        this.deregisterResult = result;
-                       this.presentToast("You are no longer signed up for this event");                     
+                       this.presentToast("You are no longer signed up for this event");  
+                       this.signedUp = false;                   
             },
             err => {
                 console.log(err);
