@@ -16,6 +16,7 @@ export class SignupAssistant {
     private eventDetail: EventDetail;
     private currentEventId;
     public userId;
+    private iscancelSignup: boolean = false;
     private guestSignup: boolean = false;
     
 
@@ -116,7 +117,7 @@ export class SignupAssistant {
 
   signup(id, noti_sched, overlap: boolean) {
         this.volunteerEventsService
-            .eventRegisterAndSetReminder(id, noti_sched, overlap).subscribe(
+            .eventRegisterAndSetReminder(id, noti_sched,3, overlap).subscribe(
             event => {
                 console.log("signed up for event " + id);
                 this.presentToast("Event sign-up successful.");
@@ -156,6 +157,48 @@ export class SignupAssistant {
                 this.volunteerEventsService.loadMyEvents();
             });
     }
+  
+  deRegister(id) {
+       this.volunteerEventsService
+          .eventDeregister(id).subscribe(
+          result => {
+              console.log("canceled event registration " + id);
+              this.presentToast("You are no longer signed up for this event");
+              this.iscancelSignup= true;
+          },
+          err => {
+              console.log(err);
+              this.presentToast("Error cancelling event registration");
+              this.iscancelSignup = false;
+          }, () => {
+              this.volunteerEventsService.loadMyEvents();
+          });
+  }
 
-
+  cancelEventRegisteration(id): boolean {
+      let confirm = this.alertCtrl.create({
+          title: '',
+          cssClass: 'alertReminder',
+          message: 'Are you sure you want to cancel this event Registration?',
+          buttons: [
+              {
+                  text: 'No',
+                  handler: () => {
+                      console.log('No clicked');
+                  }  
+                               
+              },
+              {
+                  text: 'Yes',
+                  handler: () => {
+                      console.log('Yes clicked');
+                      return this.deRegister(id);
+                  }
+              }
+          ]
+          
+      });
+      confirm.present();
+      return this.iscancelSignup;
+  }
 }
