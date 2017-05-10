@@ -26,7 +26,7 @@
 
                 <ion-item no-lines *ngIf="usernameerror" class="word-wrap: break-word;" text-wrap #usernameErrorElem>
                     <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
-                    <p style="color:#CC1F2C">{{usernameerrorvalue}}</p>
+                    <p class="no-text-transform" style="color:#CC1F2C">{{usernameerrorvalue}}</p>
                 </ion-item>
 
                 <ion-icon class="popover-icon" name="information-circle" (click)="presentUserPopover($event)"></ion-icon>
@@ -41,7 +41,7 @@
 
                 <ion-item no-lines *ngIf="password1error" class="word-wrap: break-word;" text-wrap #password1ErrorElem>
                     <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
-                    <p style="color:#CC1F2C">{{password1errorvalue}}</p>
+                    <p class="no-text-transform" style="color:#CC1F2C">{{password1errorvalue}}</p>
                 </ion-item>
 
                 <a id="show-link" (click)="showPassword()">{{(showpassword==='password') ? 'Show' : 'Hide'}}</a>
@@ -52,16 +52,10 @@
                     <ion-input name="password1" required [type]="showpassword" placeholder="" [(ngModel)]="password1"></ion-input>
                 </ion-item>
             </div>
-
-            <!--ion-item no-lines class="">
-			<ion-icon name="lock" item-left isActive="false" [class.error]="password1error"></ion-icon>
-			<ion-label stacked>Password</ion-label>
-			<ion-input required type="password" placeholder="" class="" [(ngModel)]="password1" required></ion-input>
-		</ion-item-->
-
+          
             <ion-item no-lines *ngIf="password2error" class="word-wrap: break-word;" text-wrap #password2ErrorElem>
                 <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
-                <p style="color:#CC1F2C">{{password2errorvalue}}</p>
+                <p class="no-text-transform" style="color:#CC1F2C">{{password2errorvalue}}</p>
             </ion-item>
             <ion-item no-lines class="">
                 <!--<ion-icon *ngIf="password2error" name="alert" item-left isActive="false" [class.error]="password2error"></ion-icon>-->
@@ -69,13 +63,12 @@
                 <ion-input name="password2" required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
             </ion-item>
 
-		<ion-item no-lines>
+    <ion-item no-lines>
 			<ion-label>{{ 'Save My Login' | translate}}</ion-label>
 			<ion-checkbox name="remember"dark [(ngModel)]="remember"></ion-checkbox>
 		</ion-item>
 		
-        <!-- Move the email, Phone contact details to a common component - ViewChild(ContactMethod)-->
-		<!-- If you're not making more than one form you should never do this but w/e ca434m fight me-->
+    <!-- Move the email, Phone contact details to a common component - ViewChild(ContactMethod)-->
 		<contactMethod name="ep" [email]="pcmethod"></contactMethod>
 
 		<ion-row>
