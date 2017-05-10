@@ -16,7 +16,7 @@ export class ServerVersion {
     console.log('Hello ServerVersion Provider');
   }
 
-  getJsonData(){
+  getJsonData():any{
   console.log('endpoint is: ' + SERVER + '/is_alive/');
   return this.http.get(SERVER + '/is_alive/').map(res => res.json());
 }

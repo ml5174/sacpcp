@@ -1,4 +1,4 @@
-import { Component , ViewChild} from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { UserServices } from '../../lib/service/user';
 import { NavController, PopoverController, ModalController } from 'ionic-angular';
 import { STRINGS } from '../../lib/provider/config';
@@ -10,6 +10,8 @@ import { UseridPopover } from '../../popover/userid';
 import { PrivacyTermsModal } from '../../modals/privacy-terms-modal';
 import { Storage } from '@ionic/storage';
 import { ContactMethod } from '../../lib/components/ContactMethod/contactMethod.component';
+import { Content } from 'ionic-angular';
+
 @Component({
   templateUrl: 'register-login.html'
 })
@@ -26,7 +28,16 @@ export class RegisterLoginPage {
   public password2error: boolean = false;
   public emailerror: boolean = false;
   public smserror: boolean = false;
-  
+  public termserror: boolean = false;
+
+  // Error values
+  public usernameerrorvalue: string = '';
+  public password1errorvalue: string = '';
+  public password2errorvalue: string = '';
+  public emailerrorvalue: string = '';
+  public smserrorvalue: string = '';
+  public termserrorvalue: string = "You must accept Privacy and Terms to proceed.";
+
   private modalClicked: boolean = false;
 
   public key: string = '';
@@ -40,10 +51,11 @@ export class RegisterLoginPage {
   //public pcvalue: string = '';
   //public mobileNumberAreaCode = '';
   //public mobileNumberPrefix = '';
- // public mobileNumberLineNumber = '';
+  // public mobileNumberLineNumber = '';
+  // ionic content to control scrolling
+  @ViewChild(Content) content: Content;
   @ViewChild(ContactMethod)
   public contactMethod: ContactMethod;
-
   public terms: boolean = false;
   public remember: boolean = true;
   public storage: Storage = new Storage();
@@ -56,6 +68,16 @@ export class RegisterLoginPage {
     public modalCtrl: ModalController
   ) { }
 
+  promiseToScroll() {
+    //needed to allow view to refresh with error elements before scroll
+    console.log("returning promise to life");
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(42);
+      }, 200);
+    });
+  }
+
   register() {
     let registerLogin = this;
     this.errors = [];
@@ -67,10 +89,24 @@ export class RegisterLoginPage {
     this.email = '';
     this.sms = '';
 
+    this.usernameerrorvalue = '';
+    this.password1errorvalue = '';
+    this.password2errorvalue = '';
+    this.emailerrorvalue = '';
+    this.smserrorvalue = '';
+
     if (!this.terms) {
-      this.errors.push("You must accept Privacy and Terms to proceed.");
+      this.errors.push("You must accept Privacy and Terms below to proceed.");
+      this.termserror = true;
+      this.content.scrollToBottom();
+      let scrollToBottomPromise = this.promiseToScroll();
+      let registerScope = this;
+      scrollToBottomPromise.then(function () {
+        registerScope.content.scrollToBottom();
+      });
       return;
     }
+    this.termserror = false;
 
     let register = {
       username: this.username,
@@ -85,18 +121,19 @@ export class RegisterLoginPage {
       this.email = this.contactMethod.pcvalue;
       register.email = this.email;
     }
-    else 
-    {
+    else {
       // this.sms = '1'+this.contactMethod.mobileNumberAreaCode +
       // this.contactMethod.mobileNumberPrefix+
       // this.contactMethod.mobileNumberLineNumber;
+      
       this.sms = '1'+this.contactMethod.mobile;
       register.phone = this.sms;
+      console.log('about to register with: ' + register.phone);
     }
-   
+
     if (!register.email) delete register.email;
     if (!register.phone) delete register.phone;
-    
+
     this.userServices.register(register)
       .subscribe(
       key => {
@@ -105,14 +142,14 @@ export class RegisterLoginPage {
         //   'User': registerLogin.username
         // }
         this.userServices.user.name = this.username;
-        
+
         if (this.remember) {
           this.storage.set('username', this.username);
           this.storage.set('key', this.userServices.user.id);
         }
         else this.storage.set('username', '');
-       // registerLogin.nav.insert(registerLogin.nav.length(),HomePage);
-        registerLogin.nav.setPages([HomePage,RegisterIndividualProfilePage]);
+        // registerLogin.nav.insert(registerLogin.nav.length(),HomePage);
+        registerLogin.nav.setPages([HomePage, RegisterIndividualProfilePage]);
 
 
         /* this.userServices.createMyProfile(myProfile)
@@ -138,17 +175,25 @@ export class RegisterLoginPage {
   back() {
     this.nav.popToRoot();
   }
-  
-  openModal(){
-  	let modal = this.modalCtrl.create(PrivacyTermsModal);
-  	modal.onDidDismiss(data => { 
-  	console.log(data);
-  	this.modalClicked=true;
-  	this.terms = data.agree;
-  	});
-  	modal.present();
+
+  openModal() {
+    let modal = this.modalCtrl.create(PrivacyTermsModal);
+    modal.onDidDismiss(data => {
+      console.log(data);
+      this.modalClicked = true;
+      this.terms = data.agree;
+      if (!this.terms) {
+        this.termserror = true;
+        let scrollToBottomPromise = this.promiseToScroll();
+        let registerScope = this;
+        scrollToBottomPromise.then(function () {
+          registerScope.content.scrollToBottom();
+        });
+      }
+    });
+    modal.present();
   }
-  
+
 
   setError(error) {
     if (error.status === 400) {
@@ -157,14 +202,42 @@ export class RegisterLoginPage {
         for (let val in error[key]) {
           let field = '';
           if (STRINGS[key]) field = STRINGS[key] + ': ';
+          // if (key === 'username') {
+          //   this.usernameerror = true;
+          //   this.errors.push(field + 'Invalid Format');
+          // } else {
+          //   this.errors.push(field + error[key][val].toString());
+          // }
           this.errors.push(field + error[key][val].toString());
-          if (key === 'username') this.usernameerror = true;
-          if (key === 'password1') this.password1error = true;
-          if (key === 'password2') this.password2error = true;
-          if (key === 'email') this.emailerror = true;
-          if (key === 'sms') this.smserror = true;
+          var message = error[key][val].toString();
+          if (key === 'username') {
+            this.usernameerror = true;
+            this.usernameerrorvalue = message;
+          }
+          if (key === 'password1') {
+            this.password1error = true;
+            this.password1errorvalue = message;
+          }
+          if (key === 'password2') {
+            this.password2error = true;
+            this.password2errorvalue = message;
+          }
+          if (key === 'email') {
+            this.emailerror = true;
+            this.emailerrorvalue = message;
+          }
+          if (key === 'sms') {
+            this.smserror = true;
+            this.smserrorvalue = message;
+          }
         }
       }
+      // scroll to top of page
+      let promToScroll = this.promiseToScroll();
+      let registerScope = this;
+      promToScroll.then(() => {
+        registerScope.content.scrollToTop();
+      });
     }
     if (error.status === 500) {
       this.errors.push('Backend returned 500 error, talk to JOHN :) ');

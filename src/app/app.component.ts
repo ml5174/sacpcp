@@ -19,6 +19,7 @@ import { AppVersion } from 'ionic-native';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package';
 import { EventReportPage } from '../pages/event-report/event-report'
+import { DONATE_URL } from '../lib/provider/config';
 
 declare var window;
 declare var cordova;
@@ -145,13 +146,17 @@ export class MyApp {
     this.userServices.user = new UserProfile();
     this.nav.setRoot(HomePage);
   }
-  donate() {
-    if(this.platform.is('ios') || this.platform.is('android')) {
-      if (cordova && cordova.InAppBrowser) {
-        window.open = cordova.InAppBrowser.open;
-      }
-    }
-    window.open('http://www.salvationarmydfw.org/p/get-involved/437', '_blank');
+  donate() { 
+     if(this.platform.is('ios') || this.platform.is('android')) { 
+       if (cordova && cordova.InAppBrowser) { 
+         cordova.InAppBrowser.open(DONATE_URL, '_blank'); 
+       } else {
+         window.open(DONATE_URL, '_blank'); 
+       }
+     }
+     else {
+       window.open(DONATE_URL, '_blank'); 
+     }
   }
 
   private detectOldIE() {
@@ -195,6 +200,8 @@ export class MyApp {
       },
       err =>{
         console.error("Error : "+err);
+        this.storage.set('serverVersion', '0.0');
+        this.storage.set('serverEnv', 'N/A');
       } ,
       () => {
         console.log('getData completed');
@@ -232,8 +239,9 @@ export class MyApp {
       this.storage.set('version', version).then((resource) => {
           console.log('Storing Marketing Version: ' + this.appMarketingVersion);
         });
-      this.storage.set('build', version).then((resource) => {
-          console.log('Storing Build Version: ' + this.appBuildVersion);
+      let buildNumberNonMobileFE = "_build_number_";
+      this.storage.set('build', buildNumberNonMobileFE).then((resource) => {
+         console.log('Storing Build Version: ' + buildNumberNonMobileFE);
         });
     }
   }

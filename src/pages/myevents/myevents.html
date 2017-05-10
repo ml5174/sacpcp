@@ -34,12 +34,12 @@
                 <!--<p>{{e.description}}</p>-->
                 <ion-item >
                     <ion-label class="togglelabel" >Would you like to receive event reminders?</ion-label>
-                    <ion-toggle class="toggleswitch" id="toggleReminder" (ionChange)="showConfirm(e.event_id,$event)" checked="{{e.notification_schedule>0}}"></ion-toggle>
+                    <ion-toggle class="toggleswitch" id="toggleReminder" (ionChange)="updateEventReminder(e.event_id,e.event_notification_schedule,$event)" checked="{{e.notification_schedule>0}}"></ion-toggle>
           
                 </ion-item>
                 <ion-item >
-                    <button (click)="eventDetailModal(e.event_id)" ion-button small item-left round>Details</button>
-                    <button (click)="deRegister(e.event_id)" ion-button small item-right round>Cancel Sign-Up</button>
+                    <button (click)="eventDetailPopup(e.event_id)" ion-button small item-left round>Details</button>
+                    <button (click)="cancelEventRegisteration(e.event_id)" ion-button small item-right round>Cancel Sign-Up</button>
                 </ion-item>
             </ion-card-content>
             <!--button padding ion-button class="readmore">Read more</button>

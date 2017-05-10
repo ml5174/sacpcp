@@ -37,6 +37,7 @@ import { ParentVerifyModal } from '../modals/parent-verify-modal';
 import { PrivacyTermsModal } from '../modals/privacy-terms-modal';
 
 import { UserServices } from '../lib/service/user';
+import { SignupAssistant } from '../lib/service/signupassistant';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service';
 
 import { ReferralSourcePipe } from '../lib/pipe/referralsource.pipe';
@@ -47,6 +48,8 @@ import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
 import { EventReportPage } from '../pages/event-report/event-report';
 import { admin} from '../pages/admin/admin';
+import { RecoverSuccessPage } from '../pages/recover-success/recover-success';
+
 //Added for text-mask, phone number formatting
 import { FormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -97,7 +100,8 @@ export function translateFactory(http: Http) {
     PhoneInput,
     admin,
     AccordionBox,
-    PrivacyTermsContent
+    PrivacyTermsContent,
+    RecoverSuccessPage,
   ],
   imports: [
     HttpModule,
@@ -136,7 +140,8 @@ export function translateFactory(http: Http) {
     EventDetailModal,
     admin,
     EventDetailPopup,
+    RecoverSuccessPage,
   ],
-  providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService]
+  providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService, SignupAssistant]
 })
 export class AppModule {}

@@ -1,12 +1,10 @@
-import {Component, ViewChild} from '@angular/core'
-import {NavController } from 'ionic-angular';
-import {STRINGS} from '../../lib/provider/config';
+import { Component, ViewChild } from '@angular/core'
+import { NavController } from 'ionic-angular';
+import { STRINGS } from '../../lib/provider/config';
 import { UserServices } from '../../lib/service/user';
 import { TranslateService } from "ng2-translate/ng2-translate";
-import { HomePage } from '../home/home';
 import { ContactMethod } from '../../lib/components/ContactMethod/contactMethod.component';
-
-
+import { RecoverSuccessPage } from '../recover-success/recover-success.ts';
 
 @Component({
   templateUrl: 'forgot.html'
@@ -16,73 +14,48 @@ export class ForgotPage {
   public password1: string = '';
   public password2: string = '';
   public pcvalue: string = '';
-
   public email: string = '';
-  // public mobileAreaCode = "";
-  // public mobilePrefix = "";
-  // public mobileLineNumber = "";
   public mobile = "";
-
+  public mobileNumber = "";
+  
   public usernameerror: boolean = false;
   public password1error: boolean = false;
   public password2error: boolean = false;
   public emailerror: boolean = false;
   public smserror: boolean = false;
-
-
   public key: string = '';
   public val: string = '';
   public errors: Array<string> = [];
   public pcmethod: string = 'email';
 
-  @ViewChild(ContactMethod)
+@ViewChild(ContactMethod)
   public contactMethod: ContactMethod;
 
   constructor(public nav: NavController,
-              public userServices: UserServices,
-              public translate: TranslateService) {
+    public userServices: UserServices,
+    public translate: TranslateService) {
 
   }
 
   forgot() {
     this.errors = [];
-    let resetObject: any = {
-    }
-/*
-    if (this.pcmethod == "email") {
-      resetObject.email = this.email;
-    } else if (this.pcmethod == "sms") {
-      let phone = null;
-      if (this.mobileAreaCode || this.mobileLineNumber || this.mobilePrefix) {
-        phone = "1" + this.mobileAreaCode + this.mobilePrefix + this.mobileLineNumber;
-      }
-      resetObject.phone = phone;
-    }
+    let resetObject: any = {}
 
-*/
-  
-if (this.contactMethod.pcmethod == "email") {
+    if(this.contactMethod.pcmethod == "email") {
       resetObject.email = this.contactMethod.pcvalue;
-    } else if (this.contactMethod.pcmethod  == "sms") {
-      let phone = null;
-      // if (this.contactMethod.mobileAreaCode || this.contactMethod.mobileLineNumber || this.contactMethod.mobilePrefix) {
-      //   phone = "1" + this.contactMethod.mobileAreaCode + this.contactMethod.mobilePrefix + this.contactMethod.mobileLineNumber;
-      //   resetObject.phone = phone;
-      // }
+    }else if (this.contactMethod.pcmethod == "sms") {
       if (this.contactMethod.mobile) {
-        phone = "1" + this.contactMethod.mobile;
+        resetObject.phone = "1" + this.contactMethod.mobile;
       }
-      else
-      {
-        resetObject= { };
-      } 
+    }else{
+      console.log('Someone really broke forgot.ts');
     }
     
-
+    // call api
     this.userServices.reset(resetObject)
       .subscribe(
       key => {
-        this.nav.push(HomePage);
+        this.nav.push(RecoverSuccessPage);
       },
       err => this.setError(err));
   }
@@ -100,10 +73,10 @@ if (this.contactMethod.pcmethod == "email") {
       }
     }
     if (error.status === 500) {
-      this.errors.push('Backend returned 500 error, talk to JOHN :) ');
+      this.errors.push('Looks like our servers are down at the moment, please try again later');
     }
-
   }
+
   back() {
     this.nav.pop();
   }

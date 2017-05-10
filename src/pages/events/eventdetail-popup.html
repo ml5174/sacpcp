@@ -17,18 +17,19 @@
       <p>Registration status: registered</p>
     </ion-item>
     <ion-item>
-      <p *ngIf="eventDetail.volunteercount !=null">Number of volunteers: {{eventDetail.volunteercount}}</p>
-      <p *ngIf="eventDetail.max_volunteers !=null">Maximum number of volunteers: {{eventDetail.max_volunteers}}</p>
+      <p *ngIf="eventDetail.registeredcount !=null">Volunteers Participating: {{eventDetail.registeredcount}}</p>
+      <p *ngIf="eventDetail.max_registered !=null">Total Volunteers Needed: {{eventDetail.max_registered}}</p>
     </ion-item>
-    <ion-item>
+    <!--<ion-item>
       <ion-icon name="calendar" item-left></ion-icon>
-      <!--p>{{eventDetail.start | parseTimeZone:"MMM DD"}} - {{eventDetail.end | parseTimeZone:"MMM DD"}} {{eventDetail.end | parseTimeZone:"YYYY"}}</p-->
-      <p>{{eventDetail.start | parseTime:"MMM DD"}} - {{eventDetail.end | parseTime:"MMM DD"}} {{eventDetail.end | parseTime:"YYYY"}}</p>
-      <!--p>{{eventDetail.start | parseTimeZone: 'h:mm A'}}-{{eventDetail.end | parseTimeZone: 'h:mm A'}} {{eventDetail.start
-        | parseTimeZone:'z'}}</p-->
+      <p>{{eventDetail.start | parseTimeZone:"MMM DD"}} - {{eventDetail.end | parseTimeZone:"MMM DD"}} {{eventDetail.end | parseTimeZone:"YYYY"}}</p>
+      <p>{{eventDetail.start | parseTime:"MMM DD"}} {{eventDetail.end | parseTime:"YYYY"}}</p>
+      <p>{{eventDetail.start | parseTimeZone: 'h:mm A'}}-{{eventDetail.end | parseTimeZone: 'h:mm A'}} {{eventDetail.start
+        | parseTimeZone:'z'}}</p>
       <p>{{eventDetail.start | parseTime: 'h:mm A'}}-{{eventDetail.end | parseTime: 'h:mm A'}}</p>
       <p>Time until event: {{eventDetail.start | timeFromNow}}</p>
     </ion-item>
+    
     <ion-item *ngIf="eventDetail.location_name">
       <ion-icon name="pin" item-left></ion-icon>
       <p>{{eventDetail.location_name}}</p>
@@ -39,7 +40,7 @@
       <p>{{eventDetail.location_address2}}</p>
     </span>
       <p>{{eventDetail.location_city}}, {{eventDetail.location_state}} {{eventDetail.location_zipcode}}</p>
-    </ion-item>
+    </ion-item> -->
     <ion-item (click)="showDetails=!showDetails">
       <p>Event Details</p>
       <ion-icon *ngIf="!showDetails" primary item-right name="ios-add-circle-outline"></ion-icon>
@@ -56,15 +57,18 @@
       <p>Gender restrictions: {{gender[eventDetail.gender_restriction]}}</p>
       <p>Age restriction: {{aRestriction[eventDetail.age_restriction]}}</p>
       <p>Volunteer type restrictions: {{vRestriction[eventDetail.volunteer_restriction]}}</p>
-      <p>Same day sign in allowed: {{sdRestriction[eventDetail.same_day_registration]}}</p>
+      <p>Same day sign Up allowed: {{sdRestriction[eventDetail.same_day_registration]}}</p>
       <p>Event notification: {{nOptions[eventDetail.notification_option]}}</p>
       <p>Special instructions: {{eventDetail.special_instructions}}</p>
     </ion-item>
     <ion-item>
-      <p>Contact information:</p>
-      <a href="mailto:Somebody@SalvationArmy.com">Somebody@SalvationArmy.com</a>
-      <p *ngIf="eventDetail.contacts.length !=0">{{eventDetail.contacts[0]}}</p>
-      <!--p *ngIf="eventDetail.contacts.length == 0">No contacts for this event</p-->
+      <p>Contact information:</p>      
+        <ion-item *ngIf="eventDetail.contacts.length !=0">           
+            <p>Name: {{eventDetail.contacts[0]["user_contact"]["first_name"]}} {{eventDetail.contacts[0]["user_contact"]["last_name"]}} </p>
+            <p>Email: <a href="mailto: {{eventDetail.contacts[0]['user_contact']['email']}}">{{eventDetail.contacts[0]["user_contact"]["email"]}}</a></p>
+            <p class="togglelabel" >Phone: {{eventDetail.contacts[0]["user_contact"]["mobilenumber"] ? eventDetail.contacts[0]["user_contact"]["mobilenumber"]:'Not available'}}</p>           
+        </ion-item>
+        <p class="togglelabel"  *ngIf="eventDetail.contacts.length == 0"><strong>No contacts for this event</strong></p>
     </ion-item>
   </ion-list>
 
@@ -74,8 +78,8 @@
 	<ion-grid>
 		<ion-row>
 			<ion-col width-50>
-    <button ion-button small color="primary" *ngIf="!signedUp" (click)="signup(eventDetail.id)">Sign Up</button>
-    <button ion-button small color="primary" *ngIf="signedUp" (click)="deRegister(eventDetail.id)">Cancel</button>
+                <button ion-button small color="primary" *ngIf="!signedUp" (click)="signupEventRegistration(eventDetail.id,eventDetail.notification_schedule)">Sign Up</button>
+                <button ion-button item-left small color="primary" *ngIf="signedUp" (click)="cancelEventRegisteration(eventDetail.id)">Cancel Sign-Up</button>
 			</ion-col>
 			<ion-col width-50>
       <button ion-button small color="primary" *ngIf="signedUp" (click)="dismiss()">Close</button>

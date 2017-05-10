@@ -14,7 +14,7 @@
 				Home
 			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="openPage(pages[3], '')">
-				My Profile
+				About Me
 			</button>
 			<button ion-item (click)="openPage(pages[1], 'events')">
 				Opportunities
@@ -37,9 +37,9 @@
 			<button ion-item (click)="openPage(pages[8], '')">
 				Event Detail
 			</button>
-            <button ion-item (click)="donate()">
+      <button ion-item (click)="donate()">
 				Donate Now
-            </button>
+      </button>
 			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')">
 				Login 
 			</button>

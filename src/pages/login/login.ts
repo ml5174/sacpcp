@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { UserServices } from '../../lib/service/user';
+import { SignupAssistant } from '../../lib/service/signupassistant';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { RegisterLoginPage } from '../register-login/register-login';
@@ -10,8 +11,9 @@ import { STRINGS } from '../../lib/provider/config';
 import { UseridPopover } from '../../popover/userid';
 import { PasswordPopover } from '../../popover/password';
 
+
 @Component({
-  templateUrl: 'login.html'
+  templateUrl: 'login.html',
 })
 
 export class LoginPage {
@@ -28,13 +30,15 @@ export class LoginPage {
   public key: any = { key: 'key' };
   public errors: Array<string> = [];
   public val: any;
+  private loginSuccess: boolean = false;
 
   constructor(public nav: NavController,
     public navParams: NavParams,
     public userServices: UserServices,
     public translate: TranslateService,
     public storage: Storage,
-    public popoverCtrl: PopoverController
+    public popoverCtrl: PopoverController,
+    private signupAssistant: SignupAssistant
     ) {
 
     /* Temp solution until login validation is implemented */
@@ -64,6 +68,7 @@ export class LoginPage {
     this.userServices.login(loginobject)
       .subscribe(
       key => {
+        this.loginSuccess = true;
         if (loginPage.remember) 
           loginPage.storage.set('key', loginPage.userServices.user.id);
       //  loginPage.storage.set('test', 'test');
@@ -71,9 +76,15 @@ export class LoginPage {
         loginPage.userServices.getMyProfile().subscribe(
                                  result => result, 
                                  err => {
+                                   this.loginSuccess = false;
                                      console.log(err);
                                  });
+       if(this.signupAssistant.getGuestSignup()){
+                this.signupAssistant.signupEventRegistration();
+        }                         
         loginPage.nav.setRoot(HomePage);
+     
+     
       },
       err => this.setError(err));
   }

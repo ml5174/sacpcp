@@ -3,6 +3,7 @@ import { NavParams, ViewController, ToastController } from 'ionic-angular';
 import { UserServices } from '../../lib/service/user';
 import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
+import { AlertController } from 'ionic-angular';
 import { NOTIFICATION_SCHEDULE, NOTIFICATION_OPTIONS, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION } from './../../lib/provider/eventConstants';
 
 @Component({
@@ -15,6 +16,7 @@ export class EventDetailPopup {
     signedUp: Boolean = false;
     showStatus: Boolean = false;
     showDetails: Boolean = false;
+    guestUser: Boolean = false;
 
     gender = GENDER_RESTRICTION;
     vRestriction = VOLUNTEER_RESTRICTION;
@@ -30,11 +32,13 @@ export class EventDetailPopup {
         private volunteerEventsService: VolunteerEventsService,
         private userServices: UserServices,
         public viewCtrl: ViewController,
+        public alertCtrl: AlertController,
         public toastController: ToastController) {
 
         this.viewCtrl = viewCtrl;
         this.eventId = params.get('id');
         this.signedUp = params.get('registered');
+        this.guestUser = params.get('guestUser');
     }
 
     ngOnInit() {
@@ -81,20 +85,73 @@ export class EventDetailPopup {
             });
     }
 
-    signup(id) {
+    signupEventRegistration(id,  noti_schedule) {
+        if (noti_schedule != "0") {
+            let confirm = this.alertCtrl.create({
+                title: '',
+                cssClass: 'alertReminder',
+                message: 'Thank you for signing up to volunteer. <br>  <br> Would you like to receive reminders as the event approaches?',
+                buttons: [
+                    {
+                        text: 'No, Thanks',
+                        handler: () => {
+                            console.log('No, Thanks clicked');
+                            this.signup(id, 0, false);
+                        }
+                    },
+                    {
+                        text: 'Yes',
+                        handler: () => {
+                            console.log('Yes clicked');
+                            this.signup(id, noti_schedule, false);
+                        }
+                    }
+                ]
+            });
+            confirm.present();
+        }
+        else {
+            this.signup(id, 0, false);
+        }
+    }
+    signup(id, noti_sched, overlap: boolean) {
         this.volunteerEventsService
-            .eventRegister(id).subscribe(
+            .eventRegisterAndSetReminder(id, noti_sched,1, overlap).subscribe(
             event => {
-                      console.log("signed up for event " + id);
-                      this.presentToast("Event sign-up successful.");
+                console.log("signed up for event " + id);
+                this.presentToast("Event sign-up successful.");
+                this.signedUp = true;
             },
             err => {
-                console.log(err);
-                this.presentToast("Error signing up for event");               
+                if (err.status == 400) {
+                    let confirm = this.alertCtrl.create({
+                        title: '',
+                        cssClass: 'alertReminder',
+                        message: 'This event overlaps with another event that you already have scheduled. <br>  <br> Would you like to overlap the event?',
+                        buttons: [
+                            {
+                                text: 'No',
+                                handler: () => {
+                                    console.log('No, clicked');
+                                }
+                            },
+                            {
+                                text: 'Yes',
+                                handler: () => {
+                                    console.log('Yes clicked');
+                                    this.signup(id, this.eventDetail.notification_schedule, true);
+                                }
+                            }
+                        ]
+                    });
+                    confirm.present();
+                }
+                else {
+                    console.log(err);
+                    this.presentToast("Error signing up for event");
+                }
             }, () => {
-                this.signedUp = true;
                 this.volunteerEventsService.loadMyEvents();
-                this.loadDetails();
             });
     }
     deRegister(id) {
@@ -115,5 +172,28 @@ export class EventDetailPopup {
     }
     dismiss() {
         this.viewCtrl.dismiss();
+    }
+    cancelEventRegisteration(id) {
+        let confirm = this.alertCtrl.create({
+            title: '',
+            cssClass: 'alertReminder',
+            message: 'Are you sure you want to cancel this event Registration?',
+            buttons: [
+                {
+                    text: 'No',
+                    handler: () => {
+                        console.log('No clicked');
+                    }
+                },
+                {
+                    text: 'Yes',
+                    handler: () => {
+                        console.log('Yes clicked');
+                        this.deRegister(id);
+                    }
+                }
+            ]
+        });
+        confirm.present();
     }
 }
