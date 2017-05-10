@@ -15,7 +15,9 @@ export class ForgotPage {
   public password2: string = '';
   public pcvalue: string = '';
   public email: string = '';
+  public mobile = "";
   public mobileNumber = "";
+  
   public usernameerror: boolean = false;
   public password1error: boolean = false;
   public password2error: boolean = false;
@@ -24,8 +26,9 @@ export class ForgotPage {
   public key: string = '';
   public val: string = '';
   public errors: Array<string> = [];
-  public pcmethod: string = 'email'
-  @ViewChild(ContactMethod)
+  public pcmethod: string = 'email';
+
+@ViewChild(ContactMethod)
   public contactMethod: ContactMethod;
 
   constructor(public nav: NavController,
@@ -37,19 +40,17 @@ export class ForgotPage {
   forgot() {
     this.errors = [];
     let resetObject: any = {}
-    // set the reset object in api call to the proper value entered
-    // empty reset object sent to server will result in error feedbacks to display to user
-    if (this.contactMethod.pcmethod == "email") {
+
+    if(this.contactMethod.pcmethod == "email") {
       resetObject.email = this.contactMethod.pcvalue;
-    }
-    else if (this.contactMethod.pcmethod == "sms") {
-      let phone = null;
-      if (this.contactMethod.mobilenumber) {
-        phone = "1" + this.contactMethod.mobilenumber.pn;
-        phone = phone.replace(/\D+/g, '')
-        resetObject.phone = phone;
+    }else if (this.contactMethod.pcmethod == "sms") {
+      if (this.contactMethod.mobile) {
+        resetObject.phone = "1" + this.contactMethod.mobile;
       }
+    }else{
+      console.log('Someone really broke forgot.ts');
     }
+    
     // call api
     this.userServices.reset(resetObject)
       .subscribe(
