@@ -37,13 +37,13 @@
 			<button ion-item (click)="openPage(pages[8], '')">
 				Event Detail
 			</button>
-                        <button ion-item (click)="donate()">
+            <button ion-item (click)="donate()">
 				Donate Now
-                        </button> 
+            </button>
 			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')">
 				Login 
 			</button>
-			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[7], '')">
+			<button ion-item *ngIf="userServices.user.id" (click)="openPage(pages[7], '')">
 				Admin
 			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="logout()">
@@ -54,3 +54,16 @@
 </ion-menu>
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+
+<ion-footer>
+	<ion-toolbar>
+		<ion-row>
+			<ion-col *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')"><ion-icon name="log-in"></ion-icon></ion-col>
+			<ion-col *ngIf="userServices.user.id" (click)="logout()"><ion-icon name="log-out"></ion-icon></ion-col>
+			<ion-col (click)="openPage(pages[1], 'events')"><ion-icon name="body"></ion-icon></ion-col>
+			<ion-col (click)="openPage(pages[1], 'home')"><ion-icon name="home"></ion-icon></ion-col>
+			<ion-col *ngIf="userServices.user.id" (click)="openPage(pages[11])"><ion-icon name="calendar"></ion-icon></ion-col>
+			<ion-col (click)="donate()"><ion-icon name="heart"></ion-icon></ion-col>
+		</ion-row>
+	</ion-toolbar>
+</ion-footer>
