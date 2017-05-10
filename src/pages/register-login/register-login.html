@@ -86,7 +86,7 @@
             <contactMethod name="ep" [email]="pcmethod"></contactMethod>
 
 
-            <ion-item no-lines *ngIf="termserror" class="word-wrap: break-word;" text-wrap #termsErrorElem>
+            <ion-item no-lines *ngIf="!terms" class="word-wrap: break-word;" text-wrap #termsErrorElem>
                 <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                 <p style="color:#CC1F2C">{{termserrorvalue}}</p>
             </ion-item>
