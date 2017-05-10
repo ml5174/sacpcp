@@ -18,10 +18,10 @@ export class ForgotPage {
   public pcvalue: string = '';
 
   public email: string = '';
-  // public mobileNumberAreaCode = "";
-  // public mobileNumberPrefix = "";
-  // public mobileNumberLineNumber = "";
-  public mobileNumber = "";
+  // public mobileAreaCode = "";
+  // public mobilePrefix = "";
+  // public mobileLineNumber = "";
+  public mobile = "";
 
   public usernameerror: boolean = false;
   public password1error: boolean = false;
@@ -33,7 +33,7 @@ export class ForgotPage {
   public key: string = '';
   public val: string = '';
   public errors: Array<string> = [];
-  public pcmethod: string = 'email'
+  public pcmethod: string = 'email';
 
   @ViewChild(ContactMethod)
   public contactMethod: ContactMethod;
@@ -53,8 +53,8 @@ export class ForgotPage {
       resetObject.email = this.email;
     } else if (this.pcmethod == "sms") {
       let phone = null;
-      if (this.mobileNumberAreaCode || this.mobileNumberLineNumber || this.mobileNumberPrefix) {
-        phone = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
+      if (this.mobileAreaCode || this.mobileLineNumber || this.mobilePrefix) {
+        phone = "1" + this.mobileAreaCode + this.mobilePrefix + this.mobileLineNumber;
       }
       resetObject.phone = phone;
     }
@@ -65,12 +65,12 @@ if (this.contactMethod.pcmethod == "email") {
       resetObject.email = this.contactMethod.pcvalue;
     } else if (this.contactMethod.pcmethod  == "sms") {
       let phone = null;
-      // if (this.contactMethod.mobileNumberAreaCode || this.contactMethod.mobileNumberLineNumber || this.contactMethod.mobileNumberPrefix) {
-      //   phone = "1" + this.contactMethod.mobileNumberAreaCode + this.contactMethod.mobileNumberPrefix + this.contactMethod.mobileNumberLineNumber;
+      // if (this.contactMethod.mobileAreaCode || this.contactMethod.mobileLineNumber || this.contactMethod.mobilePrefix) {
+      //   phone = "1" + this.contactMethod.mobileAreaCode + this.contactMethod.mobilePrefix + this.contactMethod.mobileLineNumber;
       //   resetObject.phone = phone;
       // }
-      if (this.contactMethod.mobileNumber) {
-        phone = "1" + this.contactMethod.mobileNumber;
+      if (this.contactMethod.mobile) {
+        phone = "1" + this.contactMethod.mobile;
       }
       else
       {

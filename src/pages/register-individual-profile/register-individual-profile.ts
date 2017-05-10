@@ -231,12 +231,12 @@ export class RegisterIndividualProfilePage {
     Observable.forkJoin(observables)
       .subscribe(
           key => {
-            this.presentToast("Profile saved.")
+            this.presentToast("Profile saved.");
             this.hideLoading();
             this.passwordForm={};
           }, 
           err => { 
-            this.presentToast("Error saving profile.")
+            this.presentToast("Error saving profile.");
             this.hideLoading();
             console.log(err);
             this.setError(err);
@@ -321,15 +321,16 @@ export class RegisterIndividualProfilePage {
   }
 
   translateFromFormPhoneNumbers() {
-    if (this.mobileNumberAreaCode || this.mobileNumberPrefix || this.mobileNumberLineNumber) {
-      this.myProfile.mobilenumber = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
-      this.myProfile.mobilenumber = +this.myProfile.mobilenumber;
-    } else {
-      this.myProfile.mobilenumber = "";
     // if (this.mobileNumberAreaCode || this.mobileNumberPrefix || this.mobileNumberLineNumber) {
     //   this.myProfile.mobilenumber = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
+    //   this.myProfile.mobilenumber = +this.myProfile.mobilenumber;
     // } else {
     //   this.myProfile.mobilenumber = "";
+    //   // if (this.mobileNumberAreaCode || this.mobileNumberPrefix || this.mobileNumberLineNumber) {
+    //   //   this.myProfile.mobilenumber = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
+    //   // } else {
+    //   //   this.myProfile.mobilenumber = "";
+    //   // }
     // }
     if (this.mobileNumber) {
       this.myProfile.mobileNumber = "1" + this.mobileNumber;

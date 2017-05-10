@@ -61,18 +61,39 @@
 		</ion-item>
 		
         <!-- Move the email, Phone contact details to a common component - ViewChild(ContactMethod)-->
+		<!-- If you're not making more than one form you should never do this but w/e ca434m fight me-->
 		<contactMethod name="ep" [email]="pcmethod"></contactMethod>
 
-		<input type="submit" class="hidden-submit"/>
-		<ion-row align-items-center justify-content-start >
-		<ion-col width-60><button ion-button color="secondary" (click)="viewTerms()">Review Privacy &amp; Terms</button></ion-col>
-		<ion-col width-40>
-		<ion-item class="item-checkbox-right" no-lines>
-		<ion-label text-right>I Accept</ion-label>
-		<ion-checkbox name="terms" item-left [(ngModel)]="terms" [disabled]="!modalClicked" style="margin-top: auto; margin-bottom: auto;"></ion-checkbox></ion-item></ion-col>
-		</ion-row>		
-		
-		
+		<ion-row>
+			<ion-col></ion-col>
+			<ion-col>
+				<button ion-button color="secondary" (click)="viewTerms()">Review Privacy &amp; Terms</button>
+			</ion-col>
+			<ion-col></ion-col>
+			<ion-col>
+				<ion-item class="item-checkbox-right" no-lines>
+					<ion-label text-right>I Accept</ion-label>
+					<ion-checkbox name="terms" item-left [(ngModel)]="terms" [disabled]="!modalClicked" style="margin-top: auto; margin-bottom: auto;"></ion-checkbox>
+				</ion-item>
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col></ion-col>
+			<ion-col>
+				<button ion-button color="primary" (click)="back()">Cancel</button>
+			</ion-col>
+			<ion-col></ion-col>
+			<ion-col>
+				<button ion-button color="primary" (click)="register()" [disabled]="!modalClicked">Register</button>
+			</ion-col>
+			<ion-col></ion-col>
+		</ion-row>
+
+		<!-- Ionic's footer overlaps some elements. Adding a spacer -->
+		<div style="min-height: 10vh !important;"></div>
+
+
 		<!-- <ion-item no-lines >
 			<ion-checkbox name="terms" item-left [(ngModel)]="terms" disabled></ion-checkbox>
 
@@ -84,15 +105,3 @@
 	</section>
 
 </ion-content>
-<ion-footer>
-	<ion-grid>
-		<ion-row>
-			<ion-col width-50>
-				<button class="fatty" ion-button color="primary" (click)="back()">Cancel</button>
-			</ion-col>
-			<ion-col width-50>
-				<button class="fatty" ion-button color="primary" (click)="register()">Register</button>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
-</ion-footer>
