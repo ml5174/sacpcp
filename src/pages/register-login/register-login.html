@@ -26,7 +26,7 @@
 
                 <ion-item no-lines *ngIf="usernameerror" class="word-wrap: break-word;" text-wrap #usernameErrorElem>
                     <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
-                    <p style="color:#CC1F2C">{{usernameerrorvalue}}</p>
+                    <p class="no-text-transform" style="color:#CC1F2C">{{usernameerrorvalue}}</p>
                 </ion-item>
 
                 <ion-icon class="popover-icon" name="information-circle" (click)="presentUserPopover($event)"></ion-icon>
@@ -41,7 +41,7 @@
 
                 <ion-item no-lines *ngIf="password1error" class="word-wrap: break-word;" text-wrap #password1ErrorElem>
                     <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
-                    <p style="color:#CC1F2C">{{password1errorvalue}}</p>
+                    <p class="no-text-transform" style="color:#CC1F2C">{{password1errorvalue}}</p>
                 </ion-item>
 
                 <a id="show-link" (click)="showPassword()">{{(showpassword==='password') ? 'Show' : 'Hide'}}</a>
@@ -61,7 +61,7 @@
 
             <ion-item no-lines *ngIf="password2error" class="word-wrap: break-word;" text-wrap #password2ErrorElem>
                 <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
-                <p style="color:#CC1F2C">{{password2errorvalue}}</p>
+                <p class="no-text-transform" style="color:#CC1F2C">{{password2errorvalue}}</p>
             </ion-item>
             <ion-item no-lines class="">
                 <!--<ion-icon *ngIf="password2error" name="alert" item-left isActive="false" [class.error]="password2error"></ion-icon>-->
@@ -77,18 +77,18 @@
             <!-- Move the email, Phone contact details to a common component - ViewChild(ContactMethod)-->
             <ion-item no-lines *ngIf="emailerror" class="word-wrap: break-word;" text-wrap #emailErrorElem>
                 <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
-                <p style="color:#CC1F2C">{{emailerrorvalue}}</p>
+                <p class="no-text-transform" style="color:#CC1F2C">{{emailerrorvalue}}</p>
             </ion-item>
             <ion-item no-lines *ngIf="smserror" class="word-wrap: break-word;" text-wrap #smsErrorElem>
                 <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
-                <p style="color:#CC1F2C">{{smserrorvalue}}</p>
+                <p class="no-text-transform" style="color:#CC1F2C">{{smserrorvalue}}</p>
             </ion-item>
             <contactMethod name="ep" [email]="pcmethod"></contactMethod>
 
 
             <ion-item no-lines *ngIf="!terms" class="word-wrap: break-word;" text-wrap #termsErrorElem>
                 <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
-                <p style="color:#CC1F2C">{{termserrorvalue}}</p>
+                <p class="no-text-transform" style="color:#CC1F2C">{{termserrorvalue}}</p>
             </ion-item>
             <input type="submit" class="hidden-submit" />
             <ion-row align-items-center justify-content-center>
