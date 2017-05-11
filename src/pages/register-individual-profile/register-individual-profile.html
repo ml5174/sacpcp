@@ -158,7 +158,7 @@
                         <section>
                             <div class="radio-choice" *ngFor="let m of availablePreferences.contactmethods">
                                 <input name="myProfile.contactmethod" [id]="'radio-' + m.id" type="radio" [(ngModel)]="myProfile.contactmethod" [value]="m.id" />
-                                <label [attr.for]="'radio-' + m.id">{{m.name}}</label>
+                                <label [attr.for]="'radio-' + m.id">{{m}}</label>
                             </div>
                         </section>
                     </ion-item>
@@ -501,8 +501,18 @@
 				</ion-item>
 			</div>
 -->
-        </form>
-    </section>
+		</form>
+        <ion-grid>
+            <ion-row>
+                <ion-col width-50>
+                    <button ion-button color="primary" (click)="back()">Cancel</button>
+                </ion-col>
+                <ion-col width-50>
+                    <button ion-button color="primary" (click)="register()">Save</button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+	</section>
 
 </ion-content>
 
@@ -518,3 +528,4 @@
         </ion-row>
     </ion-grid>
 </ion-footer>
+
