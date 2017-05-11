@@ -48,19 +48,19 @@
 				<p clear (click)="forgot()">{{ 'Forgot User ID/Password' | translate}}</p>
 			</ion-item>
 			<input type="submit" class="hidden-submit">
+
+				<ion-row>
+					<ion-col></ion-col>
+					<ion-col>
+						<button ion-button color="primary" (click)="back()">Cancel</button>
+					</ion-col>
+					<ion-col></ion-col>
+					<ion-col>
+						<button ion-button color="primary" (click)="login()">Login</button>
+					</ion-col>
+					<ion-col></ion-col>
+				</ion-row>
 			</form>
 		</ion-list>
 	</section>
 </ion-content>
-<ion-footer class="action-footer">
-	<ion-grid>
-		<ion-row>
-			<ion-col width-50>
-				<button ion-button color="primary" (click)="back()">Cancel</button>
-			</ion-col>
-			<ion-col width-50>
-				<button ion-button color="primary" (click)="login()">Login</button>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
-</ion-footer>
