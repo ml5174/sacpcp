@@ -336,20 +336,6 @@ export class EventPage {
       }
     }
     return false;
-  }
-    signup(id,noti_opt,noti_sched) {
-        this.volunteerEventsService
-            .eventRegisterAndSetReminder(id, noti_opt,noti_sched, false).subscribe(
-            event => {
-                      console.log("signed up for event " + id);
-                      this.presentToast("Event sign-up successful.");
-            },
-            err => {
-                    console.log(err);
-                    this.presentToast("Error signing up for event");
-            }, () => {
-                this.volunteerEventsService.loadMyEvents();
-            });
     }
      
    
