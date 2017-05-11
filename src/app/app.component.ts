@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
+
 import { Platform, MenuController, Nav, Select, Config } from 'ionic-angular';
+
 import { StatusBar } from 'ionic-native';
 import { Keyboard } from 'ionic-native';
 import { Storage } from '@ionic/storage';
@@ -14,11 +16,9 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { TermsPage } from '../pages/terms/terms';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
-import { admin} from '../pages/admin/admin';
 import { AppVersion } from 'ionic-native';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package';
-import { EventReportPage } from '../pages/event-report/event-report'
 import { DONATE_URL } from '../lib/provider/config';
 
 declare var window;
@@ -64,9 +64,6 @@ export class MyApp {
       { title: 'Change Password', component: ChangePasswordPage },
       { title: 'About', component: AboutPage },
       { title: 'Contact Us', component: ContactPage },
-      { title: 'Privacy & Terms', component: TermsPage },
-      { title: 'Event Details', component: EventReportPage }
-      { title: 'Admin', component: admin },
       { title: 'Privacy & Terms', component: TermsPage }
     ];
 
