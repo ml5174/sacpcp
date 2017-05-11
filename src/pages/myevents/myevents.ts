@@ -7,7 +7,6 @@ import { ModalController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { HomePage } from '../home/home';
 import { AlertController, PopoverController, ToastController } from 'ionic-angular';
-
 @Component({
   templateUrl: 'myevents.html',
   selector: 'myevents'

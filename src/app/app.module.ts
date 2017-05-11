@@ -46,18 +46,19 @@ import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
 import { EventSortPipe, OpportunityPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
-import { EventReportPage } from '../pages/event-report/event-report';
-import { admin} from '../pages/admin/admin';
 import { RecoverSuccessPage } from '../pages/recover-success/recover-success';
 
 //Added for text-mask, phone number formatting
 import { FormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
+
+
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
     { component: ChangePasswordPage, name: 'Change Password Page', segment: 'password-reset/confirm/:iud/:key' },
   ]
 };
+
 export function translateFactory(http: Http) {
   return new TranslateStaticLoader(http, '/assets/i18n', '.json');
 }
@@ -92,13 +93,11 @@ export function translateFactory(http: Http) {
     TimeFromNowPipe,
     ParseTimePipe,
     EventSortPipe,
-    EventReportPage,
     OpportunityPipe,
     EventDetailModal,
     EventDetailPopup,
     ContactMethod,
     PhoneInput,
-    admin,
     AccordionBox,
     PrivacyTermsContent,
     RecoverSuccessPage,
@@ -131,14 +130,12 @@ export function translateFactory(http: Http) {
     HomePage,
     DonatePage,
     ForgotPage,
-    EventReportPage,
     LoginPage,
     AboutPage,
     ContactPage,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
     EventDetailModal,
-    admin,
     EventDetailPopup,
     RecoverSuccessPage,
   ],
