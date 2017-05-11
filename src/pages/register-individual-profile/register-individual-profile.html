@@ -465,56 +465,20 @@
                 </ion-list>
             </accordion-box>
 
+            <ion-row>
+                <ion-col></ion-col>
+                <ion-col>
+                    <button ion-button color="primary" (click)="back()">Cancel</button>
+                </ion-col>
+                <ion-col></ion-col>
+                <ion-col>
+                    <button ion-button color="primary" (click)="register()" [disabled]="!modalClicked">Register</button>
+                </ion-col>
+                <ion-col></ion-col>
+            </ion-row>
 
-            <!-- Not sure what is going in here				
-			<div *ngSwitchCase="'acknowledgements'">
-				<ion-item no-lines class="">
-					<ion-icon name="alarm" item-left [class.error]="notification_optionerror"></ion-icon>
-					<ion-label stacked>{{"Notification Option" | translate }}</ion-label>
-					<ion-input type="string" placeholder="" class="" [(ngModel)]="myProfile.notification_option" ></ion-input>
-				</ion-item>
-
-				<ion-item no-lines class="">
-					<ion-icon name="pizza" item-left [class.error]="my_donationtype_iderror"></ion-icon>
-					<ion-label stacked>{{"Donation Type" | translate }}</ion-label>
-					<ion-select [(ngModel)]="myProfile.my_donationtype_id" >
-						<ion-option *ngFor="let m of availablePreferences.donationtypes" [value]="m.id">{{m.name}}</ion-option>
-					</ion-select>
-				</ion-item>
-
-				<ion-item no-lines class="">
-					<ion-icon name="call" item-left [class.error]="acceptedwaivererror"></ion-icon>
-					<ion-label>{{"Accept Waiver" | translate }}</ion-label>
-					<ion-checkbox dark [(ngModel)]="myProfile.accepted_waiver"></ion-checkbox>
-				</ion-item>
-
-				<ion-item no-lines class="">
-					<ion-icon name="call" item-left [class.error]="acceptedpolicyerror"></ion-icon>
-					<ion-label>{{"Accept Policy" | translate }}</ion-label>
-					<ion-checkbox dark [(ngModel)]="myProfile.accepted_policy"></ion-checkbox>
-				</ion-item>
-
-				<ion-item no-lines class="">
-					<ion-icon name="call" item-left [class.error]="com_opt_inerror"></ion-icon>
-					<ion-label>{{"Opt In" | translate }}</ion-label>
-					<ion-checkbox dark [(ngModel)]="myProfile.comm_opt_in"></ion-checkbox>
-				</ion-item>
-			</div>
--->
+            <!-- Ionic's footer overlaps some elements. Adding a spacer -->
+            <div style="min-height: 10vh !important;"></div>
         </form>
     </section>
-
 </ion-content>
-
-<ion-footer class="action-footer">
-    <ion-grid>
-        <ion-row>
-            <ion-col width-50>
-                <button ion-button color="primary" (click)="back()">Cancel</button>
-            </ion-col>
-            <ion-col width-50>
-                <button ion-button color="primary" (click)="register()">Save</button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-</ion-footer>

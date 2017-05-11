@@ -103,25 +103,22 @@
                     </ion-item>
                 </ion-col>
             </ion-row>
-            <!-- <ion-item no-lines >
-			<ion-checkbox name="terms" item-left [(ngModel)]="terms" disabled></ion-checkbox>
-			<ion-label>
-			<button ion-button large color="secondary" clear (click)="viewTerms()">I Agree to the Privacy &amp; Terms</button></ion-label>
-		</ion-item>
-		 -->
+
+            <ion-row>
+                <ion-col></ion-col>
+                <ion-col>
+                    <button ion-button color="primary" (click)="back()">Cancel</button>
+                </ion-col>
+
+               <ion-col></ion-col>
+                <ion-col>
+                    <button ion-button color="primary" (click)="register()" [disabled]="!modalClicked">Register</button>
+                </ion-col>
+                <ion-col></ion-col>
+            </ion-row>
+
+            <div style="min-height: 10vh !important;"></div>
         </form>
     </section>
-
 </ion-content>
-<ion-footer class="action-footer">
-    <ion-grid>
-        <ion-row>
-            <ion-col width-50>
-                <button class="fatty" ion-button color="primary" (click)="back()">Cancel</button>
-            </ion-col>
-            <ion-col width-50>
-                <button class="fatty" ion-button color="primary" (click)="register()">Register</button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-</ion-footer>
+
