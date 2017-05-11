@@ -59,7 +59,7 @@ export class RegisterLoginPage {
   public terms: boolean = false;
   public remember: boolean = true;
   public storage: Storage = new Storage();
-  public pcmethod: string = 'email';
+  public pcmethod: string = 'email'
 
   constructor(public nav: NavController,
     public userServices: UserServices,
@@ -125,8 +125,7 @@ export class RegisterLoginPage {
       // this.sms = '1'+this.contactMethod.mobileNumberAreaCode +
       // this.contactMethod.mobileNumberPrefix+
       // this.contactMethod.mobileNumberLineNumber;
-      
-      this.sms = '1'+this.contactMethod.mobile;
+      this.sms = this.contactMethod.mobilenumber.getPN();
       register.phone = this.sms;
       console.log('about to register with: ' + register.phone);
     }
