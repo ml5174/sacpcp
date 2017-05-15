@@ -83,7 +83,14 @@ export class SignupAssistant {
 
     signupEventRegistration() {
           console.log('EVENTDETAILS: ' + this.currentEventId);
-        this.getEventDetails(this.currentEventId);
+          this.volunteerEventsService
+              .getVolunteerEventDetails(this.currentEventId).subscribe(
+              event => {
+              this.eventDetail = event;
+              },
+              err => {
+                  console.log(err);
+              });
       
         if (this.eventDetail.notification_schedule !="0") {
             let confirm = this.alertCtrl.create({
@@ -126,7 +133,7 @@ export class SignupAssistant {
                  this.setGuestSignup(false);
             },
             err => {
-                if (err.status == 400) {
+                if (err._body.indexOf("overlaps") > 0) {
                     let confirm = this.alertCtrl.create({
                         title: '',
                         cssClass: 'alertReminder',
@@ -143,6 +150,22 @@ export class SignupAssistant {
                                 handler: () => {
                                     console.log('Yes clicked');
                                     this.signup(id, noti_sched, true);
+                                }
+                            }
+                        ]
+                    });
+                    confirm.present();
+                }
+                else if (err._body.indexOf("Event registration is full") > 0) {
+                    let confirm = this.alertCtrl.create({
+                        title: '',
+                        cssClass: 'alertReminder',
+                        message: 'Event registration is full.',
+                        buttons: [
+                            {
+                                text: 'Ok',
+                                handler: () => {
+                                    console.log('Ok, clicked');
                                 }
                             }
                         ]
