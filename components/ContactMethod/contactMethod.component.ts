@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { PhoneInput } from '../phone-input.component';
 
 @Component({
@@ -9,11 +9,27 @@ import { PhoneInput } from '../phone-input.component';
 export class ContactMethod {
   @Input('email') pcmethod: string;
   @Input('emailValue') pcvalue: string;
-  // @Input('smsMobileNumberAreaCode') mobileNumberAreaCode : string;
-  // @Input('smsMobileNumberPrefix') mobileNumberPrefix : string;
-  // @Input('smsMobileNumberLineNumber') mobileNumberLineNumber : string;
   @Input('pn') mobile: string;
   @ViewChild('phoneinput') mobilenumber: PhoneInput;
+  @Output() methodUpdated = new EventEmitter();
+  @Output() emailUpdated = new EventEmitter();
+  @Output() mobileUpdated = new EventEmitter();
 constructor(){}
+  pcMethodChange(evt) {
+    // clear the email value when its changed to sms and emit change event
+    if (evt == 'sms') {
+      this.pcvalue = '';
+    }
+    this.methodUpdated.emit(evt);
+  }
 
+  emailChanged(evt) {
+    console.log("email changed", evt);
+    this.emailUpdated.emit(evt);
+  }
+
+  mobileChanged(newNumber) {
+    console.log("mobile changed from contactMethod Component", newNumber);
+    this.mobileUpdated.emit(newNumber);
+  }
 }
