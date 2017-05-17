@@ -1,36 +1,35 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Parent Verification Required
-    </ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <span ion-text color="primary">Cancel</span>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            Parent Verification
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+							<span ion-text color="primary">Cancel</span>
+						</button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-<p>Your entered birthdate indicates you are not old enough to volunteer without parental consent. Please provide us with a registered parent's email address or telephone number to authorize yourself as an elgible volunteer. 
-</p>
+    <p>Your entered birthdate indicates you are not old enough to volunteer without parental consent. Please provide us with a registered parent's email address or telephone number to authorize yourself as an elgible volunteer.
+    </p>
 
-<ion-list>
-							<ion-item no-lines>
-								<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
-								<ion-label stacked>{{"Mobile Phone" | translate }}</ion-label>
-							</ion-item>
-							
-							<ion-grid class="phone-number">
-								<!--<phone-input idsuffix="parent" [ac]="mobileNumberAreaCode" [np]="mobileNumberPrefix" [nn]="mobileNumberLineNumber"></phone-input>-->
-								<phone-input idsuffix="parent" [pn]="mobileNumber"></phone-input>
-							</ion-grid>
-							<ion-item no-lines>
-								<ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
-								<ion-label stacked>{{"Email" | translate }}</ion-label>
-								<ion-input name="email" type="string" placeholder="" class="" [(ngModel)]="email"></ion-input>
-							</ion-item>
-						</ion-list>
-						<button ion-button full (click)="submitParentInfo()">Submit</button>
-						
+    <ion-list>
+        <ion-item no-lines>
+            <ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>
+            <ion-label stacked>{{"Mobile Phone" | translate }}</ion-label>
+        </ion-item>
+
+        <ion-grid class="phone-number">
+            <!--<phone-input idsuffix="parent" [ac]="mobileNumberAreaCode" [np]="mobileNumberPrefix" [nn]="mobileNumberLineNumber"></phone-input>-->
+            <phone-input idsuffix="parent" [pn]="mobileNumber"></phone-input>
+        </ion-grid>
+        <ion-item no-lines>
+            <ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>
+            <ion-label stacked>{{"Email" | translate }}</ion-label>
+            <ion-input name="email" type="string" placeholder="" class="" [(ngModel)]="email"></ion-input>
+        </ion-item>
+    </ion-list>
+    <button ion-button full (click)="submitParentInfo()">Submit</button>
 </ion-content>
