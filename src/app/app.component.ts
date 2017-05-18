@@ -1,7 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-
 import { Platform, MenuController, Nav, Select, Config } from 'ionic-angular';
-
 import { StatusBar } from 'ionic-native';
 import { Keyboard } from 'ionic-native';
 import { Storage } from '@ionic/storage';
@@ -16,10 +14,17 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { TermsPage } from '../pages/terms/terms';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
-import { AppVersion } from 'ionic-native';
+import { admin} from '../pages/admin/admin';
+import {PopoverController} from 'ionic-angular';
+import {CreateEvent} from '../pages/admin/create-event/create-event';
+import {EditEvent} from '../pages/admin/edit-event/edit-event';
+import {Reports} from '../pages/admin/reports/reports';
+import {ContactVolunteers} from '../pages/admin/contact-volunteers/contact-volunteers';
+import {AdminPopoverComponent} from '../lib/components/admin-popover.component';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package';
 import { DONATE_URL } from '../lib/provider/config';
+import { AppVersion } from 'ionic-native';
 
 declare var window;
 declare var cordova;
@@ -44,6 +49,7 @@ export class MyApp {
   serverVersionNumber: string = "";
  
   appManager: any = {};
+  public showAdmin: boolean;
   constructor(
     public platform: Platform,
     public config: Config,
@@ -51,7 +57,8 @@ export class MyApp {
     public userServices: UserServices,
     public storage: Storage,
     public volunteerEvents : VolunteerEventsService,
-    public serverVersion:ServerVersion 
+    public popoverCtrl: PopoverController,
+    public serverVersion:ServerVersion
   ) {
     this.initializeApp();
 
@@ -64,6 +71,11 @@ export class MyApp {
       { title: 'Change Password', component: ChangePasswordPage },
       { title: 'About', component: AboutPage },
       { title: 'Contact Us', component: ContactPage },
+      { title: 'Admin', component: admin },
+      { title: 'Create Event', component: CreateEvent },
+      { title: 'Edit Event', component: EditEvent },
+      { title: 'Reports', component: Reports },
+      { title: 'Contact Volunteers', component: ContactVolunteers },
       { title: 'Privacy & Terms', component: TermsPage }
     ];
 
@@ -177,6 +189,17 @@ export class MyApp {
       };
     }
   }
+    /*presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(AdminPopoverComponent);
+    popover.present({
+      ev: myEvent
+    });
+  }*/
+showAdmin1()
+{
+  this.showAdmin=!this.showAdmin;
+}
+
 
    private getServerEnv() {
     this.serverVersion.getJsonData().subscribe(
@@ -242,5 +265,6 @@ export class MyApp {
         });
     }
   }
-}
 
+
+}

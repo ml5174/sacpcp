@@ -1,0 +1,24 @@
+<ion-header>
+	<ion-toolbar>Compose Message</ion-toolbar>
+    <span *ngIf="emptyMessageError"><span style="color:#CC1F2C">Error:</span> You must enter a message.</span>
+    <br><span *ngIf="sendMessageError" style="color:#CC1F2C">Your message could not be sent at this time. You can try again.</span>
+</ion-header>
+
+<ion-content padding>
+	<p style="color:black;">The message will be inserted into a template and sent to each volunteer's preferred contact method.</p>
+	<ion-label>Message Body:</ion-label>
+	<textarea [(ngModel)]="message" style="border-style:solid; height:25vh; width:100%;" name="textMessage" placeholder="Enter message text here"></textarea>
+</ion-content>
+
+<ion-footer class="action-footer">
+    <ion-grid>
+        <ion-row>
+            <ion-col width-6 padding>
+                <button ion-button color="primary" (click)="back()">Cancel</button>
+            </ion-col>
+            <ion-col width-6 padding>
+                <button ion-button color="primary" style="display: inline-block; width: auto;" (click)="send()">Send Message</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>
