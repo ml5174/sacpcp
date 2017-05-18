@@ -50,12 +50,12 @@
 <ion-footer>
 	<ion-toolbar>
 		<ion-row>
-			<ion-col *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')"><ion-icon name="log-in"></ion-icon></ion-col>
-			<ion-col *ngIf="userServices.user.id" (click)="logout()"><ion-icon name="log-out"></ion-icon></ion-col>
-			<ion-col (click)="openPage(pages[1], 'events')"><ion-icon name="body"></ion-icon></ion-col>
-			<ion-col (click)="openPage(pages[1], 'home')"><ion-icon name="home"></ion-icon></ion-col>
-			<ion-col *ngIf="userServices.user.id" (click)="openPage(pages[11])"><ion-icon name="calendar"></ion-icon></ion-col>
-			<ion-col (click)="donate()"><ion-icon name="heart"></ion-icon></ion-col>
+			<ion-col *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')" class="footer-col"><ion-icon class="footer-icon" name="log-in"></ion-icon>Login</ion-col>
+			<ion-col *ngIf="userServices.user.id" (click)="logout()" class="footer-col"><ion-icon  class="footer-icon" name="log-out"></ion-icon>Logout</ion-col>
+			<ion-col (click)="openPage(pages[1], 'events')" class="footer-col"><ion-icon  class="footer-icon" name="body"></ion-icon>Volunteer</ion-col>
+			<ion-col (click)="openPage(pages[1], 'home')" class="footer-col"><ion-icon  class="footer-icon" name="home"></ion-icon>Home</ion-col>
+			<ion-col *ngIf="userServices.user.id" (click)="openPage(pages[11])" class="footer-col"><ion-icon  class="footer-icon" name="calendar"></ion-icon>My Events</ion-col>
+			<ion-col (click)="donate()" class="footer-col"><ion-icon  class="footer-icon" name="heart"></ion-icon>Donate</ion-col>
 		</ion-row>
 	</ion-toolbar>
 </ion-footer>
