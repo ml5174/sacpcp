@@ -1,0 +1,60 @@
+<ion-header>
+    <app-header back="true" title="Admin">
+    </app-header>
+</ion-header>
+
+<ion-content padding-left padding-right padding-top>
+
+   <section id="header">
+        <div *ngIf="getEventsError" style="color:#CC1F2C">
+            There was an error getting the events in the range you provided.
+        </div>
+        <h2>Event Registration Detail Report</h2>
+   </section>
+   <section id="home-body">
+
+       <div>
+                 <!--<ion-item>
+                    <ion-label> Event Registration Detail Report</ion-label>
+                    <ion-checkbox></ion-checkbox>
+                 </ion-item>
+                 <ion-item>
+                    <ion-label> Event Registration Summary Report</ion-label>
+                    <ion-checkbox></ion-checkbox>
+                 </ion-item>-->
+                 <p>Select the date range:</p>
+                 <label class="item item-input item-select">
+                            <div class="input-label" > Start Date:</div>
+                            <input [(ngModel)]="startDate" type="date">
+                 </label>
+                 <label class="item item-input item-select">
+                            <div class="input-label"> End Date:</div>
+                            <input [(ngModel)]="endDate" type="date">
+                 </label>
+                 <button ion-button small color="primary" (click)="showAdvancedItems = !showAdvancedItems">Cancel</button>
+                 <button ion-button small color="primary" (click)="exportEvents()" data-toggle="modal" >Export Data</button>
+        </div>
+        <!--<div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+      -                  <p> Some text </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button ion-button small color="primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </section>
+    <section id="tab-content" padding>
+        
+
+       
+        <div class="sal-att-logo-container">
+            <img src="assets/img/collaboration.png" />
+        </div>
+    </section>
+</ion-content>
