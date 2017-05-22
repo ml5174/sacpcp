@@ -18,12 +18,17 @@ export const GET_EVENT_IMAGE_URI = '/api/v0.2/events/eventimages/';
 export const CHANGE_PASSWORD_URI = '/rest-auth/password/change/';   
 export const UPDATE_MY_PREFERENCES_URI = '/api/v0.2/salarmy/mypreferences/';
 export const DONATE_URL = 'http://www.salvationarmydfw.org/p/get-involved/437';
+export const GET_USERS_URI = '/api/v0.2/admin/userprofile';
+export const SEND_MESSAGE_TO_USERS_LIST_URI = '/api/v0.2/admin/sendusermessages/';
+export const GET_EVENTS_REPORT_URI = '/api/v0.2/admin/events/report/';
+export const SEND_MESSAGE_TO_EVENT_VOLUNTEERS_URI = '/api/v0.2/admin/eventmessages/';
 
 export var SERVER = window['djangoserver'];
 if (document.location.hostname === '198.199.86.127')
     SERVER = 'http://52.206.230.237:8001';
 if (document.location.hostname === 'localhost')
-    SERVER = 'https://api.testing-volunteers.tsadfw.org'
+    //SERVER = 'https://api.testing-volunteers.tsadfw.org'
+    SERVER = 'http://52.206.230.237:8001';
 
     	
 export const STRINGS = {
