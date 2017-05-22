@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header>    
     <app-header back="true" title="My Profile">
     </app-header>
     <!--ion-toolbar secondary>
@@ -19,10 +19,11 @@
     		</button>
 		</ion-buttons>
 	</ion-toolbar-->
-    <p *ngIf="requiredFieldError"><span style="color:#CC1F2C">Please Note:</span> All required fields must be completed in order to sign up for a volunteer event.</p>
+
 </ion-header>
 
 <ion-content>
+    <p *ngIf="requiredFieldError" align="center"><span style="color:#CC1F2C">Please Note:</span> All required fields must be completed in order to sign up for a volunteer event.</p>
 	<section id="register-individual-profile-page">
         <ion-card>
             <ion-card-header>Profile Image</ion-card-header>
