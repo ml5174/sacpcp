@@ -54,8 +54,8 @@ import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
 import { RecoverSuccessPage } from '../pages/recover-success/recover-success';
 
-import {PopoverController } from 'ionic-angular';
-import {Component} from '@angular/core';
+//import {PopoverController } from 'ionic-angular';
+//import {Component} from '@angular/core';
 //Added for text-mask, phone number formatting
 import { FormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
