@@ -11,10 +11,15 @@ export class PhoneInput {
 	public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
 	private suffix: string;
 	@Output() mobileValueChanged = new EventEmitter();
+	@Output() mobileValueBlur = new EventEmitter();
 	constructor() { }
 	
 	ngAfterViewInit(){
 	this.suffix = this.idsuffix;
+	}
+
+	inputBlurred(event) {
+		this.mobileValueBlur.emit(event);
 	}
 	
 	getPN(){
@@ -25,7 +30,7 @@ export class PhoneInput {
 	}
 
 	emitMobileChanged(evt) {
-		console.log("emitting mobile change", this.getPN());
+		//console.log("emitting mobile change", this.getPN());
 		this.mobileValueChanged.emit(this.getPN());
 	}
 	
