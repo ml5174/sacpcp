@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header>    
     <app-header back="true" title="My Profile">
     </app-header>
     <!--ion-toolbar secondary>
@@ -19,10 +19,11 @@
     		</button>
 		</ion-buttons>
 	</ion-toolbar-->
-    <p *ngIf="requiredFieldError"><span style="color:#CC1F2C">Please Note:</span> All required fields must be completed in order to sign up for a volunteer event.</p>
+
 </ion-header>
 
 <ion-content>
+    <p *ngIf="requiredFieldError" align="center"><span style="color:#CC1F2C">Please Note:</span> All required fields must be completed in order to sign up for a volunteer event.</p>
 	<section id="register-individual-profile-page">
         <ion-card>
             <ion-card-header>Profile Image</ion-card-header>
@@ -153,15 +154,25 @@
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                         <p style="color:#CC1F2C">{{my_contactmethod_iderrorvalue}}</p>
                     </ion-item> 
-                    <ion-item no-lines class="">
-                        <!--<ion-icon name="alert" item-left [class.error]="my_contactmethod_iderror" *ngIf="my_contactmethod_iderror"></ion-icon>-->
+                    <ion-list radio-group name="contactmethodlist" [ngModel]="myProfile.contactmethod" (ngModelChange)="updateContactMethodName()">
+                        <ion-item> 
+                            <ion-radio name="Email" [id]="2" value="2" ngDefaultControl></ion-radio>
+                            <ion-label [attr.for]="Email">Email</ion-label>
+                        </ion-item>
+                        <ion-item> 
+                            <ion-radio name="Phone" [id]="4" value="4" ngDefaultControl></ion-radio>
+                            <ion-label [attr.for]="Phone">Phone</ion-label>
+                        </ion-item>
+                    </ion-list>
+                    <!--<ion-item no-lines class="">
+                        <ion-icon name="alert" item-left [class.error]="my_contactmethod_iderror" *ngIf="my_contactmethod_iderror"></ion-icon>
                         <section>
                             <div class="radio-choice" *ngFor="let m of availablePreferences.contactmethods">
                                 <input name="myProfile.contactmethod" [id]="'radio-' + m.id" type="radio" [(ngModel)]="myProfile.contactmethod" [value]="m.id" />
                                 <label [attr.for]="'radio-' + m.id">{{m.name}}</label>
                             </div>
                         </section>
-                    </ion-item>
+                    </ion-item>-->
                     <ion-list>
                         <ion-item no-lines *ngIf="mobilenumbererror" class="word-wrap: break-word;" text-wrap>
                            <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
@@ -472,7 +483,7 @@
                 </ion-col>
                 <ion-col></ion-col>
                 <ion-col>
-                    <button ion-button color="primary" (click)="register()" [disabled]="!modalClicked">Register</button>
+                    <button ion-button color="primary" (click)="register()">Save</button>
                 </ion-col>
                 <ion-col></ion-col>
             </ion-row>

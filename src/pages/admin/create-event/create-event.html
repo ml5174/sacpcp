@@ -1,0 +1,181 @@
+<ion-header>
+    <app-header back="true" title="Create Event">
+    </app-header>
+</ion-header>
+
+<ion-content padding-left padding-right padding-top>
+
+    <section id="header">
+
+    </section>
+    <section id="home-body">
+
+        <div>
+
+
+        </div>
+    </section>
+    <section id="tab-content" padding>
+
+
+        <label class="item item-input">
+            <span class="input-label">Event Id:</span>
+            <input type="text">
+        </label>
+
+        <label class="item item-input">
+            <span class="input-label">Event Type:</span>
+            <input type="text">
+        </label>
+
+        <ion-card class="flex-card">
+            <ion-card-header>Create Event</ion-card-header>
+            <ion-card-content>
+                <accordion-box accordionTitle="{{'Event Details' | translate}}">
+
+                    <div class="accordion-content">
+                        <label class="item item-input" style="display:flex;">
+                            <span class="input-label">Event Name:</span>
+                            <input type="text" style="flex-grow: 1;">
+                        </label>
+                        <label class="item item-input">
+                            <span class="input-label">Event Description:</span>
+                            <input type="text">
+                        </label>
+
+                        <label class="item item-input item-select">
+                            <div class="input-label"> Event Status:</div>
+                            <select>
+                                <option>Red</option>
+                                <option>Green</option>
+                                <option>Blue</option>
+                            </select>
+                        </label>
+                        <label class="item item-input item-select">
+                            <div class="input-label"> Event Date:</div>
+                            <input type="date">
+                        </label>
+                        <label class="item item-input item-select">
+                            <div class="input-label"> Event Start Time:</div>
+                            <input type="Time">
+                        </label>
+                        <label class="item item-input item-select">
+                            <div class="input-label"> Event End Time:</div>
+                            <input type="Time">
+                        </label>
+                        <label class="item item-input item-select">
+                            <div class="input-label"> Pre-defined Event Location</div>
+                            <select>
+                                <option>Dallas, Texas</option>
+                                <option>New York City, New York</option>
+                                <option>Atlanta, Georgia</option>
+                            </select>
+                        </label>
+                        <label class="item item-input">
+                            <span class="input-label">Address:</span>
+                            <input type="text">
+                        </label>
+                        <label class="item item-input">
+                            <span class="input-label">City:</span>
+                            <input type="text">
+                        </label>
+                        <label class="item item-input item-select">
+                            <div class="input-label"> State</div>
+                            <select>
+                                <option *ngFor="let state of states" [value]="state.alpha-2">{{state.name}}</option>
+                            </select>
+                        </label>
+                        <label class="item item-input">
+                            <span class="input-label">Zip Code:</span>
+                            <input type="text">
+                        </label>
+                        <label class="item item-input item-select">
+                            <div class="input-label"> Service Area:</div>
+                            <select>
+                                <option>Pending</option>
+                                <option>Scheduled</option>
+                                <option>Completed</option>
+                                <option>Cancelled</option>
+                            </select>
+                        </label>
+                        <label class="item item-input item-select">
+                            <div class="input-label"> Display Event:</div>
+                            <select>
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                            <button ion-button small color="primary" (click)="showAdvancedItems = !showAdvancedItems">
+                                Upload
+                            </button>
+                        </label>
+                    </div>
+                </accordion-box>
+
+                <accordion-box accordionTitle="{{'Volunteer Informtation' | translate}}">
+                    <div class="accordion-content">
+                        <label class="item item-input item-select">
+                            <div class="input-label"> Volunteer type restrictions:</div>
+                            <select>
+                                <option>None</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </label>
+                        <ion-item>
+                            <ion-label> Same Day Sign Up Allowed:</ion-label>
+                            <ion-toggle></ion-toggle>
+                        </ion-item>
+                        <label class="item item-input">
+                            <span class="input-label">Minimum Volunteers Needed:</span>
+                            <input type="text">
+                        </label>
+                        <label class="item item-input">
+                            <span class="input-label">Total Volunteers Needed:</span>
+                            <input type="text">
+                        </label>
+                        <ion-item>
+                            <ion-label> Event Notification:</ion-label>
+                            <ion-toggle></ion-toggle>
+                        </ion-item>
+                        <label class="item item-input item-select">
+                            <div class="input-label"> *Event Notification Schedule:</div>
+                            <select>
+                                <option>None</option>
+                                <option>Day Before</option>
+                                <option>Week Before</option>
+                                <option>Two Weeks Before</option>
+                            </select>
+                        </label>
+                    </div>
+                </accordion-box>
+
+                <accordion-box accordionTitle="{{'Special Instructions' | translate}}">
+                    <div class="accordion-content">
+                        <div class="input-label"> Gender Restrictions:</div>
+                            <select>
+                                <option>None</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                    </div>
+                </accordion-box>
+
+                <accordion-box accordionTitle="{{'Contacts' | translate}}">
+                    <div class="accordion-content">
+                    </div>
+                </accordion-box>
+
+
+            </ion-card-content>
+        </ion-card>
+        <button ion-button small color="primary" (click)="showAdvancedItems = !showAdvancedItems">Cancel Event</button>
+        <button ion-button small color="primary" (click)="showAdvancedItems = !showAdvancedItems">Save</button>
+        <button ion-button small color="primary" (click)="showAdvancedItems = !showAdvancedItems">Create Event</button>
+
+        <div class="sal-att-logo-container">
+            <img src="assets/img/collaboration.png"/>
+        </div>
+
+
+    </section>
+</ion-content>
