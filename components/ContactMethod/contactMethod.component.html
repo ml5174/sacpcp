@@ -7,7 +7,7 @@
     </ion-item>
 
     <ion-item no-lines *ngIf="pcmethod == 'email'">
-        <ion-input placeholder="Email@mail.com" [(ngModel)]="pcvalue" required (ngModelChange)="emailChanged($event)"></ion-input>
+        <ion-input placeholder="Email@mail.com" (blur)="blur($event)" [(ngModel)]="pcvalue" required (ngModelChange)="emailChanged($event)"></ion-input>
     </ion-item>
 
     <ion-item no-lines>
@@ -15,5 +15,5 @@
         <ion-radio value="sms"></ion-radio>
     </ion-item>
 
-    <phone-input idsuffix="reg" [pn]="mobile" #phoneinput *ngIf="pcmethod != 'email'" (mobileValueChanged)="mobileChanged($event)"></phone-input>
+    <phone-input idsuffix="reg" [pn]="mobile" (mobileValueBlur)="blur()" #phoneinput *ngIf="pcmethod != 'email'" (mobileValueChanged)="mobileChanged($event)"></phone-input>
 </ion-list>
