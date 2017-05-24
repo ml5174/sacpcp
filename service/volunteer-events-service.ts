@@ -15,6 +15,7 @@
     import { EVENT_SIGNUP_URI } from '../provider/config';
     import { SERVER } from '../provider/config';
     import { UserServices } from '../service/user';
+    import { GET_EVENTS_REPORT_URI } from '../provider/config';
 
 
     @Injectable()
@@ -34,6 +35,11 @@
         };
         constructor(private http: Http,
                     private userServices: UserServices) {
+        }
+        getEventsReport(body) {
+            return this.http.get(SERVER + GET_EVENTS_REPORT_URI + '?start=' + body.start + '&end=' + body.end, this.getOptionsForReport())
+                            .map(res => res.text())
+                            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
         }
         //private commentsUrl = 'backend-mock/events.json';
         clearEvents(){
@@ -146,6 +152,13 @@
             if (this.userServices) if (this.userServices.user.id) headers.append('Authorization', 'Token ' + this.userServices.user.id);
             headers.append('Content-Type', 'application/json;q=0.9');        
             headers.append('Accept', 'application/json;q=0.9');
+            return new RequestOptions({ headers: headers });
+        }
+        getOptionsForReport() {
+            let headers = new Headers();
+            if (this.userServices) if (this.userServices.user.id) headers.append('Authorization', 'Token ' + this.userServices.user.id);
+            headers.append('Content-Type', 'application/json;q=0.9');        
+            headers.append('Accept', 'application/json, text/csv;q=0.9');
             return new RequestOptions({ headers: headers });
         }
 

@@ -15,6 +15,7 @@ import { UPDATE_MY_PROFILE_URI } from '../provider/config';
 import { UPDATE_MY_PREFERENCES_URI } from '../provider/config';
 import { UserProfile } from '../model/user-profile';
 import { Storage } from '@ionic/storage';
+import { GET_USERS_URI } from '../provider/config';
 
 @Injectable()
 export class UserServices {
@@ -23,6 +24,11 @@ export class UserServices {
     userIdChange: Observable<number> = this.userIdSource.asObservable().share();
    
     constructor(private http: Http, public storage: Storage) {
+    }
+    getAllUsers() {
+        return this.http.get(SERVER + GET_USERS_URI, this.getOptions())
+                .map(res => res.json())
+                .catch((error:any) => Observable.throw(error || 'Server error'));
     }
     setId(id: number) {
         this.user.id = id;

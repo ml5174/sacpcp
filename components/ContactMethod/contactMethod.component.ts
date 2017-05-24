@@ -14,6 +14,7 @@ export class ContactMethod {
   @Output() methodUpdated = new EventEmitter();
   @Output() emailUpdated = new EventEmitter();
   @Output() mobileUpdated = new EventEmitter();
+  @Output() contactMethodBlur = new EventEmitter();
 constructor(){}
   pcMethodChange(evt) {
     // clear the email value when its changed to sms and emit change event
@@ -23,13 +24,17 @@ constructor(){}
     this.methodUpdated.emit(evt);
   }
 
+  blur(event) {
+    this.contactMethodBlur.emit(event);
+  }
+
   emailChanged(evt) {
-    console.log("email changed", evt);
+    //console.log("email changed", evt);
     this.emailUpdated.emit(evt);
   }
 
   mobileChanged(newNumber) {
-    console.log("mobile changed from contactMethod Component", newNumber);
+    //console.log("mobile changed from contactMethod Component", newNumber);
     this.mobileUpdated.emit(newNumber);
   }
 }
