@@ -1,3 +1,8 @@
+<style>
+	.sub_admin{
+		background-color:lightgrey;
+	}
+</style>
 <ion-menu [content]="content" side="right" persistent="true">
 
 	
@@ -38,6 +43,21 @@
 			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')">
 				Login 
 			</button>
+			<button ion-item *ngIf="userServices.user.id && userServices.user.profile.accounttype == 'A'" (click)="showAdmin1()">
+				Admin >
+			</button>
+			<!--<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(pages[8], '')">
+				Create Event
+			</button>
+			<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(pages[9], '')">
+				Edit Event
+			</button>-->
+			<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(pages[10], '')">
+				Reports
+			</button>
+			<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(pages[11], '')">
+				Contact Volunteers
+			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="logout()">
 				Logout 
 			</button>
@@ -46,16 +66,3 @@
 </ion-menu>
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
-
-<ion-footer>
-	<ion-toolbar>
-		<ion-row>
-			<ion-col *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')" class="footer-col"><ion-icon class="footer-icon" name="log-in"></ion-icon>Login</ion-col>
-			<ion-col *ngIf="userServices.user.id" (click)="logout()" class="footer-col"><ion-icon  class="footer-icon" name="log-out"></ion-icon>Logout</ion-col>
-			<ion-col (click)="openPage(pages[1], 'events')" class="footer-col"><ion-icon  class="footer-icon" name="body"></ion-icon>Volunteer</ion-col>
-			<ion-col (click)="openPage(pages[1], 'home')" class="footer-col"><ion-icon  class="footer-icon" name="home"></ion-icon>Home</ion-col>
-			<ion-col *ngIf="userServices.user.id" (click)="openPage(pages[11])" class="footer-col"><ion-icon  class="footer-icon" name="calendar"></ion-icon>My Events</ion-col>
-			<ion-col (click)="donate()" class="footer-col"><ion-icon  class="footer-icon" name="heart"></ion-icon>Donate</ion-col>
-		</ion-row>
-	</ion-toolbar>
-</ion-footer>

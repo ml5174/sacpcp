@@ -70,10 +70,109 @@ export class RegisterLoginPage {
     });
   }
 
+  checkContactMethod() {
+    console.log("checking contact method");
+      this.emailerror=false;
+      this.smserror=false;
+    if(this.contactMethod.pcmethod==='email') {
+      let email = this.contactMethod.pcvalue;
+      if(email) {
+        let at=email.indexOf('@');
+        let dot=email.lastIndexOf('.');
+        let length=email.length;
+        if(at===-1 || dot===-1 || dot<at || length-1===dot) {
+          this.emailerror=true;
+          this.emailerrorvalue='Invalid email format.'
+        }
+      } else {
+        this.emailerror=true;
+        this.emailerrorvalue='Since email is selected as your preferred contact method, the email field may not be empty.';
+      }
+    } else {
+      if(!this.contactMethod.mobilenumber) {
+        this.smserror=true;
+        this.smserrorvalue='Since mobile phone+ is selected as your preferred contact method, the mobile phone field may not be empty.';
+      }
+      if(this.contactMethod.mobilenumber.getPN().length<11) {
+        this.smserror=true;
+        this.smserrorvalue='Phone number must be 10 digits.';
+      }
+    }
+  }
+
+  checkPasswordsMatching() {
+    this.password2error=false;
+    console.log(this.password1 + '/' + this.password2);
+    if(this.password1 && this.password1!=='') {
+      if(this.password1!==this.password2) {
+        this.meetsRequirement=false;
+        this.password2error=true;
+        this.password2errorvalue='Passwords do not match!';
+      }
+    }
+  }
+
+  clearContactErrors() {
+    this.emailerror=false;
+    this.smserror=false;
+  }
+
+  checkUsername() {
+    this.usernameerror=false;
+    var regEx = new RegExp('[^A-Z][^a-z][^0-9][^@][^+][^.][^-]');
+    if(this.username.match(regEx)) {
+      this.usernameerror=true;
+      this.usernameerrorvalue='Username can only contain alphanumeric characters, @, +, ., or -.';
+    } else if(!this.username || this.username==='') {
+      this.usernameerror=true;
+      this.usernameerrorvalue='Username field may not be blank.';
+    }else if(this.username.length<8) {
+      this.usernameerror=true;
+      this.usernameerrorvalue='Username must be at least 8 characters';
+    } else if(this.username.length>30) {
+      this.usernameerror=true;
+      this.usernameerrorvalue='Username must be less than 30 characters';
+    }
+  }
+
+  checkPassword1() {
+    this.password1error=false;
+    if(!this.password1) {
+      this.password1error=true;
+      this.password1errorvalue='Password field may not be blank.';
+    } else if(this.password1.length<8) {
+      this.password1error=true;
+      this.password1errorvalue='Password must be at least 8 characters.';
+    } else if(this.password1===this.username) {
+      this.password1error=true;
+      this.password1errorvalue='Password must not match username.';
+    } else if(!this.complexPassword()) {
+      this.password1error=true;
+      this.password1errorvalue='Password must contain at least 3 of the following characteristics: 1. Uppercase English letters\n2. Lowercase English letters\n3. Numbers\n4. Non-alphanumeric characters \" # $ % & \' ( ) * + , - . : ; < = > ? @ [ \\ ] ^ { }';
+    }
+  }
+
+  complexPassword() {
+    var uppercase = new RegExp('[A-Z]');
+    var lowercase = new RegExp('[a-z]');
+    var numbers = new RegExp('[0-9]');
+    var specialCharacters = new RegExp('[" # $ % & \' ( ) * + , - . : ; < = > ? @ [ \\ ] ^ { }]');
+    var numMatches = 0;
+    if(this.password1.match(uppercase))
+      numMatches++;
+    if(this.password1.match(lowercase))
+      numMatches++;
+    if(this.password1.match(numbers))
+      numMatches++;
+    if(this.password1.match(specialCharacters))
+      numMatches++;
+    return (numMatches >= 3);
+  }
+
   checkRequired() {
     // sets the variable meetsRequirement to true if required fields are not empty
     // contactMethod prefix 1 to the numbers entered
-    console.log("check rquired called, preffered contact method is ", this.contactMethod.pcmethod);
+    //console.log("check rquired called, preffered contact method is ", this.contactMethod.pcmethod);
     if (this.contactMethod.pcmethod === 'email') {
       if (this.username && this.password1 && this.password2 && this.contactMethod.pcvalue && this.terms) {
         this.meetsRequirement = true;
@@ -85,7 +184,7 @@ export class RegisterLoginPage {
     if (this.contactMethod.mobilenumber) {
       if (this.username && this.password1 && this.password2 && (this.contactMethod.mobilenumber.getPN().length >= 11) && this.terms) {
         this.meetsRequirement = true;
-        console.log("inside contactMEthodMobileNumber not falsey", this.contactMethod.mobilenumber.getPN());
+        //console.log("inside contactMEthodMobileNumber not falsey", this.contactMethod.mobilenumber.getPN());
         return;
       }
     }
