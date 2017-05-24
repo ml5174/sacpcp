@@ -44,7 +44,7 @@
             <input type="submit" class="hidden-submit">
 
             <!-- My Credentials -->
-				<accordion-box accordionTitle="{{'My Info' | translate}}">
+				<accordion-box #accordionMyCredentials accordionTitle="{{'My Info' | translate}}">
                 <ion-list class="accordion-content">
                     <ion-item no-lines *ngIf="firstnameerror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
@@ -148,7 +148,7 @@
             </accordion-box>
 				
 				<!-- Preferred Contact -->
-            <accordion-box accordionTitle="{{'Preferred Contact Method' | translate}}">
+            <accordion-box #accordionPreferredContact accordionTitle="{{'Preferred Contact Method' | translate}}">
                 <div class="accordion-content">
                     <ion-item no-lines *ngIf="my_contactmethod_iderror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
@@ -199,7 +199,7 @@
             </accordion-box>
 
 				<!-- Emergency Contact -->
-            <accordion-box accordionTitle="{{'Emergency Contact' | translate}}">
+            <accordion-box #accordionEmergencyContact accordionTitle="{{'Emergency Contact' | translate}}">
                 <ion-list class="accordion-content">
                     <ion-item no-lines *ngIf="ecfirstnameerror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
@@ -339,7 +339,7 @@
 
 
             <!-- Volunteer Types -->
-            <accordion-box accordionTitle="{{'Volunteer Types' | translate}}">
+            <accordion-box #accordionVolunteerTypes accordionTitle="{{'Volunteer Types' | translate}}">
                 <ion-list class="accordion-content">
                     <ion-item no-lines *ngIf="my_volunteertype_iderror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
@@ -397,7 +397,7 @@
 -->
 
             <!-- Your Preferred Locations for Service -->
-            <accordion-box accordionTitle="{{'Event Location Preferences' | translate}}">
+            <accordion-box #accordionPreferredLocations accordionTitle="{{'Event Location Preferences' | translate}}">
                 <div class="accordion-content">
                     <ion-searchbar></ion-searchbar>
                     <ion-row wrap responsive-sm padding>
@@ -412,7 +412,7 @@
             </accordion-box>
 
             <!-- Interested Service Areas -->
-            <accordion-box accordionTitle="{{'Interested Service Areas' | translate}}">
+            <accordion-box #accordionServiceAreas accordionTitle="{{'Interested Service Areas' | translate}}">
                 <div class="accordion-content">
                     <div class="multi-choice" *ngFor="let m of formServiceAreas">
                         <ion-item no-lines>
@@ -424,7 +424,7 @@
             </accordion-box>
 
             <!-- Change Password -->
-            <accordion-box accordionTitle="{{'Change Password' | translate}}">
+            <accordion-box #accordionChangePassword accordionTitle="{{'Change Password' | translate}}">
 
                 <ion-list class="accordion-content">
 

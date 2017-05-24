@@ -9,6 +9,7 @@ import { Content, LoadingController, ToastController, PopoverController, ModalCo
 import { PasswordPopover } from '../../popover/password';
 import { ParentVerifyModal } from '../../modals/parent-verify-modal';
 import { PhoneInput } from '../../lib/components/phone-input.component';
+import { AccordionBox } from '../../lib/components/accordion-box';
 
 @Component({
   templateUrl: 'register-individual-profile.html'
@@ -19,6 +20,16 @@ export class RegisterIndividualProfilePage {
   @ViewChild('preferredNumber') preferredNumber : PhoneInput;
   @ViewChild('emergencyNumber') emergencyNumber : PhoneInput;
   @ViewChild('emergencyAlternate') emergencyAlternate : PhoneInput;
+
+  //In order to expand & collapse accordion boxes if there are errors within them,
+  // we need to be able to reference them.
+  @ViewChild('accordionMyCredentials') accordionMyCredentials : AccordionBox;
+  @ViewChild('accordionPreferredContact') accordionPreferredContact : AccordionBox;
+  @ViewChild('accordionEmergencyContact') accordionEmergencyContact : AccordionBox;
+  @ViewChild('accordionVolunteerTypes') accordionVolunteerTypes : AccordionBox;
+  @ViewChild('accordionPreferredLocations') accordionPreferredLocations : AccordionBox;
+  @ViewChild('accordionServiceAreas') accordionServiceAreas : AccordionBox;
+  @ViewChild('accordionChangePassword') accordionChangePassword : AccordionBox;
   
   public key: string = '';
   public val: string = '';
@@ -571,6 +582,16 @@ export class RegisterIndividualProfilePage {
         this.passworderrorvalue = "";
         this.password1errorvalue = "";
         this.password2errorvalue = "";
+
+        //Lets close all accordionboxes
+        this.accordionMyCredentials.expand(false);
+        this.accordionPreferredContact.expand(false);
+        this.accordionEmergencyContact.expand(false);
+        this.accordionVolunteerTypes.expand(false);
+        this.accordionPreferredLocations.expand(false);
+        this.accordionServiceAreas.expand(false);
+        this.accordionChangePassword.expand(false);
+
   }
   
   setError(error) {
@@ -722,6 +743,30 @@ export class RegisterIndividualProfilePage {
       this.content.scrollToTop();
     }
 
+      //       @ViewChild('accordionMyCredentials') accordionMyCredentials : AccordionBox;
+  // @ViewChild('accordionPreferredContact') accordionPreferredContact : AccordionBox;
+  // @ViewChild('accordionEmergencyContact') accordionEmergencyContact : AccordionBox;
+  // @ViewChild('accordionVolunteerTypes') accordionVolunteerTypes : AccordionBox;
+  // @ViewChild('accordionPreferredLocations') accordionPreferredLocations : AccordionBox;
+  // @ViewChild('accordionServiceAreas') accordionServiceAreas : AccordionBox;
+  // @ViewChild('accordionChangePassword') accordionChangePassword : AccordionBox;
+
+    //Now, if therre are any error messages in an accordionbox, lets expand it!
+    this.accordionMyCredentials.expand(this.firstnameerror || this.lastnameerror || this.birthdateerror || this.gendererror
+      || this.address1error || this.address2error || this.cityerror || this.stateerror || this.zipcodeerror);
+
+    this.accordionPreferredContact.expand(this.my_contactmethod_iderror || this.mobilenumbererror || this.emailerror);
+
+    this.accordionEmergencyContact.expand(this.ecfirstnameerror || this.eclastnameerror || this.ecrelationerror 
+      || this.ecmobilenumbererror || this.ecaltnumbererror );
+
+    this.accordionVolunteerTypes.expand(this.my_volunteertype_iderror || this.my_referalsource_iderror);
+
+    //There are not (yet?) any errors for this accordionbox
+    // this.accordionPreferredLocations.expand(true);
+    //this.accordionServiceAreas.expand(true);
+
+    this.accordionChangePassword.expand(this.passworderror || this.password1error || this.password2error);
   }
   
   back() {
