@@ -23,7 +23,7 @@ export class PhoneInput {
 	}
 	
 	getPN(){
-		if (this.pn) {
+		if (this.pn && this.pn!='') {
 			return "1" + this.pn.replace(/\D+/g, '').slice(0,10);
 		}
 		return '';
