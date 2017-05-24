@@ -28,5 +28,9 @@ export class AccordionBox {
   	}
   	
   }
+  
+  	expand(bool : boolean) {
+		this.expanded = bool;
+	}
 
 }
