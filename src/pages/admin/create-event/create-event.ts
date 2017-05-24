@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { BehaviorSubject } from 'rxjs/Rx';
 import { states } from '../../../static_json/states';
 
 @Component({
