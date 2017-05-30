@@ -22,6 +22,7 @@ export const GET_USERS_URI = '/api/v0.2/admin/userprofile';
 export const SEND_MESSAGE_TO_USERS_LIST_URI = '/api/v0.2/admin/sendusermessages/';
 export const GET_EVENTS_REPORT_URI = '/api/v0.2/admin/events/report/';
 export const SEND_MESSAGE_TO_EVENT_VOLUNTEERS_URI = '/api/v0.2/admin/eventmessages/';
+export const EVENT_CATEGORIES_URI = '/api/v0.2/events/categories';
 
 export var SERVER = window['djangoserver'];
 if (document.location.hostname === '198.199.86.127')

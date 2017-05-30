@@ -16,6 +16,7 @@
     import { SERVER } from '../provider/config';
     import { UserServices } from '../service/user';
     import { GET_EVENTS_REPORT_URI } from '../provider/config';
+    import { EVENT_CATEGORIES_URI } from '../provider/config';
 
 
     @Injectable()
@@ -35,6 +36,11 @@
         };
         constructor(private http: Http,
                     private userServices: UserServices) {
+        }
+        getEventCategories() {
+            return this.http.get(SERVER + EVENT_CATEGORIES_URI, this.getOptions())
+                                .map(res => res.json())
+                                .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
         }
         getEventsReport(body) {
             return this.http.get(SERVER + GET_EVENTS_REPORT_URI + '?start=' + body.start + '&end=' + body.end, this.getOptionsForReport())
