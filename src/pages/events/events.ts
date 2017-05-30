@@ -45,6 +45,9 @@ export class EventPage {
   public moreInterval = 30;
   public moreIntervalIncrease = 30;
 
+  public eventCategories:Array<String> = [];
+  public getPreferencesError = false;
+
   constructor(public volunteerEventsService: VolunteerEventsService,
     public userServices: UserServices,
     public modalCtrl: ModalController,
@@ -61,6 +64,11 @@ export class EventPage {
 
     this.loadEvents();
     this.showLoading();
+
+    this.userServices.getAvailablePreferences().subscribe(
+      data => this.eventCategories=data.eventcategories,
+      error => this.getPreferencesError=true
+    );
   }
 
   showLoading() {

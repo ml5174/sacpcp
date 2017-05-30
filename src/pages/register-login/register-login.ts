@@ -29,6 +29,7 @@ export class RegisterLoginPage {
   public emailerror: boolean = false;
   public smserror: boolean = false;
   public termserror: boolean = false;
+  public nonFieldsError: boolean = false;
 
   // Error values
   public usernameerrorvalue: string = '';
@@ -37,22 +38,13 @@ export class RegisterLoginPage {
   public emailerrorvalue: string = '';
   public smserrorvalue: string = '';
   public termserrorvalue: string = "You must accept Privacy and Terms to proceed.";
+  public nonFieldsErrorValue = '';
 
   private modalClicked: boolean = false;
-
   public key: string = '';
   public val: string = '';
   public errors: Array<string> = [];
-  /* Move the email, Phone contact details to a common component -
-     ViewChild(ContactMethod)
-     This can be reused at multiple pages.
-   */
-  //public pcmethod: string = 'email'
-  //public pcvalue: string = '';
-  //public mobileNumberAreaCode = '';
-  //public mobileNumberPrefix = '';
-  // public mobileNumberLineNumber = '';
-  // ionic content to control scrolling
+
   @ViewChild(Content) content: Content;
   @ViewChild(ContactMethod)
   public contactMethod: ContactMethod;
@@ -60,13 +52,13 @@ export class RegisterLoginPage {
   public remember: boolean = true;
   public storage: Storage = new Storage();
   public pcmethod: string = 'email'
-
+  public meetsRequirement: boolean = false;
   constructor(public nav: NavController,
     public userServices: UserServices,
     public translate: TranslateService,
     public popoverCtrl: PopoverController,
     public modalCtrl: ModalController
-  ) { }
+  ){}
 
   promiseToScroll() {
     //needed to allow view to refresh with error elements before scroll
@@ -76,6 +68,127 @@ export class RegisterLoginPage {
         resolve(42);
       }, 200);
     });
+  }
+
+  checkContactMethod() {
+    console.log("checking contact method");
+      this.emailerror=false;
+      this.smserror=false;
+    if(this.contactMethod.pcmethod==='email') {
+      let email = this.contactMethod.pcvalue;
+      if(email) {
+        let at=email.indexOf('@');
+        let dot=email.lastIndexOf('.');
+        let length=email.length;
+        if(at===-1 || dot===-1 || dot<at || length-1===dot) {
+          this.emailerror=true;
+          this.emailerrorvalue='Invalid email format.'
+        }
+      } else {
+        this.emailerror=true;
+        this.emailerrorvalue='Since email is selected as your preferred contact method, the email field may not be empty.';
+      }
+    } else {
+      if(!this.contactMethod.mobilenumber) {
+        this.smserror=true;
+        this.smserrorvalue='Since mobile phone+ is selected as your preferred contact method, the mobile phone field may not be empty.';
+      }
+      if(this.contactMethod.mobilenumber.getPN().length<11) {
+        this.smserror=true;
+        this.smserrorvalue='Phone number must be 10 digits.';
+      }
+    }
+  }
+
+  checkPasswordsMatching() {
+    this.password2error=false;
+    console.log(this.password1 + '/' + this.password2);
+    if(this.password1 && this.password1!=='') {
+      if(this.password1!==this.password2) {
+        this.meetsRequirement=false;
+        this.password2error=true;
+        this.password2errorvalue='Passwords do not match!';
+      }
+    }
+  }
+
+  clearContactErrors() {
+    this.emailerror=false;
+    this.smserror=false;
+  }
+
+  checkUsername() {
+    this.usernameerror=false;
+    var regEx = new RegExp('[^A-Z][^a-z][^0-9][^@][^+][^.][^-]');
+    if(this.username.match(regEx)) {
+      this.usernameerror=true;
+      this.usernameerrorvalue='Username can only contain alphanumeric characters, @, +, ., or -.';
+    } else if(!this.username || this.username==='') {
+      this.usernameerror=true;
+      this.usernameerrorvalue='Username field may not be blank.';
+    }else if(this.username.length<8) {
+      this.usernameerror=true;
+      this.usernameerrorvalue='Username must be at least 8 characters';
+    } else if(this.username.length>30) {
+      this.usernameerror=true;
+      this.usernameerrorvalue='Username must be less than 30 characters';
+    }
+  }
+
+  checkPassword1() {
+    this.password1error=false;
+    if(!this.password1) {
+      this.password1error=true;
+      this.password1errorvalue='Password field may not be blank.';
+    } else if(this.password1.length<8) {
+      this.password1error=true;
+      this.password1errorvalue='Password must be at least 8 characters.';
+    } else if(this.password1===this.username) {
+      this.password1error=true;
+      this.password1errorvalue='Password must not match username.';
+    } else if(!this.complexPassword()) {
+      this.password1error=true;
+      this.password1errorvalue='Password must contain at least 3 of the following characteristics: 1. Uppercase English letters\n2. Lowercase English letters\n3. Numbers\n4. Non-alphanumeric characters \" # $ % & \' ( ) * + , - . : ; < = > ? @ [ \\ ] ^ { }';
+    }
+  }
+
+  complexPassword() {
+    var uppercase = new RegExp('[A-Z]');
+    var lowercase = new RegExp('[a-z]');
+    var numbers = new RegExp('[0-9]');
+    var specialCharacters = new RegExp('[" # $ % & \' ( ) * + , - . : ; < = > ? @ [ \\ ] ^ { }]');
+    var numMatches = 0;
+    if(this.password1.match(uppercase))
+      numMatches++;
+    if(this.password1.match(lowercase))
+      numMatches++;
+    if(this.password1.match(numbers))
+      numMatches++;
+    if(this.password1.match(specialCharacters))
+      numMatches++;
+    return (numMatches >= 3);
+  }
+
+  checkRequired() {
+    // sets the variable meetsRequirement to true if required fields are not empty
+    // contactMethod prefix 1 to the numbers entered
+    //console.log("check rquired called, preffered contact method is ", this.contactMethod.pcmethod);
+    if (this.contactMethod.pcmethod === 'email') {
+      if (this.username && this.password1 && this.password2 && this.contactMethod.pcvalue && this.terms) {
+        this.meetsRequirement = true;
+        return;
+      }
+      this.meetsRequirement = false;
+      return;
+    }
+    if (this.contactMethod.mobilenumber) {
+      if (this.username && this.password1 && this.password2 && (this.contactMethod.mobilenumber.getPN().length >= 11) && this.terms) {
+        this.meetsRequirement = true;
+        //console.log("inside contactMEthodMobileNumber not falsey", this.contactMethod.mobilenumber.getPN());
+        return;
+      }
+    }
+    this.meetsRequirement = false;
   }
 
   register() {
@@ -95,8 +208,18 @@ export class RegisterLoginPage {
     this.emailerrorvalue = '';
     this.smserrorvalue = '';
 
+    // register object we're passing to the api
+    let register = {
+      username: this.username,
+      password1: this.password1,
+      password2: this.password2,
+      email: undefined,
+      phone: undefined,
+      tandc: 1
+    }
+
     if (!this.terms) {
-      this.errors.push("You must accept Privacy and Terms below to proceed.");
+      // this.errors.push("You must accept Privacy and Terms below to proceed.");
       this.termserror = true;
       this.content.scrollToBottom();
       let scrollToBottomPromise = this.promiseToScroll();
@@ -108,23 +231,11 @@ export class RegisterLoginPage {
     }
     this.termserror = false;
 
-    let register = {
-      username: this.username,
-      password1: this.password1,
-      password2: this.password2,
-      email: undefined,
-      phone: undefined,
-      tandc: 1
-    }
-
     if (this.contactMethod.pcmethod === 'email') {
       this.email = this.contactMethod.pcvalue;
       register.email = this.email;
     }
     else {
-      // this.sms = '1'+this.contactMethod.mobileNumberAreaCode +
-      // this.contactMethod.mobileNumberPrefix+
-      // this.contactMethod.mobileNumberLineNumber;
       this.sms = this.contactMethod.mobilenumber.getPN();
       register.phone = this.sms;
       console.log('about to register with: ' + register.phone);
@@ -135,40 +246,21 @@ export class RegisterLoginPage {
 
     this.userServices.register(register)
       .subscribe(
-      key => {
-        this.key = key;
-        // let myProfile = {
-        //   'User': registerLogin.username
-        // }
-        this.userServices.user.name = this.username;
+        key => {
+          this.key = key;
+          this.userServices.user.name = this.username;
 
-        if (this.remember) {
-          this.storage.set('username', this.username);
-          this.storage.set('key', this.userServices.user.id);
-        }
-        else this.storage.set('username', '');
-        // registerLogin.nav.insert(registerLogin.nav.length(),HomePage);
-        registerLogin.nav.setPages([HomePage, RegisterIndividualProfilePage]);
-
-
-        /* this.userServices.createMyProfile(myProfile)
-           .subscribe(
-           key => {
-             registerLogin.key = key;
-             registerLogin.nav.setRoot(RegisterIndividualProfilePage);
-           },
-           err => {
-             console.log(err);
-             this.setError(err);
-           }),
-           val => this.val = val;
-           */
-      },
-      err => {
-        console.log(err);
-        this.setError(err);
-      });
-
+          if (this.remember) {
+            this.storage.set('username', this.username);
+            this.storage.set('key', this.userServices.user.id);
+          }
+          else this.storage.set('username', '');
+          registerLogin.nav.setPages([HomePage, RegisterIndividualProfilePage]);
+        },
+        err => {
+          console.log(err);
+          this.setError(err);
+        });
   }
 
   back() {
@@ -189,6 +281,7 @@ export class RegisterLoginPage {
           registerScope.content.scrollToBottom();
         });
       }
+      this.checkRequired();
     });
     modal.present();
   }
@@ -201,12 +294,6 @@ export class RegisterLoginPage {
         for (let val in error[key]) {
           let field = '';
           if (STRINGS[key]) field = STRINGS[key] + ': ';
-          // if (key === 'username') {
-          //   this.usernameerror = true;
-          //   this.errors.push(field + 'Invalid Format');
-          // } else {
-          //   this.errors.push(field + error[key][val].toString());
-          // }
           this.errors.push(field + error[key][val].toString());
           var message = error[key][val].toString();
           if (key === 'username') {
@@ -225,9 +312,13 @@ export class RegisterLoginPage {
             this.emailerror = true;
             this.emailerrorvalue = message;
           }
-          if (key === 'sms') {
+          if (key === 'phone') {
             this.smserror = true;
             this.smserrorvalue = message;
+          }
+          if (key === 'non_field_errors') {
+            this.nonFieldsError = true;
+            this.nonFieldsErrorValue = message;
           }
         }
       }
@@ -241,31 +332,28 @@ export class RegisterLoginPage {
     if (error.status === 500) {
       this.errors.push('Backend returned 500 error, talk to JOHN :) ');
     }
-
   }
+
   viewTerms() {
     this.openModal();
-    //this.nav.push(TermsPage);
   }
 
   showPassword() {
     if (this.showpassword === 'password') this.showpassword = 'text';
     else this.showpassword = 'password';
   }
-  presentUserPopover(ev) {
 
+  presentUserPopover(ev) {
     let popover = this.popoverCtrl.create(UseridPopover, {
     });
-
     popover.present({
       ev: ev
     });
   }
-  presentPasswordPopover(ev) {
 
+  presentPasswordPopover(ev) {
     let popover = this.popoverCtrl.create(PasswordPopover, {
     });
-
     popover.present({
       ev: ev
     });

@@ -1,3 +1,8 @@
+<style>
+	.sub_admin{
+		background-color:lightgrey;
+	}
+</style>
 <ion-menu [content]="content" side="right" persistent="true">
 
 	
@@ -38,6 +43,21 @@
 			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')">
 				Login 
 			</button>
+			<button ion-item *ngIf="userServices.user.id && userServices.user.profile.accounttype == 'A'" (click)="showAdmin1()">
+				Admin >
+			</button>
+			<!--<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(pages[8], '')">
+				Create Event
+			</button>
+			<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(pages[9], '')">
+				Edit Event
+			</button>-->
+			<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(pages[10], '')">
+				Reports
+			</button>
+			<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(pages[11], '')">
+				Contact Volunteers
+			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="logout()">
 				Logout 
 			</button>
@@ -46,16 +66,3 @@
 </ion-menu>
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
-
-<ion-footer>
-	<ion-toolbar>
-		<ion-row>
-			<ion-col *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')"><ion-icon name="log-in"></ion-icon></ion-col>
-			<ion-col *ngIf="userServices.user.id" (click)="logout()"><ion-icon name="log-out"></ion-icon></ion-col>
-			<ion-col (click)="openPage(pages[1], 'events')"><ion-icon name="body"></ion-icon></ion-col>
-			<ion-col (click)="openPage(pages[1], 'home')"><ion-icon name="home"></ion-icon></ion-col>
-			<ion-col *ngIf="userServices.user.id" (click)="openPage(pages[11])"><ion-icon name="calendar"></ion-icon></ion-col>
-			<ion-col (click)="donate()"><ion-icon name="heart"></ion-icon></ion-col>
-		</ion-row>
-	</ion-toolbar>
-</ion-footer>

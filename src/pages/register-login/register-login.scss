@@ -1,34 +1,39 @@
-
-.item .pcm-radio{
-  position: absolute;left: 0; width: 100px;
+.item .pcm-radio {
+    position: absolute;
+    left: 0;
+    width: 100px;
 }
 
 .pcm-icon {
-  padding-left: 30px;
-}
-ion-label[stacked] {
-  font-size: 2.2rem;
-}
-#pcm-choice {
-  padding: 10px;
-  margin-left: 8px;
-}
-#pcm-input {
-  border: 1px solid;
-  padding: 0 10px;
-  height: 3rem;
-  border-radius: 5px; 
-  input {
-      margin-top: 5px;
-  }
-}
-.center {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: normal;    
+    padding-left: 30px;
 }
 
-#register-login-page #show-link {    
+ion-label[stacked] {
+    font-size: 2.2rem;
+}
+
+#pcm-choice {
+    padding: 10px;
+    margin-left: 8px;
+}
+
+#pcm-input {
+    border: 1px solid;
+    padding: 0 10px;
+    height: 3rem;
+    border-radius: 5px;
+    input {
+        margin-top: 5px;
+    }
+}
+
+.center {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+#register-login-page #show-link {
     position: absolute;
     z-index: 9;
     left: 145px;
@@ -50,21 +55,25 @@ ion-label[stacked] {
 }
 
 #reviewptbtn {
-   font-size: small !important;
+    font-size: small !important;
 }
 
 #register-login-page .iaccept {
     padding: 1px;
-} 
- 
-#acceptlbl {
-   font-size: small !important;
 }
 
-.item-checkbox-right{
-	flex-direction: row-reverse;
+#acceptlbl {
+    font-size: small !important;
+}
+
+.item-checkbox-right {
+    flex-direction: row-reverse;
 }
 
 .no-text-transform {
-  text-transform: none;
+    text-transform: none;
+}
+
+.required-field {
+    color: #CC1F2C
 }

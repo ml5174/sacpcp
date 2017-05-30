@@ -17,18 +17,18 @@ export class ChangePasswordPage {
   public password2: string = '';
   public email: string = '';
   public sms: string = '';
-
   public passworderror: boolean = false;
   public password1error: boolean = false;
   public password2error: boolean = false;
   public emailerror: boolean = false;
   public smserror: boolean = false;
-
   public key: string = '';
   public val: string = '';
   public errors: Array<string> = [];
   public pcmethod: string = 'email'
   public pcvalue: string = '';
+  public meetsRequirement = false;
+  public MINPWLENGTH = 1;
 
   constructor(public nav: NavController,
     public navParams: NavParams,
@@ -37,6 +37,14 @@ export class ChangePasswordPage {
     public popoverCtrl: PopoverController) {
       console.dir(navParams);
 
+  }
+
+  checkRequirement($event) {
+    if (this.password1.length >= this.MINPWLENGTH && this.password2.length >= this.MINPWLENGTH) {
+      this.meetsRequirement = true;
+      return;
+    }
+    this.meetsRequirement = false;
   }
   register() {
     this.errors = [];
