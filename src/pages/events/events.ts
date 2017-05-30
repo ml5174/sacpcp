@@ -65,8 +65,8 @@ export class EventPage {
     this.loadEvents();
     this.showLoading();
 
-    this.userServices.getAvailablePreferences().subscribe(
-      data => this.eventCategories=data.eventcategories,
+    this.volunteerEventsService.getEventCategories().subscribe(
+      data => this.eventCategories=data,
       error => this.getPreferencesError=true
     );
   }
