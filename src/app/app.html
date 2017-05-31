@@ -46,16 +46,16 @@
 			<button ion-item *ngIf="userServices.user.id && userServices.user.profile.accounttype == 'A'" (click)="showAdmin1()">
 				Admin >
 			</button>
-			<!--<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(pages[8], '')">
+			<!--<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(adminPages[0], '')">
 				Create Event
 			</button>
-			<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(pages[9], '')">
+			<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(adminPages[1], '')">
 				Edit Event
 			</button>-->
-			<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(pages[10], '')">
+			<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(adminPages[2], '')">
 				Reports
 			</button>
-			<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(pages[11], '')">
+			<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(adminPages[3], '')">
 				Contact Volunteers
 			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="logout()">
