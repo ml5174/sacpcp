@@ -40,6 +40,7 @@ export class MyApp {
   errors: Array<string> = [];
   rootPage: any = HomePage;
   pages: Array<{ title: string, component: any }>;
+  adminPages: Array<{ title: string, component: any }>;
   username: String = "";
   appName: String = "";
   appPkgName: String = "";
@@ -71,12 +72,15 @@ export class MyApp {
       { title: 'Change Password', component: ChangePasswordPage },
       { title: 'About', component: AboutPage },
       { title: 'Contact Us', component: ContactPage },
-      { title: 'Admin', component: admin },
+      { title: 'Privacy & Terms', component: TermsPage },
+      { title: 'Admin', component: admin }
+    ];
+   
+    this.adminPages = [
       { title: 'Create Event', component: CreateEvent },
       { title: 'Edit Event', component: EditEvent },
       { title: 'Reports', component: Reports },
       { title: 'Contact Volunteers', component: ContactVolunteers },
-      { title: 'Privacy & Terms', component: TermsPage }
     ];
 
   }
