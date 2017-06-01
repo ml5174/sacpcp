@@ -75,7 +75,7 @@
 			<ion-col *ngIf="userServices.user.id" (click)="logout()" class="footer-col"><ion-icon  class="footer-icon" name="log-out"></ion-icon>Logout</ion-col>		
 			<ion-col (click)="openPage(pages[1], 'events')" class="footer-col"><ion-icon  class="footer-icon" name="body"></ion-icon>Volunteer</ion-col>		
 			<ion-col (click)="openPage(pages[1], 'home')" class="footer-col"><ion-icon  class="footer-icon" name="home"></ion-icon>Home</ion-col>		
-			<ion-col *ngIf="userServices.user.id" (click)="openPage(pages[11])" class="footer-col"><ion-icon  class="footer-icon" name="calendar"></ion-icon>My Events</ion-col>		
+			<ion-col *ngIf="userServices.user.id" (click)="openPage(pages[9], '')" class="footer-col"><ion-icon  class="footer-icon" name="calendar"></ion-icon>My Events</ion-col>
 			<ion-col (click)="donate()" class="footer-col"><ion-icon  class="footer-icon" name="heart"></ion-icon>Donate</ion-col>		
 		</ion-row>		
 	</ion-toolbar>		
