@@ -30,8 +30,6 @@
             <ion-card-content>
                 <ion-list-header (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">
                     <h2>{{e.title}}</h2>
-                    <ion-icon *ngIf="!showDetails[i]" primary item-right name="ios-add-circle-outline"></ion-icon>
-                    <ion-icon *ngIf="showDetails[i]" primary item-right name="ios-remove-circle-outline"></ion-icon>
                 </ion-list-header>
                     <ion-list no-lines>
                         <span *ngIf="showDetails[i]">

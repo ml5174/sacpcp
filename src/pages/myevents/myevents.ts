@@ -7,6 +7,9 @@ import { ModalController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { HomePage } from '../home/home';
 import { AlertController, PopoverController, ToastController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
+
+
 @Component({
   templateUrl: 'myevents.html',
   selector: 'myevents'
@@ -14,7 +17,8 @@ import { AlertController, PopoverController, ToastController } from 'ionic-angul
 
 export class MyEventsPage{
 
-    constructor(public volunteerEventsService: VolunteerEventsService,
+    constructor(public nav: NavController,
+        public volunteerEventsService: VolunteerEventsService,
         public userServices: UserServices,
         public modalCtrl: ModalController,
         public alertCtrl: AlertController,
@@ -132,4 +136,9 @@ export class MyEventsPage{
         });
         confirm.present();
     }
+
+    back() {
+        this.nav.pop();
+    }
+
 }
