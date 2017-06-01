@@ -15,6 +15,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { TermsPage } from '../pages/terms/terms';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { admin} from '../pages/admin/admin';
+import { MyEventsPage } from '../pages/myevents/myevents';
 import {PopoverController} from 'ionic-angular';
 import {CreateEvent} from '../pages/admin/create-event/create-event';
 import {EditEvent} from '../pages/admin/edit-event/edit-event';
@@ -73,7 +74,8 @@ export class MyApp {
       { title: 'About', component: AboutPage },
       { title: 'Contact Us', component: ContactPage },
       { title: 'Privacy & Terms', component: TermsPage },
-      { title: 'Admin', component: admin }
+      { title: 'Admin', component: admin },
+      { title: 'My Events', component: MyEventsPage}
     ];
    
     this.adminPages = [
