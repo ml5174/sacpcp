@@ -29,7 +29,6 @@ export class ContactVolunteers {
     this.sendTo = 'individual';
   	this.userServices.getAllUsers().subscribe(
   		users => {
-        console.log(users);
   			for(var user of users) {
           if(user.contactmethod!=null && user.first_name!='' && user.first_name!=null)
             this.users.push(user);
@@ -78,9 +77,9 @@ export class ContactVolunteers {
         user.selected = true;
       }
     } else {
-      this.selectAllUsers = !this.selectAllUsers;
-      for(var user of this.users)
+      for(var user of this.users) {
         user.selected = this.selectAllUsers;
+      }
     }
   }
   toggleSelectAllEvents(init) {
@@ -90,23 +89,41 @@ export class ContactVolunteers {
         event.selected = true;
       }
     } else {
-      this.selectAllEvents = !this.selectAllEvents;
-      for(var event of this.events)
+      for(var event of this.events) {
         event.selected = this.selectAllEvents;
+      }
     }
   }
 
-  message() {
+  checkSelected() {
+    if(this.sendTo === 'individual') {
+      return !this.users.some(user => user.selected);
+    } else {
+      return !this.events.some(event => event.selected);
+    }
+  }
+
+  getSelectedUsers() {
     let selectedUsers = [];
     for(var user of this.users) {
       if(user.selected)
         selectedUsers.push(user.user);
     }
+    return selectedUsers;
+  }
+
+  getSelectedEvents() {
     let selectedEvents = [];
-      for(var event of this.events) {
-        if(event.selected)
-          selectedEvents.push(event.id);
-      }
+    for(var event of this.events) {
+      if(event.selected)
+        selectedEvents.push(event.id);
+    }
+    return selectedEvents;
+  }
+
+  message() {
+    let selectedUsers = this.getSelectedUsers();
+    let selectedEvents = this.getSelectedEvents();
     if(this.sendTo==='individual') {
       let modal = this.modalCtrl.create(Message,
       {

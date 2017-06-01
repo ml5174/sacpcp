@@ -152,6 +152,7 @@ export class MyApp {
     }
   }
   logout() {
+    this.showAdmin=false;
     this.menu.close();
     this.storage.set('key', undefined);
     this.userServices.unsetId();
