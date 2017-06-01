@@ -20,11 +20,11 @@
     <ion-item *ngIf="showStatus && eventDetail.status_notes">
       <p>Status notes: {{eventDetail.status_notes}}</p>
     </ion-item>
-    <ion-item *ngIf="signedUp">
-      <p>Registration status: registered</p>
+    <ion-item *ngIf="signedUp && userServices.user.id">
+      <p>Sign-Up Status: Signed Up</p>
     </ion-item>
-     <ion-item *ngIf="!signedUp">
-      <p>Registration status: Not registered</p>
+     <ion-item *ngIf="!signedUp && userServices.user.id">
+      <p>Sign-Up Status: Not Signed Up</p>
     </ion-item>
     <ion-item>
       <p *ngIf="eventDetail.registeredcount !=null">Volunteers Participating: {{eventDetail.registeredcount}}</p>
