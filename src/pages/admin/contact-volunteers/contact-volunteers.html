@@ -3,13 +3,7 @@
     </app-header>
 </ion-header>
 
-<ion-content padding-left padding-right padding-top>
-
-   <section id="header">
-        <ion-navbar>
-            <ion-title>Contact Volunteers</ion-title>
-        </ion-navbar>
-   </section>
+<ion-content has-footer="true" class="has-footer" padding-left padding-right padding-top>
    <section id="home-body">
 
         <ion-list radio-group [(ngModel)]="sendTo">
@@ -24,7 +18,7 @@
         </ion-list>
         <ion-grid *ngIf="sendTo==='individual'">
             <ion-row style="font-weight:bold">
-                <ion-col col-1><button small ion-button (click)="toggleSelectAllUsers(false);">Select/Deselect All</button></ion-col>
+                <ion-col col-1><ion-checkbox [(ngModel)]="selectAllUsers" (click)="toggleSelectAllUsers(false);"></ion-checkbox></ion-col>
                 <ion-col col-2>First Name</ion-col>
                 <ion-col col-2>Last Name</ion-col>
                 <ion-col col-2>Contact Method</ion-col>
@@ -43,7 +37,7 @@
         </ion-grid>
         <ion-grid *ngIf="sendTo==='events' && events">
             <ion-row style="font-weight:bold">
-                <ion-col col-1><button small ion-button (click)="toggleSelectAllEvents(false);">Select/Deselect All</button></ion-col>
+                <ion-col col-1><ion-checkbox [(ngModel)]="selectAllEvents" (click)="toggleSelectAllEvents(false);"></ion-checkbox></ion-col>
                 <ion-col col-2>Event Name</ion-col>
                 <ion-col col-2>Event Date</ion-col>
                 <ion-col col-2>Event Location</ion-col>
@@ -57,25 +51,22 @@
                 </ion-row>
             </div>
         </ion-grid>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-10 padding>
+                    <div align="right"><button ion-button color="primary" (click)="back()">Cancel</button></div>
+                </ion-col>
+                <ion-col col-2 padding>
+                    <div align="left"><button [disabled]="checkSelected()" ion-button color="primary" style="display: inline-block; width: auto;" (click)="message();">Compose Message</button></div>
+                </ion-col>
+                <ion-col width-3></ion-col>
+            </ion-row>
+        </ion-grid>
     </section>
     <section id="tab-content" padding>
-        
-
-       
         <div class="sal-att-logo-container">
             <img src="assets/img/collaboration.png" />
+            <div style="min-height: 10vh !important;"></div>
         </div>
     </section>
 </ion-content>
-<ion-footer class="action-footer">
-    <ion-grid>
-        <ion-row>
-            <ion-col width-6 padding>
-                <button ion-button color="primary" (click)="back()">Cancel</button>
-            </ion-col>
-            <ion-col width-6 padding>
-                <button ion-button color="primary" style="display: inline-block; width: auto;" (click)="message();">Compose Message</button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-</ion-footer>

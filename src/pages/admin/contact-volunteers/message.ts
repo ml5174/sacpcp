@@ -1,39 +1,38 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { App, NavParams } from 'ionic-angular';
 import { MessageServices } from '../../../lib/service/message';
 import { UserServices } from '../../../lib/service/user';
 import { ViewController } from 'ionic-angular';
+import { HomePage } from '../../home/home'
 
 @Component({
 	templateUrl: 'message.html'
 })
 
 export class Message {
-	public message:String;
+	public message:String = '';
 	private users:Array<any>;
 	private events:Array<any>;
-	public emptyMessageError:Boolean;
 	public sendMessageError:Boolean;
 
 	constructor(params: NavParams,
-				public nav:NavController,
 				public viewCtrl:ViewController,
 				private messageServices:MessageServices,
-				private userServices:UserServices) {
+				private userServices:UserServices,
+				private app:App) {
 		if(params.get('users'))
 			this.users = params.get('users');
 		if(params.get('events'))
 			this.events = params.get('events');
 	}
 
-	back() {
+	goHome() {
 		this.viewCtrl.dismiss({'cancel':true});
+		this.app.getRootNav().push(HomePage);
 	}
 
 	send() {
-		if( this.message==='' && (this.users || this.events) ) {
-			this.emptyMessageError = true;
-		} else if(this.users) {
+		if(this.users) {
 			let body = {
 				'message': this.message,
 				'recipients': this.users,
