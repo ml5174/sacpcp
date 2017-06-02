@@ -32,8 +32,8 @@ export class RegisterLoginPage {
   public nonFieldsError: boolean = false;
 
   // Error values
-  public usernameerrorvalue: string = '';
-  public password1errorvalue: string = '';
+  public usernameerrorvalue: string = 'This field is required.';
+  public password1errorvalue: string = 'This field is required.';
   public password2errorvalue: string = '';
   public emailerrorvalue: string = '';
   public smserrorvalue: string = '';
@@ -82,34 +82,35 @@ export class RegisterLoginPage {
         let length=email.length;
         if(at===-1 || dot===-1 || dot<at || length-1===dot) {
           this.emailerror=true;
-          this.emailerrorvalue='Invalid email format.'
+          this.emailerrorvalue='Enter a valid email address.'
         }
       } else {
         this.emailerror=true;
-        this.emailerrorvalue='Since email is selected as your preferred contact method, the email field may not be empty.';
+        this.emailerrorvalue='This field is may not be empty.';
       }
     } else {
       if(!this.contactMethod.mobilenumber) {
         this.smserror=true;
-        this.smserrorvalue='Since mobile phone+ is selected as your preferred contact method, the mobile phone field may not be empty.';
+        this.smserrorvalue='This field may not be empty.';
       }
       if(this.contactMethod.mobilenumber.getPN().length<11) {
         this.smserror=true;
-        this.smserrorvalue='Phone number must be 10 digits.';
+        this.smserrorvalue='Mobile number should be 10 digits.';
       }
     }
+    return this.emailerror || this.smserror;
   }
 
   checkPasswordsMatching() {
     this.password2error=false;
-    console.log(this.password1 + '/' + this.password2);
     if(this.password1 && this.password1!=='') {
       if(this.password1!==this.password2) {
         this.meetsRequirement=false;
         this.password2error=true;
-        this.password2errorvalue='Passwords do not match!';
+        this.password2errorvalue='Your passwords do not match.';
       }
     }
+    return this.password2error;
   }
 
   clearContactErrors() {
@@ -122,24 +123,25 @@ export class RegisterLoginPage {
     var regEx = new RegExp('[^A-Z][^a-z][^0-9][^@][^+][^.][^-]');
     if(this.username.match(regEx)) {
       this.usernameerror=true;
-      this.usernameerrorvalue='Username can only contain alphanumeric characters, @, +, ., or -.';
+      this.usernameerrorvalue='Username does not meet complexity requirements.';
     } else if(!this.username || this.username==='') {
       this.usernameerror=true;
-      this.usernameerrorvalue='Username field may not be blank.';
+      this.usernameerrorvalue='This field may not be empty.';
     }else if(this.username.length<8) {
       this.usernameerror=true;
-      this.usernameerrorvalue='Username must be at least 8 characters';
+      this.usernameerrorvalue='Username must be at least 8 characters.';
     } else if(this.username.length>30) {
       this.usernameerror=true;
       this.usernameerrorvalue='Username must be less than 30 characters';
     }
+    return this.usernameerror;
   }
 
   checkPassword1() {
     this.password1error=false;
     if(!this.password1) {
       this.password1error=true;
-      this.password1errorvalue='Password field may not be blank.';
+      this.password1errorvalue='This field may not be empty.';
     } else if(this.password1.length<8) {
       this.password1error=true;
       this.password1errorvalue='Password must be at least 8 characters.';
@@ -148,8 +150,9 @@ export class RegisterLoginPage {
       this.password1errorvalue='Password must not match username.';
     } else if(!this.complexPassword()) {
       this.password1error=true;
-      this.password1errorvalue='Password must contain at least 3 of the following characteristics: 1. Uppercase English letters\n2. Lowercase English letters\n3. Numbers\n4. Non-alphanumeric characters \" # $ % & \' ( ) * + , - . : ; < = > ? @ [ \\ ] ^ { }';
+      this.password1errorvalue= 'This password does not meet complexity requirements.';//'Password must contain at least 3 of the following characteristics: 1. Uppercase English letters\n2. Lowercase English letters\n3. Numbers\n4. Non-alphanumeric characters \" # $ % & \' ( ) * + , - . : ; < = > ? @ [ \\ ] ^ { }';
     }
+    return this.password1error;
   }
 
   complexPassword() {
@@ -176,19 +179,30 @@ export class RegisterLoginPage {
     if (this.contactMethod.pcmethod === 'email') {
       if (this.username && this.password1 && this.password2 && this.contactMethod.pcvalue && this.terms) {
         this.meetsRequirement = true;
-        return;
+        return true;
       }
       this.meetsRequirement = false;
-      return;
+      return false;
     }
     if (this.contactMethod.mobilenumber) {
       if (this.username && this.password1 && this.password2 && (this.contactMethod.mobilenumber.getPN().length >= 11) && this.terms) {
         this.meetsRequirement = true;
         //console.log("inside contactMEthodMobileNumber not falsey", this.contactMethod.mobilenumber.getPN());
-        return;
+        return true;
       }
     }
     this.meetsRequirement = false;
+    return false;
+  }
+
+  checkAll() {
+    let pw1 = this.checkPassword1();
+    let u = this.checkUsername();
+    let pwm = this.checkPasswordsMatching();
+    let r = this.checkRequired();
+    let cm = this.checkContactMethod();
+    let test = pw1 || u || pwm || r || cm;
+    return test;
   }
 
   register() {
@@ -227,6 +241,7 @@ export class RegisterLoginPage {
       scrollToBottomPromise.then(function () {
         registerScope.content.scrollToBottom();
       });
+      this.checkAll();
       return;
     }
     this.termserror = false;
@@ -244,6 +259,7 @@ export class RegisterLoginPage {
     if (!register.email) delete register.email;
     if (!register.phone) delete register.phone;
 
+    if(!this.checkAll()) {
     this.userServices.register(register)
       .subscribe(
         key => {
@@ -261,6 +277,7 @@ export class RegisterLoginPage {
           console.log(err);
           this.setError(err);
         });
+    }
   }
 
   back() {
@@ -359,3 +376,8 @@ export class RegisterLoginPage {
     });
   }
 }
+
+
+
+// WEBPACK FOOTER //
+// ./src/pages/register-login/register-login.ts

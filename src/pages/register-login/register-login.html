@@ -5,6 +5,7 @@
 
 
 <ion-content>
+<p *ngIf="usernameerror || password1error || password2error || emailerror || smserror || !terms" align="center"><span style="color:#CC1F2C">Please Note:</span> All required fields must be completed to register.</p>
     <section id="register-login-page">
         <form (ngSubmit)="register()">
             <!--username and usernameerror container-->
@@ -22,7 +23,7 @@
                 <ion-item no-lines class="">
                     <!--<ion-icon *ngIf="usernameerror" name="alert" item-left isActive="false" [class.error]="usernameerror"></ion-icon>-->
                     <ion-label stacked><span class="required-field">*</span>Username</ion-label>
-                    <ion-input name="username" required type="text" class="" [(ngModel)]="username" (blur)="checkUsername()" required (ngModelChange)="checkRequired()"></ion-input>
+                    <ion-input maxlength="30" autocapitalize="off" name="username" type="text" class="" [(ngModel)]="username" (blur)="checkUsername()" (ngModelChange)="checkRequired()"></ion-input>
                 </ion-item>
             </div>
             <!--password and password error container-->
@@ -36,7 +37,7 @@
                 <ion-icon class="popover-icon" name="information-circle" (click)="presentPasswordPopover($event)"></ion-icon>
                 <ion-item no-lines [class.error]="password1error">
                     <ion-label stacked><span class="required-field">*</span>{{ 'Password' | translate}} </ion-label>
-                    <ion-input name="password1" (blur)="checkPassword1()" required [type]="showpassword" placeholder="" [(ngModel)]="password1" (ngModelChange)="checkRequired()"></ion-input>
+                    <ion-input maxlength="32" autocapitazlie="off" name="password1" (blur)="checkPassword1()" [type]="showpassword" placeholder="" [(ngModel)]="password1" (ngModelChange)="checkRequired()"></ion-input>
                 </ion-item>
             </div>
             <!--password2 fields-->
@@ -47,7 +48,7 @@
             <ion-item no-lines class="">
                 <!--<ion-icon *ngIf="password2error" name="alert" item-left isActive="false" [class.error]="password2error"></ion-icon>-->
                 <ion-label stacked><span class="required-field">*</span>Confirm Password</ion-label>
-                <ion-input name="password2" required type="password" placeholder="" class="" [(ngModel)]="password2" (blur)="checkPasswordsMatching()" required (ngModelChange)="checkRequired()"></ion-input>
+                <ion-input autocapitalize="off" name="password2" type="password" placeholder="" class="" [(ngModel)]="password2" (blur)="checkPasswordsMatching()" (ngModelChange)="checkRequired()"></ion-input>
             </ion-item>
             <!--save login radio-->
             <ion-item no-lines>
@@ -92,7 +93,7 @@
 
                 <ion-col></ion-col>
                 <ion-col>
-                    <button ion-button color="primary" (click)="register()" [disabled]="!meetsRequirement">Register</button>
+                    <button ion-button color="primary" (click)="register()" >Register</button>
                 </ion-col>
                 <ion-col></ion-col>
             </ion-row>
