@@ -46,6 +46,6 @@ cd ../..
 cat > sed.VERSION_CODE << EOF
 s?_build_number_?${VERSION_CODE}?g 
 EOF
-exit
+
 sed -i.bak -f sed.VERSION_CODE src/app/app.component.ts 
  
