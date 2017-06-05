@@ -76,7 +76,7 @@ export class EventPage {
   showDatePicker(clickEvent){
     console.log("show datepicker");
     let popover = this.popoverCtrl.create(DatePicker);
-    popover.present({ev: clickEvent});
+    popover.present(/*{ev: clickEvent}*/);
   }
   //TODO: remove above function to show date-picker
 
