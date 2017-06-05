@@ -15,11 +15,17 @@
 </div> -->
 <ion-item>
     <ion-label>Opportunity Type:</ion-label>
-  <ion-select id="selectbar" [(ngModel)]="oppType">
-    <ion-option value="0" selected="true">All</ion-option>
-    <ion-option *ngFor="let cat of eventCategories" value="{{cat.id}}">{{cat.name}}</ion-option>
-  </ion-select>
+    <ion-select id="selectbar" [(ngModel)]="oppType">
+        <ion-option value="0" selected="true">All</ion-option>
+        <ion-option *ngFor="let cat of eventCategories" value="{{cat.id}}">{{cat.name}}</ion-option>
+    </ion-select>
 </ion-item>
+<!--TODO: temporary development calendar button-->
+<ion-item>
+    <button (click)="showDatePicker($event)">Pick A starting Date</button>
+</ion-item>
+<!--TODO: Remove above temporary development calendar button to bring up date-picker component-->
+
 <div id="results" *ngIf="searching">Search Results</div>
 <!-- Removed per Requirements  <img class="main" src="assets/img/logo2.jpg" /> -->
 <div *ngIf="searching && noResults">No Results Found</div>
@@ -31,8 +37,8 @@
                 <ion-list-header (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">
                     <h2>{{e.title}}</h2>
                 </ion-list-header>
-                    <ion-list no-lines>
-                        <span *ngIf="showDetails[i]">
+                <ion-list no-lines>
+                    <span *ngIf="showDetails[i]">
                         <ion-item >
                             <img src="assets/img/bucket.jpg" />
                         </ion-item>
@@ -40,33 +46,33 @@
                             <p>{{e.description}}</p>
                         </ion-item>
                         </span>
-                        <ion-item>
-                            <ion-icon item-left name="calendar"></ion-icon>
-                            <!--p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p-->
-                            <p>{{e.start | parseTime:"MMM DD"}} {{e.end | parseTime:"YYYY"}}</p>
-                            <!--p>{{e.start | parseTimeZone: 'h:mm A'}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p-->
-                            <p>{{e.start | parseTime: 'h:mm A'}}-{{e.end | parseTime: 'h:mm A'}}</p>
-                        </ion-item>
-                        <ion-item *ngIf="e.location_name">
-                            <ion-icon item-left name="pin"></ion-icon>
-                            <p>{{e.location_name}}</p>
-                            <span *ngIf="e.location_address1">
+                    <ion-item>
+                        <ion-icon item-left name="calendar"></ion-icon>
+                        <!--p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p-->
+                        <p>{{e.start | parseTime:"MMM DD"}} {{e.end | parseTime:"YYYY"}}</p>
+                        <!--p>{{e.start | parseTimeZone: 'h:mm A'}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p-->
+                        <p>{{e.start | parseTime: 'h:mm A'}}-{{e.end | parseTime: 'h:mm A'}}</p>
+                    </ion-item>
+                    <ion-item *ngIf="e.location_name">
+                        <ion-icon item-left name="pin"></ion-icon>
+                        <p>{{e.location_name}}</p>
+                        <span *ngIf="e.location_address1">
                         <p>{{e.location_address1}}</p>
                         <span *ngIf="e.location_address2">
                         <p>{{e.location_address2}}</p>
                         </span>
-                            <p>{{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
-                            </span>
-                        </ion-item>
-                        <ion-item *ngIf="!userServices.user.id">
-                            <button ion-button item-left small color="primary" (click)="eventDetailGuestModal(e.id)" >Details</button>
-                        </ion-item>  
-                        <ion-item *ngIf="userServices.user.id">
-                        <button ion-button item-left small color="primary" (click)="eventDetailModal(e.id)" >Details</button>
-                        <button ion-button item-right small color="primary" *ngIf="!amISignedUp(e.id)" (click)="signupEventRegistration(e.id)" >Sign up</button>
-                        <button ion-button item-right small color="primary" *ngIf="amISignedUp(e.id)" (click)="cancelEventRegisteration(e.id)" >Cancel Sign-Up</button>
-                         </ion-item>
-                    </ion-list>
+                        <p>{{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
+                        </span>
+                    </ion-item>
+                    <ion-item *ngIf="!userServices.user.id">
+                        <button ion-button item-left small color="primary" (click)="eventDetailGuestModal(e.id)">Details</button>
+                    </ion-item>
+                    <ion-item *ngIf="userServices.user.id">
+                        <button ion-button item-left small color="primary" (click)="eventDetailModal(e.id)">Details</button>
+                        <button ion-button item-right small color="primary" *ngIf="!amISignedUp(e.id)" (click)="signupEventRegistration(e.id)">Sign up</button>
+                        <button ion-button item-right small color="primary" *ngIf="amISignedUp(e.id)" (click)="cancelEventRegisteration(e.id)">Cancel Sign-Up</button>
+                    </ion-item>
+                </ion-list>
             </ion-card-content>
             <!--button padding ion-button class="readmore">Read more</button>
             <ion-row no-padding>

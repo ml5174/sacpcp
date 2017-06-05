@@ -2,10 +2,8 @@ import { EventDetailModal } from './../pages/events/eventdetail-modal';
 import { EventDetailPopup } from './../pages/events/eventdetail-popup';
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
-
 import {HttpModule, Http} from '@angular/http';
 import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
-
 import { MyApp } from './app.component';
 import { TermsPage } from '../pages/terms/terms';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
@@ -33,19 +31,15 @@ import { PhoneInput } from '../lib/components/phone-input.component';
 import { AccordionBox } from '../lib/components/accordion-box';
 import { PrivacyTermsContent } from '../lib/components/privacy-terms-content';
 import { Storage } from '@ionic/storage';
-
 import { UseridPopover } from '../popover/userid';
 import { PasswordPopover } from '../popover/password';
 import { EventSortPopover } from '../popover/eventsort-popover';
 import { PreferredSearchPopover } from '../popover/preferredsearch-popover';
-
 import { ParentVerifyModal } from '../modals/parent-verify-modal';
 import { PrivacyTermsModal } from '../modals/privacy-terms-modal';
-
 import { UserServices } from '../lib/service/user';
 import { SignupAssistant } from '../lib/service/signupassistant';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service';
-
 import { ReferralSourcePipe } from '../lib/pipe/referralsource.pipe';
 import { MomentTimeZonePipe } from '../lib/pipe/moment-timezone.pipe';
 import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
@@ -53,14 +47,13 @@ import { EventSortPipe, OpportunityPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
 import { RecoverSuccessPage } from '../pages/recover-success/recover-success';
-
 //import {PopoverController } from 'ionic-angular';
 //import {Component} from '@angular/core';
 //Added for text-mask, phone number formatting
 import { FormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
-
 import { MessageServices } from '../lib/service/message';
+import { DatePicker } from '../lib/components/date-picker/date-picker.component';
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -116,6 +109,7 @@ export function translateFactory(http: Http) {
     AccordionBox,
     PrivacyTermsContent,
     RecoverSuccessPage,
+    DatePicker,
   ],
   imports: [
     HttpModule,
@@ -159,6 +153,7 @@ export function translateFactory(http: Http) {
     Message,
     EventDetailPopup,
     RecoverSuccessPage,
+    DatePicker,
   ],
   providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService, SignupAssistant, MessageServices]
 })

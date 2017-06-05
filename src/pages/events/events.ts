@@ -11,6 +11,7 @@ import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
 import { AlertController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { SignupAssistant } from '../../lib/service/signupassistant';
+import { DatePicker } from '../../lib/components/date-picker/date-picker.component';
 
 @Component({
   templateUrl: 'events.html',
@@ -70,6 +71,14 @@ export class EventPage {
       error => this.getPreferencesError=true
     );
   }
+
+  //TODO: temporary development to show date-picker
+  showDatePicker(clickEvent){
+    console.log("show datepicker");
+    let popover = this.popoverCtrl.create(DatePicker);
+    popover.present({ev: clickEvent});
+  }
+  //TODO: remove above function to show date-picker
 
   showLoading() {
     this.loadingOverlay = this.loadingController.create({
