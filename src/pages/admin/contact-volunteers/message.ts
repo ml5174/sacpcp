@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { App, NavParams } from 'ionic-angular';
 import { MessageServices } from '../../../lib/service/message';
 import { UserServices } from '../../../lib/service/user';
