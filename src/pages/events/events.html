@@ -21,8 +21,20 @@
     </ion-select>
 </ion-item>
 <!--TODO: temporary development calendar button-->
-<ion-item>
-    <button (click)="showDatePicker($event)">Pick A starting Date</button>
+<ion-item no-lines id="date-picker-item-label">
+    Show events within the following dates:
+</ion-item>
+<ion-item id="date-picker-item">
+    <div id="date-picker-container" item-content>
+        <div id="date-picker-start-input-container" (click)="showDatePicker($event)">
+            <span class="date-picker-date-display">6/1/2017</span>
+            <ion-icon name="calendar" isActive="false"></ion-icon>
+        </div>
+        <div id="date-picker-end-input-container" (click)="showDatePicker($event)">
+            <span class="date-picker-date-display">6/31/2017</span>
+            <ion-icon name="calendar" isActive="false"></ion-icon>
+        </div>
+    </div>
 </ion-item>
 <!--TODO: Remove above temporary development calendar button to bring up date-picker component-->
 
