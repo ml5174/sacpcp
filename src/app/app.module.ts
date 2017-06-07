@@ -53,7 +53,7 @@ import { RecoverSuccessPage } from '../pages/recover-success/recover-success';
 import { FormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MessageServices } from '../lib/service/message';
-import { DatePicker } from '../lib/components/date-picker/date-picker.component';
+import { DatePickerCalendar } from '../lib/components/date-picker-calendar/date-picker-calendar.component';
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -109,7 +109,7 @@ export function translateFactory(http: Http) {
     AccordionBox,
     PrivacyTermsContent,
     RecoverSuccessPage,
-    DatePicker,
+    DatePickerCalendar,
   ],
   imports: [
     HttpModule,
@@ -153,7 +153,7 @@ export function translateFactory(http: Http) {
     Message,
     EventDetailPopup,
     RecoverSuccessPage,
-    DatePicker,
+    DatePickerCalendar,
   ],
   providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService, SignupAssistant, MessageServices]
 })
