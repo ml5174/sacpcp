@@ -54,6 +54,7 @@ import { FormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MessageServices } from '../lib/service/message';
 import { DatePickerCalendar } from '../lib/components/date-picker-calendar/date-picker-calendar.component';
+import { DatePicker } from '../lib/components/date-picker/date-picker.component';
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -110,6 +111,7 @@ export function translateFactory(http: Http) {
     PrivacyTermsContent,
     RecoverSuccessPage,
     DatePickerCalendar,
+    DatePicker,
   ],
   imports: [
     HttpModule,
@@ -154,6 +156,7 @@ export function translateFactory(http: Http) {
     EventDetailPopup,
     RecoverSuccessPage,
     DatePickerCalendar,
+    DatePicker,
   ],
   providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService, SignupAssistant, MessageServices]
 })

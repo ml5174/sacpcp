@@ -26,14 +26,16 @@
 </ion-item>
 <ion-item id="date-picker-item">
     <div id="date-picker-container" item-content>
-        <div id="date-picker-start-input-container" (click)="showDatePicker($event)">
+        <!--<div id="date-picker-start-input-container" (click)="showDatePicker($event)">
             <span class="date-picker-date-display">6/1/2017</span>
             <ion-icon name="calendar" isActive="false"></ion-icon>
         </div>
         <div id="date-picker-end-input-container" (click)="showDatePicker($event)">
             <span class="date-picker-date-display">6/31/2017</span>
             <ion-icon name="calendar" isActive="false"></ion-icon>
-        </div>
+        </div>-->
+        <date-picker></date-picker>
+        <date-picker></date-picker>
     </div>
 </ion-item>
 <!--TODO: Remove above temporary development calendar button to bring up date-picker component-->
