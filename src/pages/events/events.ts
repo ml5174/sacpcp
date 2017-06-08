@@ -12,6 +12,7 @@ import { AlertController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { SignupAssistant } from '../../lib/service/signupassistant';
 import { DatePickerCalendar } from '../../lib/components/date-picker-calendar/date-picker-calendar.component';
+import Moment from "moment";
 
 @Component({
   templateUrl: 'events.html',
@@ -48,6 +49,9 @@ export class EventPage {
 
   public eventCategories:Array<String> = [];
   public getPreferencesError = false;
+  // datepicker
+  public selectedStartDate = Moment().format("YYYY-MM-DD");
+  public selectedEndDate = Moment().add(30, 'day');
 
   constructor(public volunteerEventsService: VolunteerEventsService,
     public userServices: UserServices,
@@ -77,6 +81,14 @@ export class EventPage {
     console.log("show datepicker");
     let popover = this.popoverCtrl.create(DatePickerCalendar);
     popover.present(/*{ev: clickEvent}*/);
+  }
+
+  updateSelectedStartDate(date) {
+    this.selectedStartDate = date;
+  }
+
+  updateSelectedEndDate(date) {
+    this.selectedEndDate = date;
   }
   //TODO: remove above function to show date-picker
 
