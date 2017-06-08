@@ -201,7 +201,8 @@ export class RegisterLoginPage {
     let pwm = this.checkPasswordsMatching();
     let r = this.checkRequired();
     let cm = this.checkContactMethod();
-    let test = pw1 || u || pwm || r || cm;
+    let test = pw1 || u || pwm || !r || cm;
+    console.log(test);
     return test;
   }
 
@@ -258,7 +259,6 @@ export class RegisterLoginPage {
 
     if (!register.email) delete register.email;
     if (!register.phone) delete register.phone;
-
     if(!this.checkAll()) {
     this.userServices.register(register)
       .subscribe(

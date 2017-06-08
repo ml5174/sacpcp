@@ -139,6 +139,8 @@ export class MyApp {
   openPage(page, tab) {
     console.log("open page!");
     let currentPage = this.nav.getActive().component;
+     console.log(page.component);
+      console.log(tab);
 
     // close the menu when clicking a link from the menu
     this.menu.close();

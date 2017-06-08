@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core'
 import {Observable} from 'rxjs/Rx';
 import {UserServices} from '../../lib/service/user';
-import {NavController} from 'ionic-angular';
+import {NavController,NavParams} from 'ionic-angular';
 import {STRINGS} from '../../lib/provider/config';
 import {TranslateService} from "ng2-translate/ng2-translate";
 import { ChangePasswordPage } from '../change-password/change-password';
@@ -182,9 +182,9 @@ export class RegisterIndividualProfilePage {
               public loadingController: LoadingController,
               public toastController: ToastController,
               public popoverCtrl: PopoverController,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController,
+              public params: NavParams) {
   }
-
   // On initialization, get the latest info from the server
   ngOnInit() {
     let getMyProfileObservable =  this.userServices.getMyProfile();
@@ -194,6 +194,7 @@ export class RegisterIndividualProfilePage {
     this.clearErrors();
     this.cleanBooleans();
     this.showLoading();
+
 
     // Get profile and preferences too
     Observable.forkJoin([getMyPreferencesObservable, getAvailablePreferencesObservable, getMyProfileObservable])
@@ -238,6 +239,10 @@ export class RegisterIndividualProfilePage {
           this.hideLoading();
           console.log(err);
         });
+
+        if(this.params.get('errorResponse')){
+            this.setError(this.params.get('errorResponse'));
+        }
   }
 
   presentToast(message: string) {
@@ -311,7 +316,7 @@ export class RegisterIndividualProfilePage {
 	console.log("myprefs" + JSON.stringify(this.myPreferences));
 
     console.log(this.myProfile);
-
+    this.myProfile.birthdate = null;
     this.checkRequiredFields();
 
     let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
@@ -630,140 +635,176 @@ export class RegisterIndividualProfilePage {
       error = error.json();
       console.log(error);
       for (let key in error) {
+      if(key === 'non_field_errors'){
+          for(var i=0;i<error[key].length;i++){
+              if(error[key][i].hasOwnProperty('first_name')){
+                  this.firstnameerror=true;
+                  this.firstnameerrorvalue=error[key][i].first_name;
+              }
+              if(error[key][i].hasOwnProperty('last_name')){
+                  this.lastnameerror=true;
+                  this.lastnameerrorvalue=error[key][i].last_name;
+              }
+              if(error[key][i].hasOwnProperty('birthdate')){
+                  this.birthdateerror=true;
+                  this.birthdateerrorvalue=error[key][i].birthdate;
+              }
+              if(error[key][i].hasOwnProperty('gender')){
+                  this.address1error=true;
+                  this.address1errorvalue=error[key][i].gender;
+              }
+              if(error[key][i].hasOwnProperty('emergency_contact.first_name')){
+                  this.ecfirstnameerror=true;
+                  this.ecfirstnameerrorvalue=error[key][i]['emergency_contact.first_name'];
+              }
+              if(error[key][i].hasOwnProperty('emergency_contact.last_name')){
+                  this.eclastnameerror=true;
+                  this.eclastnameerrorvalue=error[key][i]['emergency_contact.last_name'];
+              }
+              if(error[key][i].hasOwnProperty('emergency_contact.mobilenumber')){
+                  this.ecmobilenumbererror=true;
+                  this.ecmobilenumbererrorvalue=error[key][i]['emergency_contact.mobilenumber'];
+              }
+              if(error[key][i].hasOwnProperty('emergency_contact.relation')){
+                  this.ecrelationerror=true;
+                  this.ecrelationerrorvalue=this.ecmobilenumbererrorvalue=error[key][i]['emergency_contact.relation'];;
+              }
+          }
+      }else{
         for (let val in error[key]) {
-          let field = '';
-          if (STRINGS[key]) field = STRINGS[key] + ': ';
-          this.errors.push(field + error[key][val].toString());
-          var message = error[key][val].toString();
-//          this[key + "error"] = true;
-          if (key==='first_name') {
-            this.firstnameerror=true;
-            this.firstnameerrorvalue=message;
-          }
-          if (key==='last_name') {
-            this.lastnameerror=true;
-            this.lastnameerrorvalue=message;
-          }
-          if (key==='birthdate') {
-            this.birthdateerror=true;
-            this.birthdateerrorvalue=message;
-          }
-          if (key==='my_contactmethod_id') {
-            this.my_contactmethod_iderror=true;
-            this.my_contactmethod_iderrorvalue=message;
-          }
-          if (key==='my_volunteertype_id') {
-            this.my_volunteertype_iderror=true;
-            this.my_volunteertype_iderrorvalue=message;
-          }
-          if (key==='acceptedwaiver') {
-            this.acceptedwaivererror=true;
-            this.acceptedwaivererrorvalue=message;
-          }
-          if (key==='acceptedpolicy') {
-            this.acceptedpolicyerror=true;
-            this.acceptedpolicyerrorvalue=message;
-          }
-          if (key==='com_opt_in') {
-            this.com_opt_inerror=true;
-            this.com_opt_inerrorvalue=message;
-          }
-
-          if (key==='mobilenumber') {
-            this.mobilenumbererror=true;
-            this.mobilenumbererror=message;
-          }
-          if (key==='email') {
-            this.emailerror=true;
-            this.emailerrorvalue=message;
-          }
-          if (key==='parent_consent') {
-            this.parent_consenterror=true;
-            this.parent_consenterrorvalue=message;
-          }
-
-          if (key==='gender') {
-            this.gendererror=true;
-            this.gendererrorvalue=message;
-          }
-          if (key==='address1') {
-            this.address1error=true;
-            this.address1errorvalue=message;
-          }
-          if (key==='address2') {
-            this.address2error=true;
-            this.address2errorvalue=message;;
-          }
-          if (key==='city') {
-            this.cityerror=true;
-            this.cityerrorvalue=message;
-          }
-          if (key==='state') {
-            this.stateerror=true;
-            this.stateerrorvalue
-          }
-          if (key==='zipcode') {
-            this.zipcodeerror=true;
-            this.zipcodeerrorvalue=message;
-          }
-          if (key==='my_servicearea_id') {
-            this.my_servicearea_iderror=true;
-            this.my_servicearea_iderrorvalue=message;
-          }
-          if (key==='my_referalsource_id') {
-            this.my_referalsource_iderror=true;
-            this.my_referalsource_iderrorvalue=message;}
-          if (key==='my_donationtype_id') {
-            this.my_donationtype_iderror=true;
-            this.my_donationtype_iderrorvalue=message;
-          }
-
-          if (key==='old_password') {
-            this.passworderror=true;
-            this.passworderrorvalue=message;
-          }
-          if (key==='new_password1') {
-            this.password1error=true;
-            this.password1errorvalue=message;
-          }
-          if (key==='new_password2') {
-            this.password2error=true;
-            this.password2errorvalue=message;
-          }
-
-          if (key==='contact')  {
-            let object = error[key];
-            if (object.mobilenumber) {
-              this.mobilenumbererror=true;
-              this.mobilenumbererrorvalue=message;
+            let field = '';
+            if (STRINGS[key]) field = STRINGS[key] + ': ';
+            this.errors.push(field + error[key][val].toString());
+            var message = error[key][val].toString();
+            if (key==='first_name') {
+              this.firstnameerror=true;
+              this.firstnameerrorvalue=message;
             }
-            if (object.email) {
+            if (key==='last_name') {
+              this.lastnameerror=true;
+              this.lastnameerrorvalue=message;
+            }
+            if (key==='birthdate') {
+              this.birthdateerror=true;
+              this.birthdateerrorvalue=message;
+            }
+            if (key==='my_contactmethod_id') {
+              this.my_contactmethod_iderror=true;
+              this.my_contactmethod_iderrorvalue=message;
+            }
+            if (key==='my_volunteertype_id') {
+              this.my_volunteertype_iderror=true;
+              this.my_volunteertype_iderrorvalue=message;
+            }
+            if (key==='acceptedwaiver') {
+              this.acceptedwaivererror=true;
+              this.acceptedwaivererrorvalue=message;
+            }
+            if (key==='acceptedpolicy') {
+              this.acceptedpolicyerror=true;
+              this.acceptedpolicyerrorvalue=message;
+            }
+            if (key==='com_opt_in') {
+              this.com_opt_inerror=true;
+              this.com_opt_inerrorvalue=message;
+            }
+
+            if (key==='mobilenumber') {
+              this.mobilenumbererror=true;
+              this.mobilenumbererror=message;
+            }
+            if (key==='email') {
               this.emailerror=true;
               this.emailerrorvalue=message;
             }
-          }
-          if (key==='emergency_contact')  {
-            let object = error[key];
-            if (object.mobilenumber) {
-              this.ecmobilenumbererror=true;
-              this.ecmobilenumbererrorvalue=message;
+            if (key==='parent_consent') {
+              this.parent_consenterror=true;
+              this.parent_consenterrorvalue=message;
             }
-            if (object.altnumber) {
-              this.ecaltnumbererror=true;
-              this.ecaltnumbererrorvalue=message;
+
+            if (key==='gender') {
+              this.gendererror=true;
+              this.gendererrorvalue=message;
             }
-          }
-          if (key==='emergency_contact_first_name') {
-            this.ecfirstnameerror=true;
-            this.ecfirstnameerrorvalue=message;
-          }
-          if (key==='emergency_contact_last_name') {
-            this.eclastnameerror=true;
-            this.eclastnameerrorvalue=message;
-          }
-          if (key==='emergency_contact_relation') {
-            this.ecrelationerror=true;
-            this.ecrelationerrorvalue=message;
+            if (key==='address1') {
+              this.address1error=true;
+              this.address1errorvalue=message;
+            }
+            if (key==='address2') {
+              this.address2error=true;
+              this.address2errorvalue=message;;
+            }
+            if (key==='city') {
+              this.cityerror=true;
+              this.cityerrorvalue=message;
+            }
+            if (key==='state') {
+              this.stateerror=true;
+              this.stateerrorvalue
+            }
+            if (key==='zipcode') {
+              this.zipcodeerror=true;
+              this.zipcodeerrorvalue=message;
+            }
+            if (key==='my_servicearea_id') {
+              this.my_servicearea_iderror=true;
+              this.my_servicearea_iderrorvalue=message;
+            }
+            if (key==='my_referalsource_id') {
+              this.my_referalsource_iderror=true;
+              this.my_referalsource_iderrorvalue=message;}
+            if (key==='my_donationtype_id') {
+              this.my_donationtype_iderror=true;
+              this.my_donationtype_iderrorvalue=message;
+            }
+
+            if (key==='old_password') {
+              this.passworderror=true;
+              this.passworderrorvalue=message;
+            }
+            if (key==='new_password1') {
+              this.password1error=true;
+              this.password1errorvalue=message;
+            }
+            if (key==='new_password2') {
+              this.password2error=true;
+              this.password2errorvalue=message;
+            }
+
+            if (key==='contact')  {
+              let object = error[key];
+              if (object.mobilenumber) {
+                this.mobilenumbererror=true;
+                this.mobilenumbererrorvalue=message;
+              }
+              if (object.email) {
+                this.emailerror=true;
+                this.emailerrorvalue=message;
+              }
+            }
+            if (key==='emergency_contact')  {
+              let object = error[key];
+              if (object.mobilenumber) {
+                this.ecmobilenumbererror=true;
+                this.ecmobilenumbererrorvalue=message;
+              }
+              if (object.altnumber) {
+                this.ecaltnumbererror=true;
+                this.ecaltnumbererrorvalue=message;
+              }
+            }
+            if (key==='emergency_contact_first_name') {
+              this.ecfirstnameerror=true;
+              this.ecfirstnameerrorvalue=message;
+            }
+            if (key==='emergency_contact_last_name') {
+              this.eclastnameerror=true;
+              this.eclastnameerrorvalue=message;
+            }
+            if (key==='emergency_contact_relation') {
+              this.ecrelationerror=true;
+              this.ecrelationerrorvalue=message;
+            }
           }
         }
       }
@@ -781,7 +822,6 @@ export class RegisterIndividualProfilePage {
   // @ViewChild('accordionPreferredLocations') accordionPreferredLocations : AccordionBox;
   // @ViewChild('accordionServiceAreas') accordionServiceAreas : AccordionBox;
   // @ViewChild('accordionChangePassword') accordionChangePassword : AccordionBox;
-
     //Now, if therre are any error messages in an accordionbox, lets expand it!
     this.accordionMyCredentials.expand(this.firstnameerror || this.lastnameerror || this.birthdateerror || this.gendererror
       || this.address1error || this.address2error || this.cityerror || this.stateerror || this.zipcodeerror);

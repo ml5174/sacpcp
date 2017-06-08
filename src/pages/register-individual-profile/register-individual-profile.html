@@ -53,7 +53,7 @@
                     <ion-item no-lines class="">
                         <!--<ion-icon name="alert" item-left [class.error]="firstnameerror" *ngIf="firstnameerror"></ion-icon>-->
                         <ion-label stacked>*{{"First Name" | translate }}</ion-label>
-                        <ion-input name="myProfile.first_name" type="string" class="" [(ngModel)]="myProfile.first_name" required></ion-input>
+                        <ion-input name="myProfile.first_name" type="string" class="" [(ngModel)]="myProfile.first_name"></ion-input>
                     </ion-item>
 
                     <ion-item no-lines *ngIf="lastnameerror" class="word-wrap: break-word;" text-wrap>
@@ -63,7 +63,7 @@
                     <ion-item no-lines class="">
                         <!--<ion-icon name="alert" item-left [class.error]="lastnameerror" *ngIf="lastnameerror"></ion-icon>-->
                         <ion-label stacked>*{{"Last Name" | translate }}</ion-label>
-                        <ion-input name="myProfile.last_name" type="string" class="" [(ngModel)]="myProfile.last_name" required></ion-input>
+                        <ion-input name="myProfile.last_name" type="string" class="" [(ngModel)]="myProfile.last_name"></ion-input>
                     </ion-item>
 
                     <ion-item no-lines *ngIf="birthdateerror" class="word-wrap: break-word;" text-wrap>
