@@ -66,11 +66,12 @@ export class EventPage {
   }
 
   ngOnInit() {
-    this.loadEvents();
-    this.showLoading();
     // datepicker
     this.selectedStartDate = Moment().format("YYYY-MM-DD");
     this.selectedEndDate = Moment().add(30, 'day').format("YYYY-MM-DD");
+    this.loadEvents();
+    this.showLoading();
+
     this.volunteerEventsService.getEventCategories().subscribe(
       data => this.eventCategories=data,
       error => this.getPreferencesError=true
@@ -91,6 +92,7 @@ export class EventPage {
 
   updateSelectedEndDate(date) {
     this.selectedEndDate = date;
+    this.loadEvents();
   }
   //TODO: remove above function to show date-picker
 
@@ -115,10 +117,11 @@ export class EventPage {
   }
 
   loadEvents() {
-    let now = new Date();
-    let until = new Date();
+    let now = new Date(this.selectedStartDate);
+    let until = new Date(this.selectedEndDate);
     let future = new Date();
-    until.setDate(now.getDate() + this.moreInterval);
+    console.log("loadEvents called", now, until, future, this.selectedStartDate, this.selectedEndDate);
+    // until.setDate(now.getDate() + this.moreInterval);
     future.setDate(until.getDate() + this.moreInterval);
     this.getEventsTimeRange(now.toISOString(), until.toISOString());
     this.getFutureEvents(until.toISOString(), future.toISOString());
