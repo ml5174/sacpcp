@@ -3,10 +3,12 @@ import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import { AlertController, ToastController} from 'ionic-angular';
 import { UserServices } from '../../lib/service/user';
+import { RegisterIndividualProfilePage } from '../../pages/register-individual-profile/register-individual-profile';
 
 
 @Injectable()
 export class SignupAssistant {
+
     constructor(
     private userServices: UserServices,
     public volunteerEventsService: VolunteerEventsService,
@@ -82,7 +84,7 @@ export class SignupAssistant {
     }
 
     signupEventRegistration() {
-          console.log('EVENTDETAILS: ' + this.currentEventId);
+         console.log('EVENTDETAILS: ' + this.currentEventId);
           this.volunteerEventsService
               .getVolunteerEventDetails(this.currentEventId).subscribe(
               event => {
@@ -118,7 +120,6 @@ export class SignupAssistant {
         }else {
             this.signup(this.currentEventId, 0, false);
         }
-         
     }
 
 

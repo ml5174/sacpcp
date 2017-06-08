@@ -17,6 +17,7 @@
     import { UserServices } from '../service/user';
     import { GET_EVENTS_REPORT_URI } from '../provider/config';
     import { EVENT_CATEGORIES_URI } from '../provider/config';
+    import { CHECK_MY_EVENTS_URI } from '../provider/config';
 
 
     @Injectable()
@@ -166,6 +167,13 @@
             headers.append('Content-Type', 'application/json;q=0.9');        
             headers.append('Accept', 'application/json, text/csv;q=0.9');
             return new RequestOptions({ headers: headers });
+        }
+
+        checkMyEvents(eventId: string): Observable<any>{
+            this.event.event_id = eventId; 
+            return this.http.post(SERVER + CHECK_MY_EVENTS_URI,this.event, this.getOptions())
+                .map(res => res.json())
+                .catch((error: any) => Observable.throw(error || 'Server error'));
         }
 
     }
