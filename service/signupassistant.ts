@@ -3,7 +3,6 @@ import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import { AlertController, ToastController} from 'ionic-angular';
 import { UserServices } from '../../lib/service/user';
-import { RegisterIndividualProfilePage } from '../../pages/register-individual-profile/register-individual-profile';
 
 
 @Injectable()
