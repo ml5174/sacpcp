@@ -11,7 +11,7 @@ import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
 import { AlertController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { SignupAssistant } from '../../lib/service/signupassistant';
-import {NavController, Nav, NavParams} from 'ionic-angular';
+import {Nav} from 'ionic-angular';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 
 
@@ -365,7 +365,7 @@ export class EventPage {
                 let confirm = this.alertCtrl.create({
                         title: '',
                         cssClass: 'alertReminder',
-                        message: 'You Have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the about me page?',
+                        message: 'You have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the About Me page?',
                         buttons: [
                             {
                                 text: 'No',
