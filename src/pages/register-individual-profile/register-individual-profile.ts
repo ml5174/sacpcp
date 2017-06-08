@@ -316,7 +316,6 @@ export class RegisterIndividualProfilePage {
 	console.log("myprefs" + JSON.stringify(this.myPreferences));
 
     console.log(this.myProfile);
-    this.myProfile.birthdate = null;
     this.checkRequiredFields();
 
     let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
@@ -650,8 +649,12 @@ export class RegisterIndividualProfilePage {
                   this.birthdateerrorvalue=error[key][i].birthdate;
               }
               if(error[key][i].hasOwnProperty('gender')){
-                  this.address1error=true;
-                  this.address1errorvalue=error[key][i].gender;
+                  this.gendererror=true;
+                  this.gendererrorvalue=error[key][i].gender;
+              }
+              if(error[key][i].hasOwnProperty('gender_restriction')){
+                  this.gendererror=true;
+                  this.gendererrorvalue=error[key][i].gender_restriction;
               }
               if(error[key][i].hasOwnProperty('emergency_contact.first_name')){
                   this.ecfirstnameerror=true;
