@@ -8,22 +8,14 @@
 <ion-content padding-left padding-right padding-top>
     <section id="home-body">
         <div>
-            <ion-segment [(ngModel)]="selectedTab" padding-bottom [hidden]="userServices.user.id">
+            <ion-segment [(ngModel)]="selectedTab" padding-bottom>
                 <ion-segment-button value="home">
                     Home
                 </ion-segment-button>
                 <ion-segment-button value="events">
                     Opportunities
                 </ion-segment-button>
-            </ion-segment>
-            <ion-segment [(ngModel)]="selectedTab" padding-bottom [hidden]="!userServices.user.id">
-                <ion-segment-button value="home">
-                    Home
-                </ion-segment-button>
-                <ion-segment-button value="events">
-                    Opportunities
-                </ion-segment-button>
-                <ion-segment-button value="myevents">
+                <ion-segment-button value="myevents" *ngIf="volunteerEventsService.myEvents.length > 0">
                     My Events
                 </ion-segment-button>
             </ion-segment>
