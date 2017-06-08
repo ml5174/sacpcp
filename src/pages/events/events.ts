@@ -11,7 +11,7 @@ import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
 import { AlertController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { SignupAssistant } from '../../lib/service/signupassistant';
-import {NavController, Nav, NavParams} from 'ionic-angular';
+import {Nav} from 'ionic-angular';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 
 
@@ -358,6 +358,7 @@ export class EventPage {
         this.volunteerEventsService
             .checkMyEvents(id).subscribe(
             res => {  
+              console.log(res);
                 this.signupassitant.signupEventRegistration();
             },
             err => {
