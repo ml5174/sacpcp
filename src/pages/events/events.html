@@ -34,8 +34,8 @@
             <span class="date-picker-date-display">6/31/2017</span>
             <ion-icon name="calendar" isActive="false"></ion-icon>
         </div>-->
-        <date-picker [selectedDate]="selectedStartDate" [minDate]="'2017-06-07'" (onDateSelected)="updateSelectedStartDate()"></date-picker>
-        <date-picker [selectedDate]="selectedEndDate" [minDate]="'2017-o6-20'" (onDateSelected)="updateSelectedEndDate()"></date-picker>
+        <date-picker [selectedDate]="selectedStartDate" [minDate]="'2017-06-07'" (onDateSelected)="updateSelectedStartDate($event)"></date-picker>
+        <date-picker [selectedDate]="selectedEndDate" [minDate]="'2017-o6-20'" (onDateSelected)="updateSelectedEndDate($event)"></date-picker>
     </div>
 </ion-item>
 <!--TODO: Remove above temporary development calendar button to bring up date-picker component-->

@@ -50,8 +50,8 @@ export class EventPage {
   public eventCategories:Array<String> = [];
   public getPreferencesError = false;
   // datepicker
-  public selectedStartDate = Moment().format("YYYY-MM-DD");
-  public selectedEndDate = Moment().add(30, 'day');
+  public selectedStartDate;
+  public selectedEndDate;
 
   constructor(public volunteerEventsService: VolunteerEventsService,
     public userServices: UserServices,
@@ -66,10 +66,11 @@ export class EventPage {
   }
 
   ngOnInit() {
-
     this.loadEvents();
     this.showLoading();
-
+    // datepicker
+    this.selectedStartDate = Moment().format("YYYY-MM-DD");
+    this.selectedEndDate = Moment().add(30, 'day').format("YYYY-MM-DD");
     this.volunteerEventsService.getEventCategories().subscribe(
       data => this.eventCategories=data,
       error => this.getPreferencesError=true
@@ -84,6 +85,7 @@ export class EventPage {
   }
 
   updateSelectedStartDate(date) {
+    console.log("update selected start date", date);
     this.selectedStartDate = date;
   }
 
