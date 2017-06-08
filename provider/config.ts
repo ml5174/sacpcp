@@ -29,8 +29,8 @@ export var SERVER = window['djangoserver'];
 if (document.location.hostname === '198.199.86.127')
     SERVER = 'http://52.206.230.237:8001';
 if (document.location.hostname === 'localhost')
-    //SERVER = 'https://api.testing-volunteers.tsadfw.org'
-    SERVER = 'http://52.206.230.237:8001';
+    SERVER = 'https://api.testing-volunteers.tsadfw.org'
+    //SERVER = 'http://52.206.230.237:8001';
 
     	
 export const STRINGS = {
