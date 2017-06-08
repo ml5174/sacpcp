@@ -316,6 +316,7 @@ export class RegisterIndividualProfilePage {
 	console.log("myprefs" + JSON.stringify(this.myPreferences));
 
     console.log(this.myProfile);
+    this.myProfile.birthdate = null;
     this.checkRequiredFields();
 
     let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
