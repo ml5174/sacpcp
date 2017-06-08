@@ -358,7 +358,6 @@ export class EventPage {
         this.volunteerEventsService
             .checkMyEvents(id).subscribe(
             res => {  
-              console.log(res);
                 this.signupassitant.signupEventRegistration();
             },
             err => {
