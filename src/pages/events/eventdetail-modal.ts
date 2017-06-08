@@ -8,6 +8,7 @@ import { AlertController, NavController, App} from 'ionic-angular';
 import { NOTIFICATION_SCHEDULE, NOTIFICATION_OPTIONS, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION } from './../../lib/provider/eventConstants';
 import { LoginPage } from '../login/login';
 import { RegisterLoginPage } from '../register-login/register-login';
+import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 @Component({
     templateUrl: 'eventdetail_modal.html',
 })
@@ -120,44 +121,38 @@ export class EventDetailModal {
                     });
                     confirm.present();
     }
-       signupEventRegistration(id) {
-
-         if(!this.userServices.user.id){
-               this.unregisteredUserPopover();
-         } else{
-
-         
-
-        this.getEventDetails(id);
-        if (this.eventDetail.notification_schedule !="0") {
-            let confirm = this.alertCtrl.create({
-                title: '',
-                cssClass: 'alertReminder',
-                message: 'Thank you for signing up to volunteer. <br>  <br> Would you like to receive reminders as the event approaches?',
-                buttons: [
-                    {
-                        text: 'No, Thanks',
-                        handler: () => {
-                            console.log('No, Thanks clicked');
-                            this.signup(id, 0, false);
-                        }
-                    },
-                    {
-                        text: 'Yes',
-                        handler: () => {
-                            console.log('Yes clicked');
-                            this.signup(id, this.eventDetail.notification_schedule, false);
-                        }
-                    }
-                ]
-            });
-            confirm.present();
-        }
-        else {
-            this.signup(id, 0, false);
-        }
-
-         }
+    signupEventRegistration(id) {
+        this.signupAssistant.setCurrentEventId(id);
+        this.volunteerEventsService
+            .checkMyEvents(id).subscribe(
+            res => {  
+                this.signupAssistant.signupEventRegistration();
+            },
+            err => {
+                console.log(err);
+                let confirm = this.alertCtrl.create({
+                        title: '',
+                        cssClass: 'alertReminder',
+                        message: 'You Have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the about me page?',
+                        buttons: [
+                            {
+                                text: 'No',
+                                handler: () => {
+                                    console.log('No clicked');
+                                }
+                            },
+                            {
+                                text: 'Yes',
+                                handler: () => {
+                                    console.log('Yes clicked');
+                                    this.viewCtrl.dismiss();
+                                    this.appCtrl.getRootNav().push(RegisterIndividualProfilePage,{errorResponse:err});
+                                }
+                            }
+                        ]
+                });
+                confirm.present();
+            });   
     }
 
 
