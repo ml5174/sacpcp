@@ -7,6 +7,7 @@ import { UserServices } from '../../lib/service/user';
 
 @Injectable()
 export class SignupAssistant {
+
     constructor(
     private userServices: UserServices,
     public volunteerEventsService: VolunteerEventsService,
@@ -82,7 +83,7 @@ export class SignupAssistant {
     }
 
     signupEventRegistration() {
-          console.log('EVENTDETAILS: ' + this.currentEventId);
+         console.log('EVENTDETAILS: ' + this.currentEventId);
           this.volunteerEventsService
               .getVolunteerEventDetails(this.currentEventId).subscribe(
               event => {
@@ -118,7 +119,6 @@ export class SignupAssistant {
         }else {
             this.signup(this.currentEventId, 0, false);
         }
-         
     }
 
 
