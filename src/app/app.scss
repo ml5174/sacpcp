@@ -50,6 +50,17 @@ h6 {
     //font-family: Arial;
 }
 
+.alert-wrapper {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: AJensonPro, "Trebuchet MS", Arial, Helvetica, sans-serif
+    }
+}
+
 h6 {
     font-weight: bold;
 }
@@ -409,11 +420,12 @@ ion-card-header {
 }
 
 .footer-col {
-  font-size: 8px;
-  line-height: 8px;
+    font-size: 8px;
+    line-height: 8px;
 }
+
 .footer-icon {
-  display: block;
-  font-size: 26px;
-  margin-bottom: 2px !important;
+    display: block;
+    font-size: 26px;
+    margin-bottom: 2px !important;
 }

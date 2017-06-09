@@ -280,7 +280,7 @@ export class RegisterIndividualProfilePage {
     //otherwise continue
     var myAge = this.checkAge(this.myProfile.birthdate);
     //console.log("My age: " + myAge);
-    if(this.birthDateChanged && myAge < 17){ //TODO:  Once there is a persistent variable that indicates this user has already submitted for parental verfication, stop doing this check.
+    if(this.birthDateChanged && myAge < 16){ //TODO:  Once there is a persistent variable that indicates this user has already submitted for parental verfication, stop doing this check.
     	//toss up a modal.
     	this.openAlert(myAge);
     } else {
