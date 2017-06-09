@@ -83,31 +83,19 @@ export class EventPage {
   }
 
   updateSelectedStartDate(date) {
-    console.log("update selected start date", date);
+    this.dateRangeError = Moment(date).isAfter(this.selectedEndDate);
     if (date == this.selectedStartDate) return;
-    if (Moment(date).isAfter(Moment(this.selectedEndDate))) {
-      this.showDateRangeError();
-      return;
-    }
-    this.dateRangeError = false;
+    if (this.dateRangeError) return;
     this.selectedStartDate = date;
     this.loadEvents();
   }
 
   updateSelectedEndDate(date) {
+    this.dateRangeError = Moment(date).isBefore(this.selectedStartDate);
     if (date == this.selectedEndDate) return;
-    if (Moment(date).isBefore(Moment(this.selectedStartDate))) {
-      this.showDateRangeError();
-      return;
-    }
-    this.dateRangeError = false;
+    if (this.dateRangeError) return;
     this.selectedEndDate = date;
     this.loadEvents();
-  }
-
-  showDateRangeError() {
-    console.log("end date is before start date error");
-    this.dateRangeError = true;
   }
 
   showLoading() {
