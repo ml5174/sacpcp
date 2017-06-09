@@ -202,7 +202,6 @@ export class RegisterLoginPage {
     let r = this.checkRequired();
     let cm = this.checkContactMethod();
     let test = pw1 || u || pwm || !r || cm;
-    console.log(test);
     return test;
   }
 
