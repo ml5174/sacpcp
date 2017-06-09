@@ -11,7 +11,6 @@ import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
 import { AlertController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { SignupAssistant } from '../../lib/service/signupassistant';
-import { DatePickerCalendar } from '../../lib/components/date-picker-calendar/date-picker-calendar.component';
 import Moment from "moment";
 import {Nav} from 'ionic-angular';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
@@ -71,7 +70,7 @@ export class EventPage {
   }
 
   ngOnInit() {
-    // datepicker
+    // select today and 30 days worth of events by default
     this.selectedStartDate = Moment().format("YYYY-MM-DD");
     this.selectedEndDate = Moment().add(30, 'day').format("YYYY-MM-DD");
     this.loadEvents();
@@ -79,13 +78,6 @@ export class EventPage {
       data => this.eventCategories=data,
       error => this.getPreferencesError=true
     );
-  }
-
-  //TODO: temporary development to show date-picker
-  showDatePicker(clickEvent){
-    console.log("show datepicker");
-    let popover = this.popoverCtrl.create(DatePickerCalendar);
-    popover.present(/*{ev: clickEvent}*/);
   }
 
   updateSelectedStartDate(date) {
@@ -120,15 +112,11 @@ export class EventPage {
   }
 
   loadEvents() {
-    let now = new Date(this.selectedStartDate);
-    let until = new Date(this.selectedEndDate);
-    let future = new Date();
-    console.log("loadEvents called", now, until, future, this.selectedStartDate, this.selectedEndDate);
-    // until.setDate(now.getDate() + this.moreInterval);
-    future.setDate(until.getDate() + this.moreInterval);
+    let now = new Date(Moment(this.selectedStartDate).hour(0).minute(0).toISOString());
+    let until = new Date(Moment(this.selectedEndDate).hour(23).minute(59).toISOString());
     this.showLoading();
     this.getEventsTimeRange(now.toISOString(), until.toISOString());
-    this.getFutureEvents(until.toISOString(), future.toISOString());
+    // this.getFutureEvents(until.toISOString(), future.toISOString());
 
     //Temporarily disabling admin call until I get more GET_EVENT_DETAILS_URI
     //upon re-enabling, will need to be modified to utilize above call//
