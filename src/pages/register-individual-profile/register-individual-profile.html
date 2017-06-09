@@ -1,4 +1,4 @@
-<ion-header>    
+<ion-header>
     <app-header back="true" title="My Profile">
     </app-header>
     <!--ion-toolbar secondary>
@@ -24,7 +24,7 @@
 
 <ion-content>
     <p *ngIf="requiredFieldError" align="center"><span style="color:#CC1F2C">Please Note:</span> All required fields must be completed in order to sign up for a volunteer event.</p>
-	<section id="register-individual-profile-page">
+    <section id="register-individual-profile-page">
         <ion-card>
             <!--<ion-card-header>Custom Profile Images</ion-card-header>-->
             <!--<img src="https://openclipart.org/image/2400px/svg_to_png/177482/ProfilePlaceholderSuit.png" />-->
@@ -44,7 +44,7 @@
             <input type="submit" class="hidden-submit">
 
             <!-- My Credentials -->
-				<accordion-box #accordionMyCredentials accordionTitle="{{'My Info' | translate}}">
+            <accordion-box #accordionMyCredentials accordionTitle="{{'My Info' | translate}}">
                 <ion-list class="accordion-content">
                     <ion-item no-lines *ngIf="firstnameerror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
@@ -59,7 +59,7 @@
                     <ion-item no-lines *ngIf="lastnameerror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                         <p style="color:#CC1F2C">{{lastnameerrorvalue}}</p>
-                    </ion-item>    
+                    </ion-item>
                     <ion-item no-lines class="">
                         <!--<ion-icon name="alert" item-left [class.error]="lastnameerror" *ngIf="lastnameerror"></ion-icon>-->
                         <ion-label stacked>*{{"Last Name" | translate }}</ion-label>
@@ -69,7 +69,7 @@
                     <ion-item no-lines *ngIf="birthdateerror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                         <p style="color:#CC1F2C">{{birthdateerrorvalue}}</p>
-                    </ion-item>   
+                    </ion-item>
                     <ion-item no-lines class="">
                         <!--<ion-icon name="alert" item-left [class.error]="birthdateerror" *ngIf="birthdateerror"></ion-icon>-->
                         <ion-label stacked>*{{"Birth Date" | translate }}</ion-label>
@@ -79,7 +79,7 @@
                     <ion-item no-lines *ngIf="gendererror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                         <p style="color:#CC1F2C">{{gendererrorvalue}}</p>
-                    </ion-item>   
+                    </ion-item>
                     <ion-item no-lines class="">
                         <!--<ion-icon name="alert" item-left [class.error]="gendererror" *ngIf="gendererror"></ion-icon>-->
                         <ion-label stacked>*{{"Gender" | translate }}</ion-label>
@@ -91,7 +91,7 @@
                     <ion-item no-lines *ngIf="address1error" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                         <p style="color:#CC1F2C">{{address1errorvalue}}</p>
-                    </ion-item>   
+                    </ion-item>
                     <ion-item no-lines class="">
                         <!--<ion-icon name="alert" item-left [class.error]="address1error" *ngIf="address1error"></ion-icon>-->
                         <ion-label stacked>{{"Address 1" | translate }}</ion-label>
@@ -101,7 +101,7 @@
                     <ion-item no-lines *ngIf="address2error" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                         <p style="color:#CC1F2C">{{address2errorvalue}}</p>
-                    </ion-item> 
+                    </ion-item>
                     <ion-item no-lines class="">
                         <!--<ion-icon name="alert" item-left [class.error]="address2error" *ngIf="address2error"></ion-icon>-->
                         <ion-label stacked>{{"Address 2" | translate }}</ion-label>
@@ -111,7 +111,7 @@
                     <ion-item no-lines *ngIf="cityerror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                         <p style="color:#CC1F2C">{{cityerrorvalue}}</p>
-                    </ion-item> 
+                    </ion-item>
                     <ion-item no-lines class="">
                         <!--<ion-icon name="alert" item-left [class.error]="cityerror" *ngIf="cityerror"></ion-icon>-->
                         <ion-label stacked>{{"City" | translate }}</ion-label>
@@ -121,7 +121,7 @@
                     <ion-item no-lines *ngIf="stateerror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                         <p style="color:#CC1F2C">{{stateerrorvalue}}</p>
-                    </ion-item> 
+                    </ion-item>
                     <ion-item no-lines class="">
                         <!--<ion-icon name="alert" item-left [class.error]="stateerror" *ngIf="stateerror"></ion-icon>-->
                         <ion-label stacked>{{"State" | translate }}</ion-label>
@@ -133,7 +133,7 @@
                     <ion-item no-lines *ngIf="zipcodeerror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                         <p style="color:#CC1F2C">{{zipcodeerrorvalue}}</p>
-                    </ion-item> 
+                    </ion-item>
                     <ion-item no-lines class="">
                         <!--<ion-icon name="alert" item-left [class.error]="zipcodeerror" *ngIf="zipcodeerror"></ion-icon>-->
                         <ion-item no-lines *ngIf="zipcodeerror" class="word-wrap: break-word;" text-wrap>
@@ -146,20 +146,20 @@
 
                 </ion-list>
             </accordion-box>
-				
-				<!-- Preferred Contact -->
+
+            <!-- Preferred Contact -->
             <accordion-box #accordionPreferredContact accordionTitle="{{'Preferred Contact Method' | translate}}">
                 <div class="accordion-content">
                     <ion-item no-lines *ngIf="my_contactmethod_iderror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                         <p style="color:#CC1F2C">{{my_contactmethod_iderrorvalue}}</p>
-                    </ion-item> 
+                    </ion-item>
                     <ion-list radio-group name="contactmethodlist" [ngModel]="myProfile.contactmethod" (ngModelChange)="updateContactMethodName()">
-                        <ion-item> 
+                        <ion-item>
                             <ion-radio name="Email" [id]="2" value="2" ngDefaultControl></ion-radio>
                             <ion-label [attr.for]="Email">Email</ion-label>
                         </ion-item>
-                        <ion-item> 
+                        <ion-item>
                             <ion-radio name="Phone" [id]="4" value="4" ngDefaultControl></ion-radio>
                             <ion-label [attr.for]="Phone">Phone</ion-label>
                         </ion-item>
@@ -175,9 +175,9 @@
                     </ion-item>-->
                     <ion-list>
                         <ion-item no-lines *ngIf="mobilenumbererror" class="word-wrap: break-word;" text-wrap>
-                           <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
+                            <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                             <p style="color:#CC1F2C">{{mobilenumbererrorvalue}}</p>
-                        </ion-item> 
+                        </ion-item>
                         <ion-item no-lines>
                             <!--<ion-icon name="alert" item-left [class.error]="mobilenumbererror" *ngIf="mobilenumbererror"></ion-icon>-->
                             <ion-item no-lines [class.error]="mobilenumbererror" *ngIf="mobilenumbererror" class="word-wrap: break-word;" text-wrap>
@@ -194,7 +194,7 @@
                         <ion-item no-lines *ngIf="emailerror" class="word-wrap: break-word;" text-wrap>
                             <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                             <p style="color:#CC1F2C">{{emailerrorvalue}}</p>
-                        </ion-item> 
+                        </ion-item>
                         <ion-item no-lines>
                             <!--<ion-icon name="alert" item-left [class.error]="emailerror" *ngIf="emailerror"></ion-icon>-->
                             <ion-label stacked>{{"Email" | translate }}</ion-label>
@@ -208,13 +208,13 @@
                 </div>
             </accordion-box>
 
-				<!-- Emergency Contact -->
+            <!-- Emergency Contact -->
             <accordion-box #accordionEmergencyContact accordionTitle="{{'Emergency Contact' | translate}}">
                 <ion-list class="accordion-content">
                     <ion-item no-lines *ngIf="ecfirstnameerror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                         <p style="color:#CC1F2C">{{ecfirstnameerrorvalue}}</p>
-                    </ion-item> 
+                    </ion-item>
                     <ion-item no-lines class="">
                         <!--<ion-icon name="alert" item-left [class.error]="ecfirstnameerror" *ngIf="ecfirstnameerror"></ion-icon>-->
                         <ion-label stacked>*{{"First Name" | translate }}</ion-label>
@@ -252,9 +252,9 @@
                         <ion-label stacked>*{{"Emergency Contact's Phone" | translate }}</ion-label>
                     </ion-item>
                     <ion-grid class="phone-number">
-							<!--<phone-input idsuffix="emergency" [ac]="ecMobileNumberAreaCode" [np]="ecMobileNumberPrefix" [nn]="ecMobileNumberLineNumber"></phone-input>-->
-							<phone-input #emergencyNumber idsuffix="emergency" [pn]="ecMobileNumber"></phone-input>
-								<!-- <ion-row>
+                        <!--<phone-input idsuffix="emergency" [ac]="ecMobileNumberAreaCode" [np]="ecMobileNumberPrefix" [nn]="ecMobileNumberLineNumber"></phone-input>-->
+                        <phone-input #emergencyNumber idsuffix="emergency" [pn]="ecMobileNumber"></phone-input>
+                        <!-- <ion-row>
 									<ion-col width-25>
 										<ion-item no-lines>
 											<ion-label stacked></ion-label>
@@ -286,8 +286,8 @@
                         <ion-label stacked>{{"Emergency Contact's Alternate Phone" | translate }}</ion-label>
                     </ion-item>
                     <ion-grid class="phone-number">
-                    <!--<phone-input idsuffix="emergencyalt" [ac]="ecAltMobileNumberAreaCode" [np]="ecAltMobileNumberPrefix" [nn]="ecAltMobileNumberLineNumber"></phone-input>-->
-                    <phone-input #emergencyAlternate idsuffix="emergencyalt" [pn]="ecAltNumber"></phone-input>
+                        <!--<phone-input idsuffix="emergencyalt" [ac]="ecAltMobileNumberAreaCode" [np]="ecAltMobileNumberPrefix" [nn]="ecAltMobileNumberLineNumber"></phone-input>-->
+                        <phone-input #emergencyAlternate idsuffix="emergencyalt" [pn]="ecAltNumber"></phone-input>
                         <!-- <ion-row>
                             <ion-col width-25>
                                 <ion-item no-lines>
@@ -308,7 +308,7 @@
                                 </ion-item>
                             </ion-col>
                         </ion-row> -->
-                        </ion-grid>
+                    </ion-grid>
 
                     <!--
 							<ion-item no-lines class="">
@@ -450,7 +450,7 @@
                     <div class="absolute-container">
                         <a id="show-link" (click)="showPassword()">{{(showpassword==='password') ? 'Show' : 'Hide'}}</a>
 
-                        
+
                         <ion-item no-lines *ngIf="password1error" class="word-wrap: break-word;" text-wrap>
                             <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
                             <p style="color:#CC1F2C">{{password1errorvalue}}</p>
@@ -483,7 +483,7 @@
                 </ion-col>
                 <ion-col></ion-col>
                 <ion-col>
-                    <button ion-button color="primary" (click)="register()">Save</button>
+                    <button ion-button color="primary">Save</button>
                 </ion-col>
                 <ion-col></ion-col>
             </ion-row>

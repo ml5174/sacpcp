@@ -291,9 +291,10 @@ export class RegisterIndividualProfilePage {
   openModal(age:number){
   	let modal = this.modalCtrl.create(ParentVerifyModal, {age: age});
   	modal.onDidDismiss(data => { 
-  	console.log(data);
-  	//set a varible here that indicates this profile is in a pending state
-  	this.updateProfile(); //update this method to handle that pending state
+      console.log(data);
+      if (data && data.update == true) {
+        this.updateProfile(); //update this method to handle that pending state
+      }
   	});
   	modal.present();
   }
