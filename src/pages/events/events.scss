@@ -2,48 +2,94 @@
     background: white;
     padding: 0;
 }
+
 .searchbar-input {
-     border:1px solid;
+    border: 1px solid;
 }
+
 #results {
     text-align: center;
     font-size: large;
     padding-top: 15px;
 }
+
 .item-block {
     width: 100% !important;
 }
-img.main{
+
+img.main {
     padding-top: 15px;
     padding-bottom: 15px;
     height: auto;
     width: 100%;
 }
 
-#selectbar{
-border:none;
-padding-left: none !important;
+#selectbar {
+    border: none;
+    padding-left: none !important;
 }
 
-.sortButton{
+.sortButton {}
 
-}
-.platform-android .alertReminder{
+.platform-android .alertReminder {
     background-color: white;
     color: black;
-    button{
-        background-color: #cc1f2c;       
-        color:white;
-        text-transform:none;
-        border:1px solid;
-    }
-}
-.platform-ios .alertReminder{
-    background-color: white;
-    color: black;   
-    button{       
+    button {
         background-color: #cc1f2c;
-        color:white;
-        border:2px solid;      
+        color: white;
+        text-transform: none;
+        border: 1px solid;
     }
 }
+
+.platform-ios .alertReminder {
+    background-color: white;
+    color: black;
+    button {
+        background-color: #cc1f2c;
+        color: white;
+        border: 2px solid;
+    }
+}
+
+// start of date picker input style
+#date-picker-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#date-picker-item-label ion-label {
+    font-size: 12px;
+}
+
+#date-picker-start-input-container {
+    border: solid 1px #c8c7cc;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 45%;
+}
+
+#date-picker-end-input-container {
+    border: solid 1px #c8c7cc;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 45%;
+}
+
+.date-picker-date-display {
+    font-size: 1.1 em;
+}
+
+date-picker {
+    width: 45%;
+}
+
+// end of date picker input style

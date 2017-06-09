@@ -11,9 +11,9 @@ import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
 import { AlertController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { SignupAssistant } from '../../lib/service/signupassistant';
+import Moment from "moment";
 import {Nav} from 'ionic-angular';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
-
 
 
 @Component({
@@ -51,6 +51,11 @@ export class EventPage {
 
   public eventCategories:Array<String> = [];
   public getPreferencesError = false;
+  // datepicker
+  public selectedStartDate;
+  public selectedEndDate;
+  public dateRangeError = false;
+  public dateRangeErrorValue = "Start date can't be after end date";
 
   constructor(public volunteerEventsService: VolunteerEventsService,
     public userServices: UserServices,
@@ -67,14 +72,30 @@ export class EventPage {
   }
 
   ngOnInit() {
-
+    // select today and 30 days worth of events by default
+    this.selectedStartDate = Moment().format("YYYY-MM-DD");
+    this.selectedEndDate = Moment().add(30, 'day').format("YYYY-MM-DD");
     this.loadEvents();
-    this.showLoading();
-
     this.volunteerEventsService.getEventCategories().subscribe(
       data => this.eventCategories=data,
       error => this.getPreferencesError=true
     );
+  }
+
+  updateSelectedStartDate(date) {
+    this.dateRangeError = Moment(date).isAfter(this.selectedEndDate);
+    if (date == this.selectedStartDate) return;
+    if (this.dateRangeError) return;
+    this.selectedStartDate = date;
+    this.loadEvents();
+  }
+
+  updateSelectedEndDate(date) {
+    this.dateRangeError = Moment(date).isBefore(this.selectedStartDate);
+    if (date == this.selectedEndDate) return;
+    if (this.dateRangeError) return;
+    this.selectedEndDate = date;
+    this.loadEvents();
   }
 
   showLoading() {
@@ -98,13 +119,11 @@ export class EventPage {
   }
 
   loadEvents() {
-    let now = new Date();
-    let until = new Date();
-    let future = new Date();
-    until.setDate(now.getDate() + this.moreInterval);
-    future.setDate(until.getDate() + this.moreInterval);
+    let now = new Date(Moment(this.selectedStartDate).hour(0).minute(0).toISOString());
+    let until = new Date(Moment(this.selectedEndDate).hour(23).minute(59).toISOString());
+    this.showLoading();
     this.getEventsTimeRange(now.toISOString(), until.toISOString());
-    this.getFutureEvents(until.toISOString(), future.toISOString());
+    // this.getFutureEvents(until.toISOString(), future.toISOString());
 
     //Temporarily disabling admin call until I get more GET_EVENT_DETAILS_URI
     //upon re-enabling, will need to be modified to utilize above call//
