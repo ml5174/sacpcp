@@ -1,3 +1,18 @@
+<style>
+    label {
+        font-size: 150%;
+    }
+    input {
+        font-size:1.75em;
+    }
+    .reportsFooter {
+        width:100%;
+        text-align:center;
+        position:absolute;
+        bottom:1.5em;
+    }
+</style>
+
 <ion-header>
     <app-header back="true" title="Event Registration Data">
     </app-header>
@@ -13,21 +28,24 @@
    <section id="home-body">
 
        <div align="center">
-         <h3 style="font-family:inherit">Select the date range:</h3>
-         <label class="item item-input item-select">
-                    <div class="input-label" > Start Date:</div>
-                    <input [(ngModel)]="startDate" type="date">
-         </label>
-         <label class="item item-input item-select">
-                    <div class="input-label"> End Date:</div>
-                    <input [(ngModel)]="endDate" type="date">
-         </label><br>
-         <button ion-button small color="primary" (click)="showAdvancedItems = !showAdvancedItems">Cancel</button>
-         <button ion-button small color="primary" [disabled]="!startDate || !endDate" (click)="exportEvents()" data-toggle="modal" >Export Data</button>
+       
+        <div><h1 style="font-family:inherit">Select the date range:</h1></div>
+        <div padding>
+            <label for="start">Start Date:</label>
+            <input large name="start" [(ngModel)]="startDate" type="date">
+        </div>
+        <div padding>
+            <label for="end">End Date:</label>
+            <input [(ngModel)]="endDate" type="date">
+        </div>
+        <div padding>
+            <button ion-button medium color="primary" (click)="goHome()">Cancel</button>
+            <button ion-button medium color="primary" [disabled]="!startDate || !endDate" (click)="exportEvents()" data-toggle="modal" >Export Data</button>
+        </div>
         </div>
     </section>
-    <section id="tab-content" padding>
-        <div class="sal-att-logo-container">
+    <section id="footer" padding>
+        <div class="reportsFooter">
             <img src="assets/img/collaboration.png" />
         </div>
     </section>

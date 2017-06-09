@@ -3,7 +3,7 @@ import { App, NavParams } from 'ionic-angular';
 import { MessageServices } from '../../../lib/service/message';
 import { UserServices } from '../../../lib/service/user';
 import { ViewController } from 'ionic-angular';
-import { HomePage } from '../../home/home'
+import { HomePage } from '../../home/home';
 
 @Component({
 	templateUrl: 'message.html'
