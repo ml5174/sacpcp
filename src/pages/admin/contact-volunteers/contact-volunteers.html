@@ -46,7 +46,7 @@
                 <ion-row>
                     <ion-col col-1><ion-checkbox name="{{event.title}}checkbox" [(ngModel)]="event.selected"></ion-checkbox></ion-col>
                     <ion-col col-2>{{event.title}}</ion-col>
-                    <ion-col col-2>{{event.start | parseTime:"MMM DD"}}</ion-col>
+                    <ion-col col-2>{{event.start | parseTime:"MMMM DD, h:mm a"}}</ion-col>
                     <ion-col col-2>{{event.location_name}}</ion-col>
                 </ion-row>
             </div>
