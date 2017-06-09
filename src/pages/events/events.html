@@ -23,6 +23,10 @@
 <ion-item no-lines id="date-picker-item-label">
     Show events within the following dates:
 </ion-item>
+<ion-item no-lines *ngIf="dateRangeError">
+    <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
+    <p class="no-text-transform" style="color:#CC1F2C">{{dateRangeErrorValue}}</p>
+</ion-item>
 <ion-item id="date-picker-item">
     <div id="date-picker-container" item-content>
         <date-picker [selectedDate]="selectedStartDate" [minDate]="'2017-06-07'" (onDateSelected)="updateSelectedStartDate($event)"></date-picker>
@@ -98,7 +102,7 @@
         </button-->
         </ion-card>
     </ion-col>
-    <span *ngIf="stubEvents.length>0">
+    <!--<span *ngIf="stubEvents.length>0">
     <button ion-button item-right small color="primary" (click)="showMoreEvents()" >Show more events</button>
-    </span>
+    </span>-->
 </ion-row>

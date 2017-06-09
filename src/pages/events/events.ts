@@ -54,6 +54,8 @@ export class EventPage {
   // datepicker
   public selectedStartDate;
   public selectedEndDate;
+  public dateRangeError = false;
+  public dateRangeErrorValue = "Start date can't be after end date";
 
   constructor(public volunteerEventsService: VolunteerEventsService,
     public userServices: UserServices,
@@ -83,16 +85,30 @@ export class EventPage {
   updateSelectedStartDate(date) {
     console.log("update selected start date", date);
     if (date == this.selectedStartDate) return;
+    if (Moment(date).isAfter(Moment(this.selectedEndDate))) {
+      this.showDateRangeError();
+      return;
+    }
+    this.dateRangeError = false;
     this.selectedStartDate = date;
     this.loadEvents();
   }
 
   updateSelectedEndDate(date) {
     if (date == this.selectedEndDate) return;
+    if (Moment(date).isBefore(Moment(this.selectedStartDate))) {
+      this.showDateRangeError();
+      return;
+    }
+    this.dateRangeError = false;
     this.selectedEndDate = date;
     this.loadEvents();
   }
-  //TODO: remove above function to show date-picker
+
+  showDateRangeError() {
+    console.log("end date is before start date error");
+    this.dateRangeError = true;
+  }
 
   showLoading() {
     this.loadingOverlay = this.loadingController.create({
