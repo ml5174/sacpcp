@@ -73,7 +73,7 @@
                     <ion-item no-lines class="">
                         <!--<ion-icon name="alert" item-left [class.error]="birthdateerror" *ngIf="birthdateerror"></ion-icon>-->
                         <ion-label stacked>*{{"Birth Date" | translate }}</ion-label>
-                        <ion-datetime name="myProfile.birthdate" displayFormat="MMM DD YYYY" [(ngModel)]="myProfile.birthdate"></ion-datetime>
+                        <ion-datetime name="myProfile.birthdate" displayFormat="MMM DD YYYY" [(ngModel)]="myProfile.birthdate" (ngModelChange)="birthdateChanged($event)"></ion-datetime>
                     </ion-item>
 
                     <ion-item no-lines *ngIf="gendererror" class="word-wrap: break-word;" text-wrap>
