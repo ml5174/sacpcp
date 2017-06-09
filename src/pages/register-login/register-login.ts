@@ -258,7 +258,6 @@ export class RegisterLoginPage {
 
     if (!register.email) delete register.email;
     if (!register.phone) delete register.phone;
-
     if(!this.checkAll()) {
     this.userServices.register(register)
       .subscribe(

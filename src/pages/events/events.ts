@@ -11,6 +11,10 @@ import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
 import { AlertController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { SignupAssistant } from '../../lib/service/signupassistant';
+import {Nav} from 'ionic-angular';
+import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
+
+
 
 @Component({
   templateUrl: 'events.html',
@@ -57,7 +61,9 @@ export class EventPage {
     private parseTimePipe: ParseTimePipe,
     public alertCtrl: AlertController,    
     public toastController: ToastController,
-    public signupassitant: SignupAssistant) {
+    public signupassitant: SignupAssistant,
+    public nav: Nav
+    ) {
   }
 
   ngOnInit() {
@@ -349,7 +355,35 @@ export class EventPage {
    
     signupEventRegistration(id) {
         this.signupassitant.setCurrentEventId(id);
-        this.signupassitant.signupEventRegistration();       
+        this.volunteerEventsService
+            .checkMyEvents(id).subscribe(
+            res => {  
+                this.signupassitant.signupEventRegistration();
+            },
+            err => {
+                console.log(err);
+                let confirm = this.alertCtrl.create({
+                        title: '',
+                        cssClass: 'alertReminder',
+                        message: 'You have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the About Me page?',
+                        buttons: [
+                            {
+                                text: 'No',
+                                handler: () => {
+                                    console.log('No clicked');
+                                }
+                            },
+                            {
+                                text: 'Yes',
+                                handler: () => {
+                                    console.log('Yes clicked');
+                                    this.nav.push(RegisterIndividualProfilePage,{errorResponse:err});
+                                }
+                            }
+                        ]
+                });
+                confirm.present();
+            });      
     }
    
     cancelEventRegisteration(id) {      
