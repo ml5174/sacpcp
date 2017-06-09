@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { UserServices } from '../../lib/service/user';
 import { SignupAssistant } from '../../lib/service/signupassistant';
 import { Storage } from '@ionic/storage';
-import { NavController, NavParams, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, PopoverController,ViewController,App,AlertController } from 'ionic-angular';
 import { RegisterLoginPage } from '../register-login/register-login';
 import { ForgotPage } from '../forgot/forgot';
 import { HomePage } from '../home/home';
@@ -10,6 +10,9 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { STRINGS } from '../../lib/provider/config';
 import { UseridPopover } from '../../popover/userid';
 import { PasswordPopover } from '../../popover/password';
+import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
+import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
+
 
 
 @Component({
@@ -38,7 +41,11 @@ export class LoginPage {
     public translate: TranslateService,
     public storage: Storage,
     public popoverCtrl: PopoverController,
-    private signupAssistant: SignupAssistant
+    private signupAssistant: SignupAssistant,
+    private volunteerEventsService: VolunteerEventsService,
+    public viewCtrl: ViewController,
+    public alertCtrl: AlertController,
+    public appCtrl: App
     ) {
 
     /* Temp solution until login validation is implemented */
@@ -79,8 +86,38 @@ export class LoginPage {
                                    this.loginSuccess = false;
                                      console.log(err);
                                  });
-       if(this.signupAssistant.getGuestSignup()){
-                this.signupAssistant.signupEventRegistration();
+        if(this.signupAssistant.getGuestSignup()){
+            this.signupAssistant.setGuestSignup(false);
+            this.volunteerEventsService
+                .checkMyEvents(this.signupAssistant.getCurrentEventId()).subscribe(
+                res => {  
+                    this.signupAssistant.signupEventRegistration();
+                },
+                err => {
+                    console.log(err);
+                    let confirm = this.alertCtrl.create({
+                            title: '',
+                            cssClass: 'alertReminder',
+                            message: 'You Have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the about me page?',
+                            buttons: [
+                                {
+                                    text: 'No',
+                                    handler: () => {
+                                        console.log('No clicked');
+                                    }
+                                },
+                                {
+                                    text: 'Yes',
+                                    handler: () => {
+                                        console.log('Yes clicked');
+                                        this.viewCtrl.dismiss();
+                                        this.appCtrl.getRootNav().push(RegisterIndividualProfilePage,{errorResponse:err});
+                                    }
+                                }
+                            ]
+                    });
+                    confirm.present();
+                });
         }                         
         loginPage.nav.setRoot(HomePage);
      
