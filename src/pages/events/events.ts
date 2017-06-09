@@ -82,10 +82,13 @@ export class EventPage {
 
   updateSelectedStartDate(date) {
     console.log("update selected start date", date);
+    if (date == this.selectedStartDate) return;
     this.selectedStartDate = date;
+    this.loadEvents();
   }
 
   updateSelectedEndDate(date) {
+    if (date == this.selectedEndDate) return;
     this.selectedEndDate = date;
     this.loadEvents();
   }
