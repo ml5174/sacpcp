@@ -10,6 +10,7 @@ import { PasswordPopover } from '../../popover/password';
 import { ParentVerifyModal } from '../../modals/parent-verify-modal';
 import { PhoneInput } from '../../lib/components/phone-input.component';
 import { AccordionBox } from '../../lib/components/accordion-box';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'register-individual-profile.html'
@@ -119,6 +120,8 @@ export class RegisterIndividualProfilePage {
   ];
 
   // Other private variables
+  public birthDateChanged:  boolean = false;
+
   public myProfile: any = {
     emergency_contact: {}
   };
@@ -183,6 +186,7 @@ export class RegisterIndividualProfilePage {
               public toastController: ToastController,
               public popoverCtrl: PopoverController,
               public modalCtrl: ModalController,
+              public alertCtrl: AlertController,
               public params: NavParams) {
   }
   // On initialization, get the latest info from the server
@@ -265,20 +269,25 @@ export class RegisterIndividualProfilePage {
     this.loadingOverlay.dismiss();
   }
 
+  birthdateChanged(event) {
+    console.log("Birthdate Changed");
+    this.birthDateChanged = true;
+  }
+
   register() {
     //check if of age
     //if not, throw a modal up and ask some questions
     //otherwise continue
     var myAge = this.checkAge(this.myProfile.birthdate);
     //console.log("My age: " + myAge);
-    if(myAge < 17){ //TODO:  Once there is a persistent variable that indicates this user has already submitted for parental verfication, stop doing this check.
+    if(this.birthDateChanged && myAge < 16){ //TODO:  Once there is a persistent variable that indicates this user has already submitted for parental verfication, stop doing this check.
     	//toss up a modal.
-    	this.openModal(myAge);
-    }else{
-    console.log("calling update profile");
-    this.updateProfile();
+    	this.openAlert(myAge);
+    } else {
+      console.log("calling update profile");
+      this.updateProfile();
     }
-    
+    this.birthDateChanged = false;
   }
   
   checkAge(birthdate: string): number{
@@ -288,12 +297,26 @@ export class RegisterIndividualProfilePage {
   	return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
   
+  openAlert(age:number) {
+    let alert = this.alertCtrl.create({
+      title: 'Youth Requirement',
+      subTitle: 'Thanks for signing up! Because you are under 16 please make sure you are accompanied by an adult over the age of 18 when attending a volunteer event.',
+      buttons: ['OK']
+    });
+    alert.onDidDismiss(data => {
+      console.log(data);
+      this.updateProfile(); //update this method to handle that pending state
+    });
+    alert.present();
+  }
+
   openModal(age:number){
   	let modal = this.modalCtrl.create(ParentVerifyModal, {age: age});
   	modal.onDidDismiss(data => { 
-  	console.log(data);
-  	//set a varible here that indicates this profile is in a pending state
-  	this.updateProfile(); //update this method to handle that pending state
+      console.log(data);
+      if (data && data.update == true) {
+        this.updateProfile(); //update this method to handle that pending state
+      }
   	});
   	modal.present();
   }
@@ -855,6 +878,7 @@ export class RegisterIndividualProfilePage {
     if (this.showpassword === 'password') this.showpassword = 'text';
     else this.showpassword = 'password';
   }
+
   onClick(event){
   	var target = event.target.parentElement;
   	setTimeout(function(){
@@ -863,6 +887,7 @@ export class RegisterIndividualProfilePage {
   	, 100);
   	
   }
+
   presentPasswordPopover(ev) {
 
     let popover = this.popoverCtrl.create(PasswordPopover, {

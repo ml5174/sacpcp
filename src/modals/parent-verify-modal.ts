@@ -15,14 +15,14 @@ export class ParentVerifyModal{
  	}
  	
  	dismiss(){
- 		this.viewCtrl.dismiss();
+ 		this.viewCtrl.dismiss({'update' : false});
  	}
  	
  	submitParentInfo(){
  		//do fancy stuff here
  		//set a variable back in the previous page that this profile is pending (or just do it in the db)
  		//dismiss this modal
- 		this.viewCtrl.dismiss({'example return data' : 'from the modal'});
+ 		this.viewCtrl.dismiss({'update' : true});
  		//continue the save procedure
  	}
 }
