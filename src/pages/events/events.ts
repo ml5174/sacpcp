@@ -75,8 +75,6 @@ export class EventPage {
     this.selectedStartDate = Moment().format("YYYY-MM-DD");
     this.selectedEndDate = Moment().add(30, 'day').format("YYYY-MM-DD");
     this.loadEvents();
-    this.showLoading();
-
     this.volunteerEventsService.getEventCategories().subscribe(
       data => this.eventCategories=data,
       error => this.getPreferencesError=true
@@ -128,6 +126,7 @@ export class EventPage {
     console.log("loadEvents called", now, until, future, this.selectedStartDate, this.selectedEndDate);
     // until.setDate(now.getDate() + this.moreInterval);
     future.setDate(until.getDate() + this.moreInterval);
+    this.showLoading();
     this.getEventsTimeRange(now.toISOString(), until.toISOString());
     this.getFutureEvents(until.toISOString(), future.toISOString());
 
