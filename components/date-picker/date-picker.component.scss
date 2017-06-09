@@ -1,0 +1,12 @@
+#date-picker-input-container {
+    // border: solid 1px #c8c7cc;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.date-picker-filler {
+    min-width: 5px;
+}
