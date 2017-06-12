@@ -29,8 +29,8 @@
 </ion-item>
 <ion-item id="date-picker-item">
     <div id="date-picker-container" item-content>
-        <date-picker [selectedDate]="selectedStartDate" [minDate]="'2017-06-07'" (onDateSelected)="updateSelectedStartDate($event)"></date-picker>
-        <date-picker [selectedDate]="selectedEndDate" [minDate]="'2017-06-20'" (onDateSelected)="updateSelectedEndDate($event)"></date-picker>
+        <date-picker [selectedDate]="selectedStartDate" [minDate]="'2017-06-07'" [label]="'From'" (onDateSelected)="updateSelectedStartDate($event)"></date-picker>
+        <date-picker [selectedDate]="selectedEndDate" [minDate]="'2017-06-20'" [label]="'To'"(onDateSelected)="updateSelectedEndDate($event)"></date-picker>
     </div>
 </ion-item>
 
