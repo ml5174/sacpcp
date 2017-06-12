@@ -93,7 +93,7 @@ export class SignupAssistant {
                   console.log(err);
               });
       
-        if (this.eventDetail.notification_schedule !="0") {
+        if (this.eventDetail && this.eventDetail.notification_schedule !="0") {
             let confirm = this.alertCtrl.create({
                 title: '',
                 cssClass: 'alertReminder',
@@ -160,7 +160,7 @@ export class SignupAssistant {
                     let confirm = this.alertCtrl.create({
                         title: '',
                         cssClass: 'alertReminder',
-                        message: 'Event registration is full.',
+                        message: 'Event Registration is full. We encourage you to search for similar events scheduled.',
                         buttons: [
                             {
                                 text: 'Ok',
