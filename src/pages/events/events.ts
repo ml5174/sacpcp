@@ -373,6 +373,7 @@ export class EventPage {
      
    
     signupEventRegistration(id) {
+        var errorMsg = '';
         this.signupassitant.setCurrentEventId(id);
         this.volunteerEventsService
             .checkMyEvents(id).subscribe(
@@ -381,27 +382,44 @@ export class EventPage {
             },
             err => {
                 console.log(err);
-                let confirm = this.alertCtrl.create({
+                if(err._body.indexOf("Event registration is full") > 0){
+                  let confirm = this.alertCtrl.create({
                         title: '',
                         cssClass: 'alertReminder',
-                        message: 'You have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the About Me page?',
+                        message: 'Event registration is full. We encourage you to search for similar events we may have scheduled.',
                         buttons: [
                             {
-                                text: 'No',
+                                text: 'Ok',
                                 handler: () => {
-                                    console.log('No clicked');
-                                }
-                            },
-                            {
-                                text: 'Yes',
-                                handler: () => {
-                                    console.log('Yes clicked');
-                                    this.nav.push(RegisterIndividualProfilePage,{errorResponse:err});
+                                    console.log('Ok, clicked');
                                 }
                             }
                         ]
-                });
-                confirm.present();
+                    });
+                    confirm.present();
+                }else{
+                  let confirm = this.alertCtrl.create({
+                          title: '',
+                          cssClass: 'alertReminder',
+                          message: 'You have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the About Me page?',
+                          buttons: [
+                              {
+                                  text: 'No',
+                                  handler: () => {
+                                      console.log('No clicked');
+                                  }
+                              },
+                              {
+                                  text: 'Yes',
+                                  handler: () => {
+                                      console.log('Yes clicked');
+                                      this.nav.push(RegisterIndividualProfilePage,{errorResponse:err});
+                                  }
+                              }
+                          ]
+                  });
+                  confirm.present();
+                }
             });      
     }
    
