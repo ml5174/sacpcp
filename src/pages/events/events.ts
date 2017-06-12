@@ -373,7 +373,6 @@ export class EventPage {
      
    
     signupEventRegistration(id) {
-        var errorMsg = '';
         this.signupassitant.setCurrentEventId(id);
         this.volunteerEventsService
             .checkMyEvents(id).subscribe(
