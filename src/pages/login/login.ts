@@ -95,7 +95,7 @@ export class LoginPage {
                 },
                 err => {
                     console.log(err);
-                    if(err._body.indexOf("Event registration is full. We encourage you to search for similar events we may have scheduled.") > 0){
+                    if(err._body.indexOf("Event Registration is full. We encourage you to search for similar events scheduled.") > 0){
                       let confirm = this.alertCtrl.create({
                             title: '',
                             cssClass: 'alertReminder',

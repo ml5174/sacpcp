@@ -137,7 +137,7 @@ export class EventDetailModal {
                         let confirm = this.alertCtrl.create({
                                 title: '',
                                 cssClass: 'alertReminder',
-                                message: 'Event registration is full. We encourage you to search for similar events we may have scheduled.',
+                                message: 'Event Registration is full. We encourage you to search for similar events scheduled.',
                                 buttons: [
                                     {
                                         text: 'Ok',
