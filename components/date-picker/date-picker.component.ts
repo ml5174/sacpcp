@@ -8,7 +8,8 @@ import Moment from "moment";
   selector: 'date-picker',
   template: `
 <div id="date-picker-input-container" (click)="showDatePicker($event)">
-  <span class="date-picker-date-display" item-start>{{ selectedDateStr }}</span>
+  <span class="date-picker-label" item-start>{{ label }}: </span>
+  <span class="date-picker-date-display">{{ selectedDateMoment.format("MM-DD") }}</span>
   <span class="date-picker-filler"></span>
   <ion-icon name="md-arrow-dropdown" isActive="false" item-end></ion-icon>
 </div>
@@ -18,20 +19,25 @@ export class DatePicker {
   @Input()
   selectedDate;
   @Input()
-  minDate
+  minDate;
+  @Input()
+  label;
   @Output()
   onDateSelected = new EventEmitter();
   selectedDateStr;
+  selectedDateMoment;
   calendar;
   constructor (private popoverCtrl: PopoverController,
                public navParams: NavParams,
                public viewCtrl: ViewController) {
     this.calendar = DatePickerCalendar;
     this.selectedDateStr = Moment(this.selectedDate).format("YYYY-MM-DD"); 
+    this.selectedDateMoment = Moment(this.selectedDate);
   }
 
   ngOnInit() {
-    this.selectedDateStr = Moment(this.selectedDate).format("YYYY-MM-DD"); 
+    this.selectedDateStr = Moment(this.selectedDate).format("YYYY-MM-DD");
+    this.selectedDateMoment = Moment(this.selectedDate);
   }
 
   showDatePicker(clickEvent){
@@ -42,6 +48,7 @@ export class DatePicker {
         let date = Moment(data);
         this.selectedDateStr = date.format("YYYY-MM-DD");
         this.selectedDate = date.format("YYYY-MM-DD");
+        this.selectedDateMoment = date;
         this.onDateSelected.emit(date.format("YYYY-MM-DD"));
       }
     })
