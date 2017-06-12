@@ -44,7 +44,7 @@
             <input type="submit" class="hidden-submit">
 
             <!-- My Credentials -->
-            <accordion-box #accordionMyCredentials accordionTitle="{{'My Info' | translate}}">
+            <accordion-box #accordionMyCredentials accordionTitle="*{{'My Info' | translate}}">
                 <ion-list class="accordion-content">
                     <ion-item no-lines *ngIf="firstnameerror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
@@ -148,7 +148,7 @@
             </accordion-box>
 
             <!-- Preferred Contact -->
-            <accordion-box #accordionPreferredContact accordionTitle="{{'Preferred Contact Method' | translate}}">
+            <accordion-box #accordionPreferredContact accordionTitle="*{{'Preferred Contact Method' | translate}}">
                 <div class="accordion-content">
                     <ion-item no-lines *ngIf="my_contactmethod_iderror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
@@ -209,7 +209,7 @@
             </accordion-box>
 
             <!-- Emergency Contact -->
-            <accordion-box #accordionEmergencyContact accordionTitle="{{'Emergency Contact' | translate}}">
+            <accordion-box #accordionEmergencyContact accordionTitle="*{{'Emergency Contact' | translate}}">
                 <ion-list class="accordion-content">
                     <ion-item no-lines *ngIf="ecfirstnameerror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
