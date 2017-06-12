@@ -26,6 +26,7 @@ export class ContactVolunteers {
   public selectAllEvents:Boolean;
 
   ngOnInit() {
+    console.log("websitecheck:contact-volunteers init");
     this.sendTo = 'individual';
   	this.userServices.getAllUsers().subscribe(
   		users => {
