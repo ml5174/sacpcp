@@ -86,33 +86,29 @@ export class EventDetailPopup {
     }
 
     signupEventRegistration(id,  noti_schedule) {
-        if (noti_schedule != "0") {
-            let confirm = this.alertCtrl.create({
-                title: '',
-                cssClass: 'alertReminder',
-                message: 'Thank you for signing up to volunteer. <br>  <br> Would you like to receive reminders as the event approaches?',
-                buttons: [
-                    {
-                        text: 'No, Thanks',
-                        handler: () => {
-                            console.log('No, Thanks clicked');
-                            this.signup(id, 0, false);
-                        }
-                    },
-                    {
-                        text: 'Yes',
-                        handler: () => {
-                            console.log('Yes clicked');
-                            this.signup(id, noti_schedule, false);
-                        }
+        let confirm = this.alertCtrl.create({
+            title: '',
+            cssClass: 'alertReminder',
+            message: 'Thank you for signing up to volunteer. <br> Would you like to receive reminders as the event approaches?',
+            buttons: [
+                {
+                    text: 'No, Thanks',
+                    handler: () => {
+                        console.log('No, Thanks clicked');
+                        this.signup(id, 0, false);
                     }
-                ]
-            });
-            confirm.present();
-        }
-        else {
-            this.signup(id, 0, false);
-        }
+                },
+                {
+                    text: 'Yes',
+                    handler: () => {
+                        console.log('Yes clicked');
+                        this.signup(id, noti_schedule, false);
+                    }
+                }
+            ],
+            enableBackdropDismiss: false
+        });
+        confirm.present();
     }
     signup(id, noti_sched, overlap: boolean) {
         this.volunteerEventsService
