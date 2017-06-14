@@ -53,43 +53,42 @@ img.main {
 }
 
 // start of date picker input style
-#date-picker-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-}
-
 #date-picker-item-label ion-label {
     font-size: 12px;
 }
 
-#date-picker-start-input-container {
-    border: solid 1px #c8c7cc;
-    border-radius: 5px;
-    padding: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 45%;
+.date-picker-input {
+    border: none;
 }
 
-#date-picker-end-input-container {
-    border: solid 1px #c8c7cc;
-    border-radius: 5px;
-    padding: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 45%;
-}
-
-.date-picker-date-display {
-    font-size: 1.1 em;
-}
-
-date-picker {
-    width: 45%;
-}
-
+// #date-picker-container {
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-between;
+//     width: 100%;
+// }
+// #date-picker-start-input-container {
+//     border: solid 1px #c8c7cc;
+//     border-radius: 5px;
+//     padding: 5px;
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-around;
+//     width: 45%;
+// }
+// #date-picker-end-input-container {
+//     border: solid 1px #c8c7cc;
+//     border-radius: 5px;
+//     padding: 5px;
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-around;
+//     width: 45%;
+// }
+// .date-picker-date-display {
+//     font-size: 1.1 em;
+// }
+// date-picker {
+//     width: 45%;
+// }
 // end of date picker input style
