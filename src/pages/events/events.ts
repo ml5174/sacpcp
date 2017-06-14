@@ -54,6 +54,8 @@ export class EventPage {
   // datepicker
   public selectedStartDate;
   public selectedEndDate;
+  public currentStartDate; // hold selected start date for comparison on change in onStartDateChange
+  public currentEndDate; // hold selected end date for comparison on change in onEndDateChange
   public dateRangeError = false;
   public dateRangeErrorValue = "Start date can't be after end date";
   public minStartDate;
@@ -77,8 +79,10 @@ export class EventPage {
     // select today and 30 days worth of events by default
     this.selectedStartDate = Moment().format("YYYY-MM-DD");
     this.selectedEndDate = Moment().add(30, 'day').format("YYYY-MM-DD");
-    this.minStartDate = Moment().subtract(1, 'day').format("YYYY-MM-DD");
+    this.minStartDate = Moment().format("YYYY-MM-DD");
     this.maxStartDate = Moment().add(1, 'year').format("YYYY-MM-DD");
+    this.currentStartDate = this.selectedStartDate.slice();
+    this.currentEndDate = this.selectedEndDate.slice();
     this.loadEvents();
     this.volunteerEventsService.getEventCategories().subscribe(
       data => this.eventCategories=data,
@@ -88,23 +92,32 @@ export class EventPage {
 
   onStartDateChange(evt) {
     let date = Moment(evt);
-    if (date.isAfter(Moment(this.selectedEndDate))) {
-      this.dateRangeError = true;
+    if (evt === this.currentStartDate) {
       return;
-    } else {
-      this.dateRangeError = false;
-      this.loadEvents();
+    }else {
+      this.currentStartDate = evt;
+      if (date.isAfter(Moment(this.selectedEndDate))) {
+        this.dateRangeError = true;
+        return;
+      } else {
+        this.dateRangeError = false;
+        this.loadEvents();
+      }
     }
   }
 
   onEndDateChange(evt) {
     let date = Moment(evt);
-    if (date.isBefore(Moment(this.selectedStartDate))) {
-      this.dateRangeError = true;
+    if (evt === this.currentEndDate) {
       return;
     } else {
-      this.dateRangeError = false;
-      this.loadEvents();
+      if (date.isBefore(Moment(this.selectedStartDate))) {
+        this.dateRangeError = true;
+        return;
+      } else {
+        this.dateRangeError = false;
+        this.loadEvents();
+      }
     }
   }
 
