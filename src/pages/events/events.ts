@@ -86,24 +86,7 @@ export class EventPage {
     );
   }
 
-  // updateSelectedStartDate(date) {
-  //   this.dateRangeError = Moment(date).isAfter(this.selectedEndDate);
-  //   if (date == this.selectedStartDate) return;
-  //   if (this.dateRangeError) return;
-  //   this.selectedStartDate = date;
-  //   this.loadEvents();
-  // }
-
-  // updateSelectedEndDate(date) {
-  //   this.dateRangeError = Moment(date).isBefore(this.selectedStartDate);
-  //   if (date == this.selectedEndDate) return;
-  //   if (this.dateRangeError) return;
-  //   this.selectedEndDate = date;
-  //   this.loadEvents();
-  // }
-
   onStartDateChange(evt) {
-    console.log("start date changfe", evt);
     let date = Moment(evt);
     if (date.isAfter(Moment(this.selectedEndDate))) {
       this.dateRangeError = true;
@@ -115,8 +98,7 @@ export class EventPage {
   }
 
   onEndDateChange(evt) {
-    console.log("end date changfe", evt);
-        let date = Moment(evt);
+    let date = Moment(evt);
     if (date.isBefore(Moment(this.selectedStartDate))) {
       this.dateRangeError = true;
       return;
@@ -365,25 +347,20 @@ export class EventPage {
       });
   }
   getEventsTimeRange(minTime, maxTime) {
-    console.log("calling get events time range");
     this.volunteerEventsService
       .getVolunteerEventsTimeRange(minTime, maxTime).subscribe(
         events => {
-          console.log("evnets returned", events);
           this.events = events;
         }, err => {
           this.hideLoading();
           console.log(err);
         },
         () => {
-          console.log("last function", this.events);
           this.searchedEvents = this.events;
           this.hideLoading();
           if (this.searchedEvents.length == 0) {
-            console.log("last function no events");
             this.noResults = true;
           }
-          console.log("final function ends");
         }
       );
   }
