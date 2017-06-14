@@ -271,7 +271,8 @@ export class EventDetailModal {
                         this.deRegister(id);
                     }
                 }
-            ]
+            ],
+            enableBackdropDismiss: false
         });
         confirm.present();
     }
