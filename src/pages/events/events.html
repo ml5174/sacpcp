@@ -27,12 +27,24 @@
     <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
     <p class="no-text-transform" style="color:#CC1F2C">{{dateRangeErrorValue}}</p>
 </ion-item>
-<ion-item id="date-picker-item">
-    <div id="date-picker-container" item-content>
-        <date-picker [selectedDate]="selectedStartDate" [minDate]="'2017-06-07'" [label]="'From'" (onDateSelected)="updateSelectedStartDate($event)"></date-picker>
-        <date-picker [selectedDate]="selectedEndDate" [minDate]="'2017-06-20'" [label]="'To'"(onDateSelected)="updateSelectedEndDate($event)"></date-picker>
-    </div>
+<ion-item no-lines *ngIf="events.length==0">
+    <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
+    <p class="no-text-transform" style="color:#CC1F2C">No events found for dates</p>
 </ion-item>
+<ion-row>
+    <ion-col>
+        <ion-item>
+            <ion-label>From</ion-label>
+            <ion-datetime class="date-picker-input" displayFormat="MM/DD" min="{{minStartDate}}" max="{{maxStartDate}}" pickerFormat="MMM DD YYYY" [(ngModel)]="selectedStartDate" (ngModelChange)="onStartDateChange($event)"></ion-datetime>
+        </ion-item>
+    </ion-col>
+    <ion-col>
+        <ion-item>
+            <ion-label>To</ion-label>
+            <ion-datetime class="date-picker-input" displayFormat="MM/DD" min="{{selectedStartDate}}" max="{{maxStartDate}}" pickerFormat="MMM DD YYYY" [(ngModel)]="selectedEndDate" (ngModelChange)="onEndDateChange($event)"></ion-datetime>
+        </ion-item>
+    </ion-col>
+</ion-row>
 
 <div id="results" *ngIf="searching">Search Results</div>
 <!-- Removed per Requirements  <img class="main" src="assets/img/logo2.jpg" /> -->

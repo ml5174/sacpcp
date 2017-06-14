@@ -54,8 +54,12 @@ export class EventPage {
   // datepicker
   public selectedStartDate;
   public selectedEndDate;
+  public currentStartDate; // hold selected start date for comparison on change in onStartDateChange
+  public currentEndDate; // hold selected end date for comparison on change in onEndDateChange
   public dateRangeError = false;
   public dateRangeErrorValue = "Start date can't be after end date";
+  public minStartDate;
+  public maxStartDate;
 
   constructor(public volunteerEventsService: VolunteerEventsService,
     public userServices: UserServices,
@@ -75,6 +79,10 @@ export class EventPage {
     // select today and 30 days worth of events by default
     this.selectedStartDate = Moment().format("YYYY-MM-DD");
     this.selectedEndDate = Moment().add(30, 'day').format("YYYY-MM-DD");
+    this.minStartDate = Moment().format("YYYY-MM-DD");
+    this.maxStartDate = Moment().add(1, 'year').format("YYYY-MM-DD");
+    this.currentStartDate = this.selectedStartDate.slice();
+    this.currentEndDate = this.selectedEndDate.slice();
     this.loadEvents();
     this.volunteerEventsService.getEventCategories().subscribe(
       data => this.eventCategories=data,
@@ -82,20 +90,35 @@ export class EventPage {
     );
   }
 
-  updateSelectedStartDate(date) {
-    this.dateRangeError = Moment(date).isAfter(this.selectedEndDate);
-    if (date == this.selectedStartDate) return;
-    if (this.dateRangeError) return;
-    this.selectedStartDate = date;
-    this.loadEvents();
+  onStartDateChange(evt) {
+    let date = Moment(evt);
+    if (evt === this.currentStartDate) {
+      return;
+    }else {
+      this.currentStartDate = evt;
+      if (date.isAfter(Moment(this.selectedEndDate))) {
+        this.dateRangeError = true;
+        return;
+      } else {
+        this.dateRangeError = false;
+        this.loadEvents();
+      }
+    }
   }
 
-  updateSelectedEndDate(date) {
-    this.dateRangeError = Moment(date).isBefore(this.selectedStartDate);
-    if (date == this.selectedEndDate) return;
-    if (this.dateRangeError) return;
-    this.selectedEndDate = date;
-    this.loadEvents();
+  onEndDateChange(evt) {
+    let date = Moment(evt);
+    if (evt === this.currentEndDate) {
+      return;
+    } else {
+      if (date.isBefore(Moment(this.selectedStartDate))) {
+        this.dateRangeError = true;
+        return;
+      } else {
+        this.dateRangeError = false;
+        this.loadEvents();
+      }
+    }
   }
 
   showLoading() {
@@ -339,14 +362,20 @@ export class EventPage {
   getEventsTimeRange(minTime, maxTime) {
     this.volunteerEventsService
       .getVolunteerEventsTimeRange(minTime, maxTime).subscribe(
-      events => {this.events = events;
-      }, err => {
-        this.hideLoading();
-        console.log(err);
-      },
-      () => {this.searchedEvents = this.events;
-             this.hideLoading();
-        });
+        events => {
+          this.events = events;
+        }, err => {
+          this.hideLoading();
+          console.log(err);
+        },
+        () => {
+          this.searchedEvents = this.events;
+          this.hideLoading();
+          if (this.searchedEvents.length == 0) {
+            this.noResults = true;
+          }
+        }
+      );
   }
     getFutureEvents(minTime, maxTime) {
     this.volunteerEventsService
