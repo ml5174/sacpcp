@@ -107,6 +107,7 @@ export class EventPage {
   }
 
   onEndDateChange(evt) {
+    console.log(this.searchedEvents);
     let date = Moment(evt);
     if (evt === this.currentEndDate) {
       return;
