@@ -25,7 +25,7 @@ export class AboutPage {
        if (this.serverEnv == "prod") {
          this.serverEnv = "";
        }
-       console.log('Server Env: .' + this.serverEnv + '.');
+       console.log('Server Env: ' + this.serverEnv);
     });
 
     this.storage.get('version').then((myVersionNumber) => {
@@ -36,7 +36,7 @@ export class AboutPage {
     this.storage.get('build').then((myBuildNumber) => {
       this.buildNumber = myBuildNumber;
       console.log('Build: ' + this.buildNumber);
-      this.versionString = this.versionNumber + "(" + this.buildNumber + ") |";
+      this.versionString = this.versionNumber + " (" + this.buildNumber + ") ";
     });
 
     console.log("versionString: " + this.versionString);

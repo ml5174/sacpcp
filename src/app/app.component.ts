@@ -25,6 +25,7 @@ import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package';
 import { DONATE_URL } from '../lib/provider/config';
 import { AppVersion } from 'ionic-native';
+import { SERVER } from '../lib/provider/config';
 
 declare var window;
 declare var cordova;
@@ -207,31 +208,38 @@ showAdmin1()
 
 
    private getServerEnv() {
-    this.serverVersion.getJsonData().subscribe(
-      result => {
-        this.serverENV=result.ENV_NAME;
-        this.serverVersionNumber=result.version;
-        console.log("server environment : "+this.serverENV + '@ ' + this.serverVersionNumber);
-        let serverVersionNumber: string = this.serverVersionNumber;
-        let serverEnv: string = this.serverENV;
-        this.storage.set('serverVersion', serverVersionNumber).then((resource) => {
-         console.log('Storing Server Version: ' + serverVersionNumber);
-       });
+    console.log('SERVER:' + SERVER);
+    if (SERVER != 'https://api.volunteers.tsadfw.org') {
+      this.serverVersion.getJsonData().subscribe(
+       result => {
+         this.serverENV=result.ENV_NAME;
+         this.serverVersionNumber=result.version;
+         console.log("server environment : "+this.serverENV + '@ ' + this.serverVersionNumber);
+         let serverVersionNumber: string = this.serverVersionNumber;
+         let serverEnv: string = this.serverENV;
+         this.storage.set('serverVersion', serverVersionNumber).then((resource) => {
+          console.log('Storing Server Version: ' + serverVersionNumber);
+         });
 
-       this.storage.set('serverEnv', serverEnv).then((resource) => {
-         console.log('Storing Server Environment: ' + serverEnv);
-       });
+        this.storage.set('serverEnv', serverEnv).then((resource) => {
+          console.log('Storing Server Environment: ' + serverEnv);
+        });
 
-      },
-      err =>{
-        console.error("Error : "+err);
-        this.storage.set('serverVersion', '0.0');
-        this.storage.set('serverEnv', 'N/A');
-      } ,
-      () => {
-        console.log('getData completed');
-      }
-    );
+        },
+        err =>{
+          console.error("Error : "+err);
+          this.storage.set('serverVersion', '0.0');
+          this.storage.set('serverEnv', 'N/A');
+        } ,
+        () => {
+          console.log('getData completed');
+        }
+      );
+    }
+    else { 
+      this.storage.set('serverEnv', 'prod');
+      this.storage.set('serverVersion', '');
+    }
    }
 
   private getAndWriteVersionInfo(){
