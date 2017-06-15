@@ -69,7 +69,7 @@
                     <ion-item>
                         <ion-icon item-left name="calendar"></ion-icon>
                         <!--p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p-->
-                        <p>{{e.start | parseTime:"MMM DD"}} {{e.end | parseTime:"YYYY"}}</p>
+                        <p><span>{{e.start | parseTime:"MMM DD"}}</span><span *ngIf="(e.start | parseTime:'DD') !== (e.end | parseTime:'DD')">-{{e.end | parseTime:"DD"}}</span><span>, {{e.end | parseTime:"YYYY"}}</span></p>
                         <!--p>{{e.start | parseTimeZone: 'h:mm A'}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p-->
                         <p>{{e.start | parseTime: 'h:mm A'}}-{{e.end | parseTime: 'h:mm A'}}</p>
                     </ion-item>
