@@ -5,7 +5,7 @@
     </app-header>
 </ion-header>
 
-<ion-content padding-left padding-right padding-top>
+<ion-content padding-left padding-right padding-top scroll="false">
     <section id="home-body">
         <div>
             <ion-segment [(ngModel)]="selectedTab" padding-bottom>
@@ -36,4 +36,7 @@
 
         </div>
     </section>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

@@ -12,7 +12,7 @@ import { AlertController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { SignupAssistant } from '../../lib/service/signupassistant';
 import Moment from "moment";
-import {Nav} from 'ionic-angular';
+import { Nav, InfiniteScroll } from 'ionic-angular';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 
 
@@ -24,11 +24,16 @@ import { RegisterIndividualProfilePage } from '../register-individual-profile/re
 
 export class EventPage {
 
+  public infiniteScroll: InfiniteScroll;
+
+  private oppType;
   public loadingOverlay;
   eventDetail: EventDetail;
   public search: boolean = false;
   public events: Array<VolunteerEvent> = [];
   public searchedEvents: Array<VolunteerEvent> = [];
+  public displayedEvents: Array<VolunteerEvent> = [];
+  public filteredEvents: Array<VolunteerEvent> = [];
   public maxEvents: Array<VolunteerEvent> = [];
   public minEvents: Array<VolunteerEvent> = [];
   public stubEvents: Array<VolunteerEvent> = [];
@@ -140,6 +145,28 @@ export class EventPage {
       position: 'middle'
     });
     toast.present();
+  }
+
+  doInfinite(infiniteScroll) {
+    this.infiniteScroll = infiniteScroll;
+
+    // fake async process
+    setTimeout(() => {
+      let beginIndex = this.displayedEvents.length;
+      let perPage = this.filteredEvents.length - this.displayedEvents.length;
+      if (perPage > 10) perPage = 10;
+      for (let i = beginIndex; i < perPage + beginIndex; i++) {
+        this.displayedEvents.push( this.filteredEvents[i] );
+      }
+
+      infiniteScroll.complete();
+
+      if (this.displayedEvents.length >= this.filteredEvents.length) {
+        infiniteScroll.enable(false);
+      }
+
+      infiniteScroll.complete();
+    }, 10);
   }
 
   loadEvents() {
@@ -259,6 +286,8 @@ export class EventPage {
     this.searching = true;
     this.noResults = false;
     this.searchedEvents = this.events;
+    this.loadFirstPageOfDisplayedEvents();
+
     // set val to the value of the searchbar
     this.val = ev.target.value;
     this.val = this.val.trim();
@@ -308,7 +337,7 @@ export class EventPage {
                         )});
 
                   }
-
+                  this.loadFirstPageOfDisplayedEvents();
                  //   this.searchedEvents.map(Array, this.sortPipe.transform(this.searchedEvents, this.selectedSort));
                  // this.pipe.transform(this.searchedEvents, this.selectedSort);
 
@@ -331,8 +360,33 @@ export class EventPage {
       err => {
         console.log(err);
       },
-      () => this.searchedEvents = this.events);
+      () => {
+        this.searchedEvents = this.events;
+        this.loadFirstPageOfDisplayedEvents();
+      });
   }
+
+  onOppTypeChange(event) {
+    this.loadFirstPageOfDisplayedEvents();  
+  }
+
+  loadFirstPageOfDisplayedEvents() {
+    if (this.infiniteScroll) {
+      this.infiniteScroll.enable(true);
+    }
+    let opportunityPipe: OpportunityPipe = new OpportunityPipe();
+
+    this.filteredEvents = opportunityPipe.transform(this.searchedEvents, this.oppType);
+
+    this.displayedEvents = [];
+    let perPage = this.filteredEvents.length;
+    if (perPage > 10) perPage = 10;
+    for (var index = 0; index < perPage; index++) {
+      var element = this.filteredEvents[index];
+      this.displayedEvents.push(element);      
+    }
+  }
+
   getAdminEvents() {
     this.volunteerEventsService
       .getAdminEvents().subscribe(
@@ -341,7 +395,8 @@ export class EventPage {
         console.log(err);
       },
       () => {
-      this.searchedEvents = this.events;
+        this.searchedEvents = this.events;
+        this.loadFirstPageOfDisplayedEvents();
       });
   }
   getEventsMax(maxTime) {
@@ -371,6 +426,7 @@ export class EventPage {
         },
         () => {
           this.searchedEvents = this.events;
+          this.loadFirstPageOfDisplayedEvents();
           this.hideLoading();
           if (this.searchedEvents.length == 0) {
             this.noResults = true;

@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 import {NavController, Nav, NavParams} from 'ionic-angular';
 import {VolunteerEventsService} from '../../lib/service/volunteer-events-service';
 import {LoginPage} from '../login/login';
+import {EventPage} from '../events/events';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 import { UserServices } from '../../lib/service/user';
 
@@ -10,6 +11,8 @@ import { UserServices } from '../../lib/service/user';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  @ViewChild(EventPage)
+  public eventPage: EventPage;
 
   selectedTab: string = "home";
   language: string = "en";
@@ -57,6 +60,13 @@ export class HomePage {
   }
   noTabs() {
     this.nav.pop();
+  }
+  doInfinite(infiniteScroll) {
+    if (this.selectedTab == "events") {
+      this.eventPage.doInfinite(infiniteScroll);
+    } else {
+      infiniteScroll.complete();
+    }
   }
 
 }
