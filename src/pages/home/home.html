@@ -32,11 +32,11 @@
                 <myevents></myevents>
             </div>
         </div>
+        <ion-infinite-scroll *ngIf="selectedTab=='events'" (ionInfinite)="doInfinite($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
         <div style="min-height: 10vh !important;">
 
         </div>
     </section>
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-        <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
 </ion-content>
