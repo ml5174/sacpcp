@@ -15,7 +15,7 @@
 </div> -->
 <ion-item>
     <ion-label>Opportunity Type:</ion-label>
-    <ion-select id="selectbar" [(ngModel)]="oppType">
+    <ion-select id="selectbar" [(ngModel)]="oppType" (ngModelChange)="onOppTypeChange($event)">
         <ion-option value="0" selected="true">All</ion-option>
         <ion-option *ngFor="let cat of eventCategories" value="{{cat.id}}">{{cat.name}}</ion-option>
     </ion-select>
@@ -51,7 +51,7 @@
 <div *ngIf="searching && noResults">No Results Found</div>
 
 <ion-row responsive-sm wrap>
-    <ion-col width-50 class="flex-card" *ngFor="let e of searchedEvents | OpportunityPipe:oppType; let i=index">
+    <ion-col width-50 class="flex-card" *ngFor="let e of displayedEvents; let i=index">
         <ion-card *ngIf="e.visibility==0" class="flex-card">
             <ion-card-content>
                 <ion-list-header (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">
