@@ -7,6 +7,7 @@ import { EventDetailModal } from './eventdetail-modal';
 import { ModalController, ViewController } from 'ionic-angular';
 import { PopoverController, ToastController, LoadingController } from 'ionic-angular';
 import {OpportunityPipe} from '../../lib/pipe/eventsortpipe';
+import {PreferencePipe} from '../../lib/pipe/eventsortpipe';
 import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
 import { AlertController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
@@ -19,7 +20,7 @@ import { RegisterIndividualProfilePage } from '../register-individual-profile/re
 @Component({
   templateUrl: 'events.html',
   selector: 'events',
-  providers:[ParseTimePipe, OpportunityPipe]
+  providers:[ParseTimePipe, OpportunityPipe, PreferencePipe]
 })
 
 export class EventPage {
@@ -65,6 +66,9 @@ export class EventPage {
   public dateRangeErrorValue = "Start date can't be after end date";
   public minStartDate;
   public maxStartDate;
+  // preferences
+  public myPreferencesObservable;
+  public myPreferences;
 
   constructor(public volunteerEventsService: VolunteerEventsService,
     public userServices: UserServices,
@@ -88,11 +92,17 @@ export class EventPage {
     this.maxStartDate = Moment().add(1, 'year').format("YYYY-MM-DD");
     this.currentStartDate = this.selectedStartDate.slice();
     this.currentEndDate = this.selectedEndDate.slice();
-    this.loadEvents();
+    // this.loadEvents();
     this.volunteerEventsService.getEventCategories().subscribe(
       data => this.eventCategories=data,
       error => this.getPreferencesError=true
     );
+    // get preferences
+    this.myPreferencesObservable = this.userServices.getMyPreferences();
+    this.myPreferencesObservable.subscribe( data => {
+      this.myPreferences = data;
+      this.loadEvents();
+    });
   }
 
   onStartDateChange(evt) {
@@ -279,7 +289,6 @@ export class EventPage {
     this.search = false;
   }
  getItems(ev: any) {
-   
     if(ev.target.value == undefined){
       ev.target.value = '';
     }
@@ -375,8 +384,10 @@ export class EventPage {
       this.infiniteScroll.enable(true);
     }
     let opportunityPipe: OpportunityPipe = new OpportunityPipe();
+    let preferencePipe: PreferencePipe = new PreferencePipe();
 
     this.filteredEvents = opportunityPipe.transform(this.searchedEvents, this.oppType);
+    this.filteredEvents = preferencePipe.transform(this.filteredEvents, this.myPreferences);
 
     this.displayedEvents = [];
     let perPage = this.filteredEvents.length;
