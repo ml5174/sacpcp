@@ -34,6 +34,7 @@ export class OpportunityPipe {
 @Pipe({name: "PreferencePipe"})
 export class PreferencePipe {
   transform(objects: any, preferenceObj?: any): any {
+		// when user is not logged in, preferenceObj gets set to undefined
 			if(preferenceObj === undefined){
 				return objects;
 			} else if (preferenceObj.locations.length) {
@@ -46,6 +47,7 @@ export class PreferencePipe {
 					}
 				});
 			} else {
+				// shows user all the events if user have no location preference
 				return objects;
 			} 
   }
