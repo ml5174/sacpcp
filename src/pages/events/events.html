@@ -27,9 +27,9 @@
     <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
     <p class="no-text-transform" style="color:#CC1F2C">{{dateRangeErrorValue}}</p>
 </ion-item>
-<ion-item no-lines *ngIf="events.length==0">
+<ion-item no-lines *ngIf="displayedEvents.length==0">
     <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
-    <p class="no-text-transform" style="color:#CC1F2C">No events found for dates</p>
+    <p class="no-text-transform" style="color:#CC1F2C">No events found with your preferences</p>
 </ion-item>
 <ion-row>
     <ion-col>
