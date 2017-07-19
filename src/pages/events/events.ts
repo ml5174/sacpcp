@@ -6,9 +6,9 @@ import { UserServices } from '../../lib/service/user';
 import { EventDetailModal } from './eventdetail-modal';
 import { ModalController, ViewController } from 'ionic-angular';
 import { PopoverController, ToastController, LoadingController } from 'ionic-angular';
-import {OpportunityPipe} from '../../lib/pipe/eventsortpipe';
-import {PreferencePipe} from '../../lib/pipe/eventsortpipe';
-import {ParseTimePipe} from '../../lib/pipe/moment.pipe';
+import { OpportunityPipe } from '../../lib/pipe/eventsortpipe';
+import { PreferencePipe } from '../../lib/pipe/eventsortpipe';
+import { ParseTimePipe } from '../../lib/pipe/moment.pipe';
 import { AlertController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { SignupAssistant } from '../../lib/service/signupassistant';
@@ -99,9 +99,19 @@ export class EventPage {
     );
     // get preferences
     this.myPreferencesObservable = this.userServices.getMyPreferences();
-    this.myPreferencesObservable.subscribe( data => {
-      this.myPreferences = data;
-      this.loadEvents();
+
+    this.myPreferencesObservable.subscribe({
+      next: (data) => {
+        this.myPreferences = data;
+        this.loadEvents();
+      },
+      error: (errRes) => {
+        // handle when user is not logged in
+        if (errRes.status == 401 && errRes.statusText == "Unauthorized") {
+          this.myPreferences = undefined;
+          this.loadEvents()
+        }
+      }
     });
   }
 
@@ -388,7 +398,6 @@ export class EventPage {
 
     this.filteredEvents = opportunityPipe.transform(this.searchedEvents, this.oppType);
     this.filteredEvents = preferencePipe.transform(this.filteredEvents, this.myPreferences);
-
     this.displayedEvents = [];
     let perPage = this.filteredEvents.length;
     if (perPage > 10) perPage = 10;
