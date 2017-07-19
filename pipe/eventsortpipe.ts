@@ -19,8 +19,6 @@ export class EventSortPipe {
 @Pipe({name: "OpportunityPipe"})
 export class OpportunityPipe {
   transform(object: any, args?: any): any {
-    console.log('object: ' + args);
-	 
 			if(args < 1 || args === undefined){
 				return object;
 			}else{
@@ -28,11 +26,29 @@ export class OpportunityPipe {
 					if(param.category_id == args){
 						return param;
 					}
-
 				});
-
 			}
+  }
+}
 
-    
+@Pipe({name: "PreferencePipe"})
+export class PreferencePipe {
+  transform(objects: any, preferenceObj?: any): any {
+		// when user is not logged in, preferenceObj gets set to undefined
+			if(preferenceObj === undefined){
+				return objects;
+			} else if (preferenceObj.locations.length) {
+				let preferredLocations = preferenceObj.locations.map( (location) => {
+					return location.location_id;
+				});
+				return objects.filter((dfwEvent) => {
+					if(preferredLocations.includes(dfwEvent.location_id)) {
+						return dfwEvent;
+					}
+				});
+			} else {
+				// shows user all the events if user have no location preference
+				return objects;
+			} 
   }
 }
