@@ -274,7 +274,7 @@ showAdmin1()
       this.storage.set('version', version).then((resource) => {
           console.log('Storing Marketing Version: ' + this.appMarketingVersion);
         });
-      let buildNumberNonMobileFE = "_build_number_";
+      let buildNumberNonMobileFE = "1707192140";
       this.storage.set('build', buildNumberNonMobileFE).then((resource) => {
          console.log('Storing Build Version: ' + buildNumberNonMobileFE);
         });

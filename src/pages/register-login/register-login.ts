@@ -8,7 +8,7 @@ import { RegisterIndividualProfilePage } from '../register-individual-profile/re
 import { PasswordPopover } from '../../popover/password';
 import { UseridPopover } from '../../popover/userid';
 import { PrivacyTermsModal } from '../../modals/privacy-terms-modal';
-import { Storage } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage';
 import { ContactMethod } from '../../lib/components/ContactMethod/contactMethod.component';
 import { Content } from 'ionic-angular';
 
