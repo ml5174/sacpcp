@@ -7,31 +7,31 @@
         "files": {}
     },
     "installed_plugins": {
+        "cordova-plugin-app-version": {
+            "PACKAGE_NAME": "com.att.TSA.DFW"
+        },
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.att.ent.savi"
+            "PACKAGE_NAME": "com.att.TSA.DFW"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.att.ent.savi"
-        },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.att.ent.savi"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.att.ent.savi"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.att.ent.savi"
-        },
-        "ionic-plugin-deploy": {
-            "PACKAGE_NAME": "com.att.ent.savi"
-        },
-        "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.att.ent.savi"
-        },
-        "cordova-plugin-app-version": {
-            "PACKAGE_NAME": "com.att.ent.savi"
+            "PACKAGE_NAME": "com.att.TSA.DFW"
         },
         "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.att.TSA.DFW"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.att.TSA.DFW"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.att.TSA.DFW"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.att.TSA.DFW"
+        },
+        "ionic-plugin-deploy": {
+            "PACKAGE_NAME": "com.att.TSA.DFW"
+        },
+        "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.att.TSA.DFW"
         }
     },

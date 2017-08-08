@@ -1,8 +1,11 @@
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { BrowserModule } from '@angular/platform-browser';
 import { EventDetailModal } from './../pages/events/eventdetail-modal';
 import { EventDetailPopup } from './../pages/events/eventdetail-popup';
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
-import {HttpModule, Http} from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 import { MyApp } from './app.component';
 import { TermsPage } from '../pages/terms/terms';
@@ -30,7 +33,7 @@ import { HomeTab } from '../lib/components/home-tab';
 import { PhoneInput } from '../lib/components/phone-input.component';
 import { AccordionBox } from '../lib/components/accordion-box';
 import { PrivacyTermsContent } from '../lib/components/privacy-terms-content';
-import { Storage } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage';
 import { UseridPopover } from '../popover/userid';
 import { PasswordPopover } from '../popover/password';
 import { EventSortPopover } from '../popover/eventsort-popover';
@@ -43,7 +46,7 @@ import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { ReferralSourcePipe } from '../lib/pipe/referralsource.pipe';
 import { MomentTimeZonePipe } from '../lib/pipe/moment-timezone.pipe';
 import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
-import { EventSortPipe, OpportunityPipe } from '../lib/pipe/eventsortpipe';
+import { EventSortPipe, PreferencePipe, OpportunityPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
 import { RecoverSuccessPage } from '../pages/recover-success/recover-success';
@@ -96,6 +99,7 @@ export function translateFactory(http: Http) {
     TimeFromNowPipe,
     ParseTimePipe,
     EventSortPipe,
+    PreferencePipe,
     OpportunityPipe,
     EventDetailModal,
     EventDetailPopup,
@@ -114,7 +118,9 @@ export function translateFactory(http: Http) {
     DatePicker,
   ],
   imports: [
+    BrowserModule,
     HttpModule,
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, {}, deepLinkConfig),
     TranslateModule.forRoot({ 
           provide: TranslateLoader,
@@ -158,6 +164,6 @@ export function translateFactory(http: Http) {
     DatePickerCalendar,
     DatePicker,
   ],
-  providers: [Storage, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService, SignupAssistant, MessageServices]
+  providers: [StatusBar, SplashScreen, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService, SignupAssistant, MessageServices]
 })
 export class AppModule {}

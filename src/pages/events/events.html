@@ -24,11 +24,11 @@
     Show events within the following dates:
 </ion-item>
 <ion-item no-lines *ngIf="dateRangeError">
-    <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
+    <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
     <p class="no-text-transform" style="color:#CC1F2C">{{dateRangeErrorValue}}</p>
 </ion-item>
 <ion-item no-lines *ngIf="displayedEvents.length==0">
-    <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
+    <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
     <p class="no-text-transform" style="color:#CC1F2C">No events found with your preferences</p>
 </ion-item>
 <ion-row>
@@ -67,14 +67,14 @@
                         </ion-item>
                         </span>
                     <ion-item>
-                        <ion-icon item-left name="calendar"></ion-icon>
+                        <ion-icon item-start name="calendar"></ion-icon>
                         <!--p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p-->
                         <p><span>{{e.start | parseTime:"MMM DD"}}</span><span *ngIf="(e.start | parseTime:'DD') !== (e.end | parseTime:'DD')">-{{e.end | parseTime:"DD"}}</span><span>, {{e.end | parseTime:"YYYY"}}</span></p>
                         <!--p>{{e.start | parseTimeZone: 'h:mm A'}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p-->
                         <p>{{e.start | parseTime: 'h:mm A'}}-{{e.end | parseTime: 'h:mm A'}}</p>
                     </ion-item>
                     <ion-item *ngIf="e.location_name">
-                        <ion-icon item-left name="pin"></ion-icon>
+                        <ion-icon item-start name="pin"></ion-icon>
                         <p>{{e.location_name}}</p>
                         <span *ngIf="e.location_address1">
                         <p>{{e.location_address1}}</p>
@@ -85,36 +85,36 @@
                         </span>
                     </ion-item>
                     <ion-item *ngIf="!userServices.user.id">
-                        <button ion-button item-left small color="primary" (click)="eventDetailGuestModal(e.id)">Details</button>
+                        <button ion-button item-start small color="primary" (click)="eventDetailGuestModal(e.id)">Details</button>
                     </ion-item>
                     <ion-item *ngIf="userServices.user.id">
-                        <button ion-button item-left small color="primary" (click)="eventDetailModal(e.id)">Details</button>
-                        <button ion-button item-right small color="primary" *ngIf="!amISignedUp(e.id)" (click)="signupEventRegistration(e.id)">Sign up</button>
-                        <button ion-button item-right small color="primary" *ngIf="amISignedUp(e.id)" (click)="cancelEventRegisteration(e.id)">Cancel Sign-Up</button>
+                        <button ion-button item-start small color="primary" (click)="eventDetailModal(e.id)">Details</button>
+                        <button ion-button item-end small color="primary" *ngIf="!amISignedUp(e.id)" (click)="signupEventRegistration(e.id)">Sign up</button>
+                        <button ion-button item-end small color="primary" *ngIf="amISignedUp(e.id)" (click)="cancelEventRegisteration(e.id)">Cancel Sign-Up</button>
                     </ion-item>
                 </ion-list>
             </ion-card-content>
             <!--button padding ion-button class="readmore">Read more</button>
             <ion-row no-padding>
               <ion-col>
-                <button icon-only ion-button clear small color="danger" icon-left>
+                <button icon-only ion-button clear small color="danger" icon-start>
           <ion-icon name='star'></ion-icon>
         </button>
               </ion-col>
               <ion-col text-center>
-                <button ion-button clear small color="danger" icon-left>
+                <button ion-button clear small color="danger" icon-start>
           <ion-icon name='calendar'></ion-icon>
           Attend
         </button>
               </ion-col>
               <ion-col text-right>
-                <button ion-button clear small color="danger" icon-left>
+                <button ion-button clear small color="danger" icon-start>
           <ion-icon name='share-alt'></ion-icon>
           Share
         </button-->
         </ion-card>
     </ion-col>
     <!--<span *ngIf="stubEvents.length>0">
-    <button ion-button item-right small color="primary" (click)="showMoreEvents()" >Show more events</button>
+    <button ion-button item-end small color="primary" (click)="showMoreEvents()" >Show more events</button>
     </span>-->
 </ion-row>
