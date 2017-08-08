@@ -270,7 +270,7 @@ export class RegisterLoginPage {
             this.storage.set('key', this.userServices.user.id);
           }
           else this.storage.set('username', '');
-          registerLogin.nav.setPages([HomePage, RegisterIndividualProfilePage]);
+          registerLogin.nav.setPages([{page: HomePage}, {page:RegisterIndividualProfilePage}]);
         },
         err => {
           console.log(err);

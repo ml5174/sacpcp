@@ -1,8 +1,11 @@
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { BrowserModule } from '@angular/platform-browser';
 import { EventDetailModal } from './../pages/events/eventdetail-modal';
 import { EventDetailPopup } from './../pages/events/eventdetail-popup';
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
-import {HttpModule, Http} from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 import { MyApp } from './app.component';
 import { TermsPage } from '../pages/terms/terms';
@@ -115,6 +118,7 @@ export function translateFactory(http: Http) {
     DatePicker,
   ],
   imports: [
+    BrowserModule,
     HttpModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, {}, deepLinkConfig),
@@ -160,6 +164,6 @@ export function translateFactory(http: Http) {
     DatePickerCalendar,
     DatePicker,
   ],
-  providers: [UseridPopover, PasswordPopover, UserServices, VolunteerEventsService, SignupAssistant, MessageServices]
+  providers: [StatusBar, SplashScreen, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService, SignupAssistant, MessageServices]
 })
 export class AppModule {}

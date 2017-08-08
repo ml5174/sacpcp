@@ -11,17 +11,17 @@
             <!--username and usernameerror container-->
             <div class="absolute-container">
                 <ion-item no-lines *ngIf="nonFieldsError" class="word-wrap: break-word;" text-wrap #usernameErrorElem>
-                    <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
+                    <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
                     <p class="no-text-transform" style="color:#CC1F2C">{{nonFieldsErrorValue}}</p>
                 </ion-item>
                 <ion-item no-lines *ngIf="usernameerror" class="word-wrap: break-word;" text-wrap #usernameErrorElem>
-                    <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
+                    <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
                     <p class="no-text-transform" style="color:#CC1F2C">{{usernameerrorvalue}}</p>
                 </ion-item>
 
                 <ion-icon class="popover-icon" name="information-circle" (click)="presentUserPopover($event)"></ion-icon>
                 <ion-item no-lines class="">
-                    <!--<ion-icon *ngIf="usernameerror" name="alert" item-left isActive="false" [class.error]="usernameerror"></ion-icon>-->
+                    <!--<ion-icon *ngIf="usernameerror" name="alert" item-start isActive="false" [class.error]="usernameerror"></ion-icon>-->
                     <ion-label stacked><span class="required-field">*</span>Username</ion-label>
                     <ion-input maxlength="30" autocapitalize="off" name="username" type="text" class="" [(ngModel)]="username" (blur)="checkUsername()" (ngModelChange)="checkRequired()"></ion-input>
                 </ion-item>
@@ -29,7 +29,7 @@
             <!--password and password error container-->
             <div class="absolute-container">
                 <ion-item no-lines *ngIf="password1error" class="word-wrap: break-word;" text-wrap #password1ErrorElem>
-                    <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
+                    <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
                     <p class="no-text-transform" style="color:#CC1F2C">{{password1errorvalue}}</p>
                 </ion-item>
 
@@ -42,11 +42,11 @@
             </div>
             <!--password2 fields-->
             <ion-item no-lines *ngIf="password2error" class="word-wrap: break-word;" text-wrap #password2ErrorElem>
-                <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
+                <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
                 <p class="no-text-transform" style="color:#CC1F2C">{{password2errorvalue}}</p>
             </ion-item>
             <ion-item no-lines class="">
-                <!--<ion-icon *ngIf="password2error" name="alert" item-left isActive="false" [class.error]="password2error"></ion-icon>-->
+                <!--<ion-icon *ngIf="password2error" name="alert" item-start isActive="false" [class.error]="password2error"></ion-icon>-->
                 <ion-label stacked><span class="required-field">*</span>Confirm Password</ion-label>
                 <ion-input autocapitalize="off" name="password2" type="password" placeholder="" class="" [(ngModel)]="password2" (blur)="checkPasswordsMatching()" (ngModelChange)="checkRequired()"></ion-input>
             </ion-item>
@@ -58,17 +58,17 @@
 
             <!--preferred contact method  and errors section-->
             <ion-item no-lines *ngIf="emailerror" class="word-wrap: break-word;" text-wrap #emailErrorElem>
-                <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
+                <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
                 <p class="no-text-transform" style="color:#CC1F2C">{{emailerrorvalue}}</p>
             </ion-item>
             <ion-item no-lines *ngIf="smserror" class="word-wrap: break-word;" text-wrap #smsErrorElem>
-                <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
+                <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
                 <p class="no-text-transform" style="color:#CC1F2C">{{smserrorvalue}}</p>
             </ion-item>
             <contactMethod name="ep" [email]="pcmethod" (methodUpdated)="checkRequired(); clearContactErrors();" (contactMethodBlur)="checkContactMethod()" (emailUpdated)="checkRequired()" (mobileUpdated)="checkRequired()"></contactMethod>
             <!--terms of service agreement-->
             <ion-item no-lines *ngIf="!terms" class="word-wrap: break-word;" text-wrap #termsErrorElem>
-                <ion-icon name="alert" style="color: #CC1F2C;" item-left></ion-icon>
+                <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
                 <p class="no-text-transform" style="color:#CC1F2C">{{termserrorvalue}}</p>
             </ion-item>
             <input type="submit" class="hidden-submit" />
@@ -79,7 +79,7 @@
                 <ion-col class="iaccept">
                     <ion-item class="item-checkbox-right" no-lines>
                         <ion-label id="acceptlbl" text-right><span class="required-field">*</span>I Accept</ion-label>
-                        <ion-checkbox name="terms" item-left [(ngModel)]="terms" (ngModelChange)="checkRequired()" [disabled]="!modalClicked" style="margin-top: auto; margin-bottom: auto;">
+                        <ion-checkbox name="terms" item-start [(ngModel)]="terms" (ngModelChange)="checkRequired()" [disabled]="!modalClicked" style="margin-top: auto; margin-bottom: auto;">
                         </ion-checkbox>
                     </ion-item>
                 </ion-col>
