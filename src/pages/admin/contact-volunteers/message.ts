@@ -18,7 +18,6 @@ export class Message {
 	constructor(params: NavParams,
 				public viewCtrl:ViewController,
 				private messageServices:MessageServices,
-				private userServices:UserServices,
 				private app:App) {
 		if(params.get('users'))
 			this.users = params.get('users');

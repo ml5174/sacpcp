@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav, Select, Config } from 'ionic-angular';
-import { StatusBar } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 import { UserServices } from '../lib/service/user';
@@ -22,7 +23,7 @@ import {Reports} from '../pages/admin/reports/reports';
 import {ContactVolunteers} from '../pages/admin/contact-volunteers/contact-volunteers';
 //import {AdminPopoverComponent} from '../lib/components/admin-popover.component';
 import { ServerVersion } from '../providers/server-version';
-import { version } from '../../package';
+import { version } from '../../package.json';
 import { DONATE_URL } from '../lib/provider/config';
 import { AppVersion } from 'ionic-native';
 import { SERVER } from '../lib/provider/config';
@@ -53,6 +54,7 @@ export class MyApp {
   appManager: any = {};
   public showAdmin: boolean;
   constructor(
+    private statusBar: StatusBar,
     public platform: Platform,
     public config: Config,
     public menu: MenuController,
@@ -118,9 +120,9 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       if (this.platform.is("ios") || this.platform.is("android")) {	
-	StatusBar.show();
-      	StatusBar.overlaysWebView(false);
-      	StatusBar.styleDefault();
+	//StatusBar.show();
+      	this.statusBar.overlaysWebView(false);
+      	this.statusBar.styleDefault();
       	console.log(StatusBar);
       	//Keyboard.disableScroll(true);
       	Keyboard.hideKeyboardAccessoryBar(false);

@@ -50,10 +50,10 @@ export class RegisterLoginPage {
   public contactMethod: ContactMethod;
   public terms: boolean = false;
   public remember: boolean = true;
-  public storage: Storage = new Storage();
   public pcmethod: string = 'email'
   public meetsRequirement: boolean = false;
   constructor(public nav: NavController,
+    public storage: Storage,
     public userServices: UserServices,
     public translate: TranslateService,
     public popoverCtrl: PopoverController,
@@ -270,7 +270,7 @@ export class RegisterLoginPage {
             this.storage.set('key', this.userServices.user.id);
           }
           else this.storage.set('username', '');
-          registerLogin.nav.setPages([HomePage, RegisterIndividualProfilePage]);
+          registerLogin.nav.setPages([{page: HomePage}, {page:RegisterIndividualProfilePage}]);
         },
         err => {
           console.log(err);

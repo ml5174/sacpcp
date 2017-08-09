@@ -13,7 +13,7 @@
                 </ion-item>
 
                 <ion-item>
-                    <ion-icon item-left name="calendar"></ion-icon>
+                    <ion-icon item-start name="calendar"></ion-icon>
                     <!--p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p-->
                     <p>{{e.start | parseTime:"MMM DD"}} {{e.end | parseTime:"YYYY"}}</p>
                     <!--p>{{e.start | parseTimeZone: 'h:mm A'}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p-->
@@ -21,7 +21,7 @@
                 </ion-item>
                 
                 <ion-item *ngIf="e.location_name">
-                    <ion-icon item-left name="pin"></ion-icon>
+                    <ion-icon item-start name="pin"></ion-icon>
                     <p>{{e.location_name}}</p>
                     <span *ngIf="e.location_address1">
                         <p>{{e.location_address1}}</p>
@@ -38,25 +38,25 @@
           
                 </ion-item>
                 <ion-item >
-                    <button (click)="eventDetailModal(e.event_id)" ion-button small item-left round>Details</button>
-                    <button (click)="cancelEventRegisteration(e.event_id)" ion-button small item-right round>Cancel Sign-Up</button>
+                    <button (click)="eventDetailModal(e.event_id)" ion-button small item-start round>Details</button>
+                    <button (click)="cancelEventRegisteration(e.event_id)" ion-button small item-end round>Cancel Sign-Up</button>
                 </ion-item>
             </ion-card-content>
             <!--button padding ion-button class="readmore">Read more</button>
             <ion-row no-padding>
               <ion-col>
-                <button icon-only ion-button clear small color="danger" icon-left>
+                <button icon-only ion-button clear small color="danger" icon-start>
           <ion-icon name='star'></ion-icon>
         </button>
               </ion-col>
               <ion-col text-center>
-                <button ion-button clear small color="danger" icon-left>
+                <button ion-button clear small color="danger" icon-start>
           <ion-icon name='calendar'></ion-icon>
           Attend
         </button>
               </ion-col>
               <ion-col text-right>
-                <button ion-button clear small color="danger" icon-left>
+                <button ion-button clear small color="danger" icon-start>
           <ion-icon name='share-alt'></ion-icon>
           Share
         </button-->

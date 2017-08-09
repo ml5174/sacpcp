@@ -15,12 +15,12 @@
   </p>
   <ion-list>
     <ion-item no-lines *ngFor="let error of errors">
-      <ion-icon name="alert" item-left class="error"></ion-icon>
+      <ion-icon name="alert" item-start class="error"></ion-icon>
       <p class="error">{{error}}</p>
     </ion-item>
 
     <ion-item no-lines>
-      <ion-icon name="code" item-left  isActive="false" [class.error]="codeerror"></ion-icon>
+      <ion-icon name="code" item-start  isActive="false" [class.error]="codeerror"></ion-icon>
       <ion-label floating>{{ 'Code' | translate}}</ion-label>
       <ion-input required type="text" placeholder="" [(ngModel)]="code"></ion-input>
     </ion-item>

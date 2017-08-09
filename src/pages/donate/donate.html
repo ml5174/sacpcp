@@ -22,8 +22,8 @@
     <ion-card>
       <ion-item no-lines class="closed-tab" (click)="yourevents=!yourevents">
         Your Volunteer Events
-        <ion-icon name="arrow-down" item-right *ngIf="!yourevents"></ion-icon>
-        <ion-icon name="arrow-up" item-right *ngIf="yourevents"></ion-icon>
+        <ion-icon name="arrow-down" item-end *ngIf="!yourevents"></ion-icon>
+        <ion-icon name="arrow-up" item-end *ngIf="yourevents"></ion-icon>
       </ion-item>
       <section *ngIf="!yourevents">
         <ion-item *ngFor="let e of events">
