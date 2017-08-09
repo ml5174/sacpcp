@@ -8,7 +8,7 @@ import { RegisterIndividualProfilePage } from '../register-individual-profile/re
 import { PasswordPopover } from '../../popover/password';
 import { UseridPopover } from '../../popover/userid';
 import { PrivacyTermsModal } from '../../modals/privacy-terms-modal';
-import { IonicStorageModule } from '@ionic/storage';
+import { Storage } from '@ionic/storage';
 import { ContactMethod } from '../../lib/components/ContactMethod/contactMethod.component';
 import { Content } from 'ionic-angular';
 
@@ -50,10 +50,10 @@ export class RegisterLoginPage {
   public contactMethod: ContactMethod;
   public terms: boolean = false;
   public remember: boolean = true;
-  public storage: Storage = new Storage();
   public pcmethod: string = 'email'
   public meetsRequirement: boolean = false;
   constructor(public nav: NavController,
+    public storage: Storage,
     public userServices: UserServices,
     public translate: TranslateService,
     public popoverCtrl: PopoverController,
