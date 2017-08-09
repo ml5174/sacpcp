@@ -130,6 +130,7 @@ export class EventDetailModal {
                 .checkMyEvents(id).subscribe(
                 res => {  
                     this.signupAssistant.signupEventRegistration();
+                    this.signedUp = true;
                 },
                 err => {
                     console.log(err);

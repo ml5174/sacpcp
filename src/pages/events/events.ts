@@ -15,7 +15,8 @@ import { SignupAssistant } from '../../lib/service/signupassistant';
 import Moment from "moment";
 import { Nav, InfiniteScroll } from 'ionic-angular';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
-
+import { LoginPage } from '../login/login';
+import { RegisterLoginPage } from '../register-login/register-login';
 
 @Component({
   templateUrl: 'events.html',
@@ -530,5 +531,31 @@ export class EventPage {
    
     cancelEventRegisteration(id) {      
         this.signupassitant.cancelEventRegisteration(id);     
+    }
+
+    alertUserLoginRegister(eventId) {
+      console.log("bring up alert control for register or login", eventId);
+      let confirm = this.alertCtrl.create({
+          title: '',
+          cssClass: 'alertReminder',
+          message: 'Only registered users can sign up for events.', 
+          buttons:[
+              {
+                text: 'Register',
+                handler: () => {
+                  console.log("register clicked", eventId);
+                  this.nav.push(RegisterLoginPage)
+                }
+              },
+              {
+                text:'Login',
+                handler: () => {
+                  console.log("login clicked", eventId);
+                  this.nav.push(LoginPage)
+                }
+              }
+          ]
+      });
+      confirm.present();
     }
 }

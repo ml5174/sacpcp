@@ -92,8 +92,8 @@
               <button ion-button color="primary" (click)="dismiss()">Back</button>
 			</ion-col>
 			<ion-col>
-                <button ion-button color="primary" *ngIf="!signedUp" (click)="signupEventRegistration(eventDetail.id,eventDetail.notification_option,eventDetail.notification_schedule)">Sign Up</button>
-                <button ion-button item-start color="primary" *ngIf="signedUp" (click)="cancelEventRegisteration(eventDetail.id)">Cancel Sign-Up</button>
+                <button class="savi-padded" ion-button color="primary" *ngIf="!signedUp" (click)="signupEventRegistration(eventDetail.id,eventDetail.notification_option,eventDetail.notification_schedule)">Sign Up</button>
+                <button class="savi-padded" ion-button item-start color="primary" *ngIf="signedUp" (click)="cancelEventRegisteration(eventDetail.id)">Cancel Sign-Up</button>
 			</ion-col>
 		</ion-row>
 	</ion-grid>

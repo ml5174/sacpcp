@@ -86,6 +86,7 @@
                     </ion-item>
                     <ion-item *ngIf="!userServices.user.id">
                         <button ion-button item-start small color="primary" (click)="eventDetailGuestModal(e.id)">Details</button>
+                        <button ion-button item-end small color="primary" (click)="alertUserLoginRegister(e.id)">Sign up</button>
                     </ion-item>
                     <ion-item *ngIf="userServices.user.id">
                         <button ion-button item-start small color="primary" (click)="eventDetailModal(e.id)">Details</button>
