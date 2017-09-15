@@ -123,7 +123,7 @@ export class EventPage {
     });
 
     this.mapQueryStart = GOOGLE_MAP_QUERY;
-    this.mapQueryEnd = '"';
+    this.mapQueryEnd = "'";
     if(this.platform.is('ios')) {
       this.mapQueryStart = APPLE_MAP_QUERY;
       this.mapQueryEnd = '';
