@@ -24,6 +24,8 @@ export const GET_EVENTS_REPORT_URI = '/api/v0.2/admin/events/report/';
 export const SEND_MESSAGE_TO_EVENT_VOLUNTEERS_URI = '/api/v0.2/admin/eventmessages/';
 export const EVENT_CATEGORIES_URI = '/api/v0.2/events/categories';
 export const CHECK_MY_EVENTS_URI = '/api/v0.2/events/checkmyevents/';
+export const APPLE_MAP_QUERY = 'https://maps.apple.com/?address=';
+export const GOOGLE_MAP_QUERY = 'https://www.google.com/maps/search/?api=1&query="';
 
 export var SERVER = window['djangoserver'];
 if (document.location.hostname === '198.199.86.127')
