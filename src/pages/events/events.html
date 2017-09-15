@@ -76,13 +76,15 @@
                     <ion-item *ngIf="e.location_name">
                         <ion-icon item-start name="pin"></ion-icon>
                         <p>{{e.location_name}}</p>
-                        <span *ngIf="e.location_address1">
-                        <p>{{e.location_address1}}</p>
-                        <span *ngIf="e.location_address2">
-                        <p>{{e.location_address2}}</p>
-                        </span>
-                        <p>{{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
-                        </span>
+                        <a href="{{mapQueryStart}}{{e.location_address1}},{{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}{{mapQueryEnd}}">
+			                <span *ngIf="e.location_address1">
+	                        <p>{{e.location_address1}}</p>
+                            <span *ngIf="e.location_address2">
+                              <p>{{e.location_address2}}</p>
+                            </span>
+                            <p>{{e.location_city}}, {{e.location_state}} {{e.location_zipcode}}</p>
+                          </span>
+                        </a> 
                     </ion-item>
                     <ion-item *ngIf="!userServices.user.id">
                         <button ion-button item-start small color="primary" (click)="eventDetailGuestModal(e.id)">Details</button>

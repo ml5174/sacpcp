@@ -17,6 +17,9 @@ import { Nav, InfiniteScroll } from 'ionic-angular';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 import { LoginPage } from '../login/login';
 import { RegisterLoginPage } from '../register-login/register-login';
+import { Platform } from 'ionic-angular';
+import { APPLE_MAP_QUERY } from '../../lib/provider/config';
+import { GOOGLE_MAP_QUERY } from '../../lib/provider/config';
 
 @Component({
   templateUrl: 'events.html',
@@ -71,9 +74,13 @@ export class EventPage {
   public myPreferencesObservable;
   public myPreferences;
 
+  public mapQueryStart: String;
+  public mapQueryEnd: String;
+
   constructor(public volunteerEventsService: VolunteerEventsService,
     public userServices: UserServices,
     public modalCtrl: ModalController,
+    public platform: Platform, 
     private popoverCtrl: PopoverController,
     public viewCtrl: ViewController,
     public loadingController: LoadingController,
@@ -114,6 +121,14 @@ export class EventPage {
         }
       }
     });
+
+    this.mapQueryStart = GOOGLE_MAP_QUERY;
+    this.mapQueryEnd = '"';
+    if(this.platform.is('ios')) {
+      this.mapQueryStart = APPLE_MAP_QUERY;
+      this.mapQueryEnd = '';
+    }
+
   }
 
   onStartDateChange(evt) {
@@ -327,7 +342,7 @@ export class EventPage {
                     let month = this.monthNames[d.getMonth()];
                     let year  = d.getUTCFullYear().toString();
                     let time = this.parseTimePipe.transform(item.start.toString(), 'h:mm A');
-                   
+
                       return ((item.description !=null &&
                         (item.description.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
                          (item.title !=null &&
