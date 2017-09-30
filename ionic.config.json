@@ -1,5 +1,8 @@
 {
   "name": "DFWVolunteers",
   "app_id": "0f3cc0fe",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }
