@@ -42,6 +42,7 @@
         "cordova-windows": "~4.3.2",
         "ionic-angular": "3.7.1",
         "ionic-native": "2.9.0",
+        "ionic-plugin-deeplinks": "^1.0.15",
         "ionic-plugin-deploy": "~0.6.5",
         "ionic-plugin-keyboard": "^2.2.1",
         "ionicons": "3.0.0",
@@ -70,7 +71,13 @@
             "cordova-plugin-whitelist": {},
             "ionic-plugin-deploy": {},
             "ionic-plugin-keyboard": {},
-            "cordova-plugin-inappbrowser": {}
+            "cordova-plugin-inappbrowser": {},
+            "ionic-plugin-deeplinks": {
+                "URL_SCHEME": "tsadfw",
+                "DEEPLINK_SCHEME": "https",
+                "DEEPLINK_HOST": "https://www.volunteers.tsadfw.org",
+                "ANDROID_PATH_PREFIX": "/"
+            }
         },
         "platforms": [
             "browser",
