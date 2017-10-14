@@ -90,9 +90,6 @@
     </feature>
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
-    <engine name="windows" spec="~4.3.2" />
-    <engine name="browser" spec="~4.1.0" />
-    <engine name="ios" spec="^4.5.2" />
     <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
@@ -108,4 +105,5 @@
         <variable name="ANDROID_PATH_PREFIX" value="/" />
     </plugin>
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.15" />
+    <engine name="ios" spec="~4.5.2" />
 </widget>
