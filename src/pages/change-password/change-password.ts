@@ -3,7 +3,7 @@ import { UserServices } from '../../lib/service/user';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { STRINGS } from '../../lib/provider/config';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email';
-import { TranslateService } from "ng2-translate/ng2-translate";
+import { TranslateService } from "@ngx-translate/core";
 import { LoginPage } from '../login/login';
 import { PasswordPopover } from '../../popover/password';
 

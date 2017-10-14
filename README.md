@@ -50,30 +50,38 @@
         ionic serve
 
 *	If on macOS, then try adding ios platform:<br>
-        ionic platform add ios
-	* If you get errors with bower, then try:<br>
-        sudo npm install -g bower
+        ionic cordova platform add ios
 *	You may also try adding android platform:<br>
-        ionic platform add android
+        ionic cordova platform add android
         
 ### If having issues, then check your software installation versions with ionic info and npm --version output:
-
-ionic info <br>
-
-Your system information: <br>
-
-Cordova CLI: 6.5.0 <br>
-Ionic Framework Version: 2.0.0-rc.5-201701112208 <br>
-Ionic CLI Version: 2.2.1 <br>
-Ionic App Lib Version: 2.2.0 <br>
-Ionic App Scripts Version: 1.0.0 <br>
-ios-deploy version: 1.9.1 <br>
-ios-sim version: 5.0.13 <br>
-OS: macOS Sierra <br>
-Node Version: v6.9.4 <br>
-Xcode version: Xcode 8.2.1 Build version 8C1002 <br>
 <br>
-npm --version <br>
-3.10.10
-
+cli packages: (/Users/ms8342/sacpcp/node_modules)<br>
+<br>
+    @ionic/cli-plugin-proxy : 1.4.12<br>
+    @ionic/cli-utils        : 1.13.0<br>
+    ionic (Ionic CLI)       : 3.13.0<br>
+<br>
+global packages:<br>
+<br>
+    cordova (Cordova CLI) : 7.1.0 <br>
+<br>
+local packages:<br>
+<br>
+    @ionic/app-scripts : 3.0.0<br>
+    Cordova Platforms  : android 6.3.0 ios 4.5.1<br>
+    Ionic Framework    : ionic-angular 3.7.1<br>
+<br>
+System:<br>
+<br>
+    Android SDK Tools : 25.2.3<br>
+    Node              : v8.6.0<br>
+    npm               : 5.3.0 <br>
+    OS                : macOS Sierra<br>
+    Xcode             : Xcode 9.0 Build version 9A235 <br>
+<br>
+Misc:<br>
+<br>
+    backend : legacy<br>
+<br>
 ### See CONTRIBUTING.md for detailed git operations where developers follow a preferred workflow with pull requests to upstream master coming from their github forks

@@ -1,0 +1,5 @@
+set TEAM in Xcode project
+select provisioning profiles for manual provisioning for each of the build configurations
+copy exportOptions.plist to platforms/ios
+
+How does the CordovaLib folder get created? it is not being created for sacpcp

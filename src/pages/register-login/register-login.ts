@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core'
 import { UserServices } from '../../lib/service/user';
 import { NavController, PopoverController, ModalController } from 'ionic-angular';
 import { STRINGS } from '../../lib/provider/config';
-import { TranslateService } from "ng2-translate/ng2-translate";
+import { TranslateService } from "@ngx-translate/core";
 import { HomePage } from '../home/home';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 import { PasswordPopover } from '../../popover/password';
