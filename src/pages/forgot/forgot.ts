@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core'
 import { NavController } from 'ionic-angular';
 import { STRINGS } from '../../lib/provider/config';
 import { UserServices } from '../../lib/service/user';
-import { TranslateService } from "ng2-translate/ng2-translate";
+import { TranslateService } from "@ngx-translate/core";
 import { ContactMethod } from '../../lib/components/ContactMethod/contactMethod.component';
 import { RecoverSuccessPage } from '../recover-success/recover-success.ts';
 

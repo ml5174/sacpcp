@@ -1,0 +1,9 @@
+{
+  "ios": {
+    "release": {
+      "codeSignIdentity": "iPhone Developer",
+      "provisioningProfile": "668b48be-68fb-4180-987c-a67cb1d6e373"
+    }
+  }
+}
+

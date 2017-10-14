@@ -74,24 +74,24 @@ export class ContactVolunteers {
   toggleSelectAllUsers(init) {
     if(init) {
       this.selectAllUsers=true;
-      for(var user of this.users) {
-        user.selected = true;
+      for(var userA of this.users) {
+        userA.selected = true;
       }
     } else {
-      for(var user of this.users) {
-        user.selected = this.selectAllUsers;
+      for(var userB of this.users) {
+        userB.selected = this.selectAllUsers;
       }
     }
   }
   toggleSelectAllEvents(init) {
     if(init) {
       this.selectAllEvents=true;
-      for(var event of this.events) {
-        event.selected = true;
+      for(var eventA of this.events) {
+        eventA.selected = true;
       }
     } else {
-      for(var event of this.events) {
-        event.selected = this.selectAllEvents;
+      for(var eventB of this.events) {
+        eventB.selected = this.selectAllEvents;
       }
     }
   }

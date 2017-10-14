@@ -1,0 +1,1 @@
+1. update tslint.json with rules that work for current versions of TypeScript and tslint

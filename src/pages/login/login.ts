@@ -6,7 +6,7 @@ import { NavController, NavParams, PopoverController,ViewController,App,AlertCon
 import { RegisterLoginPage } from '../register-login/register-login';
 import { ForgotPage } from '../forgot/forgot';
 import { HomePage } from '../home/home';
-import { TranslateService } from "ng2-translate/ng2-translate";
+import { TranslateService } from "@ngx-translate/core";
 import { STRINGS } from '../../lib/provider/config';
 import { UseridPopover } from '../../popover/userid';
 import { PasswordPopover } from '../../popover/password';

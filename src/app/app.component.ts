@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav, Select, Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 import { UserServices } from '../lib/service/user';
@@ -276,7 +275,7 @@ showAdmin1()
       this.storage.set('version', version).then((resource) => {
           console.log('Storing Marketing Version: ' + this.appMarketingVersion);
         });
-      let buildNumberNonMobileFE = "_build_number_";
+      let buildNumberNonMobileFE = "1710031750";
       this.storage.set('build', buildNumberNonMobileFE).then((resource) => {
          console.log('Storing Build Version: ' + buildNumberNonMobileFE);
         });

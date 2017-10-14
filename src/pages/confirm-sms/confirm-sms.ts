@@ -2,7 +2,7 @@ import {Component} from '@angular/core'
 import {UserServices} from '../../lib/service/user';
 import {NavController} from 'ionic-angular';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
-import {TranslateService} from "ng2-translate/ng2-translate";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   templateUrl: 'confirm-sms.html'

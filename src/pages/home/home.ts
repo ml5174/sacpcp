@@ -4,7 +4,7 @@ import {NavController, Nav, NavParams} from 'ionic-angular';
 import {VolunteerEventsService} from '../../lib/service/volunteer-events-service';
 import {LoginPage} from '../login/login';
 import {EventPage} from '../events/events';
-import {TranslateService} from 'ng2-translate/ng2-translate';
+import {TranslateService} from '@ngx-translate/core';
 import { UserServices } from '../../lib/service/user';
 
 @Component({

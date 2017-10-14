@@ -6,7 +6,9 @@ import { EventDetailPopup } from './../pages/events/eventdetail-popup';
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
 import { HttpModule, Http } from '@angular/http';
-import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MyApp } from './app.component';
 import { TermsPage } from '../pages/terms/terms';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
@@ -65,8 +67,8 @@ export const deepLinkConfig: DeepLinkConfig = {
   ]
 };
 
-export function translateFactory(http: Http) {
-  return new TranslateStaticLoader(http, '/assets/i18n', '.json');
+export function translateFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, '/assets/i18n', '.json');
 }
 
 @NgModule({
@@ -119,13 +121,16 @@ export function translateFactory(http: Http) {
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     HttpModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, {}, deepLinkConfig),
     TranslateModule.forRoot({ 
-          provide: TranslateLoader,
-          useFactory: translateFactory,
-          deps: [Http]
+          loader: {
+	          provide: TranslateLoader,
+       		  useFactory: translateFactory,
+          	  deps: [HttpClient]
+          }
         }),
     //Added for text-mask, for phone number formatting
     FormsModule,
