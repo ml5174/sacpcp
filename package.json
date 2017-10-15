@@ -54,9 +54,8 @@
   },
   "devDependencies": {
     "@angular/tsc-wrapped": "^4.4.4",
-    "@ionic/app-scripts": "3.0.0",
+    "@ionic/app-scripts": "^3.0.0",
     "@types/moment-timezone": "^0.2.32",
-    "ionic": "3.13.0",
     "typescript": "2.3.4"
   },
   "description": "savi: An Ionic project",
