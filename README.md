@@ -41,8 +41,11 @@
 1.      git pull upstream master
 1.      Once you cloned the repo to your desktop and have node installed you need to cd to the project and type:
         npm install
-1.      Now install cordova and ionic. if on macOS, you may need to prefix this command with sudo:<br>
-        npm install -g cordova ionic
+1.      Now install cordova and ionic. if on macOS, you may need to prefix this command with sudo and add --unsafe-perm=true as install option:<br>
+        npm install -g cordova@latest
+        npm install -g ionic@latest
+        npm install -g @ionic/cli-utils@latest
+        npm install @ionic/app-scripts@latest
 
 
 ### Launching the application
@@ -56,23 +59,23 @@
         
 ### If having issues, then check your software installation versions with ionic info and npm --version output:
 <br>
-cli packages: (/Users/ms8342/sacpcp/node_modules)<br>
+<b>cli packages: </b>(/usr/local/lib/node_modules)<br>
 <br>
     @ionic/cli-plugin-proxy : 1.4.12<br>
     @ionic/cli-utils        : 1.13.0<br>
     ionic (Ionic CLI)       : 3.13.0<br>
 <br>
-global packages:<br>
+<b>global packages:</b><br>
 <br>
     cordova (Cordova CLI) : 7.1.0 <br>
 <br>
-local packages:<br>
+<b>local packages:</b><br>
 <br>
     @ionic/app-scripts : 3.0.0<br>
     Cordova Platforms  : android 6.3.0 ios 4.5.1<br>
     Ionic Framework    : ionic-angular 3.7.1<br>
 <br>
-System:<br>
+<b>System:</b><br>
 <br>
     Android SDK Tools : 25.2.3<br>
     Node              : v8.6.0<br>
@@ -80,8 +83,8 @@ System:<br>
     OS                : macOS Sierra<br>
     Xcode             : Xcode 9.0 Build version 9A235 <br>
 <br>
-Misc:<br>
+<b>Misc:</b><br>
 <br>
     backend : legacy<br>
 <br>
-### See CONTRIBUTING.md for detailed git operations where developers follow a preferred workflow with pull requests to upstream master coming from their github forks
+### See CONTRIBUTING.md for detailed git operations where developers follow a preferred workflow with pull requests to upstream master coming from their github forks and managing branches, including master, on both their fork from which the pull requests originate as well as their local working copy
