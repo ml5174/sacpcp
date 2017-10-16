@@ -72,12 +72,14 @@
 <b>local packages:</b><br>
 <br>
     @ionic/app-scripts : 3.0.0<br>
-    Cordova Platforms  : android 6.3.0 ios 4.5.1<br>
+    Cordova Platforms  : android 6.3.0 ios 4.5.2<br>
     Ionic Framework    : ionic-angular 3.7.1<br>
 <br>
 <b>System:</b><br>
 <br>
     Android SDK Tools : 25.2.3<br>
+    ios-deploy        : 1.9.2<br>
+    ios-sim           : 6.1.2<br>
     Node              : v8.6.0<br>
     npm               : 5.3.0 <br>
     OS                : macOS Sierra<br>
