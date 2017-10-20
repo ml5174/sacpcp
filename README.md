@@ -90,4 +90,5 @@
     backend : legacy<br>
 <br>
 
+Android SDK Tools is given above because ANDROID_HOME environment variable is set
 ### See CONTRIBUTING.md for detailed git operations where developers follow a preferred workflow with pull requests to upstream master coming from their github forks and managing branches, including master, on both their fork from which the pull requests originate as well as their local working copy
