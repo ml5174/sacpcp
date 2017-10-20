@@ -63,7 +63,7 @@
 <br>
     @ionic/cli-plugin-proxy : 1.4.13<br>
     @ionic/cli-utils        : 1.13.1<br>
-    ionic (Ionic CLI)       : 3.13.1<br>
+    ionic (Ionic CLI)       : 3.13.2<br>
 <br>
 <b>global packages:</b><br>
 <br>
@@ -89,4 +89,5 @@
 <br>
     backend : legacy<br>
 <br>
+
 ### See CONTRIBUTING.md for detailed git operations where developers follow a preferred workflow with pull requests to upstream master coming from their github forks and managing branches, including master, on both their fork from which the pull requests originate as well as their local working copy
