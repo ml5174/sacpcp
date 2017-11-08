@@ -1,3 +1,3 @@
 <ion-item no-lines>
-    <ion-input (blur)="inputBlurred($event)" [textMask]="{mask: mask}" id="PN{{idsuffix}}" name="{{pn}}" type="tel" placeholder="(123) 456-7890" [(ngModel)]="pn" (ngModelChange)="emitMobileChanged(evt)"></ion-input>
+    <ion-input (ionBlur)="inputBlurred($event)" [textMask]="{mask: mask}" id="PN{{idsuffix}}" name="{{pn}}" type="tel" placeholder="(123) 456-7890" [(ngModel)]="pn" (ngModelChange)="emitMobileChanged(evt)"></ion-input>
 </ion-item>
