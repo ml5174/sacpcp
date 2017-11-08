@@ -1,5 +1,5 @@
 <style>
-	.sub_admin{
+	.sub_menu{
 		margin-left:3em;
 	}
 </style>
@@ -19,9 +19,16 @@
 			<button ion-item (click)="openPage(pages[1], 'home')" >
 				Home
 			</button>
-			<button ion-item *ngIf="userServices.user.id" (click)="openPage(pages[3], '')">
+			<button ion-item *ngIf="userServices.user.id" (click)="showMyGroups()">
 				About Me
 			</button>
+			<button ion-item *ngIf="showMyGroupsMenu && userServices.user.id" (click)="openPage(pages[3], '')">
+				<span class="sub_menu">My Profile</span>
+			</button>
+			<button ion-item *ngIf="showMyGroupsMenu && userServices.user.id" (click)="openPage(pages[9], '')">
+				<span class="sub_menu">My Groups</span>
+			</button>
+
 			<button ion-item (click)="openPage(pages[1], 'events')">
 				Opportunities
 			</button>
@@ -46,17 +53,17 @@
 			<button ion-item *ngIf="userServices.user.id && userServices.user.profile.accounttype == 'A'" (click)="showAdmin1()">
 				Admin
 			</button>
-			<!--<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(adminPages[0], '')">
+			<!--<button ion-item class="sub_menu" *ngIf="showAdmin" (click)="openPage(adminPages[0], '')">
 				Create Event
 			</button>
-			<button ion-item class="sub_admin" *ngIf="showAdmin" (click)="openPage(adminPages[1], '')">
+			<button ion-item class="sub_menu" *ngIf="showAdmin" (click)="openPage(adminPages[1], '')">
 				Edit Event
 			</button>-->
 			<button ion-item *ngIf="showAdmin && userServices.user.id && userServices.user.profile.accounttype == 'A'" (click)="openPage(adminPages[2], '')">
-				<span class="sub_admin">Event Registration Data</span>
+				<span class="sub_menu">Event Registration Data</span>
 			</button>
 			<button ion-item *ngIf="showAdmin && userServices.user.id && userServices.user.profile.accounttype == 'A'" (click)="openPage(adminPages[3], '')">
-				<span class="sub_admin">Contact Volunteers</span>
+				<span class="sub_menu">Contact Volunteers</span>
 			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="logout()">
 				Logout 

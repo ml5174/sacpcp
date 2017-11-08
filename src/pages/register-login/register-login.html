@@ -23,7 +23,7 @@
                 <ion-item no-lines class="">
                     <!--<ion-icon *ngIf="usernameerror" name="alert" item-start isActive="false" [class.error]="usernameerror"></ion-icon>-->
                     <ion-label stacked><span class="required-field">*</span>Username</ion-label>
-                    <ion-input maxlength="30" autocapitalize="off" name="username" type="text" class="" [(ngModel)]="username" (blur)="checkUsername()" (ngModelChange)="checkRequired()"></ion-input>
+                    <ion-input maxlength="30" autocapitalize="off" name="username" type="text" class="" [(ngModel)]="username" (ionBlur)="checkUsername()" (ngModelChange)="checkRequired()"></ion-input>
                 </ion-item>
             </div>
             <!--password and password error container-->
@@ -37,7 +37,7 @@
                 <ion-icon class="popover-icon" name="information-circle" (click)="presentPasswordPopover($event)"></ion-icon>
                 <ion-item no-lines [class.error]="password1error">
                     <ion-label stacked><span class="required-field">*</span>{{ 'Password' | translate}} </ion-label>
-                    <ion-input maxlength="32" autocapitazlie="off" name="password1" (blur)="checkPassword1()" [type]="showpassword" placeholder="" [(ngModel)]="password1" (ngModelChange)="checkRequired()"></ion-input>
+                    <ion-input maxlength="32" autocapitazlie="off" name="password1" (ionBlur)="checkPassword1()" [type]="showpassword" placeholder="" [(ngModel)]="password1" (ngModelChange)="checkRequired()"></ion-input>
                 </ion-item>
             </div>
             <!--password2 fields-->
@@ -48,7 +48,7 @@
             <ion-item no-lines class="">
                 <!--<ion-icon *ngIf="password2error" name="alert" item-start isActive="false" [class.error]="password2error"></ion-icon>-->
                 <ion-label stacked><span class="required-field">*</span>Confirm Password</ion-label>
-                <ion-input autocapitalize="off" name="password2" type="password" placeholder="" class="" [(ngModel)]="password2" (blur)="checkPasswordsMatching()" (ngModelChange)="checkRequired()"></ion-input>
+                <ion-input autocapitalize="off" name="password2" type="password" placeholder="" class="" [(ngModel)]="password2" (ionBlur)="checkPasswordsMatching()" (ngModelChange)="checkRequired()"></ion-input>
             </ion-item>
             <!--save login radio-->
             <ion-item no-lines>
