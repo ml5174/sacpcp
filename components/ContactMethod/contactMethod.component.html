@@ -7,7 +7,7 @@
     </ion-item>
 
     <ion-item no-lines *ngIf="pcmethod == 'email'">
-        <ion-input autocapitalize="off" placeholder="Email@mail.com" (blur)="blur($event)" [(ngModel)]="pcvalue" (ngModelChange)="emailChanged($event)"></ion-input>
+        <ion-input autocapitalize="off" placeholder="Email@mail.com" (ionBlur)="blur($event)" [(ngModel)]="pcvalue" (ngModelChange)="emailChanged($event)"></ion-input>
     </ion-item>
 
     <ion-item no-lines>
