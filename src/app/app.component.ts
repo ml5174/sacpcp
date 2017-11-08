@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
+import { MyGroupsPage } from '../pages/mygroups/mygroups';
 import { UserProfile } from '../lib/model/user-profile';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { AboutPage } from '../pages/about/about';
@@ -52,6 +53,7 @@ export class MyApp {
  
   appManager: any = {};
   public showAdmin: boolean;
+  public showMyGroupsMenu: boolean;
   constructor(
     private statusBar: StatusBar,
     public platform: Platform,
@@ -67,15 +69,16 @@ export class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'Login', component: LoginPage },
-      { title: 'Home', component: HomePage },
-      { title: 'Login Registration', component: RegisterLoginPage },
-      { title: 'Profile Registration', component: RegisterIndividualProfilePage },
-      { title: 'Change Password', component: ChangePasswordPage },
-      { title: 'About', component: AboutPage },
-      { title: 'Contact Us', component: ContactPage },
-      { title: 'Privacy & Terms', component: TermsPage },
-      { title: 'Admin', component: admin }
+      { title: 'Login', component: LoginPage },                                        // 0 
+      { title: 'Home', component: HomePage },                                          // 1
+      { title: 'Login Registration', component: RegisterLoginPage },                   // 2 
+      { title: 'Profile Registration', component: RegisterIndividualProfilePage },     // 3 
+      { title: 'Change Password', component: ChangePasswordPage },                     // 4 
+      { title: 'About', component: AboutPage },                                        // 5 
+      { title: 'Contact Us', component: ContactPage },                                 // 6 
+      { title: 'Privacy & Terms', component: TermsPage },                              // 7 
+      { title: 'Admin', component: admin },                                            // 8 
+      { title: 'My Groups', component: MyGroupsPage }                                  // 9 
     ];
    
     this.adminPages = [
@@ -157,6 +160,7 @@ export class MyApp {
   }
   logout() {
     this.showAdmin=false;
+    this.showMyGroupsMenu=false;
     this.menu.close();
     this.storage.set('key', undefined);
     this.userServices.unsetId();
@@ -207,6 +211,11 @@ export class MyApp {
 showAdmin1()
 {
   this.showAdmin=!this.showAdmin;
+}
+
+showMyGroups()
+{
+  this.showMyGroupsMenu=!this.showMyGroupsMenu;
 }
 
 
