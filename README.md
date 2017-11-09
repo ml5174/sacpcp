@@ -61,13 +61,13 @@
 <br>
 <b>cli packages: </b>(/usr/local/lib/node_modules)<br>
 <br>
-    @ionic/cli-plugin-proxy : 1.4.13<br>
-    @ionic/cli-utils        : 1.13.1<br>
-    ionic (Ionic CLI)       : 3.13.2<br>
+    @ionic/cli-plugin-proxy : 1.5.4<br>
+    @ionic/cli-utils        : 1.17.0<br>
+    ionic (Ionic CLI)       : 3.17.0<br>
 <br>
 <b>global packages:</b><br>
 <br>
-    cordova (Cordova CLI) : 7.1.0 <br>
+    cordova (Cordova CLI) : 7.1.0<br>
 <br>
 <b>local packages:</b><br>
 <br>
@@ -77,13 +77,24 @@
 <br>
 <b>System:</b><br>
 <br>
-    Android SDK Tools : 25.2.3<br>
+    Android SDK Tools : 26.1.1<br>
     ios-deploy        : 1.9.2<br>
     ios-sim           : 6.1.2<br>
     Node              : v8.6.0<br>
-    npm               : 5.3.0 <br>
+    npm               : 5.5.1<br>
     OS                : macOS Sierra<br>
-    Xcode             : Xcode 9.0 Build version 9A235 <br>
+    Xcode             : Xcode 9.1 Build version 9B55<br>
+<br>
+<b>Environment Variables:</b><br>
+<br>
+    ANDROID_HOME     : /Users/ms8342/Library/Android/sdk<br>
+    HTTP_PROXY       : not set<br>
+    http_proxy       : http://one.proxy.att.com:8080<br>
+    HTTPS_PROXY      : not set<br>
+    https_proxy      : https://one.proxy.att.com:8080<br>
+    IONIC_HTTP_PROXY : not set<br>
+    PROXY            : not set<br>
+    proxy            : not set<br>
 <br>
 <b>Misc:</b><br>
 <br>
