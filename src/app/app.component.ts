@@ -9,6 +9,7 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
 import { MyGroupsPage } from '../pages/mygroups/mygroups';
+import { CreateGroupPage } from '../pages/create-group/create-group';
 import { UserProfile } from '../lib/model/user-profile';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { AboutPage } from '../pages/about/about';
@@ -78,7 +79,8 @@ export class MyApp {
       { title: 'Contact Us', component: ContactPage },                                 // 6 
       { title: 'Privacy & Terms', component: TermsPage },                              // 7 
       { title: 'Admin', component: admin },                                            // 8 
-      { title: 'My Groups', component: MyGroupsPage }                                  // 9 
+      { title: 'My Groups', component: MyGroupsPage },
+      { title: 'Create Group', component: CreateGroupPage }                                       // 9 
     ];
    
     this.adminPages = [
