@@ -65,6 +65,9 @@
 			<button ion-item *ngIf="showAdmin && userServices.user.id && userServices.user.profile.accounttype == 'A'" (click)="openPage(adminPages[3], '')">
 				<span class="sub_menu">Contact Volunteers</span>
 			</button>
+			<button ion-item *ngIf="showAdmin && userServices.user.id && userServices.user.profile.accounttype == 'A'" (click)="openPage(adminPages[4], '')">
+				<span class="sub_menu">Groups</span>
+			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="logout()">
 				Logout 
 			</button>

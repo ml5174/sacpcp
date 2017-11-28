@@ -29,8 +29,9 @@ import { CreateEvent } from '../pages/admin/create-event/create-event';
 import { EditEvent } from '../pages/admin/edit-event/edit-event';
 import { Reports } from '../pages/admin/reports/reports';
 import { ContactVolunteers } from '../pages/admin/contact-volunteers/contact-volunteers';
+import { Groups } from '../pages/admin/groups/groups';
 import { Message } from '../pages/admin/contact-volunteers/message'
-import { admin} from '../pages/admin/admin';
+import { admin } from '../pages/admin/admin';
 import { AppHeaderComponent } from '../lib/components/app-header.component';
 import { HomeTab } from '../lib/components/home-tab';
 import { PhoneInput } from '../lib/components/phone-input.component';
@@ -114,6 +115,7 @@ export function translateFactory(http: HttpClient) {
     EditEvent,
     Reports,
     ContactVolunteers,
+    Groups,
     Message,
     AccordionBox,
     PrivacyTermsContent,
@@ -166,6 +168,7 @@ export function translateFactory(http: HttpClient) {
     EditEvent,
     Reports,
     ContactVolunteers,
+    Groups,
     Message,
     EventDetailPopup,
     RecoverSuccessPage,

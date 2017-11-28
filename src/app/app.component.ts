@@ -16,11 +16,12 @@ import { ContactPage } from '../pages/contact/contact';
 import { TermsPage } from '../pages/terms/terms';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { admin} from '../pages/admin/admin';
-import {PopoverController} from 'ionic-angular';
-import {CreateEvent} from '../pages/admin/create-event/create-event';
-import {EditEvent} from '../pages/admin/edit-event/edit-event';
-import {Reports} from '../pages/admin/reports/reports';
-import {ContactVolunteers} from '../pages/admin/contact-volunteers/contact-volunteers';
+import { PopoverController } from 'ionic-angular';
+import { CreateEvent } from '../pages/admin/create-event/create-event';
+import { EditEvent } from '../pages/admin/edit-event/edit-event';
+import { Reports } from '../pages/admin/reports/reports';
+import { ContactVolunteers } from '../pages/admin/contact-volunteers/contact-volunteers';
+import { Groups } from '../pages/admin/groups/groups';
 //import {AdminPopoverComponent} from '../lib/components/admin-popover.component';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package.json';
@@ -82,10 +83,11 @@ export class MyApp {
     ];
    
     this.adminPages = [
-      { title: 'Create Event', component: CreateEvent },
-      { title: 'Edit Event', component: EditEvent },
-      { title: 'Reports', component: Reports },
-      { title: 'Contact Volunteers', component: ContactVolunteers },
+      { title: 'Create Event', component: CreateEvent },                               // 0 
+      { title: 'Edit Event', component: EditEvent },                                   // 1
+      { title: 'Reports', component: Reports },                                        // 2 
+      { title: 'Contact Volunteers', component: ContactVolunteers },                   // 3 
+      { title: 'Groups', component: Groups }                                           // 4 
     ];
 
   }
