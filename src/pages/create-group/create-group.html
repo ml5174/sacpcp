@@ -11,110 +11,111 @@
 
 
 <ion-content padding>
-    <form (ngSubmit)="addGroup()">
+    <form  (ngSubmit)="addGroup()">
         <div class="absolute-container">
             <ion-row>                  
-                </ion-row>
-                <ion-row>
-                    <ion-item no-lines>
-                        <ion-label>Organization:</ion-label>
-                        
-                            <ion-input class="input-height" type ="text"  [(ngModel)]="orgRequest.name" name="orgRequest.name"></ion-input>
-                        
-                    </ion-item>
-                </ion-row>
-                <ion-row>
-                    <ion-item no-lines>
-                        <ion-label>Group Name:</ion-label>
-                            <ion-input class="input-height" type="text" [(ngModel)]="orgRequest.group"  name="orgRequest.group"></ion-input>
-                    </ion-item>
-                </ion-row>
-                <ion-row>
-                        <ion-item no-lines>
-                            <ion-label>Description:</ion-label>
-                                <ion-textarea class="textarea" type="text"  [(ngModel)]="orgRequest.description"  name="orgRequest.description"></ion-textarea>
-                        </ion-item>
-                    </ion-row>
-            </div>
+            </ion-row>
+            <ion-row>
+                <ion-col col-4>
+                    <ion-label>Organization:</ion-label>
+                </ion-col>
+                <ion-col col-8>
+                    <ion-searchbar (click)="initializeItems()" (ionInput)="getItems($event)" class="input-height" type ="text"  [(ngModel)]="orgRequest.name" name="orgRequest.name"></ion-searchbar>
+                        <ion-list *ngIf="showList">
+                            <ion-item (click)="orgRequest.name = org; showList = false;" *ngFor="let org of filteredList">
+                                {{ org }}
+                            </ion-item>
+                        </ion-list>
+                </ion-col>
+             </ion-row>
+            <ion-row>
+                <ion-col col-4>
+                    <ion-label>Group Name:</ion-label>
+                </ion-col>
+                <ion-col col-8>
+                    <ion-input class="input-height" type="text" [(ngModel)]="orgRequest.group"  name="orgRequest.group"></ion-input>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-4>
+                    <ion-label>Description:</ion-label>
+                </ion-col>
+                <ion-col col-8>
+                    <ion-textarea class="textarea" type="text"  [(ngModel)]="orgRequest.description"  name="orgRequest.description"></ion-textarea>
+                </ion-col>
+            </ion-row>
+        </div>
          
-            <div class="member-header">
-                  <h4>Group Members</h4>
-            </div>
-            <div  *ngFor = "let row of rows; let x = index; trackBy:trackByIndex" style="border-bottom: 0.5px solid black;">
-               
-                <ion-row align-items-center>
-                    <ion-col col-4>
-                        <p>First Name</p>
-                    </ion-col>
-                    <ion-col col-4>
-                        <p>Last Name</p>  </ion-col>
-                    <ion-col col-4>
-                        <p>Contact</p>   
-                    </ion-col>
-                </ion-row>
-                <ion-row >
-                    <ion-col col-4>
-                        <ion-input  [(ngModel)]="row.firstname" name="firstname{{x}}"  required></ion-input>
-                    </ion-col>
-                    <ion-col col-4>
-                        <ion-input  [(ngModel)]="row.lastname" name="lastname{{x}}"  required type ="text"></ion-input>
-                    </ion-col>
-                    <ion-col col-4>
-                        
-                            <ion-select  (ionChange)="flipBoolean(row.contactString, x)" [(ngModel)]="row.contactString" name="contactString{{x}}"  >
-                                    <ion-option  value="Email">Email</ion-option>
-                                    <ion-option  value="Phone">Phone</ion-option>
-                            </ion-select>
-                            <br>
-                            <ion-input *ngIf="row.isEmailSelected" class="below-select" placeholder="Enter Email" type ="text"></ion-input>
-                            <ion-input  *ngIf="row.isPhoneSelected" class="below-select" [(ngModel)]="row.mobilenumber" name="mnum" placeholder="Enter Phone Number" type ="tel" maxlength="10" minlength="10"></ion-input>
-                            
-                    </ion-col>
-                </ion-row>
-                <ion-row>
+        <div class="member-header">
+            <h4>Group Members</h4>
+        </div>
+        <div  *ngFor = "let row of rows; let x = index; trackBy:trackByIndex" style="border-bottom: 0.5px solid black;">
+            <a (click)="deleteMember(x)"><img style="float: right; padding: 1%;" src="../../assets/img/16pxDeleteIcon.png"></a>
+            <ion-row align-items-center>
+                <ion-col col-4>
+                    <p>First Name</p>
+                </ion-col>
+                <ion-col col-4>
+                    <p>Last Name</p>  </ion-col>
+                <ion-col col-4>
+                    <p>Contact</p>   
+                </ion-col>
+            </ion-row>
+            <ion-row >
+                <ion-col col-4>
+                    <ion-input  [(ngModel)]="row.first_name" name="firstname{{x}}"   required></ion-input>
+                </ion-col>
+                <ion-col col-4>
+                        <ion-input  [(ngModel)]="row.last_name" name="lastname{{x}}"  required type ="text"></ion-input>
+                </ion-col>
+                <ion-col col-4>
+                    <ion-select  (ionChange)="flipBoolean(row.contactString, x)" [(ngModel)]="row.contactString" name="contactString{{x}}"  >
+                        <ion-option  value="Email">Email</ion-option>
+                        <ion-option  value="Phone">Phone</ion-option>
+                    </ion-select>
+                    <br>
+                    <ion-input *ngIf="row.isEmailSelected" class="below-select" [(ngModel)]="row.email" name = "email{{x}}" placeholder="Enter Email" type ="text"></ion-input>
+                    <ion-input  *ngIf="row.isPhoneSelected" class="below-select" [(ngModel)]="row.mobilenumber" name="mnum{{x}}" placeholder="Enter Phone Number" type ="tel" maxlength="11" minlength="11"></ion-input>
+                </ion-col>
+            </ion-row>
+            <ion-row>
                 <ion-col col-6>
-                        <p>Role</p>   
-                    </ion-col>
-                    <ion-col col-6>
-                        <p>Status</p>   
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col col-6>
-                        <ion-select [(ngModel)]="row.isAdmin" name = "isAdmin{{x}}"  >
-                            <ion-option value = "2">Admin</ion-option>
-                            <ion-option value="0">Member</ion-option>
-                        </ion-select>
-                    </ion-col>
-                    <ion-col col-6>   
-                        <ion-select [(ngModel)]="row.isActive" name="isActive{{x}}" type ="text">
-                            <ion-option value = "1">Active</ion-option>
-                            <ion-option value="0">Inactive</ion-option>
-                        </ion-select>
-                    </ion-col>        
-                </ion-row>
-                <br>
-            </div>
-            <div class="container">
-                <ion-row>
-                    <ion-col style="padding-left:15%;" col-4>
-                        <button ion-button small  color="dark" (click)="cancel()">Cancel</button>
-                    </ion-col>
-                    <!--<ion-col col-3>
-                        <button ion-button small class="input-height" (click)="login()">Save</button>
-                    </ion-col>
-                -->
-                    <ion-col col-4>
-                        <button ion-button small  (click)="addMember()">Add a Member</button>
-                    </ion-col>
-                    <ion-col col-4>
-                        <button ion-button small  type="submit">Submit</button>
-                    </ion-col>
-                </ion-row>
-            </div>
-            <div style="min-height: 10vh !important;">
-                    
-            </div>
-            
+                    <p>Role</p>   
+                </ion-col>
+                <ion-col col-6>
+                    <p>Status</p>   
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-6>
+                    <ion-select (ionChange)="setAsNumber(row.isAdmin)" [(ngModel)]="row.isAdmin" name = "isAdmin{{x}}"  >
+                        <ion-option  value =2> Admin</ion-option>
+                        <ion-option  value=0>Member</ion-option>
+                    </ion-select>
+                    <br>
+                </ion-col>
+                <ion-col col-6>   
+                    <ion-select [(ngModel)]="row.isActive" name="isActive{{x}}" type ="text">
+                        <ion-option value = "1">Active</ion-option>
+                        <ion-option value="0">Inactive</ion-option>
+                    </ion-select>
+                </ion-col>        
+            </ion-row>
+        </div>
+        <div class="container">
+            <ion-row>
+                <ion-col style="padding-left:15%;" col-4>
+                    <button ion-button small type="button"  color="dark" (click)="cancel()">Cancel</button>
+                </ion-col>
+                <ion-col col-4>
+                    <button ion-button small type="button"  (click)="addMember()">Add a Member</button>
+                </ion-col>
+                <ion-col col-4>
+                    <button ion-button small  type="submit">Submit</button>
+                </ion-col>
+            </ion-row>
+        </div>
+         <div style="min-height: 10vh !important;">
+        </div>    
     </form>
 </ion-content>

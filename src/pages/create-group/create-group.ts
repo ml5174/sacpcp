@@ -12,7 +12,7 @@ import {Contact} from '../../lib/model/contact'
 import { AutocompleteQueryMediator, BindQueryProcessorFunction } from '@brycemarshall/autocomplete-ionic';
 import { CityQueryProvider } from '../../lib/city-query-provider';
 import { Helper } from '../../lib/helper';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 
 
@@ -41,6 +41,9 @@ export class CreateGroupPage {
   public rows: Array<Contact> = []
   createGroupForm: FormGroup;
   submitAttempt: boolean = false;
+  public orgs: Array<string> = []
+  public filteredList: Array<string> = []
+  public showList: boolean
 
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, public navParams: NavParams, 
     public userServices: UserServices, public formBuilder: FormBuilder, public orgServices: OrganizationServices, public popoverCtrl: PopoverController, public alertCtrl: AlertController) {
@@ -48,11 +51,14 @@ export class CreateGroupPage {
    this.orgRequest.name = '';
    this.orgRequest.description = '';
    this.orgRequest.group = '';
+   this.createGroupForm = formBuilder.group({
+    first_name: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')])]
+   })
     }
   public addMember(): void {
-    if (this.rows[0].firstname ===''
-        ||this.rows[0].lastname ==='' 
-        ||this.rows[0].contactString === false )
+    if (this.rows[0].first_name ===''
+        ||this.rows[0].last_name ==='' 
+        ||this.rows[0].contactString === '' )
         {
           let alert = this.alertCtrl.create({
             title: 'Incomplete Member Information',
@@ -69,8 +75,8 @@ export class CreateGroupPage {
           alert.present();
         }
         else{
-    this.rows.unshift({firstname:'',lastname:'',isAdmin: 0, isActive: 0, 
-                      contactString: false, isContactSelected: false, isPhoneSelected: false, isEmailSelected: false, mobilenumber: '',email:''});
+    this.rows.unshift({first_name:'',last_name:'',isAdmin: 0, isActive: 0, status:1, role: 0,
+                      contactString: '', isContactSelected: false, isPhoneSelected: false, isEmailSelected: false, mobilenumber: null,email:''});
          }
   }
   public cancel(ev)
@@ -103,22 +109,134 @@ export class CreateGroupPage {
   }
   addGroup()
   {
+    
    var members = this.rows;
+   
+   members.forEach(element => {
+    delete element.isActive;
+    delete element.isAdmin;
+    delete element.isContactSelected;
+    delete element.isPhoneSelected;
+    delete element.isEmailSelected;
+    delete element.contactString
+  });
     var org = this.orgRequest;
+    if (this.isOrgValid(org)&&this.areMembersValid(members))
+    {
+      
+    
     var organization ={organization};
     organization.organization = org;
     organization.members = members;
     var jsons = JSON.stringify(organization);
-    
+    var page = this;
     var user = this.userServices.user;
-    this.orgServices.createOrganization(jsons).subscribe( function(response){
-      var u = response;
+    var response = this.orgServices.createOrganization(jsons).subscribe( res=>res.json());
+    if(response)
+    {
+      this.presentFinishedGroup();
     }
-    )
+    var e = response;
+  }
+  else{
+   this.presentRedoForm();
+  }
 
     
 
   }
+  setAsNumber(num)
+  {
+    num = parseInt(num);
+  }
+  presentRedoForm()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'Invalid Organization Request',
+      message: 'The request is invalid. Please make sure the following requirements are met:'
+      +'<ul><li>Organization Name is filled out and at least two characters long</li>'
+      +'<li>Group Name is filled out and at least two characters long</li>'
+      +'<li> Each Members name is filled out</li>' 
+      +'<li> A phone number or email is present for each member</li></ul>',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  isOrgValid(org)
+  {
+    return org.name
+      &&org.group
+      &&org.description
+      &&org.name.length>=2
+      &&org.group.length>=2
+      &&org.name!=org.group
+    
+  }
+  initializeItems() {
+    if (this.orgs.length === 0)
+    {
+    var page = this
+    this.orgServices.getAllOrgNames().subscribe(function(response){
+      var u = response;
+      response.forEach(group => {
+      page.orgs.push(group.name);
+      });
+    })
+  }
+  }
+  resetToOriginalState()
+  {
+    this.filteredList = this.orgs;
+  }
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    this.resetToOriginalState();
+
+    // set val to the value of the searchbar
+    let val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      
+      // Filter the items
+      this.filteredList = this.filteredList.filter((item) => {
+        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      });
+      
+      // Show the results
+      this.showList = true;
+    } else {
+      
+      // hide the results when the query is empty
+      this.showList = false;
+    }
+  }
+  deleteMember(x)
+  {
+   this.rows.splice(x,1);
+  }
+areMembersValid(members)
+{
+  var isValid = true;
+  members.forEach(m => {
+    if(!m.email
+      &&!m.mobilenumber
+      ||!m.first_name
+      ||!m.last_name)
+    {
+      isValid = false;
+    }
+    
+  });
+  return isValid;
+}
   presentConfirm() {
     let alert = this.alertCtrl.create({
       title: 'Leave This Page',
@@ -166,9 +284,11 @@ export class CreateGroupPage {
   ionViewDidLoad() {
     var orgRequest = this.orgRequest;
     var user = this.userServices.user;
-    this.rows.push({firstname: user.profile.first_name,
-      lastname:user.profile.last_name,isAdmin: 2, contactString: user.profile.contactmethod_name,
-       isActive: user.profile.active, mobilenumber: user.profile.mobilenumber, email:user.profile.email, isContactSelected:false,isEmailSelected:user.profile.contactmethod_name==="Email",isPhoneSelected:user.profile.contactmethod_name==="Phone"})
+    this.rows.push({first_name: user.profile.first_name, status:1,role:2,
+      last_name:user.profile.last_name,isAdmin: 2, contactString: user.profile.contactmethod_name,
+       isActive: user.profile.active, mobilenumber: user.profile.mobilenumber, email:user.profile.email,
+        isContactSelected:false,isEmailSelected:user.profile.contactmethod_name==="Email",
+        isPhoneSelected:user.profile.contactmethod_name==="Phone",ext_id:user.profile.ext_id})
     this.addMember();
     console.log('ionViewDidLoad CreateGroupPage');
   }
