@@ -12,7 +12,7 @@ import {ALL_ORGANIZATIONS_URI} from '../provider/config';
 @Injectable()
 export class OrganizationServices {
 	public key:String;
-
+    
 	constructor(private http:Http, public storage:Storage) {
 		storage.get('key')
 			.then(key => this.key = key)
@@ -39,6 +39,7 @@ export class OrganizationServices {
     }
     getAllOrgNames()
     {
+
         return this.http.get(SERVER + ALL_ORGANIZATIONS_URI, this.getOptions())
         .map(res => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

@@ -1,12 +1,15 @@
 export class Contact{
-    firstname: string
-    lastname: string
-    isActive: number
-    isAdmin: number
+    first_name: string
+    last_name: string
+    status: number
+    role: number
     isContactSelected: boolean
     isPhoneSelected: boolean
     isEmailSelected: boolean
-    contactString: boolean
-    mobilenumber: string
+    contactString: string
+    mobilenumber: number
     email: string
+    isAdmin:number
+    isActive: number
+    ext_id?: string
     }
