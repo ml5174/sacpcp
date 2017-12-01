@@ -62,7 +62,6 @@ import { MessageServices } from '../lib/service/message';
 import { DatePickerCalendar } from '../lib/components/date-picker-calendar/date-picker-calendar.component';
 import { DatePicker } from '../lib/components/date-picker/date-picker.component';
 import { CreateGroupPage } from '../pages/create-group/create-group';
-import {AutocompleteModule} from '@brycemarshall/autocomplete-ionic'
 
 
 export const deepLinkConfig: DeepLinkConfig = {
@@ -128,7 +127,6 @@ export function translateFactory(http: HttpClient) {
   imports: [
     BrowserModule,
     HttpClientModule,
-    AutocompleteModule,
     HttpModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, {}, deepLinkConfig),

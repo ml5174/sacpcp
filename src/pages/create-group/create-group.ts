@@ -10,7 +10,6 @@ import {HomePage} from '../home/home';
 import {MyGroupsPage} from '../mygroups/mygroups';
 import {Organization} from '../../lib/model/organization'
 import {Contact} from '../../lib/model/contact'
-import { AutocompleteQueryMediator, BindQueryProcessorFunction } from '@brycemarshall/autocomplete-ionic';
 import { CityQueryProvider } from '../../lib/city-query-provider';
 import { Helper } from '../../lib/helper';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';

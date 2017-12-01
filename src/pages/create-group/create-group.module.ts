@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { CreateGroupPage } from './create-group';
-import { AutocompleteModule } from '@brycemarshall/autocomplete-ionic';
 
 
 @NgModule({
@@ -9,7 +8,7 @@ import { AutocompleteModule } from '@brycemarshall/autocomplete-ionic';
     CreateGroupPage,
   ],
   imports: [
-    AutocompleteModule,
+   
     IonicPageModule.forChild(CreateGroupPage),
   ],
 })
