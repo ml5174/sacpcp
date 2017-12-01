@@ -7,6 +7,7 @@ import { Navbar } from 'ionic-angular';
 import { UserServices } from '../../lib/service/user';
 import { OrganizationServices } from '../../lib/service/Organization';
 import {HomePage} from '../home/home';
+import {MyGroupsPage} from '../mygroups/mygroups';
 import {Organization} from '../../lib/model/organization'
 import {Contact} from '../../lib/model/contact'
 import { AutocompleteQueryMediator, BindQueryProcessorFunction } from '@brycemarshall/autocomplete-ionic';
@@ -39,15 +40,22 @@ export class CreateGroupPage {
   public isContactSelected: boolean
   public orgRequest: Organization
   public rows: Array<Contact> = []
+  public leave: boolean = false;
   createGroupForm: FormGroup;
   submitAttempt: boolean = false;
   public orgs: Array<string> = []
   public filteredList: Array<string> = []
   public showList: boolean
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public navParams: NavParams, 
-    public userServices: UserServices, public formBuilder: FormBuilder, public orgServices: OrganizationServices, public popoverCtrl: PopoverController, public alertCtrl: AlertController) {
-      this.orgRequest = new Organization();
+  constructor(public navCtrl: NavController,
+              public toastCtrl: ToastController,
+              public navParams: NavParams, 
+              public userServices: UserServices,
+              public formBuilder: FormBuilder,
+              public orgServices: OrganizationServices,
+              public popoverCtrl: PopoverController, 
+              public alertCtrl: AlertController) {
+    this.orgRequest = new Organization();
    this.orgRequest.name = '';
    this.orgRequest.description = '';
    this.orgRequest.group = '';
@@ -76,7 +84,8 @@ export class CreateGroupPage {
         }
         else{
     this.rows.unshift({first_name:'',last_name:'',isAdmin: 0, isActive: 0, status:1, role: 0,
-                      contactString: '', isContactSelected: false, isPhoneSelected: false, isEmailSelected: false, mobilenumber: null,email:''});
+                      contactString: '', isContactSelected: false, isPhoneSelected: false, 
+                      isEmailSelected: false, mobilenumber: null,email:''});
          }
   }
   public cancel(ev)
@@ -237,7 +246,8 @@ areMembersValid(members)
   });
   return isValid;
 }
-  presentConfirm() {
+  presentConfirm(){
+    
     let alert = this.alertCtrl.create({
       title: 'Leave This Page',
       message: 'Do you want to continue without creating this group?',
@@ -246,18 +256,23 @@ areMembersValid(members)
           text: 'No, Stay Here',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            
           }
         },
         {
           text: 'Yes',
           handler: () => {
-            console.log('Buy clicked');
+            this.leave=true;
+           
           }
         }
       ]
     });
-    alert.present();
+    alert.present().then(function(){
+      return this.leave();
+    })
+    
+    
   }
   presentFinishedGroup() {
     let alert = this.alertCtrl.create({
@@ -267,7 +282,7 @@ areMembersValid(members)
         {
           text: 'OK',
           handler: () => {
-            this.navCtrl.push(HomePage);
+            this.navCtrl.push(MyGroupsPage);
           }
         }
       ]
@@ -279,7 +294,7 @@ areMembersValid(members)
   }
   submit()
   {
-    this.presentFinishedGroup();
+    this.presentFinishedGroup()
   }
   ionViewDidLoad() {
     var orgRequest = this.orgRequest;

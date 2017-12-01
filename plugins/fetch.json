@@ -91,5 +91,13 @@
       "DEEPLINK_HOST": "https://www.volunteers.tsadfw.org",
       "ANDROID_PATH_PREFIX": "/"
     }
+  },
+  "cordova-plugin-dialogs": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-dialogs"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }
