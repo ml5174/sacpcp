@@ -62,6 +62,8 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { MessageServices } from '../lib/service/message';
 import { DatePickerCalendar } from '../lib/components/date-picker-calendar/date-picker-calendar.component';
 import { DatePicker } from '../lib/components/date-picker/date-picker.component';
+import { CreateGroupPage } from '../pages/create-group/create-group';
+
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -86,6 +88,7 @@ export function translateFactory(http: HttpClient) {
     LoginPage,
     AboutPage,
     ContactPage,
+    CreateGroupPage,
     EventPage,
     MyEventsPage,
     AppHeaderComponent,
@@ -162,6 +165,7 @@ export function translateFactory(http: HttpClient) {
     RegisterLoginPage,
     RegisterIndividualProfilePage,
     MyGroupsPage,
+    CreateGroupPage,
     EventDetailModal,
     admin,
     CreateEvent,

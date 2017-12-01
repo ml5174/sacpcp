@@ -99,11 +99,12 @@
     <plugin name="ionic-plugin-deploy" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
-    <plugin name="cordova-plugin-ionic-webview" spec="^1.1.15" />
     <plugin name="ionic-plugin-deeplinks" spec="~1.0.15">
         <variable name="URL_SCHEME" value="tsadfw" />
         <variable name="DEEPLINK_SCHEME" value="https" />
         <variable name="DEEPLINK_HOST" value="https://www.volunteers.tsadfw.org" />
         <variable name="ANDROID_PATH_PREFIX" value="/" />
     </plugin>
+    <plugin name="cordova-plugin-ionic-webview" spec="^1.1.15" />
+    <plugin name="cordova-plugin-dialogs" spec="^1.3.4" />
 </widget>

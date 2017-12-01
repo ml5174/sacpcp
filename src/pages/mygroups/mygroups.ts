@@ -11,6 +11,8 @@ import { ParentVerifyModal } from '../../modals/parent-verify-modal';
 import { PhoneInput } from '../../lib/components/phone-input.component';
 import { AccordionBox } from '../../lib/components/accordion-box';
 import { AlertController } from 'ionic-angular';
+import { CreateGroupPage } from '../create-group/create-group';
+
 
 @Component({
   templateUrl: 'mygroups.html'
@@ -69,7 +71,10 @@ export class MyGroupsPage {
     });
     //this.loadingOverlay.present();
   }
-  
+  pushGroupPage()
+  {
+    this.nav.push(CreateGroupPage);
+  }
   hideLoading() {
     this.loadingOverlay.dismiss();
   }
