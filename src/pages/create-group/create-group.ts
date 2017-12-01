@@ -1,11 +1,11 @@
 
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { CancelGroupAddPopover } from '../../popover/cancel-groupadd';
 import { PopoverController,ViewController,App,AlertController } from 'ionic-angular';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Navbar } from 'ionic-angular';
 import { UserServices } from '../../lib/service/user';
-import { OrganizationServices } from '../../lib/service/Organization';
+import { OrganizationServices } from '../../lib/service/organization';
 import {HomePage} from '../home/home';
 import {MyGroupsPage} from '../mygroups/mygroups';
 import {Organization} from '../../lib/model/organization'
@@ -25,7 +25,6 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-create-group',
   templateUrl: 'create-group.html',
