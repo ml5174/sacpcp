@@ -34,6 +34,7 @@
     "@ngx-translate/core": "6.0.1",
     "@ngx-translate/http-loader": "^2.0.0",
     "angular2-text-mask": "^8.0.4",
+    "cordova-android": "6.3.0",
     "cordova-ios": "4.5.2",
     "cordova-plugin-app-version": "^0.1.9",
     "cordova-plugin-device": "^1.1.4",
@@ -81,7 +82,8 @@
       "cordova-plugin-dialogs": {}
     },
     "platforms": [
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

@@ -31,6 +31,9 @@ page-create-group {
         padding-right: 5%;
         text-align: center;
     }
+    .hover-img{
+        cursor: pointer;
+    }
     .below-select{
         padding-top: 2%;
     }
@@ -38,6 +41,12 @@ page-create-group {
     {
         max-width: 100% !important;
         max-height: 100%;
+    }
+    .wide{
+        width:100%;
+    }
+    .popup{
+        width: 500 vw;
     }
     .entry-div{
         height: 200px;

@@ -7,7 +7,7 @@
 
 <ion-header>
 
-    <app-header back="true" title="Create Group">
+    <app-header back="false" title="Create Group">
     </app-header>
 </ion-header>
 
@@ -52,7 +52,7 @@
             <h4>Group Members</h4>
         </div>
         <div  *ngFor = "let row of rows; let x = index; trackBy:trackByIndex" style="border-bottom: 0.5px solid black;">
-            <a (click)="deleteMember(x)"><img style="float: right; padding: 1%;" src="../../assets/img/16pxDeleteIcon.png"></a>
+            <a (click)="deleteMember(x)"><img class="hover-img" style="float: right; padding: 1%;" src="assets/img/16pxDeleteIcon.png"></a>
             <ion-row align-items-center>
                 <ion-col col-4>
                     <p>First Name</p>
@@ -76,8 +76,8 @@
                         <ion-option  value="Phone">Phone</ion-option>
                     </ion-select>
                     <br>
-                    <ion-input *ngIf="row.isEmailSelected" class="below-select" [(ngModel)]="row.email" name = "email{{x}}" placeholder="Enter Email" type ="text"></ion-input>
-                    <ion-input  *ngIf="row.isPhoneSelected" class="below-select" [(ngModel)]="row.mobilenumber" name="mnum{{x}}" placeholder="Enter Phone Number" type ="tel" maxlength="11" minlength="11"></ion-input>
+                    <ion-input *ngIf="row.isEmailSelected" class="below-select" [(ngModel)]="row.email" name = "email{{x}}" placeholder="Enter Email" type ="email"></ion-input>
+                    <ion-input  *ngIf="row.isPhoneSelected" class="below-select" [(ngModel)]="row.mobilenumber" name="mnum{{x}}" placeholder="Enter Phone Number" type ="tel" maxlength="11" ></ion-input>
                 </ion-col>
             </ion-row>
             <ion-row>
@@ -106,13 +106,13 @@
         </div>
         <div class="container">
             <ion-row>
-                <ion-col style="padding-left:15%;" col-4>
+                <ion-col  col-4>
                     <button ion-button small type="button"  color="dark" (click)="cancel()">Cancel</button>
                 </ion-col>
-                <ion-col col-4>
-                    <button ion-button small type="button"  (click)="addMember()">Add a Member</button>
+                <ion-col style="padding-right: 40%;" col-5>
+                    <button  ion-button small type="button"  (click)="addMember()">Add a Member</button>
                 </ion-col>
-                <ion-col col-4>
+                <ion-col col-3>
                     <button ion-button small  type="submit">Submit</button>
                 </ion-col>
             </ion-row>
