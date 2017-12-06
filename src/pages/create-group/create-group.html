@@ -71,7 +71,7 @@
                         <ion-input  [(ngModel)]="row.last_name" name="lastname{{x}}"  required type ="text"></ion-input>
                 </ion-col>
                 <ion-col col-4>
-                    <ion-select  (ionChange)="flipBoolean(row.contactString, x)" [(ngModel)]="row.contactString" name="contactString{{x}}"  >
+                    <ion-select  (ionChange)="flipBoolean(row.contactString, x)" [(ngModel)]="row.contactString" name="contactString{{x}}" placeholder="Choose One..." >
                         <ion-option  value="Email">Email</ion-option>
                         <ion-option  value="Phone">Phone</ion-option>
                     </ion-select>
