@@ -13,8 +13,8 @@ declare -i GITLOG_MAIN_DT_UTC
 declare -i GITLOG_LIB_DT_UTC
 
 pwd
-git checkout master 1>/dev/null 2>&1
-git pull upstream master 1>/dev/null 2>&1
+git checkout master 
+git pull upstream master 
 git reset --hard upstream/master
 
 GITLOG_MAIN=`git log --date=iso --pretty=format:'%cd|%h|%s' -n1`
@@ -23,8 +23,8 @@ GITLOG_MAIN_DT_UTC=`date -ju -f '%F %T %z' "${GITLOG_MAIN_DT}"  '+%y%m%d%H%M'`
 
 cd src/lib 1>/dev/null 2>&1
 pwd
-git checkout master 1>/dev/null 2>&1
-git pull upstream master 1>/dev/null 2>&1
+git checkout master 
+git pull upstream master 
 git reset --hard upstream/master
 
 GITLOG_LIB=`git log --date=iso --pretty=format:'%cd|%h|%s' -n1`
