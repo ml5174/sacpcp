@@ -1,6 +1,5 @@
 
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { CancelGroupAddPopover } from '../../popover/cancel-groupadd';
 import { PopoverController,ViewController,App,AlertController } from 'ionic-angular';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Navbar } from 'ionic-angular';
