@@ -1,6 +1,7 @@
 
+
+import { IonicPage} from 'ionic-angular';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
-import { CancelGroupAddPopover } from '../../popover/cancel-groupadd';
 import { PopoverController,ViewController,App,AlertController } from 'ionic-angular';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Navbar } from 'ionic-angular';
@@ -24,7 +25,6 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-
 @Component({
   selector: 'page-create-group',
   templateUrl: 'create-group.html',
@@ -44,7 +44,8 @@ export class CreateGroupPage {
   public orgs: Array<string> = []
   public filteredList: Array<string> = []
   public showList: boolean
-
+  public isNotBackButton: boolean
+  public isGroupFinished: boolean = false;
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController,
               public navParams: NavParams, 
@@ -62,10 +63,10 @@ export class CreateGroupPage {
    })
     }
   public addMember(): void {
-    if (this.rows[0].first_name ===''
+    
+      if(this.rows[0].first_name ===''
         ||this.rows[0].last_name ==='' 
-        ||this.rows[0].contactString === '' )
-        {
+        ||this.rows[0].contactString === '' ) {
           let alert = this.alertCtrl.create({
             title: 'Incomplete Member Information',
             message: 'Please finish filling out the current row before adding another.',
@@ -80,22 +81,25 @@ export class CreateGroupPage {
           });
           alert.present();
         }
-        else{
+      
+        else if (this.rows.length > 0){
     this.rows.unshift({first_name:'',last_name:'',isAdmin: 0, isActive: 0, status:1, role: 0,
                       contactString: '', isContactSelected: false, isPhoneSelected: false, 
                       isEmailSelected: false, mobilenumber: null,email:''});
          }
-  }
+         else {
+          this.rows.push({first_name:'',last_name:'',isAdmin: 0, isActive: 0, status:1, role: 0,
+          contactString: '', isContactSelected: false, isPhoneSelected: false, 
+          isEmailSelected: false, mobilenumber: null,email:''});
+         }
+
+         
+  
+}
   public cancel(ev)
   {
+    this.isNotBackButton = true;
     this.presentConfirm();
-          // let popover = this.popoverCtrl.create(CancelGroupAddPopover, {
-          // });
-      
-          // popover.present({
-          //   ev: ev
-          // });
-        
   }
   flipBoolean(contact, index)
   {
@@ -120,30 +124,51 @@ export class CreateGroupPage {
    var members = this.rows;
    
    members.forEach(element => {
+     if(element.isEmailSelected){
+       element.mobilenumber = null;
+     }
+     if(element.isPhoneSelected) {
+       element.email = "";
+     }
     delete element.isActive;
     delete element.isAdmin;
     delete element.isContactSelected;
-    delete element.isPhoneSelected;
-    delete element.isEmailSelected;
     delete element.contactString
   });
     var org = this.orgRequest;
     if (this.isOrgValid(org)&&this.areMembersValid(members))
     {
       
-    
+    this.isGroupFinished = true;
     var organization ={organization};
     organization.organization = org;
     organization.members = members;
     var jsons = JSON.stringify(organization);
     var page = this;
     var user = this.userServices.user;
-    var response = this.orgServices.createOrganization(jsons).subscribe( res=>res.json());
-    if(response)
-    {
-      this.presentFinishedGroup();
-    }
-    var e = response;
+    var response;
+    this.orgServices.createOrganization(jsons).subscribe(
+        data=> {
+          this.presentFinishedGroup();
+        },
+       err =>{
+         err = JSON.parse(err);
+        console.log(err);
+        let alert = this.alertCtrl.create({
+          title: 'Invalid Organization Request',
+          message: '<center>'+err[Object.keys(err)[0]]+'</center>',
+          buttons: [
+            {
+              text: 'OK',
+              handler: () => {
+                
+              }
+            }
+          ]
+        });
+        alert.present();
+        }
+      )
   }
   else{
    this.presentRedoForm();
@@ -163,8 +188,9 @@ export class CreateGroupPage {
       message: 'The request is invalid. Please make sure the following requirements are met:'
       +'<ul><li>Organization Name is filled out and at least two characters long</li>'
       +'<li>Group Name is filled out and at least two characters long</li>'
-      +'<li> Each Members name is filled out</li>' 
-      +'<li> A phone number or email is present for each member</li></ul>',
+      +"<li> Each Member's name is filled out</li>"
+      +'<li> A phone number or email is present for each member</li>'
+      +'<li> Phone Numbers must be 11 digits, starting with the number 1 (Country Code) </li></ul>',
       buttons: [
         {
           text: 'OK',
@@ -172,7 +198,8 @@ export class CreateGroupPage {
             
           }
         }
-      ]
+      ],
+      cssClass: 'wide'
     });
     alert.present();
   }
@@ -227,7 +254,26 @@ export class CreateGroupPage {
   }
   deleteMember(x)
   {
+    if (this.rows.length>=2) {
    this.rows.splice(x,1);
+    }
+    else{
+      let alert = this.alertCtrl.create({
+        title: 'Number of Members',
+        message: '<center>Your Group Must Have at Least One Member</center>',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              
+            }
+          }
+        ]
+      });
+      alert.present();
+    
+
+    }
   }
 areMembersValid(members)
 {
@@ -236,7 +282,11 @@ areMembersValid(members)
     if(!m.email
       &&!m.mobilenumber
       ||!m.first_name
-      ||!m.last_name)
+      ||!m.last_name
+      ||!m.email
+      &&m.mobilenumber.length!=11
+      ||!m.mobilenumber
+      && !this.validateEmail(m.email))
     {
       isValid = false;
     }
@@ -244,8 +294,13 @@ areMembersValid(members)
   });
   return isValid;
 }
-  presentConfirm(){
-    
+validateEmail(email) {
+  var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  var bool = re.test(email);
+  return bool;
+}
+  presentConfirm(): Promise<boolean>{
+    return new Promise((resolve, reject) => {
     let alert = this.alertCtrl.create({
       title: 'Leave This Page',
       message: 'Do you want to continue without creating this group?',
@@ -255,23 +310,31 @@ areMembersValid(members)
           role: 'cancel',
           handler: () => {
             
+            alert.dismiss().then(() => { resolve(false); });
+            this.isNotBackButton = false;
           }
         },
         {
           text: 'Yes',
           handler: () => {
-            this.leave=true;
+            if (this.isNotBackButton)
+            {
+              this.navCtrl.push(HomePage);
+            }
+            else{
+            alert.dismiss().then(() => { resolve(true); });
+            }
            
           }
         }
       ]
     });
-    alert.present().then(function(){
-      return this.leave();
-    })
+    var page = this
+  
+    alert.present()
+  });
+}
     
-    
-  }
   presentFinishedGroup() {
     let alert = this.alertCtrl.create({
       title: 'Confirm Finished Group',
@@ -293,6 +356,13 @@ areMembersValid(members)
   submit()
   {
     this.presentFinishedGroup()
+  }
+  ionViewCanLeave()
+  { if (!this.isNotBackButton && !this.isGroupFinished)
+    {
+    return this.presentConfirm();
+    }
+    this.isNotBackButton = true;
   }
   ionViewDidLoad() {
     var orgRequest = this.orgRequest;
