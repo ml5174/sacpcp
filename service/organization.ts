@@ -22,7 +22,7 @@ export class OrganizationServices {
     {
     return this.http.post(SERVER + NEW_ORGANIZATION_URI, org, this.getOptions())
     .map(res => res.json())
-    .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    .catch(this.handleError);
     }
     getOptions() {
 		let headers = new Headers();
@@ -44,4 +44,9 @@ export class OrganizationServices {
         .map(res => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
+    private handleError(error: any) {
+        let errMsg = error._body;
+             console.error(errMsg); // log to console instead
+             return Observable.throw(errMsg);
+     }
 }
