@@ -78,7 +78,8 @@
         "DEEPLINK_HOST": "https://www.volunteers.tsadfw.org",
         "ANDROID_PATH_PREFIX": "/"
       },
-      "cordova-plugin-ionic-webview": {}
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-dialogs": {}
     },
     "platforms": [
       "ios",
