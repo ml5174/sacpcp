@@ -63,8 +63,6 @@ import { MessageServices } from '../lib/service/message';
 import { DatePickerCalendar } from '../lib/components/date-picker-calendar/date-picker-calendar.component';
 import { DatePicker } from '../lib/components/date-picker/date-picker.component';
 import { CreateGroupPage } from '../pages/create-group/create-group';
-import { CancelGroupAddPopover } from '../popover/cancel-groupadd.ts';
-
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
     { component: ChangePasswordPage, name: 'Change Password Page', segment: 'password-reset/confirm/:iud/:key' },
@@ -124,8 +122,7 @@ export function translateFactory(http: HttpClient) {
     PrivacyTermsContent,
     RecoverSuccessPage,
     DatePickerCalendar,
-    DatePicker,
-    CancelGroupAddPopover
+    DatePicker
   ],
   imports: [
     BrowserModule,

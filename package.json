@@ -24,7 +24,7 @@
     "@angular/http": "4.4.3",
     "@angular/platform-browser": "4.4.3",
     "@angular/platform-browser-dynamic": "4.4.3",
-    "@ionic-native/app-version": "^4.3.1",
+    "@ionic-native/app-version": "^4.4.2",
     "@ionic-native/core": "4.3.0",
     "@ionic-native/dialogs": "^4.4.2",
     "@ionic-native/in-app-browser": "4.3.1",
@@ -34,20 +34,22 @@
     "@ngx-translate/core": "6.0.1",
     "@ngx-translate/http-loader": "^2.0.0",
     "angular2-text-mask": "^8.0.4",
+    "cordova-android": "6.3.0",
     "cordova-ios": "4.5.2",
     "cordova-plugin-app-version": "^0.1.9",
-    "cordova-plugin-device": "^1.1.4",
-    "cordova-plugin-inappbrowser": "^1.7.1",
+    "cordova-plugin-device": "^1.1.7",
+    "cordova-plugin-dialogs": "^1.3.4",
+    "cordova-plugin-inappbrowser": "^1.7.2",
     "cordova-plugin-ionic-webview": "^1.1.15",
-    "cordova-plugin-splashscreen": "^4.0.3",
+    "cordova-plugin-splashscreen": "^4.1.0",
     "cordova-plugin-statusbar": "git+https://github.com/apache/cordova-plugin-statusbar.git",
-    "cordova-plugin-whitelist": "^1.3.1",
+    "cordova-plugin-whitelist": "^1.3.3",
     "ionic-angular": "3.7.1",
     "ionic-native": "^2.9.0",
     "ionic-plugin-deeplinks": "~1.0.15",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
-    "moment": "^2.17.0",
+    "moment": "^2.19.3",
     "moment-timezone": "^0.5.10",
     "rxjs": "5.4.3",
     "sw-toolbox": "3.6.0",
@@ -55,7 +57,7 @@
   },
   "devDependencies": {
     "@angular/tsc-wrapped": "^4.4.4",
-    "@ionic/app-scripts": "^3.0.0",
+    "@ionic/app-scripts": "^3.1.4",
     "@types/moment-timezone": "^0.2.32",
     "typescript": "2.3.4"
   },
@@ -76,10 +78,12 @@
         "DEEPLINK_HOST": "https://www.volunteers.tsadfw.org",
         "ANDROID_PATH_PREFIX": "/"
       },
-      "cordova-plugin-ionic-webview": {}
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-dialogs": {}
     },
     "platforms": [
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }
