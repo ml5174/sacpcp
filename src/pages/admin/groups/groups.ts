@@ -11,9 +11,12 @@ import { ParentVerifyModal } from '../../modals/parent-verify-modal';
 import { PhoneInput } from '../../lib/components/phone-input.component';
 import { AccordionBox } from '../../lib/components/accordion-box';
 import { AlertController } from 'ionic-angular';
+import { Organization } from '../../../lib/model/organization';
+import { OrganizationServices } from '../../../lib/service/organization';
 
 @Component({
-  templateUrl: 'groups.html'
+  templateUrl: 'groups.html',
+  providers: [OrganizationServices]
 })
 
 export class Groups {
@@ -32,6 +35,7 @@ export class Groups {
               public modalCtrl: ModalController,
               public alertCtrl: AlertController,
               public toastController: ToastController,
+              public orgServices: OrganizationServices,
               private popoverCtrl: PopoverController) {
   }
 
@@ -39,17 +43,21 @@ export class Groups {
 
     ionViewDidLoad() {
       console.log("Groups: ionViewDidLoad");
-    
-      //let getGroupsObservable =  this.userServices.getGroups();
-      
-          this.clearErrors();
-          this.cleanBooleans();
-          this.showLoading();
-      
+      this.clearErrors();
+      this.cleanBooleans();
+      this.showLoading();
     }
 
     ionViewWillEnter() {
       console.log("Groups: ionViewWillEnter");
+    
+      this.orgServices.getAllOrgNames().subscribe(function(response){
+        var u = response;
+        response.forEach(group => {
+        //page.orgs.push(group.name);
+        console.log("group"+ group.name);
+        });
+      })
     }
  
 

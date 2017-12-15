@@ -12,10 +12,12 @@ import { PhoneInput } from '../../lib/components/phone-input.component';
 import { AccordionBox } from '../../lib/components/accordion-box';
 import { AlertController } from 'ionic-angular';
 import { CreateGroupPage } from '../create-group/create-group';
-
+import { Organization } from '../../lib/model/organization';
+import { OrganizationServices } from '../../lib/service/organization';
 
 @Component({
-  templateUrl: 'mygroups.html'
+  templateUrl: 'mygroups.html',
+  providers: [OrganizationServices]
 })
 
 export class MyGroupsPage {
@@ -35,6 +37,7 @@ export class MyGroupsPage {
               public modalCtrl: ModalController,
               public alertCtrl: AlertController,
               public toastController: ToastController,
+              public orgServices: OrganizationServices,
               private popoverCtrl: PopoverController) {
   }
 
@@ -45,14 +48,20 @@ export class MyGroupsPage {
     
       //let getMyGroupsObservable =  this.userServices.getMyGroups();
       
-          this.clearErrors();
-          this.cleanBooleans();
-          this.showLoading();
-      
+      this.clearErrors();
+      this.cleanBooleans();
+      this.showLoading(); 
     }
 
     ionViewWillEnter() {
       console.log("MyGroups: ionViewWillEnter");
+      this.orgServices.getMyOrganizations().subscribe(function(response){
+        var u = response;
+        response.forEach(group => {
+        //page.orgs.push(group.name);
+        console.log("group"+ group.name);
+        });
+      })
     }
  
 
