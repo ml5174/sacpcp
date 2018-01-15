@@ -26,6 +26,14 @@ export const AGE_RESTRICTION = {
         1: '16 and over',
         2: 'under 16'
 }
+
+export const ORG_RESTRICTION = {
+        0: 'none',
+        1: 'orgsonly',
+        2: 'definedorgs',
+        3: 'noorgs'      
+}
+
 //yeah, this one probably needs some adjusting
 export const NOTIFICATION_SCHEDULE = {
         0: 'none',
@@ -37,3 +45,4 @@ export const NOTIFICATION_OPTIONS = {
         0: 'no',
         1: 'yes'
 }
+
