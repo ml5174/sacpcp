@@ -520,7 +520,8 @@ export class EventPage {
     signupEventRegistration(id) {
         console.log("signup for event: " + id);
         let groupOnly: boolean = false;
-        if (id == 3374) {
+        // Event 3396, Food Service Jan 31 4AM, pretend it is group only event
+        if (id == 3396) {
           groupOnly = true;
         }
         if (groupOnly) {
