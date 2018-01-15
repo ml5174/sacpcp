@@ -20,11 +20,13 @@ import { RegisterLoginPage } from '../register-login/register-login';
 import { Platform } from 'ionic-angular';
 import { APPLE_MAP_QUERY } from '../../lib/provider/config';
 import { GOOGLE_MAP_QUERY } from '../../lib/provider/config';
+import { Organization } from '../../lib/model/organization';
+import { OrganizationServices } from '../../lib/service/organization';
 
 @Component({
   templateUrl: 'events.html',
   selector: 'events',
-  providers:[ParseTimePipe, OpportunityPipe, PreferencePipe]
+  providers:[ParseTimePipe, OpportunityPipe, PreferencePipe, OrganizationServices]
 })
 
 export class EventPage {
@@ -77,6 +79,8 @@ export class EventPage {
   public mapQueryStart: String;
   public mapQueryEnd: String;
 
+  public isGroupAdmin: boolean = false;
+
   constructor(public volunteerEventsService: VolunteerEventsService,
     public userServices: UserServices,
     public modalCtrl: ModalController,
@@ -87,6 +91,7 @@ export class EventPage {
     private parseTimePipe: ParseTimePipe,
     public alertCtrl: AlertController,    
     public toastController: ToastController,
+    public orgServices: OrganizationServices,
     public signupassitant: SignupAssistant,
     public nav: Nav
     ) {
@@ -94,6 +99,7 @@ export class EventPage {
 
   ngOnInit() {
     // select today and 30 days worth of events by default
+    console.log("ngOnInit");
     this.selectedStartDate = Moment().format("YYYY-MM-DD");
     this.selectedEndDate = Moment().add(30, 'day').format("YYYY-MM-DD");
     this.minStartDate = Moment().format("YYYY-MM-DD");
@@ -129,6 +135,21 @@ export class EventPage {
       this.mapQueryEnd = '';
     }
 
+  }
+
+  ionViewWillEnter() {
+    console.log("events: ionViewWillEnter():");
+    this.orgServices.getMyOrganizations().subscribe(function(response){
+      var u = response;
+      if (response.length > 0) {
+        console.log("You have at least 1 group");
+        this.isGroupAdmin = true;
+      }
+      response.forEach(group => {
+      //page.orgs.push(group.name);
+      console.log("group: "+ group.name);
+      });
+    })
   }
 
   onStartDateChange(evt) {
@@ -206,6 +227,7 @@ export class EventPage {
   }
 
   loadEvents() {
+    console.log("loadEvents...");
     let now = new Date(Moment(this.selectedStartDate).hour(0).minute(0).toISOString());
     let until = new Date(Moment(this.selectedEndDate).hour(23).minute(59).toISOString());
     this.showLoading();
@@ -389,6 +411,7 @@ export class EventPage {
 
 
   getEvents() {
+    console.log("getEvents()...");
     this.volunteerEventsService
       .getVolunteerEvents().subscribe(
       event => this.stubEvents = event,
@@ -495,6 +518,32 @@ export class EventPage {
      
    
     signupEventRegistration(id) {
+        console.log("signup for event: " + id);
+        let groupOnly: boolean = false;
+        if (id == 3374) {
+          groupOnly = true;
+        }
+        if (groupOnly) {
+          // TODO: We need to see if the logged in user is a group admin
+          if (!this.userServices.user.id || this.userServices.user.profile.accounttype != 'A')
+          {
+            console.log("event 3374 is hard coded as group only");
+            console.log("user is not logged in or not admin");
+            console.log("present pop-up that user is not authorized for signing up for this group-only event");
+            this.notAuthorizedForGroupOnly(id);
+          }
+          else {
+            // TODO: test scenarios that the signed-in user is either Admin or Group Admin when entering this flow
+            // if group admin, then only those groups managed by user can be signed-up
+            // if TSA Admin, then any group can be signed-up
+            // this group sign up flow is for signing up a group for an event (US 9.9)
+            console.log("special group sign up flow");
+          }
+        }
+
+        console.log("events.ts.signupEventRegistration(id): " + this.userServices.user.id + " " + this.userServices.user.name);
+        
+        
         this.signupassitant.setCurrentEventId(id);
         this.volunteerEventsService
             .checkMyEvents(id).subscribe(
@@ -522,7 +571,7 @@ export class EventPage {
                   let confirm = this.alertCtrl.create({
                           title: '',
                           cssClass: 'alertReminder',
-                          message: 'You have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the About Me page?',
+                          message: 'YOU have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the About Me page?',
                           buttons: [
                               {
                                   text: 'No',
@@ -544,7 +593,8 @@ export class EventPage {
             });      
     }
    
-    cancelEventRegisteration(id) {      
+    cancelEventRegisteration(id) {  
+        console.log("events.ts: cancelEventRegistration: invoke signupassistant");    
         this.signupassitant.cancelEventRegisteration(id);     
     }
 
@@ -573,4 +623,22 @@ export class EventPage {
       });
       confirm.present();
     }
+
+    notAuthorizedForGroupOnly(id) {
+      console.log("notAuthorizedForGroupOnly");
+      let confirm = this.alertCtrl.create({
+          title: '',
+          cssClass: 'alertReminder',
+          message: 'You are not eligible for this event sign up (GROUP ONLY):' + id,
+          buttons: [
+              {
+                  text: 'OK',
+                  handler: () => {
+                      console.log('OK clicked');
+                  }
+              }
+          ]
+      });
+      confirm.present();
+  }
 }

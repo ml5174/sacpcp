@@ -22,13 +22,19 @@ import { OrganizationServices } from '../../lib/service/organization';
 
 export class MyGroupsPage {
 
+  hasGroups: boolean = false;
+  numberGroups = 0;
+  public groups:Array<any> = [];
+
   @ViewChild(Content) content: Content;
   
   public key: string = '';
   public val: string = '';
   public errors: Array<string> = [];
 
-  public loadingOverlay;  
+  public loadingOverlay; 
+  
+
 
   // Constructor
   constructor(public nav: NavController,
@@ -43,27 +49,42 @@ export class MyGroupsPage {
 
   
 
-    ionViewDidLoad() {
-      console.log("MyGroups: ionViewDidLoad");
+  ionViewDidLoad() {
+    console.log("MyGroups: ionViewDidLoad");
+  
+    //let getMyGroupsObservable =  this.userServices.getMyGroups();
     
-      //let getMyGroupsObservable =  this.userServices.getMyGroups();
-      
-      this.clearErrors();
-      this.cleanBooleans();
-      this.showLoading(); 
+    this.clearErrors();
+    this.cleanBooleans();
+    this.showLoading(); 
+  }
+
+  ionViewWillEnter() {
+    console.log("MyGroups: ionViewWillEnter");
+
+    this.loadMyEvents();
+    console.log("groups: at end: " + this.groups.length); 
+
+  }
+
+  loadMyEvents() {
+    console.log("mygroups: loadMyEvents() + " + this.groups.length);
+  
+    var page = this;  
+    this.orgServices.getMyOrganizations().subscribe(groups => {
+  			for(var group of groups) {
+          console.log("group: "+ group.name);
+          page.groups.push(group);
+          page.hasGroups = true;
+        } 
+        console.log("user has " + ((page.hasGroups) ? groups.length : "no") + " groups");
+      },
+      err => {
+        console.log(err);
+        this.hasGroups = false;
+      });
     }
 
-    ionViewWillEnter() {
-      console.log("MyGroups: ionViewWillEnter");
-      this.orgServices.getMyOrganizations().subscribe(function(response){
-        var u = response;
-        response.forEach(group => {
-        //page.orgs.push(group.name);
-        console.log("group"+ group.name);
-        });
-      })
-    }
- 
 
   presentToast(message: string) {
     let toast = this.toastController.create({

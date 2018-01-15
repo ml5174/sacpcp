@@ -55,7 +55,8 @@
         <ion-card *ngIf="e.visibility==0" class="flex-card">
             <ion-card-content>
                 <ion-list-header (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">
-                    <h2>{{e.title}}</h2>
+                    <h2 *ngIf="e.id == '3374'" style="color: blue; ">{{e.title}}</h2>
+                    <h2 *ngIf="e.id != '3374'">{{e.title}}</h2>
                 </ion-list-header>
                 <ion-list no-lines>
                     <span *ngIf="showDetails[i]">
@@ -63,7 +64,8 @@
                             <img src="assets/img/bucket.jpg" />
                         </ion-item>
                         <ion-item>
-                            <p>{{e.description}}</p>
+                            <p >{{e.description}}</p>
+                           
                         </ion-item>
                         </span>
                     <ion-item>
@@ -109,7 +111,7 @@
           <ion-icon name='calendar'></ion-icon>
           Attend
         </button>
-              </ion-col>
+              </ion-col>c
               <ion-col text-right>
                 <button ion-button clear small color="danger" icon-start>
           <ion-icon name='share-alt'></ion-icon>
