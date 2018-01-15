@@ -1,7 +1,7 @@
 #!/bin/bash
 #set -x 
 
-read -p "Are you sure? " -n 1 -r
+read -p "!!!!! sacpcp and src/lib (savi-lib) will be reset!!! Are you sure? " -n 1 -r
 echo    # (optional) move to a new line
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
