@@ -55,8 +55,9 @@
         <ion-card *ngIf="e.visibility==0" class="flex-card">
             <ion-card-content>
                 <ion-list-header (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">
-                    <h2 *ngIf="e.id == '3374'" style="color: blue; ">{{e.title}}</h2>
-                    <h2 *ngIf="e.id != '3374'">{{e.title}}</h2>
+                    <!-- Highlight in blue event 3396 Food Service Jan 31 4AM -->
+                    <h2 *ngIf="e.id == '3396'" style="color: blue; ">{{e.title}}</h2>
+                    <h2 *ngIf="e.id != '3396'">{{e.title}}</h2>
                 </ion-list-header>
                 <ion-list no-lines>
                     <span *ngIf="showDetails[i]">
