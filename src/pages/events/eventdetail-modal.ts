@@ -6,6 +6,7 @@ import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import { AlertController, NavController, App} from 'ionic-angular';
 import { NOTIFICATION_SCHEDULE, NOTIFICATION_OPTIONS, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION } from './../../lib/provider/eventConstants';
+import { ORG_RESTRICTION } from '../../lib/provider/eventConstants';
 import { LoginPage } from '../login/login';
 import { RegisterLoginPage } from '../register-login/register-login';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
@@ -29,6 +30,7 @@ export class EventDetailModal {
     aRestriction = AGE_RESTRICTION;
     nSchedule = NOTIFICATION_SCHEDULE;
     nOptions = NOTIFICATION_OPTIONS;
+    oRestriction = ORG_RESTRICTION;
 
     deregisterResult: any;
 
@@ -65,7 +67,7 @@ export class EventDetailModal {
     loadDetails() {
         if (this.userServices.isAdmin()) {
             //check account for admin status
-            console.log("User is admin");
+            console.log("eventdetail-modal: loadDetails(): User is admin");
             this.getAdminEventDetails(this.eventId);
             //if they have admin status load admin view of events
         }
@@ -182,7 +184,7 @@ export class EventDetailModal {
         this.volunteerEventsService
             .eventRegisterAndSetReminder(id, noti_sched,1, overlap).subscribe(
             event => {
-                console.log("signed up for event " + id);
+                console.log("eventdetail-modal: signed up for event " + id);
                 this.presentToast("Event sign-up successful.");
                 this.signedUp = true;
             },

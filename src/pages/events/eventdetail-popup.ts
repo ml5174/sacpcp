@@ -59,7 +59,7 @@ export class EventDetailPopup {
     loadDetails() {
         if (this.userServices.isAdmin()) {
             //check account for admin status
-            console.log("User is admin");
+            console.log("eventdetail-popup: loadDetails(): User is admin");
             this.getAdminEventDetails(this.eventId);
             //if they have admin status load admin view of events
         }
@@ -114,7 +114,7 @@ export class EventDetailPopup {
         this.volunteerEventsService
             .eventRegisterAndSetReminder(id, noti_sched,1, overlap).subscribe(
             event => {
-                console.log("signed up for event " + id);
+                console.log("eventdetail-popup: signed up for event " + id);
                 this.presentToast("Event sign-up successful.");
                 this.signedUp = true;
             },
