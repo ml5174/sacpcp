@@ -42,6 +42,9 @@ export class EventDetail {
   visibility: string;
   volunteer_restriction: string;
   volunteercount: string;
+  org_restriction: string;
+  registeredcount: number;
+  max_registered: number; r
 
   //volunteers array only shows up if admin call is made
   volunteers: string[];
