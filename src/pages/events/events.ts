@@ -528,7 +528,7 @@ export class EventPage {
           // TODO: We need to see if the logged in user is a group admin
           if (!this.userServices.user.id || this.userServices.user.profile.accounttype != 'A')
           {
-            console.log("event 3374 is hard coded as group only");
+            console.log("event 3396 is hard coded as group only");
             console.log("user is not logged in or not admin");
             console.log("present pop-up that user is not authorized for signing up for this group-only event");
             this.notAuthorizedForGroupOnly(id);
@@ -538,6 +538,7 @@ export class EventPage {
             // if group admin, then only those groups managed by user can be signed-up
             // if TSA Admin, then any group can be signed-up
             // this group sign up flow is for signing up a group for an event (US 9.9)
+            
             console.log("special group sign up flow");
           }
         }

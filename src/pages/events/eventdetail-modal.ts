@@ -5,8 +5,7 @@ import { SignupAssistant } from '../../lib/service/signupassistant';
 import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import { AlertController, NavController, App} from 'ionic-angular';
-import { NOTIFICATION_SCHEDULE, NOTIFICATION_OPTIONS, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION } from './../../lib/provider/eventConstants';
-import { ORG_RESTRICTION } from '../../lib/provider/eventConstants';
+import { NOTIFICATION_SCHEDULE, NOTIFICATION_OPTIONS, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION, ORG_RESTRICTION } from './../../lib/provider/eventConstants';
 import { LoginPage } from '../login/login';
 import { RegisterLoginPage } from '../register-login/register-login';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
@@ -65,32 +64,83 @@ export class EventDetailModal {
     }
 
     loadDetails() {
+        console.log("eventdetail-modal: loadDetails():");
         if (this.userServices.isAdmin()) {
             //check account for admin status
-            console.log("eventdetail-modal: loadDetails(): User is admin");
             this.getAdminEventDetails(this.eventId);
             //if they have admin status load admin view of events
         }
         else {
             this.getEventDetails(this.eventId);
         }
+        console.log("eventdetail-modal: loadDetails(): done");
+       
+        
     }
+
+    youAreNotEligible() {
+        let confirm = this.alertCtrl.create({
+            title: '',
+            cssClass: 'alertReminder',
+            message: 'You are not eligible for this event sign up',
+            buttons: [
+                {
+                    text: 'Ok',
+                    handler: () => {
+                        console.log('Ok clicked');
+                    }
+                }
+            ]
+        });
+        confirm.present();
+    }
+
     getAdminEventDetails(id) {
         this.volunteerEventsService
             .getAdminEventDetails(id).subscribe(
-            event => this.eventDetail = event,
-            err => {
-                console.log(err);
-            });
-    }
+                (event) => {
+                    this.eventDetail = event;
+                    if (id == 3396) 
+                    {
+                        this.eventDetail.org_restriction = "1";
+                        console.log("The org restriction is " + this.eventDetail.org_restriction);
+                        console.log("the eventDetail has its org restriction as " + this.eventDetail.org_restriction);
+              
+                    }
+                    this.youAreNotEligible();
+                    console.log(this.eventDetail);
+                  },  
+                  (err) => {
+                    console.log(err);
+                  },
+                  () => {
+                    console.log("completed");
+                  }
+            );
+            console.log("getAdminEventDetails");
+        }
 
     getEventDetails(id) {
         this.volunteerEventsService
             .getVolunteerEventDetails(id).subscribe(
-            event => this.eventDetail = event,
-            err => {
-                console.log(err);
-            });
+                (event) => {
+                    this.eventDetail = event;
+                    if (id == 3396) 
+                    {
+                        this.eventDetail.org_restriction = "1";
+                        console.log("the eventDetail has its org restriction as " + this.eventDetail.org_restriction);
+                    }
+                    this.youAreNotEligible();
+                    console.log(this.eventDetail);
+                  },  
+                  (err) => {
+                    console.log(err);
+                  },
+                  () => {
+                    console.log("completed");
+                  }
+            );
+            console.log("getEventDetails");
     }
 
     unregisteredUserPopover(){
@@ -124,6 +174,7 @@ export class EventDetailModal {
                     confirm.present();
     }
     signupEventRegistration(id) {
+        console.log("eventdetail-modal:signupEventRegistration: " + id);
         if(!this.userServices.user.id){
             this.unregisteredUserPopover();
         } else{
