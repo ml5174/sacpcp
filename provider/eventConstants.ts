@@ -29,9 +29,9 @@ export const AGE_RESTRICTION = {
 
 export const ORG_RESTRICTION = {
         0: 'none',
-        1: 'orgsonly',
-        2: 'definedorgs',
-        3: 'noorgs'      
+        1: 'Orgs Only',
+        2: 'Defined Orgs',
+        3: 'No Orgs'      
 }
 
 //yeah, this one probably needs some adjusting
