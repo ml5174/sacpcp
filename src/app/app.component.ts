@@ -288,7 +288,7 @@ showMyGroups()
       this.storage.set('version', version).then((resource) => {
           console.log('Storing Marketing Version: ' + this.appMarketingVersion);
         });
-      let buildNumberNonMobileFE = "1712011710";
+      let buildNumberNonMobileFE = "_build_number_";
       this.storage.set('build', buildNumberNonMobileFE).then((resource) => {
          console.log('Storing Build Version: ' + buildNumberNonMobileFE);
         });
