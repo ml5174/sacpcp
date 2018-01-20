@@ -107,7 +107,6 @@ export class EventDetailModal {
                         console.log("the eventDetail has its org restriction as " + this.eventDetail.org_restriction);
               
                     }
-                    this.youAreNotEligible();
                     console.log(this.eventDetail);
                   },  
                   (err) => {
@@ -129,8 +128,9 @@ export class EventDetailModal {
                     {
                         this.eventDetail.org_restriction = "1";
                         console.log("the eventDetail has its org restriction as " + this.eventDetail.org_restriction);
+                        //for any event that is org only restricted, only group admins and TSA admins can signup 
+                        this.youAreNotEligible();
                     }
-                    this.youAreNotEligible();
                     console.log(this.eventDetail);
                   },  
                   (err) => {
