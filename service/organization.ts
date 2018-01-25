@@ -3,9 +3,10 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { SERVER } from '../provider/config';
 import { Storage } from '@ionic/storage';
-import {NEW_ORGANIZATION_URI} from '../provider/config';
-import {MY_ORGANIZATIONS_URI} from '../provider/config';
-import {ALL_ORGANIZATIONS_URI} from '../provider/config';
+import { NEW_ORGANIZATION_URI } from '../provider/config';
+import { MY_ORGANIZATIONS_URI } from '../provider/config';
+import { ALL_ORGANIZATIONS_URI } from '../provider/config';
+import { MY_PENDING_ORGANIZATIONS_URI } from '../provider/config';
 
 
 
@@ -36,6 +37,12 @@ export class OrganizationServices {
         return this.http.get(SERVER + MY_ORGANIZATIONS_URI, this.getOptions())
         .map(res => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+    getMyPendingOrganizations()
+    {
+        return this.http.get(SERVER + MY_PENDING_ORGANIZATIONS_URI, this.getOptions())
+        .map(res => res.json())
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error')); 
     }
     getAllOrgNames()
     {
