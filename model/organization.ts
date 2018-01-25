@@ -5,5 +5,5 @@ name: string;
 group: string;
 description: string;
 organization_id: string;
-status: Int;
+status: number;
 }
