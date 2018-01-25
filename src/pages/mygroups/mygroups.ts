@@ -62,13 +62,15 @@ export class MyGroupsPage {
   ionViewWillEnter() {
     console.log("MyGroups: ionViewWillEnter");
 
-    this.loadMyEvents();
-    console.log("groups: at end: " + this.groups.length); 
+    this.loadMyGroups();
+    console.log("groups: after loadMyGroups: " + this.groups.length); 
 
+    this.loadMyPendingGroups();
+    console.log("groups: after loadMyPendingGroups" + this.groups.length);
   }
 
-  loadMyEvents() {
-    console.log("mygroups: loadMyEvents() + " + this.groups.length);
+  loadMyGroups() {
+    console.log("mygroups: loadMyGropus() + " + this.groups.length);
   
     var page = this;  
     this.orgServices.getMyOrganizations().subscribe(groups => {
@@ -84,7 +86,30 @@ export class MyGroupsPage {
         this.hasGroups = false;
       });
     }
-
+   
+    loadMyPendingGroups() {
+      console.log("mygroups: loadMyPendingGropus() + " + this.groups.length);
+    
+      var page = this;  
+      this.orgServices.getMyPendingOrganizations().subscribe(groups => {
+          for(var group of groups) {
+            console.log("group: "+ group.organization.name);
+            let tempGroup: Organization = new Organization();
+            tempGroup.name = group.organization.name;
+            tempGroup.group = group.organization.group;
+            tempGroup.description = group.organization.description;
+            tempGroup.organization_id = group.organization.id;
+            tempGroup.status = 1; // 0 = Active, 1 = Pending, 2 = Inactive
+            page.groups.push(tempGroup);
+            page.hasGroups = true;
+          } 
+          console.log("user has " + ((page.hasGroups) ? groups.length : "no") + " pending groups");
+        },
+        err => {
+          console.log(err);
+          this.hasGroups = false;
+        });
+      }
 
   presentToast(message: string) {
     let toast = this.toastController.create({
