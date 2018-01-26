@@ -50,9 +50,9 @@
 
 ### Launching the application
 *	If all went well, you should be able to launch the application to your default browser:<br>
-        ionic serve
-        Also try<br>
-	ionic lab
+        ionic serve<br>
+	Also try<br>
+        ionic lab
 
 *	If on macOS, then try adding ios platform:<br>
         ionic cordova platform add ios
