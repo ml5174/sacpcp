@@ -74,42 +74,46 @@ export class MyGroupsPage {
   
     var page = this;  
     this.orgServices.getMyOrganizations().subscribe(groups => {
-  			for(var group of groups) {
-          console.log("group: "+ group.name);
-          page.groups.push(group);
-          page.hasGroups = true;
-        } 
-        console.log("user has " + ((page.hasGroups) ? groups.length : "no") + " groups");
-      },
-      err => {
-        console.log(err);
-        this.hasGroups = false;
-      });
-    }
+      for(var group of groups) {
+        console.log("group: "+ group.name);
+        page.groups.push(group);
+        page.hasGroups = true;
+      } 
+      console.log("user has " + ((page.hasGroups) ? groups.length : "no") + " groups");
+    },
+    err => {
+      console.log(err);
+      this.hasGroups = false;
+    });
+  }
    
-    loadMyPendingGroups() {
-      console.log("mygroups: loadMyPendingGropus() + " + this.groups.length);
-    
-      var page = this;  
-      this.orgServices.getMyPendingOrganizations().subscribe(groups => {
-          for(var group of groups) {
-            console.log("group: "+ group.organization.name);
-            let tempGroup: Organization = new Organization();
-            tempGroup.name = group.organization.name;
-            tempGroup.group = group.organization.group;
-            tempGroup.description = group.organization.description;
-            tempGroup.organization_id = group.organization.id;
-            tempGroup.status = 1; // 0 = Active, 1 = Pending, 2 = Inactive
-            page.groups.push(tempGroup);
-            page.hasGroups = true;
-          } 
-          console.log("user has " + ((page.hasGroups) ? groups.length : "no") + " pending groups");
-        },
-        err => {
-          console.log(err);
-          this.hasGroups = false;
-        });
+  loadMyPendingGroups() {
+    console.log("mygroups: loadMyPendingGropus() + " + this.groups.length);
+  
+    var page = this;  
+    this.orgServices.getMyPendingOrganizations().subscribe(groups => {
+      for(var group of groups) {
+        console.log("group: "+ group.organization.name);
+        let tempGroup: Organization = new Organization();
+        tempGroup.name = group.organization.name;
+        tempGroup.group = group.organization.group;
+        tempGroup.description = group.organization.description;
+        tempGroup.organization_id = group.organization.id;
+        tempGroup.status = 1; // 0 = Active, 1 = Pending, 2 = Inactive
+        page.groups.push(tempGroup);
+        page.hasGroups = true;
       }
+      console.log("user has " + ((page.hasGroups) ? groups.length : "no") + " pending groups");
+    },
+    err => {
+      console.log(err);
+      this.hasGroups = false;
+    });
+  }
+
+  openGroupProfile() {
+    console.log("mygroups: openGroupProfile");
+  }
 
   presentToast(message: string) {
     let toast = this.toastController.create({

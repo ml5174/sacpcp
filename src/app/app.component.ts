@@ -29,6 +29,7 @@ import { version } from '../../package.json';
 import { DONATE_URL } from '../lib/provider/config';
 import { AppVersion } from 'ionic-native';
 import { SERVER } from '../lib/provider/config';
+import { GroupProfilePage } from '../pages/group-profile/group-profile';
 
 declare var window;
 declare var cordova;
@@ -80,8 +81,9 @@ export class MyApp {
       { title: 'Contact Us', component: ContactPage },                                 // 6 
       { title: 'Privacy & Terms', component: TermsPage },                              // 7 
       { title: 'Admin', component: admin },                                            // 8 
-      { title: 'My Groups', component: MyGroupsPage },
-      { title: 'Create Group', component: CreateGroupPage }                                       // 9 
+      { title: 'My Groups', component: MyGroupsPage },                                 //
+      { title: 'Create Group', component: CreateGroupPage },                            // 9 
+      { title: 'Group Profile', component: GroupProfilePage }
     ];
    
     this.adminPages = [
