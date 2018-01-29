@@ -12,6 +12,7 @@ import { PhoneInput } from '../../lib/components/phone-input.component';
 import { AccordionBox } from '../../lib/components/accordion-box';
 import { AlertController } from 'ionic-angular';
 import { CreateGroupPage } from '../create-group/create-group';
+import { GroupProfilePage } from '../group-profile/group-profile';
 import { Organization } from '../../lib/model/organization';
 import { OrganizationServices } from '../../lib/service/organization';
 
@@ -111,8 +112,13 @@ export class MyGroupsPage {
     });
   }
 
-  openGroupProfile() {
+  openGroupProfile(org_id) {
     console.log("mygroups: openGroupProfile");
+    console.log("mygroups: openGroupProfile:" + org_id);
+    let data = {
+      orgid : org_id
+    };
+    this.nav.push(GroupProfilePage, data);
   }
 
   presentToast(message: string) {
@@ -130,10 +136,12 @@ export class MyGroupsPage {
     });
     //this.loadingOverlay.present();
   }
+
   pushGroupPage()
   {
     this.nav.push(CreateGroupPage);
   }
+
   hideLoading() {
     this.loadingOverlay.dismiss();
   }
