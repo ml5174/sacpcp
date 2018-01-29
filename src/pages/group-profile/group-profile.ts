@@ -12,7 +12,7 @@ export class GroupProfilePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GroupProfilePage');
+    console.log('ionViewDidLoad GroupProfilePage ' + this.navParams.get('orgid'));
   }
 
 }

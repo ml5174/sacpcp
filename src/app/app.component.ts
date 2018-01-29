@@ -81,8 +81,8 @@ export class MyApp {
       { title: 'Contact Us', component: ContactPage },                                 // 6 
       { title: 'Privacy & Terms', component: TermsPage },                              // 7 
       { title: 'Admin', component: admin },                                            // 8 
-      { title: 'My Groups', component: MyGroupsPage },                                 //
-      { title: 'Create Group', component: CreateGroupPage },                            // 9 
+      { title: 'My Groups', component: MyGroupsPage },                                 // 9
+      { title: 'Create Group', component: CreateGroupPage },                           // 10 
       { title: 'Group Profile', component: GroupProfilePage }
     ];
    
