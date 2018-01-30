@@ -132,13 +132,13 @@ export class EventDetailModal {
                         this.youAreNotEligible();
                     }
                     console.log(this.eventDetail);
-                  },  
-                  (err) => {
+                },  
+                (err) => {
                     console.log(err);
-                  },
-                  () => {
+                },
+                () => {
                     console.log("completed");
-                  }
+                }
             );
             console.log("getEventDetails");
     }

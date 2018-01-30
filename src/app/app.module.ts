@@ -31,7 +31,7 @@ import { Reports } from '../pages/admin/reports/reports';
 import { ContactVolunteers } from '../pages/admin/contact-volunteers/contact-volunteers';
 import { Groups } from '../pages/admin/groups/groups';
 import { Message } from '../pages/admin/contact-volunteers/message'
-import { admin } from '../pages/admin/admin';
+import { Admin } from '../pages/admin/admin';
 import { AppHeaderComponent } from '../lib/components/app-header.component';
 import { HomeTab } from '../lib/components/home-tab';
 import { PhoneInput } from '../lib/components/phone-input.component';
@@ -114,7 +114,7 @@ export function translateFactory(http: HttpClient) {
     EventDetailPopup,
     ContactMethod,
     PhoneInput,
-    admin,
+    Admin,
     CreateEvent,
     EditEvent,
     Reports,
@@ -169,7 +169,7 @@ export function translateFactory(http: HttpClient) {
     CreateGroupPage,
     GroupProfilePage,
     EventDetailModal,
-    admin,
+    Admin,
     CreateEvent,
     EditEvent,
     Reports,
