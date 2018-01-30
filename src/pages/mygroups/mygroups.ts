@@ -58,16 +58,18 @@ export class MyGroupsPage {
     this.clearErrors();
     this.cleanBooleans();
     this.showLoading(); 
-  }
-
-  ionViewWillEnter() {
-    console.log("MyGroups: ionViewWillEnter");
 
     this.loadMyGroups();
     console.log("groups: after loadMyGroups: " + this.groups.length); 
 
     this.loadMyPendingGroups();
     console.log("groups: after loadMyPendingGroups" + this.groups.length);
+  }
+
+  ionViewWillEnter() {
+    console.log("MyGroups: ionViewWillEnter");
+
+    
   }
 
   loadMyGroups() {

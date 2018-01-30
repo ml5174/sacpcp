@@ -338,35 +338,37 @@ export class RegisterIndividualProfilePage {
 	console.log("myprofile" + JSON.stringify(this.myProfile));
 	console.log("myprefs" + JSON.stringify(this.myPreferences));
 
-    console.log(this.myProfile);
-    this.checkRequiredFields();
+  console.log(this.myProfile);
+  this.checkRequiredFields();
 
-    let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
-    let updateMyPreferencesObservable =  this.userServices.updateMyPreferences(this.myPreferences);
-    let changeMyPasswordObservable = null;
+  let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
+  let updateMyPreferencesObservable =  this.userServices.updateMyPreferences(this.myPreferences);
+  let changeMyPasswordObservable = null;
 
-    let observables = [updateMyProfileObservable, updateMyPreferencesObservable];
+  let observables = [updateMyProfileObservable, updateMyPreferencesObservable];
 
-    // Only call change password if one or more of the form fields are entered    
-    if (this.passwordForm.old_password ||  this.passwordForm.new_password1 || this.passwordForm.new_password2) {
-      changeMyPasswordObservable = this.userServices.changePassword(this.passwordForm);
-      observables.push(changeMyPasswordObservable);
-    }
+  // Only call change password if one or more of the form fields are entered    
+  if (this.passwordForm.old_password ||  this.passwordForm.new_password1 || this.passwordForm.new_password2) {
+    changeMyPasswordObservable = this.userServices.changePassword(this.passwordForm);
+    observables.push(changeMyPasswordObservable);
+  }
 
-    Observable.forkJoin(observables)
-      .subscribe(
-          key => {
-            this.presentToast("Profile saved.")
-            this.hideLoading();
-            this.passwordForm={};
-          }, 
-          err => { 
-            this.presentToast("Error saving profile.")
-            this.hideLoading();
-            console.log(err);
-            this.setError(err);
-          }),
-          val => this.val = val;
+  Observable.forkJoin(observables).subscribe(
+      (key) => {
+        this.presentToast("Profile saved.")
+        this.hideLoading();
+        this.passwordForm={};
+      }, 
+      (err) => { 
+        this.presentToast("Error saving profile.")
+        this.hideLoading();
+        console.log(err);
+        this.setError(err);
+      }
+    );
+    // 2018_01_29 tslint change removed 
+    // unused expression, expected an assignment or function call
+    // val => this.val = val;
   }
 
   checkRequiredFields() {
@@ -766,7 +768,8 @@ export class RegisterIndividualProfilePage {
             }
             if (key==='state') {
               this.stateerror=true;
-              this.stateerrorvalue
+              // 2018_01_29 tslint changed: removed the following line
+              // this.stateerrorvalue
             }
             if (key==='zipcode') {
               this.zipcodeerror=true;

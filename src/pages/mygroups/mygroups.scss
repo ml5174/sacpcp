@@ -9,3 +9,11 @@
     }
   }
 }
+
+linked-group {
+  color: blue;
+  font-style: italic; 
+  input[type=submit]:hover{
+    text-decoration:underline;
+  }
+}

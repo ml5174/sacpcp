@@ -35,7 +35,7 @@
                     <ion-col col-3 *ngIf="this.group.role==1" ><ion-icon name="person"></ion-icon></ion-col>
                     <ion-col col-3 *ngIf="this.group.role!=1" ><ion-icon name="people"></ion-icon></ion-col>
                     <ion-col col-3>{{this.group.name}}</ion-col>
-                    <ion-col col-3 (click)=openGroupProfile(this.group.organization_id)>{{this.group.group}}</ion-col>
+                    <ion-col col-3 class="linked-group" (click)=openGroupProfile(this.group.organization_id)>{{this.group.group}}</ion-col>
                     <ion-col col-3 *ngIf="this.group.status == 0"><ion-icon name="checkmark"></ion-icon></ion-col>
                     <ion-col col-3 *ngIf="this.group.status == 1"><ion-icon name="help"></ion-icon></ion-col>
                     <ion-col col-3 *ngIf="this.group.status == 2"><ion-icon name="remove"></ion-icon></ion-col>

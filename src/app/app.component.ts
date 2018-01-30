@@ -16,7 +16,7 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { TermsPage } from '../pages/terms/terms';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
-import { admin} from '../pages/admin/admin';
+import { Admin } from '../pages/admin/admin';
 import { PopoverController } from 'ionic-angular';
 import { CreateEvent } from '../pages/admin/create-event/create-event';
 import { EditEvent } from '../pages/admin/edit-event/edit-event';
@@ -80,7 +80,7 @@ export class MyApp {
       { title: 'About', component: AboutPage },                                        // 5 
       { title: 'Contact Us', component: ContactPage },                                 // 6 
       { title: 'Privacy & Terms', component: TermsPage },                              // 7 
-      { title: 'Admin', component: admin },                                            // 8 
+      { title: 'Admin', component: Admin },                                            // 8 
       { title: 'My Groups', component: MyGroupsPage },                                 // 9
       { title: 'Create Group', component: CreateGroupPage },                           // 10 
       { title: 'Group Profile', component: GroupProfilePage }
@@ -263,10 +263,7 @@ showMyGroups()
   private getAndWriteVersionInfo(){
 
     if(this.platform.is('ios') || this.platform.is('android')) {
-      AppVersion.getAppName().then((version) => {
-        this.appName = version;
-        console.log('AppName: ' + this.appName);
-      })
+      // 2018_01_29 tslint change removed block with AppName
       AppVersion.getPackageName().then((pkg) => {
         this.appPkgName = pkg;
         if (this.platform.is('android')) console.log('Package: ' + this.appPkgName);

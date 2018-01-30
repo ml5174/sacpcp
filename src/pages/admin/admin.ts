@@ -4,7 +4,7 @@ import { NavController } from 'ionic-angular';
 @Component({
   templateUrl: 'admin.html'
 })
-export class admin {
+export class Admin {
   constructor(public nav: NavController) {
 
   }
