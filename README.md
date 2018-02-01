@@ -63,7 +63,7 @@
 <br>
 <b>cli packages: </b>(/usr/local/lib/node_modules)<br>
 <br>
-    @ionic/cli-plugin-proxy : 1.5.6<br>
+    @ionic/cli-plugin-proxy : 1.5.7<br>
     @ionic/cli-utils        : 1.19.0<br>
     ionic (Ionic CLI)       : 3.19.1<br>
 <br>
