@@ -48,7 +48,6 @@ export class MyGroupsPage {
 
   ionViewDidLoad(){
  
-    console.log("here is your key: " + this.getKey("key"));
     let myKey: number = 21;
 
     this.getFromStorageStandard().then((result) => {
