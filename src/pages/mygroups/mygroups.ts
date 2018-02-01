@@ -46,12 +46,6 @@ export class MyGroupsPage {
 
   };
 
-  async getKey(key:string): Promise<void>{
-    let value = await this.storage.get(key);
-    return value.toPromise();
-  }
-  
-
   ionViewDidLoad(){
  
     console.log("here is your key: " + this.getKey("key"));
