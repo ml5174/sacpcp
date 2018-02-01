@@ -64,6 +64,8 @@ import { DatePickerCalendar } from '../lib/components/date-picker-calendar/date-
 import { DatePicker } from '../lib/components/date-picker/date-picker.component';
 import { CreateGroupPage } from '../pages/create-group/create-group';
 import { GroupProfilePage } from '../pages/group-profile/group-profile';
+import { EditGroupAttendancePage } from '../pages/edit-group-attendance/edit-group-attendance';
+
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -97,6 +99,7 @@ export function translateFactory(http: HttpClient) {
     RegisterLoginPage,
     RegisterIndividualProfilePage,
     MyGroupsPage,
+    EditGroupAttendancePage,
     UseridPopover,
     PasswordPopover,
     EventSortPopover,

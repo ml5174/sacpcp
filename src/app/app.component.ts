@@ -30,7 +30,7 @@ import { DONATE_URL } from '../lib/provider/config';
 import { AppVersion } from 'ionic-native';
 import { SERVER } from '../lib/provider/config';
 import { GroupProfilePage } from '../pages/group-profile/group-profile';
-
+import { EditGroupAttendancePage } from '../pages/edit-group-attendance/edit-group-attendance';
 declare var window;
 declare var cordova;
 
@@ -289,7 +289,7 @@ showMyGroups()
       this.storage.set('version', version).then((resource) => {
           console.log('Storing Marketing Version: ' + this.appMarketingVersion);
         });
-      let buildNumberNonMobileFE = "_build_number_";
+      let buildNumberNonMobileFE = "1802010307";
       this.storage.set('build', buildNumberNonMobileFE).then((resource) => {
          console.log('Storing Build Version: ' + buildNumberNonMobileFE);
         });
