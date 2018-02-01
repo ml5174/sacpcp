@@ -30,7 +30,7 @@ import { DONATE_URL } from '../lib/provider/config';
 import { AppVersion } from 'ionic-native';
 import { SERVER } from '../lib/provider/config';
 import { GroupProfilePage } from '../pages/group-profile/group-profile';
-
+import { EditGroupAttendancePage } from '../pages/edit-group-attendance/edit-group-attendance';
 declare var window;
 declare var cordova;
 
