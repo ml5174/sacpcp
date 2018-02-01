@@ -65,7 +65,7 @@
 <br>
     @ionic/cli-plugin-proxy : 1.5.6<br>
     @ionic/cli-utils        : 1.19.0<br>
-    ionic (Ionic CLI)       : 3.19.0<br>
+    ionic (Ionic CLI)       : 3.19.1<br>
 <br>
 <b>global packages:</b><br>
 <br>
