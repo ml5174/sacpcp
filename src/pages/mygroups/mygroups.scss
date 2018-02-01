@@ -10,10 +10,11 @@
   }
 }
 
-linked-group {
+.linked-group {
   color: blue;
-  font-style: italic; 
+  text-decoration: underline;
   input[type=submit]:hover{
-    text-decoration:underline;
+    font-style: italic;
+    font-weight: bold;
   }
 }

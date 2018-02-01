@@ -15,7 +15,7 @@ import { NavController } from 'ionic-angular';
   selector: 'myevents'
 })
 
-export class MyEventsPage{
+export class MyEventsPage {
 
     constructor(public nav: NavController,
         public volunteerEventsService: VolunteerEventsService,
@@ -24,7 +24,7 @@ export class MyEventsPage{
         public alertCtrl: AlertController,
         public toastController: ToastController,
         private popoverCtrl: PopoverController,
-              public home: HomePage) {  };
+        public home: HomePage) {  };
 
     result: any;
     eventDetail: EventDetail;

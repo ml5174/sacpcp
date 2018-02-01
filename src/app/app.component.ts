@@ -124,11 +124,12 @@ export class MyApp {
 
     console.log("before ready!"); 
     this.platform.ready().then(() => {
-    console.log("after ready!");
+      console.log("after ready!");
+      if (this.platform.is('core')) console.log("running on desktop browser");
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       if (this.platform.is("ios") || this.platform.is("android")) {	
-	//StatusBar.show();
+	      //StatusBar.show();
       	this.statusBar.overlaysWebView(false);
       	this.statusBar.styleDefault();
       	console.log(StatusBar);
@@ -150,7 +151,8 @@ export class MyApp {
   }
 
   openPage(page, tab) {
-    console.log("open page!");
+    console.log("app.component.ts: opening page");
+  
     let currentPage = this.nav.getActive().component;
 
     // close the menu when clicking a link from the menu

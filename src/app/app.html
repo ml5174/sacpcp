@@ -50,7 +50,7 @@
 			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')">
 				Login 
 			</button>
-			<button ion-item *ngIf="userServices.user.id && userServices.user.profile.accounttype == 'A'" (click)="showAdmin1()">
+			<button ion-item *ngIf="userServices.user.id && userServices.user.profile.accounttype == 'A' && platform.is('ios')" (click)="showAdmin1()">
 				Admin
 			</button>
 			<!--<button ion-item class="sub_menu" *ngIf="showAdmin" (click)="openPage(adminPages[0], '')">
