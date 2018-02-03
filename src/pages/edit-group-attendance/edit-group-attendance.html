@@ -1,18 +1,64 @@
-<!--
-  Generated template for the EditGroupAttendancePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>EditGroupAttendance</ion-title>
-  </ion-navbar>
-
+  <app-header back="true" title="{{this.title}}">
+  </app-header>
 </ion-header>
 
+<ion-content>
+  <section id="attendee-heading">
+      <ion-grid>
+          <ion-row style="font-weight:bold">
+              <ion-col col-3></ion-col>
+              <ion-col col-3>First Name</ion-col>
+              <ion-col col-3>Last Name</ion-col>
+              <ion-col col-3>Attending</ion-col>
+          </ion-row>
+      </ion-grid>
+  </section>
+  <hr/>
+  <section id="attendees">
+      <ion-grid>
+       
+          <div class="bogus-attendees">
+            <ion-row>
+              <ion-col col-3><ion-icon name="person"></ion-icon></ion-col>
+              <ion-col col-3>Michael</ion-col>
+              <ion-col col-3>Shine</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-3><ion-icon name="person"></ion-icon></ion-col>
+              <ion-col col-3>Mac</ion-col>
+              <ion-col col-3>Shane</ion-col>
+            </ion-row>
+          </div>
 
-<ion-content padding>
-
+          <!-- div *ngFor="let attendee of attendees">
+              <ion-row>
+                  <ion-col col-3 *ngIf="this.group.role==1" ><ion-icon name="person"></ion-icon></ion-col>
+                  <ion-col col-3 *ngIf="this.group.role!=1" ><ion-icon name="people"></ion-icon></ion-col>
+                  <ion-col col-3>{{this.group.name}}</ion-col>
+                  <ion-col col-3 class="linked-group" (click)=openGroupProfile(this.group.organization_id)>{{this.group.group}}</ion-col>
+                  <ion-col col-3 *ngIf="this.group.status == 0"><ion-icon name="checkmark"></ion-icon></ion-col>
+                  <ion-col col-3 *ngIf="this.group.status == 1"><ion-icon name="help"></ion-icon></ion-col>
+                  <ion-col col-3 *ngIf="this.group.status == 2"><ion-icon name="remove"></ion-icon></ion-col>
+             </ion-row>
+          </div -->
+      </ion-grid>
+  </section> 
+  
+  <section>
+      <ion-grid>
+          <ion-row>
+              <ion-col></ion-col>
+              <ion-col>
+                  <button ion-button color="primary" (click)="back()">Cancel</button>
+              </ion-col>
+              <ion-col></ion-col>
+              <ion-col>
+                  <button ion-button color="primary">Create Group</button>
+              </ion-col>
+              <ion-col></ion-col>
+          </ion-row>
+      </ion-grid>
+  </section>
 </ion-content>
+
