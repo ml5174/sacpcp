@@ -13,6 +13,7 @@ export class EditGroupAttendancePage {
   public title: String = "Edit Group Attendance";
   public key: number;
   public orgid: number; 
+  public members:Array<any> = [];
   constructor(public navCtrl: NavController, 
               public storage: Storage, 
               public orgServices: OrganizationServices, 
@@ -28,18 +29,19 @@ export class EditGroupAttendancePage {
 
       this.getOrganizationContacts();
     });
-    console.log('ionViewDidLoad EditGroupAttendancePage ' + this.navParams.get('orgid'));
+    console.log('EditGroupAttendancePage ' + this.navParams.get('orgid'));
   }
 
 
   getOrganizationContacts() {
-    console.log("edit-group-attendance: getOrganizationContacts() + " + this.orgid);
-  
     var page = this;  
     this.orgServices.getOrganizationContacts(this.orgid).subscribe(
-      orgcontacts => {
-        
-        console.log("data: " + orgcontacts.members);
+      orgcontacts => {       
+        console.log("orgcontacts: " );
+        for(var member of orgcontacts.members) {
+          console.log("member: " + member);
+          page.members.push(member);
+        }
       },
       err => {
         console.log(err);

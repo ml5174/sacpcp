@@ -49,7 +49,7 @@ export class MyApp {
   username: String = "";
   appName: String = "";
   appPkgName: String = "";
-  appMarketingVersion: String = "";
+  appMarketingVersion: String = "1.0.0"; // Gets overwritten with actual from project if ios or android
   appBuildVersion: String = "";
   serverENV: string = "";
   serverVersionNumber: string = "";
@@ -86,6 +86,7 @@ export class MyApp {
       { title: 'Group Profile', component: GroupProfilePage }
     ];
    
+    // set our app's pages for Administrators, only with desktop ('core') platform browsers   
     this.adminPages = [
       { title: 'Create Event', component: CreateEvent },                               // 0 
       { title: 'Edit Event', component: EditEvent },                                   // 1
@@ -103,9 +104,7 @@ export class MyApp {
     this.storage.get('key')
       .then(
       value => {
-        console.log('key: ' + value);
         if (value) {
-          console.log("value is true, profile call should happen");
           us.setId(value);
           us.getMyProfile().subscribe(
                                  result => result, 
@@ -121,10 +120,8 @@ export class MyApp {
         console.log('username: ' + value);
         if (value) us.user.name = value;
       });
-
-    console.log("before ready!"); 
+ 
     this.platform.ready().then(() => {
-      console.log("after ready!");
       if (this.platform.is('core')) console.log("running on desktop browser");
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -151,8 +148,6 @@ export class MyApp {
   }
 
   openPage(page, tab) {
-    console.log("app.component.ts: opening page");
-  
     let currentPage = this.nav.getActive().component;
 
     // close the menu when clicking a link from the menu
@@ -228,21 +223,20 @@ showMyGroups()
 
 
    private getServerEnv() {
-    console.log('SERVER:' + SERVER);
+    console.log('SERVER: ' + SERVER);
     if (SERVER != 'https://api.volunteers.tsadfw.org') {
       this.serverVersion.getJsonData().subscribe(
        result => {
          this.serverENV=result.ENV_NAME;
          this.serverVersionNumber=result.version;
-         console.log("server environment : "+this.serverENV + '@ ' + this.serverVersionNumber);
          let serverVersionNumber: string = this.serverVersionNumber;
          let serverEnv: string = this.serverENV;
          this.storage.set('serverVersion', serverVersionNumber).then((resource) => {
-          console.log('Storing Server Version: ' + serverVersionNumber);
+          console.log('Server Version: ' + serverVersionNumber);
          });
 
         this.storage.set('serverEnv', serverEnv).then((resource) => {
-          console.log('Storing Server Environment: ' + serverEnv);
+          console.log('Server Environment: ' + serverEnv);
         });
 
         },
@@ -252,7 +246,6 @@ showMyGroups()
           this.storage.set('serverEnv', 'N/A');
         } ,
         () => {
-          console.log('getData completed');
         }
       );
     }
@@ -268,30 +261,28 @@ showMyGroups()
       // 2018_01_29 tslint change removed block with AppName
       AppVersion.getPackageName().then((pkg) => {
         this.appPkgName = pkg;
-        if (this.platform.is('android')) console.log('Package: ' + this.appPkgName);
+        if (this.platform.is('android')) console.log('Package Name: ' + this.appPkgName);
         else console.log('BundleID: ' + this.appPkgName);
       })    
       AppVersion.getVersionNumber().then((marketingVersion) => {
         this.appMarketingVersion = marketingVersion;
-        console.log('Marketing Version: ' + this.appMarketingVersion);
         this.storage.set('version', this.appMarketingVersion.toString()).then((resource) => {
-          console.log('Storing Marketing Version: ' + this.appMarketingVersion);
+          console.log('Marketing Version: ' + this.appMarketingVersion);
         });
       })
       AppVersion.getVersionCode().then((buildVersion) => {
         this.appBuildVersion = buildVersion;
-        console.log('Build Version: ' + this.appBuildVersion);
         this.storage.set('build', this.appBuildVersion.toString()).then((resource) => {
-          console.log('Storing Build Version: ' + this.appBuildVersion);
+          console.log('Build Version: ' + this.appBuildVersion);
         });
       })   
     } else {
       this.storage.set('version', version).then((resource) => {
-          console.log('Storing Marketing Version: ' + this.appMarketingVersion);
+          console.log('version: ' + this.appMarketingVersion);
         });
-      let buildNumberNonMobileFE = "_build_number_";
+      let buildNumberNonMobileFE = "1802030342";
       this.storage.set('build', buildNumberNonMobileFE).then((resource) => {
-         console.log('Storing Build Version: ' + buildNumberNonMobileFE);
+         console.log('build: ' + buildNumberNonMobileFE);
         });
     }
   }

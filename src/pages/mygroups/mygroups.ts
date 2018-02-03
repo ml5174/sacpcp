@@ -50,54 +50,41 @@ export class MyGroupsPage {
 
   
   ngOnInit() {
-    console.log("mygroups: ngOnInit");
-  }
+   }
 
-  ionViewDidLoad() {
-    console.log("mygroups: ionViewWillLoad");
-    
+  ionViewDidLoad() {    
     this.storage.get('key').then((_key) => {
       this.key = _key;
 
       this.loadMyGroups();
-      console.log("groups: after loadMyGroups: " + this.groups.length); 
-  
-      this.loadMyPendingGroups();
-      console.log("groups: after loadMyPendingGroups" + this.groups.length);
     });
   } 
   
   loadMyGroups() {
-    console.log("mygroups: loadMyGropus() + " + this.groups.length);
-    
     var page = this;  
     this.orgServices.getMyOrganizations().subscribe(
       groups => {
         for(var group of groups) {
-          console.log("group: "+ group.name);
+          console.log("org: " + group.name + " group: " + group.group);
           page.groups.push(group);
           page.hasGroups = true;
         } 
-        console.log("user has " + ((page.hasGroups) ? groups.length : "no") + " groups");
+        this.loadMyPendingGroups();
       },
       err => {
         console.log(err);
        this.hasGroups = false;
       },
       () => {
-        console.log("completed processing getMyOrganizations");
       }
     );
   }
    
   loadMyPendingGroups() {
-    console.log("mygroups: loadMyPendingGropus() + " + this.groups.length);
-  
     var page = this;  
     this.orgServices.getMyPendingOrganizations().subscribe(
       groups => {
         for(var group of groups) {
-          console.log("group: "+ group.organization.name);
           let tempGroup: Organization = new Organization();
           tempGroup.name = group.organization.name;
           tempGroup.group = group.organization.group;
@@ -107,20 +94,18 @@ export class MyGroupsPage {
           page.groups.push(tempGroup);
           page.hasGroups = true;
         }
-        console.log("user has " + ((page.hasGroups) ? groups.length : "no") + " pending groups");
       },
       err => {
         console.log(err);
         this.hasGroups = false;
       },
       () => {
-        console.log("completed processing Observable getMyPendingOrganizations");
+        console.log("user has " + ((page.hasGroups) ? page.groups.length : "no") + " groups");
       }
     );
   }
   
   openGroupProfile(org_id) {
-    console.log("mygroups: openGroupProfile");
     console.log("mygroups: openGroupProfile:" + org_id);
     let data = {
       orgid : org_id
@@ -129,8 +114,6 @@ export class MyGroupsPage {
   }
 
   openEditGroupAttendance(org_id) {
-    console.log("mygroups: openEditGroupAttendance");
-    console.log("mygroups: openEditGroupAttendance:" + org_id);
     let data = {
       orgid : org_id
     };
