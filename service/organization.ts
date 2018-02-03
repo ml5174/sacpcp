@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { SERVER } from '../provider/config';
 import { Storage } from '@ionic/storage';
@@ -45,15 +45,20 @@ export class OrganizationServices {
         .catch((error: any) => Observable.throw(error.json().error || 'Server error')); 
     }
     getOrganizationContacts(org_id) {
-        return this.http.get(SERVER + ORGANIZATIONCONTACTS_URI + org_id, this.getOptions())
-        .map(res => res.json())
+        return this.http.get(SERVER + ORGANIZATIONCONTACTS_URI + org_id + '/', this.getOptions())
+        .map((res : Response) => {
+            //console.log("res._body = " + res.toString);
+            return res.json();
+        })
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));  
     }
     getAllOrgNames()
     {
 
         return this.http.get(SERVER + ALL_ORGANIZATIONS_URI, this.getOptions())
-        .map(res => res.json())
+        .map(res => {
+            res.json();
+        })
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
     private handleError(error: any) {
