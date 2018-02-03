@@ -13,12 +13,14 @@ import { AccordionBox } from '../../lib/components/accordion-box';
 import { AlertController } from 'ionic-angular';
 import { CreateGroupPage } from '../create-group/create-group';
 import { GroupProfilePage } from '../group-profile/group-profile';
+import { EditGroupAttendancePage } from '../edit-group-attendance/edit-group-attendance';
 import { Organization } from '../../lib/model/organization';
 import { OrganizationServices } from '../../lib/service/organization';
 import { Storage } from '@ionic/storage';
 import { Platform } from 'ionic-angular';
 
 @Component({
+  selector: 'mygroups',
   templateUrl: 'mygroups.html',
   providers: [ OrganizationServices ]
 })
@@ -46,29 +48,12 @@ export class MyGroupsPage {
 
   };
 
-  ionViewDidLoad(){
- 
-    let myKey: number = 21;
-
-    this.getFromStorageStandard().then((result) => {
-          myKey = result;
-    });
   
-    console.log("key is " + myKey);
-  }
-  
-  getFromStorageStandard(){
-  
-    return this.storage.get('key');
-  
-  }
-  
-
   ngOnInit() {
     console.log("mygroups: ngOnInit");
   }
 
-  ionViewWillLoad() {
+  ionViewDidLoad() {
     console.log("mygroups: ionViewWillLoad");
     
     this.storage.get('key').then((_key) => {
@@ -141,6 +126,15 @@ export class MyGroupsPage {
       orgid : org_id
     };
     this.nav.push(GroupProfilePage, data);
+  }
+
+  openEditGroupAttendance(org_id) {
+    console.log("mygroups: openEditGroupAttendance");
+    console.log("mygroups: openEditGroupAttendance:" + org_id);
+    let data = {
+      orgid : org_id
+    };
+    this.nav.push(EditGroupAttendancePage, data);
   }
 
   presentToast(message: string) {

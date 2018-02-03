@@ -520,15 +520,15 @@ export class EventPage {
     signupEventRegistration(id) {
         console.log("signup for event: " + id);
         let groupOnly: boolean = false;
-        // Event 3396, Food Service Jan 31 4AM, pretend it is group only event
-        if (id == 3396) {
+        // Event 3689, Food Service Jan 31 4AM, pretend it is group only event
+        if (id == 3689) {
           groupOnly = true;
         }
         if (groupOnly) {
           // TODO: We need to see if the logged in user is a group admin
           if (!this.userServices.user.id || this.userServices.user.profile.accounttype != 'A')
           {
-            console.log("event 3396 is hard coded as group only");
+            console.log("event 3689 is hard coded as group only");
             console.log("user is not logged in or not admin");
             console.log("present pop-up that user is not authorized for signing up for this group-only event");
             this.notAuthorizedForGroupOnly(id);

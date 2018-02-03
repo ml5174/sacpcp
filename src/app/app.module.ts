@@ -171,6 +171,7 @@ export function translateFactory(http: HttpClient) {
     MyGroupsPage,
     CreateGroupPage,
     GroupProfilePage,
+    EditGroupAttendancePage,
     EventDetailModal,
     Admin,
     CreateEvent,
