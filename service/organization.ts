@@ -7,7 +7,7 @@ import { NEW_ORGANIZATION_URI } from '../provider/config';
 import { MY_ORGANIZATIONS_URI } from '../provider/config';
 import { ALL_ORGANIZATIONS_URI } from '../provider/config';
 import { MY_PENDING_ORGANIZATIONS_URI } from '../provider/config';
-
+import { ORGANIZATIONCONTACTS_URI } from '../provider/config';
 
 
 @Injectable()
@@ -43,6 +43,11 @@ export class OrganizationServices {
         return this.http.get(SERVER + MY_PENDING_ORGANIZATIONS_URI, this.getOptions())
         .map(res => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error')); 
+    }
+    getOrganizationContacts(org_id) {
+        return this.http.get(SERVER + ORGANIZATIONCONTACTS_URI + org_id, this.getOptions())
+        .map(res => res.json())
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));  
     }
     getAllOrgNames()
     {
