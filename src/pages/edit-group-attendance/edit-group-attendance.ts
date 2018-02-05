@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Organization } from '../../lib/model/organization';
 import { OrganizationServices } from '../../lib/service/organization';
 import { Storage } from '@ionic/storage';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-edit-group-attendance',
@@ -16,6 +17,7 @@ export class EditGroupAttendancePage {
   public members:Array<any> = [];
   constructor(public navCtrl: NavController, 
               public storage: Storage, 
+              public alertCtrl: AlertController,   
               public orgServices: OrganizationServices, 
               public navParams: NavParams) 
   {
@@ -51,11 +53,32 @@ export class EditGroupAttendancePage {
       }
     );
   }
-  
-  
+
+  cancel() {
+    let confirm = this.alertCtrl.create({
+      title: '',
+      cssClass: 'alertReminder',
+      message: 'Event sign-up will NOT be completed if you cancel now.<br><br> Do you still want to cancel?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('No clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log('Yes clicked');
+            //this.nav.push(RegisterIndividualProfilePage,{errorResponse:err});
+          }
+        }
+      ]
+    });
+    confirm.present();   
+  }
 
   back() {
     this.navCtrl.pop();
   }
-
 }
