@@ -36,33 +36,11 @@ export class EditGroupAttendancePage {
     });
   }
 
-  // trackByIndex(index: number, value: number) {
-  //   console.log("index = " + index + ", value = " + value);
-  //   return index;
-  // }
 
   changeAttendingIndicator(member: Member) {
     console.log("changeAttendingIndicator " + member.first_name + " " + member.last_name);
   }
 
-  // changeAttendingIndicator(isAttending, index)
-  // {
-  //   if (isAttending!==''&& isAttending!==null && isAttending!==undefined)
-  //   {
-  //     console.log("isAttending:" + isAttending + ", index:"+ index);
-
-      // if(isAttending ==="Phone"){
-      //   this.rows[index].isPhoneSelected = true;
-      //   this.rows[index].isEmailSelected = false;
-      // }
-      // if (isAttending ==="Email"){
-      //   this.rows[index].isEmailSelected = true;
-      //   this.rows[index].isPhoneSelected = false;
-      // }
-    
-    //}
-
-  //} 
   getOrganizationContacts() { 
     this.orgServices.getOrganizationContacts(this.orgid).subscribe(
       orgcontacts => {       
@@ -76,7 +54,6 @@ export class EditGroupAttendancePage {
           member.mobilenumber = orgMember.mobilenumber;
           member.role = orgMember.role;
           member.isAttending = true; 
-          //console.log(member.first_name + " " + member.last_name + " :" + member.isAttending);
           this.members.push(member);
         }
       },
@@ -84,13 +61,16 @@ export class EditGroupAttendancePage {
         console.log(err);
       },
       () => {
-        console.log("completed processing Observable getOrganizationContacts, # of members " + this.members.length);
+        //console.log("completed processing Observable getOrganizationContacts, # of members " + this.members.length);
       }
     );
   }
 
   cancel() {
-    console.log("cancel, # of members: " + this.members.length);
+    // for (var member of this.members)
+    // { 
+    //   console.log("member: " + member.first_name + " " + member.last_name + " " + member.isAttending );
+    // }
     let confirm = this.alertCtrl.create({
       title: '',
       cssClass: 'alertReminder',
