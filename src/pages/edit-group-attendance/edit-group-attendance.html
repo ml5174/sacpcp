@@ -31,20 +31,18 @@
             </ion-row>
           </div-->
 
-          <div *ngFor="let member of members; let x = index; trackBy:trackByIndex">
+          <div *ngFor="let member of members">
               <ion-row>
                   <ion-col col-3 *ngIf="this.member.role==1" ><ion-icon name="person"></ion-icon></ion-col>
                   <ion-col col-3 *ngIf="this.member.role!=1" ><ion-icon name="people"></ion-icon></ion-col>
                   <ion-col col-3>{{this.member.first_name}}</ion-col>
                   <ion-col col-3>{{this.member.last_name}}</ion-col>
-                  <!-- ion-select [(ngModel)]="row.isActive" name="isActive{{x}}" type ="text" -->
-                  <ion-select (ionChange)="changeAttendingIndicator(member)" [(ngModel)]="this.member.isAttending" id="selectAttendingIndicator" name = isAttending{{x}}>
-                    <ion-option value=true>Yes</ion-option>
-                    <ion-option value=false>No</ion-option>
-                  </ion-select>  
-                  <!-- ion-col col-3 *ngIf="this.member.status == 0"><ion-icon name="checkmark"></ion-icon></ion-col>
-                  <ion-col col-3 *ngIf="this.member.status == 1"><ion-icon name="help"></ion-icon></ion-col>
-                  <ion-col col-3 *ngIf="this.member.status == 2"><ion-icon name="remove"></ion-icon></ion-col -->
+                  <ion-col col-3>
+                    <ion-select (ionChange)="changeAttendingIndicator(member)" [(ngModel)]="this.member.isAttending" id="selectAttendingIndicator" >
+                        <ion-option value=true>Yes</ion-option>
+                        <ion-option value=false>No</ion-option>
+                    </ion-select>  
+                  </ion-col>
              </ion-row>
           </div>
       </ion-grid>
