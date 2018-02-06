@@ -72,6 +72,9 @@ export class EditGroupAttendancePage {
           let member: Member = new Member();
           member.first_name = orgMember.first_name;
           member.last_name = orgMember.last_name;
+          member.email = orgMember.email;
+          member.mobilenumber = orgMember.mobilenumber;
+          member.role = orgMember.role;
           member.isAttending = true; 
           //console.log(member.first_name + " " + member.last_name + " :" + member.isAttending);
           this.members.push(member);
