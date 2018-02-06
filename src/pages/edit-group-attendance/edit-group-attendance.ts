@@ -4,6 +4,7 @@ import { Organization } from '../../lib/model/organization';
 import { OrganizationServices } from '../../lib/service/organization';
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
+import { Member } from '../../lib/model/member';
 
 @Component({
   selector: 'page-edit-group-attendance',
@@ -14,7 +15,8 @@ export class EditGroupAttendancePage {
   public title: String = "Edit Group Attendance";
   public key: number;
   public orgid: number; 
-  public members:Array<any> = [];
+  public orgMembers:Array<any> = [];
+  public members:Array<Member> = [];
   constructor(public navCtrl: NavController, 
               public storage: Storage, 
               public alertCtrl: AlertController,   
@@ -34,15 +36,27 @@ export class EditGroupAttendancePage {
     console.log('EditGroupAttendancePage ' + this.navParams.get('orgid'));
   }
 
+  trackByIndex(index: number, value: number) {
+    console.log("index = " + index + ", value = " + value);
+    return index;
+  }
 
-  getOrganizationContacts() {
-    var page = this;  
+  changeAttendingIndicator(member: Member) {
+    console.log("changeAttendingIndicator " + member.first_name + " " + member.last_name);
+  }
+
+  getOrganizationContacts() { 
     this.orgServices.getOrganizationContacts(this.orgid).subscribe(
       orgcontacts => {       
         console.log("orgcontacts: " );
-        for(var member of orgcontacts.members) {
-          console.log("member: " + member);
-          page.members.push(member);
+        for(var orgMember of orgcontacts.members) {
+          console.log("member: " + orgMember);
+          let member: Member = new Member();
+          member.first_name = orgMember.first_name;
+          member.last_name = orgMember.last_name;
+          member.isAttending = true; 
+          //console.log(member.first_name + " " + member.last_name + " :" + member.isAttending);
+          this.members.push(member);
         }
       },
       err => {
