@@ -26,6 +26,7 @@ export class EditGroupAttendancePage {
   }
 
   ionViewDidLoad() {
+    console.log('EditGroupAttendancePage ' + this.navParams.get('orgid'));
     this.orgid = this.navParams.get('orgid');
     this.title = "Edit Group " + this.navParams.get('orgid') + " attendance";
     this.storage.get('key').then((_key) => {
@@ -33,18 +34,35 @@ export class EditGroupAttendancePage {
 
       this.getOrganizationContacts();
     });
-    console.log('EditGroupAttendancePage ' + this.navParams.get('orgid'));
   }
 
-  trackByIndex(index: number, value: number) {
-    console.log("index = " + index + ", value = " + value);
-    return index;
-  }
+  // trackByIndex(index: number, value: number) {
+  //   console.log("index = " + index + ", value = " + value);
+  //   return index;
+  // }
 
   changeAttendingIndicator(member: Member) {
     console.log("changeAttendingIndicator " + member.first_name + " " + member.last_name);
   }
 
+  // changeAttendingIndicator(isAttending, index)
+  // {
+  //   if (isAttending!==''&& isAttending!==null && isAttending!==undefined)
+  //   {
+  //     console.log("isAttending:" + isAttending + ", index:"+ index);
+
+      // if(isAttending ==="Phone"){
+      //   this.rows[index].isPhoneSelected = true;
+      //   this.rows[index].isEmailSelected = false;
+      // }
+      // if (isAttending ==="Email"){
+      //   this.rows[index].isEmailSelected = true;
+      //   this.rows[index].isPhoneSelected = false;
+      // }
+    
+    //}
+
+  //} 
   getOrganizationContacts() { 
     this.orgServices.getOrganizationContacts(this.orgid).subscribe(
       orgcontacts => {       
@@ -63,12 +81,13 @@ export class EditGroupAttendancePage {
         console.log(err);
       },
       () => {
-        console.log("completed processing Observable getOrganizationContacts");
+        console.log("completed processing Observable getOrganizationContacts, # of members " + this.members.length);
       }
     );
   }
 
   cancel() {
+    console.log("cancel, # of members: " + this.members.length);
     let confirm = this.alertCtrl.create({
       title: '',
       cssClass: 'alertReminder',
