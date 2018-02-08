@@ -39,8 +39,8 @@ export class CreateGroupPage {
   public leave: boolean = false;
   createGroupForm: FormGroup;
   submitAttempt: boolean = false;
-  public orgs: Array<string> = []
-  public filteredList: Array<string> = []
+  public orgs: Array<string> = [];
+  public filteredList: Array<string> = [];
   public showList: boolean
   public isNotBackButton: boolean
   public isGroupFinished: boolean = false;
@@ -211,18 +211,27 @@ export class CreateGroupPage {
       &&org.name!=org.group
     
   }
+
   initializeItems() {
     if (this.orgs.length === 0)
     {
-    var page = this
-    this.orgServices.getAllOrgNames().subscribe(function(response){
-      var u = response;
-      response.forEach(group => {
-      page.orgs.push(group.name);
-      });
-    })
+      var page = this
+      this.orgServices.getAllOrgNames().subscribe(
+        orgs => {
+          for(var org of orgs) {
+            page.orgs.push(org.name);
+            //console.log("org: " + org.organization.name + " group: " + org.organization.group);
+          } 
+        },
+        err => {
+          console.log(err);
+        },
+        () => {
+        }
+      );
+    }
   }
-  }
+  
   resetToOriginalState()
   {
     this.filteredList = this.orgs;
