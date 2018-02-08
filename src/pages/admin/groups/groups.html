@@ -6,14 +6,47 @@
 <ion-content>
  
     
+    <section id="legend-header">
+        <ion-grid>
+       
+            <ion-row>
+                <ion-col col-3>Status Legend</ion-col>
+                <ion-col col-3><ion-icon name="checkmark"></ion-icon> active</ion-col>
+                <ion-col col-3><ion-icon name="help"></ion-icon> pending</ion-col>
+                <ion-col col-3><ion-icon name="remove"></ion-icon> inactive</ion-col>
+            </ion-row>
+        </ion-grid>
+    </section>
+    <hr/>
+
+    <section id="mygroups-list">
+        <ion-grid>
+            <ion-row style="font-weight:bold">
+                <ion-col col-3></ion-col>
+                <ion-col col-3>Organization</ion-col>
+                <ion-col col-3>Group Name</ion-col>
+                <ion-col col-3>Status</ion-col>
+            </ion-row>
+
+            <div *ngFor="let org of orgs">
+                <ion-row>
+                    <ion-col col-3></ion-col>
+                    <ion-col col-3 class="linked-group" (click)="approveGroup(org)">{{org.organization.name}}</ion-col>
+                    <ion-col col-3 class="linked-group" (click)="approveGroup(org)">{{org.organization.group}}</ion-col>
+                    <ion-col col-3 *ngIf="this.org.status == 0"><ion-icon name="checkmark"></ion-icon></ion-col>
+                    <ion-col col-3 *ngIf="this.org.status == 1"><ion-icon name="help"></ion-icon></ion-col>
+                    <ion-col col-3 *ngIf="this.org.status == 2"><ion-icon name="remove"></ion-icon></ion-col>
+               </ion-row>
+            </div>
+        </ion-grid>
+    </section> 
+    
+
+
     <ion-row>
         <ion-col></ion-col>
         <ion-col>
             <button ion-button color="primary" (click)="back()">Cancel</button>
-        </ion-col>
-        <ion-col></ion-col>
-        <ion-col>
-            <button ion-button color="primary">Create Group</button>
         </ion-col>
         <ion-col></ion-col>
     </ion-row>
