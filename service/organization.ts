@@ -79,12 +79,12 @@ export class OrganizationServices {
     
     getAllOrgNames()
     {
-
         return this.http.get(SERVER + ALL_ORGANIZATIONS_URI, this.getOptions())
-        .map(res => {
-            res.json();
+        .map((res : Response) => {
+            console.log("res._body = " + res.toString);
+            return res.json();
         })
-        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));  
     }
     private handleError(error: any) {
         let errMsg = error._body;
