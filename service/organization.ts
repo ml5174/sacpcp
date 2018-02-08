@@ -8,12 +8,17 @@ import { MY_ORGANIZATIONS_URI } from '../provider/config';
 import { ALL_ORGANIZATIONS_URI } from '../provider/config';
 import { MY_PENDING_ORGANIZATIONS_URI } from '../provider/config';
 import { ORGANIZATIONCONTACTS_URI } from '../provider/config';
-
+import { GET_ORGREQUESTS_REQUESTED_URI } from '../provider/config';
+import { APPROVE_ORGANIZATION_URI } from '../provider/config';
 
 @Injectable()
 export class OrganizationServices {
 	public key:String;
     
+    private approve: any = {
+        status: <number>{}        
+    };
+
 	constructor(private http:Http, public storage:Storage) {
 		storage.get('key')
 			.then(key => this.key = key)
@@ -52,6 +57,26 @@ export class OrganizationServices {
         })
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));  
     }
+
+    getOrgRequestsRequested() {
+        return this.http.get(SERVER + GET_ORGREQUESTS_REQUESTED_URI, this.getOptions())
+        .map((res : Response) => {
+            //console.log("res._body = " + res.toString);
+            return res.json();
+        })
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));  
+    }
+
+    approveOrganization(org_id): Observable<any> {
+        //let status2 = '{"status": 2}';
+        this.approve.status = 2;
+        //console.log("status2: " + this.approve);
+        //console.log("URL:" + SERVER + APPROVE_ORGANIZATION_URI + org_id+"/");
+        return this.http.put(SERVER + APPROVE_ORGANIZATION_URI + org_id+"/", this.approve, this.getOptions())
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+    
     getAllOrgNames()
     {
 
