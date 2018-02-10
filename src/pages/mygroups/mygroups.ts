@@ -113,9 +113,11 @@ export class MyGroupsPage {
     this.nav.push(GroupProfilePage, data);
   }
 
-  openEditGroupAttendance(org_id) {
+  openEditGroupAttendance(org_id, org_name, group_name) {
     let data = {
-      orgid : org_id
+      orgid : org_id,
+      orgname : org_name,
+      groupname : group_name
     };
     this.nav.push(EditGroupAttendancePage, data);
   }
