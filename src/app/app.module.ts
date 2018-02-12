@@ -64,6 +64,7 @@ import { DatePicker } from '../lib/components/date-picker/date-picker.component'
 import { CreateGroupPage } from '../pages/create-group/create-group';
 import { GroupProfilePage } from '../pages/group-profile/group-profile';
 import { EditGroupAttendancePage } from '../pages/edit-group-attendance/edit-group-attendance';
+import {GroupAttendeeModal} from '../modals/group-attendee-modal';
 
 
 export const deepLinkConfig: DeepLinkConfig = {
@@ -128,7 +129,8 @@ export function translateFactory(http: HttpClient) {
     RecoverSuccessPage,
     DatePickerCalendar,
     DatePicker,
-    TestingPage
+    TestingPage,
+    GroupAttendeeModal
   ],
   imports: [
     BrowserModule,
@@ -185,6 +187,7 @@ export function translateFactory(http: HttpClient) {
     DatePickerCalendar,
     DatePicker,
     TestingPage,
+    GroupAttendeeModal
   ],
   providers: [StatusBar, SplashScreen, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService, SignupAssistant, MessageServices]
 })

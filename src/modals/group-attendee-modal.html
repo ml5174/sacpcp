@@ -1,0 +1,55 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">Close</button>
+        </ion-buttons>
+        <ion-title>Group Attendee</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-list>
+        <ion-item-group>
+            <ion-item>
+                <ion-label color="primary" stacked>First Name</ion-label>
+                <ion-input placeholder="First Name"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label color="primary" stacked>Last Name</ion-label>
+                <ion-input placeholder="Last Name"></ion-input>
+            </ion-item>
+        </ion-item-group>
+        <ion-list radio-group [(ngModel)]="contactType">
+            <ion-list-header>
+                Contact Type:
+            </ion-list-header>
+            <ion-item>
+                <ion-label>Mobile</ion-label>
+                <ion-radio value="mobile"></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label>Email</ion-label>
+                <ion-radio value="Email"></ion-radio>
+            </ion-item>
+        </ion-list>
+    </ion-list>
+<ion-list>        
+        <ion-item>
+          <ion-label>Attending</ion-label>
+          <ion-select [(ngModel)]="tmp">
+            <ion-option value="yes">Yes</ion-option>
+            <ion-option value="no">No</ion-option>
+          </ion-select>
+        </ion-item>
+</ion-list>        
+
+
+
+    <button ion-button color="secondary" (click)="dismiss()">Cancel</button>
+    <button ion-button color="primary" (click)="dismiss()">Save</button>
+
+</ion-content>
