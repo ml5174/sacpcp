@@ -31,10 +31,10 @@
             </ion-row>
           </div-->
 
-          <div *ngFor="let member of members">
+          <div *ngFor="let member of members; index as i">
               <ion-row>
                   <ion-col col-3 *ngIf="this.member.role==1" ><ion-icon name="person"></ion-icon></ion-col>
-                  <ion-col col-3 *ngIf="this.member.role!=1" ><ion-icon name="people"></ion-icon></ion-col>
+                  <ion-col col-3 *ngIf="this.member.role!=1" ><ion-icon name="people" (click)="manageAttendee(i)"></ion-icon></ion-col>
                   <ion-col col-3>{{this.member.first_name}}</ion-col>
                   <ion-col col-3>{{this.member.last_name}}</ion-col>
                   <ion-col col-3>
@@ -53,11 +53,14 @@
           <ion-row>
               <ion-col></ion-col>
               <ion-col>
-                  <button ion-button color="primary" (click)="cancel()">Cancel</button>
+                  <button ion-button color="secondary" (click)="cancel()">Cancel</button>
               </ion-col>
               <ion-col></ion-col>
               <ion-col>
                   <button ion-button color="primary">Finish</button>
+              </ion-col> 
+              <ion-col>
+                  <button ion-button color="primary" (click)="manageAttendee(-1)">Add Attendee</button>
               </ion-col>
               <ion-col></ion-col>
           </ion-row>
