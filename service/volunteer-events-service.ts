@@ -171,6 +171,10 @@
 
         checkMyEvents(eventId: string): Observable<any>{
             this.event.event_id = eventId; 
+            this.event.notification_schedule = 0;
+            this.event.overlap_override = true;
+            this.event.notification_option = 0;
+            console.log("event:" + JSON.stringify(this.event));
             return this.http.post(SERVER + CHECK_MY_EVENTS_URI,this.event, this.getOptions())
                 .map(res => res.json())
                 .catch((error: any) => Observable.throw(error || 'Server error'));
