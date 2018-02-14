@@ -6,14 +6,24 @@ import {Member} from '../lib/model/member';
   templateUrl: 'group-attendee-modal.html'
 })
 export class GroupAttendeeModal {
-  //attendee : Member;
+  attendee : Member;
   tmp: string;
 
   constructor(public viewController: ViewController, public params: NavParams) {
-        console.log("Constructor");
-        this.tmp = params.get('attendee');
+      //let temp = params.get('attendee');
+     // this.attendee = params.get('attendee');
+      //  console.log("Passed param: " + temp.first_name);
+        this.attendee = (params.get('attendee')) ? params.get('attendee') : new Member();
     }
 dismiss() {
     this.viewController.dismiss();
   }
+  
+save() {
+    console.log('During Save' + this.attendee);
+    let data = this.attendee;
+    this.viewController.dismiss(data);
+    
+}  
+  
 }

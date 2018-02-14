@@ -15,15 +15,15 @@
         <ion-item-group>
             <ion-item>
                 <ion-label color="primary" stacked>First Name</ion-label>
-                <ion-input placeholder="First Name"></ion-input>
+                <ion-input [(ngModel)]="attendee.first_name" placeholder="First Name" stacked></ion-input>
             </ion-item>
 
             <ion-item>
                 <ion-label color="primary" stacked>Last Name</ion-label>
-                <ion-input placeholder="Last Name"></ion-input>
+                <ion-input [(ngModel)]="attendee.last_name"  placeholder="Last Name" stacked></ion-input>
             </ion-item>
         </ion-item-group>
-        <ion-list radio-group [(ngModel)]="contactType">
+        <ion-list radio-group [(ngModel)]="attendee.contactType">
             <ion-list-header>
                 Contact Type:
             </ion-list-header>
@@ -36,13 +36,16 @@
                 <ion-radio value="Email"></ion-radio>
             </ion-item>
         </ion-list>
+            <ion-item>
+                <ion-input [(ngModel)]="attendee.contactString" placeholder="Mobile/Email" stacked></ion-input>
+            </ion-item>
     </ion-list>
 <ion-list>        
         <ion-item>
           <ion-label>Attending</ion-label>
-          <ion-select [(ngModel)]="tmp">
-            <ion-option value="yes">Yes</ion-option>
-            <ion-option value="no">No</ion-option>
+          <ion-select [(ngModel)]="attendee.isAttending">
+            <ion-option value="true">Yes</ion-option>
+            <ion-option value="false">No</ion-option>
           </ion-select>
         </ion-item>
 </ion-list>        
@@ -50,6 +53,6 @@
 
 
     <button ion-button color="secondary" (click)="dismiss()">Cancel</button>
-    <button ion-button color="primary" (click)="dismiss()">Save</button>
+    <button ion-button color="primary" (click)="save()">Save</button>
 
 </ion-content>
