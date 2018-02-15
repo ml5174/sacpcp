@@ -105,12 +105,17 @@ export class EditGroupAttendancePage {
           
       let myModal = this.modalControl.create(GroupAttendeeModal, {attendee: attendee});
       myModal.onDidDismiss(data => {
-          if (data instanceof Member) {
-              console.log(data);
-              this.members.push(data);
+          if (data) {
+              console.log(data.mobilenumber);
+              if(attendeeIndex >=0) {
+                  this.members[attendeeIndex] = data;
+              }
+              else {
+                  this.members.push(data);
+              }
           }
-          else {
-              console.log("No member");
+          else {  //TODO: REMOVE this after testing - not needed
+              console.log("No member: " + data.mobilenumber);
           }
    });      
    myModal.present();

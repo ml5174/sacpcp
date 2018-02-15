@@ -56,7 +56,7 @@ import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.com
 import { RecoverSuccessPage } from '../pages/recover-success/recover-success';
 import { TestingPage } from '../pages/testing/testing';
 //Added for text-mask, phone number formatting
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MessageServices } from '../lib/service/message';
 import { DatePickerCalendar } from '../lib/components/date-picker-calendar/date-picker-calendar.component';
@@ -147,6 +147,7 @@ export function translateFactory(http: HttpClient) {
         }),
     //Added for text-mask, for phone number formatting
     FormsModule,
+    ReactiveFormsModule,
     TextMaskModule
   ],
   bootstrap: [IonicApp],

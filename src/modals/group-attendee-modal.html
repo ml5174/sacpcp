@@ -10,40 +10,43 @@
 </ion-header>
 
 
-<ion-content>
-    <ion-list>
-        <ion-item-group>
+<ion-content [formGroup]="attendeeForm">
+    
+<ion-list>
+<ion-item>Form value: {{ attendeeForm.value | json }}</ion-item>
+<ion-item>Form status: {{ attendeeForm.status | json }}</ion-item>        
+<ion-item-group>
             <ion-item>
                 <ion-label color="primary" stacked>First Name</ion-label>
-                <ion-input [(ngModel)]="attendee.first_name" placeholder="First Name" stacked></ion-input>
+                <ion-input required minlength="4" formControlName="first_name"
+                           placeholder="First Name" stacked></ion-input>
             </ion-item>
-
             <ion-item>
                 <ion-label color="primary" stacked>Last Name</ion-label>
-                <ion-input [(ngModel)]="attendee.last_name"  placeholder="Last Name" stacked></ion-input>
+                <ion-input  placeholder="Last Name" formControlName="last_name" stacked></ion-input>
             </ion-item>
         </ion-item-group>
-        <ion-list radio-group [(ngModel)]="attendee.contactType">
+        <ion-list radio-group formControlName="contactMethod" ngDefaultControl>
             <ion-list-header>
                 Contact Type:
             </ion-list-header>
             <ion-item>
                 <ion-label>Mobile</ion-label>
-                <ion-radio value="mobile"></ion-radio>
+                <ion-radio  value="1"></ion-radio>
             </ion-item>
             <ion-item>
                 <ion-label>Email</ion-label>
-                <ion-radio value="Email"></ion-radio>
+                <ion-radio value="2"></ion-radio>
             </ion-item>
         </ion-list>
             <ion-item>
-                <ion-input [(ngModel)]="attendee.contactString" placeholder="Mobile/Email" stacked></ion-input>
+                <ion-input formControlName="contactString" placeholder="Mobile/Email" ngDefaultControl stacked></ion-input>
             </ion-item>
     </ion-list>
 <ion-list>        
         <ion-item>
-          <ion-label>Attending</ion-label>
-          <ion-select [(ngModel)]="attendee.isAttending">
+          <ion-label color="primary">Attending</ion-label>
+          <ion-select ngDefaultControl formControlName="isAttending">
             <ion-option value="true">Yes</ion-option>
             <ion-option value="false">No</ion-option>
           </ion-select>
@@ -53,6 +56,6 @@
 
 
     <button ion-button color="secondary" (click)="dismiss()">Cancel</button>
-    <button ion-button color="primary" (click)="save()">Save</button>
+    <button ion-button color="primary" [disabled]="attendeeForm.invalid" (click)="save()">Save</button>
 
 </ion-content>
