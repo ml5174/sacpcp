@@ -24,11 +24,6 @@
         NOTE: your lib subfolder of src needs to be named lib
         If you failed to give the lib argument as target name, then rename the lib folder to lib
 ####  Development Environment Setup - Secondary
-1.      At this point you could run Thaddeus's npm command:
-        npm run setup https://github.com/githubusername/sacpcp.git
-        where githubusername is your username on github
-        See npm_setup.md for more information
-1.      -OR- do the detailed steps that follow:
 1.      cd lib
 1.      Set the upstream master for lib:
         git remote add upstream https://github.com/ml5174/savi-lib.git
@@ -39,13 +34,16 @@
         git remote add upstream https://github.com/ml5174/sacpcp.git
 1.      git checkout master
 1.      git pull upstream master
-1.      Once you cloned the repo to your desktop and have node installed you need to cd to the project and type:
+1.      Once you cloned the repo to your desktop and<br>
+        have node installed you need to cd to the project and type:
         npm install
-1.      Now install cordova and ionic. if on macOS, you may need to prefix this command with sudo and add --unsafe-perm=true as install option:<br>
-        npm install -g cordova@latest
-        npm install -g ionic@latest
-        npm install -g @ionic/cli-utils@latest
-        npm install @ionic/app-scripts@latest
+1.      Now install cordova and ionic.<br>
+        if on macOS, you may need to prefix this command<br>
+        with sudo and add --unsafe-perm=true as install option:<br>
+        npm install -g cordova@8.0.0
+        npm install -g ionic@3.19.1
+        npm install -g @ionic/cli-utils@1.19.1
+        npm install @ionic/app-scripts@3.1.4
 
 
 ### Launching the application
