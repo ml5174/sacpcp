@@ -39,9 +39,12 @@
                 <ion-radio value="2"></ion-radio>
             </ion-item>
         </ion-list>
-            <ion-item>
-                <ion-input formControlName="contactString" placeholder="Mobile/Email" ngDefaultControl stacked></ion-input>
+            <ion-item  *ngIf="attendeeForm.value.contactMethod == 2">
+                <ion-input formControlName="contactString" placeholder="email@address.com" ngDefaultControl stacked></ion-input>
             </ion-item>
+            <phone-input-reactive *ngIf="attendeeForm.value.contactMethod == 1">
+    
+            </phone-input-reactive>
     </ion-list>
 <ion-list>        
         <ion-item>

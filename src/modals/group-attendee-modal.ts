@@ -2,8 +2,7 @@ import {Component} from '@angular/core';
 import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 import {ViewController, NavParams} from 'ionic-angular';
 import {Member} from '../lib/model/member';
-
-
+import {PhoneInputReactive} from '../lib/components/phone-input-reactive.component';
 
 @Component({
     templateUrl: 'group-attendee-modal.html'
@@ -84,7 +83,8 @@ export class GroupAttendeeModal {
                 first_name: ['', Validators.required],
                 contactString: '',
                 contactMethod: ['', Validators.required],
-                isAttending: ['true', Validators.required]
+                isAttending: ['true', Validators.required],
+                email: ['', Validators.email]
             }
         );
         if (this.attendee.last_name) {  //for now, an existing attendee will have this field filled in; probably a cleaner way to do this

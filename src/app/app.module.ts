@@ -35,6 +35,7 @@ import { Admin } from '../pages/admin/admin';
 import { AppHeaderComponent } from '../lib/components/app-header.component';
 import { HomeTab } from '../lib/components/home-tab';
 import { PhoneInput } from '../lib/components/phone-input.component';
+import { PhoneInputReactive } from '../lib/components/phone-input-reactive.component';
 import { AccordionBox } from '../lib/components/accordion-box';
 import { PrivacyTermsContent } from '../lib/components/privacy-terms-content';
 import { IonicStorageModule } from '@ionic/storage';
@@ -117,6 +118,7 @@ export function translateFactory(http: HttpClient) {
     EventDetailPopup,
     ContactMethod,
     PhoneInput,
+    PhoneInputReactive,
     Admin,
     CreateEvent,
     EditEvent,
