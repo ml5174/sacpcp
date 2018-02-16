@@ -34,12 +34,12 @@
         git remote add upstream https://github.com/ml5174/sacpcp.git
 1.      git checkout master
 1.      git pull upstream master
-1.      Once you cloned the repo to your desktop and<br>
+1.      Once you cloned the repo to your desktop and  
         have node installed you need to cd to the project and type:
         npm install
-1.      Now install cordova and ionic.<br>
-        if on macOS, you may need to prefix this command<br>
-        with sudo and add --unsafe-perm=true as install option:<br>
+1.      Now install cordova and ionic.  
+        if on macOS, you may need to prefix this command  
+        with sudo and add --unsafe-perm=true as install option:  
         npm install -g cordova@8.0.0
         npm install -g ionic@3.19.1
         npm install -g @ionic/cli-utils@1.19.1
@@ -47,59 +47,59 @@
 
 
 ### Launching the application
-*	If all went well, you should be able to launch the application to your default browser:<br>
-        ionic serve<br>
-	Also try<br>
+*	If all went well, you should be able to launch the application to your default browser:  
+        ionic serve  
+	Also try  
         ionic lab
 
-*	If on macOS, then try adding ios platform:<br>
+*	If on macOS, then try adding ios platform:  
         ionic cordova platform add ios
-*	You may also try adding android platform:<br>
+*	You may also try adding android platform:  
         ionic cordova platform add android
         
 ### If having issues, then check your software installation versions with ionic info and npm --version output:
-<br>
-<b>cli packages: </b>(/usr/local/lib/node_modules)<br>
-<br>
-    @ionic/cli-plugin-proxy : 1.5.7<br>
-    @ionic/cli-utils        : 1.19.0<br>
-    ionic (Ionic CLI)       : 3.19.1<br>
-<br>
-<b>global packages:</b><br>
-<br>
-    cordova (Cordova CLI) : 7.1.0<br>
-<br>
-<b>local packages:</b><br>
-<br>
-    @ionic/app-scripts : 3.0.1<br>
-    Cordova Platforms  : android 6.3.0 ios 4.5.2<br>
-    Ionic Framework    : ionic-angular 3.7.1<br>
-<br>
-<b>System:</b><br>
-<br>
-    Android SDK Tools : 26.1.1<br>
-    ios-deploy        : 1.9.2<br>
-    ios-sim           : 6.1.2<br>
-    Node              : v8.6.0<br>
-    npm               : 5.5.1<br>
-    OS                : macOS High Sierra<br>
-    Xcode             : Xcode 9.2 Build version 9C40b<br>
-<br>
-<b>Environment Variables:</b><br>
-<br>
-    ANDROID_HOME     : /Users/ms8342/Library/Android/sdk<br>
-    HTTP_PROXY       : not set<br>
-    http_proxy       : not set<br>
-    HTTPS_PROXY      : not set<br>
-    https_proxy      : not set<br>
-    IONIC_HTTP_PROXY : not set<br>
-    PROXY            : not set<br>
-    proxy            : not set<br>
-<br>
-<b>Misc:</b><br>
-<br>
-    backend : legacy<br>
-<br>
+  
+<b>cli packages: </b>(/usr/local/lib/node_modules)  
+  
+    @ionic/cli-plugin-proxy : 1.5.7  
+    @ionic/cli-utils        : 1.19.0  
+    ionic (Ionic CLI)       : 3.19.1  
+  
+<b>global packages:</b>  
+   
+    cordova (Cordova CLI) : 7.1.0  
+  
+<b>local packages:</b>  
+  
+    @ionic/app-scripts : 3.0.1  
+    Cordova Platforms  : android 6.3.0 ios 4.5.2  
+    Ionic Framework    : ionic-angular 3.7.1  
+   
+<b>System:</b>  
+  
+    Android SDK Tools : 26.1.1  
+    ios-deploy        : 1.9.2  
+    ios-sim           : 6.1.2   
+    Node              : v8.6.0   
+    npm               : 5.5.1  
+    OS                : macOS High Sierra  
+    Xcode             : Xcode 9.2 Build version 9C40b  
+  
+<b>Environment Variables:</b>  
+  
+    ANDROID_HOME     : /Users/ms8342/Library/Android/sdk  
+    HTTP_PROXY       : not set  
+    http_proxy       : not set  
+    HTTPS_PROXY      : not set  
+    https_proxy      : not set  
+    IONIC_HTTP_PROXY : not set  
+    PROXY            : not set  
+    proxy            : not set  
+  
+<b>Misc:</b>  
+  
+    backend : legacy  
+  
 
 Android SDK Tools is given above because ANDROID_HOME environment variable is set
 ### See CONTRIBUTING.md for detailed git operations where developers follow a preferred workflow with pull requests to upstream master coming from their github forks and managing branches, including master, on both their fork from which the pull requests originate as well as their local working copy
