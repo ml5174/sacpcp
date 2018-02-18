@@ -31,20 +31,22 @@
                 Contact Type:
             </ion-list-header>
             <ion-item>
-                <ion-label>Mobile</ion-label>
-                <ion-radio  value="1"></ion-radio>
+                <ion-label>Use Mobile</ion-label>
+                <ion-radio value="1"></ion-radio>
             </ion-item>
             <ion-item>
-                <ion-label>Email</ion-label>
+                <ion-label>Use Email</ion-label>
                 <ion-radio value="2"></ion-radio>
             </ion-item>
         </ion-list>
-            <ion-item  *ngIf="attendeeForm.value.contactMethod == 2">
-                <ion-input formControlName="contactString" placeholder="email@address.com" ngDefaultControl stacked></ion-input>
+            <ion-item *ngIf="attendeeForm.value.contactMethod == 2">
+                <ion-label color="primary">email</ion-label>
+                <ion-input formControlName="contactString" placeholder="email@address.com"></ion-input>
             </ion-item>
-            <phone-input-reactive *ngIf="attendeeForm.value.contactMethod == 1">
-    
-            </phone-input-reactive>
+            <ion-item *ngIf="attendeeForm.value.contactMethod == 1">
+                <ion-label color="primary" >Mobile</ion-label>
+                <ion-input formControlName="contactString" placeholder="(123)456-0000"></ion-input>
+            </ion-item>
     </ion-list>
 <ion-list>        
         <ion-item>

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
+import {FormGroup, FormControl, Validators, FormBuilder, ValidatorFn} from '@angular/forms';
 import {ViewController, NavParams} from 'ionic-angular';
 import {Member} from '../lib/model/member';
 import {PhoneInputReactive} from '../lib/components/phone-input-reactive.component';
@@ -31,15 +31,9 @@ export class GroupAttendeeModal {
         ]
     }
 
-
-
-
     constructor(public viewController: ViewController, public params: NavParams, private fb: FormBuilder) {
        this.attendee = (params.get('attendee')) ? params.get('attendee') : new Member(); // the caller should pass a Member no matter what but just in case...
     }
-    
-    
-    
     
     dismiss() {
         this.viewController.dismiss();
@@ -54,12 +48,12 @@ export class GroupAttendeeModal {
             status: this.attendee.status || 0,
             role: this.attendee.role || 0,
             contactMethod: formModel.contactMethod as number,
-            isContactSelected: this.attendee.isContactSelected,
-            isPhoneSelected: this.attendee.isPhoneSelected,
-            isEmailSelected: this.attendee.isEmailSelected,
+            isContactSelected: formModel.contactMethod == 1 || formModel.contactMethod == 2,
+            isPhoneSelected: formModel.contactMethod == 1,
+            isEmailSelected: formModel.contactMethod == 2,
             contactString: formModel.contactString as string,
-            mobilenumber: 6302440857, //formModel.contactString as number,
-            email: formModel.contactString as string,
+            mobilenumber: formModel.contactMethod == 1 ? formModel.contactString.replace(/\D+/g, '').slice(0,10) : null,
+            email: formModel.contactMethod == 2 ? formModel.contactString : null,
             isAdmin: 0,
             isActive: 1,
             ext_id: this.attendee.ext_id   
@@ -67,45 +61,57 @@ export class GroupAttendeeModal {
         return saveAttendee;
     }
     
-
     save() {
         this.attendee = this.prepareSaveAttendee();
-        console.log('During Save:\n' + this.attendee.mobilenumber);
+        //console.log('During Save:\n' + this.attendee.mobilenumber);
 
         this.viewController.dismiss(this.attendee);
 
     }
-
+    
     ngOnInit(): void {
         this.attendeeForm = this.fb.group(
             {
                 last_name: ['', Validators.required],
                 first_name: ['', Validators.required],
                 contactString: '',
-                contactMethod: ['', Validators.required],
                 isAttending: ['true', Validators.required],
-                email: ['', Validators.email]
+                contactMethod: ''
+            },
+            {
+                validator: mobileXorEmailValidator()
             }
         );
-        if (this.attendee.last_name) {  //for now, an existing attendee will have this field filled in; probably a cleaner way to do this
+        if (this.attendee.last_name) {
             this.attendeeForm.setValue({
                 first_name: this.attendee.first_name,
                 last_name: this.attendee.last_name,
-                //status: this.attendee.status,
-                //role: this.attendee.role,
-                //isContactSelected: this.attendee.isContactSelected,
-                //isPhoneSelected: this.attendee.isPhoneSelected,
-                //isEmailSelected: this.attendee.isEmailSelected,
                 contactString: this.attendee.contactString,
-                //mobilenumber: this.attendee.mobilenumber,
-                //email: this.attendee.email,
-                //isAdmin: this.attendee.isAdmin,
-                //isActive: this.attendee.isActive,
-                //ext_id: this.attendee.ext_id,
                 contactMethod: this.attendee.contactMethod,
-                isAttending: this.attendee.isAttending
-                
+                isAttending: this.attendee.isAttending                
             });
         }
     }
+}
+
+export function mobileXorEmailValidator(): ValidatorFn {
+    return(group: FormGroup): {[key: string]: any} => {
+        let contactMethod = group.controls['contactMethod'].value;
+        if(contactMethod == 1) {  //mobile
+            let phoneEntry : string = group.controls['contactString'].value;
+            console.log('phoneEntry: ' + group.controls['contactString'].value);
+            let numberRegex: RegExp = /\d{10}/g;
+            console.log('replace complete: ' + phoneEntry.replace(/\D+/g, '').slice(0,10) );
+            return ( numberRegex.test(phoneEntry.replace(/\D+/g, '').slice(0,10)) ) ? null : {mobileContactInvalid: true};
+                
+        }
+        else if(contactMethod == 2) { //email
+            return Validators.email(group.controls['contactString']);
+        }
+        else {
+            return { noContactMethodSelected: true };
+        }
+        
+    }
+    
 }
