@@ -14,7 +14,8 @@
     
 <ion-list>
 <ion-item>Form value: {{ attendeeForm.value | json }}</ion-item>
-<ion-item>Form status: {{ attendeeForm.status | json }}</ion-item>        
+<ion-item>Form status: {{ attendeeForm.status | json }}</ion-item> 
+<ion-item>Form validations: {{attendeeForm.errors | json }}</ion-item>
 <ion-item-group>
             <ion-item>
                 <ion-label color="primary" stacked>First Name</ion-label>
@@ -58,8 +59,7 @@
         </ion-item>
 </ion-list>        
 
-
-
+    <button *ngIf="!isAddition && attendee.isTypeAttendee" ion-button color="tertiary" (click)="dismiss()">Delete</button>
     <button ion-button color="secondary" (click)="dismiss()">Cancel</button>
     <button ion-button color="primary" [disabled]="attendeeForm.invalid" (click)="save()">Save</button>
 
