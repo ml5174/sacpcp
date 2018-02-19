@@ -15,8 +15,11 @@ export class EditGroupAttendancePage {
   public title: String = "Edit Group Attendance";
   public key: number;
   public orgid: number; 
+  public orgname: String;
+  public groupname: String;
   public orgMembers:Array<any> = [];
   public members:Array<Member> = [];
+  public others:Array<Member> = [];
   constructor(public navCtrl: NavController, 
               public storage: Storage, 
               public alertCtrl: AlertController,   
@@ -29,7 +32,9 @@ export class EditGroupAttendancePage {
   ionViewDidLoad() {
     console.log('EditGroupAttendancePage ' + this.navParams.get('orgid'));
     this.orgid = this.navParams.get('orgid');
-    this.title = "Edit Group " + this.navParams.get('orgid') + " attendance";
+    this.orgname = this.navParams.get('orgname');
+    this.groupname = this.navParams.get('groupname');
+    this.title = "Edit Group " + this.orgname + " " + this.groupname + " attendance";
     this.storage.get('key').then((_key) => {
       this.key = _key;
 
@@ -120,4 +125,8 @@ export class EditGroupAttendancePage {
    });      
    myModal.present();
   }     
+
+  addAttendee() {
+    console.log("edit-group-attendance: addAttendee");
+  }
 }
