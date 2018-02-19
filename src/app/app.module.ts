@@ -54,10 +54,9 @@ import { EventSortPipe, PreferencePipe, OpportunityPipe } from '../lib/pipe/even
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
 import { RecoverSuccessPage } from '../pages/recover-success/recover-success';
-//import {PopoverController } from 'ionic-angular';
-//import {Component} from '@angular/core';
+import { TestingPage } from '../pages/testing/testing';
 //Added for text-mask, phone number formatting
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MessageServices } from '../lib/service/message';
 import { DatePickerCalendar } from '../lib/components/date-picker-calendar/date-picker-calendar.component';
@@ -65,6 +64,7 @@ import { DatePicker } from '../lib/components/date-picker/date-picker.component'
 import { CreateGroupPage } from '../pages/create-group/create-group';
 import { GroupProfilePage } from '../pages/group-profile/group-profile';
 import { EditGroupAttendancePage } from '../pages/edit-group-attendance/edit-group-attendance';
+import {GroupAttendeeModal} from '../modals/group-attendee-modal';
 
 
 export const deepLinkConfig: DeepLinkConfig = {
@@ -128,7 +128,9 @@ export function translateFactory(http: HttpClient) {
     PrivacyTermsContent,
     RecoverSuccessPage,
     DatePickerCalendar,
-    DatePicker
+    DatePicker,
+    TestingPage,
+    GroupAttendeeModal
   ],
   imports: [
     BrowserModule,
@@ -145,6 +147,7 @@ export function translateFactory(http: HttpClient) {
         }),
     //Added for text-mask, for phone number formatting
     FormsModule,
+    ReactiveFormsModule,
     TextMaskModule
   ],
   bootstrap: [IonicApp],
@@ -184,6 +187,8 @@ export function translateFactory(http: HttpClient) {
     RecoverSuccessPage,
     DatePickerCalendar,
     DatePicker,
+    TestingPage,
+    GroupAttendeeModal
   ],
   providers: [StatusBar, SplashScreen, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService, SignupAssistant, MessageServices]
 })
