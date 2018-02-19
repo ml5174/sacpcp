@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, ModalController } from 'ionic-angular';
 import { Organization } from '../../lib/model/organization';
 import { OrganizationServices } from '../../lib/service/organization';
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import { Member } from '../../lib/model/member';
-
+import {GroupAttendeeModal} from '../../modals/group-attendee-modal';
 @Component({
   selector: 'page-edit-group-attendance',
   templateUrl: 'edit-group-attendance.html',
@@ -24,7 +24,8 @@ export class EditGroupAttendancePage {
               public storage: Storage, 
               public alertCtrl: AlertController,   
               public orgServices: OrganizationServices, 
-              public navParams: NavParams) 
+              public navParams: NavParams,
+              public modalControl: ModalController) 
   {
   }
 
@@ -102,6 +103,28 @@ export class EditGroupAttendancePage {
   back() {
     this.navCtrl.pop();
   }
+  
+  manageAttendee(attendeeIndex: number) {
+      console.log("manageAttendee");
+      let attendee = (attendeeIndex >= 0) ? this.members[attendeeIndex] : new Member();
+          
+      let myModal = this.modalControl.create(GroupAttendeeModal, {attendee: attendee});
+      myModal.onDidDismiss(data => {
+          if (data) {
+              console.log(data.mobilenumber);
+              if(attendeeIndex >=0) {
+                  this.members[attendeeIndex] = data;
+              }
+              else {
+                  this.members.push(data);
+              }
+          }
+          else {  //TODO: REMOVE this after testing - not needed
+              console.log("No member: " + data.mobilenumber);
+          }
+   });      
+   myModal.present();
+  }     
 
   addAttendee() {
     console.log("edit-group-attendance: addAttendee");
