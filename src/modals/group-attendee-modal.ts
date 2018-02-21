@@ -1,10 +1,12 @@
 import {Component} from '@angular/core';
-import {FormGroup, FormControl, Validators, FormBuilder, ValidatorFn} from '@angular/forms';
+import {FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl} from '@angular/forms';
 import {ViewController, NavParams} from 'ionic-angular';
 import {Member} from '../lib/model/member';
-
+import {ValidationErrorPipe} from '../lib/pipe/validationerrormap.pipe';
 @Component({
-    templateUrl: 'group-attendee-modal.html'
+    templateUrl: 'group-attendee-modal.html',
+    selector: 'group-attendee-modal',
+    providers: [ValidationErrorPipe]
 })
 export class GroupAttendeeModal {
     attendee: Member;
@@ -36,7 +38,8 @@ export class GroupAttendeeModal {
     dismiss() {
         this.viewController.dismiss();
     }
-    delete() {
+    delete() {  // TODO: may need a confirm dialog but this should be easy enough to recover from
+        this.attendee.isActive = 0; // this field is a number but has a boolean-type name
         this.viewController.dismiss();
     }
     
@@ -100,26 +103,37 @@ export class GroupAttendeeModal {
             this.isAddition = true;
         }
     }
+    
+    displayFormControlError(controlName: string): boolean {
+     return this.attendeeForm.controls[controlName].invalid && 
+         (this.attendeeForm.controls[controlName].dirty || this.attendeeForm.controls[controlName].touched);
+    }
 }
 
 export function mobileXorEmailValidator(): ValidatorFn {
     return(group: FormGroup): {[key: string]: any} => {
         let contactMethod = group.controls['contactMethod'].value;
+        let control : AbstractControl = group.controls['contactString'];
         if(contactMethod == 1) {  //mobile
-            let phoneEntry : string = group.controls['contactString'].value;
-            //console.log('phoneEntry: ' + group.controls['contactString'].value);
-            let numberRegex: RegExp = /\d{10}/g;
-            //console.log('replace complete: ' + phoneEntry.replace(/\D+/g, '').slice(0,10) );
-            return ( numberRegex.test(phoneEntry.replace(/\D+/g, '').slice(0,10)) ) ? null : {mobileContactInvalid: "Mobile Number is Invalid"};
-                
+            control.clearValidators();
+            control.setValidators(mobilePhoneValidator());
+            return null        
         }
         else if(contactMethod == 2) { //email
-            return Validators.email(group.controls['contactString']);
+            control.clearValidators();
+            control.setValidators(Validators.email);
+            return null;
         }
         else {
             return { noContactMethodSelected: "You must select a method for contacting you" };
         }
-        
     }
-    
+}
+
+export function mobilePhoneValidator(): ValidatorFn {
+    return(control: AbstractControl): {[key: string]: any} => {
+       let phoneEntry : string = control.value;
+       let numberRegex: RegExp = /\d{10}/g;
+       return ( numberRegex.test(phoneEntry.replace(/\D+/g, '').slice(0,10)) ) ? null : {mobileContactInvalid: "Mobile Number is Invalid"};
+    }
 }
