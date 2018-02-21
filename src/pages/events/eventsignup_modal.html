@@ -1,0 +1,126 @@
+<ion-header>
+    <!--
+  <ion-navbar class="navbar-background" hideBackButton="true">
+   
+  </ion-navbar> -->
+    <ion-toolbar>
+        <img class="imageIcon" height="65px" width="65px" src="assets/img/SAVE_logo.svg">
+        <div class="title1">{{eventData.title}}</div>
+        <div class="title2">{{eventData.description}}</div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid *ngIf="!showGroups && isGroupAdmin && !showMembers">
+        <ion-item>
+            <p>Would you like to sign up as:</p>
+        </ion-item>
+        <ion-row radio-group [(ngModel)]="signupType" (ionChange)="updateButtonText(signupType)">
+            <ion-col>
+                <ion-item>
+                    <ion-label>Individual</ion-label>
+                    <ion-radio value="individual"></ion-radio>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item>
+                    <ion-label>Group</ion-label>
+                    <ion-radio value="group" disabled="isGroupAdmin"></ion-radio>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid *ngIf="showGroups && isGroupAdmin">
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-label>Organization</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item>
+                    <ion-label>Group Name</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                
+            </ion-col>
+        </ion-row>
+        <ion-row radio-group [(ngModel)]="selectedGroup" *ngFor="let org of myOrgs">
+            <ion-col>
+                <ion-item>
+                <ion-label>{{org.name}}</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item>
+                <ion-label>{{org.group}}</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item>
+                <ion-radio value="{{org.org_id}}"></ion-radio>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid *ngIf="showMembers && isGroupAdmin">
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-label>First Name</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item>
+                    <ion-label>Last Name</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item>
+                    <ion-label>Attending</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let contacts of orgContacts">
+            <ion-col>
+                <ion-item>
+                    <ion-label>{{contacts.contact.first_name}}</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item>
+                    <ion-label>{{contacts.contact.last_name}}</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item>
+                    <ion-checkbox [(ngModel)]="contacts.checked" value="contacts" checked="true" (ionChange)="updateMembers(contacts)"></ion-checkbox>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <div *ngIf="!isGroupAdmin">
+        <ion-row>
+            <ion-item>
+                <p>Group event signup is for admins only</p>
+            </ion-item>
+        </ion-row>
+    </div>
+</ion-content>
+<ion-footer class="action-footer">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <button class="savi-padded" ion-button item-start color="primary" (click)="dismiss()">Cancel</button>
+                <!--    <button class="savi-padded" ion-button item-start color="primary" *ngIf="signupType=='individual'" >Finish</button>
+                <button class="savi-padded" ion-button item-start color="primary" *ngIf="signupType=='individual'" >Finish</button> -->
+                <button class="savi-padded" ion-button item-start color="primary" *ngIf="!showMembers && !showGroups && (signupType=='individual' || signupType=='group')"
+                    (click)="submit(signupType)">{{submitText}}</button>
+                <button class="savi-padded" ion-button item-start color="primary" *ngIf="showMembers && !showGroups" (click)="doGroupSignUp()">Finish</button>
+                <button class="savi-padded" ion-button item-start color="primary" *ngIf="showMembers && !showGroups" (click)="addAttendee(selectedGroup)">Add Attendee</button>
+                <button class="savi-padded" ion-button item-start color="primary" *ngIf="showGroups" (click)="getOrgContacts(selectedGroup)">{{submitText}}</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

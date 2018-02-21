@@ -56,7 +56,6 @@
             <ion-card-content>
                 <ion-list-header (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">
                     <!-- Highlight in blue event 3396 Food Service Jan 31 4AM -->
-                    <h2 *ngIf="e.id == '3396'" style="color: blue; ">{{e.title}}</h2>
                     <h2 *ngIf="e.id != '3396'">{{e.title}}</h2>
                 </ion-list-header>
                 <ion-list no-lines>
@@ -66,9 +65,15 @@
                         </ion-item>
                         <ion-item>
                             <p >{{e.description}}</p>
-                           
+                        
                         </ion-item>
                         </span>
+                      <ion-item>
+                        <ion-icon *ngIf="e.eventexpanded.org_restriction == '0' || e.eventexpanded.org_restriction == '3'" item-start name="person"></ion-icon>
+                        <ion-icon *ngIf="e.eventexpanded.org_restriction == '0' || e.eventexpanded.org_restriction == '1' || e.eventexpanded.org_restriction == '2' " item-start name="people"></ion-icon>
+                        <p *ngIf="e.eventexpanded.org_restriction == '0'">Groups & Individuals</p>
+                        <p *ngIf="e.eventexpanded.org_restriction == '1'">Groups Only</p>
+                    </ion-item>   
                     <ion-item>
                         <ion-icon item-start name="calendar"></ion-icon>
                         <!--p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p-->
@@ -95,7 +100,7 @@
                     </ion-item>
                     <ion-item *ngIf="userServices.user.id">
                         <button ion-button item-start small color="primary" (click)="eventDetailModal(e.id)">Details</button>
-                        <button ion-button item-end small color="primary" *ngIf="!amISignedUp(e.id)" (click)="signupEventRegistration(e.id)">Sign up</button>
+                        <button ion-button item-end small color="primary" *ngIf="!amISignedUp(e.id)" (click)="signupEventRegistration(e.id, e.eventexpanded.org_restriction, e)">Sign up</button>
                         <button ion-button item-end small color="primary" *ngIf="amISignedUp(e.id)" (click)="cancelEventRegisteration(e.id)">Cancel Sign-Up</button>
                     </ion-item>
                 </ion-list>

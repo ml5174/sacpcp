@@ -4,6 +4,7 @@ import { VolunteerEventsService } from '../../lib/service/volunteer-events-servi
 import { EventImage } from '../../lib/model/eventImage';
 import { UserServices } from '../../lib/service/user';
 import { EventDetailModal } from './eventdetail-modal';
+import { EventSignupModal } from './eventsignup_modal';
 import { ModalController, ViewController } from 'ionic-angular';
 import { PopoverController, ToastController, LoadingController } from 'ionic-angular';
 import { OpportunityPipe } from '../../lib/pipe/eventsortpipe';
@@ -26,7 +27,7 @@ import { OrganizationServices } from '../../lib/service/organization';
 @Component({
   templateUrl: 'events.html',
   selector: 'events',
-  providers:[ParseTimePipe, OpportunityPipe, PreferencePipe, OrganizationServices]
+  providers: [ParseTimePipe, OpportunityPipe, PreferencePipe, OrganizationServices]
 })
 
 export class EventPage {
@@ -45,11 +46,11 @@ export class EventPage {
   public minEvents: Array<VolunteerEvent> = [];
   public stubEvents: Array<VolunteerEvent> = [];
   public monthNames: Array<String> = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"];
+    "July", "August", "September", "October", "November", "December"];
 
- // public preferenceModel: Array<MyPreferences> = [];
- // public currentPreferences: Array<MyPreferences> = [];
- // public selectedSort: string = '';
+  // public preferenceModel: Array<MyPreferences> = [];
+  // public currentPreferences: Array<MyPreferences> = [];
+  // public selectedSort: string = '';
   public image: Array<EventImage>;
   public val: string = "";
   public values: Array<String>;
@@ -61,7 +62,7 @@ export class EventPage {
   public moreInterval = 30;
   public moreIntervalIncrease = 30;
 
-  public eventCategories:Array<String> = [];
+  public eventCategories: Array<String> = [];
   public getPreferencesError = false;
   // datepicker
   public selectedStartDate;
@@ -75,7 +76,7 @@ export class EventPage {
   // preferences
   public myPreferencesObservable;
   public myPreferences;
-
+  public myOrganizations;
   public mapQueryStart: String;
   public mapQueryEnd: String;
 
@@ -84,17 +85,17 @@ export class EventPage {
   constructor(public volunteerEventsService: VolunteerEventsService,
     public userServices: UserServices,
     public modalCtrl: ModalController,
-    public platform: Platform, 
+    public platform: Platform,
     private popoverCtrl: PopoverController,
     public viewCtrl: ViewController,
     public loadingController: LoadingController,
     private parseTimePipe: ParseTimePipe,
-    public alertCtrl: AlertController,    
+    public alertCtrl: AlertController,
     public toastController: ToastController,
     public orgServices: OrganizationServices,
     public signupassitant: SignupAssistant,
     public nav: Nav
-    ) {
+  ) {
   }
 
   ngOnInit() {
@@ -108,10 +109,11 @@ export class EventPage {
     this.currentEndDate = this.selectedEndDate.slice();
     // this.loadEvents();
     this.volunteerEventsService.getEventCategories().subscribe(
-      data => this.eventCategories=data,
-      error => this.getPreferencesError=true
+      data => this.eventCategories = data,
+      error => this.getPreferencesError = true
     );
     // get preferences
+
     this.myPreferencesObservable = this.userServices.getMyPreferences();
 
     this.myPreferencesObservable.subscribe({
@@ -130,33 +132,17 @@ export class EventPage {
 
     this.mapQueryStart = GOOGLE_MAP_QUERY;
     this.mapQueryEnd = "'";
-    if(this.platform.is('ios')) {
+    if (this.platform.is('ios')) {
       this.mapQueryStart = APPLE_MAP_QUERY;
       this.mapQueryEnd = '';
     }
-
-  }
-
-  ionViewWillEnter() {
-    console.log("events: ionViewWillEnter():");
-    this.orgServices.getMyOrganizations().subscribe(function(response){
-      var u = response;
-      if (response.length > 0) {
-        console.log("You have at least 1 group");
-        this.isGroupAdmin = true;
-      }
-      response.forEach(group => {
-      //page.orgs.push(group.name);
-      console.log("group: "+ group.name);
-      });
-    })
   }
 
   onStartDateChange(evt) {
     let date = Moment(evt);
     if (evt === this.currentStartDate) {
       return;
-    }else {
+    } else {
       this.currentStartDate = evt;
       if (date.isAfter(Moment(this.selectedEndDate))) {
         this.dateRangeError = true;
@@ -213,7 +199,7 @@ export class EventPage {
       let perPage = this.filteredEvents.length - this.displayedEvents.length;
       if (perPage > 10) perPage = 10;
       for (let i = beginIndex; i < perPage + beginIndex; i++) {
-        this.displayedEvents.push( this.filteredEvents[i] );
+        this.displayedEvents.push(this.filteredEvents[i]);
       }
 
       infiniteScroll.complete();
@@ -250,94 +236,113 @@ export class EventPage {
     */
   }
 
-  showMoreEvents(){
+  showMoreEvents() {
     this.moreInterval += this.moreIntervalIncrease;
     this.loadEvents();
   }
-/*
-  eventDetailGuestPopup(id) {
-    let eventDetailGuestPopup = this.popoverCtrl.create(EventDetailPopup, {
-      "id": id,
-      "registered": false,
-      "guestUser": true
-    }, {cssClass: 'detail-popover'});
-    let ev = {
-      target : {
-        getBoundingClientRect : () => {
-          return {
-            top: '200'
-          };
+  /*
+    eventDetailGuestPopup(id) {
+      let eventDetailGuestPopup = this.popoverCtrl.create(EventDetailPopup, {
+        "id": id,
+        "registered": false,
+        "guestUser": true
+      }, {cssClass: 'detail-popover'});
+      let ev = {
+        target : {
+          getBoundingClientRect : () => {
+            return {
+              top: '200'
+            };
+          }
         }
-      }
-    };
-    eventDetailGuestPopup.present({ev});
-  }
- 
-   eventDetailPopup(id){
-    let eventDetailPopup = this.popoverCtrl.create(EventDetailPopup, {
-      "id": id,
-      "guestUser": false,
-      "registered": this.amISignedUp(id)
-    }, {cssClass: 'detail-popover'});
-
-    let ev = {
-  target : {
-    getBoundingClientRect : () => {
-      return {
-        top: '200'
       };
+      eventDetailGuestPopup.present({ev});
     }
-  }
-};
-    eventDetailPopup.present({ev});
-  }
-*/
-
- eventDetailGuestModal(id) {
-    let eventDetailGuestPopup = this.modalCtrl.create(EventDetailModal, 
-    {
-      "id": id,
-      "registered": false,
-      "guestUser": true
-    });
-  /*  let ev = {
-      target : {
-        getBoundingClientRect : () => {
-          return {
-            top: '200'
-          };
-        }
+   
+     eventDetailPopup(id){
+      let eventDetailPopup = this.popoverCtrl.create(EventDetailPopup, {
+        "id": id,
+        "guestUser": false,
+        "registered": this.amISignedUp(id)
+      }, {cssClass: 'detail-popover'});
+  
+      let ev = {
+    target : {
+      getBoundingClientRect : () => {
+        return {
+          top: '200'
+        };
       }
-    };*/
+    }
+  };
+      eventDetailPopup.present({ev});
+    }
+  */
+
+  eventDetailGuestModal(id) {
+    let eventDetailGuestPopup = this.modalCtrl.create(EventDetailModal,
+      {
+        "id": id,
+        "registered": false,
+        "guestUser": true
+      });
+    /*  let ev = {
+        target : {
+          getBoundingClientRect : () => {
+            return {
+              top: '200'
+            };
+          }
+        }
+      };*/
     eventDetailGuestPopup.present(/*{ev}*/);
   }
 
-   eventDetailModal(id){
+  eventDetailModal(id) {
     let eventDetailPopup = this.modalCtrl.create(EventDetailModal, {
       "id": id,
       "guestUser": false,
       "registered": this.amISignedUp(id)
     });
 
- /*   let ev = {
-  target : {
-    getBoundingClientRect : () => {
-      return {
-        top: '200'
-      };
-    }
-  }
-    };*/
+    /*   let ev = {
+     target : {
+       getBoundingClientRect : () => {
+         return {
+           top: '200'
+         };
+       }
+     }
+       };*/
     eventDetailPopup.present(/*{ev}*/);
   }
 
+  eventSignupModal(event_data, is_admin) {
 
- 
+    let eventsignupPopup = this.modalCtrl.create(EventSignupModal, {
+      "event_data": event_data,
+      "is_admin":is_admin
+    });
+
+    /*   let ev = {
+     target : {
+       getBoundingClientRect : () => {
+         return {
+           top: '200'
+         };
+       }
+     }
+       };*/
+    eventsignupPopup.present(/*{ev}*/);
+  }
+
+
+
   onCancel(event: any) {
     this.search = false;
   }
- getItems(ev: any) {
-    if(ev.target.value == undefined){
+  getItems(ev: any) {
+    if (ev.target.value == undefined) {
       ev.target.value = '';
     }
     this.searching = true;
@@ -353,53 +358,54 @@ export class EventPage {
     if (this.val && this.val.trim() != '') {
 
 
-/*          if(this.isPreferenceSelected(this.selectedPreferences) == 1 || this.isPreferenceSelected(this.selectedPreferences) == 2 || this.isPreferenceSelected(this.selectedPreferences) == 3 ){
-         
-      this.preferenceSearch();
-        }else{ */
-              for (var i = 0; i < this.values.length; ++i) {
-                
-                    this.searchedEvents = this.searchedEvents.filter((item) => {
-                    let d = new Date(item.start);
-                    let month = this.monthNames[d.getMonth()];
-                    let year  = d.getUTCFullYear().toString();
-                    let time = this.parseTimePipe.transform(item.start.toString(), 'h:mm A');
+      /*          if(this.isPreferenceSelected(this.selectedPreferences) == 1 || this.isPreferenceSelected(this.selectedPreferences) == 2 || this.isPreferenceSelected(this.selectedPreferences) == 3 ){
+               
+            this.preferenceSearch();
+              }else{ */
+      for (var i = 0; i < this.values.length; ++i) {
 
-                      return ((item.description !=null &&
-                        (item.description.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
-                         (item.title !=null &&
-                        (item.title.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))  ||
-                        (item.location_name !=null &&
-                        (item.location_name.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))  ||
-                        (item.id !=null &&
-                        (item.id.toString().toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))  ||
-                        (item.location_address1 !=null &&
-                        (item.location_address1.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
-                        (item.location_city !=null &&
-                        (item.location_city.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
-                        (item.location_state !=null &&
-                        (item.location_state.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
-                        (item.location_zipcode !=null &&
-                        (item.location_zipcode.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
-                        (item.location_address2 !=null &&
-                        (item.location_address2.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
-                        (time !=null &&
-                        (time.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))||
-                        (d.getUTCDate().toString() !=null &&
-                        (d.getUTCDate().toString().toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))||
-                        (month.toString() !=null &&
-                        (month.toString().toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
-                        (year.toString() !=null &&
-                        (year.toString().toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))
-                        )});
+        this.searchedEvents = this.searchedEvents.filter((item) => {
+          let d = new Date(item.start);
+          let month = this.monthNames[d.getMonth()];
+          let year = d.getUTCFullYear().toString();
+          let time = this.parseTimePipe.transform(item.start.toString(), 'h:mm A');
 
-                  }
-                  this.loadFirstPageOfDisplayedEvents();
-                 //   this.searchedEvents.map(Array, this.sortPipe.transform(this.searchedEvents, this.selectedSort));
-                 // this.pipe.transform(this.searchedEvents, this.selectedSort);
+          return ((item.description != null &&
+            (item.description.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (item.title != null &&
+              (item.title.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (item.location_name != null &&
+              (item.location_name.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (item.id != null &&
+              (item.id.toString().toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (item.location_address1 != null &&
+              (item.location_address1.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (item.location_city != null &&
+              (item.location_city.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (item.location_state != null &&
+              (item.location_state.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (item.location_zipcode != null &&
+              (item.location_zipcode.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (item.location_address2 != null &&
+              (item.location_address2.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (time != null &&
+              (time.toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (d.getUTCDate().toString() != null &&
+              (d.getUTCDate().toString().toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (month.toString() != null &&
+              (month.toString().toLowerCase().indexOf(this.values[i].toLowerCase()) > -1)) ||
+            (year.toString() != null &&
+              (year.toString().toLowerCase().indexOf(this.values[i].toLowerCase()) > -1))
+          )
+        });
 
-     //  }
-      if (this.searchedEvents.length==0){
+      }
+      this.loadFirstPageOfDisplayedEvents();
+      //   this.searchedEvents.map(Array, this.sortPipe.transform(this.searchedEvents, this.selectedSort));
+      // this.pipe.transform(this.searchedEvents, this.selectedSort);
+
+      //  }
+      if (this.searchedEvents.length == 0) {
         this.noResults = true;
       }
     } else {
@@ -425,7 +431,7 @@ export class EventPage {
   }
 
   onOppTypeChange(event) {
-    this.loadFirstPageOfDisplayedEvents();  
+    this.loadFirstPageOfDisplayedEvents();
   }
 
   loadFirstPageOfDisplayedEvents() {
@@ -442,7 +448,7 @@ export class EventPage {
     if (perPage > 10) perPage = 10;
     for (var index = 0; index < perPage; index++) {
       var element = this.filteredEvents[index];
-      this.displayedEvents.push(element);      
+      this.displayedEvents.push(element);
     }
   }
 
@@ -477,23 +483,23 @@ export class EventPage {
   getEventsTimeRange(minTime, maxTime) {
     this.volunteerEventsService
       .getVolunteerEventsTimeRange(minTime, maxTime).subscribe(
-        events => {
-          this.events = events;
-        }, err => {
-          this.hideLoading();
-          console.log(err);
-        },
-        () => {
-          this.searchedEvents = this.events;
-          this.loadFirstPageOfDisplayedEvents();
-          this.hideLoading();
-          if (this.searchedEvents.length == 0) {
-            this.noResults = true;
-          }
+      events => {
+        this.events = events;
+      }, err => {
+        this.hideLoading();
+        console.log(err);
+      },
+      () => {
+        this.searchedEvents = this.events;
+        this.loadFirstPageOfDisplayedEvents();
+        this.hideLoading();
+        if (this.searchedEvents.length == 0) {
+          this.noResults = true;
         }
+      }
       );
   }
-    getFutureEvents(minTime, maxTime) {
+  getFutureEvents(minTime, maxTime) {
     this.volunteerEventsService
       .getVolunteerEventsTimeRange(minTime, maxTime).subscribe(
       events => this.stubEvents = events,
@@ -514,11 +520,21 @@ export class EventPage {
       }
     }
     return false;
+  }
+
+  //TODO: pass in eventLevel for handling 
+  signupEventRegistration(id, eventLevel, e) {
+  
+    let admin = false;
+    for(let i in this.myPreferences.organizations){
+      if(this.myPreferences.organizations[i].role == 1 || this.myPreferences.organizations[i].role == 2 ){
+        admin = true;
+      }else{
+        admin = false
+      }
     }
-     
-   
-    signupEventRegistration(id) {
-        console.log("signup for event: " + id);
+    console.log("LIIP: " + admin);
+    /*    console.log("signup for event: " + eventLevel);
         let groupOnly: boolean = false;
         // Event 3396, Food Service Jan 31 4AM, pretend it is group only event
         if (id == 3396) {
@@ -543,104 +559,133 @@ export class EventPage {
           }
         }
 
-        console.log("events.ts.signupEventRegistration(id): " + this.userServices.user.id + " " + this.userServices.user.name);
-        
-        
-        this.signupassitant.setCurrentEventId(id);
-        this.volunteerEventsService
-            .checkMyEvents(id).subscribe(
-            res => {  
-                this.signupassitant.signupEventRegistration();
-            },
-            err => {
-                console.log(err);
-                if(err._body.indexOf("Event registration is full") > 0){
-                  let confirm = this.alertCtrl.create({
-                        title: '',
-                        cssClass: 'alertReminder',
-                        message: 'Event Registration is full. We encourage you to search for similar events scheduled.',
-                        buttons: [
-                            {
-                                text: 'Ok',
-                                handler: () => {
-                                    console.log('Ok, clicked');
-                                }
-                            }
-                        ]
-                    });
-                    confirm.present();
-                }else{
-                  let confirm = this.alertCtrl.create({
-                          title: '',
-                          cssClass: 'alertReminder',
-                          message: 'YOU have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the About Me page?',
-                          buttons: [
-                              {
-                                  text: 'No',
-                                  handler: () => {
-                                      console.log('No clicked');
-                                  }
-                              },
-                              {
-                                  text: 'Yes',
-                                  handler: () => {
-                                      console.log('Yes clicked');
-                                      this.nav.push(RegisterIndividualProfilePage,{errorResponse:err});
-                                  }
-                              }
-                          ]
-                  });
-                  confirm.present();
-                }
-            });      
-    }
-   
-    cancelEventRegisteration(id) {  
-        console.log("events.ts: cancelEventRegistration: invoke signupassistant");    
-        this.signupassitant.cancelEventRegisteration(id);     
-    }
+        console.log("events.ts.signupEventRegistration(id): " + this.userServices.user.id + " " + this.userServices.user.name); */
+    if (eventLevel == 1) {
 
-    alertUserLoginRegister(eventId) {
-      console.log("bring up alert control for register or login", eventId);
-      let confirm = this.alertCtrl.create({
+      //TODO: Event only Logic
+      //IF USER is not The leader of any group
+      
+      if (!admin) {
+        let confirm = this.alertCtrl.create({
           title: '',
           cssClass: 'alertReminder',
-          message: 'Only registered users can sign up for events.', 
-          buttons:[
-              {
-                text: 'Register',
-                handler: () => {
-                  console.log("register clicked", eventId);
-                  this.nav.push(RegisterLoginPage)
-                }
-              },
-              {
-                text:'Login',
-                handler: () => {
-                  console.log("login clicked", eventId);
-                  this.nav.push(LoginPage)
-                }
-              }
-          ]
-      });
-      confirm.present();
-    }
-
-    notAuthorizedForGroupOnly(id) {
-      console.log("notAuthorizedForGroupOnly");
-      let confirm = this.alertCtrl.create({
-          title: '',
-          cssClass: 'alertReminder',
-          message: 'You are not eligible for this event sign up (GROUP ONLY):' + id,
+          message: 'Group event sign-up is only available to Group Admins.',
           buttons: [
-              {
-                  text: 'OK',
-                  handler: () => {
-                      console.log('OK clicked');
-                  }
+            {
+              text: 'Ok',
+              handler: () => {
+
               }
+            }
           ]
-      });
-      confirm.present();
+        });
+        confirm.present();
+
+      }else{
+
+        this.eventSignupModal(e, admin);
+      }
+
+    }else{
+      //Continue with existing logic
+      this.signupassitant.setCurrentEventId(id);
+      this.volunteerEventsService
+        .checkMyEvents(id).subscribe(
+        res => {
+          this.signupassitant.signupEventRegistration();
+        },
+        err => {
+          console.log(err);
+          // this.signupassitant.signupEventRegistration();
+          if (err._body.indexOf("Event registration is full") > 0) {
+            let confirm = this.alertCtrl.create({
+              title: '',
+              cssClass: 'alertReminder',
+              message: 'Event Registration is full. We encourage you to search for similar events scheduled.',
+              buttons: [
+                {
+                  text: 'Ok',
+                  handler: () => {
+                    console.log('Ok, clicked');
+                  }
+                }
+              ]
+            });
+            confirm.present();
+          } else {
+            let confirm = this.alertCtrl.create({
+              title: '',
+              cssClass: 'alertReminder',
+              message: 'YOU have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the About Me page?',
+              buttons: [
+                {
+                  text: 'No',
+                  handler: () => {
+                    console.log('No clicked');
+                  }
+                },
+                {
+                  text: 'Yes',
+                  handler: () => {
+                    console.log('Yes clicked');
+                    this.nav.push(RegisterIndividualProfilePage, { errorResponse: err });
+                  }
+                }
+              ]
+            });
+            confirm.present();
+          }
+        });
+
+    }
+  }
+
+  cancelEventRegisteration(id) {
+    console.log("events.ts: cancelEventRegistration: invoke signupassistant");
+    this.signupassitant.cancelEventRegisteration(id);
+  }
+  //To-Do pass in the value as to whether an event is group only or not
+  alertUserLoginRegister(eventId, eventLevel) {
+    console.log("bring up alert control for register or login", eventId);
+    let confirm = this.alertCtrl.create({
+      title: '',
+      cssClass: 'alertReminder',
+      message: 'Only registered users can sign up for events.',
+      buttons: [
+        {
+          text: 'Register',
+          handler: () => {
+            console.log("register clicked", eventId);
+            this.nav.push(RegisterLoginPage)
+          }
+        },
+        {
+          text: 'Login',
+          handler: () => {
+            console.log("login clicked", eventId);
+            this.nav.push(LoginPage)
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  notAuthorizedForGroupOnly(id) {
+    console.log("notAuthorizedForGroupOnly");
+    let confirm = this.alertCtrl.create({
+      title: '',
+      cssClass: 'alertReminder',
+      message: 'You are not eligible for this event sign up (GROUP ONLY):' + id,
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            console.log('OK clicked');
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 }
