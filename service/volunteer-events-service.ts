@@ -189,6 +189,7 @@ export class VolunteerEventsService {
         this.event.event_id = param;
     }
 
+<<<<<<< HEAD
     checkMyEventsNew(eventId: string): Observable<any> {
         this.event.event_id = eventId;
         this.setNotificationOption(0);
@@ -197,5 +198,17 @@ export class VolunteerEventsService {
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
+=======
+        checkMyEvents(eventId: string): Observable<any>{
+            this.event.event_id = eventId; 
+            this.event.notification_schedule = 0;
+            this.event.overlap_override = true;
+            this.event.notification_option = 0;
+            console.log("event:" + JSON.stringify(this.event));
+            return this.http.post(SERVER + CHECK_MY_EVENTS_URI,this.event, this.getOptions())
+                .map(res => res.json())
+                .catch((error: any) => Observable.throw(error || 'Server error'));
+        }
+>>>>>>> 1e79804a6fb6eceac62a901ac3ad407bff143a2a
 
 }

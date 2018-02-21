@@ -1,11 +1,12 @@
 export class Contact{
+    //CONTACT_METHODS: enum = { none, mobile, text };
     first_name: string
     last_name: string
     status: number
     role: number
-    isContactSelected: boolean
-    isPhoneSelected: boolean
-    isEmailSelected: boolean
+    isContactSelected: boolean = false;
+    isPhoneSelected: boolean = false;
+    isEmailSelected: boolean = false;
     contactString: string
     mobilenumber: number
     email: string
