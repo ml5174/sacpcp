@@ -26,7 +26,8 @@ export const EVENT_CATEGORIES_URI = '/api/v0.2/events/categories';
 export const NEW_ORGANIZATION_URI = '/api/v0.2/accounts/orgrequests/';
 export const ALL_ORGANIZATIONS_URI = '/api/v0.2/accounts/organizationnames/';
 export const MY_ORGANIZATIONS_URI = '/api/v0.2/accounts/myorganizations/';
-
+export const MY_ORG_CONTACTS_URI = '/api/v0.2/accounts/organizationcontacts/';
+export const GET_MYORG_REG_EVENT_URI = '/api/v0.2/events/orgregistrations/';
 export const CHECK_MY_EVENTS_URI = '/api/v0.2/events/checkmyevents/';
 export const APPLE_MAP_QUERY = 'https://maps.apple.com/?address=';
 export const GOOGLE_MAP_QUERY = 'https://www.google.com/maps/search/?api=1&query=\'';
