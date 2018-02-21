@@ -55,5 +55,11 @@ cat > sed.VERSION_CODE << EOF
 s?_build_number_?${VERSION_CODE}?g 
 EOF
 
+read -p "Do you want to update the _build_number_ placeholder with what it shall be? " -n 1 -r
+echo   
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+fi
 sed -i.bak -f sed.VERSION_CODE src/app/app.component.ts 
  
