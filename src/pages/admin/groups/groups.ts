@@ -13,6 +13,7 @@ import { AccordionBox } from '../../lib/components/accordion-box';
 import { AlertController } from 'ionic-angular';
 import { Organization } from '../../../lib/model/organization';
 import { OrganizationServices } from '../../../lib/service/organization';
+import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'groups.html',
@@ -26,7 +27,7 @@ export class Groups {
   public key: string = '';
   public val: string = '';
   public errors: Array<string> = [];
-
+  public orgs:Array<any> = [];
   public loadingOverlay;  
 
   // Constructor
@@ -34,6 +35,7 @@ export class Groups {
               public loadingController: LoadingController,
               public modalCtrl: ModalController,
               public alertCtrl: AlertController,
+              public storage: Storage,
               public toastController: ToastController,
               public orgServices: OrganizationServices,
               private popoverCtrl: PopoverController) {
@@ -43,21 +45,29 @@ export class Groups {
 
     ionViewDidLoad() {
       console.log("Groups: ionViewDidLoad");
-      this.clearErrors();
-      this.cleanBooleans();
-      this.showLoading();
+      this.storage.get('key').then((_key) => {
+        this.key = _key;
+        this.loadPendingOrgs();
+      });
     }
 
-    ionViewWillEnter() {
-      console.log("Groups: ionViewWillEnter");
-    
-      this.orgServices.getAllOrgNames().subscribe(function(response){
-        var u = response;
-        response.forEach(group => {
-        //page.orgs.push(group.name);
-        console.log("group"+ group.name);
-        });
-      })
+     
+    loadPendingOrgs() {
+      this.orgs = [];
+      var page = this;  
+      this.orgServices.getOrgRequestsRequested().subscribe(
+        orgs => {
+          for(var org of orgs) {
+            page.orgs.push(org);
+            //console.log("org: " + org.organization.name + " group: " + org.organization.group);
+          } 
+        },
+        err => {
+          console.log(err);
+        },
+        () => {
+        }
+      );
     }
  
 
@@ -95,4 +105,45 @@ export class Groups {
     this.nav.popToRoot();
   }
 
+  approveGroup(org) {
+    //console.log("groups: approve Group:" + org.id + " " + org.organization.name + " " + org.organization.group);
+
+    let confirm = this.alertCtrl.create({
+      title: '',
+      cssClass: 'alertReminder',
+      message: 'Approve group ' + org.id + ' ' + org.organization.name + ' ' + org.organization.group + '?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('No clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log('Yes clicked');
+            /// Approve group?
+            this.orgServices.approveOrganization(org.id).subscribe(
+              results => {
+                console.log("Approved: "+ org.id);
+                var index = this.orgs.indexOf(org, 0);
+                if (index > -1) {
+                  this.orgs.splice(index, 1);
+                }
+              },
+              err => {
+                console.log(err);
+                //
+              },
+              () => {
+              }
+            );
+            //this.loadPendingOrgs();
+          }
+        }
+      ]
+    });
+    confirm.present();  
+  }
 }

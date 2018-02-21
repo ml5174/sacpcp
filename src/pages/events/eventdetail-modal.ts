@@ -100,7 +100,7 @@ export class EventDetailModal {
             .getAdminEventDetails(id).subscribe(
                 (event) => {
                     this.eventDetail = event;
-                    if (id == 3396) 
+                    if (id == 3689) 
                     {
                         this.eventDetail.org_restriction = "1";
                         console.log("The org restriction is " + this.eventDetail.org_restriction);
@@ -124,7 +124,7 @@ export class EventDetailModal {
             .getVolunteerEventDetails(id).subscribe(
                 (event) => {
                     this.eventDetail = event;
-                    if (id == 3396) 
+                    if (id == 3689) 
                     {
                         this.eventDetail.org_restriction = "1";
                         console.log("the eventDetail has its org restriction as " + this.eventDetail.org_restriction);
@@ -132,13 +132,13 @@ export class EventDetailModal {
                         this.youAreNotEligible();
                     }
                     console.log(this.eventDetail);
-                  },  
-                  (err) => {
+                },  
+                (err) => {
                     console.log(err);
-                  },
-                  () => {
+                },
+                () => {
                     console.log("completed");
-                  }
+                }
             );
             console.log("getEventDetails");
     }

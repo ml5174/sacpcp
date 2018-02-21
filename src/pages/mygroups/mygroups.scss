@@ -9,3 +9,12 @@
     }
   }
 }
+
+.linked-group {
+  color: blue;
+  text-decoration: underline;
+  input[type=submit]:hover{
+    font-style: italic;
+    font-weight: bold;
+  }
+}
