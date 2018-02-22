@@ -4,7 +4,7 @@
 </ion-header>
 
 <ion-content>
-    <section id="legend-header">
+    <section *ngIf="this.hasApprovedGroups || this.hasPendingGroups" id="legend-header">
         <ion-grid>
             <ion-row>
                 <ion-col col-3>Membership Legend</ion-col>
@@ -22,15 +22,16 @@
     </section>
     <hr/>
     <section id="mygroups-list">
-        <ion-grid>
+        <ion-grid *ngIf="this.hasApprovedGroups || this.hasPendingGroups" >
             <ion-row style="font-weight:bold">
                 <ion-col col-3></ion-col>
                 <ion-col col-3>Organization</ion-col>
                 <ion-col col-3>Group Name</ion-col>
                 <ion-col col-3>Status</ion-col>
             </ion-row>
+        </ion-grid>
 
-            <div *ngFor="let group of groups">
+        <div *ngFor="let group of groups">
                 <ion-row>
                     <ion-col col-3 *ngIf="this.group.role==1" ><ion-icon name="person" (click)="openEditGroupAttendance(this.group.organization_id, this.group.name, this.group.group)"></ion-icon></ion-col>
                     <ion-col col-3 *ngIf="this.group.role!=1" ><ion-icon name="people"></ion-icon></ion-col>
@@ -41,7 +42,17 @@
                     <ion-col col-3 *ngIf="this.group.status == 2"><ion-icon name="remove"></ion-icon></ion-col>
                </ion-row>
             </div>
-        </ion-grid>
+            <div *ngIf="!this.hasApprovedGroups && !this.hasPendingGroups" class="nogroups">
+                <br/>
+                <br/>
+                <br/>
+                You are not a member of any groups yet. To create a group, click the Create Group button
+            
+                <br/>
+                <br/>
+                <br/>
+            </div>
+      
     </section> 
     
     <section>
