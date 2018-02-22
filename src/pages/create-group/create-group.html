@@ -22,7 +22,7 @@
                     <ion-label>Organization:</ion-label>
                 </ion-col>
                 <ion-col col-8>
-                    <ion-searchbar (click)="initializeItems()" (ionInput)="getItems($event)" class="input-height" type ="text"  [(ngModel)]="orgRequest.name" name="orgRequest.name"></ion-searchbar>
+                    <ion-searchbar placeholder="" (click)="initializeItems()" (ionInput)="getItems($event)" type ="text"  [(ngModel)]="orgRequest.name" name="orgRequest.name"></ion-searchbar>
                         <ion-list *ngIf="showList">
                             <ion-item (click)="orgRequest.name = org; showList = false;" *ngFor="let org of filteredList">
                                 {{ org }}
@@ -35,7 +35,7 @@
                     <ion-label>Group Name:</ion-label>
                 </ion-col>
                 <ion-col col-8>
-                    <ion-input class="input-height" type="text" [(ngModel)]="orgRequest.group"  name="orgRequest.group"></ion-input>
+                    <ion-input type="text" [(ngModel)]="orgRequest.group"  name="orgRequest.group"></ion-input>
                 </ion-col>
             </ion-row>
             <ion-row>
