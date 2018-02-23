@@ -65,6 +65,7 @@ page-create-group {
         vertical-align: middle;
         text-align: center;
     }
+
     .member-header{
         min-height: 5vh;
         padding-top: 20%;
@@ -79,9 +80,9 @@ page-create-group {
     }
   
     .searchbar-md .searchbar-input {
-        padding-left: 13px;
-        padding-right: 8px;
-        -webkit-box-shadow: none;
+        //padding-left: 13px;
+        //padding-right: 8px;
+        //-webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
     }
