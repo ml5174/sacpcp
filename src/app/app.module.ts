@@ -3,6 +3,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BrowserModule } from '@angular/platform-browser';
 import { EventDetailModal } from './../pages/events/eventdetail-modal';
 import { EventDetailPopup } from './../pages/events/eventdetail-popup';
+import { EventSignupModal } from './../pages/events/eventsignup_modal';
+import { AddAttendeesModal } from './../pages/events/add-attendees/add-attendees-modal';
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule, DeepLinkConfig  } from 'ionic-angular';
 import { HttpModule, Http } from '@angular/http';
@@ -131,6 +133,8 @@ export function translateFactory(http: HttpClient) {
     RecoverSuccessPage,
     DatePickerCalendar,
     DatePicker,
+    EventSignupModal,
+    AddAttendeesModal,
     TestingPage,
     GroupAttendeeModal
   ],
@@ -189,6 +193,8 @@ export function translateFactory(http: HttpClient) {
     RecoverSuccessPage,
     DatePickerCalendar,
     DatePicker,
+    EventSignupModal,
+    AddAttendeesModal,
     TestingPage,
     GroupAttendeeModal
   ],
