@@ -15,21 +15,6 @@ export class GroupAttendeeModal {
     
 
     //this may not be the best place for this as these validations can probably be reused
-    // TODO: pull this out into a static_json-like container
-    validation_messages = {
-        'first_name': [
-            {type: 'required', message: 'First Name is required.'},
-            {type: 'minlength', message: 'First Name must be at least 1 character long.'},
-            {type: 'maxlength', message: 'First Name cannot be more than 25 characters long.'},
-            {type: 'pattern', message: 'First Name must contain only letters.'},
-        ],
-        'last_name': [
-            {type: 'required', message: 'Last Name is required.'},
-            {type: 'minlength', message: 'Last Name must be at least 2 characters long.'},
-            {type: 'maxlength', message: 'Last Name cannot be more than 25 characters long.'},
-            {type: 'pattern', message: 'Last Name must contain only letters.'},
-        ]
-    }
 
     constructor(public viewController: ViewController, public params: NavParams, private fb: FormBuilder) {
        this.attendee = (params.get('attendee')) ? params.get('attendee') : new Member(); // the caller should pass a Member no matter what but just in case...
@@ -134,6 +119,6 @@ export function mobilePhoneValidator(): ValidatorFn {
     return(control: AbstractControl): {[key: string]: any} => {
        let phoneEntry : string = control.value;
        let numberRegex: RegExp = /\d{10}/g;
-       return ( numberRegex.test(phoneEntry.replace(/\D+/g, '').slice(0,10)) ) ? null : {mobileContactInvalid: "Mobile Number is Invalid"};
+       return ( numberRegex.test(phoneEntry.replace(/\D+/g, '').slice(0,10)) ) ? null : {inputType: 'mobile', errorCode: "Must be at least 10 digits"};
     }
 }
