@@ -52,6 +52,7 @@ export class SignupAssistant {
         return this.guestSignup;
     }
 
+
        presentToast(message: string) {
      let toast = this.toastController.create({
       message: message,
