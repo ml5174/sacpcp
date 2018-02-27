@@ -2,11 +2,10 @@ import {Component} from '@angular/core';
 import {FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl} from '@angular/forms';
 import {ViewController, NavParams} from 'ionic-angular';
 import {Member} from '../lib/model/member';
-import {ValidationErrorPipe} from '../lib/pipe/validationerrormap.pipe';
+
 @Component({
     templateUrl: 'group-attendee-modal.html',
-    selector: 'group-attendee-modal',
-    providers: [ValidationErrorPipe]
+    selector: 'group-attendee-modal'
 })
 export class GroupAttendeeModal {
     attendee: Member;
@@ -56,7 +55,6 @@ export class GroupAttendeeModal {
         //console.log('During Save:\n' + this.attendee.mobilenumber);
 
         this.viewController.dismiss(this.attendee);
-
     }
     
     ngOnInit(): void {
@@ -65,7 +63,7 @@ export class GroupAttendeeModal {
                 last_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
                 first_name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(25)]],
                 contactString: '', // covered by mobileXorEmailValidator below
-                isAttending: ['true', Validators.required],
+                isAttending: ['true', Validators.required], //this is defaulted to 'Yes', and there is no way to 'unselect' (must be yes or no)
                 contactMethod: '' // covered by mobileXorEmailValidator below
             },
             {
