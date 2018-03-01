@@ -18,6 +18,12 @@ validationMessages = {
             pattern: 'Must contain only letters and spaces',
             default: 'Invalid entry'
         },
+        organizationName: {
+            required: 'Required',
+            minlength: 'Must be at least 3 characters',
+            maxlength: 'Cannot be more than 25 characters long.',
+            pattern: 'Must contain only letters and spaces',
+        },
         last_name: {
             required: 'Required',
             minlength: 'Must be at least 2 characters long',
