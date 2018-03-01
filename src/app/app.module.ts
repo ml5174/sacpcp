@@ -64,6 +64,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { MessageServices } from '../lib/service/message';
 import { DatePickerCalendar } from '../lib/components/date-picker-calendar/date-picker-calendar.component';
 import { DatePicker } from '../lib/components/date-picker/date-picker.component';
+import {MemberDataEntry} from '../lib/components/member-data-entry/member-data-entry';
 import { CreateGroupPage } from '../pages/create-group/create-group';
 import { GroupProfilePage } from '../pages/group-profile/group-profile';
 import { EditGroupAttendancePage } from '../pages/edit-group-attendance/edit-group-attendance';
@@ -136,7 +137,8 @@ export function translateFactory(http: HttpClient) {
     EventSignupModal,
     AddAttendeesModal,
     TestingPage,
-    GroupAttendeeModal
+    GroupAttendeeModal,
+    MemberDataEntry
   ],
   imports: [
     BrowserModule,

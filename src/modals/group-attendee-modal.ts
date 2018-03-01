@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {mobileXorEmailValidator} from '../lib/validators/mobilexoremailvalidator';
 import {FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl} from '@angular/forms';
 import {ViewController, NavParams} from 'ionic-angular';
 import {Member} from '../lib/model/member';
@@ -93,30 +94,3 @@ export class GroupAttendeeModal {
     }
 }
 
-export function mobileXorEmailValidator(): ValidatorFn {
-    return(group: FormGroup): {[key: string]: any} => {
-        let contactMethod = group.controls['contactMethod'].value;
-        let control : AbstractControl = group.controls['contactString'];
-        if(contactMethod == 1) {  //mobile
-            control.clearValidators();
-            control.setValidators(mobilePhoneValidator());
-            return null        
-        }
-        else if(contactMethod == 2) { //email
-            control.clearValidators();
-            control.setValidators(Validators.email);
-            return null;
-        }
-        else {
-            return { noContactMethodSelected: "You must select a method for contacting you" };
-        }
-    }
-}
-
-export function mobilePhoneValidator(): ValidatorFn {
-    return(control: AbstractControl): {[key: string]: any} => {
-       let phoneEntry : string = control.value;
-       let numberRegex: RegExp = /\d{10}/g;
-       return ( numberRegex.test(phoneEntry.replace(/\D+/g, '').slice(0,10)) ) ? null : {inputType: 'mobile', errorCode: "Must be at least 10 digits"};
-    }
-}
