@@ -1,3 +1,28 @@
 page-group-profile {
 
 }
+.fab {
+width: 200px !important;
+}
+error-text
+{
+color: red;
+}
+
+
+@include media-breakpoint-down(sm) {
+.member-modal {
+    ion-backdrop {
+      visibility: visible !important;
+    }
+    .modal-wrapper {
+      border-radius: 10px 10px 0px 0px;
+      overflow: hidden;
+      top: 20%;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      height: 60%;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+
+
+              <ion-content>
+             
+              <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value)">
+                <ion-list radio-group>
+                  <ion-item>
+                    <ion-label>First Name</ion-label>
+                    <ion-input   formControlName='first_name'    ></ion-input>
+                    </ion-item>
+           		     <ion-label color='danger' class='error-text' *ngIf ="userForm.controls.first_name.touched && !userForm.controls.first_name.valid"> Required field. Must be at least 3 char </ion-label>
+           		   
+                   <ion-item>
+                    <ion-label>Last Name</ion-label>
+                    <ion-input formControlName='last_name'  ></ion-input>
+                  </ion-item>
+                     <ion-label color='danger' class='error-text' *ngIf ="userForm.controls.last_name.touched && !userForm.controls.last_name.valid"> Required field. Must be at least 3 char </ion-label>
+           		 
+                  
+                
+                  <ion-item >
+   						 <ion-label>Primary Contact Email</ion-label>
+    					<ion-radio value="Email" checked></ion-radio>
+ 					</ion-item>
+ 				<ion-item>
+    				<ion-label item-end>Primary Phone</ion-label>
+    				<ion-radio item-end value="Phone"></ion-radio>
+ 				 </ion-item>
+ 				
+                   <ion-item>
+                    <ion-label>Phone</ion-label>
+                    <ion-input [ngModelOptions]="{standalone: true}" [(ngModel)]='this.member.mobile_number' ></ion-input>
+                    
+                  </ion-item>
+                    <ion-item>
+                    <ion-label>Email</ion-label>
+                    <ion-input></ion-input>
+                    
+                  </ion-item>
+                  <ion-item>
+                  <ion-label>Active</ion-label>
+                  <ion-checkbox></ion-checkbox>
+                  </ion-item>
+                  <ion-item>
+           			<button ion-button   (click)='closeModal()' > Cancel</button>    
+        			<button ion-button  disabled  > Save</button>
+        		</ion-item>
+        		
+        		 <div class="padding">
+           
+     
+        		</div>
+        </ion-list>
+        </form></ion-content>
