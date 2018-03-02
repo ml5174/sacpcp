@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav, Select, Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
-import { Keyboard } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 import { UserServices } from '../lib/service/user';
 import { HomePage } from '../pages/home/home';
@@ -27,7 +26,7 @@ import { Groups } from '../pages/admin/groups/groups';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package.json';
 import { DONATE_URL } from '../lib/provider/config';
-import { AppVersion } from 'ionic-native';
+import { AppVersion } from '@ionic-native/app-version';
 import { SERVER } from '../lib/provider/config';
 import { GroupProfilePage } from '../pages/group-profile/group-profile';
 import { EditGroupAttendancePage } from '../pages/edit-group-attendance/edit-group-attendance';
@@ -59,6 +58,7 @@ export class MyApp {
   public showAdmin: boolean;
   public showMyGroupsMenu: boolean;
   constructor(
+    private appVersion: AppVersion,
     private statusBar: StatusBar,
     public platform: Platform,
     public config: Config,
@@ -133,7 +133,7 @@ export class MyApp {
       	this.statusBar.styleDefault();
       	console.log(StatusBar);
       	//Keyboard.disableScroll(true);
-      	Keyboard.hideKeyboardAccessoryBar(false);
+      	//Keyboard.hideKeyboardAccessoryBar(false);
       }
 
       //Only turn these off if its not android.
@@ -261,18 +261,18 @@ showMyGroups()
 
     if(this.platform.is('ios') || this.platform.is('android')) {
       // 2018_01_29 tslint change removed block with AppName
-      AppVersion.getPackageName().then((pkg) => {
+      this.appVersion.getPackageName().then((pkg) => {
         this.appPkgName = pkg;
         if (this.platform.is('android')) console.log('Package Name: ' + this.appPkgName);
         else console.log('BundleID: ' + this.appPkgName);
       })    
-      AppVersion.getVersionNumber().then((marketingVersion) => {
+      this.appVersion.getVersionNumber().then((marketingVersion) => {
         this.appMarketingVersion = marketingVersion;
         this.storage.set('version', this.appMarketingVersion.toString()).then((resource) => {
           console.log('Marketing Version: ' + this.appMarketingVersion);
         });
       })
-      AppVersion.getVersionCode().then((buildVersion) => {
+      this.appVersion.getVersionCode().then((buildVersion) => {
         this.appBuildVersion = buildVersion;
         this.storage.set('build', this.appBuildVersion.toString()).then((resource) => {
           console.log('Build Version: ' + this.appBuildVersion);
