@@ -66,9 +66,9 @@ import { DatePicker } from '../lib/components/date-picker/date-picker.component'
 import { CreateGroupPage } from '../pages/create-group/create-group';
 import { GroupProfilePage } from '../pages/group-profile/group-profile';
 import { EditGroupAttendancePage } from '../pages/edit-group-attendance/edit-group-attendance';
-import {GroupAttendeeModal} from '../modals/group-attendee-modal';
-import {MemberPopOver} from '../pages/group-profile/member-popover';
-
+import { GroupAttendeeModal } from '../modals/group-attendee-modal';
+import { MemberPopOver } from '../pages/group-profile/member-popover';
+import { AppVersion } from '@ionic-native/app-version';
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -200,6 +200,16 @@ export function translateFactory(http: HttpClient) {
     MemberPopOver
     
   ],
-  providers: [StatusBar, SplashScreen, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService, SignupAssistant, MessageServices]
+  providers: [ 
+    AppVersion,
+    StatusBar, 
+    SplashScreen, 
+    UseridPopover, 
+    PasswordPopover, 
+    UserServices, 
+    VolunteerEventsService, 
+    SignupAssistant, 
+    MessageServices 
+  ]
 })
 export class AppModule {}
