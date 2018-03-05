@@ -8,12 +8,15 @@ import {mobileXorEmailValidator} from '../../validators/mobilexoremailvalidator'
     templateUrl: 'member-data-entry.html'
 })
 
+
 export class MemberDataEntry {
 
+    isActiveUser: boolean = false;
     formGroup: FormGroup;
+
     contact: Contact;
     testMember: Contact = {
-        first_name: 'Milt',
+    first_name: 'Milt',
     last_name: 'Donahue',
     status: 1,
     role: 1,
@@ -33,18 +36,18 @@ export class MemberDataEntry {
     ngOnInit() {
         this.contact = this.testMember;
         this.formGroup = this.formBuilder.group( // set up the validation
-            {
-                lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
-                contactString: '',
-                firstName: ['', [Validators.required, Validators.maxLength(25)]],
-                contactMethod: '', // covered by mobileXorEmailValidator below
-                isActive: ['1', Validators.required], //this is defaulted to 'Yes', and there is no way to 'unselect' (must be yes or no)
-                isAdmin: ['0', Validators.required] //this is defaulted to 'Yes', and there is no way to 'unselect' (must be yes or no)
-            },
-            {
-                validator: mobileXorEmailValidator()
-            }
-        );
+           {
+               lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
+               contactString: '',
+               firstName: ['', [Validators.required, Validators.maxLength(25)]],
+               contactMethod: '', // covered by mobileXorEmailValidator below
+               isActive: ['1', Validators.required], //this is defaulted to 'Yes', and there is no way to 'unselect' (must be yes or no)
+               isAdmin: ['0', Validators.required] //this is defaulted to 'Yes', and there is no way to 'unselect' (must be yes or no)
+           },
+           {
+               validator: mobileXorEmailValidator()
+           }
+       );
         if (this.contact) { // this is an edit
             this.formGroup.setValue({
                 firstName: this.contact.first_name,
@@ -65,9 +68,9 @@ export class MemberDataEntry {
     }
 
     isFormControlError(controlName: string, myFormGroup: FormGroup = this.formGroup): boolean {
-     return myFormGroup.controls[controlName].invalid && 
-            myFormGroup.controls[controlName].dirty && 
-            myFormGroup.controls[controlName].touched;
+     return false; //myFormGroup.controls[controlName].invalid && 
+          //  myFormGroup.controls[controlName].dirty && 
+        //    myFormGroup.controls[controlName].touched;
     }
 }
 
