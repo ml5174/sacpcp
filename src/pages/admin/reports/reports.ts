@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { VolunteerEventsService } from '../../../lib/service/volunteer-events-service';
 import { VolunteerEvent } from '../../../lib/model/volunteer-event';
-import 'rxjs/Rx';
+import Rx from 'rxjs/Rx';
 import { HomePage } from '../../home/home';
 
 @Component({
