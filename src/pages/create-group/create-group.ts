@@ -1,8 +1,7 @@
 
 import {NavController, NavParams, ToastController} from 'ionic-angular';
-import {PopoverController, AlertController} from 'ionic-angular';
-import {Component, ViewChild, ElementRef} from '@angular/core';
-import {Navbar} from 'ionic-angular';
+import {PopoverController, AlertController, Navbar} from 'ionic-angular';
+import {Component, ViewChild, ElementRef, OnInit, ViewChildren, QueryList, AfterViewInit} from '@angular/core';
 import {UserServices} from '../../lib/service/user';
 import {OrganizationServices} from '../../lib/service/organization';
 import {HomePage} from '../home/home';
@@ -11,17 +10,23 @@ import {Organization} from '../../lib/model/organization'
 import {Contact} from '../../lib/model/contact'
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Member} from '../../lib/model/member';
+import { UserProfile } from '../../lib/model/user-profile';
+import { MemberDataEntry } from '../../lib/components/member-data-entry/member-data-entry';
 
 @Component({
     selector: 'page-create-group',
     templateUrl: 'create-group.html',
     providers: [OrganizationServices]
 })
-export class CreateGroupPage {
+export class CreateGroupPage implements OnInit, AfterViewInit{
+
     @ViewChild('popoverContent', {read: ElementRef}) content: ElementRef;
     @ViewChild('popoverText', {read: ElementRef}) text: ElementRef;
     @ViewChild(Navbar) navBar: Navbar;
-    public rowNum: number
+    @ViewChildren(MemberDataEntry) membersDataEntry: QueryList<MemberDataEntry>;
+
+    public groupMembers : UserProfile[] = Array<UserProfile>();
+    public rowNum: number;
     public isContactSelected: boolean
     public orgRequest: Organization
     public rows: Array<Contact> = []
@@ -29,6 +34,7 @@ export class CreateGroupPage {
     createGroupForm: FormGroup;
     submitAttempt: boolean = false;
     public orgs: Array<string> = [];
+    public organizationTypes: Array<string> = [];
     public filteredList: Array<string> = [];
     public showList: boolean
     public isNotBackButton: boolean
@@ -42,23 +48,28 @@ export class CreateGroupPage {
         public orgServices: OrganizationServices,
         public popoverCtrl: PopoverController,
         public alertCtrl: AlertController) {
+
         this.orgRequest = new Organization();
         this.orgRequest.name = '';
         this.orgRequest.description = '';
         this.orgRequest.group = '';
         this.createGroupForm = formBuilder.group({
             first_name: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')])]
-        })
-    }
-    /**
-     *   When first loaded, the Create Group page will load a blank member
-     *     and then the 
-     */
-    setMembers(members : Member[]) {
+        });
         
     }
-    
-    
+    /**
+     *   When first loaded, the Create Group page will load as (potential) group members:
+     *     the current user (add a required flag) and a blank 'member'
+     */
+    private initMembers(): void {
+        this.groupMembers.push(new UserProfile());
+
+        let requiredUser = this.userServices.user;
+        requiredUser.required = true;
+        this.groupMembers.push(requiredUser);
+    }
+
     public addMember(): void {
 
         if (this.rows[0].first_name === ''
@@ -382,20 +393,32 @@ export class CreateGroupPage {
     }
 
     ngOnInit(): void {
+        this.initMembers();
         this.createGroupForm = this.formBuilder.group({
             groupDescription: [''],
             organizationName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(25)])],
             groupName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(25)])],
-            newMemberFirstName: [''],
-            newMemberLastName: [''],
-            newMemberContactMethod: [''],
-            newMemberIsAdmin: [''],
-            newMemberIsActive: [''],
+            organizationTypeControl:['', Validators.required],
             members: this.formBuilder.array([])
 
         });
-
+        this.orgServices.getOrganizationTypes().subscribe(orgTypes =>{
+            for (let orgType of orgTypes) {
+                console.log("orgtype name: " + orgType.name);
+                this.organizationTypes.push(orgType.name);
+            }
+        });
+        this.orgServices.getAllGroups().subscribe(groups =>{
+            for (let group of groups) {
+                console.log("org name: " + group.upper_name + "; group name: " + 
+                group.upper_group);
+                this.orgServices.isGroupUnique(group.upper_name, group.upper_group));
+                //this.organizationTypes.push(orgType.name);
+            }
+        });    
     }
-
+    ngAfterViewInit(): void {
+        let mde: MemberDataEntry[] = this.membersDataEntry.toArray();
+    }
 
 }

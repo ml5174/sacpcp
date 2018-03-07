@@ -11,8 +11,6 @@
 <ion-content padding>
     <form (ngSubmit)="addGroup()" [formGroup]="createGroupForm">
         <div class="absolute-container">
-            <ion-row>                  
-            </ion-row>
             <ion-row>
                 <ion-col col-4>
                     <ion-label>Organization:                         
@@ -24,7 +22,7 @@
                     </ion-label>
                 </ion-col>
                 <ion-col col-8>                                    
-                    <ion-searchbar placeholder="Search Org. Names" (click)="initializeItems()"
+                    <ion-searchbar placeholder="Search Org.Names" (click)="initializeItems()"
                                    (ionInput)="getItems($event)" type ="text" 
                                    formControlName="organizationName" ngDefaultControl></ion-searchbar>
                         <ion-list *ngIf="showList">
@@ -32,6 +30,25 @@
                                 {{ orgName }}
                             </ion-item>
                         </ion-list>
+                </ion-col>
+             </ion-row>            
+             <ion-row>
+                <ion-col col-4>
+                    <ion-label>Organization Type:                         
+                        <span *ngIf="createGroupForm.controls.organizationTypeControl.value =='Choose One...' && createGroupForm.controls.organizationTypeControl.touched" 
+                             style="color: #CC1F2C;">
+                             <br />(<ion-icon name="alert" style="color: #CC1F2C;"></ion-icon>
+                            Required.)
+                         </span>                    
+                    </ion-label>
+                </ion-col>
+                <ion-col col-8>                                    
+                    <ion-select formControlName="organizationTypeControl" ngDefaultControl placeholder="Choose One...">
+                            <ion-option value="Choose One...">Choose One...</ion-option>
+                            <ion-option *ngFor="let organizationType of organizationTypes" value="{{organizationType}}">
+                                {{ organizationType }}
+                            </ion-option>
+                    </ion-select>
                 </ion-col>
              </ion-row>
             <ion-row>
@@ -59,74 +76,18 @@
                 </ion-col>
             </ion-row>
         </div>
-        <ion-list>
-            <ion-item>Form value: {{ createGroupForm.value | json }}</ion-item>
-            <ion-item>Form status: {{ createGroupForm.status | json }}</ion-item> 
-            <ion-item>Form validations: {{createGroupForm.errors | json }}</ion-item>
-        </ion-list>
         <div class="member-header">
             <h4>Group Members</h4>
         </div>
-        <div  *ngFor = "let row of rows; let x = index; trackBy:trackByIndex" style="border-bottom: 0.5px solid black;">
-            <a (click)="deleteMember(x)"><img class="hover-img" style="float: right; padding: 1%;" src="assets/img/16pxDeleteIcon.png"></a>
-            <ion-row align-items-center>
-                <ion-col col-4>
-                    <p>First Name</p>
-                </ion-col>
-                <ion-col col-4>
-                    <p>Last Name</p>  </ion-col>
-                <ion-col col-4>
-                    <p>Contact</p>   
-                </ion-col>
-            </ion-row>
-            <ion-row >
-                <ion-col col-4>
-                    <ion-input type="text" formControlName="newMemberFirstName"></ion-input>
-                </ion-col>
-                <ion-col col-4>
-                    <ion-input type="text" formControlName="newMemberLastName" ></ion-input>
-                </ion-col>
-                <ion-col col-4>
-                    <ion-select  (ionChange)="flipBoolean(row.contactString, x)" formControlName="newMemberContactMethod" placeholder="Choose One..." ngDefaultControl>
-                        <ion-option  value="Email">Email</ion-option>
-                        <ion-option  value="Phone">Phone</ion-option>
-                    </ion-select>
-                    <br>
-                    <ion-input *ngIf="row.isEmailSelected" class="below-select" placeholder="Enter Email" type ="email"></ion-input>
-                    <ion-input  *ngIf="row.isPhoneSelected" class="below-select"  placeholder="Enter Phone Number" type="tel" maxlength="11" ></ion-input>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col col-6>
-                    <p>Role</p>   
-                </ion-col>
-                <ion-col col-6>
-                    <p>Status</p>   
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col col-6>
-                    <ion-select (ionChange)="setAsNumber(row.isAdmin)" formControlName="newMemberIsAdmin" ngDefaultControl>
-                        <ion-option  value =2> Admin</ion-option>
-                        <ion-option  value=0>Member</ion-option>
-                    </ion-select>
-                    <br>
-                </ion-col>
-                <ion-col col-6>   
-                    <ion-select formControlName="newMemberIsActive" type ="text" ngDefaultControl>
-                        <ion-option value = "1">Active</ion-option>
-                        <ion-option value="0">Inactive</ion-option>
-                    </ion-select>
-                </ion-col>        
-            </ion-row>
-        </div>
+        <member-data-entry *ngFor = "let member of groupMembers" [member]="member"></member-data-entry>
+
         <div class="container">
             <ion-row>
                 <ion-col  col-4>
                     <button ion-button small type="button"  color="dark" (click)="cancel()">Cancel</button>
                 </ion-col>
                 <ion-col style="padding-right: 40%;" col-5>
-                    <button  ion-button small type="button"  (click)="addMember()">Add a Member</button>
+                    <button  ion-button small type="button" (click)="addMember()">Add a Member</button>
                 </ion-col>
                 <ion-col col-3>
                     <button [disabled]="true" ion-button small type="submit">Submit</button>
