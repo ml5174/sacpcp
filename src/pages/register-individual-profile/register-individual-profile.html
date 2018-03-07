@@ -250,9 +250,10 @@
                         <!--<ion-icon name="alert" item-start [class.error]="ecmobilenumbererror" *ngIf="ecmobilenumbererror"></ion-icon>-->
                         <ion-label stacked>*{{"Emergency Contact's Phone" | translate }}</ion-label>
                     </ion-item>
-                    <ion-grid class="phone-number">
+                    <phone-input #emergencyNumber idsuffix="emergency" [pn]="ecMobileNumber"></phone-input>
+                       
+                    <!--ion-grid class="phone-number">
                         <!--<phone-input idsuffix="emergency" [ac]="ecMobileNumberAreaCode" [np]="ecMobileNumberPrefix" [nn]="ecMobileNumberLineNumber"></phone-input>-->
-                        <phone-input #emergencyNumber idsuffix="emergency" [pn]="ecMobileNumber"></phone-input>
                         <!-- <ion-row>
 									<ion-col width-25>
 										<ion-item no-lines>
@@ -273,8 +274,7 @@
 										</ion-item>
 									</ion-col>
 								</ion-row>
-								 -->
-                    </ion-grid>
+                    </ion-grid -->
 
                     <ion-item no-lines *ngIf="ecaltnumbererror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
@@ -284,9 +284,10 @@
                         <!--<ion-icon name="alert" item-start [class.error]="ecaltnumbererror" *ngIf="ecaltnumbererror"></ion-icon>-->
                         <ion-label stacked>{{"Emergency Contact's Alternate Phone" | translate }}</ion-label>
                     </ion-item>
-                    <ion-grid class="phone-number">
+                    <phone-input #emergencyAlternate idsuffix="emergencyalt" [pn]="ecAltNumber"></phone-input>
+                       
+                    <!--ion-grid class="phone-number">
                         <!--<phone-input idsuffix="emergencyalt" [ac]="ecAltMobileNumberAreaCode" [np]="ecAltMobileNumberPrefix" [nn]="ecAltMobileNumberLineNumber"></phone-input>-->
-                        <phone-input #emergencyAlternate idsuffix="emergencyalt" [pn]="ecAltNumber"></phone-input>
                         <!-- <ion-row>
                             <ion-col width-25>
                                 <ion-item no-lines>
@@ -306,7 +307,7 @@
                                     <ion-input name="ecAltNumberLineNumber" type="tel" placeholder="" class="" [(ngModel)]="ecAltNumberLineNumber" minlength="4" maxlength="4"></ion-input>
                                 </ion-item>
                             </ion-col>
-                        </ion-row> -->
+                        </ion-row>
                     </ion-grid>
 
                     <!--
