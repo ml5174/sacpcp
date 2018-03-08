@@ -57,7 +57,6 @@ import { EventSortPipe, PreferencePipe, OpportunityPipe } from '../lib/pipe/even
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
 import { RecoverSuccessPage } from '../pages/recover-success/recover-success';
-import { TestingPage } from '../pages/testing/testing';
 //Added for text-mask, phone number formatting
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -137,7 +136,6 @@ export function translateFactory(http: HttpClient) {
     DatePicker,
     EventSignupModal,
     AddAttendeesModal,
-    TestingPage,
     GroupAttendeeModal,
     MemberDataEntry,
     MemberPopOver
@@ -199,7 +197,6 @@ export function translateFactory(http: HttpClient) {
     DatePicker,
     EventSignupModal,
     AddAttendeesModal,
-    TestingPage,
     GroupAttendeeModal,
     MemberPopOver
     
