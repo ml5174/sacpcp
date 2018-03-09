@@ -1,9 +1,6 @@
 # Specifies files to intentionally ignore when using Git
 # http://git-scm.com/docs/gitignore
-<<<<<<< HEAD
 /nbproject/
-=======
->>>>>>> origin/master
 .sourcemaps/
 /src/lib/
 node_modules/

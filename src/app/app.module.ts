@@ -56,6 +56,7 @@ import {ValidationErrorPipe} from '../lib/pipe/validationerror.pipe';
 import { EventSortPipe, PreferencePipe, OpportunityPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
+import { ErrorMessageSpan} from '../lib/components/error-message-span/error-message-span';
 import { RecoverSuccessPage } from '../pages/recover-success/recover-success';
 //Added for text-mask, phone number formatting
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -138,7 +139,8 @@ export function translateFactory(http: HttpClient) {
     AddAttendeesModal,
     GroupAttendeeModal,
     MemberDataEntry,
-    MemberPopOver
+    MemberPopOver,
+    ErrorMessageSpan
   ],
   imports: [
     BrowserModule,

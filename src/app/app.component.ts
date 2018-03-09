@@ -22,7 +22,6 @@ import { EditEvent } from '../pages/admin/edit-event/edit-event';
 import { Reports } from '../pages/admin/reports/reports';
 import { ContactVolunteers } from '../pages/admin/contact-volunteers/contact-volunteers';
 import { Groups } from '../pages/admin/groups/groups';
-//import {AdminPopoverComponent} from '../lib/components/admin-popover.component';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package.json';
 import { DONATE_URL } from '../lib/provider/config';

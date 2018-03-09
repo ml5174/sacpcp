@@ -1,15 +1,15 @@
 
-import {NavController, NavParams, ToastController} from 'ionic-angular';
-import {PopoverController, AlertController, Navbar} from 'ionic-angular';
-import {Component, ViewChild, ElementRef, OnInit, ViewChildren, QueryList, AfterViewInit} from '@angular/core';
-import {UserServices} from '../../lib/service/user';
-import {OrganizationServices} from '../../lib/service/organization';
-import {HomePage} from '../home/home';
-import {MyGroupsPage} from '../mygroups/mygroups';
-import {Organization} from '../../lib/model/organization'
-import {Contact} from '../../lib/model/contact'
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Member} from '../../lib/model/member';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { PopoverController, AlertController, Navbar } from 'ionic-angular';
+import { Component, ViewChild, ElementRef, OnInit, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { UserServices } from '../../lib/service/user';
+import { OrganizationServices } from '../../lib/service/organization';
+import { HomePage } from '../home/home';
+import { MyGroupsPage } from '../mygroups/mygroups';
+import { Organization } from '../../lib/model/organization'
+import { Contact } from '../../lib/model/contact'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Member } from '../../lib/model/member';
 import { UserProfile } from '../../lib/model/user-profile';
 import { MemberDataEntry } from '../../lib/components/member-data-entry/member-data-entry';
 
@@ -18,14 +18,14 @@ import { MemberDataEntry } from '../../lib/components/member-data-entry/member-d
     templateUrl: 'create-group.html',
     providers: [OrganizationServices]
 })
-export class CreateGroupPage implements OnInit, AfterViewInit{
+export class CreateGroupPage implements OnInit, AfterViewInit {
 
-    @ViewChild('popoverContent', {read: ElementRef}) content: ElementRef;
-    @ViewChild('popoverText', {read: ElementRef}) text: ElementRef;
+    @ViewChild('popoverContent', { read: ElementRef }) content: ElementRef;
+    @ViewChild('popoverText', { read: ElementRef }) text: ElementRef;
     @ViewChild(Navbar) navBar: Navbar;
     @ViewChildren(MemberDataEntry) membersDataEntry: QueryList<MemberDataEntry>;
 
-    public groupMembers : UserProfile[] = Array<UserProfile>();
+    public groupMembers: UserProfile[];
     public rowNum: number;
     public isContactSelected: boolean
     public orgRequest: Organization
@@ -39,7 +39,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit{
     public showList: boolean
     public isNotBackButton: boolean
     public isGroupFinished: boolean = false;
-    
+
     constructor(public navCtrl: NavController,
         public toastCtrl: ToastController,
         public navParams: NavParams,
@@ -56,21 +56,40 @@ export class CreateGroupPage implements OnInit, AfterViewInit{
         this.createGroupForm = formBuilder.group({
             first_name: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')])]
         });
-        
+
     }
     /**
      *   When first loaded, the Create Group page will load as (potential) group members:
      *     the current user (add a required flag) and a blank 'member'
      */
     private initMembers(): void {
-        this.groupMembers.push(new UserProfile());
+        this.groupMembers = Array<UserProfile>(new UserProfile());
 
         let requiredUser = this.userServices.user;
         requiredUser.required = true;
+        requiredUser.profile.isAdmin = 
         this.groupMembers.push(requiredUser);
     }
 
+    onMemberDeleted(member: UserProfile) {
+        console.log("Searching for: " + member.required);
+        let index = this.groupMembers.findIndex((element) => (element === member));
+        console.log("Searching forindex: " + index);
+        if (index != -1) {
+            this.groupMembers.splice(index, 1);
+        }
+    }
+
     public addMember(): void {
+        console.log("Adding member for group create");
+        if (true) { //TODO: add check to make sure that all previous member data entry is complete and valid
+            this.groupMembers.unshift(new UserProfile());
+        }
+    }
+
+
+
+    public addMember2(): void {
 
         if (this.rows[0].first_name === ''
             || this.rows[0].last_name === ''
@@ -125,6 +144,43 @@ export class CreateGroupPage implements OnInit, AfterViewInit{
         }
 
     }
+
+
+
+public createGroupSubmission() {
+    console.log("createGroupSubmission()");
+        //Validation has been taken care of (Submit is disabled otherwise)
+        //set group (model) w/group (form)
+        let group: Organization = {
+            group: this.createGroupForm.controls.groupName.value,
+            name: this.createGroupForm.controls.organizationName.value,
+            description: this.createGroupForm.controls.groupDescription.value,
+            organization_id: null,
+            status: 0
+        }
+
+        //Update member (model) elements with member (form) elements
+        // Only use members that have lastName filled,
+        //  since it is required and we know the member must be valid
+        for (let mde of this.membersDataEntry.toArray()) {
+            if(mde.formGroup.valid && mde.formGroup.controls['firstName'].value &&
+            mde.formGroup.controls['firstName'].value.length > 0) {
+                   console.log( JSON.stringify(mde.formGroup.value ));
+               }
+        }
+
+
+
+
+        //Remove Blanks (at least one member must validly filled in)
+        // submit group and members
+
+        // go to groups page - should be refreshed w/pending group; show toast
+
+    }
+
+
+
     addGroup() {
 
         var members = this.rows;
@@ -142,10 +198,11 @@ export class CreateGroupPage implements OnInit, AfterViewInit{
             delete element.contactString
         });
         var org = this.orgRequest;
-        if (this.isOrgValid(org) && this.areMembersValid(members)) {
+        // if (this.isOrgValid(org) && this.areMembersValid(members)) {
+        if (true) {
 
             this.isGroupFinished = true;
-            var organization = {organization};
+            var organization = { organization };
             organization.organization = org;
             organization.members = members;
             var jsons = JSON.stringify(organization);
@@ -175,9 +232,9 @@ export class CreateGroupPage implements OnInit, AfterViewInit{
                 }
             )
         }
-        else {
-            this.presentRedoForm();
-        }
+        //else {
+            //this.presentRedoForm();
+      //  }
 
 
 
@@ -193,11 +250,11 @@ export class CreateGroupPage implements OnInit, AfterViewInit{
         let alert = this.alertCtrl.create({
             title: 'Invalid Organization Request',
             message: 'The request is invalid. Please make sure the following requirements are met:'
-            + '<ul><li>Organization Name is filled out and at least two characters long</li>'
-            + '<li>Group Name is filled out and at least two characters long</li>'
-            + "<li> Each Member's name is filled out</li>"
-            + '<li> A phone number or email is present for each member</li>'
-            + '<li> Phone Numbers must be 11 digits, starting with the number 1 (Country Code) </li></ul>',
+                + '<ul><li>Organization Name is filled out and at least two characters long</li>'
+                + '<li>Group Name is filled out and at least two characters long</li>'
+                + "<li> Each Member's name is filled out</li>"
+                + '<li> A phone number or email is present for each member</li>'
+                + '<li> Phone Numbers must be 11 digits, starting with the number 1 (Country Code) </li></ul>',
             buttons: [
                 {
                     text: 'OK',
@@ -210,22 +267,13 @@ export class CreateGroupPage implements OnInit, AfterViewInit{
         });
         alert.present();
     }
-    isOrgValid(org) {
-        return org.name
-            && org.group
-            && org.description
-            && org.name.length >= 2
-            && org.group.length >= 2
-            && org.name != org.group
-
-    }
 
     initializeItems() {
         if (this.orgs.length === 0) {
             var page = this
             this.orgServices.getAllOrgNames().subscribe(
                 orgs => {
-                    for (let org of <Organization[]> orgs) {
+                    for (let org of <Organization[]>orgs) {
                         page.orgs.push(org.name);
                     }
                 },
@@ -319,7 +367,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit{
                         role: 'cancel',
                         handler: () => {
 
-                            alert.dismiss().then(() => {resolve(false);});
+                            alert.dismiss().then(() => { resolve(false); });
                             this.isNotBackButton = false;
                         }
                     },
@@ -330,16 +378,16 @@ export class CreateGroupPage implements OnInit, AfterViewInit{
                                 this.navCtrl.push(HomePage);
                             }
                             else {
-                                alert.dismiss().then(() => {resolve(true);});
+                                alert.dismiss().then(() => { resolve(true); });
                             }
 
                         }
                     }
                 ]
             });
-            var page = this
+            var page = this;
 
-            alert.present()
+            alert.present();
         });
     }
 
@@ -388,7 +436,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit{
             isContactSelected: false, isEmailSelected: user.profile.contactmethod_name === "Email",
             isPhoneSelected: user.profile.contactmethod_name === "Phone", ext_id: user.profile.ext_id
         })
-        this.addMember();
+        //this.addMember();
         console.log('ionViewDidLoad CreateGroupPage');
     }
 
@@ -398,27 +446,23 @@ export class CreateGroupPage implements OnInit, AfterViewInit{
             groupDescription: [''],
             organizationName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(25)])],
             groupName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(25)])],
-            organizationTypeControl:['', Validators.required],
+            organizationTypeControl: ['', Validators.required],
             members: this.formBuilder.array([])
 
         });
-        this.orgServices.getOrganizationTypes().subscribe(orgTypes =>{
+        this.orgServices.getAllOrganizationTypes().subscribe(orgTypes => {
             for (let orgType of orgTypes) {
                 console.log("orgtype name: " + orgType.name);
                 this.organizationTypes.push(orgType.name);
             }
         });
-        this.orgServices.getAllGroups().subscribe(groups =>{
-            for (let group of groups) {
-                console.log("org name: " + group.upper_name + "; group name: " + 
-                group.upper_group);
-                this.orgServices.isGroupUnique(group.upper_name, group.upper_group));
-                //this.organizationTypes.push(orgType.name);
-            }
-        });    
     }
     ngAfterViewInit(): void {
-        let mde: MemberDataEntry[] = this.membersDataEntry.toArray();
+        let mdes: MemberDataEntry[] = this.membersDataEntry.toArray();
+        for (let mde of mdes) {
+            console.log('mde: ' + JSON.stringify(mde.formGroup.value));
+        }
+
     }
 
 }

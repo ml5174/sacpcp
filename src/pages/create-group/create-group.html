@@ -6,95 +6,84 @@
     <app-header back="false" title="Create Group">
     </app-header>
 </ion-header>
+<ion-content padding [formGroup]="createGroupForm">
+    <div class="absolute-container">
+        <ion-row>
+            <ion-col col-4>
+                <ion-label>
+                    <error-message-span *ngIf="!showList && createGroupForm.controls.organizationName.invalid && createGroupForm.controls.organizationName.dirty && createGroupForm.controls.organizationName.touched"
+                        [errorText]="'Required. Must be 3+ characters'">
+                    </error-message-span>Organization:
+                </ion-label>
+            </ion-col>
+            <ion-col col-8>
+                <ion-searchbar placeholder="Search Org.Names" (click)="initializeItems()" (ionInput)="getItems($event)" type="text" formControlName="organizationName"
+                    ngDefaultControl></ion-searchbar>
+                <ion-list *ngIf="showList">
+                    <ion-item (click)="orgNameSelected(orgName)" *ngFor="let orgName of filteredList">
+                        {{ orgName }}
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-4>
+                <ion-label>
+                    <error-message-span *ngIf="createGroupForm.controls.organizationTypeControl.value =='Choose One...' && createGroupForm.controls.organizationTypeControl.touched"
+                        [errorText]="'Required'">                   
+                    </error-message-span>Organization Type: 
+                </ion-label>
+            </ion-col>
+            <ion-col col-8>
+                <ion-select formControlName="organizationTypeControl" ngDefaultControl placeholder="Choose One...">
+                    <ion-option value="Choose One...">Choose One...</ion-option>
+                    <ion-option *ngFor="let organizationType of organizationTypes" value="{{organizationType}}">
+                        {{ organizationType }}
+                    </ion-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-4>
+                <ion-label>                        
+                    <error-message-span 
+                       *ngIf="createGroupForm.controls.groupName.invalid && createGroupForm.controls.groupName.dirty && createGroupForm.controls.groupName.touched"
+                       [errorText]="'Required. Must be 3+ characters'">
+                    </error-message-span>Group Name:
+                </ion-label>
+            </ion-col>
+            <ion-col col-8>
+                <ion-input [autocomplete]="on" type="text" formControlName="groupName"></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-4>
+                <ion-label>Description:</ion-label>
+            </ion-col>
+            <ion-col col-8>
+                <ion-textarea class="textarea" type="text" formControlName="groupDescription"></ion-textarea>
+            </ion-col>
+        </ion-row>
+    </div>
+    <div>
+        <h4>Group Members</h4>
+    </div>
+    <member-data-entry *ngFor="let member of groupMembers" 
+        [member]="member" (memberDeleted)="onMemberDeleted(member)"></member-data-entry>
 
-
-<ion-content padding>
-    <form (ngSubmit)="addGroup()" [formGroup]="createGroupForm">
-        <div class="absolute-container">
-            <ion-row>
-                <ion-col col-4>
-                    <ion-label>Organization:                         
-                        <span *ngIf="!showList && createGroupForm.controls.organizationName.invalid && createGroupForm.controls.organizationName.dirty && createGroupForm.controls.organizationName.touched" 
-                             style="color: #CC1F2C;">
-                             <br />(<ion-icon name="alert" style="color: #CC1F2C;"></ion-icon>
-                            Required. Must be 3 or more characters)
-                         </span>                    
-                    </ion-label>
-                </ion-col>
-                <ion-col col-8>                                    
-                    <ion-searchbar placeholder="Search Org.Names" (click)="initializeItems()"
-                                   (ionInput)="getItems($event)" type ="text" 
-                                   formControlName="organizationName" ngDefaultControl></ion-searchbar>
-                        <ion-list *ngIf="showList">
-                            <ion-item (click)="orgNameSelected(orgName)" *ngFor="let orgName of filteredList">
-                                {{ orgName }}
-                            </ion-item>
-                        </ion-list>
-                </ion-col>
-             </ion-row>            
-             <ion-row>
-                <ion-col col-4>
-                    <ion-label>Organization Type:                         
-                        <span *ngIf="createGroupForm.controls.organizationTypeControl.value =='Choose One...' && createGroupForm.controls.organizationTypeControl.touched" 
-                             style="color: #CC1F2C;">
-                             <br />(<ion-icon name="alert" style="color: #CC1F2C;"></ion-icon>
-                            Required.)
-                         </span>                    
-                    </ion-label>
-                </ion-col>
-                <ion-col col-8>                                    
-                    <ion-select formControlName="organizationTypeControl" ngDefaultControl placeholder="Choose One...">
-                            <ion-option value="Choose One...">Choose One...</ion-option>
-                            <ion-option *ngFor="let organizationType of organizationTypes" value="{{organizationType}}">
-                                {{ organizationType }}
-                            </ion-option>
-                    </ion-select>
-                </ion-col>
-             </ion-row>
-            <ion-row>
-                <ion-col col-4>
-                     <ion-label>Group Name:
-                         <span *ngIf="createGroupForm.controls.groupName.invalid && createGroupForm.controls.groupName.dirty && createGroupForm.controls.groupName.touched" 
-                             style="color: #CC1F2C;">
-                             <br />(<ion-icon name="alert" style="color: #CC1F2C;"></ion-icon>
-                             Required. Must be 3 or more characters)
-
-                         </span>                    
-                     </ion-label>
-                </ion-col>
-                <ion-col col-8>
-                    <ion-input [autocomplete]="on" type="text" formControlName="groupName"></ion-input>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col col-4>
-                    <ion-label>Description:</ion-label>
-                </ion-col>
-                <ion-col col-8>
-                    <ion-textarea class="textarea" type="text" 
-                                  formControlName="groupDescription"></ion-textarea>
-                </ion-col>
-            </ion-row>
-        </div>
-        <div class="member-header">
-            <h4>Group Members</h4>
-        </div>
-        <member-data-entry *ngFor = "let member of groupMembers" [member]="member"></member-data-entry>
-
-        <div class="container">
-            <ion-row>
-                <ion-col  col-4>
-                    <button ion-button small type="button"  color="dark" (click)="cancel()">Cancel</button>
-                </ion-col>
-                <ion-col style="padding-right: 40%;" col-5>
-                    <button  ion-button small type="button" (click)="addMember()">Add a Member</button>
-                </ion-col>
-                <ion-col col-3>
-                    <button [disabled]="true" ion-button small type="submit">Submit</button>
-                </ion-col>
-            </ion-row>
-        </div>
-         <div style="min-height: 10vh !important;">
-        </div>    
-    </form>
+    <div class="container">
+        <ion-row>
+            <ion-col col-4>
+                <button ion-button small type="button" color="dark" (click)="cancel()">Cancel</button>
+            </ion-col>
+            <ion-col style="padding-right: 40%;" col-5>
+                <button ion-button small type="button" (click)="addMember()">Add a Member</button>
+            </ion-col>
+            <ion-col col-3>
+                <button [disabled]="false" (click)="createGroupSubmission()" ion-button small>Submit</button>
+            </ion-col>
+        </ion-row>
+    </div>
+    <div style="min-height: 10vh !important;">
+    </div>
 </ion-content>
