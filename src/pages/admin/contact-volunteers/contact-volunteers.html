@@ -53,20 +53,23 @@
         </ion-grid>
         <ion-grid>
             <ion-row>
-                <ion-col col-10 padding>
+                <ion-col col-3></ion-col>
+                <ion-col col-3 padding>
                     <div align="right"><button ion-button color="primary" (click)="back()">Cancel</button></div>
                 </ion-col>
-                <ion-col col-2 padding>
+                <ion-col col-3 padding>
                     <div align="left"><button [disabled]="checkSelected()" ion-button color="primary" style="display: inline-block; width: auto;" (click)="message();">Compose Message</button></div>
                 </ion-col>
-                <ion-col width-3></ion-col>
+                <ion-col col-3></ion-col>
             </ion-row>
         </ion-grid>
     </section>
+
+ 
     <section id="tab-content" padding>
         <div class="sal-att-logo-container">
-            <img src="assets/img/collaboration.png" />
-            <div style="min-height: 10vh !important;"></div>
+            <img src="assets/img/collaboration.svg" />
         </div>
     </section>
+    <div style="min-height: 10vh !important;"></div>
 </ion-content>
