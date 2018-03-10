@@ -31,7 +31,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
     public orgRequest: Organization
     public rows: Array<Contact> = []
     public leave: boolean = false;
-    createGroupForm: FormGroup;
+    public createGroupForm: FormGroup;
     submitAttempt: boolean = false;
     public orgs: Array<string> = [];
     public organizationTypes: Array<string> = [];
@@ -49,14 +49,6 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
         public popoverCtrl: PopoverController,
         public alertCtrl: AlertController) {
 
-        this.orgRequest = new Organization();
-        this.orgRequest.name = '';
-        this.orgRequest.description = '';
-        this.orgRequest.group = '';
-        this.createGroupForm = formBuilder.group({
-            first_name: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')])]
-        });
-
     }
     /**
      *   When first loaded, the Create Group page will load as (potential) group members:
@@ -64,11 +56,10 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
      */
     private initMembers(): void {
         this.groupMembers = Array<UserProfile>(new UserProfile());
-
         let requiredUser = this.userServices.user;
         requiredUser.required = true;
-        requiredUser.profile.isAdmin = 
-        this.groupMembers.push(requiredUser);
+        requiredUser.profile.isAdmin =
+            this.groupMembers.push(requiredUser);
     }
 
     onMemberDeleted(member: UserProfile) {
@@ -87,161 +78,109 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
         }
     }
 
-
-
-    public addMember2(): void {
-
-        if (this.rows[0].first_name === ''
-            || this.rows[0].last_name === ''
-            || this.rows[0].contactString === '') {
-            let alert = this.alertCtrl.create({
-                title: 'Incomplete Member Information',
-                message: 'Please finish filling out the current row before adding another.',
-                buttons: [
-                    {
-                        text: 'OK',
-                        handler: () => {
-
-                        }
-                    }
-                ]
-            });
-            alert.present();
-        }
-
-        else if (this.rows.length > 0) {
-            this.rows.unshift({
-                first_name: '', last_name: '', isAdmin: 0, isActive: 0, status: 1, role: 0,
-                contactString: '', isContactSelected: false, isPhoneSelected: false,
-                isEmailSelected: false, mobilenumber: null, email: ''
-            });
-        }
-        else {
-            this.rows.push({
-                first_name: '', last_name: '', isAdmin: 0, isActive: 0, status: 1, role: 0,
-                contactString: '', isContactSelected: false, isPhoneSelected: false,
-                isEmailSelected: false, mobilenumber: null, email: ''
-            });
-        }
-
-    }
     public cancel(ev) {
         this.isNotBackButton = true;
         this.presentConfirm();
     }
-    flipBoolean(contact, index) {
-        if (contact !== '' && contact !== null && contact !== undefined) {
 
-            if (contact === "Phone") {
-                this.rows[index].isPhoneSelected = true;
-                this.rows[index].isEmailSelected = false;
+    public canAddMember(): boolean {
+        if (this.membersDataEntry) {
+            let noInvalidMembers = true;
+            for (let mde of this.membersDataEntry.toArray()) {
+                noInvalidMembers = noInvalidMembers && mde.formGroup.valid;
             }
-            if (contact === "Email") {
-                this.rows[index].isEmailSelected = true;
-                this.rows[index].isPhoneSelected = false;
-            }
-
+            return noInvalidMembers;
         }
-
+        else {
+            return false;
+        }        
     }
 
+    public canSubmit(): boolean {
+        if (this.membersDataEntry) {
+            let validGroup = this.createGroupForm.valid;
+            let atLeastOneValidMember = false;
+            let noInvalidMembers = true;
+            for (let mde of this.membersDataEntry.toArray()) {
+                atLeastOneValidMember = atLeastOneValidMember || mde.formGroup.valid;
+                noInvalidMembers = noInvalidMembers && (mde.formGroup.pristine || mde.formGroup.valid);
+            }
+            return validGroup && atLeastOneValidMember && noInvalidMembers;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public createGroupSubmission() {
+        console.log("createGroupSubmission() -- deleteMe");
 
 
-public createGroupSubmission() {
-    console.log("createGroupSubmission()");
         //Validation has been taken care of (Submit is disabled otherwise)
         //set group (model) w/group (form)
         let group: Organization = {
-            group: this.createGroupForm.controls.groupName.value,
-            name: this.createGroupForm.controls.organizationName.value,
-            description: this.createGroupForm.controls.groupDescription.value,
+            group: this.createGroupForm.controls.group.value,
+            name: this.createGroupForm.controls.name.value,
+            description: this.createGroupForm.controls.description.value,
+            // org_type: this.createGroupForm.controls.org_type.value,
             organization_id: null,
             status: 0
         }
+        console.log("  organization: " + JSON.stringify(group));
 
-        //Update member (model) elements with member (form) elements
-        // Only use members that have lastName filled,
-        //  since it is required and we know the member must be valid
+        // Create member data with member form elements
+        // Only use members that have lastName filled and are valid
+        //  
+        let members: Array<any> = Array<any>();
         for (let mde of this.membersDataEntry.toArray()) {
-            if(mde.formGroup.valid && mde.formGroup.controls['firstName'].value &&
-            mde.formGroup.controls['firstName'].value.length > 0) {
-                   console.log( JSON.stringify(mde.formGroup.value ));
-               }
+            console.log("fg: " + JSON.stringify(mde.formGroup.errors) +
+                "; valid: " + mde.formGroup.valid);
+
+            if (mde.formGroup.valid && mde.formGroup.controls['firstName'].value &&
+                mde.formGroup.controls['firstName'].value.length > 0) {
+                let control = mde.formGroup.controls;
+                let email = (control['contactMethod'].value == 2) ?
+                    control['contactString'].value : null;
+                let mobilenumber = (control['contactMethod'].value == 1) ?
+                    control['contactString'].value : null;
+                members.push({
+                    first_name: control['firstName'].value,
+                    last_name: control['lastName'].value,
+                    email: email,
+                    mobilenumber: mobilenumber
+                });
+            }
         }
+        console.log("  members: " + JSON.stringify(members));
+        this.orgServices.createGroup(group, members).subscribe(
+            results => {
+                console.log("Submit result:\n " + results);
+                this.presentFinishedGroup();
+            },
+            err => {
+                err = JSON.parse(err);
+                console.log(err);
+                let alert = this.alertCtrl.create({
+                    title: 'Invalid Group Request',
+                    message: '<center>' + err[Object.keys(err)[0]] + '</center>',
+                    buttons: [
+                        {
+                            text: 'Close',
+                            handler: () => {
 
-
-
-
-        //Remove Blanks (at least one member must validly filled in)
-        // submit group and members
-
-        // go to groups page - should be refreshed w/pending group; show toast
-
-    }
-
-
-
-    addGroup() {
-
-        var members = this.rows;
-
-        members.forEach(element => {
-            if (element.isEmailSelected) {
-                element.mobilenumber = null;
-            }
-            if (element.isPhoneSelected) {
-                element.email = "";
-            }
-            delete element.isActive;
-            delete element.isAdmin;
-            delete element.isContactSelected;
-            delete element.contactString
-        });
-        var org = this.orgRequest;
-        // if (this.isOrgValid(org) && this.areMembersValid(members)) {
-        if (true) {
-
-            this.isGroupFinished = true;
-            var organization = { organization };
-            organization.organization = org;
-            organization.members = members;
-            var jsons = JSON.stringify(organization);
-            var page = this;
-            var user = this.userServices.user;
-            var response;
-            this.orgServices.createOrganization(jsons).subscribe(
-                data => {
-                    this.presentFinishedGroup();
-                },
-                err => {
-                    err = JSON.parse(err);
-                    console.log(err);
-                    let alert = this.alertCtrl.create({
-                        title: 'Invalid Organization Request',
-                        message: '<center>' + err[Object.keys(err)[0]] + '</center>',
-                        buttons: [
-                            {
-                                text: 'OK',
-                                handler: () => {
-
-                                }
                             }
-                        ]
-                    });
-                    alert.present();
-                }
-            )
-        }
-        //else {
-            //this.presentRedoForm();
-      //  }
-
-
+                        }
+                    ]
+                });
+                alert.present();
+            },
+            () => {
+                console.log("createGroup complete.");
+            }
+        );
 
     }
-    setAsNumber(num) {
-        num = parseInt(num);
-    }
+
     presentRedoForm() {
         // org name 2 chars + required
         // group name 2 chars + required
@@ -312,50 +251,8 @@ public createGroupSubmission() {
             this.showList = false;
         }
     }
-    deleteMember(x) {
-        if (this.rows.length >= 2) {
-            this.rows.splice(x, 1);
-        }
-        else {
-            let alert = this.alertCtrl.create({
-                title: 'Number of Members',
-                message: '<center>Your Group Must Have at Least One Member</center>',
-                buttons: [
-                    {
-                        text: 'OK',
-                        handler: () => {
-
-                        }
-                    }
-                ]
-            });
-            alert.present();
 
 
-        }
-    }
-    areMembersValid(members) {
-        var isValid = true;
-        members.forEach(m => {
-            if (!m.email
-                && !m.mobilenumber
-                || !m.first_name
-                || !m.last_name
-                || !m.email
-                && m.mobilenumber.length != 11
-                || !m.mobilenumber
-                && !this.validateEmail(m.email)) {
-                isValid = false;
-            }
-
-        });
-        return isValid;
-    }
-    validateEmail(email) {
-        var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        var bool = re.test(email);
-        return bool;
-    }
     presentConfirm(): Promise<boolean> {
         return new Promise((resolve, reject) => {
             let alert = this.alertCtrl.create({
@@ -392,9 +289,11 @@ public createGroupSubmission() {
     }
 
     presentFinishedGroup() {
+        this.isGroupFinished = true;
         let alert = this.alertCtrl.create({
             title: 'Confirm Finished Group',
-            message: 'Your request has been submitted to the Salvation Army. You will be notified when it is approved.',
+            message: 'Your request has been submitted to the Salvation Army. ' +
+                'You will be notified when it is approved.',
             buttons: [
                 {
                     text: 'OK',
@@ -406,17 +305,14 @@ public createGroupSubmission() {
         });
         alert.present();
     }
-    trackByIndex(index: number, value: number) {
-        return index;
-    }
+    // trackByIndex(index: number, value: number) {
+    //     return index;
+    // }
     orgNameSelected(org: string) {
-        this.createGroupForm.controls.organizationName.setValue(org);
+        this.createGroupForm.controls.name.setValue(org);
         this.showList = false;
     }
 
-    submit() {
-        this.presentFinishedGroup()
-    }
     ionViewCanLeave() {
         if (!this.isNotBackButton && !this.isGroupFinished) {
             return this.presentConfirm();
@@ -443,10 +339,10 @@ public createGroupSubmission() {
     ngOnInit(): void {
         this.initMembers();
         this.createGroupForm = this.formBuilder.group({
-            groupDescription: [''],
-            organizationName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(25)])],
-            groupName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(25)])],
-            organizationTypeControl: ['', Validators.required],
+            description: ['', Validators.maxLength(64)],
+            name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(25)])],
+            group: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(25)])],
+            org_type: ['', Validators.required],
             members: this.formBuilder.array([])
 
         });
