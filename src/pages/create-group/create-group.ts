@@ -355,9 +355,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
     }
     ngAfterViewInit(): void {
         let mdes: MemberDataEntry[] = this.membersDataEntry.toArray();
-        for (let mde of mdes) {
-            console.log('mde: ' + JSON.stringify(mde.formGroup.value));
-        }
+        
 
     }
 
