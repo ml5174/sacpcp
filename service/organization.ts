@@ -101,7 +101,6 @@ export class OrganizationServices {
     {
         return this.http.get(SERVER + ALL_ORGANIZATIONS_URI, this.getOptions())
         .map((res : Response) => {
-            console.log("res._body = " + res.toString);
             return res.json();
         })
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));  

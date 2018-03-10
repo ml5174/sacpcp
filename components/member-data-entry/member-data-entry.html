@@ -19,7 +19,7 @@
         </ion-col>
         <ion-col col-4>
             <ion-label>Contact Method</ion-label>
-            <ion-select formControlName="contactMethod" placeholder="Choose One..." ngDefaultControl>
+            <ion-select formControlName="contactMethod"  interface="popover" placeholder="Choose One..." ngDefaultControl>
                 <ion-option value="2">Email</ion-option>
                 <ion-option value="1">Phone</ion-option>
             </ion-select>
@@ -45,7 +45,7 @@
     <ion-row>
         <ion-col col-6>
             <ion-label>Role</ion-label>
-            <ion-select formControlName="role" ngDefaultControl>
+            <ion-select interface="popover" formControlName="role" ngDefaultControl>
                 <ion-option value="2">Admin</ion-option>
                 <ion-option value="0">Member</ion-option>
             </ion-select>
@@ -53,13 +53,10 @@
         </ion-col>
         <ion-col col-6>
             <ion-label>Status</ion-label>
-            <ion-select formControlName="isActive" type="text" ngDefaultControl>
+            <ion-select interface="popover" formControlName="isActive" type="text" ngDefaultControl>
                 <ion-option value="1">Active</ion-option>
                 <ion-option value="0">Inactive</ion-option>
             </ion-select>
         </ion-col>
     </ion-row>
 </div>
-<!-- ion-item>Form value: {{ formGroup.value | json }}</ion-item>
-<ion-item>Form status: {{ formGroup.status | json }}</ion-item> 
-<ion-item>Form validations: {{formGroup.errors | json }}</ion-item> -->
