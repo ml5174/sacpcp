@@ -25,6 +25,7 @@ export const SEND_MESSAGE_TO_EVENT_VOLUNTEERS_URI = '/api/v0.2/admin/eventmessag
 export const EVENT_CATEGORIES_URI = '/api/v0.2/events/categories';
 export const NEW_ORGANIZATION_URI = '/api/v0.2/accounts/orgrequests/';
 export const ALL_ORGANIZATIONS_URI = '/api/v0.2/accounts/organizationnames/';
+export const ALL_GROUPS_URI = '/api/v0.2/accounts/organizations/';
 export const ALL_ORGANIZATIONTYPES_URI = '/api/v0.2/accounts/organizationtypes/';
 export const MY_ORGANIZATIONS_URI = '/api/v0.2/accounts/myorganizations/';
 export const MY_ORG_CONTACTS_URI = '/api/v0.2/accounts/organizationcontacts/';
