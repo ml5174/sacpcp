@@ -225,7 +225,6 @@ showMyGroups()
 
    private getServerEnv() {
     console.log('SERVER: ' + SERVER);
-    if (SERVER != 'https://api.volunteers.tsadfw.org') {
       this.serverVersion.getJsonData().subscribe(
        result => {
          this.serverENV=result.ENV_NAME;
@@ -249,11 +248,6 @@ showMyGroups()
         () => {
         }
       );
-    }
-    else { 
-      this.storage.set('serverEnv', 'prod');
-      this.storage.set('serverVersion', '');
-    }
    }
 
   private getAndWriteVersionInfo(){

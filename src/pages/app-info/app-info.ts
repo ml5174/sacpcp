@@ -22,9 +22,6 @@ export class AppInfoPage {
 
     this.storage.get('serverEnv').then((myServerEnv) => {
        this.serverEnv = myServerEnv;
-       if (this.serverEnv == "prod") {
-         this.serverEnv = "";
-       }
        console.log('Server Env: ' + this.serverEnv);
     });
     this.storage.get('version').then((myVersionNumber) => {
