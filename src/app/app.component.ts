@@ -12,6 +12,7 @@ import { CreateGroupPage } from '../pages/create-group/create-group';
 import { UserProfile } from '../lib/model/user-profile';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { AboutPage } from '../pages/about/about';
+import { AppInfoPage } from '../pages/app-info/app-info';
 import { ContactPage } from '../pages/contact/contact';
 import { TermsPage } from '../pages/terms/terms';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
@@ -280,7 +281,7 @@ showMyGroups()
       this.storage.set('version', version).then((resource) => {
           console.log('version: ' + this.appMarketingVersion);
         });
-      let buildNumberNonMobileFE = "_build_number_";
+      let buildNumberNonMobileFE = "1803090047";
       this.storage.set('build', buildNumberNonMobileFE).then((resource) => {
          console.log('build: ' + buildNumberNonMobileFE);
         });
