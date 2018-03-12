@@ -334,6 +334,9 @@ export class EventPage {
      }
        };*/
     eventsignupPopup.present(/*{ev}*/);
+    eventsignupPopup.onDidDismiss(data => {
+      console.log("Signup Done!");
+    });
   }
 
 
@@ -533,34 +536,7 @@ export class EventPage {
         admin = false
       }
     }
-    console.log("LIIP: " + admin);
-    /*    console.log("signup for event: " + eventLevel);
-        let groupOnly: boolean = false;
-        // Event 3689, Food Service Jan 31 4AM, pretend it is group only event
-        if (id == 3689) {
-          groupOnly = true;
-        }
-        if (groupOnly) {
-          // TODO: We need to see if the logged in user is a group admin
-          if (!this.userServices.user.id || this.userServices.user.profile.accounttype != 'A')
-          {
-            console.log("event 3689 is hard coded as group only");
-            console.log("user is not logged in or not admin");
-            console.log("present pop-up that user is not authorized for signing up for this group-only event");
-            this.notAuthorizedForGroupOnly(id);
-          }
-          else {
-            // TODO: test scenarios that the signed-in user is either Admin or Group Admin when entering this flow
-            // if group admin, then only those groups managed by user can be signed-up
-            // if TSA Admin, then any group can be signed-up
-            // this group sign up flow is for signing up a group for an event (US 9.9)
-            
-            console.log("special group sign up flow");
-          }
-        }
-
-        console.log("events.ts.signupEventRegistration(id): " + this.userServices.user.id + " " + this.userServices.user.name); */
-    if (eventLevel == 1) {
+if (eventLevel == 0) {
 
       //TODO: Event only Logic
       //IF USER is not The leader of any group
