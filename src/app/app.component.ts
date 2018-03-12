@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav, Select, Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
-import { Keyboard } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 import { UserServices } from '../lib/service/user';
 import { HomePage } from '../pages/home/home';
@@ -13,6 +12,7 @@ import { CreateGroupPage } from '../pages/create-group/create-group';
 import { UserProfile } from '../lib/model/user-profile';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { AboutPage } from '../pages/about/about';
+import { AppInfoPage } from '../pages/app-info/app-info';
 import { ContactPage } from '../pages/contact/contact';
 import { TermsPage } from '../pages/terms/terms';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
@@ -27,11 +27,10 @@ import { Groups } from '../pages/admin/groups/groups';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package.json';
 import { DONATE_URL } from '../lib/provider/config';
-import { AppVersion } from 'ionic-native';
+import { AppVersion } from '@ionic-native/app-version';
 import { SERVER } from '../lib/provider/config';
 import { GroupProfilePage } from '../pages/group-profile/group-profile';
 import { EditGroupAttendancePage } from '../pages/edit-group-attendance/edit-group-attendance';
-import {TestingPage} from '../pages/testing/testing';
 declare var window;
 declare var cordova;
 
@@ -59,6 +58,7 @@ export class MyApp {
   public showAdmin: boolean;
   public showMyGroupsMenu: boolean;
   constructor(
+    private appVersion: AppVersion,
     private statusBar: StatusBar,
     public platform: Platform,
     public config: Config,
@@ -84,8 +84,7 @@ export class MyApp {
       { title: 'Admin', component: Admin },                                            // 8 
       { title: 'My Groups', component: MyGroupsPage },                                 // 9
       { title: 'Create Group', component: CreateGroupPage },                           // 10 
-      { title: 'Group Profile', component: GroupProfilePage },                         // 11
-      { title: 'Testing' , component: TestingPage}                                     // 12
+      { title: 'Group Profile', component: GroupProfilePage }                          // 11
     ];
    
     // set our app's pages for Administrators, only with desktop ('core') platform browsers   
@@ -133,7 +132,7 @@ export class MyApp {
       	this.statusBar.styleDefault();
       	console.log(StatusBar);
       	//Keyboard.disableScroll(true);
-      	Keyboard.hideKeyboardAccessoryBar(false);
+      	//Keyboard.hideKeyboardAccessoryBar(false);
       }
 
       //Only turn these off if its not android.
@@ -226,7 +225,6 @@ showMyGroups()
 
    private getServerEnv() {
     console.log('SERVER: ' + SERVER);
-    if (SERVER != 'https://api.volunteers.tsadfw.org') {
       this.serverVersion.getJsonData().subscribe(
        result => {
          this.serverENV=result.ENV_NAME;
@@ -250,29 +248,24 @@ showMyGroups()
         () => {
         }
       );
-    }
-    else { 
-      this.storage.set('serverEnv', 'prod');
-      this.storage.set('serverVersion', '');
-    }
    }
 
   private getAndWriteVersionInfo(){
 
     if(this.platform.is('ios') || this.platform.is('android')) {
       // 2018_01_29 tslint change removed block with AppName
-      AppVersion.getPackageName().then((pkg) => {
+      this.appVersion.getPackageName().then((pkg) => {
         this.appPkgName = pkg;
         if (this.platform.is('android')) console.log('Package Name: ' + this.appPkgName);
         else console.log('BundleID: ' + this.appPkgName);
       })    
-      AppVersion.getVersionNumber().then((marketingVersion) => {
+      this.appVersion.getVersionNumber().then((marketingVersion) => {
         this.appMarketingVersion = marketingVersion;
         this.storage.set('version', this.appMarketingVersion.toString()).then((resource) => {
           console.log('Marketing Version: ' + this.appMarketingVersion);
         });
       })
-      AppVersion.getVersionCode().then((buildVersion) => {
+      this.appVersion.getVersionCode().then((buildVersion) => {
         this.appBuildVersion = buildVersion;
         this.storage.set('build', this.appBuildVersion.toString()).then((resource) => {
           console.log('Build Version: ' + this.appBuildVersion);
@@ -282,7 +275,7 @@ showMyGroups()
       this.storage.set('version', version).then((resource) => {
           console.log('version: ' + this.appMarketingVersion);
         });
-      let buildNumberNonMobileFE = "_build_number_";
+      let buildNumberNonMobileFE = "1803090047";
       this.storage.set('build', buildNumberNonMobileFE).then((resource) => {
          console.log('build: ' + buildNumberNonMobileFE);
         });

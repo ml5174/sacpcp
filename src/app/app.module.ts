@@ -21,6 +21,7 @@ import { DonatePage } from '../pages/donate/donate';
 import { ForgotPage } from '../pages/forgot/forgot';
 import { LoginPage } from '../pages/login/login';
 import { AboutPage } from '../pages/about/about';
+import { AppInfoPage } from '../pages/app-info/app-info';
 import { ContactPage } from '../pages/contact/contact';
 import { EventPage } from '../pages/events/events';
 import { MyEventsPage } from '../pages/myevents/myevents';
@@ -56,7 +57,6 @@ import { EventSortPipe, PreferencePipe, OpportunityPipe } from '../lib/pipe/even
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
 import { RecoverSuccessPage } from '../pages/recover-success/recover-success';
-import { TestingPage } from '../pages/testing/testing';
 //Added for text-mask, phone number formatting
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -66,7 +66,10 @@ import { DatePicker } from '../lib/components/date-picker/date-picker.component'
 import { CreateGroupPage } from '../pages/create-group/create-group';
 import { GroupProfilePage } from '../pages/group-profile/group-profile';
 import { EditGroupAttendancePage } from '../pages/edit-group-attendance/edit-group-attendance';
-import {GroupAttendeeModal} from '../modals/group-attendee-modal';
+import { GroupAttendeeModal } from '../modals/group-attendee-modal';
+import { MemberPopOver } from '../pages/group-profile/member-popover';
+import { AppVersion } from '@ionic-native/app-version';
+import { AppPreferences } from '@ionic-native/app-preferences';
 
 
 export const deepLinkConfig: DeepLinkConfig = {
@@ -91,6 +94,7 @@ export function translateFactory(http: HttpClient) {
     ForgotPage,
     LoginPage,
     AboutPage,
+    AppInfoPage,
     ContactPage,
     CreateGroupPage,
     GroupProfilePage,
@@ -133,8 +137,8 @@ export function translateFactory(http: HttpClient) {
     DatePicker,
     EventSignupModal,
     AddAttendeesModal,
-    TestingPage,
-    GroupAttendeeModal
+    GroupAttendeeModal,
+    MemberPopOver
   ],
   imports: [
     BrowserModule,
@@ -172,6 +176,7 @@ export function translateFactory(http: HttpClient) {
     ForgotPage,
     LoginPage,
     AboutPage,
+    AppInfoPage,
     ContactPage,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
@@ -193,9 +198,20 @@ export function translateFactory(http: HttpClient) {
     DatePicker,
     EventSignupModal,
     AddAttendeesModal,
-    TestingPage,
-    GroupAttendeeModal
+    GroupAttendeeModal,
+    MemberPopOver
+    
   ],
-  providers: [StatusBar, SplashScreen, UseridPopover, PasswordPopover, UserServices, VolunteerEventsService, SignupAssistant, MessageServices]
+  providers: [ 
+    AppVersion,
+    StatusBar, 
+    SplashScreen, 
+    UseridPopover, 
+    PasswordPopover, 
+    UserServices, 
+    VolunteerEventsService, 
+    SignupAssistant, 
+    MessageServices 
+  ]
 })
 export class AppModule {}

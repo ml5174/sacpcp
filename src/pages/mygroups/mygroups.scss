@@ -1,7 +1,7 @@
 .md, .ios {
-  ion-card{
+  ion-card {
   
-    img{
+    img {
     max-width: 200px;
     height: auto;
     margin-left: auto;
@@ -17,4 +17,8 @@
     font-style: italic;
     font-weight: bold;
   }
+}
+
+.nogroups {
+  color: red;
 }

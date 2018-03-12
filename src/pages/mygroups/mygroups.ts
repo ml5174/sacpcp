@@ -28,7 +28,8 @@ import { Platform } from 'ionic-angular';
 export class MyGroupsPage {
   @ViewChild(Content) content: Content;
   
-  hasGroups: boolean = false;
+  hasApprovedGroups: boolean = false;
+  hasPendingGroups: boolean = false;
   numberGroups = 0;
   public groups:Array<any> = [];
   public loadingOverlay; 
@@ -56,27 +57,46 @@ export class MyGroupsPage {
     this.storage.get('key').then((_key) => {
       this.key = _key;
 
-      this.loadMyGroups();
+      this.loadMyApprovedGroups();
     });
   } 
   
-  loadMyGroups() {
+  loadMyApprovedGroups() {
     var page = this;  
     this.orgServices.getMyOrganizations().subscribe(
       groups => {
         for(var group of groups) {
           console.log("org: " + group.name + " group: " + group.group);
           page.groups.push(group);
-          page.hasGroups = true;
+          page.hasApprovedGroups = true;
         } 
         this.loadMyPendingGroups();
       },
       err => {
         console.log(err);
-       this.hasGroups = false;
+        this.hasApprovedGroups = false;
       },
       () => {
+        console.log("on complete with loading groups and pending groups");
+        if (this.hasApprovedGroups == false && this.hasPendingGroups == false) {
+          console.log("user has no groups whatsoever! present pop-up!");
+          // let acknowledgeNoGroups = this.alertCtrl.create({
+          //   title: '',
+          //   cssClass: 'alertReminder',
+          //   message: 'You are not a member of any groups yet. To create a group, click the Create Group button',
+          //   buttons: [
+          //     {
+          //       text: 'OK',
+          //       handler: () => {
+          //         console.log('OKAY!!!!');
+          //       }
+          //     }
+          //   ]
+          // });
+          // acknowledgeNoGroups.present();  
+        }
       }
+
     );
   }
    
@@ -92,15 +112,15 @@ export class MyGroupsPage {
           tempGroup.organization_id = group.organization.id;
           tempGroup.status = 1; // 0 = Active, 1 = Pending, 2 = Inactive
           page.groups.push(tempGroup);
-          page.hasGroups = true;
+          page.hasPendingGroups = true;
         }
       },
       err => {
         console.log(err);
-        this.hasGroups = false;
+        page.hasPendingGroups = true;
       },
       () => {
-        console.log("user has " + ((page.hasGroups) ? page.groups.length : "no") + " groups");
+        console.log("do onCompleted in loadMyGroups");
       }
     );
   }

@@ -1,4 +1,7 @@
 {
+  "compilerOptions": {
+        "noStrictGenericChecks": true
+  },
   "rules": {
     "callable-types": true,
     "class-name": true,

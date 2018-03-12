@@ -1,9 +1,9 @@
-import {Component, ViewChild} from '@angular/core'
-import {Observable} from 'rxjs/Rx';
-import {UserServices} from '../../lib/service/user';
-import {NavController,NavParams} from 'ionic-angular';
-import {STRINGS} from '../../lib/provider/config';
-import {TranslateService} from "@ngx-translate/core";
+import { Component, ViewChild } from '@angular/core'
+import { Observable } from 'rxjs/Rx';
+import { UserServices } from '../../lib/service/user';
+import { NavController, NavParams } from 'ionic-angular';
+import { STRINGS} from '../../lib/provider/config';
+import { TranslateService } from "@ngx-translate/core";
 import { ChangePasswordPage } from '../change-password/change-password';
 import { Content, LoadingController, ToastController, PopoverController, ModalController } from 'ionic-angular';
 import { PasswordPopover } from '../../popover/password';

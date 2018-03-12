@@ -20,7 +20,7 @@
 				Home
 			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="showMyGroups()">
-				About Me
+				Profile
 			</button>
 			<button ion-item *ngIf="showMyGroupsMenu && userServices.user.id" (click)="openPage(pages[3], '')">
 				<span class="sub_menu">My Profile</span>
@@ -70,9 +70,6 @@
 			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="logout()">
 				Logout 
-			</button>
-			<button ion-item (click)="openPage(pages[12], '')">
-				Testing
 			</button>
 		</ion-list>
 	</ion-content>
