@@ -42,6 +42,7 @@ export class OrganizationServices {
 		headers.append('Accept', 'application/json;q=0.9');
 		return new RequestOptions({headers: headers});
     }
+
     getMyOrganizations()
     {
         return this.http.get(SERVER + MY_ORGANIZATIONS_URI, this.getOptions())
@@ -117,13 +118,7 @@ export class OrganizationServices {
       
         data.members = members;
          console.log(JSON.stringify(data));
-         /*
-         let req = new HttpRequest('POST', SERVER + GET_MYORG_REG_EVENT_URI + org_id + "/" + event_id + "/", data, {
-             headers:this._options,
-             reportProgress: true
-         });    */
-         //this.http.request(SERVER + GET_MYORG_REG_EVENT_URI + org_id + "/" + event_id + "/", this.getOptions());
-        return this.http.post(SERVER + GET_MYORG_REG_EVENT_URI + org_id + "/" + event_id + "/", data, this.getOptions())
+  return this.http.post(SERVER + GET_MYORG_REG_EVENT_URI + org_id + "/" + event_id + "/", data, this.getOptions())
         .map(res => res.json())
         .catch(this.handleError);
      }
