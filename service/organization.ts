@@ -11,10 +11,11 @@ import { ALL_ORGANIZATIONS_URI } from '../provider/config';
 import { MY_PENDING_ORGANIZATIONS_URI } from '../provider/config';
 import { ORGANIZATIONCONTACTS_URI } from '../provider/config';
 import { GET_ORGREQUESTS_REQUESTED_URI } from '../provider/config';
+import { GET_ORGANIZATION_TYPES_URI } from '../provider/config';
 import { APPROVE_ORGANIZATION_URI } from '../provider/config';
 import { HttpRequest } from '@angular/common/http';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-
+import {UserServices} from '../../lib/service/user';
 
 @Injectable()
 export class OrganizationServices {
@@ -24,7 +25,7 @@ export class OrganizationServices {
         status: <number>{}        
     };
 
-	constructor(private http:Http, public storage:Storage) {
+	constructor(private http:Http, public storage:Storage,public userServices:UserServices) {
 		storage.get('key')
 			.then(key => this.key = key)
 			.catch(err => console.log("couldn't get key for authentication"));
@@ -37,7 +38,11 @@ export class OrganizationServices {
     }
     getOptions() {
 		let headers = new Headers();
-		headers.append('Authorization', 'Token ' + this.key);
+        if (this.userServices.user) 
+            if (this.userServices.user.id) 
+                headers.append('Authorization', 'Token ' + this.userServices.user.id);
+    
+		
 		headers.append('Content-Type', 'application/json;q=0.9');
 		headers.append('Accept', 'application/json;q=0.9');
 		return new RequestOptions({headers: headers});
@@ -56,7 +61,7 @@ export class OrganizationServices {
         .catch((error: any) => Observable.throw(error.json().error || 'Server error')); 
     }
     getOrganizationContacts(org_id) {
-        return this.http.get(SERVER + ORGANIZATIONCONTACTS_URI + org_id + '/', this.getOptions())
+        return this.http.get(SERVER + ORGANIZATIONCONTACTS_URI + org_id , this.getOptions())
         .map((res : Response) => {
             //console.log("res._body = " + res.toString);
             return res.json();
@@ -72,6 +77,13 @@ export class OrganizationServices {
         })
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));  
     }
+    getMyPendingOrganizationsDetails(org_id)
+    {
+        return this.http.get(SERVER + MY_PENDING_ORGANIZATIONS_URI +org_id +'/', this.getOptions())
+        .map(res => res.json())
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error')); 
+    }
+    
 
     approveOrganization(org_id): Observable<any> {
         //let status2 = '{"status": 2}';
@@ -105,6 +117,12 @@ export class OrganizationServices {
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
      }
 
+     getOrgTypes(){
+         //console.log("EventId:" + eventId)
+          return this.http.get(SERVER + GET_ORGANIZATION_TYPES_URI, this.getOptions())
+        .map(res => res.json())
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+     }
      getOrgRegistrations(org_id, event_id){
          return this.http.get(SERVER + GET_MYORG_REG_EVENT_URI + org_id + "/" + event_id +"/", this.getOptions())
         .map(res => res.json())
