@@ -13,6 +13,7 @@ import { ORGANIZATIONCONTACTS_URI } from '../provider/config';
 import { GET_ORGREQUESTS_REQUESTED_URI } from '../provider/config';
 import { GET_ORGANIZATION_TYPES_URI } from '../provider/config';
 import { APPROVE_ORGANIZATION_URI } from '../provider/config';
+import { ALL_GROUPS_URI } from '../provider/config';
 import { HttpRequest } from '@angular/common/http';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {UserServices} from '../../lib/service/user';
@@ -164,6 +165,14 @@ export class OrganizationServices {
         console.log('submission payload:' + JSON.stringify(payload));
         return this.createOrganization(payload);
      }
+
+     public getAllGroups(): Observable<any>
+     {
+         return this.http.get(SERVER + ALL_GROUPS_URI, this.getOptions())
+         .map(res => res.json())
+         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+     } 
+     
 }
 
 
