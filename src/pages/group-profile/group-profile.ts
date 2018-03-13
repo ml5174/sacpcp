@@ -19,8 +19,8 @@ public orgId: number = null;
 public orgData: any = null;
 public newMember: any =null;
 public invitedHere: any =[];
-public admins: any =[];
-public nonadmins: any=[];
+
+
 public canEdit:boolean=null;
 public arrayOrgTypes: any =[];
 public canEditOrg:boolean=false;
@@ -59,28 +59,45 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
   public addNew()
     {
       
-      
-
-   let userPop = this.modalControl.create(MemberPopOver, {cssClass:"member-modal"});
-   userPop.present();
- 
-       if (!this.canEdit)
+      if (!this.canEdit)
        return;
-       
-        if (this.newMember )
+      var newTemplate={
+          first_name:'',
+          last_name:'',
+          active:false,
+         
+          email:'',
+          contact_method:'Email',
+          mobilenumber:''
+          };
+
+   let userPop = this.modalControl.create(MemberPopOver, {cssClass:"member-modal",action:'new', record:newTemplate},{cssClass:'member-modal'});
+   userPop.present();
+    userPop.onDidDismiss(data => {
+        if (data && data.contact_method)
         {
-            if (this.newMember.visible)
-            {
-                return ;
-            }
-            else
-             this.newMember.visible=true;
-         }
-        else
-        {
-            this.newMember={visible:true,status:0,first_name:"", emailOrNumber:null,contact_method:null,last_name:null, email:null, mobilenumber: null };
             
-       }
+            console.log(data);
+            data.showDelete=false;
+            data.changed=true;
+            data.new=true;
+            data.isAdmin=false;
+            data.role=0;
+            data.isEmailSelected=false;
+            data.isPhoneSelected=false;
+            if (data.contact_method == 'Email')
+            {data.isEmailSelected=true;}
+            if (data.contact_method == 'Phone')
+            {data.isPhoneSelected=true;}
+            this.orgData.members.unshift(data);
+            this.memberChg=true;
+          }
+            
+          
+   });
+       
+       
+       
     }
     
     
@@ -113,9 +130,79 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
       }
     public decodeProfileStatus  (status) 
     {
-        var codes=["None","Active","Inactive","Temporary"];
-        return (codes[status]);
+        if (status==null)
+        {
+            return "Status Unknown";
+        }
+        var codes=["Status Unknown","Active Member","Inactive Member","Temporary Member"];
+        return (codes[status]?codes[status]:'');
     }
+     presentConfirm() {
+            var page=this;
+            let alert = this.alertCtrl.create({
+            title: 'Save Changes',
+            message: 'You made changes to organization. Would you like to save those?',
+            buttons: [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: () => {
+                          console.log('Cancel clicked');
+                           //page.navCtrl.pop();
+                        }
+                    },
+                    {
+                    text: 'Save',
+                    handler: () => {
+                    page.saveOrg()
+                    alert.dismiss();
+                    console.log('Saved');
+                    }}
+                    ]
+    
+        });
+          alert.present();
+     }
+    ionViewWillLeave() {
+        if (this.memberChg || this.orgChg)
+        {
+           
+            this.presentConfirm();
+          }
+       }
+            
+
+
+         
+    public updateAdminStatus (event,member)
+    {
+        this.memberChg=true;
+        if  (!member.isAdmin)
+        {
+            if (this.adminCount() >=2)
+            {
+                setTimeout(function (){
+                member.isAdmin=false;
+                },100);
+                
+             }
+         }
+        else
+          {
+            if (this.adminCount() <=1)
+                {
+                    setTimeout(function (){
+                member.isAdmin=true;
+                    },100
+                        );
+                
+                
+                }
+    
+            }
+    
+           
+        }
     public decodeRole(role)
     {
         var roleEn=['Member','Admin'];
@@ -123,7 +210,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
     }
     public validRoles()
     {
-        return ([0,1]);
+        return ([0,1,2]);
      }
   
     public confirmAdmDelete(admrecord) {
@@ -173,14 +260,42 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
      });
   alert.present();
     }
+    public admins ()
+    {
+        var result=[];
+        if (this.orgData )
+        {
+            
+                this.orgData.members.forEach (function (member)
+                {
+                   
+                   
+                    if ((member.isAdmin))
+                         result.push(member);
+                 });
+         }
+         return (result);
+      }
+        
+    public adminCount()
+    
+    {
+        
+        console.log (this.admins().length);
+        return this.admins().length;
+     }
+        
     public deleteAdminRec (admrecord : any)
     {
-        this.admins = this.admins.filter(obj => obj !== admrecord);
+        if (this.adminCount() >0)
+        {
+        this.orgData.members = this.orgData.members.filter(obj => obj !== member);
         this.memberChg=true;
+         }
     }
     public deleteMemberRec (member)
     {
-        this.nonadmins = this.nonadmins.filter(obj => obj !== member);
+        this.orgData.members = this.orgData.members.filter(obj => obj !== member);
         this.memberChg=true;
     }
     
@@ -191,10 +306,11 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
         var email=prof.email;
         var mobile=prof.mobilenumber;
         var userid=prof.user;
-        if (this.admins)
+        
+        if (this.admins())
         {
             var i;
-            var admins =this.admins;
+            var admins =this.admins();
             for (i=0; i < admins.length; i++)
             {
                 if (contact_method == 'Email')
@@ -236,30 +352,28 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
     {
         return (role ==1 ) ;
      }
-    sortMemberData(members)
+    
+    sortMemberData(members,organization)
+    
     {
         var admins=[];
         var invited=[];
         var rest=[];
         var page=this;
+        organization.upper_name_editablae=false;
+        organization.upper_name_error=null;
+         organization.group_editablae=false;
+        organization.gropu_error=null;
         members.forEach (function (member)
         {
             member.showDelete=false;
             member.changed=false;
             member.new=false;
             member.isAdmin=false;
-            if (member.role == 1 )
+            if ((member.role == 1 ) || (member.role==2))
                  member.isAdmin=true;
             
-            if (page.groupAdmin(member.role))
-            {
-                page.admins.push(member);
-                return;
-            }
-            else
-            {
-               page.nonadmins.push(member);
-            }
+           
             if (typeof member.isEmailSelected != 'undefined')
             {
                 if (member.isEmailSelected)
@@ -279,37 +393,171 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
         
       };
       
+    checkOrgnName()
+    {
+       
+        this.orgData.organization.upper_name.error=null;
+        if (tthis.orgData.organization.upper_name.length <3) 
+        {
+            this.orgData.organization.upper_name.error="Name should be 3 character or more";
+           }
+        
+     }
     
     loadOrgContacts(orgId) {
     console.log("Group Profile: loadOrgContacts()  "+  orgId);
   
     var page = this;  
     this.orgServices.getOrganizationContacts(orgId).subscribe (orgData => {
-     page.orgData=orgData;
-      console.log("OrgData " + page.orgData.organization.upper_name );
-      page.sortMemberData(this.orgData.members);
-      page.canEdit=page.canEditCheck();
-      page.canEditOrg=false;
+    page.orgData=orgData;
+    console.log("OrgData " + page.orgData.organization.upper_name );
+    page.sortMemberData(this.orgData.members,orgData.organization);
+    page.canEdit=page.canEditCheck();
+    page.canEditOrg=false;
     },
     err => {
-        this.orgServices.getMyPendingOrganizationsDetails(orgId).subscribe(
-         orgData => {
-                page.orgData=orgData;
+    this.orgServices.getMyPendingOrganizationsDetails(orgId).subscribe(
+            orgData => {
+            page.orgData=orgData;
                 // organization status is = 0 ->appoved. Should be 1 
-                page.orgData.organization.status=1;
+             page.orgData.organization.status=1;
             console.log("OrgData " + page.orgData.organization.upper_name );
-            page.sortMemberData(this.orgData.members);
+            page.sortMemberData(this.orgData.members,orgData.organization);
             page.canEdit=page.canEditCheck();
             page.canEditOrg=true;
             },
             err2 => {
-              console.log(err2);
-                 this.orgData=null;
+                console.log(err2);
+                this.orgData=null;
                 }
             );
-        console.log(err);
+            console.log(err);
      
-    });
-  }
+        });
+    }
    
-}
+    public validatePost()
+    {
+        
+        // One or two admins
+        
+        if ((this.adminCount() > 0 ) && (this.adminCount() < 3))
+            return true;
+        
+        return false;
+     }
+    public mapData (org)
+    {
+        var myorg={};
+        if (org.status != 0)
+        {
+            myorg.id=org.id;
+            myorg.owner_id=org.owner_id;
+            myorg.approver_id=org.approver_id;
+            myorg.status=org.status;
+            myorg.organization={};
+            myorg.organization.id=org.organization.id;
+            myorg.organization.name=org.organization.name;
+            myorg.organization.group=org.organization.group;
+            myorg.organization.description=org.organization.description;
+            myorg.organization.status=org.organization.description;
+            myorg.organization.org_type=org.organization.org_type;
+            myorg.organization.website=org.organization.website;
+            myorg.members=[];
+            org.members.forEach(function (m) {
+               var mem={};
+                mem.status=m.status;
+                mem.mobilenumber=m.mobilenumber;
+                mem.fist_name=m.first_name;
+                mem.last_name=m.last_name;
+                mem.isEmailSelected=m.isEmailSelected;
+                mem.isPhoneSelected=m.isPhoneSelected;
+                mem.email=m.email;
+                mem.mobilenuber=m.mobilenumber;
+                mem.role=m.role;
+                if (m.ext_id)
+                {
+                        mem.ext_id=m.ext_id;
+                }
+                
+                 myorg.members.push(mem);
+                
+                });
+            return (myorg);
+          }
+        
+     }
+            
+    
+       
+       
+    public saveOrg()
+        {
+            
+            if (!this.orgData )
+                return;
+            if (!this.validatePost(this.orgData))
+                return;
+            var postOrg=this.mapData(this.orgData);
+            if (!this.groupApproved())
+            {
+                var page=this;
+                this.orgServices.putOrganizationRequest(this.orgId,postOrg)
+                .subscribe(
+                data=> {
+                    
+                    console.log("Post Success");
+                    page.orgData=JSON.parse(data._body);
+                        // organization status is = 0 ->appoved. Should be 1 
+                    page.orgData.organization.status=1;
+                    console.log("OrgData " + page.orgData.organization.upper_name );
+                    page.sortMemberData(this.orgData.members,this.orgData.organization);
+                    page.canEdit=page.canEditCheck();
+                  
+                    if (pag.canEdit)
+                    {
+                          page.canEditOrg=true;
+                    }
+                    else
+                        {
+                            page.canEditOrg=false;
+                       }
+                    page.orgChg=false;
+                    page.memberChg=false;
+                },
+                err =>{
+                   // err = JSON.parse(err);
+                    console.log(err);
+                   });
+            }
+        
+        
+        if (this.groupApproved())
+            {
+                var page=this;
+                this.orgServices.putOrgContactsRequest(this.orgId,postOrg)
+                .subscribe(
+                data=> {
+                    
+                    console.log("Post Success");
+                    page.orgData=JSON.parse(data._body);
+                        // organization status is = 0 ->appoved. Should be 1 
+                    page.orgData.organization.status=0;
+                    console.log("OrgData " + page.orgData.organization.upper_name );
+                    page.sortMemberData(this.orgData.members,this.orgData.organization);
+                    page.canEdit=page.canEditCheck();
+                  
+                    page.canEditOrg=false;
+                       
+                    page.orgChg=false;
+                    page.memberChg=false;
+                },
+                err =>{
+                   // err = JSON.parse(err);
+                    console.log(err);
+                   });
+            }
+        
+    }
+    
+    }
