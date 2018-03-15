@@ -526,7 +526,7 @@ export class EventPage {
   }
 
   //TODO: pass in eventLevel for handling 
-  signupEventRegistration(id, eventLevel, e) {
+  signupEventRegistration(id, event_type, e) {
   
     let admin = false;
     for(let i in this.myPreferences.organizations){
@@ -536,7 +536,7 @@ export class EventPage {
         admin = false
       }
     }
-if (eventLevel == 0) {
+if (event_type == 1) {
 
       //TODO: Event only Logic
       //IF USER is not The leader of any group
@@ -620,8 +620,8 @@ if (eventLevel == 0) {
     console.log("events.ts: cancelEventRegistration: invoke signupassistant");
     this.signupassitant.cancelEventRegisteration(id);
   }
-  //To-Do pass in the value as to whether an event is group only or not
-  alertUserLoginRegister(eventId, eventLevel) {
+
+  alertUserLoginRegister(eventId) {
     console.log("bring up alert control for register or login", eventId);
     let confirm = this.alertCtrl.create({
       title: '',
