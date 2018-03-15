@@ -335,7 +335,7 @@ export class EventPage {
        };*/
     eventsignupPopup.present(/*{ev}*/);
     eventsignupPopup.onDidDismiss(data => {
-      console.log("Signup Done!");
+      this.volunteerEventsService.loadMyEvents();
     });
   }
 
@@ -558,8 +558,8 @@ if (eventLevel == 0) {
         confirm.present();
 
       }else{
-
         this.eventSignupModal(e, admin);
+        this.eventSignupModal
       }
 
     }else{

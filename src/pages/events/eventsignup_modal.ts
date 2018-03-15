@@ -49,10 +49,6 @@ export class EventSignupModal {
 
     }
 
-    ngOnInit() {
-        console.log(this.eventData);
-    }
-
     ionViewWillEnter() {
         // console.log("Entered the eventSignup Modal");
         this.loadData();
@@ -62,28 +58,15 @@ export class EventSignupModal {
 
         var page = this;
         this.orgServices.getMyOrganizations().subscribe(orgData => {
-        /*    var isAdmin;
-            if (orgData.length > 0) {
-                console.log("You have at least 1 group");
-                isAdmin = true;
-            } else {
-                isAdmin = false;
-            }
-        */
+      
             for (var data of orgData) {
                 page.myOrgs.push({ 'name': data.name, 'group': data.group, 'org_id': data.organization_id });
             }
-            //page.isGroupAdmin = isAdmin;
-            //page.isGroupAdmin = isAdmin;
-
+  
         },
             err => {
 
             });
-
-
-
-
     }
 
     dismiss() {
@@ -111,30 +94,20 @@ export class EventSignupModal {
     submit(signupType) {
 
         if (signupType == 'individual') {
-            console.log("Individual Signup")
             //Do Individual signup
             this.doIndividualSignup();
 
         } else {
-            console.log("Group Signup");
             //Populate Group Data
             this.displayGroups();
         }
     }
 
-    pickGroup() {
-        console.log("Value selected: " + this.selectedGroup);
-    }
-
     updateMembers(contact) {
-        console.log("Not Empty: " + this.selectedMembers);
-
-        console.log(contact);
 
         if (contact.checked) {
             //Add To Array
             this.selectedMembers.push(contact.contact)
-            console.log("checked: " + JSON.stringify(this.selectedMembers));
         } else {
             //Remove from Arary. Is this safe for all browsers?
             this.selectedMembers = this.selectedMembers.filter(function (data) {
@@ -146,7 +119,7 @@ export class EventSignupModal {
 
     getOrgContacts(org_id) {
         var page = this;
-        console.log('org_id: ' + org_id);
+
         this.orgServices.getOrgContacts(org_id).subscribe(orgContactData => {
             //page.orgContacts = orgContactData.members;
             page.orgContacts = [];
@@ -174,10 +147,10 @@ export class EventSignupModal {
             .checkMyEventsNew(this.signupassistant.getCurrentEventId()).subscribe(
             res => {
                 this.signupassistant.signupEventRegistration();
-             //   this.dismiss();
+
             },
             err => {
-                console.log(err);
+
                 if (err._body.indexOf("Event registration is full") > 0) {
                     let confirm = this.alertCtrl.create({
                         title: '',
@@ -187,7 +160,7 @@ export class EventSignupModal {
                             {
                                 text: 'Ok',
                                 handler: () => {
-                                    console.log('Ok, clicked');
+
                                 }
                             }
                         ]
@@ -202,44 +175,31 @@ export class EventSignupModal {
                             {
                                 text: 'No',
                                 handler: () => {
-                                    console.log('No clicked');
+
                                 }
                             },
                             {
                                 text: 'Yes',
                                 handler: () => {
-                                    console.log('Yes clicked');
-                                    //      this.nav.push(RegisterIndividualProfilePage, { errorResponse: err });
+                                
                                 }
                             }
                         ]
                     });
                     confirm.present();
                 }
+            },
+            () => {
+                this.dismiss();
             });
     }
 
     doGroupSignUp() {
-        /*
-        var page = this;
-        this.signupassitant.setCurrentEventId(this.eventData.id);
-        this.volunteerServices
-        .checkMyEventsNew(this.signupassitant.getCurrentEventId()).subscribe(
-        res => {
-            //console.log(JSON.stringify(this.selectedMembers));
-          this.orgServices.groupRegisterForEvent(this.selectedGroup, this.eventData.id, this.selectedMembers, 0);
-          //this.orgServices.getOrgRegistrations(this.selectedGroup, this.eventData.id);
-          console.log("Success");
-        },
-        err => {
-          console.log(err);
-        });
-*/
         var page = this;
         this.orgServices
             .groupRegisterForEvent(this.selectedGroup, this.eventData.id, this.selectedMembers, 0).subscribe(
             res => {
-                //console.log("RES: " + JSON.stringify(res));
+
                 let confirm = this.alertCtrl.create({
                     title: '',
                     cssClass: 'alertReminder',
@@ -254,9 +214,7 @@ export class EventSignupModal {
                     ]
                 });
                 confirm.present();
-                // this.orgServices.groupRegisterForEvent(this.selectedGroup, this.eventData.id, this.selectedMembers, 0);
-                //this.orgServices.getOrgRegistrations(this.selectedGroup, this.eventData.id);
-                console.log("Success");
+
             },
             err => {
                 console.log(err);
@@ -268,21 +226,20 @@ export class EventSignupModal {
                         {
                             text: 'Ok',
                             handler: () => {
-                                //this.dismiss();
+                                
                             }
                         }
                     ]
                 });
             },
             () => {
-                this.volunteerServices.loadMyEvents();
+
             });
     }
 
     doSignUp() {
-        console.log("Did Signup!");
         //Continue with existing logic
-        console.log("E.id: " + this.eventData.id);
+
         this.volunteerServices.setNotificationOption(0);
         this.volunteerServices.setNotificationSchedule(0);
         this.volunteerServices.setCurrentEventId(this.eventData.id);
@@ -290,18 +247,18 @@ export class EventSignupModal {
         this.volunteerServices.checkMyEventsNew(this.eventData.id).subscribe(
             res => {
                 this.volunteerServices.eventRegisterAndSetReminder(this.eventData.id, 0, 0, false);
-                console.log("Success");
             },
             err => {
-                console.log("Failed");
+
             });
     }
 
     addAttendee(groupId) {
+        let page = this;
         let confirm = this.alertCtrl.create({
-            title: '',
+            title: 'Add additional Attendee',
             cssClass: 'alertReminder',
-            message: 'Add Attendee',
+            message: 'Email or Phone Number ### ### ####',
             inputs: [
                 {
                     name: 'first_name',
@@ -311,7 +268,7 @@ export class EventSignupModal {
                     name: 'last_name',
                     placeholder: 'Last Name'
                 },
-                 {
+                {
                     name: 'email_phone',
                     placeholder: 'Email/Phone',
                 }
@@ -320,58 +277,94 @@ export class EventSignupModal {
                 {
                     text: 'Add',
                     handler: data => {
-                        console.log("First Name: " + data.first_name);
-                        //this.orgContacts.push()
-                     /*   let jsonObj = {"contact":{}, "checked":true};
-                        jsonObj.contact={"status":3,"mobilenumber":"","first_name":,"last_name":,"contact_method":,"role":,"email":,};
-                        this.*/
+                        let contactMethod;
+                        let jsonObj = { "contact": {}, "checked": true };
+                        // Do Validation of Contact Type
+                        let navTransition = confirm.dismiss();
+
+                        var contact = page.validateContactMethod(data.email_phone);
+                        if (contact == false) {
+                            this.presentToast('Invalid contact Method.');
+                        } else if (data.first_name.length == 0) {
+                            this.presentToast('First name cannot be empty.');
+
+                        } else if (data.last_name.length == 0) {
+                            this.presentToast('Last name cannot be empty.');
+                        } else {
+                            if (contact == 'email') {
+                                contactMethod = 'Email';
+                                jsonObj.contact = { "status": 3, "mobilenumber": null, "first_name": data.first_name, "last_name": data.last_name, "contact_method": contactMethod, "role": "", "email": data.email_phone };
+                            } else {
+                                contactMethod = 'Phone';
+                                jsonObj.contact = { "status": 3, "mobilenumber": data.email_phone, "first_name": data.first_name, "last_name": data.last_name, "contact_method": contactMethod, "role": "", "email": null };
+                            }
+
+                            page.orgContacts.push(jsonObj);
+                            page.orgContacts = page.orgContacts.slice();
+                        }
                     }
+
                 },
-                 {
+                {
                     text: 'Cancel',
                     handler: () => {
-                        //console.log('Ok, clicked');
-                        //this.orgContacts.push()
+
                     }
                 }
             ]
         });
         confirm.present();
 
-
-
-
-        console.log("ABC: " + groupId);
-
         this.groupData = this.myOrgs.filter(function (data) {
             console.log(data.org_id + " | " + groupId);
             return data.org_id == groupId
         });
-        console.log("BCD: " + JSON.stringify(this.groupData));
-        //push value to the attendee Array
-
-
-        this.pushPage = AddAttendeesModal;
-        this.modalCtrl.create(AddAttendeesModal, this.groupData);
-        //  this.navController.push(this.pushPage, this.groupData);
 
     }
+
+    validatePhoneNumber(data) {
+        let phonenum = data;
+        let regex = /^(([0-9]{3}))[-. ]?([0-9]{3})[-. ]?([0-9]{4})/ig;
+
+        if (phonenum.match(regex)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    validateEmail(data) {
+        let email = data
+
+        if (email.indexOf('@') == -1 || email.indexOf('.') == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     //check to see whether expression is a phone number or an email
-     validateContactMethod(method){
-        let contact = method;
-            //Then this is not a valid email
-            if(contact.indexOf('@') == -1 || contact.indexOf('.') == -1){
-
-
-
-
-            }else{
-
-                
-            }
-
-
-        return method;
+    validateContactMethod(data) {
+        let contact = data;
+        console.log("contact: " + contact);
+        if (this.validateEmail(contact)) {
+            console.log('Valid Email: ' + contact);
+            return 'email';
+        } else if (this.validatePhoneNumber(data)) {
+            console.log('Valid Phone Num: ' + contact);
+            return 'phone';
+        } else {
+            console.log('Failed');
+            return false;
         }
 
+    }
+
+    presentToast(message: string) {
+        let toast = this.toastController.create({
+            message: message,
+            duration: 2000,
+            position: 'middle'
+        });
+        toast.present();
+    }
 }
