@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { NavController, ToastController } from 'ionic-angular';
 import { UserServices } from '../../../lib/service/user';
 import { VolunteerEventsService } from '../../../lib/service/volunteer-events-service';
@@ -12,22 +13,21 @@ import { OrganizationServices } from '../../../lib/service/organization';
 })
 export class MessageTargetList implements OnChanges {
 
-    @Input() listType: string = "event";
-    getGroupsError: boolean;
+
+    @Input() listType: string;
 
     constructor(
         public userServices: UserServices,
         public volunteerEventsService: VolunteerEventsService,
-        public organizationService: OrganizationServices
-    ) { }
+        public organizationService: OrganizationServices,
+        private fb: FormBuilder) {
+        this.createForm();
+    }
 
-    public allChecked: boolean;
     public listMetaData: any;
     public listItems: Array<any> = [];
-
-    // existing member vars
-
-    public sendTo: string;
+    public listingForm: FormGroup;
+    public loadingAlertText: string;
     public serviceError: boolean = false;
 
     ngOnInit() {
@@ -46,66 +46,58 @@ export class MessageTargetList implements OnChanges {
             }
         };
 
-
-        // this.sendTo = 'individual';
-        // this.userServices.getAllUsers().subscribe(
-        //   users => {
-        //     for (var user of users) {
-        //       if (user.contactmethod != null && user.first_name != '' && user.first_name != null)
-        //         this.users.push(user);
-        //     }
-        //   },
-        //   err => this.getUsersError = true,
-        //   () => this.toggleSelectAllUsers(true)
-        // );
-        // this.volunteerEventsService.getVolunteerEvents().subscribe(
-        //   events => {
-        //     this.events = events;
-        //   },
-        //   err => this.getEventsError = true,
-        //   () => this.toggleSelectAllEvents(true)
-        // );
-        // this.organizationService.getAllOrgNames().subscribe(
-        //   groups => {
-        //     console.log("Groups: " + JSON.stringify(groups));
-        //     for (let g of groups) {
-        //       if (g.status == 0)
-        //         this.groups.push(g);
-        //     }
-        //   },
-        //   err => {this.getGroupsError = true;}
-        // );
     }
 
+    createForm() {
+        this.listingForm = this.fb.group({
+            allChecked: '',
+            listingsArray: this.fb.array([])
+        });
+    }
+
+    rebuildForm() {
+        this.listingForm.reset({
+            allChecked: false
+        });
+        this.setListings(this.listItems);
+    }
+
+    setListings(listing: any[]) {
+        const listFGs = listing.map(item => this.fb.group(item));
+        this.listingForm.setControl('listingsArray', this.fb.array(listFGs));
+    }
+
+    public get listingsArray(): FormArray {
+        return this.listingForm.get('listingsArray') as FormArray;
+      };
+
     ngOnChanges(changes: SimpleChanges): void {
-        console.log("Something Changed")
         if (changes.listType) {
-            this.listItems = [];            
+            this.listItems = [];
             switch (changes.listType.currentValue) {
                 case "groups":
                     this.organizationService.getAllGroups().subscribe(
                         groups => {
 
-                            for (let group of groups) {
-                                if (true || group.status == 0 ) {
-                                    this.listItems.push(group);
-                                    console.log(JSON.stringify(group));
+                            for (let g of groups) {
+                                if (true || g.status == 0) {
+                                    g.sendto = false;
+                                    this.listItems.push(g);
                                 }
                             }
-                            console.log("group count: " + this.listItems.length);
-
+                            this.rebuildForm();
                         },
                         err => { this.serviceError = true; }
-                    ); 
+                    );
                     break;
                 case "events":
                     this.volunteerEventsService.getVolunteerEvents().subscribe(
                         events => {
                             for (let e of events) {
+                                e.sendto = false;
                                 this.listItems.push(e);
-                                console.log(JSON.stringify(e));
                             }
-                            console.log("event count: " + this.listItems.length);
+                            this.rebuildForm();
                         },
                         err => { this.serviceError = true; }
                     );
@@ -114,30 +106,34 @@ export class MessageTargetList implements OnChanges {
                 default:
                     this.userServices.getAllUsers().subscribe(
                         users => {
-                            for (let user of users) {
-                                if (true || user.contactmethod != null && user.first_name != '' && user.first_name != null &&
-                                        user.mobilenumber !=null && user.active == 1) {
-                                    this.listItems.push(user);
-                                    console.log(JSON.stringify(user));
+                            for (let u of users) {
+                                if (true || u.contactmethod != null && u.first_name != '' && u.first_name != null &&
+                                    u.mobilenumber != null && u.active == 1) {
+                                    u.sendto = false;
+                                    this.listItems.push(u);
                                 }
                             }
-                            console.log("user count: " + this.listItems.length);
-
+                            this.rebuildForm();
                         },
-                        err => {this.serviceError = true; }
-                    );                   
+                        err => { this.serviceError = true; }
+                    );
                     break;
             }
         }
     }
-
-    public isDate(d: any): boolean {
-        return d instanceof Date;
+    public areSomeChecked(): boolean {
+        for(let control of this.listingsArray.controls) {
+            if(control.value.sendto == true) {
+                return true;
+            }
+        }
+        return false;
     }
 
     toggleSelectAll() {
-        //console.log("toggleSelectAll: " + JSON.stringify(e.target.value));
-        console.log("toggleSelectAll: " + this.allChecked);
+        let isChecked = this.listingForm.controls.allChecked.value;
+        for( let control of this.listingsArray.controls) {
+            control.patchValue({ sendto: isChecked});
+        }
     }
-
 }

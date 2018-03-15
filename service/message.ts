@@ -5,15 +5,22 @@ import { SERVER } from '../provider/config';
 import { SEND_MESSAGE_TO_USERS_LIST_URI } from '../provider/config';
 import { Storage } from '@ionic/storage';
 import { SEND_MESSAGE_TO_EVENT_VOLUNTEERS_URI } from '../provider/config';
+import { UserServices } from './user';
 
 @Injectable()
 export class MessageServices {
 	public key:String;
 
-	constructor(private http:Http, public storage:Storage) {
-		storage.get('key')
-			.then(key => this.key = key)
-			.catch(err => console.log("couldn't get key for authentication"));
+	constructor(private http:Http, public storage:Storage,
+	private userServices: UserServices) {
+		if(this.userServices.user.id) {
+			this.key = this.userServices.user.id;
+		}
+		else {
+			storage.get('key')
+				.then(key => this.key = key)
+				.catch(err => console.log("couldn't get key for authentication"));
+		}
 	}
 
     sendMessageToEvent(event_id,body) {
@@ -23,9 +30,14 @@ export class MessageServices {
     }
 
 	sendMessageToUsersList(body) {
-		return this.http.post(SERVER + SEND_MESSAGE_TO_USERS_LIST_URI, body, this.getOptions())
+		let myThis = this;
+		return myThis.http.post(SERVER + SEND_MESSAGE_TO_USERS_LIST_URI, body, this.getOptions())
 				.map(res=> res.json())
 				.catch( (err:any) => Observable.throw(err || 'Server error'));
+	}
+
+	sendMessageToGroups() {
+		
 	}
 
 	getOptions() {
