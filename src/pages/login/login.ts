@@ -77,7 +77,7 @@ export class LoginPage {
       key => {
         this.loginSuccess = true;
         if (loginPage.remember) 
-          loginPage.storage.set('key', loginPage.userServices.user.id);
+          loginPage.storage.set('key', loginPage.userServices.user.key);
       //  loginPage.storage.set('test', 'test');
 
         loginPage.userServices.getMyProfile().subscribe(

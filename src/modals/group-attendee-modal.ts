@@ -1,10 +1,12 @@
 import {Component} from '@angular/core';
-import {FormGroup, FormControl, Validators, FormBuilder, ValidatorFn} from '@angular/forms';
+import {mobileXorEmailValidator} from '../lib/validators/mobilexoremailvalidator';
+import {FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl} from '@angular/forms';
 import {ViewController, NavParams} from 'ionic-angular';
 import {Member} from '../lib/model/member';
 
 @Component({
-    templateUrl: 'group-attendee-modal.html'
+    templateUrl: 'group-attendee-modal.html',
+    selector: 'group-attendee-modal'
 })
 export class GroupAttendeeModal {
     attendee: Member;
@@ -13,21 +15,6 @@ export class GroupAttendeeModal {
     
 
     //this may not be the best place for this as these validations can probably be reused
-    // TODO: pull this out into a static_json-like container
-    validation_messages = {
-        'first_name': [
-            {type: 'required', message: 'First Name is required.'},
-            {type: 'minlength', message: 'First Name must be at least 1 character long.'},
-            {type: 'maxlength', message: 'First Name cannot be more than 25 characters long.'},
-            {type: 'pattern', message: 'First Name must contain only letters.'},
-        ],
-        'last_name': [
-            {type: 'required', message: 'Last Name is required.'},
-            {type: 'minlength', message: 'Last Name must be at least 2 characters long.'},
-            {type: 'maxlength', message: 'Last Name cannot be more than 25 characters long.'},
-            {type: 'pattern', message: 'Last Name must contain only letters.'},
-        ]
-    }
 
     constructor(public viewController: ViewController, public params: NavParams, private fb: FormBuilder) {
        this.attendee = (params.get('attendee')) ? params.get('attendee') : new Member(); // the caller should pass a Member no matter what but just in case...
@@ -36,7 +23,8 @@ export class GroupAttendeeModal {
     dismiss() {
         this.viewController.dismiss();
     }
-    delete() {
+    delete() {  // TODO: may need a confirm dialog but this should be easy enough to recover from
+        this.attendee.isActive = 0; // this field is a number but has a boolean-type name
         this.viewController.dismiss();
     }
     
@@ -68,7 +56,6 @@ export class GroupAttendeeModal {
         //console.log('During Save:\n' + this.attendee.mobilenumber);
 
         this.viewController.dismiss(this.attendee);
-
     }
     
     ngOnInit(): void {
@@ -77,7 +64,7 @@ export class GroupAttendeeModal {
                 last_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
                 first_name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(25)]],
                 contactString: '', // covered by mobileXorEmailValidator below
-                isAttending: ['true', Validators.required],
+                isAttending: ['true', Validators.required], //this is defaulted to 'Yes', and there is no way to 'unselect' (must be yes or no)
                 contactMethod: '' // covered by mobileXorEmailValidator below
             },
             {
@@ -100,26 +87,10 @@ export class GroupAttendeeModal {
             this.isAddition = true;
         }
     }
+    
+    displayFormControlError(controlName: string): boolean {
+     return this.attendeeForm.controls[controlName].invalid && 
+         (this.attendeeForm.controls[controlName].dirty || this.attendeeForm.controls[controlName].touched);
+    }
 }
 
-export function mobileXorEmailValidator(): ValidatorFn {
-    return(group: FormGroup): {[key: string]: any} => {
-        let contactMethod = group.controls['contactMethod'].value;
-        if(contactMethod == 1) {  //mobile
-            let phoneEntry : string = group.controls['contactString'].value;
-            //console.log('phoneEntry: ' + group.controls['contactString'].value);
-            let numberRegex: RegExp = /\d{10}/g;
-            //console.log('replace complete: ' + phoneEntry.replace(/\D+/g, '').slice(0,10) );
-            return ( numberRegex.test(phoneEntry.replace(/\D+/g, '').slice(0,10)) ) ? null : {mobileContactInvalid: "Mobile Number is Invalid"};
-                
-        }
-        else if(contactMethod == 2) { //email
-            return Validators.email(group.controls['contactString']);
-        }
-        else {
-            return { noContactMethodSelected: "You must select a method for contacting you" };
-        }
-        
-    }
-    
-}

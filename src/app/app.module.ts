@@ -53,9 +53,11 @@ import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { ReferralSourcePipe } from '../lib/pipe/referralsource.pipe';
 import { MomentTimeZonePipe } from '../lib/pipe/moment-timezone.pipe';
 import { TimeFromNowPipe } from '../lib/pipe/timefromnow.pipe';
+import {ValidationErrorPipe} from '../lib/pipe/validationerror.pipe';
 import { EventSortPipe, PreferencePipe, OpportunityPipe } from '../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../lib/pipe/moment.pipe';
 import { ContactMethod } from '../lib/components/ContactMethod/contactMethod.component';
+import { ErrorMessageSpan} from '../lib/components/error-message-span/error-message-span';
 import { RecoverSuccessPage } from '../pages/recover-success/recover-success';
 //Added for text-mask, phone number formatting
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -63,6 +65,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { MessageServices } from '../lib/service/message';
 import { DatePickerCalendar } from '../lib/components/date-picker-calendar/date-picker-calendar.component';
 import { DatePicker } from '../lib/components/date-picker/date-picker.component';
+import {MemberDataEntry} from '../lib/components/member-data-entry/member-data-entry';
 import { CreateGroupPage } from '../pages/create-group/create-group';
 import { GroupProfilePage } from '../pages/group-profile/group-profile';
 import { EditGroupAttendancePage } from '../pages/edit-group-attendance/edit-group-attendance';
@@ -115,6 +118,7 @@ export function translateFactory(http: HttpClient) {
     ReferralSourcePipe,
     MomentTimeZonePipe,
     TimeFromNowPipe,
+    ValidationErrorPipe,
     ParseTimePipe,
     EventSortPipe,
     PreferencePipe,
@@ -138,7 +142,9 @@ export function translateFactory(http: HttpClient) {
     EventSignupModal,
     AddAttendeesModal,
     GroupAttendeeModal,
-    MemberPopOver
+    MemberDataEntry,
+    MemberPopOver,
+    ErrorMessageSpan
   ],
   imports: [
     BrowserModule,

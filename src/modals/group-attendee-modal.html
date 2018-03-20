@@ -13,21 +13,29 @@
 <ion-content [formGroup]="attendeeForm">
     
 <ion-list>
-<ion-item>Form value: {{ attendeeForm.value | json }}</ion-item>
+<!--  <ion-item>Form value: {{ attendeeForm.value | json }}</ion-item>
 <ion-item>Form status: {{ attendeeForm.status | json }}</ion-item> 
-<ion-item>Form validations: {{attendeeForm.errors | json }}</ion-item>
+<ion-item>Form validations: {{attendeeForm.errors | json }}</ion-item>  -->
 <ion-item-group>
             <ion-item>
-                <ion-label color="primary" stacked>First Name</ion-label>
-                <ion-input required minlength="4" formControlName="first_name"
+                <ion-label color="primary" stacked>First Name
+                    <span *ngIf="displayFormControlError('first_name')" style="color: #CC1F2C;">
+                        (<ion-icon name="alert" style="color: #CC1F2C;"></ion-icon>{{attendeeForm.controls['first_name'].errors | val_err_pipe: "first_name"}})
+                    </span>
+                </ion-label>
+                <ion-input required formControlName="first_name"
                            placeholder="First Name" stacked></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label color="primary" stacked>Last Name</ion-label>
+                <ion-label color="primary" stacked>Last Name
+                    <span *ngIf="displayFormControlError('last_name')" style="color: #CC1F2C;">
+                        (<ion-icon name="alert" style="color: #CC1F2C"></ion-icon>{{attendeeForm.controls['last_name'].errors | val_err_pipe: "last_name"}})
+                    </span>
+                </ion-label>
                 <ion-input  placeholder="Last Name" formControlName="last_name" stacked></ion-input>
             </ion-item>
         </ion-item-group>
-        <ion-list radio-group formControlName="contactMethod" ngDefaultControl>
+        <ion-item-group radio-group formControlName="contactMethod" ngDefaultControl>
             <ion-list-header>
                 Contact Type:
             </ion-list-header>
@@ -39,15 +47,22 @@
                 <ion-label>Use Email</ion-label>
                 <ion-radio value="2"></ion-radio>
             </ion-item>
-        </ion-list>
             <ion-item *ngIf="attendeeForm.value.contactMethod == 2">
-                <ion-label color="primary">email</ion-label>
+                <ion-label color="primary" stacked>email                    
+                    <span *ngIf="displayFormControlError('contactString')" style="color: #CC1F2C;">
+                        (<ion-icon name="alert" style="color: #CC1F2C;"></ion-icon>{{attendeeForm.controls['contactString'].errors | val_err_pipe}})
+                    </span></ion-label>
                 <ion-input formControlName="contactString" placeholder="email@address.com"></ion-input>
             </ion-item>
             <ion-item *ngIf="attendeeForm.value.contactMethod == 1">
-                <ion-label color="primary" >Mobile</ion-label>
+                <ion-label color="primary" stacked>Mobile                    
+                    <span *ngIf="displayFormControlError('contactString')" style="color: #CC1F2C;">
+                        (<ion-icon name="alert" style="color: #CC1F2C;"></ion-icon>{{attendeeForm.controls['contactString'].errors | val_err_pipe: 'mobile'}})
+                    </span>
+                </ion-label>
                 <ion-input formControlName="contactString" placeholder="(123)456-0000"></ion-input>
             </ion-item>
+        </ion-item-group>
     </ion-list>
 <ion-list>        
         <ion-item>
