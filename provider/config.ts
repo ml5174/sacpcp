@@ -20,6 +20,7 @@ export const UPDATE_MY_PREFERENCES_URI = '/api/v0.2/salarmy/mypreferences/';
 export const DONATE_URL = 'http://www.salvationarmydfw.org/p/get-involved/437';
 export const GET_USERS_URI = '/api/v0.2/admin/userprofile';
 export const SEND_MESSAGE_TO_USERS_LIST_URI = '/api/v0.2/admin/sendusermessages/';
+export const SEND_MESSAGE_TO_ORGANIZATION_URI = '/api/v0.2/admin/sendorgmessages/'; //  <organization_id>/
 export const GET_EVENTS_REPORT_URI = '/api/v0.2/admin/events/report/';
 export const SEND_MESSAGE_TO_EVENT_VOLUNTEERS_URI = '/api/v0.2/admin/eventmessages/';
 export const EVENT_CATEGORIES_URI = '/api/v0.2/events/categories';
@@ -46,7 +47,17 @@ if (document.location.hostname === 'localhost')
     SERVER = 'https://api.testing-volunteers.tsadfw.org'
     //SERVER = 'http://52.206.230.237:8001';
 
-    	
+export const CONSTRAINTS = {
+    FIRST_NAME_MAX: 25,
+    LAST_NAME_MAX: 25,
+    FIRST_NAME_MIN: 2,
+    LAST_NAME_MIN: 2,
+    FIRST_NAME_PATTERN: "[a-z A-Z]*",
+    LAST_NAME_PATTERN: "[a-z A-Z]*"
+
+};
+    
+
 export const STRINGS = {
         first_name: 'First Name',
         last_name: 'Last Name',

@@ -1,7 +1,7 @@
 <ion-grid [formGroup]="listingForm">
     <ion-row style="font-weight: bold">
         <ion-col col-1>
-            <ion-checkbox formControlName="allChecked"  (click)="toggleSelectAll($event)"></ion-checkbox>
+            <ion-checkbox formControlName="allChecked"  (click)="toggleSelectAll()"></ion-checkbox>
         </ion-col>
         <ion-col *ngFor="let colTitle of listMetaData[listType].header" col-2>
             {{colTitle}}

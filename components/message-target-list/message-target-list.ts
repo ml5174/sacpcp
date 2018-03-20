@@ -130,8 +130,15 @@ export class MessageTargetList implements OnChanges {
         return false;
     }
 
-    toggleSelectAll() {
-        let isChecked = this.listingForm.controls.allChecked.value;
+    toggleSelectAll(checked? : boolean) {
+        let isChecked = checked;
+        console.log('toggleSelectAll: ' + isChecked);
+        if(isChecked == null) {
+            isChecked = this.listingForm.controls.allChecked.value;
+        }
+        else {
+            this.listingForm.controls.allChecked.setValue(isChecked);
+        }
         for( let control of this.listingsArray.controls) {
             control.patchValue({ sendto: isChecked});
         }
