@@ -12,7 +12,7 @@
             <ion-col col-4>
                 <ion-label>
                     <error-message-span *ngIf="!showList && createGroupForm.controls.name.invalid && createGroupForm.controls.name.dirty && createGroupForm.controls.name.touched"
-                        [errorText]="'Required. Must be 3+ characters'">
+                        [errorText]="'Required. Must be 3-25 characters'">
                     </error-message-span>Organization:
                 </ion-label>
             </ion-col>
@@ -48,7 +48,7 @@
                 <ion-label>                        
                     <error-message-span 
                        *ngIf="createGroupForm.controls.group.invalid && createGroupForm.controls.group.dirty && createGroupForm.controls.group.touched"
-                       [errorText]="'Required. Must be 3+ characters'">
+                       [errorText]="'Required. Must be 3-25 characters'">
                     </error-message-span>Group Name:
                 </ion-label>
             </ion-col>
@@ -59,7 +59,7 @@
         <ion-row>
             <ion-col col-4>
                 <ion-label>                    
-                    <error-message-span *ngIf="createGroupForm.controls.description.value =='Choose One...' && createGroupForm.controls.description.touched"
+                    <error-message-span *ngIf="createGroupForm.controls.description.invalid"
                     [errorText]="'Must be less than 64 characters'">                   
                 </error-message-span>Description:</ion-label>
             </ion-col>

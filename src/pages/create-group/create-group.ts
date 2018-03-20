@@ -25,11 +25,10 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
     @ViewChild(Navbar) navBar: Navbar;
     @ViewChildren(MemberDataEntry) membersDataEntry: QueryList<MemberDataEntry>;
 
-    public groupMembers: UserProfile[];
-    public rowNum: number;
+    public groupMembers: UserProfile[]; 
+    //public rowNum: number;
     public isContactSelected: boolean
     public orgRequest: Organization
-    public rows: Array<Contact> = []
     public leave: boolean = false;
     public createGroupForm: FormGroup;
     submitAttempt: boolean = false;
@@ -51,6 +50,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
 
     }
     /**
+     *   initMembers():
      *   When first loaded, the Create Group page will load as (potential) group members:
      *     the current user (add a required flag) and a blank 'member'
      */
@@ -63,14 +63,22 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
     }
 
     onMemberDeleted(member: UserProfile) {
-        console.log("Searching for: " + member.required);
+        console.log("Is member required? " + member.required);
         let index = this.groupMembers.findIndex((element) => (element === member));
-        console.log("Searching forindex: " + index);
+        console.log("Searching for index: " + index);
         if (index != -1) {
             this.groupMembers.splice(index, 1);
+            this.createGroupForm.updateValueAndValidity({onlySelf: false, emitEvent: true});
+            
         }
     }
-
+    /**
+     *  This function can only be called if it is 'legal' to add a member (button is disabled
+     *   otherwise)
+     * 
+     * 
+     * 
+     */
     public addMember(): void {
         console.log("Adding member for group create");
         if (true) { //TODO: add check to make sure that all previous member data entry is complete and valid
@@ -83,10 +91,20 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
         this.presentConfirm();
     }
 
+
+    /**
+     *  in order to add another member to this (to be created) group:
+     *   1) all members already on the page MUST be filled out and valid
+     * 
+     *   TODO: figure out if switching the data entry for a
+     *     valid member to read only upon clicking
+     *     'Add A Member' is useful
+     */
     public canAddMember(): boolean {
         if (this.membersDataEntry) {
             let noInvalidMembers = true;
             for (let mde of this.membersDataEntry.toArray()) {
+                console.log("canAddMember() -- mde.formGroup: " + JSON.stringify(mde.formGroup.value));
                 noInvalidMembers = noInvalidMembers && mde.formGroup.valid;
             }
             return noInvalidMembers;
@@ -113,9 +131,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
     }
 
     public createGroupSubmission() {
-        console.log("createGroupSubmission() -- deleteMe");
-
-
+       
         //Validation has been taken care of (Submit is disabled otherwise)
         //set group (model) w/group (form)
         let group: Organization = {
@@ -126,15 +142,14 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
             organization_id: null,
             status: 0
         }
-        console.log("  organization: " + JSON.stringify(group));
 
         // Create member data with member form elements
         // Only use members that have lastName filled and are valid
         //  
         let members: Array<any> = Array<any>();
         for (let mde of this.membersDataEntry.toArray()) {
-            console.log("fg: " + JSON.stringify(mde.formGroup.errors) +
-                "; valid: " + mde.formGroup.valid);
+          //  console.log("fg: " + JSON.stringify(mde.formGroup.errors) +
+              //  "; valid: " + mde.formGroup.valid);
 
             if (mde.formGroup.valid && mde.formGroup.controls['firstName'].value &&
                 mde.formGroup.controls['firstName'].value.length > 0) {
@@ -154,7 +169,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
         console.log("  members: " + JSON.stringify(members));
         this.orgServices.createGroup(group, members).subscribe(
             results => {
-                console.log("Submit result:\n " + results);
+//console.log("Submit result:\n " + results);
                 this.presentFinishedGroup();
             },
             err => {
@@ -252,7 +267,6 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
         }
     }
 
-
     presentConfirm(): Promise<boolean> {
         return new Promise((resolve, reject) => {
             let alert = this.alertCtrl.create({
@@ -323,17 +337,17 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
      * after loading, automatically add the logged in user's data for the first group member
      */
     ionViewDidLoad() {
-        var orgRequest = this.orgRequest;
-        var user = this.userServices.user;
-        this.rows.push({
-            first_name: user.profile.first_name, status: 1, role: 2,
-            last_name: user.profile.last_name, isAdmin: 2, contactString: user.profile.contactmethod_name,
-            isActive: user.profile.active, mobilenumber: user.profile.mobilenumber, email: user.profile.email,
-            isContactSelected: false, isEmailSelected: user.profile.contactmethod_name === "Email",
-            isPhoneSelected: user.profile.contactmethod_name === "Phone", ext_id: user.profile.ext_id
-        })
-        //this.addMember();
-        console.log('ionViewDidLoad CreateGroupPage');
+        // var orgRequest = this.orgRequest;
+        // var user = this.userServices.user;
+        // this.rows.push({
+        //     first_name: user.profile.first_name, status: 1, role: 2,
+        //     last_name: user.profile.last_name, isAdmin: 2, contactString: user.profile.contactmethod_name,
+        //     isActive: user.profile.active, mobilenumber: user.profile.mobilenumber, email: user.profile.email,
+        //     isContactSelected: false, isEmailSelected: user.profile.contactmethod_name === "Email",
+        //     isPhoneSelected: user.profile.contactmethod_name === "Phone", ext_id: user.profile.ext_id
+        // })
+        // //this.addMember();
+        // console.log('ionViewDidLoad CreateGroupPage');
     }
 
     ngOnInit(): void {
