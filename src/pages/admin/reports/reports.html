@@ -27,7 +27,7 @@
             </div>
             <div>
                 <button ion-button medium color="primary" (click)="goHome()">Cancel</button>
-                <button ion-button medium color="primary" [disabled]="!startDate || !endDate" (click)="exportEvents()" data-toggle="modal" >Export Data</button>
+                <button ion-button medium color="primary" [disabled]="!startDate || !endDate || endDate < startDate" (click)="exportEvents()" data-toggle="modal" >Export Data</button>
             </div>
        
             <div padding>
