@@ -50,7 +50,9 @@ export class UserServices {
         return this.http.post(SERVER + LOGIN_URI, body, this.getOptions())
             .map(res => {
                 this.user.name = body.username;
+                this.user.key = res.json().key;
                 this.setId(res.json().key);
+                console.log("user_profile.key: " + this.user.key + "; id: " + this.user.id);
             })
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }

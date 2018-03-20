@@ -7,15 +7,18 @@ import {MY_ORG_CONTACTS_URI} from '../provider/config';
 import {GET_MYORG_REG_EVENT_URI} from '../provider/config';
 import { NEW_ORGANIZATION_URI } from '../provider/config';
 import { MY_ORGANIZATIONS_URI } from '../provider/config';
-import { ALL_ORGANIZATIONS_URI } from '../provider/config';
+import { ALL_ORGANIZATIONS_URI, ALL_ORGANIZATIONTYPES_URI } from '../provider/config';
 import { MY_PENDING_ORGANIZATIONS_URI } from '../provider/config';
 import { ORGANIZATIONCONTACTS_URI } from '../provider/config';
 import { GET_ORGREQUESTS_REQUESTED_URI } from '../provider/config';
 import { GET_ORGANIZATION_TYPES_URI } from '../provider/config';
 import { APPROVE_ORGANIZATION_URI } from '../provider/config';
+import { ALL_GROUPS_URI } from '../provider/config';
 import { HttpRequest } from '@angular/common/http';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {UserServices} from '../../lib/service/user';
+import { Organization } from '../model/organization';
+import { UserProfile } from '../model/user-profile';
 
 @Injectable()
 export class OrganizationServices {
@@ -30,11 +33,12 @@ export class OrganizationServices {
 			.then(key => this.key = key)
 			.catch(err => console.log("couldn't get key for authentication"));
     }
-    createOrganization(org)
+
+    createOrganization(org : any) : Observable<any>
     {
-    return this.http.post(SERVER + NEW_ORGANIZATION_URI, org, this.getOptions())
-    .map(res => res.json())
-    .catch(this.handleError);
+        return this.http.post(SERVER + NEW_ORGANIZATION_URI, org, this.getOptions())
+            .map(res => res.json())
+            .catch(this.handleError);
     }
     getOptions() {
 		let headers = new Headers();
@@ -98,7 +102,6 @@ export class OrganizationServices {
     {
         return this.http.get(SERVER + ALL_ORGANIZATIONS_URI, this.getOptions())
         .map((res : Response) => {
-            console.log("res._body = " + res.toString);
             return res.json();
         })
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));  
@@ -145,7 +148,31 @@ export class OrganizationServices {
         .map(res => res.json())
         .catch(this.handleError);
      }
-  
+     getAllOrganizationTypes()
+     {
+         return this.http.get(SERVER + ALL_ORGANIZATIONTYPES_URI, this.getOptions())
+         .map(res => res.json())
+         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+     } 
+     
+    public createGroup(groupData : any, membersData : any[]) : Observable<any> {
+        //format required by API
+        let payload = {status: 0, organization: null, members: Array<any>()};
+        payload.organization = groupData;
+        for(let member of membersData) {
+            payload.members.push(member);
+        }
+        console.log('submission payload:' + JSON.stringify(payload));
+        return this.createOrganization(payload);
+     }
+
+     public getAllGroups(): Observable<any>
+     {
+         return this.http.get(SERVER + ALL_GROUPS_URI, this.getOptions())
+         .map(res => res.json())
+         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+     } 
+     
 }
 
 
