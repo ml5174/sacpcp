@@ -40,8 +40,8 @@ export class MemberDataEntry {
     }
 
     deleteMember() {
-        console.log("Deleting myself");
-        this.memberDeleted.emit();
+        //console.log("MemberDataEntry is deleting myself");
+        this.memberDeleted.emit(this.member);
     }
     public isRequired(): boolean {
         return this.member.required;
