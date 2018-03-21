@@ -72,7 +72,7 @@
 <b>local packages:</b>  
   
     @ionic/app-scripts : 3.1.8  
-    Cordova Platforms  : android 6.3.0 ios 4.5.2  
+    Cordova Platforms  : android 6.4.0 ios 4.5.2  
     Ionic Framework    : ionic-angular 3.9.2  
    
 <b>System:</b>  
