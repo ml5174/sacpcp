@@ -61,19 +61,19 @@
   
 <b>cli packages: </b>(/usr/local/lib/node_modules)  
   
-    @ionic/cli-plugin-proxy : 1.5.7  
-    @ionic/cli-utils        : 1.19.0  
-    ionic (Ionic CLI)       : 3.19.1  
+    @ionic/cli-plugin-proxy : 1.5.8  
+    @ionic/cli-utils        : 1.19.2  
+    ionic (Ionic CLI)       : 3.20.0  
   
 <b>global packages:</b>  
    
-    cordova (Cordova CLI) : 7.1.0  
+    cordova (Cordova CLI) : 8.0.0  
   
 <b>local packages:</b>  
   
-    @ionic/app-scripts : 3.0.1  
+    @ionic/app-scripts : 3.1.8  
     Cordova Platforms  : android 6.3.0 ios 4.5.2  
-    Ionic Framework    : ionic-angular 3.7.1  
+    Ionic Framework    : ionic-angular 3.9.2  
    
 <b>System:</b>  
   
@@ -81,7 +81,7 @@
     ios-deploy        : 1.9.2  
     ios-sim           : 6.1.2   
     Node              : v8.6.0   
-    npm               : 5.5.1  
+    npm               : 5.7.1  
     OS                : macOS High Sierra  
     Xcode             : Xcode 9.2 Build version 9C40b  
   

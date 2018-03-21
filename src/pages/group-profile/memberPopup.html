@@ -29,8 +29,8 @@
  				
                    <ion-item>
                     <ion-label>Phone</ion-label>
-                    <ion-input [ngModelOptions]="{standalone: true}" [(ngModel)]='this.member.mobile_number' ></ion-input>
-                    
+                    <!--ion-input [ngModelOptions]="{standalone: true}" [(ngModel)]='this.member.mobile_number' ></ion-input -->
+                    <phone-input [ngModelOptions]="{standalone: true}" [(ngModel)]='this.member.mobile_number' ></phone-input>
                   </ion-item>
                     <ion-item>
                     <ion-label>Email</ion-label>
