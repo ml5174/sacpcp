@@ -90,7 +90,6 @@
     </feature>
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
-    <plugin name="cordova-plugin-hide-home-indicator" spec="1.0.*" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="ionic-plugin-deploy" />
