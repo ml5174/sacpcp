@@ -89,11 +89,14 @@ export class SignupAssistant {
               .getVolunteerEventDetails(this.currentEventId).subscribe(
               event => {
               this.eventDetail = event;
+              this.giveAlertReminder();
               },
               err => {
                   console.log(err);
               });
-      
+    }
+
+    giveAlertReminder() {
         if (this.eventDetail && this.eventDetail.notification_schedule !="0") {
             let confirm = this.alertCtrl.create({
                 title: '',
