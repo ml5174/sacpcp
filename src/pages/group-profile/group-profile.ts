@@ -450,6 +450,18 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
                     member.contact_method='Phone';
                 }
             }
+            if (!member.contact_method)
+            {
+                if (member.email)
+                {
+                    member.contact_method='Email';
+                 }
+                if (member.mobilenumber)
+                {
+                  member.contact_method='Phone';  
+                 }
+                
+              }
           
         });
         
@@ -486,7 +498,9 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
             console.log("OrgData " + page.orgData.organization.upper_name );
             page.sortMemberData(this.orgData.members,orgData.organization);
             page.canEdit=page.canEditCheck();
-            page.canEditOrg=true;
+           
+            if (page.canEdit) page.canEditOrg=true;
+            
             },
             err2 => {
                 console.log(err2);
