@@ -6,6 +6,7 @@ import { AlertController } from 'ionic-angular';
 import {UserServices} from '../../lib/service/user';
 import { OrganizationServices } from '../../lib/service/organization';
 import { MemberPopOver } from './member-popover';
+import {HomePage} from '../home/home';
 
 @Component({
   selector: 'page-group-profile',
@@ -26,13 +27,16 @@ public arrayOrgTypes: any =[];
 public canEditOrg:boolean=false;
 public orgChg:boolean=false;
 public memberChg:boolean=false;
+public cancelled : boolean=false;
+public desktop: boolean = true;
     
 constructor(public navCtrl: NavController, public navParams: NavParams,
             public orgServices: OrganizationServices,public userService:UserServices,public alertCtrl:AlertController,
          
             public modalControl:ModalController,
             public m:MemberPopOver
-            ) {}
+            ) {
+    }
      
 
  ionViewDidLoad() {
@@ -56,6 +60,10 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
          
         
   }
+    ionViewDidEnter ()
+    {
+      this.cancelled=false;  
+     }
   public addNew()
     {
       
@@ -71,7 +79,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
           mobilenumber:''
           };
 
-   let userPop = this.modalControl.create(MemberPopOver, {cssClass:"member-modal",action:'new', record:newTemplate},{cssClass:'member-modal'});
+   let userPop = this.modalControl.create(MemberPopOver, {cssClass:"member-modal",action:'new', record:newTemplate},{cssClass:'member-modal',enableBackdropDismiss: false});
    userPop.present();
     userPop.onDidDismiss(data => {
         if (data && data.contact_method)
@@ -100,6 +108,48 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
        
     }
     
+    public updateExisting(member)
+    {
+      
+      if (!this.canEdit)
+       return;
+      
+
+   let userPop = this.modalControl.create(MemberPopOver, {cssClass:"member-modal",action:'update', record:member},{cssClass:'member-modal',enableBackdropDismiss: false});
+    userPop.present();
+    userPop.onDidDismiss(data => {
+        if (data && data.contact_method)
+        {
+            
+            console.log(data);
+            data.showDelete=false;
+            data.changed=true;
+           
+          
+            if (data.contact_method == 'Email')
+            {data.isEmailSelected=true;}
+            if (data.contact_method == 'Phone')
+            {data.isPhoneSelected=true;}
+           member.first_name=data.first_name;
+           member.last_name=data.last_name;
+           member.chaged=true;
+           member.contact_method=data.contact_method;
+           member.email=data.email;
+           member.status=data.status;
+           member.mobilenumber=data.mobilenumber;
+            
+            
+            this.memberChg=true;
+          }
+            
+          
+   });
+       
+       
+       
+    }
+    
+    
     
     public groupApproved()
     {
@@ -118,6 +168,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
     {
         if (orgType == null)
             return ("Not Present");
+        
         let i: number=0;
         for(i=0;  i <this.arrayOrgTypes.length ;i++)
         {
@@ -164,6 +215,12 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
           alert.present();
      }
     ionViewWillLeave() {
+        
+        if (this.cancelled)
+        {
+           
+            return;
+         }
         if (this.memberChg || this.orgChg)
         {
            
@@ -289,7 +346,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
     {
         if (this.adminCount() >0)
         {
-        this.orgData.members = this.orgData.members.filter(obj => obj !== member);
+        this.orgData.members = this.orgData.members.filter(obj => obj !== admrecord);
         this.memberChg=true;
          }
     }
@@ -364,6 +421,11 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
         organization.upper_name_error=null;
          organization.group_editablae=false;
         organization.gropu_error=null;
+        if (organization.org_type == null)
+        {
+            organization.org_type={id:null};
+        }
+        
         members.forEach (function (member)
         {
             member.showDelete=false;
@@ -397,7 +459,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
     {
        
         this.orgData.organization.upper_name.error=null;
-        if (tthis.orgData.organization.upper_name.length <3) 
+        if (this.orgData.organization.upper_name.length <3) 
         {
             this.orgData.organization.upper_name.error="Name should be 3 character or more";
            }
@@ -446,17 +508,26 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
         
         return false;
      }
+    
+    public cancelThisPage()
+    {
+        // prevent Save popup
+        this.cancelled=true;
+        this.navCtrl.push(HomePage);
+        
+    }
     public mapData (org)
     {
         var myorg={};
-        if (org.status != 0)
+        var page=this;
+        if (org.organization.status != 0)
         {
             myorg.id=org.id;
             myorg.owner_id=org.owner_id;
             myorg.approver_id=org.approver_id;
             myorg.status=org.status;
             myorg.organization={};
-            myorg.organization.id=org.organization.id;
+           // myorg.organization.id=org.organization.id;
             myorg.organization.name=org.organization.name;
             myorg.organization.group=org.organization.group;
             myorg.organization.description=org.organization.description;
@@ -465,15 +536,16 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
             myorg.organization.website=org.organization.website;
             myorg.members=[];
             org.members.forEach(function (m) {
-               var mem={};
+              let mem :any={};
                 mem.status=m.status;
+                  console.log('changing status to ',page.decodeProfileStatus(m.status));
                 mem.mobilenumber=m.mobilenumber;
-                mem.fist_name=m.first_name;
+                mem.first_name=m.first_name;
                 mem.last_name=m.last_name;
                 mem.isEmailSelected=m.isEmailSelected;
                 mem.isPhoneSelected=m.isPhoneSelected;
                 mem.email=m.email;
-                mem.mobilenuber=m.mobilenumber;
+                mem.mobilenumber=m.mobilenumber;
                 mem.role=m.role;
                 if (m.ext_id)
                 {
@@ -484,12 +556,59 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
                 
                 });
             return (myorg);
+          } else // if (org.organization.status==0)
+        {
+                myorg.members=[];
+             org.members.forEach(function (m) {
+               var mem={};
+                mem.status=m.status;
+                 console.log('changing status to ',m.status, page.decodeProfileStatus(m.status));
+                mem.mobilenumber=m.mobilenumber;
+                mem.first_name=m.first_name;
+                mem.last_name=m.last_name;
+                mem.contact_method=m.contact_method;
+                mem.email=m.email;
+                mem.mobilenumber=m.mobilenumber;
+                mem.role=m.role;
+                if (m.ext_id)
+                {
+                        mem.ext_id=m.ext_id;
+                }
+                
+                 myorg.members.push(mem);
+                
+                });
+            return (myorg);
+            
+            
           }
         
      }
             
     
-       
+    public loggedInUser (member)
+    /* return true if member is logged in user  */
+    {
+        var prof=this.userService.user.profile;
+        var contact_method=prof.contactmethod_name;
+        var email=prof.email;
+        var mobile=prof.mobilenumber;
+   
+   
+          if ((member.contactmethod_name == 'Email') && (email == member.email))
+          {
+              return true;
+          }    
+            else
+              {
+                 if (mobile && (mobile == member.mobilenumber))
+                 {
+                    return true;
+                }   
+              }
+            return false
+      
+    }
        
     public saveOrg()
         {
@@ -498,10 +617,11 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
                 return;
             if (!this.validatePost(this.orgData))
                 return;
+        var page=this;
             var postOrg=this.mapData(this.orgData);
             if (!this.groupApproved())
             {
-                var page=this;
+                
                 this.orgServices.putOrganizationRequest(this.orgId,postOrg)
                 .subscribe(
                 data=> {
@@ -509,12 +629,13 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
                     console.log("Post Success");
                     page.orgData=JSON.parse(data._body);
                         // organization status is = 0 ->appoved. Should be 1 
+                    
                     page.orgData.organization.status=1;
                     console.log("OrgData " + page.orgData.organization.upper_name );
                     page.sortMemberData(this.orgData.members,this.orgData.organization);
                     page.canEdit=page.canEditCheck();
                   
-                    if (pag.canEdit)
+                    if (page.canEdit)
                     {
                           page.canEditOrg=true;
                     }
@@ -524,6 +645,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
                        }
                     page.orgChg=false;
                     page.memberChg=false;
+                    page.navCtrl.push(HomePage);
                 },
                 err =>{
                    // err = JSON.parse(err);
@@ -534,7 +656,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
         
         if (this.groupApproved())
             {
-                var page=this;
+              
                 this.orgServices.putOrgContactsRequest(this.orgId,postOrg)
                 .subscribe(
                 data=> {
@@ -551,6 +673,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
                        
                     page.orgChg=false;
                     page.memberChg=false;
+                    page.navCtrl.push(HomePage);
                 },
                 err =>{
                    // err = JSON.parse(err);

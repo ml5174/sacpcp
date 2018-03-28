@@ -27,10 +27,36 @@ export class MemberPopOver {
     {
         if (this.record.contact_method == null)
             { this.record.contact_method='Email'};
+        if (this.record.status)
+        {
+            if (this.record.status == 1)
+            {
+                 this.record.active=true;
+             }
+         }
+                 
         if (this.record.active == null)
             { this.record.active=false};
             this.page=this;
-     }
+     
+        this.userForm=this.formBuilder.group({
+        
+    email : [this.record.email],
+    active : [this.record.active],
+    mobilenumber:[this.record.mobilenumber],
+     contact_method : [this.record.contact_method,Validators.compose([ Validators.required])],
+     first_name: [this.record.first_name, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), 
+    Validators.minLength(3), Validators.maxLength(30)])],
+         
+    last_name: [this.record.last_name, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), 
+    Validators.minLength(3), Validators.maxLength(30)])],
+    
+   
+   
+    },
+   {validator: this.emailOrMobile.bind(this)}
+   );
+        }
      }
     
     
@@ -60,6 +86,10 @@ export class MemberPopOver {
     public onSubmit (data)
     {
     console.log (data);
+        if (data.active)
+            data.status=1;
+        else
+            data.status=2;
     this.viewCtrl.dismiss(data);
     }
  
