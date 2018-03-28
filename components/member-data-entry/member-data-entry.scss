@@ -1,0 +1,71 @@
+member-data-entry {
+    ion-input {    
+        width:100%;
+        border-bottom: 0.5px solid black;
+        border-top: 0.5px solid black;
+        border-left: 0.5px solid black;
+        border-right: 0.5px solid black;
+        padding-left: 1%;
+        padding-right: 5%;
+        text-align: center;
+    }
+    // this is to eliminate the padding on the searchbar for org name
+    .searchbar-ios.searchbar-left-aligned .searchbar-input {
+        //padding-left: 2px;
+    }
+    
+    .searchbar-md {
+        padding: 0px;
+    }
+    
+    .hover-img{
+        cursor: pointer;
+    }
+    .below-select{
+        padding-top: 2%;
+    }
+    ion-select
+    {
+        max-width: 100% !important;
+        max-height: 100%;
+    }
+    .wide{
+        width:100%;
+    }
+    .popup{
+        width: 500 vw;
+    }
+    .entry-div{
+        height: 200px;
+    }
+    .input-height
+    {
+        height: 40px;
+    }
+    h2{
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .member-header{
+        min-height: 5vh;
+        padding-top: 20%;
+
+    }
+
+/*    .searchbar-search-icon {
+        visibility: false;
+        display: none;
+        width: 0;
+        height: 0;
+    }*/
+  
+    .searchbar-md .searchbar-input {
+        //padding-left: 13px;
+        //padding-right: 8px;
+        //-webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+
+}

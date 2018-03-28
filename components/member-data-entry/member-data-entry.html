@@ -1,0 +1,62 @@
+<div style="border-bottom: 0.5px solid black;" [formGroup]="formGroup">
+    <a *ngIf="!isRequired()" (click)="deleteMember()">
+        <ion-icon name="close-circle" style="float: right;" class="hover-img"></ion-icon>
+    </a>
+
+    <ion-row>
+        <ion-col col-4>
+            <ion-label>
+                <error-message-span *ngIf="isFormControlError('firstName')" [errorText]="'Required. 2+ characters'">
+                </error-message-span>
+                First Name</ion-label>
+            <ion-input type="text" formControlName="firstName"></ion-input>
+        </ion-col>
+        <ion-col col-4>
+            <ion-label>
+                <error-message-span *ngIf="isFormControlError('lastName')" [errorText]="'Required. 2+ characters'">
+                </error-message-span>Last Name</ion-label>
+            <ion-input type="text" formControlName="lastName"></ion-input>
+        </ion-col>
+        <ion-col col-4>
+            <ion-label>Contact Method</ion-label>
+            <ion-select formControlName="contactMethod"  interface="popover" placeholder="Choose One..." ngDefaultControl>
+                <ion-option value="2">Email</ion-option>
+                <ion-option value="1">Phone</ion-option>
+            </ion-select>
+            <br>
+            <ion-item *ngIf="formGroup.value.contactMethod == 2">
+                <ion-label color="primary">
+                    <span *ngIf="isFormControlError('contactString')" style="color: #CC1F2C">
+                        (
+                        <ion-icon name="alert" style="color: #CC1F2C;"></ion-icon>Error Placeholder)
+                    </span>
+                </ion-label>
+                <ion-input formControlName="contactString" placeholder="email@address.com"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="formGroup.value.contactMethod == 1">
+                <ion-label color="primary">
+                    <error-message-span *ngIf="false" [errorText]="'Mobile Error Placeholder'">
+                    </error-message-span>
+                </ion-label>
+                <ion-input formControlName="contactString" placeholder="(123)456-0000"></ion-input>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-6>
+            <ion-label>Role</ion-label>
+            <ion-select interface="popover" formControlName="role" ngDefaultControl>
+                <ion-option value="2">Admin</ion-option>
+                <ion-option value="0">Member</ion-option>
+            </ion-select>
+            <br>
+        </ion-col>
+        <ion-col col-6>
+            <ion-label>Status</ion-label>
+            <ion-select interface="popover" formControlName="isActive" type="text" ngDefaultControl>
+                <ion-option value="1">Active</ion-option>
+                <ion-option value="0">Inactive</ion-option>
+            </ion-select>
+        </ion-col>
+    </ion-row>
+</div>

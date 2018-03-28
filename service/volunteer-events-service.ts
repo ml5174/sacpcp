@@ -44,7 +44,8 @@ export class VolunteerEventsService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
     getEventsReport(body) {
-        return this.http.get(SERVER + GET_EVENTS_REPORT_URI + '?start=' + body.start + '&end=' + body.end, this.getOptionsForReport())
+        // TODO: fix this GET_EVENTS_REPORT_URI to use local timezone offset
+        return this.http.get(SERVER + GET_EVENTS_REPORT_URI + '?timeMin=' + body.start + 'T06:00:00.000Z&timeMax=' + body.end + 'T06:00:00.000Z', this.getOptionsForReport())
             .map(res => res.text())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
@@ -53,7 +54,7 @@ export class VolunteerEventsService {
         console.log("erase myevents was called");
         this.myEvents.length = 0;
     }
-    getVolunteerEvents(): Observable<VolunteerEvent[]> {
+    getVolunteerEvents(): Observable<any[]> {
         return this.http.get(SERVER + GET_EVENTS_URI)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

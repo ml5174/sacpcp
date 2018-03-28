@@ -1,5 +1,7 @@
 export class UserProfile {
-  id: number;
+  id: any;
+  key?: String;
   name: String;
+  required? : boolean = false;
   profile: any={};
 }
