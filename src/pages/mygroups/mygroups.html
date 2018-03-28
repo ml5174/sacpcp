@@ -66,9 +66,10 @@
                 <ion-col>
                     <button ion-button (click)="pushGroupPage()" color="primary">Create Group</button>
                 </ion-col>
-                <ion-col></ion-col>
-            </ion-row>
+             </ion-row>
         </ion-grid>
+       <!-- force spacer so footer tab bar does not hide the Cancel and Create Group buttons -->
+       <div style="min-height: 10vh !important;"></div>
     </section>
 </ion-content>
 

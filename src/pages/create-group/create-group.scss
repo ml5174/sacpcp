@@ -1,6 +1,5 @@
 page-create-group {
-    ion-input {
-        
+    ion-input {    
         width:100%;
         border-bottom: 0.5px solid black;
         border-top: 0.5px solid black;
@@ -10,23 +9,15 @@ page-create-group {
         padding-right: 5%;
         text-align: center;
     }
-    // ion-searchbar
-    // {
-    //     width:100%;
-    //     border-bottom: 0.5px solid black;
-    //     border-top: 0.5px solid black;
-    //     border-left: 0.5px solid black;
-    //     border-right: 0.5px solid black;
-    //     padding-left: 1%;
-    //     padding-right: 5%;
-    //     text-align: center;
-    // }
-
+    // this is to eliminate the padding on the searchbar for org name
+    .searchbar-ios.searchbar-left-aligned .searchbar-input {
+        //padding-left: 2px;
+    }
+    
     .searchbar-md {
         padding: 0px;
     }
     
-
     .textarea{
         width:100%;
         border-bottom: 0.5px solid black;
@@ -72,12 +63,12 @@ page-create-group {
 
     }
 
-    .searchbar-search-icon {
+/*    .searchbar-search-icon {
         visibility: false;
         display: none;
         width: 0;
         height: 0;
-    }
+    }*/
   
     .searchbar-md .searchbar-input {
         //padding-left: 13px;
@@ -86,5 +77,8 @@ page-create-group {
         -moz-box-shadow: none;
         box-shadow: none;
     }
+}
 
+#createGroupPhoneInput {
+        height: 56px !important; 
 }

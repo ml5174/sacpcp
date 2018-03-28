@@ -147,7 +147,7 @@ export class EventSignupModal {
     getOrgContacts(org_id) {
         var page = this;
         console.log('org_id: ' + org_id);
-        this.orgServices.getOrgContacts(org_id).subscribe(orgContactData => {
+        this.orgServices.getOrganizationContacts(org_id).subscribe(orgContactData => {
             //page.orgContacts = orgContactData.members;
             page.orgContacts = [];
             // page.orgContacts = [{}];

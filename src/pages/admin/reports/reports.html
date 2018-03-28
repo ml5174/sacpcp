@@ -1,52 +1,39 @@
-<style>
-    label {
-        font-size: 150%;
-    }
-    input {
-        font-size:1.75em;
-    }
-    .reportsFooter {
-        width:100%;
-        text-align:center;
-        position:absolute;
-        bottom:1.5em;
-    }
-</style>
 
 <ion-header>
     <app-header back="true" title="Event Registration Data">
     </app-header>
 </ion-header>
-
+    
 <ion-content padding-left padding-right padding-top>
-
-   <section id="header">
+    
+    <section id="header">
         <div *ngIf="getEventsError" style="color:#CC1F2C">
             There was an error getting the events in the range you provided.
         </div>
-   </section>
-   <section id="home-body">
-
-       <div align="center">
+    </section>
+    
+    <div align="center">
+            
+        <section id="home-body">
+     
+            <div><h1 style="font-family:inherit">Select the date range:</h1></div>
+            <div padding>
+                <label for="start">Start Date:</label>
+                <input large name="start" [(ngModel)]="startDate" type="date">
+            </div>
+            <div padding>
+                <label for="end">End Date:</label>
+                <input [(ngModel)]="endDate" type="date">
+            </div>
+            <div>
+                <button ion-button medium color="primary" (click)="goHome()">Cancel</button>
+                <button ion-button medium color="primary" [disabled]="!startDate || !endDate || endDate < startDate" (click)="exportEvents()" data-toggle="modal" >Export Data</button>
+            </div>
        
-        <div><h1 style="font-family:inherit">Select the date range:</h1></div>
-        <div padding>
-            <label for="start">Start Date:</label>
-            <input large name="start" [(ngModel)]="startDate" type="date">
-        </div>
-        <div padding>
-            <label for="end">End Date:</label>
-            <input [(ngModel)]="endDate" type="date">
-        </div>
-        <div padding>
-            <button ion-button medium color="primary" (click)="goHome()">Cancel</button>
-            <button ion-button medium color="primary" [disabled]="!startDate || !endDate" (click)="exportEvents()" data-toggle="modal" >Export Data</button>
-        </div>
-        </div>
-    </section>
-    <section id="footer" padding>
-        <div class="reportsFooter">
-            <img src="assets/img/collaboration.png" />
-        </div>
-    </section>
+            <div padding>
+                <img src="assets/img/collaboration.svg" />
+            </div>
+        </section>
+    </div>
+    <div style="min-height: 10vh !important;"></div>
 </ion-content>

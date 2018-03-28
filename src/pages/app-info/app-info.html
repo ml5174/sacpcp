@@ -1,0 +1,42 @@
+<ion-header>
+    <app-header back="true" title="App Info">
+    </app-header>
+  </ion-header>
+
+<ion-content padding>
+    <section id="tab-content" padding style="text-align: left !important;">
+        <p>
+            The Salvation Army - DFW Application was developed by AT&amp;T in association with The Salvation Army – DFW. 
+          </p>
+          <p>
+            THIS APPLICATION IS PROVIDED 'AS IS' AND ANY EXPRESSED OR IMPLIED REPRESENTATIONS OR WARRANTIES, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY
+            AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+          </p>
+          <p>
+              This Application is provided as a free service to The Salvation Army
+            - DFW. It is intended to be useful in helping volunteers view events. It provides current event view and search capabilities
+            and informational links. Content and information provided by way of the Application are not intended as an endorsement
+            or sponsorship by AT&amp;T of 'The Salvation Army - DFW', its programs or services, and AT&amp;T does not warrant the accuracy
+            or the completeness of the content or information or the reliability of any advice, opinion, statement or other information
+            as displayed or distributed through the Application.
+          </p>
+    
+      </section>
+      <section class="appInfo">
+        <table align="center" cellpadding="10">
+          <thead>
+            <tr>
+              <th colspan="2"><b>App Version Information</b></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td align="left">Marketing Version:</td><td align="right">{{ this.versionNumber }}</td></tr>
+            <tr><td align="left">Build Number:</td><td align="right">{{ this.buildNumber }}</td></tr>
+            <tr><td align="left">Server Environment:</td><td align="right">{{ this.serverEnv }}</td></tr>
+            <tr><td align="left">API Version:</td><td align="right">{{ this.serverVersionNumber }}</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <div style="min-height: 10vh !important;"></div>
+ 
+</ion-content>
