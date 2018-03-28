@@ -498,7 +498,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
         });
     }
    
-    public validatePost()
+    public validatePost(data)
     {
         
         // One or two admins
@@ -518,7 +518,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
     }
     public mapData (org)
     {
-        var myorg={};
+        let myorg:any ={};
         var page=this;
         if (org.organization.status != 0)
         {
@@ -560,7 +560,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams,
         {
                 myorg.members=[];
              org.members.forEach(function (m) {
-               var mem={};
+               let  mem:any ={};
                 mem.status=m.status;
                  console.log('changing status to ',m.status, page.decodeProfileStatus(m.status));
                 mem.mobilenumber=m.mobilenumber;
