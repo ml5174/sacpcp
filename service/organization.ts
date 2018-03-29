@@ -125,12 +125,22 @@ export class OrganizationServices {
         .map(res => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
      }
+     putOrganizationRequest (orgid,body) {
+        return this.http.put(SERVER + MY_PENDING_ORGANIZATIONS_URI+orgid +"/", JSON.stringify(body),this.getOptions())
+        
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));  
+    }
+    putOrgContactsRequest (orgid,body) {
+        return this.http.put(SERVER + ORGANIZATIONCONTACTS_URI+orgid +"/", JSON.stringify(body),this.getOptions())
+        
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));  
+    }
      getOrgRegistrations(org_id, event_id){
          return this.http.get(SERVER + GET_MYORG_REG_EVENT_URI + org_id + "/" + event_id +"/", this.getOptions())
         .map(res => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
      }
- 
+    
      groupRegisterForEvent(org_id, event_id, members, notification){
          let data = {"options":{"notification_option":0}, "members":[]};
          data.options ={"notification_option":notification};
