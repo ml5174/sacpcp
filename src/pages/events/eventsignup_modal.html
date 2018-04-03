@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content>
-    <ion-grid *ngIf="!showGroups && isGroupAdmin && !showMembers">
+    <ion-grid *ngIf="(eventType == 0 && !showGroups && !showMembers) || (eventType == 1 && isGroupAdmin)">
         <ion-item>
             <p>Would you like to sign up as:</p>
         </ion-item>
@@ -25,82 +25,69 @@
             <ion-col>
                 <ion-item>
                     <ion-label>Group</ion-label>
-                    <ion-radio value="group" disabled="isGroupAdmin"></ion-radio>
+                    <ion-radio value="group" [disabled]="isGroupAdmin == false"></ion-radio>
                 </ion-item>
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-grid *ngIf="showGroups && isGroupAdmin">
+    <!-- <ion-grid *ngIf="showGroups">
         <ion-row>
-            <ion-col>
+            <ion-col col-4>
                 <ion-item>
                     <ion-label>Organization</ion-label>
                 </ion-item>
             </ion-col>
             <ion-col>
-                <ion-item>
+                <ion-item col-4>
                     <ion-label>Group Name</ion-label>
                 </ion-item>
             </ion-col>
-            <ion-col>
-                
+            <ion-col col-4>
+                <ion-item>
+                    <ion-label>&nbsp;</ion-label>
+                </ion-item>
             </ion-col>
         </ion-row>
         <ion-row radio-group [(ngModel)]="selectedGroup" *ngFor="let org of myOrgs">
-            <ion-col>
+            <ion-col col-4>
                 <ion-item>
-                <ion-label>{{org.name}}</ion-label>
+                    <ion-label>{{org.name}}</ion-label>
                 </ion-item>
             </ion-col>
-            <ion-col>
+            <ion-col col-4>
                 <ion-item>
-                <ion-label>{{org.group}}</ion-label>
+                    <ion-label>{{org.group}}</ion-label>
                 </ion-item>
             </ion-col>
-            <ion-col>
+            <ion-col col-4>
                 <ion-item>
-                <ion-radio value="{{org.org_id}}"></ion-radio>
-                </ion-item>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-    <ion-grid *ngIf="showMembers && isGroupAdmin">
-        <ion-row>
-            <ion-col>
-                <ion-item>
-                    <ion-label>First Name</ion-label>
-                </ion-item>
-            </ion-col>
-            <ion-col>
-                <ion-item>
-                    <ion-label>Last Name</ion-label>
-                </ion-item>
-            </ion-col>
-            <ion-col>
-                <ion-item>
-                    <ion-label>Attending</ion-label>
+                    <ion-radio value="{{org.org_id}}"></ion-radio>
                 </ion-item>
             </ion-col>
         </ion-row>
-        <ion-row *ngFor="let contacts of orgContacts ">
-            <ion-col>
-                <ion-item>
-                    <ion-label>{{contacts.contact.first_name}}</ion-label>
-                </ion-item>
-            </ion-col>
-            <ion-col>
-                <ion-item>
-                    <ion-label>{{contacts.contact.last_name}}</ion-label>
-                </ion-item>
-            </ion-col>
-            <ion-col>
-                <ion-item>
-                    <ion-checkbox [(ngModel)]="contacts.checked" value="contacts" checked (ionChange)="updateMembers(contacts)"></ion-checkbox>
-                </ion-item>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-    <div *ngIf="!isGroupAdmin">
+    </ion-grid> -->
+    <ion-item *ngIf="showGroups">
+        <ion-label>Organization</ion-label>
+        <ion-select [(ngModel)]="selectedGroup">
+            <ion-option *ngFor="let org of myOrgs" value="{{org.org_id}}">{{org.name}} &nbsp; {{org.group}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <!--<ion-item *ngIf="showMembers">
+  <ion-label>Attendees</ion-label>
+  <ion-select  [(ngModel)]="orgContacts" multiple="true" >
+    <ion-option   *ngFor="let contacts of orgContacts" [value]="contacts.contact"  (ionSelect)="updateMembers(contacts)" selected="{{contacts.selected}}">{{contacts.contact.first_name}} &nbsp; {{contacts.contact.last_name}}</ion-option>
+  </ion-select>
+</ion-item> -->
+    <ion-list *ngIf="showMembers">
+
+        <ion-list-header>Attending Members</ion-list-header>
+        <ion-item *ngFor="let contacts of orgContacts ">
+            <ion-label>{{contacts.contact.first_name}}&nbsp;&nbsp; {{contacts.contact.last_name}}</ion-label>
+            <ion-checkbox [(ngModel)]="contacts.checked"
+                value="contacts" checked (ionChange)="updateMembers(contacts)"></ion-checkbox>
+        </ion-item>
+    </ion-list>
+    <div *ngIf="this.eventType == 1 && !isGroupAdmin">
         <ion-row>
             <ion-item>
                 <p>Group event signup is for admins only</p>

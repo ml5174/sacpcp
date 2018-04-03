@@ -559,9 +559,10 @@ if (event_type == 1) {
 
       }else{
         this.eventSignupModal(e, admin);
-        this.eventSignupModal
       }
 
+    }else if (event_type == 0){
+         this.eventSignupModal(e, admin);
     }else{
       //Continue with existing logic
       this.signupassitant.setCurrentEventId(id);

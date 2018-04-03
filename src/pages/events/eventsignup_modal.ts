@@ -22,8 +22,8 @@ export class EventSignupModal {
     private orgContacts;
     private isGroupAdmin;
     private eventData;
-    private pushPage: any;
     private groupData;
+    private eventType;
     selectedMembers;
     signuptype = 'individual';
     optionSelected = false;
@@ -50,8 +50,8 @@ export class EventSignupModal {
     }
 
     ionViewWillEnter() {
-        // console.log("Entered the eventSignup Modal");
         this.loadData();
+        this.eventType = this.eventData.eventexpanded.org_restriction;
     }
 
     loadData() {
@@ -104,7 +104,6 @@ export class EventSignupModal {
     }
 
     updateMembers(contact) {
-
         if (contact.checked) {
             //Add To Array
             this.selectedMembers.push(contact.contact)
@@ -112,20 +111,17 @@ export class EventSignupModal {
             //Remove from Arary. Is this safe for all browsers?
             this.selectedMembers = this.selectedMembers.filter(function (data) {
                 return data.ext_id !== contact.contact.ext_id
-            });
-            //console.log("unchecked: " + JSON.stringify(this.selectedMembers));
+            }); 
         }
     }
 
     getOrgContacts(org_id) {
         var page = this;
-
         this.orgServices.getOrgContacts(org_id).subscribe(orgContactData => {
             //page.orgContacts = orgContactData.members;
             page.orgContacts = [];
             // page.orgContacts = [{}];
             for (var i in orgContactData.members) {
-                //console.log(orgContactData.members[i]);
                 page.orgContacts.push({ contact: orgContactData.members[i], checked: true });
                 // page.orgContacts[i].checked = false;
                 page.selectedMembers.push(orgContactData.members[i]);
@@ -136,7 +132,7 @@ export class EventSignupModal {
         },
             err => {
 
-            });
+        });
 
     }
 
@@ -196,6 +192,7 @@ export class EventSignupModal {
 
     doGroupSignUp() {
         var page = this;
+  
         this.orgServices
             .groupRegisterForEvent(this.selectedGroup, this.eventData.id, this.selectedMembers, 0).subscribe(
             res => {
@@ -234,7 +231,7 @@ export class EventSignupModal {
             },
             () => {
 
-            });
+            }); 
     }
 
     doSignUp() {
@@ -280,7 +277,6 @@ export class EventSignupModal {
                         let contactMethod;
                         let jsonObj = { "contact": {}, "checked": true };
                         // Do Validation of Contact Type
-                        let navTransition = confirm.dismiss();
 
                         var contact = page.validateContactMethod(data.email_phone);
                         if (contact == false) {
@@ -293,12 +289,12 @@ export class EventSignupModal {
                         } else {
                             if (contact == 'email') {
                                 contactMethod = 'Email';
-                                jsonObj.contact = { "status": 3, "mobilenumber": null, "first_name": data.first_name, "last_name": data.last_name, "contact_method": contactMethod, "role": "", "email": data.email_phone };
+                                jsonObj.contact = { "status": 3, "mobilenumber": null, "first_name": data.first_name, "last_name": data.last_name, "contact_method": contactMethod, "role": 0, "email": data.email_phone };
                             } else {
                                 contactMethod = 'Phone';
-                                jsonObj.contact = { "status": 3, "mobilenumber": data.email_phone, "first_name": data.first_name, "last_name": data.last_name, "contact_method": contactMethod, "role": "", "email": null };
+                                jsonObj.contact = { "status": 3, "mobilenumber": data.email_phone, "first_name": data.first_name, "last_name": data.last_name, "contact_method": contactMethod, "role": 0, "email": null };
                             }
-
+                            this.selectedMembers.push(jsonObj.contact);
                             page.orgContacts.push(jsonObj);
                             page.orgContacts = page.orgContacts.slice();
                         }
@@ -316,7 +312,6 @@ export class EventSignupModal {
         confirm.present();
 
         this.groupData = this.myOrgs.filter(function (data) {
-            console.log(data.org_id + " | " + groupId);
             return data.org_id == groupId
         });
 
@@ -345,15 +340,14 @@ export class EventSignupModal {
     //check to see whether expression is a phone number or an email
     validateContactMethod(data) {
         let contact = data;
-        console.log("contact: " + contact);
+  
         if (this.validateEmail(contact)) {
-            console.log('Valid Email: ' + contact);
+   
             return 'email';
         } else if (this.validatePhoneNumber(data)) {
-            console.log('Valid Phone Num: ' + contact);
+     
             return 'phone';
         } else {
-            console.log('Failed');
             return false;
         }
 
