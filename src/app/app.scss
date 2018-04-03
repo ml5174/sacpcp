@@ -431,3 +431,11 @@ ion-card-header {
     font-size: 26px;
     margin-bottom: 2px !important;
 }
+
+.ios {
+    body {
+        padding-top: env(safe-area-inset-top); 
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
