@@ -1,0 +1,21 @@
+<ion-grid [formGroup]="listingForm">
+    <ion-row style="font-weight: bold">
+        <ion-col col-1>
+            <ion-checkbox formControlName="allChecked"  (click)="toggleSelectAll()"></ion-checkbox>
+        </ion-col>
+        <ion-col *ngFor="let colTitle of listMetaData[listType].header" col-2>
+            {{colTitle}}
+        </ion-col>
+    </ion-row>
+    <div formArrayName="listingsArray">
+        <ion-row *ngFor="let formItem of listingsArray.controls; let i = index" [formGroupName]="i">
+            <ion-col col-1>
+                <ion-checkbox formControlName="sendto"></ion-checkbox>
+            </ion-col>
+            <ion-col *ngFor="let field of listMetaData[listType].fields" col-2>
+                <span *ngIf="field === 'start'">{{listItems[i][field] | date:'short' }}</span>
+                <span *ngIf="field !== 'start'">{{listItems[i][field]}}</span>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-grid>

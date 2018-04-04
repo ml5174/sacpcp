@@ -54,7 +54,7 @@ export class VolunteerEventsService {
         console.log("erase myevents was called");
         this.myEvents.length = 0;
     }
-    getVolunteerEvents(): Observable<VolunteerEvent[]> {
+    getVolunteerEvents(): Observable<any[]> {
         return this.http.get(SERVER + GET_EVENTS_URI)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
