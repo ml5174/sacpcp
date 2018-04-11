@@ -31,12 +31,12 @@ export class ContactVolunteers {
   	this.userServices.getAllUsers().subscribe(
   		users => {
   			for(var user of users) {
-          if(user.contactmethod!=null && user.first_name!='' && user.first_name!=null)
+                  //console.log("user: " + JSON.stringify(user));
+          if(user.contactmethod!=null && user.first_name != null && user.first_name.trim().length > 0 && user.last_name && user.last_name.trim().length > 0)
             this.users.push(user);
         }
   		},
-  		err => this.getUsersError = true,
-  		() => this.toggleSelectAllUsers(true)
+  		err => this.getUsersError = true
   	);
     this.volunteerEventsService.getVolunteerEvents().subscribe(
       events => {
@@ -108,7 +108,7 @@ export class ContactVolunteers {
     let selectedUsers = [];
     for(var user of this.users) {
       if(user.selected)
-        selectedUsers.push(user.user);
+        selectedUsers.push(user);
     }
     return selectedUsers;
   }

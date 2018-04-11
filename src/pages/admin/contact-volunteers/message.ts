@@ -31,13 +31,14 @@ export class Message {
 	}
 
 	send() {
-		if(this.users) {
+		if(this.users.length > 0) {    
 			let body = {
-				'message': this.message,
-				'recipients': this.users,
-				'schedule_option': 5
-			};
-			this.messageServices.sendMessageToUsersList(body).subscribe(
+				message: this.message,
+				recipients: this.users,
+				schedule_option: 2
+            };
+            console.log("body stringify: " + JSON.stringify(body));
+			this.messageServices.sendMessageToUsersList(JSON.stringify(body)).subscribe(
 				res => {
 					console.log(res);
 					this.viewCtrl.dismiss({'success': res, 'message': 'Sent message to selected volunteer(s).'});
