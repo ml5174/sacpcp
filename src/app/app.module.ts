@@ -74,6 +74,7 @@ import { MemberPopOver } from '../pages/group-profile/member-popover';
 import { AppVersion } from '@ionic-native/app-version';
 import { AppPreferences } from '@ionic-native/app-preferences';
 import { MessageTargetList } from '../lib/components/message-target-list/message-target-list';
+import { OrganizationServices } from '../lib/service/organization';
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -218,7 +219,8 @@ export function translateFactory(http: HttpClient) {
     UserServices, 
     VolunteerEventsService, 
     SignupAssistant, 
-    MessageServices 
+    MessageServices,
+    OrganizationServices
   ]
 })
 export class AppModule {}
