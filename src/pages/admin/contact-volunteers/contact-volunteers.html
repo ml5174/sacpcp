@@ -8,21 +8,20 @@
 
         <ion-list radio-group [(ngModel)]="sendTo">
             <ion-item>
-                <ion-label [attr.for]="radio-individual">Select Individual Volunteers</ion-label>
+                <ion-label [attr.for]="radio-individual"><ion-icon name="contact"></ion-icon> Select Individual Volunteers</ion-label>
                 <ion-radio checked [id]="radio-individual" value="individual" ngDefaultControl></ion-radio>
             </ion-item>
             <ion-item>
-                <ion-label [attr.for]="radio-events">Select Event</ion-label>
+                <ion-label [attr.for]="radio-events"><ion-icon name="calendar"></ion-icon> Select Event</ion-label>
                 <ion-radio [id]="radio-events" value="events" ngDefaultControl></ion-radio>
             </ion-item>
             <ion-item>
-                <ion-label [attr.for]="radio-events">Select Group</ion-label>
+                <ion-label [attr.for]="radio-events"><ion-icon name="contacts"></ion-icon> Select Group</ion-label>
                 <ion-radio [id]="radio-groups" value="groups" ngDefaultControl></ion-radio>
             </ion-item>
         </ion-list>
-        <message-target-list [listType]="sendTo">
-        </message-target-list>
-
+            <message-target-list [listType]="sendTo">
+            </message-target-list>
         <ion-grid>
             <ion-row>
                 <ion-col col-3></ion-col>
