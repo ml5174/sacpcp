@@ -4,68 +4,44 @@
 </ion-header>
 
 <ion-content has-footer="true" class="has-footer" padding-left padding-right padding-top>
-   <section id="home-body">
+    <section id="home-body">
 
         <ion-list radio-group [(ngModel)]="sendTo">
-                <ion-item>
-                    <ion-radio name="sendTo" [id]="radio-individual" value="individual" ngDefaultControl></ion-radio>
-                    <ion-label [attr.for]="radio-individaul">Select Individual Volunteers</ion-label>
-                 </ion-item>
-                 <ion-item>
-                    <ion-radio name="sendTo" [id]="radio-events" value="events" ngDefaultControl></ion-radio>
-                    <ion-label [attr.for]="radio-events">Select Event</ion-label>
-                 </ion-item>
+            <ion-item>
+                <ion-label [attr.for]="radio-individual"><ion-icon name="contact"></ion-icon> Select Individual Volunteers</ion-label>
+                <ion-radio checked [id]="radio-individual" value="individual" ngDefaultControl></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label [attr.for]="radio-events"><ion-icon name="calendar"></ion-icon> Select Event</ion-label>
+                <ion-radio [id]="radio-events" value="events" ngDefaultControl></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label [attr.for]="radio-events"><ion-icon name="contacts"></ion-icon> Select Group</ion-label>
+                <ion-radio [id]="radio-groups" value="groups" ngDefaultControl></ion-radio>
+            </ion-item>
         </ion-list>
-        <ion-grid *ngIf="sendTo==='individual'">
-            <ion-row style="font-weight:bold">
-                <ion-col col-1><ion-checkbox [(ngModel)]="selectAllUsers" (click)="toggleSelectAllUsers(false);"></ion-checkbox></ion-col>
-                <ion-col col-2>First Name</ion-col>
-                <ion-col col-2>Last Name</ion-col>
-                <ion-col col-2>Contact Method</ion-col>
-                <ion-col col-2>Email/Mobile Number</ion-col>
-            </ion-row>
-            <div *ngFor="let user of users">
-                <ion-row>
-                    <ion-col col-1><ion-checkbox name="{{user.id}}checkbox" [(ngModel)]="user.selected"></ion-checkbox></ion-col>
-                    <ion-col col-2>{{user.first_name}}</ion-col>
-                    <ion-col col-2>{{user.last_name}}</ion-col>
-                    <ion-col col-2>{{user.contactmethod_name}}</ion-col>
-                    <ion-col col-2 *ngIf="user.contactmethod_name==='Phone'">({{user.mobilenumber[1]}}{{user.mobilenumber[2]}}{{user.mobilenumber[3]}}) {{user.mobilenumber[4]}}{{user.mobilenumber[5]}}{{user.mobilenumber[6]}}-{{user.mobilenumber[7]}}{{user.mobilenumber[8]}}{{user.mobilenumber[9]}}{{user.mobilenumber[10]}}</ion-col>
-                    <ion-col col-2 *ngIf="user.contactmethod_name==='Email'">{{user.email}}</ion-col>
-                </ion-row>
-            </div>
-        </ion-grid>
-        <ion-grid *ngIf="sendTo==='events' && events">
-            <ion-row style="font-weight:bold">
-                <ion-col col-1><ion-checkbox [(ngModel)]="selectAllEvents" (click)="toggleSelectAllEvents(false);"></ion-checkbox></ion-col>
-                <ion-col col-2>Event Name</ion-col>
-                <ion-col col-2>Event Date</ion-col>
-                <ion-col col-2>Event Location</ion-col>
-            </ion-row>
-            <div *ngFor="let event of events">
-                <ion-row>
-                    <ion-col col-1><ion-checkbox name="{{event.title}}checkbox" [(ngModel)]="event.selected"></ion-checkbox></ion-col>
-                    <ion-col col-2>{{event.title}}</ion-col>
-                    <ion-col col-2>{{event.start | parseTime:"MMMM DD, h:mm a"}}</ion-col>
-                    <ion-col col-2>{{event.location_name}}</ion-col>
-                </ion-row>
-            </div>
-        </ion-grid>
+            <message-target-list [listType]="sendTo">
+            </message-target-list>
         <ion-grid>
             <ion-row>
                 <ion-col col-3></ion-col>
                 <ion-col col-3 padding>
-                    <div align="right"><button ion-button color="primary" (click)="back()">Cancel</button></div>
+                    <div align="right">
+                        <button ion-button color="primary" (click)="back()">Cancel</button>
+                    </div>
                 </ion-col>
                 <ion-col col-3 padding>
-                    <div align="left"><button [disabled]="checkSelected()" ion-button color="primary" style="display: inline-block; width: auto;" (click)="message();">Compose Message</button></div>
+                    <div align="left">
+                        <button [disabled]="!canSendMessage()" ion-button color="primary" style="display: inline-block; width: auto;"
+                            (click)="openMessageModal();">Compose Message</button>
+                    </div>
                 </ion-col>
                 <ion-col col-3></ion-col>
             </ion-row>
         </ion-grid>
     </section>
 
- 
+
     <section id="tab-content" padding>
         <div class="sal-att-logo-container">
             <img src="assets/img/collaboration.svg" />

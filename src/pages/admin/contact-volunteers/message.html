@@ -14,10 +14,12 @@
     <ion-grid>
         <ion-row>
             <ion-col width-6 padding>
-                <button ion-button color="primary" (click)="goHome()">Cancel</button>
+                <button ion-button color="primary" (click)="cancel()">Cancel</button>
             </ion-col>
             <ion-col width-6 padding>
-                <button ion-button [disabled]="message==='' || !message" color="primary" style="display: inline-block; width: auto;" (click)="send()">Send Message</button>
+                <button ion-button [disabled]="message==='' || !message" color="primary"
+                style="display: inline-block; width: auto;" 
+                (click)="send()">Send Message</button>
             </ion-col>
         </ion-row>
     </ion-grid>
