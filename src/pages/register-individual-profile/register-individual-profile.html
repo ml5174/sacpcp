@@ -299,7 +299,7 @@
                     </ion-item>
                     <ion-item no-lines class="">
                         <ion-label stacked>Confirm New Password</ion-label>
-                        <ion-input name="passwordForm.new_password2" type="password" placeholder="" class="" [(ngModel)]="passwordForm.new_password2" clearOnEdit="false"></ion-input>
+                        <ion-input name="passwordForm.new_password2" [type]="showpassword" placeholder="" class="" [(ngModel)]="passwordForm.new_password2" clearOnEdit="false"></ion-input>
                     </ion-item>
 
                 </ion-list>

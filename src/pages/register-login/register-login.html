@@ -48,7 +48,7 @@
             </ion-item>
             <ion-item no-lines class="">
                 <ion-label stacked><span class="required-field">*</span>Confirm Password</ion-label>
-                <ion-input type="password" [(ngModel)]="password2" name="password2" clearOnEdit="false"
+                <ion-input [type] ="showpassword" [(ngModel)]="password2" name="password2" clearOnEdit="false"
                     (ionBlur)="checkPasswordsMatching()" (ngModelChange)="checkRequired()"></ion-input>
             </ion-item>
             <!--save login radio-->
