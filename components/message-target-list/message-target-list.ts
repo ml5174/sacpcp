@@ -33,8 +33,8 @@ export class MessageTargetList implements OnChanges {
     ngOnInit() {
         this.listMetaData = {
             individual: {
-                header: ["First Name", "Last Name", "Contact Method", "Email/Mobile Number"],
-                fields: ["first_name", "last_name", "contactmethod", "mobilenumber"]
+                header: ["First Name", "Last Name", "Contact Method", "Contact Info"],
+                fields: ["first_name", "last_name", "contactmethodtext", "contactmethodvalue"]
             },
             events: {
                 header: ["Event Name", "Event Date", "Event Location"],
@@ -107,10 +107,14 @@ export class MessageTargetList implements OnChanges {
                     this.userServices.getAllUsers().subscribe(
                         users => {
                             for (let u of users) {
-                                if (true || u.contactmethod != null && u.first_name != '' && u.first_name != null &&
-                                    u.mobilenumber != null && u.active == 1) {
+                                console.log("User: " + JSON.stringify(u));
+                                if (u.contact_method != null && u.first_name.trim().length > 0 && u.last_name.trim().length > 0 &&
+                                    (u.mobilenumber || u.email)) {
                                     u.sendto = false;
+                                    u.contactmethodtext = (u.contact_method === 'Email') ? 'Email': 'Phone';
+                                    u.contactmethodvalue = (u.contact_method == 'Email') ? u.email: u.mobilenumber;
                                     this.listItems.push(u);
+                                    console.log("If passed.");
                                 }
                             }
                             this.rebuildForm();
