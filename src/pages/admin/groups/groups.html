@@ -11,8 +11,8 @@
        
             <ion-row>
                 <ion-col col-3>Status Legend</ion-col>
-                <ion-col col-3><ion-icon name="checkmark"></ion-icon> active</ion-col>
-                <ion-col col-3><ion-icon name="help"></ion-icon> pending</ion-col>
+                <ion-col col-3><ion-icon name="checkmark" color="active"></ion-icon> active</ion-col>
+                <ion-col col-3><ion-icon name="help" color="pending"></ion-icon> pending</ion-col>
                 <ion-col col-3></ion-col>
             </ion-row>
         </ion-grid>
@@ -27,15 +27,21 @@
                 <ion-col col-3>Group Name</ion-col>
                 <ion-col col-3>Status</ion-col>
             </ion-row>
+            <div *ngFor="let pendingOrg of pendingOrgs">
+                <ion-row>
+                    <ion-col col-3></ion-col>
+                    <ion-col col-3 class="linked-group" (click)="approveGroup(pendingOrg)">{{pendingOrg.organization.name}}</ion-col>
+                    <ion-col col-3 class="linked-group" (click)="approveGroup(pendingOrg)">{{pendingOrg.organization.group}}</ion-col>
+                    <ion-col col-3><ion-icon name="help" color="pending"></ion-icon></ion-col>
+               </ion-row>
+            </div>
 
             <div *ngFor="let org of orgs">
                 <ion-row>
                     <ion-col col-3></ion-col>
-                    <ion-col col-3 class="linked-group" (click)="approveGroup(org)">{{org.organization.name}}</ion-col>
-                    <ion-col col-3 class="linked-group" (click)="approveGroup(org)">{{org.organization.group}}</ion-col>
-                    <ion-col col-3 *ngIf="this.org.status == 0"><ion-icon name="checkmark"></ion-icon></ion-col>
-                    <ion-col col-3 *ngIf="this.org.status == 1"><ion-icon name="help"></ion-icon></ion-col>
-                    <ion-col col-3 *ngIf="this.org.status == 2"><ion-icon name="remove"></ion-icon></ion-col>
+                    <ion-col col-3 class="linked-group" (click)="openGroupProfile(org)">{{org.name}}</ion-col>
+                    <ion-col col-3 class="linked-group" (click)="openGroupProfile(org)">{{org.group}}</ion-col>
+                    <ion-col col-3><ion-icon name="checkmark" color="active"></ion-icon></ion-col>
                </ion-row>
             </div>
         </ion-grid>
