@@ -37,8 +37,8 @@
             </ion-col>
             <ion-col col-8>
                 <ion-select formControlName="org_type" color="red" interface="popover" ngDefaultControl placeholder="Choose One...">
-                    <ion-option color="red" *ngFor="let organizationType of organizationTypes" value="{{organizationType}}">
-                        {{ organizationType }}
+                    <ion-option color="red" *ngFor="let organizationType of organizationTypes" value="{{organizationType.id}}">
+                        {{ organizationType.name }}
                     </ion-option>
                 </ion-select>
             </ion-col>
@@ -54,17 +54,6 @@
             </ion-col>
             <ion-col col-8>
                 <ion-input [autocomplete]="on" type="text" formControlName="group"></ion-input>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col col-4>
-                <ion-label>                    
-                    <error-message-span *ngIf="createGroupForm.controls.description.invalid"
-                    [errorText]="'Must be less than 64 characters'">                   
-                </error-message-span>Description:</ion-label>
-            </ion-col>
-            <ion-col col-8>
-                <ion-textarea class="textarea" type="text" formControlName="description"></ion-textarea>
             </ion-col>
         </ion-row>
     </div>
