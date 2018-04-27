@@ -33,7 +33,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
     public createGroupForm: FormGroup;
     submitAttempt: boolean = false;
     public orgs: Array<string> = [];
-    public organizationTypes: Array<string> = [];
+    public organizationTypes: Array<any> = [];
     public filteredList: Array<string> = [];
     public showList: boolean
     public isNotBackButton: boolean
@@ -55,11 +55,14 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
      *     the current user (add a required flag) and a blank 'member'
      */
     private initMembers(): void {
+        // add a blank member component
         this.groupMembers = Array<UserProfile>(new UserProfile());
+        // then add the default - the logged in user w/admin role
         let requiredUser = this.userServices.user;
         requiredUser.required = true;
-        requiredUser.profile.isAdmin =
-            this.groupMembers.push(requiredUser);
+        requiredUser.profile.isAdmin = true;
+        requiredUser.profile.role = 2; //admin - 2; member - 0; not sure what 1 is
+        this.groupMembers.push(requiredUser);
     }
 
     onMemberDeleted(member: UserProfile) {
@@ -130,15 +133,38 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
         }
     }
 
+    private hasAdmin(): boolean {
+        for (let mde of this.membersDataEntry.toArray()) {
+            if(mde.formGroup.valid && mde.formGroup.controls.role.value == 2) {
+                return true;
+            }
+        } 
+        return false;
+    }
+
     public createGroupSubmission() {
        
-        //Validation has been taken care of (Submit is disabled otherwise)
+        //Field has been taken care of (Submit is disabled otherwise)
+        // However, need to make sure that at least one of the group members is an admin
+        if(!this.hasAdmin()) {
+            let alert = this.alertCtrl.create({
+                title: 'Group Admin Required',
+                message: '<center>At least one member must be an Admin.</center>',
+                buttons: [
+                    {
+                        text: 'Close',
+                        handler: () => {}
+                    }
+                ]
+            });
+            alert.present();
+            return false;
+        }
         //set group (model) w/group (form)
         let group: Organization = {
             group: this.createGroupForm.controls.group.value,
             name: this.createGroupForm.controls.name.value,
-            description: this.createGroupForm.controls.description.value,
-            // org_type: this.createGroupForm.controls.org_type.value,
+            org_type: {id: this.createGroupForm.controls.org_type.value},
             organization_id: null,
             status: 0
         }
@@ -363,7 +389,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
         this.orgServices.getAllOrganizationTypes().subscribe(orgTypes => {
             for (let orgType of orgTypes) {
                 console.log("orgtype name: " + orgType.name);
-                this.organizationTypes.push(orgType.name);
+                this.organizationTypes.push(orgType);
             }
         });
     }

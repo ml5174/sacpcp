@@ -20,6 +20,7 @@ export class GroupProfilePage {
     public orgData: any = null;
     public newMember: any = null;
     public invitedHere: any = [];
+    private isTsaAdmin: boolean = false;
 
 
     public canEdit: boolean = null;
@@ -33,8 +34,9 @@ export class GroupProfilePage {
     constructor(public navCtrl: NavController, public navParams: NavParams,
         public orgServices: OrganizationServices, public userServices: UserServices, public alertCtrl: AlertController,
         public modalControl: ModalController,
-        public m: MemberPopOver
-    ) { }
+        public m: MemberPopOver) {
+            this.isTsaAdmin = (this.userServices.user.profile.accounttype == 'A');
+     }
 
 
     ionViewDidLoad() {
@@ -42,7 +44,7 @@ export class GroupProfilePage {
         console.log('ionViewDidLoad GroupProfilePage ' + this.navParams.get('orgid'));
         this.orgId = this.navParams.get('orgid');
         this.loadOrgContacts(this.orgId);
-        var page = this;
+        let page = this;
         this.orgServices.getOrgTypes().subscribe(orgData => {
             page.arrayOrgTypes = orgData;
         },
@@ -58,7 +60,7 @@ export class GroupProfilePage {
 
         if (!this.canEdit)
             return;
-        var newTemplate = {
+        let newTemplate = {
             first_name: '',
             last_name: '',
             active: false,
@@ -159,11 +161,11 @@ export class GroupProfilePage {
         if (status == null) {
             return "Status Unknown";
         }
-        var codes = ["Status Unknown", "Active Member", "Inactive Member", "Temporary Member"];
+        let codes = ["Status Unknown", "Active Member", "Inactive Member", "Temporary Member"];
         return (codes[status] ? codes[status] : '');
     }
     presentConfirm() {
-        var page = this;
+        let page = this;
         let alert = this.alertCtrl.create({
             title: 'Save Changes',
             message: 'You made changes to organization. Would you like to save those?',
@@ -229,7 +231,7 @@ export class GroupProfilePage {
 
     }
     public decodeRole(role) {
-        var roleEn = ['Member', 'Admin'];
+        let roleEn = ['Member', 'Admin'];
         return (roleEn[role]);
     }
     public validRoles() {
@@ -284,7 +286,7 @@ export class GroupProfilePage {
         alert.present();
     }
     public admins() {
-        var result = [];
+        let result = [];
         if (this.orgData) {
 
             this.orgData.members.forEach(function (member) {
@@ -315,33 +317,28 @@ export class GroupProfilePage {
     }
 
     public canEditCheck() {
-        var prof = this.userServices.user.profile;
-        var contact_method = prof.contactmethod_name;
-        var email = prof.email;
-        var mobile = prof.mobilenumber;
-        var userid = prof.user;
+        let prof = this.userServices.user.profile;
+        let contact_method = prof.contactmethod_name;
+        let email = prof.email;
+        let mobile = prof.mobilenumber;
 
         if (this.admins()) {
-            var i;
-            var admins = this.admins();
+            let i;
+            let admins = this.admins();
             for (i = 0; i < admins.length; i++) {
-                if (contact_method == 'Email') {
-                    if (admins[i].email == email) {
-                        return true;
-                    }
+                if (contact_method == 'Email' && admins[i].email == email) {
+                    return true;
                 }
-                if (contact_method == 'Phone') {
-                    if (admins[i].email == email) {
-                        return true;
-                    }
+                else if (contact_method == 'Phone' && admins[i].mobile == mobile) {
+                    return true;
                 }
             }
         }
-        return false;
+        return prof.accounttype == 'A';
     }
 
     showDelete(member) {
-        if (this.canEdit) {
+        if (this.canEditCheck()) {
             if (!member.showDelete) {
                 member.showDelete = true;
             }
@@ -357,14 +354,14 @@ export class GroupProfilePage {
     }
 
     sortMemberData(members, organization) {
-        var admins = [];
-        var invited = [];
-        var rest = [];
-        var page = this;
-        organization.upper_name_editablae = false;
+        let admins = [];
+        let invited = [];
+        let rest = [];
+        let page = this;
+        organization.upper_name_editable = false;
         organization.upper_name_error = null;
-        organization.group_editablae = false;
-        organization.gropu_error = null;
+        organization.group_editable = false;
+        organization.group_error = null;
         if (organization.org_type == null) {
             organization.org_type = { id: null };
         }
@@ -414,14 +411,13 @@ export class GroupProfilePage {
     loadOrgContacts(orgId) {
 
         let page = this;
-        let useAdmin = this.userServices.user.profile.accounttype == 'A';
 
-            this.orgServices.getOrganizationContacts(orgId, useAdmin).subscribe(orgData => {
+            this.orgServices.getOrganizationContacts(orgId, this.isTsaAdmin).subscribe(orgData => {
                 page.orgData = orgData;
                 //console.log("OrgData " + page.orgData.organization.upper_name );
                 page.sortMemberData(this.orgData.members, orgData.organization);
                 page.canEdit = page.canEditCheck();
-                page.canEditOrg = false;
+                page.canEditOrg = this.isTsaAdmin;
             },
                 err => {
                     this.orgServices.getMyPendingOrganizationsDetails(orgId).subscribe(
@@ -459,12 +455,12 @@ export class GroupProfilePage {
     public cancelThisPage() {
         // prevent Save popup
         this.cancelled = true;
-        this.navCtrl.push(HomePage);
+        this.navCtrl.pop();
 
     }
     public mapData(org) {
         let myorg: any = {};
-        var page = this;
+        let page = this;
         if (org.organization.status != 0) {
             myorg.id = org.id;
             myorg.owner_id = org.owner_id;
@@ -530,10 +526,10 @@ export class GroupProfilePage {
 
     public loggedInUser(member)
     /* return true if member is logged in user  */ {
-        var prof = this.userServices.user.profile;
-        var contact_method = prof.contactmethod_name;
-        var email = prof.email;
-        var mobile = prof.mobilenumber;
+        let prof = this.userServices.user.profile;
+        let contact_method = prof.contactmethod_name;
+        let email = prof.email;
+        let mobile = prof.mobilenumber;
 
 
         if ((member.contactmethod_name == 'Email') && (email == member.email)) {
@@ -554,8 +550,8 @@ export class GroupProfilePage {
             return;
         if (!this.validatePost(this.orgData))
             return;
-        var page = this;
-        var postOrg = this.mapData(this.orgData);
+        let page = this;
+        let postOrg = this.mapData(this.orgData);
         if (!this.groupApproved()) {
 
             this.orgServices.putOrganizationRequest(this.orgId, postOrg)
@@ -587,10 +583,9 @@ export class GroupProfilePage {
                     });
         }
 
+        else if (this.groupApproved()) {
 
-        if (this.groupApproved()) {
-
-            this.orgServices.putOrgContactsRequest(this.orgId, postOrg)
+            this.orgServices.putOrgContactsRequest(this.orgId, postOrg, this.isTsaAdmin)
                 .subscribe(
                     data => {
 

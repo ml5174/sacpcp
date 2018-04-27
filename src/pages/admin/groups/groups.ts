@@ -66,6 +66,7 @@ export class Groups {
               page.pendingOrgs.push(org);
               //console.log("org: " + org.organization.name + " group: " + org.organization.group);
             } 
+            page.pendingOrgs.sort(this.sortPendingOrganization);
           },
           err => {
             console.log(err);
@@ -73,6 +74,25 @@ export class Groups {
           () => {
           }
         );
+  }
+
+  sortOrganization(a: any, b: any) {
+    let nameCompare = a.name.localeCompare(b.name);
+    if( nameCompare != 0) {
+        return nameCompare;
+    }
+    else {
+        return a.group.localeCompare(b.group);
+    }
+  }
+  sortPendingOrganization(a: any, b: any) {
+    let nameCompare = a.organization.name.localeCompare(b.organization.name);
+    if( nameCompare != 0) {
+        return nameCompare;
+    }
+    else {
+        return a.organization.group.localeCompare(b.organization.group);
+    }
   }
 
 
@@ -89,6 +109,7 @@ export class Groups {
                         console.log("org: " + org.name + " group: " + org.group);
                     }
                 }
+                page.orgs.sort(this.sortOrganization);
             },
             err => {
                 console.log(err);
