@@ -68,7 +68,7 @@ export class OrganizationServices {
         .map(res => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on getMyPendingOrganizations')); 
     }
-    getOrganizationContacts(org_id: string, useAdmin: boolean = false) {
+    getOrganizationContacts(org_id: any, useAdmin: boolean = false) {
         let uri = (useAdmin ? ORGANIZATIONCONTACTS_ADMIN_URI : ORGANIZATIONCONTACTS_URI);
         return this.http.get(SERVER + uri + org_id + "/", this.getOptions())
         .map((res : Response) => {
@@ -133,8 +133,9 @@ export class OrganizationServices {
         
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on putOrganizationRequest'));  
     }
-    putOrgContactsRequest (orgid,body) {
-        return this.http.put(SERVER + ORGANIZATIONCONTACTS_URI+orgid +"/", JSON.stringify(body),this.getOptions())
+    putOrgContactsRequest (orgid,body, useAdmin: boolean = false) {
+        let uri = (useAdmin ? ORGANIZATIONCONTACTS_ADMIN_URI : ORGANIZATIONCONTACTS_URI);
+        return this.http.put(SERVER + uri + orgid +"/", JSON.stringify(body),this.getOptions())
         
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on putOrgContactsRequest'));  
     }

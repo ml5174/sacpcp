@@ -4,7 +4,7 @@ export class Organization {
     group: string;
     description: string;
     organization_id: string;
-    org_type?: string;
+    org_type?: any;
     status: number;
 }
 
