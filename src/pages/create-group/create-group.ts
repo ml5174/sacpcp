@@ -149,7 +149,11 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
         if(!this.hasAdmin()) {
             let alert = this.alertCtrl.create({
                 title: 'Group Admin Required',
+<<<<<<< HEAD
                 message: '<center>At least one member must be assigned the Admin role.</center>',
+=======
+                message: '<center>At least one member must be an Admin.</center>',
+>>>>>>> 5c1d776a3629c0535fcb0c3401058f65e30ff175
                 buttons: [
                     {
                         text: 'Close',
