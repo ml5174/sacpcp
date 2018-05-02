@@ -1,0 +1,36 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">Close</button>
+        </ion-buttons>
+        <ion-title>Group Approve/Disapprove</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content [formGroup]="fgAction">
+
+    <ion-list>
+        <ion-item-group radio-group formControlName="action" ngDefaultControl (ionChange)=>
+            <ion-list-header>
+                Group Action:
+            </ion-list-header>
+            <ion-item>
+                <ion-label>Approve</ion-label>
+                <ion-radio value="1"></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label>Decline</ion-label>
+                <ion-radio value="2"></ion-radio>
+            </ion-item>
+        </ion-item-group>
+        <ion-item>
+            <ion-label>Comment <spanstyle="color: red" *ngIf="isDeclining()">(Required)</span></ion-label>
+            <ion-input placeholder="Enter comment here."></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <button ion-button color="secondary" (click)="dismiss()">Cancel</button>
+    <button ion-button color="primary" [disabled]="isDisabled()" (click)="save()">Save</button>
+
+</ion-content>

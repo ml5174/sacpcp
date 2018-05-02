@@ -15,10 +15,9 @@ import { MemberDataEntry } from '../../lib/components/member-data-entry/member-d
 
 @Component({
     selector: 'page-create-group',
-    templateUrl: 'create-group.html',
-    providers: [OrganizationServices]
+    templateUrl: 'create-group.html'
 })
-export class CreateGroupPage implements OnInit, AfterViewInit {
+export class CreateGroupPage implements OnInit {
 
     @ViewChild('popoverContent', { read: ElementRef }) content: ElementRef;
     @ViewChild('popoverText', { read: ElementRef }) text: ElementRef;
@@ -107,7 +106,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
         if (this.membersDataEntry) {
             let noInvalidMembers = true;
             for (let mde of this.membersDataEntry.toArray()) {
-                console.log("canAddMember() -- mde.formGroup: " + JSON.stringify(mde.formGroup.value));
+                //console.log("canAddMember() -- mde.formGroup: " + JSON.stringify(mde.formGroup.value));
                 noInvalidMembers = noInvalidMembers && mde.formGroup.valid;
             }
             return noInvalidMembers;
@@ -149,11 +148,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
         if(!this.hasAdmin()) {
             let alert = this.alertCtrl.create({
                 title: 'Group Admin Required',
-<<<<<<< HEAD
                 message: '<center>At least one member must be assigned the Admin role.</center>',
-=======
-                message: '<center>At least one member must be an Admin.</center>',
->>>>>>> 5c1d776a3629c0535fcb0c3401058f65e30ff175
                 buttons: [
                     {
                         text: 'Close',
@@ -196,10 +191,10 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
                 });
             }
         }
-        console.log("  members: " + JSON.stringify(members));
+       // console.log("  members: " + JSON.stringify(members));
         this.orgServices.createGroup(group, members).subscribe(
             results => {
-//console.log("Submit result:\n " + results);
+            //console.log("Submit result:\n " + results);
                 this.presentFinishedGroup();
             },
             err => {
@@ -397,10 +392,11 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
             }
         });
     }
-    ngAfterViewInit(): void {
-        let mdes: MemberDataEntry[] = this.membersDataEntry.toArray();
-        
-
-    }
+    
+    // setAddresses(addresses: Address[]) {
+    //     const addressFGs = addresses.map(address => this.fb.group(address));
+    //     const addressFormArray = this.fb.array(addressFGs);
+    //     this.heroForm.setControl('secretLairs', addressFormArray);
+    //   }
 
 }

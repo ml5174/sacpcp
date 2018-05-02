@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component, ViewChild, OnInit, OnChanges } from '@angular/core'
 import { Observable } from 'rxjs/Rx';
 import { UserServices } from '../../../lib/service/user';
 import { NavController, NavParams } from 'ionic-angular';
@@ -15,12 +15,14 @@ import { Organization } from '../../../lib/model/organization';
 import { OrganizationServices } from '../../../lib/service/organization';
 import { Storage } from '@ionic/storage';
 import { GroupProfilePage } from '../../group-profile/group-profile';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 
 @Component({
     templateUrl: 'groups.html'
 })
 
-export class Groups {
+export class Groups implements OnInit, OnChanges {
+
 
     @ViewChild(Content) content: Content;
 
@@ -30,10 +32,12 @@ export class Groups {
     public orgs: Array<any> = [];
     public pendingOrgs: Array<any> = [];
     public loadingOverlay;
+    public fgGroups: FormGroup;
 
     // Constructor
     constructor(public nav: NavController,
         public loadingController: LoadingController,
+        public fb: FormBuilder,
         public modalCtrl: ModalController,
         public alertCtrl: AlertController,
         public storage: Storage,
@@ -42,9 +46,10 @@ export class Groups {
         private userServices: UserServices,
         private popoverCtrl: PopoverController) {
     }
-
-    ionViewDidLoad() {
-        //console.log("Groups: ionViewDidLoad");
+    ngOnInit(): void {
+        this.fgGroups = this.fb.group({
+            faActions: this.fb.array([])
+        });
         if (this.userServices.user.id) {
             this.key = this.userServices.user.id;
         }
@@ -53,47 +58,51 @@ export class Groups {
                 .then(key => this.key = key)
                 .catch(err => console.log("couldn't get key for authentication"));
         }
-        this.loadPendingOrgs();
         this.loadOrgs();
     }
 
-    loadPendingOrgs() {
-        this.pendingOrgs = [];
-        var page = this;  
-        this.orgServices.getOrgRequestsRequested().subscribe(
-          orgs => {
-            for(var org of orgs) {
-              page.pendingOrgs.push(org);
-              //console.log("org: " + org.organization.name + " group: " + org.organization.group);
-            } 
-            page.pendingOrgs.sort(this.sortPendingOrganization);
-          },
-          err => {
-            console.log(err);
-          },
-          () => {
-          }
-        );
-  }
+    ngOnChanges(): void {
+        //this.rebuildForm();
+    }
 
-  sortOrganization(a: any, b: any) {
-    let nameCompare = a.name.localeCompare(b.name);
-    if( nameCompare != 0) {
-        return nameCompare;
+    get faActions(): FormArray {
+        return this.fgGroups.get('faActions') as FormArray;
+      };
+
+    setActions(orgs: any[]) {
+        const actions = orgs.map(org => this.fb.group(org));
+        const actionFormArray = this.fb.array(actions);
+        this.fgGroups.setControl('faActions', actionFormArray);
+      }
+
+      rebuildForm() {
+        this.fgGroups.reset();
+        this.setActions(this.orgs);
+      }
+
+
+    ionViewDidLoad() {
+        this.rebuildForm();
     }
-    else {
-        return a.group.localeCompare(b.group);
+
+    sortOrganization(a: any, b: any) {
+       // console.log("sort: " + JSON.stringify(a) + 'and' + JSON.stringify(b));
+        if (a.approval_status == 1 && b.approval_status != 1) {
+           // console.log("a > b")
+            return -1;
+        }
+        else if (a.approval_status != 1 && b.approval_status == 1) {
+            return 1;
+        }
+        let nameCompare = a.name.localeCompare(b.name);
+        if (nameCompare != 0) {
+          //  console.log("name compare:" + nameCompare);
+            return nameCompare;
+        }
+        else {
+            return a.group.localeCompare(b.group);
+        }
     }
-  }
-  sortPendingOrganization(a: any, b: any) {
-    let nameCompare = a.organization.name.localeCompare(b.organization.name);
-    if( nameCompare != 0) {
-        return nameCompare;
-    }
-    else {
-        return a.organization.group.localeCompare(b.organization.group);
-    }
-  }
 
 
     loadOrgs() {
@@ -101,15 +110,16 @@ export class Groups {
         let page = this;
         this.orgServices.getAllGroupsForAdmin().subscribe(
             organizations => {
-                console.log("length: " + organizations.length);
+                //console.log("length: " + organizations.length);
                 for (let org of organizations) {
-                    console.log(org);
+                   // console.log(org);
                     if (org.name) {
                         page.orgs.push(org);
-                        console.log("org: " + org.name + " group: " + org.group);
+                        //console.log("org: " + org.name + " group: " + org.group);
                     }
                 }
                 page.orgs.sort(this.sortOrganization);
+                page.rebuildForm();
             },
             err => {
                 console.log(err);
@@ -152,52 +162,62 @@ export class Groups {
         this.nav.popToRoot();
     }
 
-    openGroupProfile(org) {
-        console.log("admin groups: openGroupProfile:" + JSON.stringify(org));
+    openGroupProfile(org: FormGroup) {
+        console.log("admin groups: openGroupProfile:" + JSON.stringify(org.value));
         let data = {
-          orgid : org.id
+          orgid : org.controls.id.value
         };
         this.nav.push(GroupProfilePage, data);
       }
-
-
-
-
-    approveGroup(org) {
+/**
+ *   For the input org, mark approved/disapproved and do stuff :)
+ * @param org 
+ */
+    doGroupAction(org: FormGroup) {
         //console.log("groups: approve Group:" + org.id + " " + org.organization.name + " " + org.organization.group);
+        let action = org.controls.approval_status.value
+        if(action == 1) { // this is dirty -- skip when set back to pending -- should be easier way to bypass
+            return;
+        }
 
+        let dialogActionText = 'Approve';
+
+        if(action == 4) {
+            dialogActionText = 'Disapprove';
+            //config inputs
+        }
         let confirm = this.alertCtrl.create({
-            title: '',
+            title: 'Group ' + dialogActionText,
             cssClass: 'alertReminder',
-            message: 'Approve group ' + org.id + ' ' + org.organization.name + ' ' + org.organization.group + '?',
+            message: dialogActionText + ' Group: '+ org.controls.group.value + '<br />(id: ' + 
+                org.controls.id.value  + ', for Org: ' + org.controls.name.value + ')?',
+                inputs: [
+                    {
+                        name: 'actionComment',
+                        placeholder: 'Comment',
+                        type: 'text'
+                    }
+
+                ],
             buttons: [
                 {
-                    text: 'No',
+                    text: 'Cancel', // set back to Pending
                     handler: () => {
-                        console.log('No clicked');
+                        org.controls.approval_status.setValue(1);
+                        //console.log('No clicked');
                     }
                 },
                 {
                     text: 'Yes',
                     handler: () => {
-                        console.log('Yes clicked');
-                        /// Approve group?
-                        this.orgServices.approveOrganization(org.id).subscribe(
+                        this.orgServices.administerOrganization(org.controls.id.value, action).subscribe(
                             results => {
-                                console.log("Approved: " + org.id);
-                                var index = this.orgs.indexOf(org, 0);
-                                if (index > -1) {
-                                    this.orgs.splice(index, 1);
-                                }
+                                console.log(results);
                             },
                             err => {
                                 console.log(err);
-                                //
-                            },
-                            () => {
                             }
                         );
-                        //this.loadPendingOrgs();
                     }
                 }
             ]
