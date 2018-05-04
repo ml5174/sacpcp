@@ -34,7 +34,7 @@ export class RegisterLoginPage {
   // Error values
   public usernameerrorvalue: string = 'This field is required.';
   public password1errorvalue: string = 'This field is required.';
-  public password2errorvalue: string = '';
+  public password2errorvalue: string = 'This field is required.';
   public emailerrorvalue: string = '';
   public smserrorvalue: string = '';
   public termserrorvalue: string = "You must accept Privacy and Terms to proceed.";
@@ -102,8 +102,15 @@ export class RegisterLoginPage {
   }
 
   checkPasswordsMatching() {
+      console.log("checkPasswordsMatching()");
     this.password2error=false;
-    if(this.password1 && this.password1!=='') {
+    this.password2errorvalue = '';
+    if(!this.password2 || this.password2.trim().length == 0) {
+        console.log("Oh noes!!: " + this.password2);
+        this.password2error = true;
+        this.password2errorvalue = 'This field may not be empty.';
+    }
+    else if(this.password1 && this.password1!=='') {
       if(this.password1!==this.password2) {
         this.meetsRequirement=false;
         this.password2error=true;
