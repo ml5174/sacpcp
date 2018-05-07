@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, group } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import { SERVER } from '../provider/config';
+import { Observable, Subject } from 'rxjs/Rx';
+import { SERVER, UPDATE_ORGANIZATION_ADMIN_URI, UPDATE_ORGANIZATION_URI } from '../provider/config';
 import { Storage } from '@ionic/storage';
 import {MY_ORG_CONTACTS_URI} from '../provider/config';
 import {GET_MYORG_REG_EVENT_URI} from '../provider/config';
@@ -10,10 +10,12 @@ import { MY_ORGANIZATIONS_URI } from '../provider/config';
 import { ALL_ORGANIZATIONS_URI, ALL_ORGANIZATIONTYPES_URI } from '../provider/config';
 import { MY_PENDING_ORGANIZATIONS_URI } from '../provider/config';
 import { ORGANIZATIONCONTACTS_URI } from '../provider/config';
+import {ORGANIZATIONCONTACTS_ADMIN_URI } from '../provider/config';
 import { GET_ORGREQUESTS_REQUESTED_URI } from '../provider/config';
 import { GET_ORGANIZATION_TYPES_URI } from '../provider/config';
 import { APPROVE_ORGANIZATION_URI } from '../provider/config';
 import { ALL_GROUPS_URI } from '../provider/config';
+import { ALL_GROUPS_ADMIN_URI } from '../provider/config';
 import { HttpRequest } from '@angular/common/http';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {UserServices} from '../../lib/service/user';
@@ -31,7 +33,6 @@ export class OrganizationServices {
 	constructor(private http:Http, public storage:Storage, private userServices: UserServices) {
             if(this.userServices.user.id) {
                 this.key = this.userServices.user.id;
-                console.log("using UserServices key!");
             }
             else {
                 storage.get('key')
@@ -42,6 +43,7 @@ export class OrganizationServices {
 
     createOrganization(org : any) : Observable<any>
     {
+        console.log("New Org Request: " + org);
         return this.http.post(SERVER + NEW_ORGANIZATION_URI, org, this.getOptions())
             .map(res => res.json())
             .catch(this.handleError);
@@ -49,7 +51,6 @@ export class OrganizationServices {
     getOptions() {
 		let headers = new Headers();
         headers.append('Authorization', 'Token ' + this.key);
-        console.log("Token: " + this.key);
 		headers.append('Content-Type', 'application/json;q=0.9');
 		headers.append('Accept', 'application/json;q=0.9');
 		return new RequestOptions({headers: headers});
@@ -67,8 +68,9 @@ export class OrganizationServices {
         .map(res => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on getMyPendingOrganizations')); 
     }
-    getOrganizationContacts(org_id) {
-        return this.http.get(SERVER + ORGANIZATIONCONTACTS_URI + org_id , this.getOptions())
+    getOrganizationContacts(org_id: any, useAdmin: boolean = false) {
+        let uri = (useAdmin ? ORGANIZATIONCONTACTS_ADMIN_URI : ORGANIZATIONCONTACTS_URI);
+        return this.http.get(SERVER + uri + org_id + "/", this.getOptions())
         .map((res : Response) => {
             //console.log("res._body = " + res.toString);
             return res.json();
@@ -76,12 +78,9 @@ export class OrganizationServices {
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on getOrganizationContacts'));  
     }
 
-    getOrgRequestsRequested() {
+    getOrgRequestsRequested(): Observable<any> {
         return this.http.get(SERVER + GET_ORGREQUESTS_REQUESTED_URI, this.getOptions())
-        .map((res : Response) => {
-            //console.log("res._body = " + res.toString);
-            return res.json();
-        })
+        .map(res => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on getOrgRequestsRequested'));  
     }
     getMyPendingOrganizationsDetails(org_id)
@@ -100,6 +99,35 @@ export class OrganizationServices {
         return this.http.put(SERVER + APPROVE_ORGANIZATION_URI + org_id+"/", this.approve, this.getOptions())
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error on approveOrganization'));
+    }
+
+    administerOrganization(org_id, action: number): Observable<any> {
+        let adminAction = {status: action};  //approve:2 or decline:3
+        
+        return this.http.put(SERVER + APPROVE_ORGANIZATION_URI + org_id+"/", adminAction, this.getOptions())
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error on administerOrganization'));
+    }
+
+    getPendingOrgRequests(): Observable<any> {
+        let orgServ = this;
+        let observable = Observable.create(function(observer){
+            let requests = orgServ.getOrgRequestsRequested();
+            try {
+                requests.subscribe({
+                    next: reqArray => {
+                        for(let r of reqArray) {
+                            observer.next(r);
+                        }
+                        observer.complete();
+                    }
+                });
+            }
+            catch(err) {
+                observer.error("getPengingOrgRequests: Could not connect to database.");
+            }
+        });
+        return observable;
     }
     
     getAllOrgNames()
@@ -134,8 +162,9 @@ export class OrganizationServices {
         
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on putOrganizationRequest'));  
     }
-    putOrgContactsRequest (orgid,body) {
-        return this.http.put(SERVER + ORGANIZATIONCONTACTS_URI+orgid +"/", JSON.stringify(body),this.getOptions())
+    putOrgContactsRequest (orgid,body, useAdmin: boolean = false) {
+        let uri = (useAdmin ? ORGANIZATIONCONTACTS_ADMIN_URI : ORGANIZATIONCONTACTS_URI);
+        return this.http.put(SERVER + uri + orgid +"/", JSON.stringify(body),this.getOptions())
         
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on putOrgContactsRequest'));  
     }
@@ -181,6 +210,19 @@ export class OrganizationServices {
          .map(res => res.json())
          .catch((error: any) => Observable.throw(error.json().error || 'Server error on getAllGroups'));
      } 
+     public getAllGroupsForAdmin(): Observable<any>
+     {
+         return this.http.get(SERVER + ALL_GROUPS_ADMIN_URI, this.getOptions())
+         .map(res => res.json())
+         .catch((error: any) => Observable.throw(error.json().error || 'Server error on getAllGroupsForAdmin'));
+     }
+     
+     public updateOrganization(id: number, payload: any, admin: boolean = false): Observable<any> {
+         let uri = admin ? UPDATE_ORGANIZATION_ADMIN_URI : UPDATE_ORGANIZATION_URI;
+        return this.http.patch(SERVER + uri + id + "/", payload, this.getOptions())
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error on updateOrganization'));
+     }
      
 }
 

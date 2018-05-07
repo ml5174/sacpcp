@@ -18,6 +18,7 @@ export class MemberDataEntry {
     constructor(private formBuilder: FormBuilder) { }
 
     ngOnInit() {
+        let role = (this.member.profile.role ? this.member.profile.role : 0);
         this.formGroup = this.formBuilder.group( // set up the validation
             {
                 lastName: [this.member.profile.last_name, [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
@@ -25,7 +26,7 @@ export class MemberDataEntry {
                 firstName: [this.member.profile.first_name, [Validators.required, Validators.maxLength(25)]],
                 contactMethod: this.member.profile.contactmethod, // covered by mobileXorEmailValidator below
                 isActive: ['1', Validators.required], //this is defaulted to 'Yes', and there is no way to 'unselect' (must be yes or no)
-                role: ['0', Validators.required] //this is defaulted to 'Yes', and there is no way to 'unselect' (must be yes or no)
+                role: [role, Validators.required]  
             },
             {
                 validator: mobileXorEmailValidator()
