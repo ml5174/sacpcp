@@ -24,6 +24,7 @@ export class EventSignupModal {
     private eventData;
     private groupData;
     private eventType;
+    private signupSuccess = false;
     selectedMembers;
     signuptype = 'individual';
     optionSelected = false;
@@ -51,18 +52,18 @@ export class EventSignupModal {
 
     ionViewWillEnter() {
         this.loadData();
-        this.eventType = this.eventData.eventexpanded.org_restriction;
+        this.eventType = this.eventData.org_restriction != undefined ? this.eventData.org_restriction : this.eventData.eventexpanded.org_restriction;
     }
 
     loadData() {
 
         var page = this;
         this.orgServices.getMyOrganizations().subscribe(orgData => {
-      
+
             for (var data of orgData) {
                 page.myOrgs.push({ 'name': data.name, 'group': data.group, 'org_id': data.organization_id });
             }
-  
+
         },
             err => {
 
@@ -70,7 +71,8 @@ export class EventSignupModal {
     }
 
     dismiss() {
-        this.viewCtrl.dismiss();
+        console.log(this.signupSuccess);
+        this.viewCtrl.dismiss(this.signupSuccess);
     }
 
     displayGroups() {
@@ -111,7 +113,7 @@ export class EventSignupModal {
             //Remove from Arary. Is this safe for all browsers?
             this.selectedMembers = this.selectedMembers.filter(function (data) {
                 return data.ext_id !== contact.contact.ext_id
-            }); 
+            });
         }
     }
 
@@ -132,7 +134,7 @@ export class EventSignupModal {
         },
             err => {
 
-        });
+            });
 
     }
 
@@ -143,9 +145,10 @@ export class EventSignupModal {
             .checkMyEventsNew(this.signupassistant.getCurrentEventId()).subscribe(
             res => {
                 this.signupassistant.signupEventRegistration();
-
+                this.signupSuccess = true;
             },
             err => {
+                this.signupSuccess = false;
 
                 if (err._body.indexOf("Event registration is full") > 0) {
                     let confirm = this.alertCtrl.create({
@@ -177,7 +180,7 @@ export class EventSignupModal {
                             {
                                 text: 'Yes',
                                 handler: () => {
-                                
+
                                 }
                             }
                         ]
@@ -186,13 +189,16 @@ export class EventSignupModal {
                 }
             },
             () => {
-                this.dismiss();
+                if(this.signupSuccess){
+                    this.dismiss();
+                }
+                //this.dismiss(this.signupSuccess);
             });
     }
 
     doGroupSignUp() {
         var page = this;
-  
+
         this.orgServices
             .groupRegisterForEvent(this.selectedGroup, this.eventData.id, this.selectedMembers, 0).subscribe(
             res => {
@@ -205,7 +211,8 @@ export class EventSignupModal {
                         {
                             text: 'Ok',
                             handler: () => {
-                                this.dismiss();
+                                page.signupSuccess = true;
+                                page.dismiss();
                             }
                         }
                     ]
@@ -223,30 +230,14 @@ export class EventSignupModal {
                         {
                             text: 'Ok',
                             handler: () => {
-                                
+                                page.signupSuccess = false;
                             }
                         }
                     ]
                 });
             },
             () => {
-
-            }); 
-    }
-
-    doSignUp() {
-        //Continue with existing logic
-
-        this.volunteerServices.setNotificationOption(0);
-        this.volunteerServices.setNotificationSchedule(0);
-        this.volunteerServices.setCurrentEventId(this.eventData.id);
-
-        this.volunteerServices.checkMyEventsNew(this.eventData.id).subscribe(
-            res => {
-                this.volunteerServices.eventRegisterAndSetReminder(this.eventData.id, 0, 0, false);
-            },
-            err => {
-
+                //console.log("signupSuccess: " + page.signupSuccess);
             });
     }
 
@@ -340,12 +331,12 @@ export class EventSignupModal {
     //check to see whether expression is a phone number or an email
     validateContactMethod(data) {
         let contact = data;
-  
+
         if (this.validateEmail(contact)) {
-   
+
             return 'email';
         } else if (this.validatePhoneNumber(data)) {
-     
+
             return 'phone';
         } else {
             return false;
