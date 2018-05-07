@@ -526,10 +526,10 @@ export class EventPage {
 
   //TODO: pass in eventLevel for handling 
   signupEventRegistration(eventData) {
-        console.log(eventData);
+       // console.log(eventData);
         let admin = false;
         let eventType = eventData.eventexpanded.org_restriction;
-        console.log(eventType);
+       // console.log(eventType);
         let eventId = eventData.id;
         for (let i in this.myPreferences.organizations) {
             if (this.myPreferences.organizations[i].role == 1 || this.myPreferences.organizations[i].role == 2) {

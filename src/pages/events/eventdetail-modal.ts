@@ -85,7 +85,7 @@ export class EventDetailModal {
     }
 
     loadDetails() {
-        console.log("eventdetail-modal: loadDetails():");
+
         if (this.userServices.isAdmin()) {
             //check account for admin status
             this.getAdminEventDetails(this.eventId);
@@ -94,9 +94,6 @@ export class EventDetailModal {
         else {
             this.getEventDetails(this.eventId);
         }
-        console.log("eventdetail-modal: loadDetails(): done");
-
-
     }
 
     youAreNotEligible() {
@@ -108,7 +105,6 @@ export class EventDetailModal {
                 {
                     text: 'Ok',
                     handler: () => {
-                        console.log('Ok clicked');
                     }
                 }
             ]
@@ -298,6 +294,10 @@ export class EventDetailModal {
         eventsignupPopup.present(/*{ev}*/);
         eventsignupPopup.onDidDismiss(data => {
             this.volunteerEventsService.loadMyEvents();
+
+            if (data == true) {
+                this.dismiss();
+            }
         });
     }
 
@@ -306,7 +306,7 @@ export class EventDetailModal {
         this.volunteerEventsService
             .eventRegisterAndSetReminder(id, noti_sched, 1, overlap).subscribe(
             event => {
-                console.log("eventdetail-modal: signed up for event " + id);
+
                 this.presentToast("Event sign-up successful.");
                 this.signedUp = true;
             },
@@ -320,13 +320,11 @@ export class EventDetailModal {
                             {
                                 text: 'No',
                                 handler: () => {
-                                    console.log('No, clicked');
                                 }
                             },
                             {
                                 text: 'Yes',
                                 handler: () => {
-                                    console.log('Yes clicked');
                                     this.signup(id, noti_sched, true);
                                 }
                             }
@@ -343,7 +341,7 @@ export class EventDetailModal {
                             {
                                 text: 'Ok',
                                 handler: () => {
-                                    console.log('Ok, clicked');
+                              
                                 }
                             }
                         ]
@@ -377,6 +375,11 @@ export class EventDetailModal {
     dismiss() {
         this.viewCtrl.dismiss();
     }
+
+    onDidDismiss() {
+        this.viewCtrl.onDidDismiss(function (data) {
+        });
+    }
     cancelEventRegisteration(id) {
         let confirm = this.alertCtrl.create({
             title: '',
@@ -386,13 +389,13 @@ export class EventDetailModal {
                 {
                     text: 'No',
                     handler: () => {
-                        console.log('No clicked');
+                
                     }
                 },
                 {
                     text: 'Yes',
                     handler: () => {
-                        console.log('Yes clicked');
+          
                         this.deRegister(id);
                     }
                 }
