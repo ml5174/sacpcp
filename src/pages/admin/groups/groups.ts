@@ -64,6 +64,7 @@ export class Groups implements OnInit, OnChanges {
     ngOnChanges(): void {
         //this.rebuildForm();
     }
+<<<<<<< HEAD
 /**
  *   sort first by pending-active-inactive, then org, then group name.
  *   Pass this to sort()
@@ -78,6 +79,13 @@ export class Groups implements OnInit, OnChanges {
             return 1;
         }
         else if(a.status == 0 && b.status == 1) {
+=======
+
+    sortOrganization(a: any, b: any) {
+       // console.log("sort: " + JSON.stringify(a) + 'and' + JSON.stringify(b));
+        if (a.approval_status == 1 && b.approval_status != 1) {
+           // console.log("a > b")
+>>>>>>> 3a343c3002e1410e4bafab3e3e85fec624df5e1b
             return -1;
         }
         else if(a.status == 1 && b.status == 0) {
