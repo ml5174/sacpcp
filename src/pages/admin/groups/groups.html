@@ -4,20 +4,7 @@
 </ion-header>
 
 <ion-content>
- 
-    
-    <section id="legend-header">
-        <ion-grid>
-       
-            <ion-row>
-                <ion-col col-5>Status Legend</ion-col>
-                <ion-col col-5><ion-icon name="checkmark" color="active"></ion-icon> Active</ion-col>
-                <ion-col col-2><ion-icon name="help" color="pending"></ion-icon> Pending</ion-col>
-            </ion-row>
-        </ion-grid>
-    </section>
-    <hr/>
-    <section id="mygroups-list" [formGroup]="fgGroups">
+    <section id="mygroups-list">
         <ion-grid>
             <ion-row style="font-weight:bold">
                 <ion-col >Organization</ion-col>
@@ -26,23 +13,16 @@
                 <ion-col>Group ID</ion-col>
                 <ion-col >Status</ion-col>
             </ion-row>
-            <div formArrayName="faActions">
-                <ion-row *ngFor="let org of faActions.controls; let i = index" [formGroupName]="i">
-                    <ion-col class="linked-group" (click)="openGroupProfile(org)">{{org.controls.name.value}}</ion-col>
-                    <ion-col>{{(org.controls.org_type.value) ? org.controls.org_type.value.name : 'Not Selected'}}</ion-col>
-                    <ion-col class="linked-group" (click)="openGroupProfile(org)">{{org.controls.group.value}}</ion-col>
-                    <ion-col>{{org.controls.id.value}}</ion-col>
-                    <ion-col *ngIf="false && org.controls.approval_status.value == '1'">
-                        <ion-select (ionChange)="doGroupAction(org)" formControlName="approval_status" ngDefaultControl>
-                                 <ion-option value="1">Pending</ion-option>
-                                 <ion-option value="4">Decline</ion-option>
-                                 <ion-option value="3">Approve</ion-option>
-                        </ion-select>
+                <ion-row *ngFor="let org of orgs">
+                    <ion-col class="linked-group" (click)="openGroupProfile(org)">{{org.name}}</ion-col>
+                    <ion-col>{{(org.org_type) ? org.org_type.name : 'Not Selected'}}</ion-col>
+                    <ion-col class="linked-group" (click)="openGroupProfile(org)">{{org.group}}</ion-col>
+                    <ion-col>{{org.id}}</ion-col>
+                    <ion-col class="linked-group" (click)="openGroupActionModal(org, 'approval')" *ngIf="org.approval_status == '1'">Pending</ion-col>
+                    <ion-col class="linked-group" (click)="openGroupActionModal(org, 'active')" *ngIf="org.approval_status != '1'">
+                        {{ org.status == 0 ? 'Active' : 'Inactive'}}
                     </ion-col>
-                    <ion-col class="linked-group" (click)="openGroupActionModal(org)" *ngIf="org.controls.approval_status.value == '1'">Pending</ion-col>
-                    <ion-col *ngIf="org.controls.approval_status.value != '1'">Active</ion-col>
                </ion-row>
-            </div>
         </ion-grid>
     </section> 
 <section>
