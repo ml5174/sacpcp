@@ -75,7 +75,6 @@ import { AppVersion } from '@ionic-native/app-version';
 import { AppPreferences } from '@ionic-native/app-preferences';
 import { MessageTargetList } from '../lib/components/message-target-list/message-target-list';
 import { OrganizationServices } from '../lib/service/organization';
-import { AdminGroupActionSelect } from '../lib/components/admin-group-action-select/admin-group-action-select';
 import { GroupAction } from '../modals/group-action/group-action';
 
 export const deepLinkConfig: DeepLinkConfig = {
@@ -149,7 +148,6 @@ export function translateFactory(http: HttpClient) {
     MemberDataEntry,
     MemberPopOver,
     ErrorMessageSpan,
-    AdminGroupActionSelect,
     GroupAction
   ],
   imports: [

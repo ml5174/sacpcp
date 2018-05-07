@@ -1,22 +1,13 @@
 <ion-header>
-<<<<<<< HEAD
-=======
-
->>>>>>> 934628d94e0a448679ab171e10466674468f453d
     <ion-navbar>
         <ion-buttons start>
             <button ion-button (click)="dismiss()">Close</button>
         </ion-buttons>
-<<<<<<< HEAD
         <ion-title>{{title}}</ion-title>
-=======
-        <ion-title>Group Approve/Disapprove</ion-title>
->>>>>>> 934628d94e0a448679ab171e10466674468f453d
     </ion-navbar>
 </ion-header>
 
 <ion-content [formGroup]="fgAction">
-<<<<<<< HEAD
     <ion-list>
         <ion-list-header>
             Group: {{groupText}}
@@ -46,30 +37,4 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-=======
-
-    <ion-list>
-        <ion-item-group radio-group formControlName="action" ngDefaultControl (ionChange)=>
-            <ion-list-header>
-                Group Action:
-            </ion-list-header>
-            <ion-item>
-                <ion-label>Approve</ion-label>
-                <ion-radio value="1"></ion-radio>
-            </ion-item>
-            <ion-item>
-                <ion-label>Decline</ion-label>
-                <ion-radio value="2"></ion-radio>
-            </ion-item>
-        </ion-item-group>
-        <ion-item>
-            <ion-label>Comment <spanstyle="color: red" *ngIf="isDeclining()">(Required)</span></ion-label>
-            <ion-input placeholder="Enter comment here."></ion-input>
-        </ion-item>
-    </ion-list>
-
-    <button ion-button color="secondary" (click)="dismiss()">Cancel</button>
-    <button ion-button color="primary" [disabled]="isDisabled()" (click)="save()">Save</button>
-
->>>>>>> 934628d94e0a448679ab171e10466674468f453d
 </ion-content>

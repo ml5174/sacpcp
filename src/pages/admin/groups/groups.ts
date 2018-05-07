@@ -16,10 +16,7 @@ import { OrganizationServices } from '../../../lib/service/organization';
 import { Storage } from '@ionic/storage';
 import { GroupProfilePage } from '../../group-profile/group-profile';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
-<<<<<<< HEAD
 import { GroupAction } from '../../../modals/group-action/group-action';
-=======
->>>>>>> 934628d94e0a448679ab171e10466674468f453d
 
 @Component({
     templateUrl: 'groups.html'
@@ -36,11 +33,7 @@ export class Groups implements OnInit, OnChanges {
     public orgs: Array<any> = [];
     public pendingOrgs: Array<any> = [];
     public loadingOverlay;
-<<<<<<< HEAD
     private isAdmin = false;
-=======
-    public fgGroups: FormGroup;
->>>>>>> 934628d94e0a448679ab171e10466674468f453d
 
     // Constructor
     constructor(public nav: NavController,
@@ -55,13 +48,7 @@ export class Groups implements OnInit, OnChanges {
         private popoverCtrl: PopoverController) {
     }
     ngOnInit(): void {
-<<<<<<< HEAD
         
-=======
-        this.fgGroups = this.fb.group({
-            faActions: this.fb.array([])
-        });
->>>>>>> 934628d94e0a448679ab171e10466674468f453d
         if (this.userServices.user.id) {
             this.key = this.userServices.user.id;
         }
@@ -70,71 +57,34 @@ export class Groups implements OnInit, OnChanges {
                 .then(key => this.key = key)
                 .catch(err => console.log("couldn't get key for authentication"));
         }
-<<<<<<< HEAD
         this.isAdmin = this.userServices.user.profile.accounttype == 'A';
-=======
->>>>>>> 934628d94e0a448679ab171e10466674468f453d
         this.loadOrgs();
     }
 
     ngOnChanges(): void {
         //this.rebuildForm();
-<<<<<<< HEAD
-=======
     }
-
-    get faActions(): FormArray {
-        return this.fgGroups.get('faActions') as FormArray;
-      };
-
-    setActions(orgs: any[]) {
-        const actions = orgs.map(org => this.fb.group(org));
-        const actionFormArray = this.fb.array(actions);
-        this.fgGroups.setControl('faActions', actionFormArray);
-      }
-
-      rebuildForm() {
-        this.fgGroups.reset();
-        this.setActions(this.orgs);
-      }
-
-
-    ionViewDidLoad() {
-        this.rebuildForm();
-    }
-
+/**
+ *   sort first by pending-active-inactive, then org, then group name.
+ *   Pass this to sort()
+ * @param a - organization but not specifying
+ * @param b - same
+ */
     sortOrganization(a: any, b: any) {
-       // console.log("sort: " + JSON.stringify(a) + 'and' + JSON.stringify(b));
         if (a.approval_status == 1 && b.approval_status != 1) {
-           // console.log("a > b")
             return -1;
         }
         else if (a.approval_status != 1 && b.approval_status == 1) {
             return 1;
         }
-        let nameCompare = a.name.localeCompare(b.name);
-        if (nameCompare != 0) {
-          //  console.log("name compare:" + nameCompare);
-            return nameCompare;
-        }
-        else {
-            return a.group.localeCompare(b.group);
-        }
->>>>>>> 934628d94e0a448679ab171e10466674468f453d
-    }
-
-    sortOrganization(a: any, b: any) {
-       // console.log("sort: " + JSON.stringify(a) + 'and' + JSON.stringify(b));
-        if (a.approval_status == 1 && b.approval_status != 1) {
-           // console.log("a > b")
+        else if(a.status == 0 && b.status == 1) {
             return -1;
         }
-        else if (a.approval_status != 1 && b.approval_status == 1) {
+        else if(a.status == 1 && b.status == 0) {
             return 1;
         }
         let nameCompare = a.name.localeCompare(b.name);
         if (nameCompare != 0) {
-          //  console.log("name compare:" + nameCompare);
             return nameCompare;
         }
         else {
@@ -156,7 +106,6 @@ export class Groups implements OnInit, OnChanges {
                     }
                 }
                 page.orgs.sort(this.sortOrganization);
-                page.rebuildForm();
             },
             err => {
                 console.log(err);
@@ -198,11 +147,7 @@ export class Groups implements OnInit, OnChanges {
         this.nav.popToRoot();
     }
 
-<<<<<<< HEAD
     openGroupProfile(org: any) {
-=======
-    openGroupProfile(org: FormGroup) {
->>>>>>> 934628d94e0a448679ab171e10466674468f453d
         console.log("admin groups: openGroupProfile:" + JSON.stringify(org.value));
         let data = {
           orgid : org.controls.id.value
@@ -213,7 +158,6 @@ export class Groups implements OnInit, OnChanges {
  *   For the input org, mark approved/disapproved and do stuff :)
  * @param org 
  */
-<<<<<<< HEAD
 
     openGroupActionModal(org: any, mode: string) {
         let groupActionModal = this.modalCtrl.create(GroupAction, { org: org, mode: mode });
@@ -262,25 +206,17 @@ export class Groups implements OnInit, OnChanges {
 
 
 
-=======
->>>>>>> 934628d94e0a448679ab171e10466674468f453d
     doGroupAction(org: FormGroup) {
         //console.log("groups: approve Group:" + org.id + " " + org.organization.name + " " + org.organization.group);
         let action = org.controls.approval_status.value
         if(action == 1) { // this is dirty -- skip when set back to pending -- should be easier way to bypass
             return;
         }
-<<<<<<< HEAD
 
         let dialogActionText = 'Approve';
 
-=======
-
-        let dialogActionText = 'Approve';
-
->>>>>>> 934628d94e0a448679ab171e10466674468f453d
         if(action == 4) {
-            dialogActionText = 'Disapprove';
+            dialogActionText = 'Decline';
             //config inputs
         }
         let confirm = this.alertCtrl.create({
