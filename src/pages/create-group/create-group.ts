@@ -15,10 +15,9 @@ import { MemberDataEntry } from '../../lib/components/member-data-entry/member-d
 
 @Component({
     selector: 'page-create-group',
-    templateUrl: 'create-group.html',
-    providers: [OrganizationServices]
+    templateUrl: 'create-group.html'
 })
-export class CreateGroupPage implements OnInit, AfterViewInit {
+export class CreateGroupPage implements OnInit {
 
     @ViewChild('popoverContent', { read: ElementRef }) content: ElementRef;
     @ViewChild('popoverText', { read: ElementRef }) text: ElementRef;
@@ -33,7 +32,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
     public createGroupForm: FormGroup;
     submitAttempt: boolean = false;
     public orgs: Array<string> = [];
-    public organizationTypes: Array<string> = [];
+    public organizationTypes: Array<any> = [];
     public filteredList: Array<string> = [];
     public showList: boolean
     public isNotBackButton: boolean
@@ -55,11 +54,14 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
      *     the current user (add a required flag) and a blank 'member'
      */
     private initMembers(): void {
+        // add a blank member component
         this.groupMembers = Array<UserProfile>(new UserProfile());
+        // then add the default - the logged in user w/admin role
         let requiredUser = this.userServices.user;
         requiredUser.required = true;
-        requiredUser.profile.isAdmin =
-            this.groupMembers.push(requiredUser);
+        requiredUser.profile.isAdmin = true;
+        requiredUser.profile.role = 2; //admin - 2; member - 0; not sure what 1 is
+        this.groupMembers.push(requiredUser);
     }
 
     onMemberDeleted(member: UserProfile) {
@@ -104,7 +106,7 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
         if (this.membersDataEntry) {
             let noInvalidMembers = true;
             for (let mde of this.membersDataEntry.toArray()) {
-                console.log("canAddMember() -- mde.formGroup: " + JSON.stringify(mde.formGroup.value));
+                //console.log("canAddMember() -- mde.formGroup: " + JSON.stringify(mde.formGroup.value));
                 noInvalidMembers = noInvalidMembers && mde.formGroup.valid;
             }
             return noInvalidMembers;
@@ -130,15 +132,38 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
         }
     }
 
+    private hasAdmin(): boolean {
+        for (let mde of this.membersDataEntry.toArray()) {
+            if(mde.formGroup.valid && mde.formGroup.controls.role.value == 2) {
+                return true;
+            }
+        } 
+        return false;
+    }
+
     public createGroupSubmission() {
        
-        //Validation has been taken care of (Submit is disabled otherwise)
+        //Field has been taken care of (Submit is disabled otherwise)
+        // However, need to make sure that at least one of the group members is an admin
+        if(!this.hasAdmin()) {
+            let alert = this.alertCtrl.create({
+                title: 'Group Admin Required',
+                message: '<center>At least one member must be assigned the Admin role.</center>',
+                buttons: [
+                    {
+                        text: 'Close',
+                        handler: () => {}
+                    }
+                ]
+            });
+            alert.present();
+            return false;
+        }
         //set group (model) w/group (form)
         let group: Organization = {
             group: this.createGroupForm.controls.group.value,
             name: this.createGroupForm.controls.name.value,
-            description: this.createGroupForm.controls.description.value,
-            // org_type: this.createGroupForm.controls.org_type.value,
+            org_type: {id: this.createGroupForm.controls.org_type.value},
             organization_id: null,
             status: 0
         }
@@ -166,10 +191,10 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
                 });
             }
         }
-        console.log("  members: " + JSON.stringify(members));
+       // console.log("  members: " + JSON.stringify(members));
         this.orgServices.createGroup(group, members).subscribe(
             results => {
-//console.log("Submit result:\n " + results);
+            //console.log("Submit result:\n " + results);
                 this.presentFinishedGroup();
             },
             err => {
@@ -363,14 +388,15 @@ export class CreateGroupPage implements OnInit, AfterViewInit {
         this.orgServices.getAllOrganizationTypes().subscribe(orgTypes => {
             for (let orgType of orgTypes) {
                 console.log("orgtype name: " + orgType.name);
-                this.organizationTypes.push(orgType.name);
+                this.organizationTypes.push(orgType);
             }
         });
     }
-    ngAfterViewInit(): void {
-        let mdes: MemberDataEntry[] = this.membersDataEntry.toArray();
-        
-
-    }
+    
+    // setAddresses(addresses: Address[]) {
+    //     const addressFGs = addresses.map(address => this.fb.group(address));
+    //     const addressFormArray = this.fb.array(addressFGs);
+    //     this.heroForm.setControl('secretLairs', addressFormArray);
+    //   }
 
 }
