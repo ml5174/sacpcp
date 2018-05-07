@@ -75,6 +75,7 @@ import { AppVersion } from '@ionic-native/app-version';
 import { AppPreferences } from '@ionic-native/app-preferences';
 import { MessageTargetList } from '../lib/components/message-target-list/message-target-list';
 import { OrganizationServices } from '../lib/service/organization';
+import { GroupAction } from '../modals/group-action/group-action';
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -146,7 +147,8 @@ export function translateFactory(http: HttpClient) {
     GroupAttendeeModal,
     MemberDataEntry,
     MemberPopOver,
-    ErrorMessageSpan
+    ErrorMessageSpan,
+    GroupAction
   ],
   imports: [
     BrowserModule,
@@ -207,7 +209,8 @@ export function translateFactory(http: HttpClient) {
     EventSignupModal,
     AddAttendeesModal,
     GroupAttendeeModal,
-    MemberPopOver
+    MemberPopOver,
+    GroupAction
     
   ],
   providers: [ 

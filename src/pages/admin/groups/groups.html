@@ -1,53 +1,46 @@
 <ion-header>
-    <app-header back="true" title="Groups">
+    <app-header back="true" title="Admin - Groups">
     </app-header>
 </ion-header>
 
 <ion-content>
- 
-    
-    <section id="legend-header">
-        <ion-grid>
-       
-            <ion-row>
-                <ion-col col-3>Status Legend</ion-col>
-                <ion-col col-3><ion-icon name="checkmark"></ion-icon> active</ion-col>
-                <ion-col col-3><ion-icon name="help"></ion-icon> pending</ion-col>
-                <ion-col col-3></ion-col>
-            </ion-row>
-        </ion-grid>
-    </section>
-    <hr/>
-
     <section id="mygroups-list">
         <ion-grid>
             <ion-row style="font-weight:bold">
-                <ion-col col-3></ion-col>
-                <ion-col col-3>Organization</ion-col>
-                <ion-col col-3>Group Name</ion-col>
-                <ion-col col-3>Status</ion-col>
+                <ion-col >Organization</ion-col>
+                <ion-col>Group Type</ion-col>
+                <ion-col>Group Name</ion-col>
+                <ion-col>Group ID</ion-col>
+                <ion-col >Status</ion-col>
             </ion-row>
-
-            <div *ngFor="let org of orgs">
-                <ion-row>
-                    <ion-col col-3></ion-col>
-                    <ion-col col-3 class="linked-group" (click)="approveGroup(org)">{{org.organization.name}}</ion-col>
-                    <ion-col col-3 class="linked-group" (click)="approveGroup(org)">{{org.organization.group}}</ion-col>
-                    <ion-col col-3 *ngIf="this.org.status == 0"><ion-icon name="checkmark"></ion-icon></ion-col>
-                    <ion-col col-3 *ngIf="this.org.status == 1"><ion-icon name="help"></ion-icon></ion-col>
-                    <ion-col col-3 *ngIf="this.org.status == 2"><ion-icon name="remove"></ion-icon></ion-col>
+                <ion-row *ngFor="let org of orgs">
+                    <ion-col class="linked-group" (click)="openGroupProfile(org)">{{org.name}}</ion-col>
+                    <ion-col>{{(org.org_type) ? org.org_type.name : 'Not Selected'}}</ion-col>
+                    <ion-col class="linked-group" (click)="openGroupProfile(org)">{{org.group}}</ion-col>
+                    <ion-col>{{org.id}}</ion-col>
+                    <ion-col class="linked-group" (click)="openGroupActionModal(org, 'approval')" *ngIf="org.approval_status == '1'">Pending</ion-col>
+                    <ion-col class="linked-group" (click)="openGroupActionModal(org, 'active')" *ngIf="org.approval_status != '1'">
+                        {{ org.status == 0 ? 'Active' : 'Inactive'}}
+                    </ion-col>
                </ion-row>
             </div>
         </ion-grid>
     </section> 
-    
-
-
+<section>
+    <ion-grid>
     <ion-row>
-        <ion-col></ion-col>
+        <ion-col> <button ion-button color="primary" (click)="back()">Cancel</button></ion-col>
         <ion-col>
-            <button ion-button color="primary" (click)="back()">Cancel</button>
+            <button ion-button color="primary" (click)="back()">Save</button>
         </ion-col>
-        <ion-col></ion-col>
+        <ion-col> <button ion-button color="primary" (click)="back()">Create</button></ion-col>
     </ion-row>
+    </ion-grid>
+</section>
+<section id="tab-content" padding>
+    <div class="sal-att-logo-container">
+        <img src="assets/img/collaboration.svg" />
+    </div>
+</section>
+<div style="min-height: 10vh !important;"></div>
 </ion-content>
