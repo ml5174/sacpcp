@@ -194,7 +194,7 @@ export class EventDetailModal {
         console.log(JSON.stringify(eventData));
         let admin = false;
         let eventType = eventData.org_restriction;
-        console.log(eventType);
+        //console.log(eventType);
         let eventId = eventData.id;
         for (let i in this.myPreferences.organizations) {
             if (this.myPreferences.organizations[i].role == 1 || this.myPreferences.organizations[i].role == 2) {
@@ -294,7 +294,7 @@ export class EventDetailModal {
         eventsignupPopup.present(/*{ev}*/);
         eventsignupPopup.onDidDismiss(data => {
             this.volunteerEventsService.loadMyEvents();
-
+            console.log(data);
             if (data == true) {
                 this.dismiss();
             }

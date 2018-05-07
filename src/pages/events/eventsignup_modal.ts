@@ -71,7 +71,7 @@ export class EventSignupModal {
     }
 
     dismiss() {
-
+        console.log(this.signupSuccess);
         this.viewCtrl.dismiss(this.signupSuccess);
     }
 
