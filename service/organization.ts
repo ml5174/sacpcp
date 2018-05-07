@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, group } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import { SERVER } from '../provider/config';
+import { Observable, Subject } from 'rxjs/Rx';
+import { SERVER, UPDATE_ORGANIZATION_ADMIN_URI, UPDATE_ORGANIZATION_URI } from '../provider/config';
 import { Storage } from '@ionic/storage';
 import {MY_ORG_CONTACTS_URI} from '../provider/config';
 import {GET_MYORG_REG_EVENT_URI} from '../provider/config';
@@ -78,7 +78,7 @@ export class OrganizationServices {
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on getOrganizationContacts'));  
     }
 
-    getOrgRequestsRequested() {
+    getOrgRequestsRequested(): Observable<any> {
         return this.http.get(SERVER + GET_ORGREQUESTS_REQUESTED_URI, this.getOptions())
         .map(res => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on getOrgRequestsRequested'));  
@@ -99,6 +99,35 @@ export class OrganizationServices {
         return this.http.put(SERVER + APPROVE_ORGANIZATION_URI + org_id+"/", this.approve, this.getOptions())
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error on approveOrganization'));
+    }
+
+    administerOrganization(org_id, action: number): Observable<any> {
+        let adminAction = {status: action};  //approve:2 or decline:3
+        
+        return this.http.put(SERVER + APPROVE_ORGANIZATION_URI + org_id+"/", adminAction, this.getOptions())
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error on administerOrganization'));
+    }
+
+    getPendingOrgRequests(): Observable<any> {
+        let orgServ = this;
+        let observable = Observable.create(function(observer){
+            let requests = orgServ.getOrgRequestsRequested();
+            try {
+                requests.subscribe({
+                    next: reqArray => {
+                        for(let r of reqArray) {
+                            observer.next(r);
+                        }
+                        observer.complete();
+                    }
+                });
+            }
+            catch(err) {
+                observer.error("getPengingOrgRequests: Could not connect to database.");
+            }
+        });
+        return observable;
     }
     
     getAllOrgNames()
@@ -186,7 +215,14 @@ export class OrganizationServices {
          return this.http.get(SERVER + ALL_GROUPS_ADMIN_URI, this.getOptions())
          .map(res => res.json())
          .catch((error: any) => Observable.throw(error.json().error || 'Server error on getAllGroupsForAdmin'));
-     } 
+     }
+     
+     public updateOrganization(id: number, payload: any, admin: boolean = false): Observable<any> {
+         let uri = admin ? UPDATE_ORGANIZATION_ADMIN_URI : UPDATE_ORGANIZATION_URI;
+        return this.http.patch(SERVER + uri + id + "/", payload, this.getOptions())
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error on updateOrganization'));
+     }
      
 }
 
