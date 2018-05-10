@@ -165,7 +165,7 @@ export class OrganizationServices {
     putOrgContactsRequest (orgid,body, useAdmin: boolean = false) {
         let uri = (useAdmin ? ORGANIZATIONCONTACTS_ADMIN_URI : ORGANIZATIONCONTACTS_URI);
         return this.http.put(SERVER + uri + orgid +"/", JSON.stringify(body),this.getOptions())
-        
+        .map(res => res.json())        
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on putOrgContactsRequest'));  
     }
      getOrgRegistrations(org_id, event_id){
