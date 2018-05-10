@@ -1,31 +1,18 @@
-
-
 <ion-header>
-
     <app-header back="true"  title="{{ (this.orgData && this.orgData.organization)?(this.orgData.organization.group + ' Profile' ):'' }}">
     </app-header>
-    
-
-
-
-
 </ion-header>
-
-
-
-
 
 <ion-content   no-bounce>
 
 
 <ion-list  *ngIf='orgData && orgData.organization' >
-<ion-item  [ngClass]="{'item-edit':(orgData.organization.upper_name_editable==true),'item-error':orgData.organization.upper_name_error}"
-	> 
+<ion-item  [ngClass]="{'item-edit':(orgData.organization.upper_name_editable==true),'item-error':orgData.organization.upper_name_error}"> 
 		<ion-label>
 		Organization </ion-label>
 		<ion-input class='item-input' 
 			
-			(blur)='orgData.organization.upper_name_editable=false'
+			(ionBlur)='orgData.organization.upper_name_editable=false'
 			(click) ='this.canEditOrg && (orgData.organization.upper_name_editable=true)'
 			[readonly]='!(orgData.organization.upper_name_editable==true)'
 			
@@ -33,13 +20,12 @@
 			[(ngModel)]='orgData.organization.name'></ion-input>
 		</ion-item>	
 		
-		<ion-item  [ngClass]="{'item-edit':(orgData.organization.group_editable==true),'item-error':orgData.organization.group_error}"
-	> 
+		<ion-item  [ngClass]="{'item-edit':(orgData.organization.group_editable==true),'item-error':orgData.organization.group_error}"> 
 		<ion-label>
 		Group Name</ion-label>
 		<ion-input class='item-input'  class='has-tabs'
 			
-			(blur)='orgData.organization.group_editable=false'
+			(ionBlur)='orgData.organization.group_editable=false'
 			(click) ='this.canEditOrg && (orgData.organization.group_editable=true)'
 			[readonly]='!(orgData.organization.group_editable==true)'
 			
@@ -48,23 +34,22 @@
 		</ion-item>	
 		
 		
-		<ion-item   (click) ='this.canEditOrg && (orgData.organization.orgtype_editable=true)'  [ngClass]="{'item-edit-select':(orgData.organization.orgtype_editable==true),'item-select-error':orgData.orgtype_error}"
-	> 
-		<ion-label>
-		Organization Type </ion-label>
-		
-	    
-			<ion-select  [disabled]="!this.canEditOrg" class="ion-item  no-lines" (ionChange)='orgChg=true'  [(ngModel)]="orgData.organization.org_type.id">
-				<ion-option  [value]="null" ><font color=black >Not present</font></ion-option>
-		    
-		     	<ion-option *ngFor="let orgType of arrayOrgTypes"  [value]="this.orgType.id" ><font color='black' >{{this.decodeOrgType(this.orgType.id) }}</font></ion-option>
-		     </ion-select>
-		</ion-item>	
-
-
-	
-	
-	<ion-item  >
+		<ion-item   (click) ='this.canEditOrg && (orgData.organization.orgtype_editable=true)'  [ngClass]="{'item-edit-select':(orgData.organization.orgtype_editable==true),'item-select-error':orgData.orgtype_error}"> 
+            <ion-label>Organization Type </ion-label>
+            
+                <ion-select  [disabled]="!this.canEditOrg" class="ion-item  no-lines" (ionChange)='orgChg=true'  [(ngModel)]="orgData.organization.org_type.id">
+                    <ion-option  [value]="null" ><font color=black >Not Selected</font></ion-option>
+                
+                     <ion-option *ngFor="let orgType of arrayOrgTypes"  [value]="this.orgType.id" ><font color='black' >{{orgType.name}}</font></ion-option>
+                 </ion-select>
+            </ion-item>	
+    
+            <ion-item> 
+                <div *ngIf="approval_status == 1">Status: <span [ngClass]="{'linked-group': isTsaAdmin}">Pending</span></div>         
+                <div *ngIf="approval_status != 1" (click)="openGroupActionModal('active')">Status: <span [ngClass]="{'linked-group': isGroupAdmin()}">{{ orgData.organization.status == 0 ? 'Active' : 'Inactive'}}</span></div>         
+                </ion-item>	
+        
+                <ion-item>
     		<button ion-button item-end (click)="this.addNew()"> Add Member</button>
     		
     	</ion-item>	
@@ -80,18 +65,18 @@
 <ion-item-divider></ion-item-divider>
 
      
-<div   *ngFor="let member of this.orgData.members" >
-<ion-row (dblclick)="showDelete(this.member)"   on-swipe-left='showDelete(this.member)' >
+<div   *ngFor="let member of orgData.members" >
+<ion-row (dblclick)="showDelete(member)"   on-swipe-left='showDelete(member)' >
 		<ion-col col-8><ion-card (click)='updateExisting(member)'>
 		{{ this.member.first_name + ' ' + this.member.last_name }} <br>
 		
 		{{ (this.member.contact_method =='Email')?('Email: '+this.member.email ):('Phone: '+this.member.mobilenumber) }}<br>
-		{{ this.decodeProfileStatus(this.member.status)  }}</ion-card>
-		<button  *ngIf='this.member.showDelete||(this.desktop)' (click)='confirmMemberDelete(this.member)' ion-button padding-left>Delete </button>
+		{{ this.decodeProfileStatus(this.member.active)  }}</ion-card>
+		<button *ngIf='member.showDelete||(this.desktop)' (click)='confirmMemberDelete(member)' ion-button padding-left>Delete</button>
 	
 		</ion-col>
 		 <ion-col col-4>
-	  <ion-checkbox dark  [(ngModel)]='this.member.isAdmin'
+	  <ion-checkbox dark [(ngModel)]='this.member.isAdmin'
 	  (click)="updateAdminStatus($event, this.member)"  
 	   [disabled]='loggedInUser(this.member) || (this.member.isAdmin && adminCount()==1)||(!this.member.isAdmin && adminCount()==2)||(this.member.isAdmin==false && (this.member.status!= 1))'></ion-checkbox>
 	   
@@ -110,6 +95,7 @@
 </ion-content>
 <ion-footer  has-tabs=true class='bar bar-footer white-color has-tabs'>
   
- <button ion-button padding-right (click)='cancelThisPage()' >Cancel</button><button *ngIf='this.orgChg|| this.memberChg ' padding-left  ion-button (click)='saveOrg()'>Save</button>
+ <button ion-button padding-right (click)='cancelThisPage()' >Cancel</button>
+ <button ion-button [disabled]='!(this.orgChg || this.memberChg)' padding-left (click)='saveOrg()'>Save</button>
 
 	</ion-footer>

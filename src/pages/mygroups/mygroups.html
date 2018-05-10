@@ -33,16 +33,16 @@
 
         <div *ngFor="let group of groups">
                 <ion-row>
-                    <ion-col col-3 *ngIf="this.group.role==1" ><ion-icon name="person" (click)="openEditGroupAttendance(this.group.organization_id, this.group.name, this.group.group)"></ion-icon></ion-col>
-                    <ion-col col-3 *ngIf="this.group.role!=1" ><ion-icon name="people"></ion-icon></ion-col>
+                    <ion-col col-3 *ngIf="group.role==1" ><ion-icon name="person" (click)="openEditGroupAttendance(group.organization_id, group.name, group.group)"></ion-icon></ion-col>
+                    <ion-col col-3 *ngIf="group.role!=1" ><ion-icon name="people"></ion-icon></ion-col>
                     <ion-col col-3>{{this.group.name}}</ion-col>
-                    <ion-col col-3 class="linked-group" (click)=openGroupProfile(this.group.organization_id)>{{this.group.group}}</ion-col>
-                    <ion-col col-3 *ngIf="this.group.status == 0"><ion-icon name="checkmark"></ion-icon></ion-col>
-                    <ion-col col-3 *ngIf="this.group.status == 1"><ion-icon name="help"></ion-icon></ion-col>
-                    <ion-col col-3 *ngIf="this.group.status == 2"><ion-icon name="remove"></ion-icon></ion-col>
+                    <ion-col col-3 class="linked-group" (click)="openGroupProfile(group.organization_id, group.status)">{{group.group}}</ion-col>
+                    <ion-col col-3 *ngIf="group.status == 0"><ion-icon name="checkmark"></ion-icon></ion-col>
+                    <ion-col col-3 *ngIf="group.status == 1"><ion-icon name="help"></ion-icon></ion-col>
+                    <ion-col col-3 *ngIf="group.status == 2"><ion-icon name="remove"></ion-icon></ion-col>
                </ion-row>
             </div>
-            <div *ngIf="!this.hasApprovedGroups && !this.hasPendingGroups" class="nogroups">
+            <div *ngIf="!hasApprovedGroups && !hasPendingGroups" class="nogroups">
                 <br/>
                 <br/>
                 <br/>

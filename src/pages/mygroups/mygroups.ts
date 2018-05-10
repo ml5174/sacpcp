@@ -51,14 +51,17 @@ export class MyGroupsPage {
 
   
   ngOnInit() {
-   }
+    if (this.userServices.user.id) {
+        this.key = this.userServices.user.id;
+    }
+    else {
+        this.storage.get('key')
+            .then(key => this.key = key)
+            .catch(err => console.log("couldn't get key for authentication"));
+    }   }
 
   ionViewDidLoad() {    
-    this.storage.get('key').then((_key) => {
-      this.key = _key;
-
       this.loadMyApprovedGroups();
-    });
   } 
   
   loadMyApprovedGroups() {
@@ -125,10 +128,11 @@ export class MyGroupsPage {
     );
   }
   
-  openGroupProfile(org_id) {
+  openGroupProfile(org_id, approval_status) {
     console.log("mygroups: openGroupProfile:" + org_id);
     let data = {
-      orgid : org_id
+      orgid : org_id,
+      approval_status: approval_status
     };
     this.nav.push(GroupProfilePage, data);
   }

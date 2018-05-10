@@ -51,7 +51,8 @@ export class CreateGroupPage implements OnInit {
     /**
      *   initMembers():
      *   When first loaded, the Create Group page will load as (potential) group members:
-     *     the current user (add a required flag) and a blank 'member'
+     *     the current user (add a required flag) and a blank 'member'.  The display up to down order
+     *     is 1) blank member, 2) logged in user as admin
      */
     private initMembers(): void {
         // add a blank member component
@@ -82,10 +83,7 @@ export class CreateGroupPage implements OnInit {
      * 
      */
     public addMember(): void {
-        console.log("Adding member for group create");
-        if (true) { //TODO: add check to make sure that all previous member data entry is complete and valid
             this.groupMembers.unshift(new UserProfile());
-        }
     }
 
     public cancel(ev) {
@@ -106,7 +104,6 @@ export class CreateGroupPage implements OnInit {
         if (this.membersDataEntry) {
             let noInvalidMembers = true;
             for (let mde of this.membersDataEntry.toArray()) {
-                //console.log("canAddMember() -- mde.formGroup: " + JSON.stringify(mde.formGroup.value));
                 noInvalidMembers = noInvalidMembers && mde.formGroup.valid;
             }
             return noInvalidMembers;
@@ -120,10 +117,12 @@ export class CreateGroupPage implements OnInit {
         if (this.membersDataEntry) {
             let validGroup = this.createGroupForm.valid;
             let atLeastOneValidMember = false;
+            let adminCount = 0
             let noInvalidMembers = true;
             for (let mde of this.membersDataEntry.toArray()) {
                 atLeastOneValidMember = atLeastOneValidMember || mde.formGroup.valid;
                 noInvalidMembers = noInvalidMembers && (mde.formGroup.pristine || mde.formGroup.valid);
+                
             }
             return validGroup && atLeastOneValidMember && noInvalidMembers;
         }
@@ -132,23 +131,24 @@ export class CreateGroupPage implements OnInit {
         }
     }
 
-    private hasAdmin(): boolean {
+    private meetsAdminRequirement(): boolean {
+        let adminCount = 0;
         for (let mde of this.membersDataEntry.toArray()) {
             if(mde.formGroup.valid && mde.formGroup.controls.role.value == 2) {
-                return true;
+                adminCount++;
             }
         } 
-        return false;
+        return (adminCount > 0) && (adminCount < 3);
     }
 
     public createGroupSubmission() {
        
         //Field has been taken care of (Submit is disabled otherwise)
         // However, need to make sure that at least one of the group members is an admin
-        if(!this.hasAdmin()) {
+        if(!this.meetsAdminRequirement()) {
             let alert = this.alertCtrl.create({
-                title: 'Group Admin Required',
-                message: '<center>At least one member must be assigned the Admin role.</center>',
+                title: 'One or Two Group Admin(s) Required',
+                message: '<center>One or two member(s) must be assigned the Admin role. Also,<br />Also, no more than two can be assigned.</center>',
                 buttons: [
                     {
                         text: 'Close',
@@ -187,14 +187,14 @@ export class CreateGroupPage implements OnInit {
                     first_name: control['firstName'].value,
                     last_name: control['lastName'].value,
                     email: email,
-                    mobilenumber: mobilenumber
+                    mobilenumber: mobilenumber,
+                    role: control['role'].value,
+                    active: control['isActive'].value
                 });
             }
         }
-       // console.log("  members: " + JSON.stringify(members));
         this.orgServices.createGroup(group, members).subscribe(
             results => {
-            //console.log("Submit result:\n " + results);
                 this.presentFinishedGroup();
             },
             err => {
@@ -393,10 +393,6 @@ export class CreateGroupPage implements OnInit {
         });
     }
     
-    // setAddresses(addresses: Address[]) {
-    //     const addressFGs = addresses.map(address => this.fb.group(address));
-    //     const addressFormArray = this.fb.array(addressFGs);
-    //     this.heroForm.setControl('secretLairs', addressFormArray);
-    //   }
+    
 
 }

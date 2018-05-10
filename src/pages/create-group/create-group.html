@@ -3,7 +3,7 @@
 -->
 
 <ion-header>
-    <app-header back="false" title="Create Group">
+    <app-header back="false" title="Create Group"> (*Required Field)
     </app-header>
 </ion-header>
 <ion-content padding [formGroup]="createGroupForm">
@@ -13,7 +13,7 @@
                 <ion-label>
                     <error-message-span *ngIf="!showList && createGroupForm.controls.name.invalid && createGroupForm.controls.name.dirty && createGroupForm.controls.name.touched"
                         [errorText]="'Required. Must be 3-25 characters'">
-                    </error-message-span>Organization:
+                    </error-message-span>*Organization:
                 </ion-label>
             </ion-col>
             <ion-col col-8>
@@ -32,7 +32,7 @@
                 <ion-label>
                     <error-message-span *ngIf="createGroupForm.controls.org_type.value =='Choose One...' && createGroupForm.controls.org_type.touched"
                         [errorText]="'Required'">                   
-                    </error-message-span>Organization Type: 
+                    </error-message-span>*Organization Type: 
                 </ion-label>
             </ion-col>
             <ion-col col-8>
@@ -49,7 +49,7 @@
                     <error-message-span 
                        *ngIf="createGroupForm.controls.group.invalid && createGroupForm.controls.group.dirty && createGroupForm.controls.group.touched"
                        [errorText]="'Required. Must be 3-25 characters'">
-                    </error-message-span>Group Name:
+                    </error-message-span>*Group Name:
                 </ion-label>
             </ion-col>
             <ion-col col-8>
