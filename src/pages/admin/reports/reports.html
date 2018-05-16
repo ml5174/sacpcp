@@ -23,7 +23,7 @@
             </div>
             <div padding>
                 <label for="end">End Date:</label>
-                <input [(ngModel)]="endDate" type="date">
+                <input [(ngModel)]="endDate" type="date"  max = "2030-01-02" min = {{startDate}} >
             </div>
             <div>
                 <button ion-button medium color="primary" (click)="goHome()">Cancel</button>
