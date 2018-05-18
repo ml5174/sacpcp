@@ -101,7 +101,7 @@
                     </ion-item>
                     <ion-item *ngIf="userServices.user.id">
                         <button ion-button item-start small color="primary" (click)="eventDetailModal(e.id)">Details</button>
-                        <button ion-button item-end small color="primary" *ngIf="!amISignedUp(e.id)" (click)="signupEventRegistration(e.id, e.eventexpanded.org_restriction, e)">Sign up</button>
+                        <button ion-button item-end small color="primary" *ngIf="!amISignedUp(e.id)" (click)="signupEventRegistration(e)">Sign up</button>
                         <button ion-button item-end small color="primary" *ngIf="amISignedUp(e.id)" (click)="cancelEventRegisteration(e.id)">Cancel Sign-Up</button>
                     </ion-item>
                 </ion-list>

@@ -33,7 +33,6 @@ import { OrganizationServices } from '../../lib/service/organization';
 export class EventPage {
 
   public infiniteScroll: InfiniteScroll;
-
   private oppType;
   public loadingOverlay;
   eventDetail: EventDetail;
@@ -93,7 +92,7 @@ export class EventPage {
     public alertCtrl: AlertController,
     public toastController: ToastController,
     public orgServices: OrganizationServices,
-    public signupassitant: SignupAssistant,
+    public signupAssistant: SignupAssistant,
     public nav: Nav
   ) {
   }
@@ -526,100 +525,103 @@ export class EventPage {
   }
 
   //TODO: pass in eventLevel for handling 
-  signupEventRegistration(id, event_type, e) {
-  
-    let admin = false;
-    for(let i in this.myPreferences.organizations){
-      if(this.myPreferences.organizations[i].role == 1 || this.myPreferences.organizations[i].role == 2 ){
-        admin = true;
-      }else{
-        admin = false
-      }
-    }
-if (event_type == 1) {
-
-      //TODO: Event only Logic
-      //IF USER is not The leader of any group
-      
-      if (!admin) {
-        let confirm = this.alertCtrl.create({
-          title: '',
-          cssClass: 'alertReminder',
-          message: 'Group event sign-up is only available to Group Admins.',
-          buttons: [
-            {
-              text: 'Ok',
-              handler: () => {
-
-              }
+  signupEventRegistration(eventData) {
+       // console.log(eventData);
+        let admin = false;
+        let eventType = eventData.eventexpanded.org_restriction;
+       // console.log(eventType);
+        let eventId = eventData.id;
+        for (let i in this.myPreferences.organizations) {
+            if (this.myPreferences.organizations[i].role == 1 || this.myPreferences.organizations[i].role == 2) {
+                admin = true;
+            } else {
+                admin = false
             }
-          ]
-        });
-        confirm.present();
+        }
+        if (eventType == 1) {
 
-      }else{
-        this.eventSignupModal(e, admin);
-      }
+            //TODO: Event only Logic
+            //IF USER is not The leader of any group
 
-    }else if (event_type == 0){
-         this.eventSignupModal(e, admin);
-    }else{
-      //Continue with existing logic
-      this.signupassitant.setCurrentEventId(id);
-      this.volunteerEventsService
-        .checkMyEvents(id).subscribe(
-        res => {
-          this.signupassitant.signupEventRegistration();
-        },
-        err => {
-          console.log(err);
-          // this.signupassitant.signupEventRegistration();
-          if (err._body.indexOf("Event registration is full") > 0) {
-            let confirm = this.alertCtrl.create({
-              title: '',
-              cssClass: 'alertReminder',
-              message: 'Event Registration is full. We encourage you to search for similar events scheduled.',
-              buttons: [
-                {
-                  text: 'Ok',
-                  handler: () => {
-                    console.log('Ok, clicked');
-                  }
-                }
-              ]
-            });
-            confirm.present();
-          } else {
-            let confirm = this.alertCtrl.create({
-              title: '',
-              cssClass: 'alertReminder',
-              message: 'YOU have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the About Me page?',
-              buttons: [
-                {
-                  text: 'No',
-                  handler: () => {
-                    console.log('No clicked');
-                  }
+            if (!admin) {
+                let confirm = this.alertCtrl.create({
+                    title: '',
+                    cssClass: 'alertReminder',
+                    message: 'Group event sign-up is only available to Group Admins.',
+                    buttons: [
+                        {
+                            text: 'Ok',
+                            handler: () => {
+
+                            }
+                        }
+                    ]
+                });
+                confirm.present();
+
+            } else {
+                this.eventSignupModal(eventData, admin);
+            }
+
+        } else if (eventType == 0) {
+            this.eventSignupModal(eventData, admin);
+        } else {
+            //Continue with existing logic
+            this.signupAssistant.setCurrentEventId(eventId);
+            this.volunteerEventsService
+                .checkMyEvents(eventId).subscribe(
+                res => {
+                    this.signupAssistant.signupEventRegistration();
                 },
-                {
-                  text: 'Yes',
-                  handler: () => {
-                    console.log('Yes clicked');
-                    this.nav.push(RegisterIndividualProfilePage, { errorResponse: err });
-                  }
-                }
-              ]
-            });
-            confirm.present();
-          }
-        });
+                err => {
+                    console.log(err);
+                    // this.signupassitant.signupEventRegistration();
+                    if (err._body.indexOf("Event registration is full") > 0) {
+                        let confirm = this.alertCtrl.create({
+                            title: '',
+                            cssClass: 'alertReminder',
+                            message: 'Event Registration is full. We encourage you to search for similar events scheduled.',
+                            buttons: [
+                                {
+                                    text: 'Ok',
+                                    handler: () => {
+                                        console.log('Ok, clicked');
+                                    }
+                                }
+                            ]
+                        });
+                        confirm.present();
+                    } else {
+                        let confirm = this.alertCtrl.create({
+                            title: '',
+                            cssClass: 'alertReminder',
+                            message: 'YOU have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the About Me page?',
+                            buttons: [
+                                {
+                                    text: 'No',
+                                    handler: () => {
+                                        console.log('No clicked');
+                                    }
+                                },
+                                {
+                                    text: 'Yes',
+                                    handler: () => {
+                                        console.log('Yes clicked');
+                                        this.nav.push(RegisterIndividualProfilePage, { errorResponse: err });
+                                    }
+                                }
+                            ]
+                        });
+                        confirm.present();
+                    }
+                });
 
+        }
     }
-  }
 
   cancelEventRegisteration(id) {
     console.log("events.ts: cancelEventRegistration: invoke signupassistant");
-    this.signupassitant.cancelEventRegisteration(id);
+    this.signupAssistant.cancelEventRegisteration(id);
   }
 
   alertUserLoginRegister(eventId) {
