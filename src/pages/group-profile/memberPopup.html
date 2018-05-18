@@ -1,6 +1,3 @@
-
-
-
 <ion-header>
     <ion-title><h2>Member Details</h2></ion-title>
    
@@ -8,7 +5,7 @@
 
               <ion-content>
              
-              <form [formGroup]="userForm"  (ngSubmit)="onSubmit(userForm.value)">
+              <form [formGroup]="userForm">
                 <ion-list radio-group>
                   <ion-item>
                     <ion-label>First Name</ion-label>
@@ -24,7 +21,7 @@
            		 <ion-item>
            		 Primary Contact
            		 </ion-item>
-                  <ion-item-group formControlName='contact_method' radio-group>
+                  <ion-item-group formControlName='contact_method' radio-group ngDefaultControl>
                   
 				
 				   <ion-item *ngFor="let option of ['Email','Phone']">
@@ -53,19 +50,17 @@
                  
                   <ion-item>
                   		<ion-label>Active</ion-label>
-                  		<ion-checkbox formControlName='active' [disabled]="record.isAdmin && userForm.value.active" ></ion-checkbox>
+                  		<ion-checkbox formControlName='active'></ion-checkbox>
                   		
                   </ion-item>
                 
-                  <div class="text-center">
-           			<button ion-button   (click)='closeModal()' padding-right> Cancel</button>    
-        			<button ion-button   *ngIf='userForm.status=="VALID"' type='submit' padding-left> Save</button>
-        			</div>
+                <div class="text-center">
+           			<button ion-button color="secondary" (click)='closeModal()' padding-right> Cancel</button>    
+        			<button ion-button (click)="save()" [disabled]="userForm.invalid" padding-left> Save</button>
+        		</div>
         	
         		
         		 <div class="padding">
-           
-     
         		</div>
         </ion-list>
         </form></ion-content>

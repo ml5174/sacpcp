@@ -1,21 +1,16 @@
 import { ViewController, NavController, NavParams } from 'ionic-angular';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
     templateUrl: './memberPopup.html'
-
-
 })
 
-
-
-export class MemberPopOver {
-
+export class MemberPopOver implements OnInit {
 
     public action: string = "";
     public record: any = {};
-    public page: any;
+    userForm: FormGroup;
 
     constructor(public navCtrl: NavController, public viewCtrl: ViewController, 
         public navParams: NavParams, public formBuilder: FormBuilder) {
@@ -23,69 +18,43 @@ export class MemberPopOver {
         this.action = navParams.get('action');
         this.record = navParams.get('record');
         if (this.record) {
-            console.log("this.record exists.");
-            if (this.record.contact_method == null) { this.record.contact_method = 'Email' };
-            if (this.record.status) {
-                if (this.record.status == 1) {
-                    this.record.active = true;
-                }
-            }
-
-            if (this.record.active == null) { this.record.active = false };
-            this.page = this;
-
-            this.userForm = this.formBuilder.group({
-
-                email: [this.record.email],
-                active: [this.record.active],
-                mobilenumber: [this.record.mobilenumber],
-                contact_method: [this.record.contact_method, Validators.compose([Validators.required])],
-                first_name: [this.record.first_name, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'),
-                Validators.minLength(3), Validators.maxLength(30)])],
-
-                last_name: [this.record.last_name, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'),
-                Validators.minLength(3), Validators.maxLength(30)])],
-
-
-
-            },
-                { validator: this.emailOrMobile.bind(this) }
-            );
+            console.log("this.record exists: " + JSON.stringify(this.record));
+            if (this.record.contact_method == null) { 
+                this.record.contact_method = 'Email' 
+            };
         }
-        console.log("Exiting memberPopup constructor.");
     }
+  
+    ngOnInit(): void {
+        this.userForm = this.formBuilder.group({
 
+            email: [this.record.email, Validators.email],
+            active: [{value: this.record.status == 1, disabled: false}],
+            mobilenumber: [this.record.mobilenumber],
+            contact_method: [this.record.contact_method, Validators.compose([Validators.required])],
+            first_name: [this.record.first_name, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'),
+            Validators.minLength(2), Validators.maxLength(30)])],
+
+            last_name: [this.record.last_name, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'),
+            Validators.minLength(2), Validators.maxLength(30)])],
+        },
+            { validator: this.emailOrMobile.bind(this) }
+        );    
+    }
 
     public closeModal() {
-        this.viewCtrl.dismiss();
+        this.viewCtrl.dismiss(null);
     }
 
-
-    public userForm = this.formBuilder.group({
-
-        email: [this.record.email],
-        active: [this.record.active],
-        mobilenumber: [this.record.mobilenumber],
-        contact_method: [this.record.contact_method, Validators.compose([Validators.required])],
-        first_name: [this.record.first_name, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'),
-        Validators.minLength(3), Validators.maxLength(30)])],
-
-        last_name: [this.record.last_name, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'),
-        Validators.minLength(3), Validators.maxLength(30)])],
-
-
-
-    },
-        { validator: this.emailOrMobile.bind(this) }
-    );
-
-    public onSubmit(data) {
-        console.log(data);
-        if (data.active)
-            data.status = 1;
-        else
-            data.status = 2;
-        this.viewCtrl.dismiss(data);
+    public save() {
+        
+        this.record.first_name = this.userForm.controls.first_name.value;
+        this.record.last_name = this.userForm.controls.last_name.value;
+        this.record.email = this.userForm.controls.email.value;
+        this.record.mobilenumber = this.userForm.controls.mobilenumber.value;
+        this.record.contact_method = this.userForm.controls.contact_method.value;
+        this.record.status = this.userForm.controls.active.value ? 1 : 0;
+        this.viewCtrl.dismiss(this.record);
     }
 
     public emailOrMobile(group: FormGroup) {
@@ -102,7 +71,6 @@ export class MemberPopOver {
             console.log("email validaton_fail");
         }
 
-
         if (rec.contact_method == 'Phone') {
             if (this.valid_mobile(rec.mobilenumber)) {
 
@@ -115,9 +83,7 @@ export class MemberPopOver {
         console.log('Validation fail');
         return ({ email: { valid: false }, mobile: { valid: false } })
     }
-    public closePopup() {
-        this.viewCtrl.dismiss();
-    }
+    
 
     public valid_mobile(m) {
         if (m)
@@ -138,10 +104,6 @@ export class MemberPopOver {
         }
         return false;
     }
-
-
-
-
 }
 
 

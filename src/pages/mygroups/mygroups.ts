@@ -18,6 +18,7 @@ import { Organization } from '../../lib/model/organization';
 import { OrganizationServices } from '../../lib/service/organization';
 import { Storage } from '@ionic/storage';
 import { Platform } from 'ionic-angular';
+import { sortOrganization } from '../../lib/model/organization';
 
 @Component({
   selector: 'mygroups',
@@ -28,6 +29,7 @@ import { Platform } from 'ionic-angular';
 export class MyGroupsPage {
   @ViewChild(Content) content: Content;
   
+  isGroupLoadingComplete: boolean = false;
   hasApprovedGroups: boolean = false;
   hasPendingGroups: boolean = false;
   numberGroups = 0;
@@ -35,7 +37,6 @@ export class MyGroupsPage {
   public loadingOverlay; 
   public key: number;
   
-  // Constructor
   constructor(public nav: NavController,
               public userServices: UserServices,
               public loadingController: LoadingController,
@@ -45,11 +46,8 @@ export class MyGroupsPage {
               public storage: Storage,
               public orgServices: OrganizationServices,
               private popoverCtrl: PopoverController) 
-  { 
+  {  };
 
-  };
-
-  
   ngOnInit() {
     if (this.userServices.user.id) {
         this.key = this.userServices.user.id;
@@ -61,75 +59,31 @@ export class MyGroupsPage {
     }   }
 
   ionViewDidLoad() {    
-      this.loadMyApprovedGroups();
+      this.loadMyGroups();
   } 
   
-  loadMyApprovedGroups() {
-    var page = this;  
-    this.orgServices.getMyOrganizations().subscribe(
-      groups => {
-        for(var group of groups) {
-          console.log("org: " + group.name + " group: " + group.group);
+  loadMyGroups() {
+    console.info("loadMyGroups() start");
+    var page = this; 
+    // 
+    page.orgServices.getMyOrganizationsList().merge(page.orgServices.getMyOrgsFromOrgRequestsList()).subscribe(
+      group => {
+          console.log("org: " + group.name + "; group: " + group.group + "; status: " + group.status);
           page.groups.push(group);
-          page.hasApprovedGroups = true;
-        } 
-        this.loadMyPendingGroups();
       },
       err => {
         console.log(err);
-        this.hasApprovedGroups = false;
       },
       () => {
-        console.log("on complete with loading groups and pending groups");
-        if (this.hasApprovedGroups == false && this.hasPendingGroups == false) {
-          console.log("user has no groups whatsoever! present pop-up!");
-          // let acknowledgeNoGroups = this.alertCtrl.create({
-          //   title: '',
-          //   cssClass: 'alertReminder',
-          //   message: 'You are not a member of any groups yet. To create a group, click the Create Group button',
-          //   buttons: [
-          //     {
-          //       text: 'OK',
-          //       handler: () => {
-          //         console.log('OKAY!!!!');
-          //       }
-          //     }
-          //   ]
-          // });
-          // acknowledgeNoGroups.present();  
-        }
+        page.groups.sort(sortOrganization);
+        this.isGroupLoadingComplete = true;
       }
 
     );
   }
-   
-  loadMyPendingGroups() {
-    var page = this;  
-    this.orgServices.getMyPendingOrganizations().subscribe(
-      groups => {
-        for(var group of groups) {
-          let tempGroup: Organization = new Organization();
-          tempGroup.name = group.organization.name;
-          tempGroup.group = group.organization.group;
-          tempGroup.description = group.organization.description;
-          tempGroup.organization_id = group.organization.id;
-          tempGroup.status = 1; // 0 = Active, 1 = Pending, 2 = Inactive
-          page.groups.push(tempGroup);
-          page.hasPendingGroups = true;
-        }
-      },
-      err => {
-        console.log(err);
-        page.hasPendingGroups = true;
-      },
-      () => {
-        console.log("do onCompleted in loadMyGroups");
-      }
-    );
-  }
   
   openGroupProfile(org_id, approval_status) {
-    console.log("mygroups: openGroupProfile:" + org_id);
+    console.log("mygroups: openGroupProfile:" + org_id + "; approval_status: " + approval_status);
     let data = {
       orgid : org_id,
       approval_status: approval_status
