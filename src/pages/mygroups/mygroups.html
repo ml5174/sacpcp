@@ -4,27 +4,27 @@
 </ion-header>
 
 <ion-content>
-    <section *ngIf="this.hasApprovedGroups || this.hasPendingGroups" id="legend-header">
+    <section *ngIf="groups.length != 0" id="legend-header">
         <ion-grid>
             <ion-row>
                 <ion-col col-3>Membership Legend</ion-col>
-                <ion-col col-3></ion-col>
                 <ion-col col-3><ion-icon name="person"></ion-icon> Group Admin</ion-col>
                 <ion-col col-3><ion-icon name="people"></ion-icon> Group Member</ion-col>
+                <ion-col col-3></ion-col>
             </ion-row>
             <ion-row>
                 <ion-col col-3>Status Legend</ion-col>
-                <ion-col col-3><ion-icon name="checkmark"></ion-icon> active</ion-col>
-                <ion-col col-3><ion-icon name="help"></ion-icon> pending</ion-col>
-                <ion-col col-3></ion-col>
+                <ion-col col-3><ion-icon name="checkmark"></ion-icon> Active</ion-col>
+                <ion-col col-3><ion-icon name="help"></ion-icon> Pending</ion-col>
+                <ion-col col-3><ion-icon name="moon"></ion-icon> Inactive</ion-col>
             </ion-row>
         </ion-grid>
     </section>
     <hr/>
     <section id="mygroups-list">
-        <ion-grid *ngIf="this.hasApprovedGroups || this.hasPendingGroups" >
+        <ion-grid *ngIf="groups.length != 0" >
             <ion-row style="font-weight:bold">
-                <ion-col col-3></ion-col>
+                <ion-col style="text-align: center" col-3>Membership</ion-col>
                 <ion-col col-3>Organization</ion-col>
                 <ion-col col-3>Group Name</ion-col>
                 <ion-col col-3>Status</ion-col>
@@ -33,21 +33,22 @@
 
         <div *ngFor="let group of groups">
                 <ion-row>
-                    <ion-col col-3 *ngIf="this.group.role==1" ><ion-icon name="person" (click)="openEditGroupAttendance(this.group.organization_id, this.group.name, this.group.group)"></ion-icon></ion-col>
-                    <ion-col col-3 *ngIf="this.group.role!=1" ><ion-icon name="people"></ion-icon></ion-col>
+                    <ion-col style="text-align: center" col-3>
+                        <ion-icon *ngIf="group.role==1" name="person" (click)="openEditGroupAttendance(group.organization_id, group.name, group.group)"></ion-icon>
+                        <ion-icon *ngIf="group.role!=1" name="people"></ion-icon>
+                    </ion-col>
                     <ion-col col-3>{{this.group.name}}</ion-col>
-                    <ion-col col-3 class="linked-group" (click)=openGroupProfile(this.group.organization_id)>{{this.group.group}}</ion-col>
-                    <ion-col col-3 *ngIf="this.group.status == 0"><ion-icon name="checkmark"></ion-icon></ion-col>
-                    <ion-col col-3 *ngIf="this.group.status == 1"><ion-icon name="help"></ion-icon></ion-col>
-                    <ion-col col-3 *ngIf="this.group.status == 2"><ion-icon name="remove"></ion-icon></ion-col>
+                    <ion-col col-3 class="linked-group" (click)="openGroupProfile(group.organization_id, group.approval_status)">{{group.group}}</ion-col>
+                    <ion-col col-3 *ngIf="group.status == 0 && group.approval_status != 1"><ion-icon name="checkmark"></ion-icon></ion-col>
+                    <ion-col col-3 *ngIf="group.approval_status == 1"><ion-icon name="help"></ion-icon></ion-col>
+                    <ion-col col-3 *ngIf="group.status == 1"><ion-icon name="moon"></ion-icon></ion-col>
                </ion-row>
             </div>
-            <div *ngIf="!this.hasApprovedGroups && !this.hasPendingGroups" class="nogroups">
+            <div style="font-size: larger" *ngIf="groups.length == 0 && isGroupLoadingComplete" class="nogroups">
                 <br/>
                 <br/>
                 <br/>
-                You are not a member of any groups yet. To create a group, click the Create Group button
-            
+                You are not a member of any groups yet. To create a group, click the Create Group button.
                 <br/>
                 <br/>
                 <br/>
@@ -58,18 +59,22 @@
     <section>
         <ion-grid>
             <ion-row>
-                <ion-col></ion-col>
-                <ion-col>
-                    <button ion-button color="primary" (click)="back()">Cancel</button>
+                <ion-col col-4></ion-col>
+                <ion-col col-4>
+                <div style="text-align: center">
+                    <button style="margin-right: 2px" ion-button color="primary" (click)="back()">Cancel</button>
+                    <button style="margin-left: 2px" ion-button (click)="pushGroupPage()" color="primary">Create Group</button>
+                </div>
                 </ion-col>
-                <ion-col></ion-col>
-                <ion-col>
-                    <button ion-button (click)="pushGroupPage()" color="primary">Create Group</button>
-                </ion-col>
+                <ion-col col-4></ion-col>
              </ion-row>
         </ion-grid>
-       <!-- force spacer so footer tab bar does not hide the Cancel and Create Group buttons -->
-       <div style="min-height: 10vh !important;"></div>
     </section>
+    <section id="tab-content" padding>
+        <div class="sal-att-logo-container">
+            <img src="assets/img/collaboration.svg" />
+        </div>
+    </section>
+    <div style="min-height: 10vh !important;"></div>
 </ion-content>
 

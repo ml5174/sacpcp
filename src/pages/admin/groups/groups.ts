@@ -22,7 +22,7 @@ import { GroupAction } from '../../../modals/group-action/group-action';
     templateUrl: 'groups.html'
 })
 
-export class Groups implements OnInit, OnChanges {
+export class Groups implements OnInit {
 
 
     @ViewChild(Content) content: Content;
@@ -59,10 +59,6 @@ export class Groups implements OnInit, OnChanges {
         }
         this.isAdmin = this.userServices.user.profile.accounttype == 'A';
         this.loadOrgs();
-    }
-
-    ngOnChanges(): void {
-        //this.rebuildForm();
     }
 
 /**
@@ -117,7 +113,7 @@ export class Groups implements OnInit, OnChanges {
     presentToast(message: string) {
         let toast = this.toastController.create({
             message: message,
-            duration: 2000,
+            duration: 2500,
             position: 'middle'
         });
         toast.present();
@@ -149,9 +145,10 @@ export class Groups implements OnInit, OnChanges {
     }
 
     openGroupProfile(org: any) {
-        console.log("admin groups: openGroupProfile:" + JSON.stringify(org.value));
+        //console.log("admin groups: openGroupProfile:" + JSON.stringify(org.value));
         let data = {
-          orgid : org.controls.id.value
+          orgid : org.id,
+          approval_status: org.approval_status
         };
         this.nav.push(GroupProfilePage, data);
       }

@@ -58,11 +58,11 @@ export class GroupAction implements OnInit {
     ngOnInit(): void {
         let actionValue = 'pending';
         if(this.mode == 'active') {
-            actionValue = this.myOrg.status == 0 ? 'inactive' : 'active';
+            actionValue = this.myOrg.status == 0 ? 'active' : 'inactive';
         }
         this.fgAction = this.fb.group( // set up the validation TODO: fix to use active/inactive appropriately
             {
-                action: this.mode === 'approval' ? 'pending' : 'active',
+                action: actionValue,
                 comment: ''
             }
         );

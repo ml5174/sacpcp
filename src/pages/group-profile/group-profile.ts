@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, ModalController, NavParams, ToastController } from 'ionic-angular';
 
 import { Organization } from '../../lib/model/organization';
 import { AlertController } from 'ionic-angular';
@@ -7,6 +7,7 @@ import { UserServices } from '../../lib/service/user';
 import { OrganizationServices } from '../../lib/service/organization';
 import { MemberPopOver } from './member-popover';
 import { HomePage } from '../home/home';
+import { GroupAction } from '../../modals/group-action/group-action';
 
 @Component({
     selector: 'page-group-profile',
@@ -15,17 +16,18 @@ import { HomePage } from '../home/home';
 
 
 })
-export class GroupProfilePage {
+export class GroupProfilePage implements OnInit {
+
     public orgId: number = null;
     public orgData: any = null;
     public newMember: any = null;
     public invitedHere: any = [];
-    private isTsaAdmin: boolean = false;
+    private isTsaAdmin: boolean = false;  // TSA Admins can only edit pending/approve/decline and active/inactive
+    public approval_status: number;
 
-
-    public canEdit: boolean = null;
+    public canEdit: boolean = null; // crud members
     public arrayOrgTypes: any = [];
-    public canEditOrg: boolean = false;
+    public canEditOrg: boolean = false; // change org name, group name, org type - should only be allowed for group admin when group is pending
     public orgChg: boolean = false;
     public memberChg: boolean = false;
     public cancelled: boolean = false;
@@ -33,25 +35,24 @@ export class GroupProfilePage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
         public orgServices: OrganizationServices, public userServices: UserServices, public alertCtrl: AlertController,
-        public modalControl: ModalController,
+        public modalControl: ModalController, public toastController: ToastController,
         public m: MemberPopOver) {
             this.isTsaAdmin = (this.userServices.user.profile.accounttype == 'A');
      }
 
-
-    ionViewDidLoad() {
-
-        console.log('ionViewDidLoad GroupProfilePage ' + this.navParams.get('orgid'));
+    ngOnInit(): void {
         this.orgId = this.navParams.get('orgid');
+        this.approval_status = this.navParams.get('approval_status') ? this.navParams.get('approval_status') : 2;
         this.loadOrgContacts(this.orgId);
         let page = this;
-        this.orgServices.getOrgTypes().subscribe(orgData => {
-            page.arrayOrgTypes = orgData;
+        this.orgServices.getOrgTypes().subscribe(orgTypes => {
+            page.arrayOrgTypes = orgTypes;
         },
             err => {
                 console.log("Unable to load organization Types in groupProfile page");
             });
     }
+
 
     ionViewDidEnter() {
         this.cancelled = false;
@@ -63,15 +64,16 @@ export class GroupProfilePage {
         let newTemplate = {
             first_name: '',
             last_name: '',
-            active: false,
+            status: 1,
 
             email: '',
             contact_method: 'Email',
             mobilenumber: ''
         };
 
-        let userPop = this.modalControl.create(MemberPopOver, { cssClass: "member-modal", action: 'new', record: newTemplate }, { cssClass: 'member-modal', enableBackdropDismiss: false });
-        userPop.present();
+        let userPop = this.modalControl.create(MemberPopOver, 
+            { cssClass: "member-modal", action: 'new', record: newTemplate }, 
+            { cssClass: 'member-modal', enableBackdropDismiss: false });
         userPop.onDidDismiss(data => {
             if (data && data.contact_method) {
 
@@ -89,11 +91,8 @@ export class GroupProfilePage {
                 this.memberChg = true;
             }
 
-
         });
-
-
-
+        userPop.present();
     }
 
     public updateExisting(member) {
@@ -102,12 +101,13 @@ export class GroupProfilePage {
             return;
 
 
-        let userPop = this.modalControl.create(MemberPopOver, { cssClass: "member-modal", action: 'update', record: member }, { cssClass: 'member-modal', enableBackdropDismiss: false });
-        userPop.present();
+        let userPop = this.modalControl.create(MemberPopOver, 
+            { action: 'update', record: member }, 
+            { cssClass: 'member-modal', enableBackdropDismiss: false });
         userPop.onDidDismiss(data => {
             if (data && data.contact_method) {
 
-                //console.log(data);
+                console.log("updateExisting Canceled: " + JSON.stringify(data));
                 data.showDelete = false;
                 data.changed = true;
 
@@ -125,24 +125,12 @@ export class GroupProfilePage {
 
                 this.memberChg = true;
             }
-
-
         });
-
-
-
+        userPop.present();
     }
 
-
-
-    public groupApproved() {
-        if (this.orgData && this.orgData.organization) {
-            return (this.orgData.organization.status == 0)
-
-        }
-        else {
-            return (false);
-        }
+    public groupIsAlreadyApproved() {
+        return this.orgData && this.orgData.organization && this.orgData.organization.approval_status != 1;
     }
 
     public decodeOrgType(orgType) {
@@ -157,6 +145,7 @@ export class GroupProfilePage {
         }
         return ("");
     }
+
     public decodeProfileStatus(status) {
         if (status == null) {
             return "Status Unknown";
@@ -164,6 +153,7 @@ export class GroupProfilePage {
         let codes = ["Status Unknown", "Active Member", "Inactive Member", "Temporary Member"];
         return (codes[status] ? codes[status] : '');
     }
+
     presentConfirm() {
         let page = this;
         let alert = this.alertCtrl.create({
@@ -191,20 +181,12 @@ export class GroupProfilePage {
         });
         alert.present();
     }
+
     ionViewWillLeave() {
-
-        if (this.cancelled) {
-
-            return;
-        }
-        if (this.memberChg || this.orgChg) {
-
+        if (!this.cancelled && (this.memberChg || this.orgChg)) {
             this.presentConfirm();
         }
     }
-
-
-
 
     public updateAdminStatus(event, member) {
         this.memberChg = true;
@@ -222,13 +204,8 @@ export class GroupProfilePage {
                     member.isAdmin = true;
                 }, 100
                 );
-
-
             }
-
         }
-
-
     }
     public decodeRole(role) {
         let roleEn = ['Member', 'Admin'];
@@ -315,7 +292,9 @@ export class GroupProfilePage {
         this.orgData.members = this.orgData.members.filter(obj => obj !== member);
         this.memberChg = true;
     }
-
+    /**
+     *  only group admins can edit group members and org_type (not even TSA Admin)
+     */
     public canEditCheck() {
         let prof = this.userServices.user.profile;
         let contact_method = prof.contactmethod_name;
@@ -351,6 +330,20 @@ export class GroupProfilePage {
 
     groupAdmin(role) {
         return (role == 1);
+    }
+
+    isGroupAdmin(): boolean {
+        let retval = false;
+        if (this.orgData && this.orgData.members) {
+            for (let member of this.orgData.members) {
+                if ((member.role == 1 || member.role == 2) &&
+                    (member.email === this.userServices.user.profile.email || member.mobilenumber === this.userServices.user.profile.mobilenumber)) {
+                    retval = true;
+                }
+            }
+        }
+
+        return retval;
     }
 
     sortMemberData(members, organization) {
@@ -399,57 +392,39 @@ export class GroupProfilePage {
 
     };
 
-    checkOrgnName() {
+    checkOrgName() {
 
         this.orgData.organization.upper_name.error = null;
         if (this.orgData.organization.upper_name.length < 3) {
-            this.orgData.organization.upper_name.error = "Name should be 3 character or more";
+            this.orgData.organization.upper_name.error = "Name should be 3 characters or more";
         }
 
     }
+
+
+/**
+ *    orgData comes back as {organization: {}, members: []}
+ *     NOTE: getOrganizationContacts will not include pending groups so need backup call
+ *       ALSO, the user may be a group admin, a group member, or a TSA admin.
+ */
 
     loadOrgContacts(orgId) {
 
         let page = this;
 
-            this.orgServices.getOrganizationContacts(orgId, this.isTsaAdmin).subscribe(orgData => {
+        page.orgServices.getOrganizationContacts(orgId, page.isTsaAdmin)
+            .catch(err => page.orgServices.getMyPendingOrganizationDetails(orgId)).subscribe(orgData => {
                 page.orgData = orgData;
-                //console.log("OrgData " + page.orgData.organization.upper_name );
-                page.sortMemberData(this.orgData.members, orgData.organization);
+                console.log("OrgData: " + JSON.stringify(orgData));
+                page.sortMemberData(page.orgData.members, page.orgData.organization);
                 page.canEdit = page.canEditCheck();
-                page.canEditOrg = this.isTsaAdmin;
-            },
-                err => {
-                    this.orgServices.getMyPendingOrganizationsDetails(orgId).subscribe(
-                        orgData => {
-                            page.orgData = orgData;
-                            // organization status is = 0 ->appoved. Should be 1 
-                            page.orgData.organization.status = 1;
-                            //console.log("OrgData " + page.orgData.organization.upper_name );
-                            page.sortMemberData(this.orgData.members, orgData.organization);
-                            page.canEdit = page.canEditCheck();
-
-                            if (page.canEdit) page.canEditOrg = true;
-
-                        },
-                        err2 => {
-                            console.log(err2);
-                            this.orgData = null;
-                        }
-                    );
-                    console.log(err);
-                });
-        
+                page.canEditOrg = page.isGroupAdmin && page.approval_status == 1; // TODO: should be group is pending and user is group admin
+            });
     }
 
     public validatePost(data) {
-
-        // One or two admins
-
-        if ((this.adminCount() > 0) && (this.adminCount() < 3))
-            return true;
-
-        return false;
+        // must have 1 or 2 members assigned as admins
+        return (this.adminCount() > 0) && (this.adminCount() < 3);
     }
 
     public cancelThisPage() {
@@ -492,16 +467,17 @@ export class GroupProfilePage {
                 }
 
                 myorg.members.push(mem);
+                console.log("pre-save mem: " + JSON.stringify(mem));
 
             });
+            console.log("pre-save myorg: " + JSON.stringify(myorg));
             return (myorg);
-        } else // if (org.organization.status==0)
-        {
+        } else {// if (org.organization.status==0) 
             myorg.members = [];
+            myorg.organization = this.orgData.organization; //this field is editable by GroupAdmin
             org.members.forEach(function (m) {
                 let mem: any = {};
                 mem.status = m.status;
-                //console.log('changing status to ',m.status, page.decodeProfileStatus(m.status));
                 mem.mobilenumber = m.mobilenumber;
                 mem.first_name = m.first_name;
                 mem.last_name = m.last_name;
@@ -512,17 +488,13 @@ export class GroupProfilePage {
                 if (m.ext_id) {
                     mem.ext_id = m.ext_id;
                 }
-
                 myorg.members.push(mem);
-
+                console.log("pre-save mem: " + JSON.stringify(mem));
             });
+            console.log("pre-save myorg: " + JSON.stringify(myorg));
             return (myorg);
-
-
         }
-
     }
-
 
     public loggedInUser(member)
     /* return true if member is logged in user  */ {
@@ -545,21 +517,22 @@ export class GroupProfilePage {
     }
 
     public saveOrg() {
-
-        if (!this.orgData)
-            return;
-        if (!this.validatePost(this.orgData))
-            return;
         let page = this;
-        let postOrg = this.mapData(this.orgData);
-        if (!this.groupApproved()) {
-
-            this.orgServices.putOrganizationRequest(this.orgId, postOrg)
+        if (!page.orgData)
+            return;
+        if (!page.orgData || !page.validatePost(page.orgData))
+            return;
+            page.orgChg = false;
+            page.memberChg = false;
+if (!page.groupIsAlreadyApproved()) {
+            let postOrg = page.mapData(page.orgData);
+            console.log("new group - putOrgReq");
+            page.orgServices.putOrganizationRequest(page.orgId, postOrg)
                 .subscribe(
                     data => {
 
-                        // console.log("Post Success");
-                        page.orgData = JSON.parse(data._body);
+                        console.log("Post Success - response payload: " + JSON.stringify(data));
+                        page.orgData = data;
                         // organization status is = 0 ->appoved. Should be 1 
 
                         page.orgData.organization.status = 1;
@@ -573,9 +546,8 @@ export class GroupProfilePage {
                         else {
                             page.canEditOrg = false;
                         }
-                        page.orgChg = false;
-                        page.memberChg = false;
-                        page.navCtrl.push(HomePage);
+                        page.presentToast("Group changes have been saved.");
+                        page.navCtrl.pop();
                     },
                     err => {
                         // err = JSON.parse(err);
@@ -583,32 +555,80 @@ export class GroupProfilePage {
                     });
         }
 
-        else if (this.groupApproved()) {
-
-            this.orgServices.putOrgContactsRequest(this.orgId, postOrg, this.isTsaAdmin)
+        else {
+            this.orgServices.putOrgContactsRequest(page.orgId, page.orgData)
                 .subscribe(
                     data => {
 
-                        //  console.log("Post Success");
-                        page.orgData = JSON.parse(data._body);
-                        // organization status is = 0 ->appoved. Should be 1 
+                        page.orgData = data;
+                        console.log("else: " + JSON.stringify(data));
                         page.orgData.organization.status = 0;
-                        // console.log("OrgData " + page.orgData.organization.upper_name );
-                        page.sortMemberData(this.orgData.members, this.orgData.organization);
+                        page.sortMemberData(page.orgData.members, page.orgData.organization);
                         page.canEdit = page.canEditCheck();
 
                         page.canEditOrg = false;
-
-                        page.orgChg = false;
-                        page.memberChg = false;
-                        page.navCtrl.push(HomePage);
+                        page.presentToast("Group changes have been saved.");
+                        page.navCtrl.pop();
                     },
                     err => {
-                        // err = JSON.parse(err);
                         console.log(err);
                     });
         }
 
     }
+    openGroupActionModal(mode: string) {
+        let org = this.orgData.organization;
+        let groupActionModal = this.modalControl.create(GroupAction, { org: org, mode: mode });
+        groupActionModal.onDidDismiss(data => {
+            if (data) {
+                let action = data.action;
+                let comment = data.comment;
+                let groupId = data.id; // as opposed to request id which is needed for approve/decline
+                if (action === "approve" || action === "decline") {
+                    this.orgServices.getPendingOrgRequests().filter(x => x.organization.id == groupId).subscribe(
+                        req => {
+                            let toastText = "The group " + org.group + " has been " + (action === 'approve' ? "approved" : "declined") + ".";
+                            let actionSubmit = (action === 'approve' ? 2 : 3)
+                            this.orgServices.administerOrganization(req.id, actionSubmit).subscribe({
+                                next: results => {
+                                    console.log(results);
+                                    this.presentToast(toastText);
 
+                                },
+                                error: err => {
+                                    console.log(err);
+                                    this.presentToast("Error - please contact TSA support");
+                                }
+                            });
+                    });
+                }
+                else if(action === "inactive" || action === "active") {
+                    let status = (action === "active" ? 0 : 1);
+                    let doAsTsaAdmin = this.isTsaAdmin && !this.isGroupAdmin();
+                    let toastText = "The group " + org.group + " has been set to " + action + ".";
+                    this.orgServices.updateOrganization(org.id, {status: status}, doAsTsaAdmin).subscribe({
+                        next: results => {
+                            org.status = status;
+                            this.loadOrgContacts(org.id);
+                            console.log(results);
+                            this.presentToast(toastText);
+                        },
+                        error: err => {
+                            console.log("Error: " + err);
+                            this.presentToast("Error - please contact TSA support");
+                        }
+                    });
+                }
+            }
+        });
+        groupActionModal.present();
+    }
+    presentToast(message: string) {
+        let toast = this.toastController.create({
+            message: message,
+            duration: 2000,
+            position: 'bottom'
+        });
+        toast.present();
+    }  
 }
