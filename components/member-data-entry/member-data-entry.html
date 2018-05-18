@@ -28,14 +28,14 @@
                 <ion-label color="primary">
                     <span *ngIf="isFormControlError('contactString')" style="color: #CC1F2C">
                         (
-                        <ion-icon name="alert" style="color: #CC1F2C;"></ion-icon>Error Placeholder)
+                        <ion-icon name="alert" style="color: #CC1F2C;"></ion-icon> Proper Email Required)
                     </span>
                 </ion-label>
                 <ion-input formControlName="contactString" placeholder="email@address.com"></ion-input>
             </ion-item>
             <ion-item *ngIf="formGroup.value.contactMethod == 1">
                 <ion-label color="primary">
-                    <error-message-span *ngIf="false" [errorText]="'Mobile Error Placeholder'">
+                    <error-message-span *ngIf="false" [errorText]="'Mobile Required'">
                     </error-message-span>
                 </ion-label>
                 <ion-input formControlName="contactString" placeholder="(123)456-0000"></ion-input>

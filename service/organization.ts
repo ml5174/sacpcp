@@ -21,6 +21,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {UserServices} from '../../lib/service/user';
 import { Organization } from '../model/organization';
 import { UserProfile } from '../model/user-profile';
+import { race } from 'rxjs/operator/race';
 
 @Injectable()
 export class OrganizationServices {
@@ -62,17 +63,72 @@ export class OrganizationServices {
         .map(res => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on getMyOrganizations'));
     }
-    getMyPendingOrganizations()
+
+    getMyOrganizationsList():Observable<any> {
+        let orgServ = this;
+        let observable = Observable.create(function(observer){
+            let requests = orgServ.getMyOrganizations();
+            try {
+                requests.subscribe({
+                    next: reqArray => {
+                        let orgCount = 0;
+                        for(let r of reqArray) {
+                            r.approval_status = 2;
+                            observer.next(r);
+                            orgCount++;
+                        }
+                        console.log("getMyOrganizationsList orgCount: " + orgCount);
+                        observer.complete();
+                    }
+                });
+            }
+            catch(err) {
+                observer.error("getMyOrganizationsList(): Could not connect to database.");
+            }
+        });
+        return observable;
+    }
+
+    getMyOrgRequests()
     {
         return this.http.get(SERVER + MY_PENDING_ORGANIZATIONS_URI, this.getOptions())
         .map(res => res.json())
-        .catch((error: any) => Observable.throw(error.json().error || 'Server error on getMyPendingOrganizations')); 
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error on getMyOrgRequests')); 
     }
+
+    getMyOrgsFromOrgRequestsList(pendingOnly: boolean = true): Observable<any> {
+        let orgServ = this;
+        let observable = Observable.create(function(observer){
+            let requests = orgServ.getMyOrgRequests();
+            let orgCount = 0;
+            try {
+                requests.subscribe({
+                    next: reqArray => {
+                        for(let r of reqArray) {
+                            if(r.status == 1 || !pendingOnly) {
+                                r.organization.approval_status = 1; // adding this field so group-profile can use the correct get for the group
+                                r.organization.request_id = r.id;
+                                observer.next(r.organization);
+                                orgCount++;
+                            }
+                        }
+                        console.log("getMyOrgsFromOrgRequestsList orgCount: " + orgCount);
+                        observer.complete();
+                    }
+                });
+            }
+            catch(err) {
+                observer.error("getMyOrgsFromOrgRequestsList(): Could not connect to database.");
+            }
+        });
+        return observable;
+    }
+
+
     getOrganizationContacts(org_id: any, useAdmin: boolean = false) {
         let uri = (useAdmin ? ORGANIZATIONCONTACTS_ADMIN_URI : ORGANIZATIONCONTACTS_URI);
         return this.http.get(SERVER + uri + org_id + "/", this.getOptions())
         .map((res : Response) => {
-            //console.log("res._body = " + res.toString);
             return res.json();
         })
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on getOrganizationContacts'));  
@@ -83,19 +139,50 @@ export class OrganizationServices {
         .map(res => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on getOrgRequestsRequested'));  
     }
-    getMyPendingOrganizationsDetails(org_id)
+
+    getOrgRequestsRequestedList(): Observable<any> {
+        let orgServ = this;
+        let observable = Observable.create(function(observer){
+            let requests = orgServ.getOrgRequestsRequested();
+            try {
+                requests.subscribe({
+                    next: reqArray => {
+                        for(let r of reqArray) {
+                            r.organization.approval_status = 1;
+                            r.organization.request_id = r.id;
+                            observer.next(r.organization);
+                        }
+                        observer.complete();
+                    }
+                });
+            }
+            catch(err){
+                observer.error("getOrgRequestsRequestedList(): Could not connect to database.");
+            }
+        });
+        return observable;
+    }
+
+    getOrgRequestForOrg(org_id: any): Observable<any> {
+        let orgServ = this;
+        return orgServ.getOrgRequestsRequestedList().find(r => r.organization.id == org_id);
+    }
+/**
+ * 
+ * @param org_id this is the org_id, not the request_id
+ */
+    getMyPendingOrganizationDetails(org_id): Observable<any>
     {
-        return this.http.get(SERVER + MY_PENDING_ORGANIZATIONS_URI +org_id +'/', this.getOptions())
-        .map(res => res.json())
+        let orgServ = this;
+        return orgServ.getOrgRequestForOrg(org_id)
+        .map(res => res.json().organization)
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on getMyPendingOrganizationDetails')); 
     }
     
 
     approveOrganization(org_id): Observable<any> {
-        //let status2 = '{"status": 2}';
         this.approve.status = 2;
-        //console.log("status2: " + this.approve);
-        //console.log("URL:" + SERVER + APPROVE_ORGANIZATION_URI + org_id+"/");
+        
         return this.http.put(SERVER + APPROVE_ORGANIZATION_URI + org_id+"/", this.approve, this.getOptions())
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error || 'Server error on approveOrganization'));
@@ -164,8 +251,9 @@ export class OrganizationServices {
     }
     putOrgContactsRequest (orgid,body, useAdmin: boolean = false) {
         let uri = (useAdmin ? ORGANIZATIONCONTACTS_ADMIN_URI : ORGANIZATIONCONTACTS_URI);
+        console.log("url: " + SERVER + uri + orgid +"/; " + "data: " + JSON.stringify(body));
         return this.http.put(SERVER + uri + orgid +"/", JSON.stringify(body),this.getOptions())
-        
+        .map(res => res.json())        
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on putOrgContactsRequest'));  
     }
      getOrgRegistrations(org_id, event_id){
