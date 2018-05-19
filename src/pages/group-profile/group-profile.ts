@@ -64,7 +64,8 @@ export class GroupProfilePage implements OnInit {
         let newTemplate = {
             first_name: '',
             last_name: '',
-            status: 1,
+            status: 0, //Active
+            role: 0,  //Member
 
             email: '',
             contact_method: 'Email',
@@ -100,28 +101,26 @@ export class GroupProfilePage implements OnInit {
         if (!this.canEdit)
             return;
 
-
         let userPop = this.modalControl.create(MemberPopOver, 
             { action: 'update', record: member }, 
             { cssClass: 'member-modal', enableBackdropDismiss: false });
         userPop.onDidDismiss(data => {
             if (data && data.contact_method) {
 
-                console.log("updateExisting Canceled: " + JSON.stringify(data));
+                console.log("updateExisting Executing: " + JSON.stringify(data));
                 data.showDelete = false;
                 data.changed = true;
-
 
                 if (data.contact_method == 'Email') { data.isEmailSelected = true; }
                 if (data.contact_method == 'Phone') { data.isPhoneSelected = true; }
                 member.first_name = data.first_name;
                 member.last_name = data.last_name;
-                member.chaged = true;
+                member.changed = true;
                 member.contact_method = data.contact_method;
                 member.email = data.email;
                 member.status = data.status;
+                member.role = data.role;
                 member.mobilenumber = data.mobilenumber;
-
 
                 this.memberChg = true;
             }
@@ -184,6 +183,7 @@ export class GroupProfilePage implements OnInit {
 
     ionViewWillLeave() {
         if (!this.cancelled && (this.memberChg || this.orgChg)) {
+            console.log("cancelled:" + this.cancelled + "; orgchg: " + this.orgChg + "; memberChg: " + this.memberChg);
             this.presentConfirm();
         }
     }
@@ -276,10 +276,16 @@ export class GroupProfilePage implements OnInit {
         return (result);
     }
 
-    public adminCount() {
-
-        //console.log (this.admins().length);
-        return this.admins().length;
+    public adminCount(): number {
+        let retval: number = 0;
+        if (this.orgData && this.orgData.members) {
+            for (let member of this.orgData.members) {
+                if (member.role == 1 || member.role == 2) {
+                    retval++;
+                }
+            }
+        }
+        return retval;
     }
 
     public deleteAdminRec(admrecord: any) {
@@ -342,7 +348,6 @@ export class GroupProfilePage implements OnInit {
                 }
             }
         }
-
         return retval;
     }
 
@@ -367,7 +372,6 @@ export class GroupProfilePage implements OnInit {
             if ((member.role == 1) || (member.role == 2))
                 member.isAdmin = true;
 
-
             if (typeof member.isEmailSelected != 'undefined') {
                 if (member.isEmailSelected) {
                     member.contact_method = 'Email';
@@ -385,11 +389,8 @@ export class GroupProfilePage implements OnInit {
                 if (member.mobilenumber) {
                     member.contact_method = 'Phone';
                 }
-
             }
-
         });
-
     };
 
     checkOrgName() {
@@ -422,8 +423,8 @@ export class GroupProfilePage implements OnInit {
             });
     }
 
-    public validatePost(data) {
-        // must have 1 or 2 members assigned as admins
+    public validatePost(): boolean {
+        // must have at least 1 and less than 3 members assigned as admins
         return (this.adminCount() > 0) && (this.adminCount() < 3);
     }
 
@@ -520,11 +521,22 @@ export class GroupProfilePage implements OnInit {
         let page = this;
         if (!page.orgData)
             return;
-        if (!page.orgData || !page.validatePost(page.orgData))
+        if (!page.validatePost()) {
+            let alert = this.alertCtrl.create({
+                title: 'One or Two Group Admin(s) Required',
+                message: '<center>One or two member(s) (but no more than two) must be assigned the Admin role.</center>',
+                buttons: [
+                    {
+                        text: 'Close'
+                    }
+                ]
+            });
+            alert.present();
             return;
-            page.orgChg = false;
-            page.memberChg = false;
-if (!page.groupIsAlreadyApproved()) {
+        }
+        page.orgChg = false;
+        page.memberChg = false;
+        if (!page.groupIsAlreadyApproved()) {
             let postOrg = page.mapData(page.orgData);
             console.log("new group - putOrgReq");
             page.orgServices.putOrganizationRequest(page.orgId, postOrg)
@@ -532,13 +544,9 @@ if (!page.groupIsAlreadyApproved()) {
                     data => {
 
                         console.log("Post Success - response payload: " + JSON.stringify(data));
-                        page.orgData = data;
-                        // organization status is = 0 ->appoved. Should be 1 
-
-                        page.orgData.organization.status = 1;
-                        // console.log("OrgData " + page.orgData.organization.upper_name );
-                        page.sortMemberData(this.orgData.members, this.orgData.organization);
-                        page.canEdit = page.canEditCheck();
+                        
+                        //page.sortMemberData(this.orgData.members, this.orgData.organization);
+                        //page.canEdit = page.canEditCheck();
 
                         if (page.canEdit) {
                             page.canEditOrg = true;
@@ -547,6 +555,8 @@ if (!page.groupIsAlreadyApproved()) {
                             page.canEditOrg = false;
                         }
                         page.presentToast("Group changes have been saved.");
+                        page.orgChg = false;
+                        page.memberChg = false;
                         page.navCtrl.pop();
                     },
                     err => {
@@ -556,17 +566,19 @@ if (!page.groupIsAlreadyApproved()) {
         }
 
         else {
+            console.log("putOrgContactsRequest: " + JSON.stringify(page.orgData));
             this.orgServices.putOrgContactsRequest(page.orgId, page.orgData)
                 .subscribe(
                     data => {
 
                         page.orgData = data;
-                        console.log("else: " + JSON.stringify(data));
-                        page.orgData.organization.status = 0;
-                        page.sortMemberData(page.orgData.members, page.orgData.organization);
+                        console.log("putOrgContactsRequest response: " + JSON.stringify(data));
+                        //page.sortMemberData(page.orgData.members, page.orgData.organization);
                         page.canEdit = page.canEditCheck();
 
                         page.canEditOrg = false;
+                        page.orgChg = false;
+                        page.memberChg = false;
                         page.presentToast("Group changes have been saved.");
                         page.navCtrl.pop();
                     },
@@ -576,6 +588,7 @@ if (!page.groupIsAlreadyApproved()) {
         }
 
     }
+
     openGroupActionModal(mode: string) {
         let org = this.orgData.organization;
         let groupActionModal = this.modalControl.create(GroupAction, { org: org, mode: mode });

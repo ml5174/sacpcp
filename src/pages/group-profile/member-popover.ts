@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
-    templateUrl: './memberPopup.html'
+    templateUrl: './member-popover.html'
 })
 
 export class MemberPopOver implements OnInit {
@@ -29,7 +29,8 @@ export class MemberPopOver implements OnInit {
         this.userForm = this.formBuilder.group({
 
             email: [this.record.email, Validators.email],
-            active: [{value: this.record.status == 1, disabled: false}],
+            role: [this.record.role == 2 ? 1: this.record.role, Validators.required],
+            active: [{value: this.record.status == 0, disabled: false}],
             mobilenumber: [this.record.mobilenumber],
             contact_method: [this.record.contact_method, Validators.compose([Validators.required])],
             first_name: [this.record.first_name, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'),
@@ -53,7 +54,8 @@ export class MemberPopOver implements OnInit {
         this.record.email = this.userForm.controls.email.value;
         this.record.mobilenumber = this.userForm.controls.mobilenumber.value;
         this.record.contact_method = this.userForm.controls.contact_method.value;
-        this.record.status = this.userForm.controls.active.value ? 1 : 0;
+        this.record.status = this.userForm.controls.active.value ? 0 : 1;
+        this.record.role = this.userForm.controls.role.value;
         this.viewCtrl.dismiss(this.record);
     }
 
@@ -62,7 +64,6 @@ export class MemberPopOver implements OnInit {
         if (!rec) {
             return null;
         }
-        console.log('Entering Validation', rec);
         if (rec.contact_method == 'Email') {
             if (this.valid_email(rec.email)) {
 

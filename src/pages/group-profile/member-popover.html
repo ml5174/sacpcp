@@ -29,11 +29,6 @@
 					<ion-radio  value ="{{option}}"></ion-radio>
 				  </ion-item>
 				</ion-item-group>
-				
-				                
-                  
- 				
-                  
                     <ion-item>
 	                    <ion-label >Email</ion-label>
 	                    <ion-input type='email' name='email' formControlName='email'></ion-input>
@@ -46,17 +41,22 @@
 	                    
                  	</ion-item>
                     <ion-label color='danger' class='error-text' *ngIf ="userForm.controls.mobilenumber.touched && !userForm.controls.mobilenumber.valid"> Email or Phone is required </ion-label>
-           		 
-                 
+                    <ion-item>
+                        <ion-label>Role</ion-label>
+                        <ion-select formControlName="role" interface="popover" ngDefaultControl>
+                            <ion-option value="1">Admin</ion-option>
+                            <ion-option value="0">Member</ion-option>
+                        </ion-select>
+                    </ion-item>
                   <ion-item>
                   		<ion-label>Active</ion-label>
-                  		<ion-checkbox formControlName='active'></ion-checkbox>
+                  		<ion-checkbox formControlName='active' ngDefaultControl></ion-checkbox>
                   		
                   </ion-item>
                 
                 <div class="text-center">
-           			<button ion-button color="secondary" (click)='closeModal()' padding-right> Cancel</button>    
-        			<button ion-button (click)="save()" [disabled]="userForm.invalid" padding-left> Save</button>
+           			<button ion-button color="secondary" (click)='closeModal()' padding-right>Cancel</button>    
+        			<button ion-button (click)="save()" [disabled]="userForm.invalid" padding-left>Save</button>
         		</div>
         	
         		
