@@ -68,7 +68,10 @@ export class MyGroupsPage {
     // 
     page.orgServices.getMyOrganizationsList().merge(page.orgServices.getMyOrgsFromOrgRequestsList()).subscribe(
       group => {
-          console.log("group: " + JSON.stringify(group));
+          console.log("loadMyGroups() group: " + JSON.stringify(group));
+          if(group.org_status == null) {
+             group.org_status = 1; 
+          }
           page.groups.push(group);
       },
       err => {

@@ -55,12 +55,11 @@
                   </ion-item>
                 
                 <div class="text-center">
-           			<button ion-button color="secondary" (click)='closeModal()' padding-right>Cancel</button>    
+                    <button ion-button *ngIf="action !== 'new'" (click)='delete()' padding-right>Delete</button>    
+                    <button ion-button color="secondary" (click)='closeModal()' padding-right>Cancel</button>    
         			<button ion-button (click)="save()" [disabled]="userForm.invalid" padding-left>Save</button>
         		</div>
-        	
-        		
-        		 <div class="padding">
+        		<div class="padding">
         		</div>
         </ion-list>
         </form></ion-content>

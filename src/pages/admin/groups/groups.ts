@@ -148,7 +148,8 @@ export class Groups implements OnInit {
         //console.log("admin groups: openGroupProfile:" + JSON.stringify(org.value));
         let data = {
           orgid : org.id,
-          approval_status: org.approval_status
+          approval_status: org.approval_status,
+          asTsaAdmin: true
         };
         this.nav.push(GroupProfilePage, data);
       }
@@ -168,7 +169,7 @@ export class Groups implements OnInit {
                     this.orgServices.getPendingOrgRequests().filter(x => x.organization.id == groupId).subscribe(
                         req => {
                             let toastText = "The group " + org.group + " has been " + (action === 'approve' ? "approved" : "declined") + ".";
-                            let actionSubmit = (action === 'approve' ? 2 : 3)
+                            let actionSubmit = (action === 'approve' ? 2 : 3);
                             this.orgServices.administerOrganization(req.id, actionSubmit).subscribe({
                                 next: results => {
                                     console.log(results);

@@ -3,8 +3,7 @@
     </app-header>
 </ion-header>
 
-<ion-content   no-bounce>
-
+<ion-content no-bounce>
 
 <ion-list  *ngIf='orgData && orgData.organization' >
 <ion-item  [ngClass]="{'item-edit':(orgData.organization.upper_name_editable==true),'item-error':orgData.organization.upper_name_error}"> 
@@ -46,9 +45,14 @@
             </ion-select>
         </ion-item>
         
-        <ion-item *ngIf="approval_status == 1">
+        <ion-item *ngIf="approval_status == 1 && asTsaAdmin" (click)="openGroupActionModal('approval')">
             <div>Approval Status:
-                <span [ngClass]="{'linked-group': isTsaAdmin}">Pending</span>
+                <span style="color: red" class="linked-group">Pending</span>
+            </div>
+        </ion-item>
+        <ion-item *ngIf="approval_status == 1 && !asTsaAdmin">
+            <div>Approval Status:
+                <span style="color: red">Pending</span>
             </div>
         </ion-item>
         <ion-item *ngIf="approval_status != 1">
@@ -68,22 +72,20 @@
 <ion-grid padding-top *ngIf='this.orgData && this.orgData.members' style='height: 400px !important;'>
 <ion-row>
     <ion-col col-2><b>First</b></ion-col>
-    <ion-col col-3><b>Last</b></ion-col>
-    <ion-col col-3><b>Contact</b></ion-col>
+    <ion-col col-2><b>Last</b></ion-col>
+    <ion-col col-4><b>Contact</b></ion-col>
     <ion-col col-2><b>Role</b></ion-col>
     <ion-col col-2><b>Status</b></ion-col>		
 </ion-row>
 <ion-item-divider></ion-item-divider>
 
-     
-<ion-row *ngFor="let member of orgData.members" (dblclick)="showDelete(member)" (click)="updateExisting(member)" (on-swipe-left)='showDelete(member)' >
+<ion-row *ngFor="let member of orgData.members; index as i" (click)="!asTsaAdmin && userIsGroupAdmin() && updateExisting(member, i)">
         <ion-col col-2>{{member.first_name}}</ion-col>
-        <ion-col col-3>{{member.last_name}}</ion-col>
-        <ion-col col-3>{{ (member.contact_method =='Email')? ('Email: '+ member.email ):('Phone: '+ member.mobilenumber) }}</ion-col>
+        <ion-col col-2>{{member.last_name}}</ion-col>
+        <ion-col col-4>{{ (member.contact_method =='Email')? ('Email: '+ member.email ):('Phone: '+ member.mobilenumber) }}</ion-col>
         <ion-col col-2>{{ member.role == 0 ? 'Member' : 'Admin'}}</ion-col>
         <ion-col col-2>{{ member.status == 0 ? 'Active' : 'Inactive'}}</ion-col>
 </ion-row>
-
 </ion-grid>
  </ion-scroll>
 
@@ -92,5 +94,5 @@
 <ion-footer  has-tabs="true" class='bar bar-footer white-color has-tabs'>
     <button ion-button padding-right (click)='cancelThisPage()' >Cancel</button>
     <button ion-button [disabled]='!(orgChg || memberChg)' padding-left (click)='saveOrg()'>Save</button>
-    <button ion-button item-end (click)="addNew()">Add Member</button>
+    <button ion-button item-end [disabled]="!userIsGroupAdmin() || asTsaAdmin" (click)="addNew()">Add Member</button>
 </ion-footer>

@@ -330,14 +330,14 @@ export class CreateGroupPage implements OnInit {
     presentFinishedGroup() {
         this.isGroupFinished = true;
         let alert = this.alertCtrl.create({
-            title: 'Confirm Finished Group',
-            message: 'Your request has been submitted to the Salvation Army. ' +
-                'You will be notified when it is approved.',
+            title: ' Create Group Result',
+            message: '<div style="text-align: center">Your request has been submitted to the Salvation Army. ' +
+                'You will be notified when it is approved.</div>',
             buttons: [
                 {
                     text: 'OK',
                     handler: () => {
-                        this.navCtrl.push(MyGroupsPage);
+                        this.navCtrl.pop();
                     }
                 }
             ]
@@ -361,19 +361,6 @@ export class CreateGroupPage implements OnInit {
     /**
      * after loading, automatically add the logged in user's data for the first group member
      */
-    ionViewDidLoad() {
-        // var orgRequest = this.orgRequest;
-        // var user = this.userServices.user;
-        // this.rows.push({
-        //     first_name: user.profile.first_name, status: 1, role: 2,
-        //     last_name: user.profile.last_name, isAdmin: 2, contactString: user.profile.contactmethod_name,
-        //     isActive: user.profile.active, mobilenumber: user.profile.mobilenumber, email: user.profile.email,
-        //     isContactSelected: false, isEmailSelected: user.profile.contactmethod_name === "Email",
-        //     isPhoneSelected: user.profile.contactmethod_name === "Phone", ext_id: user.profile.ext_id
-        // })
-        // //this.addMember();
-        // console.log('ionViewDidLoad CreateGroupPage');
-    }
 
     ngOnInit(): void {
         this.initMembers();

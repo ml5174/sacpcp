@@ -1,4 +1,4 @@
-import { ViewController, NavController, NavParams } from 'ionic-angular';
+import { ViewController, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
@@ -13,12 +13,12 @@ export class MemberPopOver implements OnInit {
     userForm: FormGroup;
 
     constructor(public navCtrl: NavController, public viewCtrl: ViewController, 
-        public navParams: NavParams, public formBuilder: FormBuilder) {
+        public navParams: NavParams, public formBuilder: FormBuilder, public alertController: AlertController) {
 
         this.action = navParams.get('action');
         this.record = navParams.get('record');
         if (this.record) {
-            console.log("this.record exists: " + JSON.stringify(this.record));
+            //console.log("this.record exists: " + JSON.stringify(this.record));
             if (this.record.contact_method == null) { 
                 this.record.contact_method = 'Email' 
             };
@@ -33,10 +33,10 @@ export class MemberPopOver implements OnInit {
             active: [{value: this.record.status == 0, disabled: false}],
             mobilenumber: [this.record.mobilenumber],
             contact_method: [this.record.contact_method, Validators.compose([Validators.required])],
-            first_name: [this.record.first_name, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'),
+            first_name: [this.record.first_name, Validators.compose([Validators.required, Validators.pattern('[\\.a-z A-Z]*'),
             Validators.minLength(2), Validators.maxLength(30)])],
 
-            last_name: [this.record.last_name, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'),
+            last_name: [this.record.last_name, Validators.compose([Validators.required, Validators.pattern('[\\.a-z A-Z]*'),
             Validators.minLength(2), Validators.maxLength(30)])],
         },
             { validator: this.emailOrMobile.bind(this) }
@@ -104,6 +104,28 @@ export class MemberPopOver implements OnInit {
             return false;
         }
         return false;
+    }
+
+    public delete() {
+        let alert = this.alertController.create({
+            title: 'Group Member Delete',
+            message: '<div style="color: black; text-align: center">Press OK to delete this member from the group. Otherwise press Cancel.</div>',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: () => {
+
+                    }
+                },
+                {
+                    text: 'OK',
+                    handler: () => {
+                        this.viewCtrl.dismiss({delete: true});
+                    }
+                }
+            ]
+        });
+        alert.present();
     }
 }
 
