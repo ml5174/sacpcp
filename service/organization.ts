@@ -152,11 +152,13 @@ export class OrganizationServices {
     }
 
 
-    getOrganizationContacts(org_id: any, useAdmin: boolean = false) {
+    getOrganizationContacts(org_id: any, useAdmin: boolean = false): Observable<any> {
         let uri = (useAdmin ? ORGANIZATIONCONTACTS_ADMIN_URI : ORGANIZATIONCONTACTS_URI);
         return this.http.get(SERVER + uri + org_id + "/", this.getOptions())
         .map((res : Response) => {
-            return res.json();
+            let response = res.json();
+            response.organization.approval_status = 1;
+            return response;
         })
         .catch((error: any) => Observable.throw(error.json().error || 'Server error on getOrganizationContacts'));  
     }
