@@ -143,8 +143,8 @@ export class CreateGroupPage implements OnInit {
 
     public createGroupSubmission() {
        
-        //Field has been taken care of (Submit is disabled otherwise)
-        // However, need to make sure that at least one of the group members is an admin
+        //Field validation has been taken care of (Submit is disabled otherwise)
+        // However, need to make sure that at least one and at mose two of the group members is an group admin
         if(!this.meetsAdminRequirement()) {
             let alert = this.alertCtrl.create({
                 title: 'One or Two Group Admin(s) Required',
@@ -173,11 +173,9 @@ export class CreateGroupPage implements OnInit {
         //  
         let members: Array<any> = Array<any>();
         for (let mde of this.membersDataEntry.toArray()) {
-          //  console.log("fg: " + JSON.stringify(mde.formGroup.errors) +
-              //  "; valid: " + mde.formGroup.valid);
-
+        
             if (mde.formGroup.valid && mde.formGroup.controls['firstName'].value &&
-                mde.formGroup.controls['firstName'].value.length > 0) {
+                mde.formGroup.controls['firstName'].value.length > 0) { 
                 let control = mde.formGroup.controls;
                 let email = (control['contactMethod'].value == 2) ?
                     control['contactString'].value : null;
@@ -195,7 +193,7 @@ export class CreateGroupPage implements OnInit {
         }
         this.orgServices.createGroup(group, members).subscribe(
             results => {
-                this.presentFinishedGroup();
+                this.presentFinishedGroupAlert();
             },
             err => {
                 err = JSON.parse(err);
@@ -327,7 +325,7 @@ export class CreateGroupPage implements OnInit {
         });
     }
 
-    presentFinishedGroup() {
+    presentFinishedGroupAlert() {
         this.isGroupFinished = true;
         let alert = this.alertCtrl.create({
             title: ' Create Group Result',

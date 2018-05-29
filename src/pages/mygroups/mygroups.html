@@ -34,8 +34,8 @@
         <div *ngFor="let group of groups">
                 <ion-row>
                     <ion-col style="text-align: center" col-3>
-                        <ion-icon *ngIf="group.role==1" name="person" (click)="openEditGroupAttendance((group.organization_id || group.id), group.name, group.group)"></ion-icon>
-                        <ion-icon *ngIf="group.role!=1" name="people"></ion-icon>
+                        <ion-icon *ngIf="group.role==1 || group.org_status == 1" name="person" (click)="openEditGroupAttendance((group.organization_id || group.id), group.name, group.group)"></ion-icon>
+                        <ion-icon *ngIf="group.role!=1 && group.org_status != 1" name="people"></ion-icon>
                     </ion-col>
                     <ion-col col-3>{{this.group.name}}</ion-col>
                     <ion-col col-3 class="linked-group" (click)="openGroupProfile((group.id || group.organization_id), group.approval_status)">{{group.group}}</ion-col>

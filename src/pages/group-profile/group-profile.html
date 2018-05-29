@@ -15,7 +15,7 @@
 			(click) ='this.canEditOrg && (orgData.organization.upper_name_editable=true)'
 			[readonly]='!canEditOrg'
 			
-			(ionChange)='orgChg=true' placeholder='Organization Name' type='text' 
+			(ionChange)='showSaveMessage=true' placeholder='Organization Name' type='text' 
 			[(ngModel)]='orgData.organization.name'></ion-input>
 		</ion-item>	
 		
@@ -28,7 +28,7 @@
 			(click) ='this.canEditOrg && (orgData.organization.group_editable=true)'
 			[readonly]='!canEditOrg'
 			
-			(ionChange)='this.orgChg=true' placeholder='Organization Group Name' type='text' 
+			(ionChange)='showSaveMessage=true' placeholder='Organization Group Name' type='text' 
 			[(ngModel)]='orgData.organization.group'></ion-input>
 		</ion-item>	
 		
@@ -57,7 +57,7 @@
         </ion-item>
         <ion-item *ngIf="approval_status != 1">
             <ion-label>Group Status:</ion-label>Group Status:
-            <ion-select [disabled]="!this.canEdit" class="ion-item no-lines" interface="popover" (ionChange)='orgChg=true' [(ngModel)]="orgData.organization.status">
+            <ion-select [disabled]="!this.canEdit" class="ion-item no-lines" interface="popover" (ionChange)='showSaveMessage=true' [(ngModel)]="orgData.organization.status">
                 <ion-option value="0">
                     <font color="black">Active</font>
                 </ion-option>
@@ -82,17 +82,16 @@
 <ion-row *ngFor="let member of orgData.members; index as i" (click)="!asTsaAdmin && userIsGroupAdmin() && updateExisting(member, i)">
         <ion-col col-2>{{member.first_name}}</ion-col>
         <ion-col col-2>{{member.last_name}}</ion-col>
-        <ion-col col-4>{{ (member.contact_method =='Email')? ('Email: '+ member.email ):('Phone: '+ member.mobilenumber) }}</ion-col>
+        <ion-col col-4>{{ formatMemberContact(member) }}</ion-col>
         <ion-col col-2>{{ member.role == 0 ? 'Member' : 'Admin'}}</ion-col>
-        <ion-col col-2>{{ member.status == 0 ? 'Active' : 'Inactive'}}</ion-col>
+        <ion-col col-2>{{ formatMemberStatus(member)}}</ion-col>
 </ion-row>
 </ion-grid>
  </ion-scroll>
 
-    
 </ion-content>
 <ion-footer  has-tabs="true" class='bar bar-footer white-color has-tabs'>
-    <button ion-button padding-right (click)='cancelThisPage()' >Cancel</button>
-    <button ion-button [disabled]='!(orgChg || memberChg)' padding-left (click)='saveOrg()'>Save</button>
+    <button ion-button padding-right (click)='exitPage()' >Cancel</button>
+    <button ion-button [disabled]='!showSaveMessage' padding-left (click)='saveOrg()'>Save</button>
     <button ion-button item-end [disabled]="!userIsGroupAdmin() || asTsaAdmin" (click)="addNew()">Add Member</button>
 </ion-footer>
