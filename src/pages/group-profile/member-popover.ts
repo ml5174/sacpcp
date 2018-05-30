@@ -1,9 +1,9 @@
-import { ViewController, NavController, NavParams } from 'ionic-angular';
+import { ViewController, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, FormControl } from '@angular/forms';
 
 @Component({
-    templateUrl: './memberPopup.html'
+    templateUrl: './member-popover.html'
 })
 
 export class MemberPopOver implements OnInit {
@@ -13,12 +13,11 @@ export class MemberPopOver implements OnInit {
     userForm: FormGroup;
 
     constructor(public navCtrl: NavController, public viewCtrl: ViewController, 
-        public navParams: NavParams, public formBuilder: FormBuilder) {
+        public navParams: NavParams, public formBuilder: FormBuilder, public alertController: AlertController) {
 
         this.action = navParams.get('action');
         this.record = navParams.get('record');
         if (this.record) {
-            console.log("this.record exists: " + JSON.stringify(this.record));
             if (this.record.contact_method == null) { 
                 this.record.contact_method = 'Email' 
             };
@@ -26,20 +25,23 @@ export class MemberPopOver implements OnInit {
     }
   
     ngOnInit(): void {
+        let disableEdit: boolean = this.record.ext_id && !this.record.ext_id.startsWith("VI"); 
         this.userForm = this.formBuilder.group({
 
-            email: [this.record.email, Validators.email],
-            active: [{value: this.record.status == 1, disabled: false}],
-            mobilenumber: [this.record.mobilenumber],
-            contact_method: [this.record.contact_method, Validators.compose([Validators.required])],
-            first_name: [this.record.first_name, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'),
+            email: [{value: this.record.email, disabled: disableEdit}],
+            role: [this.record.role == 2 ? 1: this.record.role, Validators.required],
+            active: [{value: this.record.status == 0, disabled: false}, Validators.required],
+            mobilenumber: [{value: this.record.mobilenumber, disabled: disableEdit}],
+            contact_method: [{value: this.record.contact_method, disabled: disableEdit}, Validators.required],
+            first_name: [{value: this.record.first_name, disabled: disableEdit}, Validators.compose([Validators.required, Validators.pattern('[\\.a-z A-Z]*'),
             Validators.minLength(2), Validators.maxLength(30)])],
 
-            last_name: [this.record.last_name, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'),
+            last_name: [{value: this.record.last_name, disabled: disableEdit}, Validators.compose([Validators.required, Validators.pattern('[\\.a-z A-Z]*'),
             Validators.minLength(2), Validators.maxLength(30)])],
-        },
-            { validator: this.emailOrMobile.bind(this) }
-        );    
+        }
+        );
+        this.updateValidators(this.record.contact_method); 
+        this.onContactMethodChange();  
     }
 
     public closeModal() {
@@ -53,56 +55,50 @@ export class MemberPopOver implements OnInit {
         this.record.email = this.userForm.controls.email.value;
         this.record.mobilenumber = this.userForm.controls.mobilenumber.value;
         this.record.contact_method = this.userForm.controls.contact_method.value;
-        this.record.status = this.userForm.controls.active.value ? 1 : 0;
+        this.record.status = this.userForm.controls.active.value ? 0 : 1;
+        this.record.role = this.userForm.controls.role.value;
         this.viewCtrl.dismiss(this.record);
     }
-
-    public emailOrMobile(group: FormGroup) {
-        var rec = group.value;
-        if (!rec) {
-            return null;
-        }
-        console.log('Entering Validation', rec);
-        if (rec.contact_method == 'Email') {
-            if (this.valid_email(rec.email)) {
-
-                return null;
-            }
-            console.log("email validaton_fail");
-        }
-
-        if (rec.contact_method == 'Phone') {
-            if (this.valid_mobile(rec.mobilenumber)) {
-
-                return null;
-            }
-            console.log("phone validaton_fail");
-
-        }
-
-        console.log('Validation fail');
-        return ({ email: { valid: false }, mobile: { valid: false } })
-    }
     
-
-    public valid_mobile(m) {
-        if (m)
-            if (m.length >= 10) {
-                return true;
-            }
-        return false;
+    public delete() {
+        let alert = this.alertController.create({
+            title: 'Group Member Delete',
+            message: '<div style="color: black; text-align: center">Press OK to delete this member from the group. Otherwise press Cancel.</div>',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: () => {
+                    }
+                },
+                {
+                    text: 'OK',
+                    handler: () => {
+                        this.viewCtrl.dismiss({delete: true});
+                    }
+                }
+            ]
+        });
+        alert.present();
     }
 
-    public valid_email(e) {
-        if (e) {
+    onContactMethodChange() {
+        let page = this;
+        page.userForm.controls.contact_method.valueChanges.subscribe(
+           (contactMethod: string) => page.updateValidators(contactMethod));            
+    }
 
-            if (e.length > 7) {
-                return true;
-            }
+    updateValidators(contactMethod: string) {
+        this.userForm.controls.email.clearValidators();
+        this.userForm.controls.mobilenumber.clearValidators();
 
-            return false;
+        if (contactMethod == "Phone") {  //mobile
+            this.userForm.controls.mobilenumber.setValidators([Validators.maxLength(11), Validators.minLength(10), Validators.required]);
         }
-        return false;
+        else if (contactMethod == "Email") { //email
+            this.userForm.controls.email.setValidators([Validators.required, Validators.email]);
+        }
+        this.userForm.controls.email.updateValueAndValidity();
+        this.userForm.controls.mobilenumber.updateValueAndValidity();
     }
 }
 

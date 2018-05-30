@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-title><h4>Member Details <span color="red" *ngIf="disableEdit">(Registered User)</span></h4></ion-title>
+</ion-header>
+
+              <ion-content>
+              <form [formGroup]="userForm">
+                <ion-list>
+                  <ion-item>
+                    <ion-label>First Name</ion-label>
+                    <ion-input formControlName='first_name'></ion-input>
+                    </ion-item>
+                        <ion-label color='danger' class='error-text' 
+                        *ngIf ="userForm.controls.first_name.touched && userForm.controls.first_name.invalid">Required. 2-30 letters/spaces.</ion-label>
+           		   
+                   <ion-item>
+                    <ion-label>Last Name</ion-label>
+                    <ion-input formControlName='last_name'></ion-input>
+                  </ion-item>
+                     <ion-label color='danger' class='error-text' *ngIf ="userForm.controls.last_name.touched && userForm.controls.last_name.invalid">
+                         Required. 2-30 letters/spaces.
+                     </ion-label>
+                </ion-list>
+                <ion-list radio-group formControlName="contact_method" ngDefaultControl>
+           		    <ion-list-header>              
+           		    Primary Contact
+           		    </ion-list-header>                  
+				    <ion-item *ngFor="let option of ['Email','Phone']">
+					    <ion-label padding-left>{{option}}</ion-label>
+                        <ion-radio value ="{{option}}"></ion-radio>
+                    </ion-item>
+                </ion-list>
+                <ion-list>
+                    <ion-item>
+	                    <ion-label >Email</ion-label>
+	                    <ion-input type='email' formControlName='email'></ion-input>
+                    </ion-item>
+                     
+                    <ion-label color='danger' class='error-text'
+                        *ngIf ="userForm.controls.contact_method.value == 'Email' && userForm.controls.email.touched && !userForm.controls.email.valid"> Email required</ion-label>
+           		 	<ion-item>
+	                    <ion-label >Phone</ion-label>
+	                    <ion-input formControlName='mobilenumber' ></ion-input>
+	                    
+                 	</ion-item>
+                    <ion-label color='danger' class='error-text'
+                    *ngIf ="userForm.controls.contact_method.value == 'Phone' && userForm.controls.mobilenumber.touched && !userForm.controls.mobilenumber.valid">10 digit phone required </ion-label>
+                    <ion-item>
+                        <ion-label>Role</ion-label>
+                        <ion-select formControlName="role" interface="popover" ngDefaultControl>
+                            <ion-option value="1">Admin</ion-option>
+                            <ion-option value="0">Member</ion-option>
+                        </ion-select>
+                    </ion-item>
+                  <ion-item>
+                  		<ion-label>Active</ion-label>
+                  		<ion-checkbox formControlName='active' ngDefaultControl></ion-checkbox>
+                  		
+                  </ion-item>
+                <ion-list>
+                    <!-- div>email Errors: {{ userForm.controls.email.errors | json}}</div>
+                    <div>phone Errors: {{ userForm.controls.mobilenumber.errors | json}}</div>
+                    <div>Status: {{ userForm.status }}</div>
+                    <div>Values: {{ userForm.value | json }}</div -->
+                </ion-list>
+                <div class="text-center">
+                    <button ion-button *ngIf="action !== 'new'" (click)='delete()' padding-right>Delete</button>    
+                    <button ion-button color="secondary" (click)='closeModal()' padding-right>Cancel</button>    
+        			<button ion-button (click)="save()" [disabled]="userForm.invalid || disableEdit" padding-left>Save</button>
+        		</div>
+        		<div class="padding">
+        		</div>
+        </ion-list>
+        </form></ion-content>
+        

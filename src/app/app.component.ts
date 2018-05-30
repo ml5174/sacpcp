@@ -147,18 +147,18 @@ export class MyApp {
    
   }
 
-  openPage(page, tab) {
+  openPage(page, tab, asTsaAdmin: boolean = false) {
     let currentPage = this.nav.getActive().component;
-
+    let navParams = {tab:tab, asTsaAdmin: asTsaAdmin};
     // close the menu when clicking a link from the menu
     this.menu.close();
     this.nav.setRoot(HomePage);
 
     // navigate to the new page if it is not the current page
     if (page.component != currentPage) {
-      this.nav.push(page.component, {tab:tab});
+      this.nav.push(page.component, navParams);
     } else {
-      this.nav.push(page.component, {tab:tab}, {animate: false});
+      this.nav.push(page.component, navParams, {animate: false});
     }
   }
   logout() {

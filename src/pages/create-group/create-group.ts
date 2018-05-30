@@ -143,8 +143,8 @@ export class CreateGroupPage implements OnInit {
 
     public createGroupSubmission() {
        
-        //Field has been taken care of (Submit is disabled otherwise)
-        // However, need to make sure that at least one of the group members is an admin
+        //Field validation has been taken care of (Submit is disabled otherwise)
+        // However, need to make sure that at least one and at mose two of the group members is an group admin
         if(!this.meetsAdminRequirement()) {
             let alert = this.alertCtrl.create({
                 title: 'One or Two Group Admin(s) Required',
@@ -173,11 +173,9 @@ export class CreateGroupPage implements OnInit {
         //  
         let members: Array<any> = Array<any>();
         for (let mde of this.membersDataEntry.toArray()) {
-          //  console.log("fg: " + JSON.stringify(mde.formGroup.errors) +
-              //  "; valid: " + mde.formGroup.valid);
-
+        
             if (mde.formGroup.valid && mde.formGroup.controls['firstName'].value &&
-                mde.formGroup.controls['firstName'].value.length > 0) {
+                mde.formGroup.controls['firstName'].value.length > 0) { 
                 let control = mde.formGroup.controls;
                 let email = (control['contactMethod'].value == 2) ?
                     control['contactString'].value : null;
@@ -195,7 +193,7 @@ export class CreateGroupPage implements OnInit {
         }
         this.orgServices.createGroup(group, members).subscribe(
             results => {
-                this.presentFinishedGroup();
+                this.presentFinishedGroupAlert();
             },
             err => {
                 err = JSON.parse(err);
@@ -327,17 +325,17 @@ export class CreateGroupPage implements OnInit {
         });
     }
 
-    presentFinishedGroup() {
+    presentFinishedGroupAlert() {
         this.isGroupFinished = true;
         let alert = this.alertCtrl.create({
-            title: 'Confirm Finished Group',
-            message: 'Your request has been submitted to the Salvation Army. ' +
-                'You will be notified when it is approved.',
+            title: ' Create Group Result',
+            message: '<div style="text-align: center">Your request has been submitted to the Salvation Army. ' +
+                'You will be notified when it is approved.</div>',
             buttons: [
                 {
                     text: 'OK',
                     handler: () => {
-                        this.navCtrl.push(MyGroupsPage);
+                        this.navCtrl.pop();
                     }
                 }
             ]
@@ -361,19 +359,6 @@ export class CreateGroupPage implements OnInit {
     /**
      * after loading, automatically add the logged in user's data for the first group member
      */
-    ionViewDidLoad() {
-        // var orgRequest = this.orgRequest;
-        // var user = this.userServices.user;
-        // this.rows.push({
-        //     first_name: user.profile.first_name, status: 1, role: 2,
-        //     last_name: user.profile.last_name, isAdmin: 2, contactString: user.profile.contactmethod_name,
-        //     isActive: user.profile.active, mobilenumber: user.profile.mobilenumber, email: user.profile.email,
-        //     isContactSelected: false, isEmailSelected: user.profile.contactmethod_name === "Email",
-        //     isPhoneSelected: user.profile.contactmethod_name === "Phone", ext_id: user.profile.ext_id
-        // })
-        // //this.addMember();
-        // console.log('ionViewDidLoad CreateGroupPage');
-    }
 
     ngOnInit(): void {
         this.initMembers();
