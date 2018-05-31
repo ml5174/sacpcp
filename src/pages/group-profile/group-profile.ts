@@ -40,7 +40,7 @@ export class GroupProfilePage implements OnInit {
         this.orgId = this.navParams.get('orgid');
         this.asTsaAdmin = this.navParams.get("asTsaAdmin"); // navigated to this page from TSA Admin area
         this.approval_status = this.navParams.get('approval_status') ? this.navParams.get('approval_status') : 2;
-        this.loadOrgContacts(this.orgId);
+        this.loadOrgAndContacts(this.orgId);
         let page = this;
         page.orgServices.getOrgTypes().subscribe(orgTypes => {
             page.arrayOrgTypes = orgTypes;
@@ -130,7 +130,9 @@ export class GroupProfilePage implements OnInit {
         
         return retval;
     }
-
+/**
+ *    Code for confirming leaving page (and not by Cancel or Save) in the case of having made changes
+ */
     ionViewCanLeave(): boolean {
         let page = this;
         if (page.showSaveMessage) {
@@ -194,27 +196,53 @@ export class GroupProfilePage implements OnInit {
 
 /**
  *    orgData comes back as {organization: {}, members: []}
- *     NOTE: getOrganizationContacts will not include pending groups so need backup call
+ *     NOTE: getOrganizationContacts will not include pending groups (for group admin) so need backup call
  *       ALSO, the user may be a group admin, a group member, or a TSA admin.
+ * 
+ * 
+ *     TODO: FOR TSA Admin - if approved use organizationcontacts, if pending use orgrequests since org contacts doesn't have members yet (??)
+ * filter(orgrequest => orgrequest.organization.id == orgId)
  */
-    loadOrgContacts(orgId) {
+    loadOrgAndContacts(orgId) {
 
         let page = this;
+        if (page.asTsaAdmin && page.approval_status == 1) {
+            page.orgServices.getOrgRequestsRequestedTsaAdminList().filter(orgrequest => orgrequest.organization.id == orgId).subscribe(
+                orgData => {
+                    console.log("loadOrgAndContacts list:\n\n " + JSON.stringify(orgData));
+                    page.orgData = orgData;
+                    delete page.orgData.organization.description;
+                    page.canEdit = false;
+                    page.canEditOrg = false;
+                    page.orgData.members.sort(sortMembers);
+                },
+                error => {                        
+                    let errorText = "An error occurred while retrieving the group data.  Please contact the TSA Administrator.";
+                    console.log("loadOrgAndContacts error: " + error);
+                    page.presentToast(errorText);
+                    page.navCtrl.pop();
+            });
+        }
+        else {
+            page.orgServices.getOrganizationContacts(orgId, page.asTsaAdmin)
+                .catch(err => page.orgServices.getOrgRequestForOrg(orgId)).subscribe(orgData => {
+                    page.orgData = orgData;
+                    delete page.orgData.organization.description;
+                    //console.log("OrgData: " + JSON.stringify(orgData, null, 1));
+                    page.canEdit = page.userIsGroupAdmin();
+                    if (!page.canEdit && !this.asTsaAdmin) {
+                        page.orgData.members.filter(member => member.role == 1 || member.role == 2);
+                    }
+                    page.orgData.members.sort(sortMembers);
+                    page.canEditOrg = page.userIsGroupAdmin() && page.approval_status == 1 && !this.asTsaAdmin;
+                },
+                    error => {
+                        let errorText = "An error occurred while retrieving the group data.  Please contact the TSA Administrator.";
+                        page.presentToast(errorText);
+                        page.navCtrl.pop();
 
-        page.orgServices.getOrganizationContacts(orgId, page.asTsaAdmin)
-            .catch(err => page.orgServices.getOrgRequestForOrg(orgId)).subscribe(orgData => {
-                page.orgData = orgData;
-                console.log("OrgData: " + JSON.stringify(orgData, null, 1));
-                page.orgData.members.sort(sortMembers);
-                page.canEdit = page.userIsGroupAdmin();
-                page.canEditOrg = page.userIsGroupAdmin() && page.approval_status == 1 && !this.asTsaAdmin;
-            },
-        error => {
-            let errorText = "An error occurred while retrieving the group data.  Please contact the TSA Administrator.";
-            page.presentToast(errorText);
-            page.navCtrl.pop();
-
-        });
+                    });
+        }
     }
 
 /**
@@ -256,7 +284,7 @@ export class GroupProfilePage implements OnInit {
 
     }
 
-    public validatePost(): boolean {
+    public adminCountValid(): boolean {
         // must have at least 1 and less than 3 members assigned as admins
         return (this.adminCount() > 0) && (this.adminCount() < 3);
     }
@@ -273,8 +301,7 @@ export class GroupProfilePage implements OnInit {
             // myorg.organization.id=org.organization.id;
             myorg.organization.name = org.organization.name;
             myorg.organization.group = org.organization.group;
-            myorg.organization.description = org.organization.description;
-            myorg.organization.status = org.organization.description;
+            myorg.organization.status = org.organization.status;
             myorg.organization.org_type = org.organization.org_type;
             myorg.organization.website = org.organization.website;
             myorg.members = [];
@@ -325,7 +352,7 @@ export class GroupProfilePage implements OnInit {
         let page = this;
         if (!page.orgData)
             return;
-        if (!page.validatePost()) {
+        if (!page.adminCountValid()) {
             let alert = this.alertCtrl.create({
                 title: 'One or Two Group Admin(s) Required',
                 message: '<center>One or two member(s) (but no more than two) must be assigned the Admin role.</center>',
@@ -365,28 +392,40 @@ export class GroupProfilePage implements OnInit {
                     });
         }
 
-        else {
-            page.orgData.members.forEach(member => { 
-                if(member.mobilenumber && member.mobilenumber.length == 10) {
-                    member.mobilenumber = "1" + member.mobilenumber;
-                }
-            });
-            console.log("putOrgContactsRequest:\n" + JSON.stringify(page.orgData));
-            this.orgServices.putOrgContactsRequest(page.orgId, page.orgData)
-                .subscribe(
+        else { // group already approved
+            if (page.asTsaAdmin) {  // for an approved group, the TSA Admin can only change Active/Inactive, which used the admin/organizations API
+                page.orgServices.updateOrganization(page.orgData.organization.id, page.orgData.organization, true).subscribe(
                     data => {
-
-                        page.orgData = data;
-                        page.orgData.members.sort(sortMembers);
-                        page.canEdit = page.userIsGroupAdmin();
-                        page.canEditOrg = false;
-                        page.showSaveMessage = false;
+                        page.orgData.organization = data;
                         page.presentToast("Group changes have been saved.");
                         page.navCtrl.pop();
-                    },
-                    err => {
-                        console.log(err);
-                    });
+                },
+                    err => {console.log(err)}
+                )
+            }
+            else {
+                page.orgData.members.forEach(member => {
+                    if (member.mobilenumber && member.mobilenumber.length == 10) {
+                        member.mobilenumber = "1" + member.mobilenumber;
+                    }
+                });
+                console.log("putOrgContactsRequest:\n" + JSON.stringify(page.orgData));
+                this.orgServices.putOrgContactsRequest(page.orgId, page.orgData, this.asTsaAdmin)
+                    .subscribe(
+                        data => {
+
+                            page.orgData = data;
+                            page.orgData.members.sort(sortMembers);
+                            page.canEdit = page.userIsGroupAdmin();
+                            page.canEditOrg = false;
+                            page.showSaveMessage = false;
+                            page.presentToast("Group changes have been saved.");
+                            page.navCtrl.pop();
+                        },
+                        err => {
+                            console.log(err);
+                        });
+            }
         }
     }
 
@@ -424,7 +463,7 @@ export class GroupProfilePage implements OnInit {
                     page.orgServices.updateOrganization(org.id, {status: status}, page.asTsaAdmin).subscribe({
                         next: results => {
                             org.status = status;
-                            page.loadOrgContacts(org.id);
+                            page.loadOrgAndContacts(org.id);
                             console.log(results);
                             page.presentToast(toastText);
                         },

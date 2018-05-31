@@ -57,7 +57,7 @@
         </ion-item>
         <ion-item *ngIf="approval_status != 1">
             <ion-label>Group Status:</ion-label>Group Status:
-            <ion-select [disabled]="!this.canEdit" class="ion-item no-lines" interface="popover" (ionChange)='showSaveMessage=true' [(ngModel)]="orgData.organization.status">
+            <ion-select [disabled]="!(asTsaAdmin || userIsGroupAdmin())" class="ion-item no-lines" interface="popover" (ionChange)='showSaveMessage=true' [(ngModel)]="orgData.organization.status">
                 <ion-option value="0">
                     <font color="black">Active</font>
                 </ion-option>

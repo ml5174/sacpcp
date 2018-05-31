@@ -11,7 +11,7 @@ import { ParentVerifyModal } from '../../modals/parent-verify-modal';
 import { PhoneInput } from '../../lib/components/phone-input.component';
 import { AccordionBox } from '../../lib/components/accordion-box';
 import { AlertController } from 'ionic-angular';
-import { Organization } from '../../../lib/model/organization';
+import { Organization, sortOrganization } from '../../../lib/model/organization';
 import { OrganizationServices } from '../../../lib/service/organization';
 import { Storage } from '@ionic/storage';
 import { GroupProfilePage } from '../../group-profile/group-profile';
@@ -58,7 +58,6 @@ export class Groups implements OnInit {
                 .catch(err => console.log("couldn't get key for authentication"));
         }
         this.isAdmin = this.userServices.user.profile.accounttype == 'A';
-        this.loadOrgs();
     }
 
 /**
@@ -67,27 +66,11 @@ export class Groups implements OnInit {
  * @param a - organization but not specifying
  * @param b - same
  */
-    sortOrganization(a: any, b: any) {
-        if (a.approval_status == 1 && b.approval_status != 1) {
-            return -1;
-        }
-        else if (a.approval_status != 1 && b.approval_status == 1) {
-            return 1;
-        }
-        else if(a.status == 0 && b.status == 1) {
-            return -1;
-        }
-        else if(a.status == 1 && b.status == 0) {
-            return 1;
-        }
-        let nameCompare = a.name.localeCompare(b.name);
-        if (nameCompare != 0) {
-            return nameCompare;
-        }
-        else {
-            return a.group.localeCompare(b.group);
-        }
+
+    ionViewWillEnter() {
+        this.loadOrgs(); // note this also in ngOnInit but got double call :(
     }
+
 
     loadOrgs() {
         this.orgs = [];
@@ -99,10 +82,10 @@ export class Groups implements OnInit {
                    // console.log(org);
                     if (org.name) {
                         page.orgs.push(org);
-                        //console.log("org: " + org.name + " group: " + org.group);
+                        console.log("org:\n" + JSON.stringify(org));
                     }
                 }
-                page.orgs.sort(this.sortOrganization);
+                page.orgs.sort(sortOrganization);
             },
             err => {
                 console.log(err);
@@ -119,26 +102,6 @@ export class Groups implements OnInit {
         toast.present();
     }
 
-    showLoading() {
-        this.loadingOverlay = this.loadingController.create({
-            content: 'Please wait...'
-        });
-        //this.loadingOverlay.present();
-    }
-
-    hideLoading() {
-        this.loadingOverlay.dismiss();
-    }
-
-    cleanBooleans() {
-        console.log("cleanBooleans");
-    }
-
-    clearErrors() {
-        console.log("clearErrors");
-        this.errors = [];
-
-    }
 
     back() {
         this.nav.popToRoot();
@@ -160,41 +123,41 @@ export class Groups implements OnInit {
 
     openGroupActionModal(org: any, mode: string) {
         let groupActionModal = this.modalCtrl.create(GroupAction, { org: org, mode: mode });
+        let page = this;
         groupActionModal.onDidDismiss(data => {
             if (data) {
                 let action = data.action;
                 let comment = data.comment;
                 let groupId = data.id; // as opposed to request id which is needed for approve/decline
                 if (action === "approve" || action === "decline") {
-                    this.orgServices.getPendingOrgRequests().filter(x => x.organization.id == groupId).subscribe(
+                    page.orgServices.getPendingOrgRequests().filter(x => x.organization.id == groupId).subscribe(
                         req => {
                             let toastText = "The group " + org.group + " has been " + (action === 'approve' ? "approved" : "declined") + ".";
                             let actionSubmit = (action === 'approve' ? 2 : 3);
-                            this.orgServices.administerOrganization(req.id, actionSubmit).subscribe({
+                            page.orgServices.administerOrganization(req.id, actionSubmit).subscribe({
                                 next: results => {
-                                    console.log(results);
-                                    this.presentToast(toastText);
-                                    this.loadOrgs();
+                                    //console.log(results);
+                                    page.presentToast(toastText);
+                                    page.loadOrgs();
                                 },
                                 error: err => {
-                                    console.log(err);
-                                    this.presentToast("Error - please contact TSA support");
+                                    console.log("openGroupActionModal" + JSON.stringify(err));
+                                    page.presentToast("Error - please contact TSA support");
                                 }
                             });
                     });
                 }
                 else if(action === "inactive" || action === "active") {
                     let status = (action === "active" ? 0 : 1);
-                    let toastText = "The group " + org.group + " has been set to " + action + ".";
-                    this.orgServices.updateOrganization(org.id, {status: status}, this.isAdmin).subscribe({
+                    page.orgServices.updateOrganization(org.id, {status: status}, page.isAdmin).subscribe({
                         next: results => {
-                            console.log(results);
-                            this.presentToast(toastText);
-                            this.loadOrgs();
+                            let toastText = "The group " + org.group + " has been set to " + action + ".";
+                            page.presentToast(toastText);
+                            page.loadOrgs();
                         },
                         error: err => {
-                            console.log("Error: " + err);
-                            this.presentToast("Error - please contact TSA support");
+                            console.log("openGroupActionModal Error: " + err);
+                            page.presentToast("Error - please contact TSA support");
                         }
                     });
                 }
@@ -204,11 +167,9 @@ export class Groups implements OnInit {
     }
 
 
-
     doGroupAction(org: FormGroup) {
-        //console.log("groups: approve Group:" + org.id + " " + org.organization.name + " " + org.organization.group);
         let action = org.controls.approval_status.value
-        if(action == 1) { // this is dirty -- skip when set back to pending -- should be easier way to bypass
+        if(action == 1) { 
             return;
         }
 
@@ -236,7 +197,6 @@ export class Groups implements OnInit {
                     text: 'Cancel', // set back to Pending
                     handler: () => {
                         org.controls.approval_status.setValue(1);
-                        //console.log('No clicked');
                     }
                 },
                 {
