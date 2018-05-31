@@ -179,7 +179,7 @@ export class OrganizationServices {
                         for(let r of reqArray) {
                             r.organization.approval_status = 1;
                             r.organization.request_id = r.id;
-                            observer.next(r.organization);
+                            observer.next(r);
                         }
                         observer.complete();
                     }
@@ -335,7 +335,7 @@ export class OrganizationServices {
      
      public updateOrganization(id: number, payload: any, admin: boolean = false): Observable<any> {
          let uri = admin ? UPDATE_ORGANIZATION_ADMIN_URI : UPDATE_ORGANIZATION_URI;
-        return this.http.patch(SERVER + uri + id + "/", payload, this.getOptions())
+        return this.http.put(SERVER + uri + id + "/", payload, this.getOptions())
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error on updateOrganization'));
      }
