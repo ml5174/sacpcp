@@ -39,6 +39,7 @@
     "cordova-plugin-appversion": "^1.0.0",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-dialogs": "^2.0.0",
+    "cordova-plugin-hide-home-indicator": "^1.0.1",
     "cordova-plugin-inappbrowser": "^2.0.2",
     "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-splashscreen": "^4.1.0",
@@ -78,7 +79,8 @@
         "ANDROID_PATH_PREFIX": "/"
       },
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-dialogs": {}
+      "cordova-plugin-dialogs": {},
+      "cordova-plugin-hide-home-indicator": {}
     },
     "platforms": [
       "ios",
