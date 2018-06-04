@@ -99,5 +99,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-hide-home-indicator": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-hide-home-indicator@^1.0.1"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }
