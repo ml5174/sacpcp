@@ -63,12 +63,12 @@
     </ion-item>
     <ion-item>
       <p>Contact information:</p>      
-        <ion-item *ngIf="eventDetail.contacts.length !=0">           
+        <ion-item *ngIf="eventDetail.contacts && eventDetail.contacts.length !=0">           
             <p>Name: {{eventDetail.contacts[0]["user_contact"]["first_name"]}} {{eventDetail.contacts[0]["user_contact"]["last_name"]}} </p>
             <p>Email: <a href="mailto: {{eventDetail.contacts[0]['user_contact']['email']}}">{{eventDetail.contacts[0]["user_contact"]["email"]}}</a></p>
             <p class="togglelabel" >Phone: {{eventDetail.contacts[0]["user_contact"]["mobilenumber"] ? eventDetail.contacts[0]["user_contact"]["mobilenumber"]:'Not available'}}</p>           
         </ion-item>
-        <p class="togglelabel"  *ngIf="eventDetail.contacts.length == 0"><strong>No contacts for this event</strong></p>
+        <p class="togglelabel"  *ngIf="eventDetail.contacts == null || eventDetail.contacts.length == 0"><strong>No contacts for this event</strong></p>
     </ion-item>
   </ion-list>
 

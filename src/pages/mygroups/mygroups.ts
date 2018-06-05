@@ -56,19 +56,19 @@ export class MyGroupsPage {
         this.storage.get('key')
             .then(key => this.key = key)
             .catch(err => console.log("couldn't get key for authentication"));
-    }   }
+    }   
+}
 
-  ionViewDidLoad() {    
-      this.loadMyGroups();
-  } 
+    ionViewWillEnter() {
+        this.loadMyGroups(); // note this also in ngOnInit but got double call :(
+    }
   
   loadMyGroups() {
-    console.info("loadMyGroups() start");
     var page = this; 
-    // 
+    page.groups = [];
     page.orgServices.getMyOrganizationsList().merge(page.orgServices.getMyOrgsFromOrgRequestsList()).subscribe(
       group => {
-          console.log("loadMyGroups() group: " + JSON.stringify(group));
+         // console.log("loadMyGroups() group: " + JSON.stringify(group));
           if(group.org_status == null) {
              group.org_status = 1; 
           }
@@ -86,7 +86,7 @@ export class MyGroupsPage {
   }
   
   openGroupProfile(org_id, approval_status) {
-    console.log("mygroups: openGroupProfile:" + org_id + "; approval_status: " + approval_status);
+    //console.log("mygroups: openGroupProfile:" + org_id + "; approval_status: " + approval_status);
     let data = {
       orgid : org_id,
       approval_status: approval_status
