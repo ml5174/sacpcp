@@ -71,7 +71,7 @@ export class EventSignupModal {
     }
 
     dismiss() {
-        console.log(this.signupSuccess);
+       //Dismiss with boolean signupSuccess
         this.viewCtrl.dismiss(this.signupSuccess);
     }
 
@@ -237,7 +237,7 @@ export class EventSignupModal {
                 });
             },
             () => {
-                //console.log("signupSuccess: " + page.signupSuccess);
+                //Do some stuff
             });
     }
 

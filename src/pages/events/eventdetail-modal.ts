@@ -53,26 +53,14 @@ export class EventDetailModal {
 
         this.signedUp = params.get('registered');
         this.guestUser = params.get('guestUser');
+        this.myPreferences = params.get('preference_data');
+
     }
 
     ngOnInit() {
         this.registering = false;
         this.loadDetails();
         this.signupAssistant.setGuestSignup(false);
-
-        this.myPreferencesObservable = this.userServices.getMyPreferences();
-
-        this.myPreferencesObservable.subscribe({
-            next: (data) => {
-                this.myPreferences = data;
-            },
-            error: (errRes) => {
-                // handle when user is not logged in
-                if (errRes.status == 401 && errRes.statusText == "Unauthorized") {
-                    this.myPreferences = undefined;
-                }
-            }
-        });
     }
 
     presentToast(message: string) {
@@ -146,7 +134,7 @@ export class EventDetailModal {
                     //for any event that is org only restricted, only group admins and TSA admins can signup 
                     this.youAreNotEligible();
                 }
-                console.log(this.eventDetail);
+
             },
             (err) => {
                 console.log(err);
@@ -191,11 +179,11 @@ export class EventDetailModal {
 
 
     signupEventRegistration(eventData) {
-        console.log(JSON.stringify(eventData));
+
         let admin = false;
         let eventType = eventData.org_restriction;
-        //console.log(eventType);
         let eventId = eventData.id;
+
         for (let i in this.myPreferences.organizations) {
             if (this.myPreferences.organizations[i].role == 1 || this.myPreferences.organizations[i].role == 2) {
                 admin = true;
@@ -288,13 +276,12 @@ export class EventDetailModal {
 
         let eventsignupPopup = this.modalCtrl.create(EventSignupModal, {
             "event_data": event_data,
-            "is_admin": is_admin
+            "is_admin": is_admin,
         });
 
         eventsignupPopup.present(/*{ev}*/);
         eventsignupPopup.onDidDismiss(data => {
             this.volunteerEventsService.loadMyEvents();
-            console.log(data);
             if (data == true) {
                 this.dismiss();
             }
@@ -341,7 +328,7 @@ export class EventDetailModal {
                             {
                                 text: 'Ok',
                                 handler: () => {
-                              
+
                                 }
                             }
                         ]
@@ -389,13 +376,13 @@ export class EventDetailModal {
                 {
                     text: 'No',
                     handler: () => {
-                
+
                     }
                 },
                 {
                     text: 'Yes',
                     handler: () => {
-          
+
                         this.deRegister(id);
                     }
                 }
