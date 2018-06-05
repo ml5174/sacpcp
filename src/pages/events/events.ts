@@ -317,12 +317,12 @@ export class EventPage {
     eventDetailPopup.present(/*{ev}*/);
   }
 
-  eventSignupModal(event_data, is_admin, preference_data) {
+  eventSignupModal(event_data, is_admin) {
 
     let eventsignupPopup = this.modalCtrl.create(EventSignupModal, {
       "event_data": event_data,
       "is_admin":is_admin,
-      "preference_data":preference_data
+      "preference_data":this.myPreferences
     });
 
     /*   let ev = {
@@ -528,11 +528,11 @@ export class EventPage {
 
   //TODO: pass in eventLevel for handling 
   signupEventRegistration(eventData) {
-       // console.log(eventData);
+       
         let admin = false;
         let eventType = eventData.eventexpanded.org_restriction;
-       // console.log(eventType);
         let eventId = eventData.id;
+
         for (let i in this.myPreferences.organizations) {
             if (this.myPreferences.organizations[i].role == 1 || this.myPreferences.organizations[i].role == 2) {
                 admin = true;
@@ -562,11 +562,11 @@ export class EventPage {
                 confirm.present();
 
             } else {
-                this.eventSignupModal(eventData, admin, this.myPreferences);
+                this.eventSignupModal(eventData, admin);
             }
 
         } else if (eventType == 0) {
-            this.eventSignupModal(eventData, admin, this.myPreferences);
+            this.eventSignupModal(eventData, admin);
         } else {
             //Continue with existing logic
             this.signupAssistant.setCurrentEventId(eventId);
