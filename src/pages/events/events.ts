@@ -322,7 +322,6 @@ export class EventPage {
     let eventsignupPopup = this.modalCtrl.create(EventSignupModal, {
       "event_data": event_data,
       "is_admin":is_admin,
-      "preference_data":this.myPreferences
     });
 
     /*   let ev = {
