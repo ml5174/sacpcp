@@ -108,4 +108,5 @@
     <plugin name="cordova-plugin-statusbar" spec="2.4.1" />
     <engine name="ios" spec="4.5.2" />
     <engine name="android" spec="6.3.0" />
+    <plugin name="cordova-plugin-hide-home-indicator" spec="^1.0.1" />
 </widget>

@@ -42,6 +42,9 @@
     },
     "cordova-plugin-dialogs": {
       "PACKAGE_NAME": "com.att.TSA.DFW"
+    },
+    "cordova-plugin-hide-home-indicator": {
+      "PACKAGE_NAME": "com.att.TSA.DFW"
     }
   },
   "dependent_plugins": {}
