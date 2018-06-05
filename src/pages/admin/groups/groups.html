@@ -19,7 +19,8 @@
                     <ion-col class="linked-group" (click)="openGroupProfile(org)">{{org.group}}</ion-col>
                     <ion-col>{{org.id}}</ion-col>
                     <ion-col class="linked-group" (click)="openGroupActionModal(org, 'approval')" *ngIf="org.approval_status == '1'">Pending</ion-col>
-                    <ion-col class="linked-group" (click)="openGroupActionModal(org, 'active')" *ngIf="org.approval_status != '1'">
+                    <ion-col class="linked-group" (click)="openGroupActionModal(org, 'approval')" *ngIf="org.approval_status == '4'">Declined</ion-col>
+                    <ion-col class="linked-group" (click)="openGroupActionModal(org, 'active')" *ngIf="org.approval_status != '1' && org.approval_status != '4'">
                         {{ org.status == 0 ? 'Active' : 'Inactive'}}
                     </ion-col>
                </ion-row>

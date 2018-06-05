@@ -34,14 +34,14 @@
         <div *ngFor="let group of groups">
                 <ion-row>
                     <ion-col style="text-align: center" col-3>
-                        <ion-icon *ngIf="group.role==1 || group.org_status == 1" name="person" (click)="openEditGroupAttendance((group.organization_id || group.id), group.name, group.group)"></ion-icon>
-                        <ion-icon *ngIf="group.role!=1 && group.org_status != 1" name="people"></ion-icon>
+                        <ion-icon *ngIf="group.role == 1 || group.role == 2 || group.approval_status == 1" name="person" (click)="openEditGroupAttendance((group.organization_id || group.id), group.name, group.group)"></ion-icon>
+                        <ion-icon *ngIf="group.role == 0" name="people"></ion-icon>
                     </ion-col>
                     <ion-col col-3>{{this.group.name}}</ion-col>
                     <ion-col col-3 class="linked-group" (click)="openGroupProfile((group.id || group.organization_id), group.approval_status)">{{group.group}}</ion-col>
                     <ion-col col-3 *ngIf="group.org_status == 0"><ion-icon name="checkmark"></ion-icon></ion-col>
-                    <ion-col col-3 *ngIf="group.org_status == 1"><ion-icon name="help"></ion-icon></ion-col>
-                    <ion-col col-3 *ngIf="group.org_status == 2"><ion-icon name="moon"></ion-icon></ion-col>
+                    <ion-col col-3 *ngIf="group.approval_status == 1"><ion-icon name="help"></ion-icon></ion-col>
+                    <ion-col col-3 *ngIf="group.approval_status != 1 && group.org_status == 1"><ion-icon name="moon"></ion-icon></ion-col>
                </ion-row>
             </div>
             <div style="font-size: larger" *ngIf="groups.length == 0 && isGroupLoadingComplete" class="nogroups">
