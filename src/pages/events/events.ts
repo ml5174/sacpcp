@@ -301,7 +301,8 @@ export class EventPage {
     let eventDetailPopup = this.modalCtrl.create(EventDetailModal, {
       "id": id,
       "guestUser": false,
-      "registered": this.amISignedUp(id)
+      "registered": this.amISignedUp(id),
+      "preference_data":this.myPreferences
     });
 
     /*   let ev = {
@@ -316,11 +317,12 @@ export class EventPage {
     eventDetailPopup.present(/*{ev}*/);
   }
 
-  eventSignupModal(event_data, is_admin) {
+  eventSignupModal(event_data, is_admin, preference_data) {
 
     let eventsignupPopup = this.modalCtrl.create(EventSignupModal, {
       "event_data": event_data,
-      "is_admin":is_admin
+      "is_admin":is_admin,
+      "preference_data":preference_data
     });
 
     /*   let ev = {
@@ -560,11 +562,11 @@ export class EventPage {
                 confirm.present();
 
             } else {
-                this.eventSignupModal(eventData, admin);
+                this.eventSignupModal(eventData, admin, this.myPreferences);
             }
 
         } else if (eventType == 0) {
-            this.eventSignupModal(eventData, admin);
+            this.eventSignupModal(eventData, admin, this.myPreferences);
         } else {
             //Continue with existing logic
             this.signupAssistant.setCurrentEventId(eventId);

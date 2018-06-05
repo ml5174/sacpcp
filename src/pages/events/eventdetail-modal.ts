@@ -53,13 +53,15 @@ export class EventDetailModal {
 
         this.signedUp = params.get('registered');
         this.guestUser = params.get('guestUser');
+        this.myPreferences = params.get('preference_data');
     }
 
     ngOnInit() {
         this.registering = false;
         this.loadDetails();
         this.signupAssistant.setGuestSignup(false);
-
+        console.log(JSON.stringify(this.myPreferences));
+/*
         this.myPreferencesObservable = this.userServices.getMyPreferences();
 
         this.myPreferencesObservable.subscribe({
@@ -72,7 +74,7 @@ export class EventDetailModal {
                     this.myPreferences = undefined;
                 }
             }
-        });
+        });*/
     }
 
     presentToast(message: string) {
