@@ -1,5 +1,6 @@
 ## Getting Started
 
+
 ### Preliminary GitHub Setup
 
 1.      first create an account on github.com if you don't already have one
