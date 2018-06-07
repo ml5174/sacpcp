@@ -38,7 +38,8 @@ export const ORGANIZATIONCONTACTS_ADMIN_URI = '/api/v0.2/admin/organizationconta
 export const GET_ORGREQUESTS_REQUESTED_ADMIN_URI = '/api/v0.2/admin/orgrequests/requested/';
 export const GET_ORGANIZATION_TYPES_URI = '/api/v0.2/accounts/organizationtypes/';
 export const UPDATE_ORGANIZATION_ADMIN_URI = '/api/v0.2/admin/organizations/';
-export const UPDATE_ORGANIZATION_URI = '/api/v0.2/accounts/myorganizations/';
+export const UPDATE_ORGANIZATION_URI = '/api/v0.2/accounts/organizations/';
+export const ORGANIZATION_URI = '/api/v0.2/accounts/organizations/';
 export const APPROVE_ORGANIZATION_URI = '/api/v0.2/admin/orgrequests/';
 export const CHECK_MY_EVENTS_URI = '/api/v0.2/events/checkmyevents/';
 export const APPLE_MAP_QUERY = 'https://maps.apple.com/?address=';
