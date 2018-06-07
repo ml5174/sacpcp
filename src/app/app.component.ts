@@ -17,7 +17,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { TermsPage } from '../pages/terms/terms';
 import { VolunteerEventsService } from '../lib/service/volunteer-events-service'
 import { Admin } from '../pages/admin/admin';
-import { PopoverController } from 'ionic-angular';
+import { PopoverController, Keyboard } from 'ionic-angular';
 import { CreateEvent } from '../pages/admin/create-event/create-event';
 import { EditEvent } from '../pages/admin/edit-event/edit-event';
 import { Reports } from '../pages/admin/reports/reports';
@@ -66,7 +66,8 @@ export class MyApp {
     public storage: Storage,
     public volunteerEvents : VolunteerEventsService,
     public popoverCtrl: PopoverController,
-    public serverVersion:ServerVersion
+    public serverVersion:ServerVersion,
+    private keyboard:Keyboard
   ) {
     this.initializeApp();
 
