@@ -77,7 +77,7 @@
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
 
-<ion-footer>
+<ion-footer [hidden]="keyboard.isOpen()">
 	<ion-toolbar>		
 		<ion-row>		
 			<ion-col *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')" class="footer-col"><ion-icon class="footer-icon" name="log-in"></ion-icon>Login</ion-col>
