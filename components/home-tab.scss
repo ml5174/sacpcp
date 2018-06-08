@@ -1,0 +1,26 @@
+.slider-pager-page
+{
+  color: white;
+  fill: #f90;
+  stroke: red;
+  background-color: blue;
+}
+.slider-pager-page.active
+{
+  fill: #f90;
+  stroke: red;
+  color: blue;
+  background-color: red;
+}
+
+.swiper-pagination-bullet {
+    background: gray;
+    stroke: red;
+
+    opacity: 0.5;
+  }
+
+  .swiper-pagination-bullet-active {
+    opacity: 1;
+    background: red;
+  }
