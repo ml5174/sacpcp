@@ -8,6 +8,7 @@ import { OrganizationServices } from '../../lib/service/organization';
 import { MemberPopOver } from './member-popover';
 import { HomePage } from '../home/home';
 import { GroupAction } from '../../modals/group-action/group-action';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'page-group-profile',
@@ -209,7 +210,6 @@ export class GroupProfilePage implements OnInit {
         if (page.asTsaAdmin && page.approval_status == 1) {
             page.orgServices.getOrgRequestsRequestedTsaAdminList().filter(orgrequest => orgrequest.organization.id == orgId).subscribe(
                 orgData => {
-                    console.log("loadOrgAndContacts list:\n\n " + JSON.stringify(orgData));
                     page.orgData = orgData;
                     delete page.orgData.organization.description;
                     page.canEdit = false;
@@ -223,16 +223,12 @@ export class GroupProfilePage implements OnInit {
                     page.navCtrl.pop();
             });
         }
-        else {
-            page.orgServices.getOrganizationContacts(orgId, page.asTsaAdmin)
-                .catch(err => page.orgServices.getOrgRequestForOrg(orgId)).subscribe(orgData => {
+        else if(page.approval_status == 1) {
+            page.orgServices.getOrgRequestForOrg(orgId)
+                    .subscribe(orgData => {
                     page.orgData = orgData;
                     delete page.orgData.organization.description;
-                    //console.log("OrgData: " + JSON.stringify(orgData, null, 1));
                     page.canEdit = page.userIsGroupAdmin();
-                    if (!page.canEdit && !this.asTsaAdmin) {
-                        page.orgData.members.filter(member => member.role == 1 || member.role == 2);
-                    }
                     page.orgData.members.sort(sortMembers);
                     page.canEditOrg = page.userIsGroupAdmin() && page.approval_status == 1 && !this.asTsaAdmin;
                 },
@@ -241,6 +237,22 @@ export class GroupProfilePage implements OnInit {
                         page.presentToast(errorText);
                         page.navCtrl.pop();
 
+                    });
+        }
+        else {
+            page.orgServices.getOrganizationContacts(orgId, page.asTsaAdmin).catch(
+                err => page.orgServices.getAccountOrganization(orgId).map(response => ({organization: response, members: response.admins})))
+                .subscribe(orgData =>{
+                    page.orgData = orgData;
+                    delete page.orgData.organization.description;
+                    page.canEdit = page.userIsGroupAdmin();
+                    page.orgData.members.sort(sortMembers);
+                    page.canEditOrg = page.userIsGroupAdmin() && page.approval_status == 1 && !this.asTsaAdmin;
+                },
+                    error => {
+                        let errorText = "An error occurred while retrieving the group data.  Please contact the TSA Administrator.";
+                        page.presentToast(errorText);
+                        page.navCtrl.pop();
                     });
         }
     }
@@ -404,17 +416,24 @@ export class GroupProfilePage implements OnInit {
                 )
             }
             else {
-                page.orgData.members.forEach(member => {
+                page.orgData.members.forEach(member => { //phone number formatting for API acceptance
                     if (member.mobilenumber && member.mobilenumber.length == 10) {
                         member.mobilenumber = "1" + member.mobilenumber;
                     }
                 });
                 console.log("putOrgContactsRequest:\n" + JSON.stringify(page.orgData));
-                this.orgServices.putOrgContactsRequest(page.orgId, page.orgData, this.asTsaAdmin)
+                // need to use two API calls -- one for members and one for active/inactive status. these are zipped (both complete then grab
+                //   functionally defined reponse from zip observable)
+                // NOTE: wanted to use a Then operator but alas I don't think it is supported yet.
+                let putOrgContacts = page.orgServices.putOrgContactsRequest(page.orgId, page.orgData, page.asTsaAdmin);
+                let putOrgStatus = page.orgServices.updateOrganization(page.orgId, {status: page.orgData.organization.status}, page.asTsaAdmin);
+                Observable.zip(putOrgContacts, putOrgStatus, 
+                    (contactResponse: any, statusResponse:any) => ({contactResponse: contactResponse, statusResponse: statusResponse }))
                     .subscribe(
                         data => {
 
-                            page.orgData = data;
+                            page.orgData = data.contactResponse;
+                            page.orgData.organization.status = data.statusResponse.status;
                             page.orgData.members.sort(sortMembers);
                             page.canEdit = page.userIsGroupAdmin();
                             page.canEditOrg = false;
@@ -424,6 +443,8 @@ export class GroupProfilePage implements OnInit {
                         },
                         err => {
                             console.log(err);
+                            page.presentToast("An error occurred - the group changes could not be saved.");
+
                         });
             }
         }
