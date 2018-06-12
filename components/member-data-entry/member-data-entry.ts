@@ -14,12 +14,13 @@ export class MemberDataEntry {
     @Input() member: UserProfile;
     @Output() memberDeleted: EventEmitter<any> = new EventEmitter();
 
+    @ViewChild('preferredNumber') preferredNumber : PhoneInput;
+    //public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
     isActiveUser: boolean = false;
     formGroup: FormGroup;
 
     constructor(private formBuilder: FormBuilder) { }
-
-    @ViewChild('preferredNumber') preferredNumber : PhoneInput;
 
     ngOnInit() {
         let role = (this.member.profile.role ? this.member.profile.role : 0);
@@ -36,6 +37,11 @@ export class MemberDataEntry {
                 validator: mobileXorEmailValidator()
             }
         );
+        /*
+        if (this.preferredNumber.getPN()) {
+            this.myProfile.mobilenumber = this.preferredNumber.getPN();
+        }
+        */
     }
 
     isFormControlError(controlName: string, myFormGroup: FormGroup = this.formGroup): boolean {
