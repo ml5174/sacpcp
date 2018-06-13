@@ -34,11 +34,8 @@
                 <ion-input formControlName="contactString" placeholder="email@address.com"></ion-input>
             </ion-item>
             <ion-item *ngIf="formGroup.value.contactMethod == 1">
-                <ion-label color="primary">
-                    <error-message-span *ngIf="false" [errorText]="'Mobile Required'">
-                    </error-message-span>
-                </ion-label>
-                <ion-input formControlName="contactString" placeholder="(123)456-0000"></ion-input>
+                <!-- <ion-input formControlName="contractString" placeholder="(123)456-0000"></ion-input> -->
+                <phone-input #preferredNumber [pn]="mobileNumber"></phone-input>
             </ion-item>
         </ion-col>
     </ion-row>
