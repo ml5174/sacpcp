@@ -31,7 +31,7 @@ export class MemberDataEntry {
                 firstName: [this.member.profile.first_name, [Validators.required, Validators.maxLength(25)]],
                 contactMethod: this.member.profile.contactmethod, // covered by mobileXorEmailValidator below
                 isActive: ['1', Validators.required], //this is defaulted to 'Yes', and there is no way to 'unselect' (must be yes or no)
-                role: [role, Validators.required],
+                role: [role, Validators.required]
             },
             {
                 validator: mobileXorEmailValidator()
