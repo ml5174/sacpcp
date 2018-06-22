@@ -1,8 +1,9 @@
 import { FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 import { Contact } from '../../model/contact';
 import { mobileXorEmailValidator } from '../../validators/mobilexoremailvalidator';
 import { UserProfile } from '../../model/user-profile';
+import { PhoneInput } from '../phone-input.component';
 
 @Component({
     selector: 'member-data-entry',
@@ -12,6 +13,10 @@ import { UserProfile } from '../../model/user-profile';
 export class MemberDataEntry {
     @Input() member: UserProfile;
     @Output() memberDeleted: EventEmitter<any> = new EventEmitter();
+
+    @ViewChild('preferredNumber') preferredNumber : PhoneInput;
+    //public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
     isActiveUser: boolean = false;
     formGroup: FormGroup;
 
@@ -26,12 +31,17 @@ export class MemberDataEntry {
                 firstName: [this.member.profile.first_name, [Validators.required, Validators.maxLength(25)]],
                 contactMethod: this.member.profile.contactmethod, // covered by mobileXorEmailValidator below
                 isActive: ['1', Validators.required], //this is defaulted to 'Yes', and there is no way to 'unselect' (must be yes or no)
-                role: [role, Validators.required]  
+                role: [role, Validators.required]
             },
             {
                 validator: mobileXorEmailValidator()
             }
         );
+        /*
+        if (this.preferredNumber.getPN()) {
+            this.myProfile.mobilenumber = this.preferredNumber.getPN();
+        }
+        */
     }
 
     isFormControlError(controlName: string, myFormGroup: FormGroup = this.formGroup): boolean {
