@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AboutPage } from '../../pages/about/about';
 import { ContactPage } from '../../pages/contact/contact';
 
@@ -21,5 +21,11 @@ export class HomeTab {
    document.getElementById('programcard').scrollIntoView(true);
    
   }
+  @ViewChild('homeSlider') homeSlider;
   
+  changeSlides(event) {
+    if(event.getActiveIndex() == 0){
+      this.homeSlider.startAutoplay(600);
+    }
+  }
 }
