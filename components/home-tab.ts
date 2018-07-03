@@ -25,7 +25,7 @@ export class HomeTab {
   
   changeSlides(event) {
     if(event.getActiveIndex() == 0){
-      this.homeSlider.startAutoplay(600);
+      this.homeSlider.startAutoplay(3000);
     }
   }
 }
