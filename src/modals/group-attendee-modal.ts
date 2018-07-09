@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, Output, EventEmitter, ViewChild} from '@angular/core';
 import {mobileXorEmailValidator} from '../lib/validators/mobilexoremailvalidator';
 import {FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl} from '@angular/forms';
 import {ViewController, NavParams} from 'ionic-angular';
 import {Member} from '../lib/model/member';
+import { PhoneInput } from '../lib/components/phone-input.component';
 
 @Component({
     templateUrl: 'group-attendee-modal.html',
@@ -12,7 +13,8 @@ export class GroupAttendeeModal {
     attendee: Member;
     attendeeForm: FormGroup;
     isAddition: boolean = false; 
-    
+    @ViewChild('preferredNumber') preferredNumber : PhoneInput;
+    @Output() mobileValueChanged = new EventEmitter();
 
     //this may not be the best place for this as these validations can probably be reused
 
@@ -42,12 +44,18 @@ export class GroupAttendeeModal {
             isPhoneSelected: formModel.contactMethod == 1,
             isEmailSelected: formModel.contactMethod == 2,
             contactString: formModel.contactString as string,
-            mobilenumber: formModel.contactMethod == 1 ? formModel.contactString.replace(/\D+/g, '').slice(0,10) : null,
+            mobilenumber: formModel.contactMethod == 1 ? this.preferredNumber.getPN_lim() : null,
             email: formModel.contactMethod == 2 ? formModel.contactString : null,
             isAdmin: 0,
             isActive: 1,
             ext_id: this.attendee.ext_id   
         };
+        if (formModel.contactMethod == 1) {
+            saveAttendee.contactString = this.preferredNumber.getPN_lim();
+        }
+        else {
+            saveAttendee.contactString = formModel.contactString;
+        }
         return saveAttendee;
     }
     
@@ -59,6 +67,7 @@ export class GroupAttendeeModal {
     }
     
     ngOnInit(): void {
+        console.log('ngOnInit');
         this.attendeeForm = this.fb.group( // set up the validation
             {
                 last_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
@@ -80,12 +89,28 @@ export class GroupAttendeeModal {
                 contactMethod: this.attendee.contactMethod,
                 isAttending: this.attendee.isAttending                
             });
+            console.log(this.attendeeForm);
         }
         else { // this is an adding of an attendee, so flag it accordingly
                /// however, this is also a new attendee so no Delete button is needed (Cancel does the same)
             this.attendee.isTypeAttendee = true;
             this.isAddition = true;
         }
+    }
+
+    ngAfterViewInit(){
+        console.log('ngAfterViewInit');
+        console.log(this.attendee);
+        if (this.attendee.last_name) {
+            if (this.attendee.contactMethod == 1) {
+                this.preferredNumber.pn = this.attendee.contactString;
+            }
+        }
+        /*
+        if (this.attendeeForm.value.contactMethod == 1) {
+            this.attendeeForm.value.contactString = this.preferredNumber.getPN_lim();
+            console.log('here');
+        } */
     }
     
     displayFormControlError(controlName: string): boolean {
