@@ -177,29 +177,29 @@ export class MyApp {
   }
   donate() { 
 
-    //  if(this.platform.is('ios') || this.platform.is('android')) {
-    //    // don't launch in-app browser, instead open Safari and alert customer about leaving the app
-    //    console.log("opening Safari on web site");
-    //    let okayToLeaveApp = this.alertCtrl.create({
-    //     title: '',
-    //     cssClass: 'alertReminder',
-    //     message: 'You about to leave the app and visit www.salvationarmydfw.org website with Safari',
-    //     buttons: [
-    //       {
-    //         text: 'OK',
-    //         handler: () => {
-    //           console.log('Okay clicked');
-    //           window.open(DONATE_URL, '_blank');
-    //         }
-    //       }
-    //     ]
-    //   });
-    //   okayToLeaveApp.present();   
+     if(this.platform.is('ios') || this.platform.is('android')) {
+       // don't launch in-app browser, instead open Safari and alert customer about leaving the app
+       console.log("opening Safari on web site");
+       let okayToLeaveApp = this.alertCtrl.create({
+        title: '',
+        cssClass: 'alertReminder',
+        message: 'You about to leave the app and visit www.salvationarmydfw.org website',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              console.log('Okay clicked');
+              window.open(DONATE_URL, '_blank');
+            }
+          }
+        ]
+      });
+      okayToLeaveApp.present();   
       
-    //  }
-    //  else {
+     }
+     else {
        window.open(DONATE_URL, '_blank'); 
-     //}
+     }
   }
 
   private detectOldIE() {
