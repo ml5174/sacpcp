@@ -31,6 +31,7 @@ import { SERVER } from '../lib/provider/config';
 import { GroupProfilePage } from '../pages/group-profile/group-profile';
 import { EditGroupAttendancePage } from '../pages/edit-group-attendance/edit-group-attendance';
 import { AlertController } from 'ionic-angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 declare var window;
 declare var cordova;
@@ -59,6 +60,7 @@ export class MyApp {
   public showAdmin: boolean;
   public showMyGroupsMenu: boolean;
   constructor(
+    private inAppBrowser: InAppBrowser,
     public alertCtrl: AlertController,
     private appVersion: AppVersion,
     private statusBar: StatusBar,
@@ -177,8 +179,8 @@ export class MyApp {
   }
   donate() { 
      if(this.platform.is('android')) { 
-       if (cordova && cordova.InAppBrowser) { 
-         cordova.InAppBrowser.open(DONATE_URL, '_blank'); 
+       if (cordova && this.inAppBrowser) { 
+         this.inAppBrowser.create(DONATE_URL); 
        } else {
          window.open(DONATE_URL, '_blank'); 
        }
@@ -200,10 +202,15 @@ export class MyApp {
         ]
       });
       okayToLeaveApp.present();   
+      if (cordova && this.inAppBrowser) { 
+        this.inAppBrowser.create(DONATE_URL, '_system'); 
+      } else {
+        window.open(DONATE_URL, '_system'); 
+      }
       window.open(DONATE_URL, '_system');
      }
      else {
-       window.open(DONATE_URL, '_blank'); 
+       window.open(DONATE_URL, '_system'); 
      }
   }
 
