@@ -1,6 +1,6 @@
 
-<ion-slides class="homeslider" autoplay="3000" loop="true" pager="true" paginationType="bullets" zoom="false" effect="slide">
-    <!-- [options]="homeSlideOptions" -->
+<ion-slides #homeSlider class="homeslider" autoplay="3000" (ionSlideDidChange)="changeSlides($event)" pager>
+   <!-- [options]="homeSlideOptions" -->
     <ion-slide>
         <div class="slide"><img src="assets/img/Volunteers.jpg" /> </div>
     </ion-slide>
