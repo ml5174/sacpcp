@@ -94,7 +94,6 @@
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="ionic-plugin-deploy" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="cordova-plugin-inappbrowser" spec="^1.7.2" />
     <plugin name="ionic-plugin-deeplinks" spec="~1.0.15">
         <variable name="URL_SCHEME" value="tsadfw" />
         <variable name="DEEPLINK_SCHEME" value="https" />
@@ -109,4 +108,5 @@
     <engine name="ios" spec="4.5.2" />
     <engine name="android" spec="6.3.0" />
     <plugin name="cordova-plugin-hide-home-indicator" spec="^1.0.1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
 </widget>
