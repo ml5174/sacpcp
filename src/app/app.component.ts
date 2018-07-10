@@ -175,27 +175,37 @@ export class MyApp {
     this.userServices.user = new UserProfile();
     this.nav.setRoot(HomePage);
   }
-
   donate() { 
-     if(this.platform.is('ios') || this.platform.is('android')) {
+     if(this.platform.is('android')) { 
+       if (cordova && cordova.InAppBrowser) { 
+         cordova.InAppBrowser.open(DONATE_URL, '_blank'); 
+       } else {
+         window.open(DONATE_URL, '_blank'); 
+       }
+     }
+     else if(this.platform.is('ios')) {
        // don't launch in-app browser, instead open Safari and alert customer about leaving the app
        console.log("opening Safari on web site");
        let okayToLeaveApp = this.alertCtrl.create({
         title: '',
         cssClass: 'alertReminder',
-        message: 'You about to leave the app and visit www.salvationarmydfw.org website',
+        message: 'You about to leave the app and visit www.salvationarmydfw.org website with Safari',
         buttons: [
           {
             text: 'OK',
             handler: () => {
               console.log('Okay clicked');
+              window.open(DONATE_URL, '_system');
             }
           }
         ]
       });
       okayToLeaveApp.present();   
-    }
-    window.open(DONATE_URL, '_system'); 
+      
+     }
+     else {
+       window.open(DONATE_URL, '_blank'); 
+     }
   }
 
   private detectOldIE() {
