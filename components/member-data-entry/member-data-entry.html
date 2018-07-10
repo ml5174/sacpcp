@@ -35,7 +35,7 @@
             </ion-item>
             <ion-item *ngIf="formGroup.value.contactMethod == 1">
                 <!-- <ion-input formControlName="contractString" placeholder="(123)456-0000"></ion-input> -->
-                <phone-input #preferredNumber [pn]="mobileNumber"></phone-input>
+                <phone-input-reactive #preferredNumber [pn]="mobileNumber" (emitMobileChanged)="getPhoneInputNotification($event)"></phone-input-reactive>
             </ion-item>
         </ion-col>
     </ion-row>

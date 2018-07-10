@@ -1,6 +1,5 @@
 import { FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Component, ViewChild, Input, EventEmitter, Output } from '@angular/core';
-import { Contact } from '../../model/contact';
 import { mobileXorEmailValidator } from '../../validators/mobilexoremailvalidator';
 import { UserProfile } from '../../model/user-profile';
 import { PhoneInput } from '../phone-input.component';
