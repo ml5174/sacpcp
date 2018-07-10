@@ -195,7 +195,7 @@ export class MyApp {
       });
       okayToLeaveApp.present();   
     }
-    window.open(DONATE_URL, '_blank'); 
+    window.open(DONATE_URL, '_system'); 
   }
 
   private detectOldIE() {
