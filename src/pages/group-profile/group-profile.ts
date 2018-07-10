@@ -28,6 +28,7 @@ export class GroupProfilePage implements OnInit {
 
     public canEdit: boolean = null; // crud members
     public arrayOrgTypes: any = [];
+    private role: number = 0;
     public canEditOrg: boolean = false; // change org name, group name, org type - should only be allowed for group admin when group is pending
     public desktop: boolean = true;
 
@@ -41,6 +42,7 @@ export class GroupProfilePage implements OnInit {
         this.orgId = this.navParams.get('orgid');
         this.asTsaAdmin = this.navParams.get("asTsaAdmin"); // navigated to this page from TSA Admin area
         this.approval_status = this.navParams.get('approval_status') ? this.navParams.get('approval_status') : 2;
+        this.role = this.navParams.get("role");
         this.loadOrgAndContacts(this.orgId);
         let page = this;
         page.orgServices.getOrgTypes().subscribe(orgTypes => {
@@ -180,19 +182,7 @@ export class GroupProfilePage implements OnInit {
     }
 
     public userIsGroupAdmin(): boolean {
-        let retval = false;
-        let prof = this.userServices.user.profile;
-        let contact_method = prof.contactmethod_name;
-        let email = prof.email;
-        let mobile = prof.mobilenumber;
-        if(this.orgData && this.orgData.members) {
-            retval = this.orgData.members.find(member => 
-            
-            (  (member.contact_method == 'Email' && member.email == email ) || 
-               (member.contact_method == 'Phone' && member.mobile == mobile) ) &&
-               (member.role == 1 || member.role == 2) );
-        }
-        return retval;
+        return this.role > 0;
     }
 
 /**

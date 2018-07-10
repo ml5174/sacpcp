@@ -85,11 +85,12 @@ export class MyGroupsPage {
     );
   }
   
-  openGroupProfile(org_id, approval_status) {
-    //console.log("mygroups: openGroupProfile:" + org_id + "; approval_status: " + approval_status);
+  openGroupProfile(org_id, approval_status, groupIndex) {
+    let role = (approval_status == 2) ? this.groups[groupIndex].role :  1;
     let data = {
       orgid : org_id,
-      approval_status: approval_status
+      approval_status: approval_status,
+      role: role
     };
     this.nav.push(GroupProfilePage, data);
   }
