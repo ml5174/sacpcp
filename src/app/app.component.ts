@@ -195,13 +195,12 @@ export class MyApp {
             text: 'OK',
             handler: () => {
               console.log('Okay clicked');
-              window.open(DONATE_URL, '_system');
             }
           }
         ]
       });
       okayToLeaveApp.present();   
-      
+      window.open(DONATE_URL, '_system');
      }
      else {
        window.open(DONATE_URL, '_blank'); 
