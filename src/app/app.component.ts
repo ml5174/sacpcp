@@ -175,8 +175,8 @@ export class MyApp {
     this.userServices.user = new UserProfile();
     this.nav.setRoot(HomePage);
   }
-  donate() { 
 
+  donate() { 
      if(this.platform.is('ios') || this.platform.is('android')) {
        // don't launch in-app browser, instead open Safari and alert customer about leaving the app
        console.log("opening Safari on web site");
@@ -189,17 +189,13 @@ export class MyApp {
             text: 'OK',
             handler: () => {
               console.log('Okay clicked');
-              window.open(DONATE_URL, '_blank');
             }
           }
         ]
       });
       okayToLeaveApp.present();   
-      
-     }
-     else {
-       window.open(DONATE_URL, '_blank'); 
-     }
+    }
+    window.open(DONATE_URL, '_blank'); 
   }
 
   private detectOldIE() {
