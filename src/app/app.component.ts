@@ -60,7 +60,6 @@ export class MyApp {
   public showAdmin: boolean;
   public showMyGroupsMenu: boolean;
   constructor(
-    private inAppBrowser: InAppBrowser,
     public alertCtrl: AlertController,
     private appVersion: AppVersion,
     private statusBar: StatusBar,
@@ -179,8 +178,8 @@ export class MyApp {
   }
   donate() { 
      if(this.platform.is('android')) { 
-       if (cordova && this.inAppBrowser) { 
-         this.inAppBrowser.create(DONATE_URL); 
+       if (cordova && cordova.InAppBrowser) { 
+         cordova.InAppBrowser.create(DONATE_URL); 
        } else {
          window.open(DONATE_URL, '_blank'); 
        }
@@ -202,8 +201,8 @@ export class MyApp {
         ]
       });
       okayToLeaveApp.present();   
-      if (cordova && this.inAppBrowser) { 
-        this.inAppBrowser.create(DONATE_URL, '_system'); 
+      if (cordova && cordova.InAppBrowser) { 
+        cordova.InAppBrowser.create(DONATE_URL, '_system'); 
       } else {
         window.open(DONATE_URL, '_system'); 
       }
@@ -304,7 +303,7 @@ showMyGroups()
       this.storage.set('version', version).then((resource) => {
           console.log('version: ' + this.appMarketingVersion);
         });
-      let buildNumberNonMobileFE = "_build_number_";
+      let buildNumberNonMobileFE = "1807101616";
       this.storage.set('build', buildNumberNonMobileFE).then((resource) => {
          console.log('build: ' + buildNumberNonMobileFE);
         });
