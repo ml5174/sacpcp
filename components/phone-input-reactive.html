@@ -1,6 +1,4 @@
-<!--ion-item>
-    <!--ion-input (ionBlur)="inputBlurred($event)" [textMask]="{mask: mask}" id="PN{{idsuffix}}" name="{{pn}}" type="tel" placeholder="(123) 456-7890" [(ngModel)]="pn" (ngModelChange)="emitMobileChanged(evt)"></ion-input>
-
-   </ion-item -->
-   <input class="phoneNumber" [textMask]="{mask: mask}" [(ngModel)]="pn" type="text" name="{{pn}}" type="tel" placeholder="(123) 456-7890" (ngModelChange)="emitMobileChanged(evt)"/>
-  
+<div [formGroup]="formGroup">
+   <input class="phoneNumber" [textMask]="{mask: mask}" formControlName="phoneControl" type="text" placeholder="(123) 456-7890" />
+   <div>{{formGroup.value | json}}</div>
+</div>

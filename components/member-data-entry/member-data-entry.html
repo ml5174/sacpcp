@@ -1,4 +1,5 @@
-<div style="border-bottom: 0.5px solid black;" [formGroup]="formGroup">
+<div style="border-bottom: 0.5px solid black;">
+<form [formGroup]="formGroup">
     <a *ngIf="!isRequired()" (click)="deleteMember()">
         <ion-icon name="close-circle" style="float: right;" class="hover-img"></ion-icon>
     </a>
@@ -28,14 +29,13 @@
                 <ion-label color="primary">
                     <span *ngIf="isFormControlError('contactString')" style="color: #CC1F2C">
                         (
-                        <ion-icon name="alert" style="color: #CC1F2C;"></ion-icon> Proper Email Required)
+                        <ion-icon name="alert" style="color: #CC1F2C"></ion-icon> Proper Email Required)
                     </span>
                 </ion-label>
                 <ion-input formControlName="contactString" placeholder="email@address.com"></ion-input>
             </ion-item>
             <ion-item *ngIf="formGroup.value.contactMethod == 1">
-                <!-- <ion-input formControlName="contractString" placeholder="(123)456-0000"></ion-input> -->
-                <phone-input-reactive #preferredNumber [pn]="mobileNumber" (emitMobileChanged)="getPhoneInputNotification($event)"></phone-input-reactive>
+                <phone-input-reactive [phone]="mobileNumber"></phone-input-reactive>
             </ion-item>
         </ion-col>
     </ion-row>
@@ -56,4 +56,6 @@
             </ion-select>
         </ion-col>
     </ion-row>
+</form>
 </div>
+<div><pre>{{formGroup.value | json}}</pre></div>

@@ -1,38 +1,41 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import { Validators, FormBuilder, FormControl, FormGroup, FormGroupDirective } from '@angular/forms';
+import { mobilePhoneValidator } from '../validators/mobilephonevalidator';
 
 @Component({
     selector: 'phone-input-reactive',
     templateUrl: 'phone-input-reactive.html',
 })
 
-export class PhoneInputReactive {
-	@Input() idsuffix;
-	@Input() pn;
-	public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
-	private suffix: string;
+export class PhoneInputReactive implements OnInit {
+	@Input() phone: string;
+	public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 	@Output() mobileValueChanged = new EventEmitter();
-    @Output() mobileValueBlur = new EventEmitter();
+    private parentFormGroup: FormGroup;
+    private formGroup: FormGroup;
 
-	constructor() { }
+	constructor(private parent: FormGroupDirective, private formBuilder: FormBuilder) { }
 	
-	ngAfterViewInit(){
-	this.suffix = this.idsuffix;
-	}
+	ngOnInit(){
+        this.parentFormGroup = this.parent.form;
+        this.parentFormGroup.removeControl('phoneGroup');
+        this.parentFormGroup.removeControl('contactString');
+        this.formGroup = this.formBuilder.group({
+            phoneControl: [this.phone, [Validators.required]]
 
-	inputBlurred(event) {
-		this.mobileValueBlur.emit(event);
-	}
+        })
+        this.parentFormGroup.addControl('phoneGroup', this.formGroup);
+    }
 	
-	getPN(){
-		if (this.pn && this.pn!='') {
-			return "1" + this.pn.replace(/\D+/g, '').slice(0,10);
+	getPhone(): String {
+		if (this.formGroup.controls.phoneControl.value && this.formGroup.controls.phoneControl.value != '') {
+			return "1" + this.formGroup.controls.phoneControl.value.replace(/\D+/g, '').slice(0,10);
 		}
 		return '';
 	}
 
-	emitMobileChanged(evt) {
-        let isValid = this.pn.replace(/\D+/g, '').slice(0,10).length == 10;
- 		this.mobileValueChanged.emit({pn: this.getPN(), valid: isValid});
+	emitMobileValueChanged() {
+        //let isValid = this.formGroup.controls.phoneNumber.value.replace(/\D+/g, '').slice(0,10).length == 10;
+ 		this.mobileValueChanged.emit(this.getPhone());
 	}
-	
 }
