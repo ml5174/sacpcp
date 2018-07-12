@@ -76,6 +76,7 @@ import { AppPreferences } from '@ionic-native/app-preferences';
 import { MessageTargetList } from '../lib/components/message-target-list/message-target-list';
 import { OrganizationServices } from '../lib/service/organization';
 import { GroupAction } from '../modals/group-action/group-action';
+import { PhoneInputReactive } from '../lib/components/phone-input-reactive';
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
@@ -148,7 +149,8 @@ export function translateFactory(http: HttpClient) {
     MemberDataEntry,
     MemberPopOver,
     ErrorMessageSpan,
-    GroupAction
+    GroupAction,
+    PhoneInputReactive
   ],
   imports: [
     BrowserModule,

@@ -181,7 +181,7 @@ export class CreateGroupPage implements OnInit {
                 let email = (control['contactMethod'].value == 2) ?
                     control['contactString'].value : null;
                 let mobilenumber = (control['contactMethod'].value == 1) ?
-                    mde.preferredNumber.getPN() : null;
+                    mde.preferredNumber.getPhone() : null;
                 members.push({
                     first_name: control['firstName'].value,
                     last_name: control['lastName'].value,
