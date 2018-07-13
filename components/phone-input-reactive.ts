@@ -1,6 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import { Validators, FormBuilder, FormControl, FormGroup, FormGroupDirective } from '@angular/forms';
-import { mobilePhoneValidator } from '../validators/mobilephonevalidator';
+import { Validators, FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Component({
     selector: 'phone-input-reactive',
@@ -21,7 +20,7 @@ export class PhoneInputReactive implements OnInit {
         this.parentFormGroup.removeControl('phoneGroup');
         this.parentFormGroup.removeControl('contactString');
         this.formGroup = this.formBuilder.group({
-            phoneControl: [this.phone, [Validators.required]]
+            phoneControl: [this.phone, [Validators.required, Validators.pattern("\\([1-9]\\d\\d\\) \\d\\d\\d-\\d\\d\\d\\d")]]
 
         })
         this.parentFormGroup.addControl('phoneGroup', this.formGroup);
