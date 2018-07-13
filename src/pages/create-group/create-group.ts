@@ -177,11 +177,13 @@ export class CreateGroupPage implements OnInit {
             if (mde.formGroup.valid && mde.formGroup.controls['firstName'].value &&
                 mde.formGroup.controls['firstName'].value.length > 0) { 
                 console.log(mde);
+                let mobilenumber: string = null;
                 let control = mde.formGroup.controls;
                 let email = (control['contactMethod'].value == 2) ?
                     control['contactString'].value : null;
-                let mobilenumber = (control['contactMethod'].value == 1) ?
-                    mde.preferredNumber.getPN() : null;
+                if(control['contactMethod'].value == 1) {
+                    mobilenumber = "1" +  (control['phoneGroup'] as FormGroup).controls['phoneControl'].value.replace(/\D+/g, '').slice(0,10);
+                }
                 members.push({
                     first_name: control['firstName'].value,
                     last_name: control['lastName'].value,
