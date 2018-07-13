@@ -196,16 +196,16 @@ export class MyApp {
             text: 'OK',
             handler: () => {
               console.log('Okay clicked');
+              if (cordova && cordova.InAppBrowser) { 
+                cordova.InAppBrowser.open(DONATE_URL, '_system'); 
+              } else {
+                window.open(DONATE_URL, '_system'); 
+              }
             }
           }
         ]
       });
       okayToLeaveApp.present();   
-      if (cordova && cordova.InAppBrowser) { 
-        cordova.InAppBrowser.open(DONATE_URL, '_system'); 
-      } else {
-        window.open(DONATE_URL, '_system'); 
-      }
       window.open(DONATE_URL, '_system');
      }
      else {
