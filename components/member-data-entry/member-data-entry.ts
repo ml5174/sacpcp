@@ -13,7 +13,6 @@ export class MemberDataEntry implements OnInit, AfterViewInit {
     @Input() member: UserProfile;
     @Output() memberDeleted: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('preferredNumber') preferredNumber : PhoneInputReactive;
     //public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
     isActiveUser: boolean = false;
