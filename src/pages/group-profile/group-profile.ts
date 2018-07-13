@@ -251,20 +251,16 @@ export class GroupProfilePage implements OnInit {
  *   Function needed because the members in pending orgs are formatted differently than approved orgs
  * @param member 
  */
-    private formatMemberContact(member: any): string {
+    formatMemberContact(member: any): string {
         let retval: string = "Not Provided";
-        //console.log("formatMemberContact: " + JSON.stringify(member));
-        if(member.contact_method != null) {
+        if (member.contact_method != null) {
 
-            retval = member.contact_method + ": " + (member.contact_method === "Email" ? member.email : member.mobilenumber);
-           // console.log("retval1: " + retval);
-        }
-        else {
-            if(member.email !== null) {
+            if (member.email !== null) {
                 retval = "Email: " + member.email;
             }
             else {
-                retval = "Phone: " + member.mobilenumber;
+                let mobile = (member.mobilenumber as string); //assumes US phone w/11 digits which includes the 1 prefix
+                retval = "Phone: (" + mobile.slice(1, 4) + ") " + mobile.slice(4, 7) + "-" + mobile.slice(7, 11);
             }
         }
         return retval;
