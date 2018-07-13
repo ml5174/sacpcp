@@ -206,7 +206,6 @@ export class MyApp {
         ]
       });
       okayToLeaveApp.present();   
-      window.open(DONATE_URL, '_system');
      }
      else {
        window.open(DONATE_URL, '_system'); 
