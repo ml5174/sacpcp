@@ -1,20 +1,18 @@
-import { FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
-import { Component, ViewChild, Input, EventEmitter, Output } from '@angular/core';
-import { Contact } from '../../model/contact';
-import { mobileXorEmailValidator } from '../../validators/mobilexoremailvalidator';
+import { FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl, FormControl } from '@angular/forms';
+import { Component, ViewChild, Input, EventEmitter, Output, OnInit, AfterViewInit } from '@angular/core';
 import { UserProfile } from '../../model/user-profile';
-import { PhoneInput } from '../phone-input.component';
+import { PhoneInputReactive } from '../phone-input-reactive';
 
 @Component({
     selector: 'member-data-entry',
     templateUrl: 'member-data-entry.html'
 })
 
-export class MemberDataEntry {
+export class MemberDataEntry implements OnInit, AfterViewInit {
+
     @Input() member: UserProfile;
     @Output() memberDeleted: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('preferredNumber') preferredNumber : PhoneInput;
     //public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
     isActiveUser: boolean = false;
@@ -23,25 +21,45 @@ export class MemberDataEntry {
     constructor(private formBuilder: FormBuilder) { }
 
     ngOnInit() {
-        let role = (this.member.profile.role ? this.member.profile.role : 0);
-        this.formGroup = this.formBuilder.group( // set up the validation
+        let page = this;
+        let role = (page.member.profile.role ? page.member.profile.role : 0);
+        page.formGroup = page.formBuilder.group( // set up the validation
             {
-                lastName: [this.member.profile.last_name, [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
-                contactString: this.member.profile.contactmethod == 2 ? this.member.profile.email : this.member.profile.mobilenumber,
-                firstName: [this.member.profile.first_name, [Validators.required, Validators.maxLength(25)]],
-                contactMethod: this.member.profile.contactmethod, // covered by mobileXorEmailValidator below
+                lastName: [page.member.profile.last_name, [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
+                firstName: [page.member.profile.first_name, [Validators.required, Validators.maxLength(25)]],
+                contactMethod: [page.member.profile.contactmethod, Validators.required], 
                 isActive: ['1', Validators.required], //this is defaulted to 'Yes', and there is no way to 'unselect' (must be yes or no)
                 role: [role, Validators.required]
-            },
-            {
-                validator: mobileXorEmailValidator()
             }
         );
-        /*
-        if (this.preferredNumber.getPN()) {
-            this.myProfile.mobilenumber = this.preferredNumber.getPN();
+        if(page.member.profile.contactmethod == 2) {
+            page.initEmailControl();
         }
-        */
+        page.formGroup.controls.contactMethod.valueChanges.subscribe((val) => {
+              if(val == 2) {
+                  page.formGroup.removeControl('phoneGroup');
+                  page.initEmailControl();
+                }
+            });
+    }
+
+    initEmailControl() {
+        const contactString = new FormControl(this.member.profile.email, Validators.email);
+        this.formGroup.addControl('contactString', contactString);        
+    }
+    
+    ngAfterViewInit(): void {
+        //throw new Error("Method not implemented.");
+    }
+    setContactMethodValidation(contactmethod: number) {
+        let validator = null;
+        if(contactmethod == 1) {
+            validator = Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
+        }
+        else { //2 is the only other value
+            validator = Validators.compose([Validators.required, Validators.email]);
+        }
+        this.formGroup.controls.contactString.setValidators(validator);
     }
 
     isFormControlError(controlName: string, myFormGroup: FormGroup = this.formGroup): boolean {
