@@ -4,20 +4,20 @@
     </a>
 
     <ion-row>
-        <ion-col col-4>
+        <ion-col col-6 col-sm-4>
             <ion-label>
                 <error-message-span *ngIf="isFormControlError('firstName')" [errorText]="'Required. 2+ characters'">
                 </error-message-span>
                 First Name</ion-label>
             <ion-input type="text" formControlName="firstName"></ion-input>
         </ion-col>
-        <ion-col col-4>
+        <ion-col col-6 col-sm-4>
             <ion-label>
                 <error-message-span *ngIf="isFormControlError('lastName')" [errorText]="'Required. 2+ characters'">
                 </error-message-span>Last Name</ion-label>
             <ion-input type="text" formControlName="lastName"></ion-input>
         </ion-col>
-        <ion-col col-4>
+        <ion-col col-12 col-sm-4>
             <ion-label>Contact Method</ion-label>
             <ion-select formControlName="contactMethod"  interface="popover" placeholder="Choose One..." ngDefaultControl>
                 <ion-option value="2">Email</ion-option>
