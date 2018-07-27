@@ -190,7 +190,7 @@ export class MyApp {
        let okayToLeaveApp = this.alertCtrl.create({
         title: '',
         cssClass: 'alertReminder',
-        message: 'You about to leave the app and visit www.salvationarmydfw.org website with Safari. NOTE: The website has a separate login.',
+        message: 'You are about to leave the app and visit www.salvationarmydfw.org website with Safari. NOTE: The website has a separate login.',
         buttons: [
           {
             text: 'OK',
