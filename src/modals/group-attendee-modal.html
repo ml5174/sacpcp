@@ -41,18 +41,18 @@
             </ion-list-header>
             <ion-item>
                 <ion-label>Use Mobile</ion-label>
-                <ion-radio value="1"></ion-radio>
+                <ion-radio (click)="onPhoneSelect()" value="1"></ion-radio>
             </ion-item>
             <ion-item>
                 <ion-label>Use Email</ion-label>
-                <ion-radio value="2"></ion-radio>
+                <ion-radio (click)="onEmailSelect()" value="2"></ion-radio>
             </ion-item>
             <ion-item *ngIf="attendeeForm.value.contactMethod == 2">
                 <ion-label color="primary" stacked>email                    
                     <span *ngIf="displayFormControlError('contactString')" style="color: #CC1F2C;">
                         (<ion-icon name="alert" style="color: #CC1F2C;"></ion-icon>{{attendeeForm.controls['contactString'].errors | val_err_pipe}})
                     </span></ion-label>
-                <ion-input formControlName="contactString" placeholder="email@address.com"></ion-input>
+                <ion-input #email formControlName="contactString" value="{{oldEmail}}" placeholder="email@address.com"></ion-input>
             </ion-item>
             <ion-item *ngIf="attendeeForm.value.contactMethod == 1">
                 <ion-label color="primary" stacked>Mobile                    
@@ -60,7 +60,7 @@
                         (<ion-icon name="alert" style="color: #CC1F2C;"></ion-icon>{{attendeeForm.controls['contactString'].errors | val_err_pipe: 'mobile'}})
                     </span>
                 </ion-label>
-                <ion-input formControlName="contactString" placeholder="(123)456-0000"></ion-input>
+                <ion-input #phoneNumber formControlName="contactString" value="{{oldNumber}}" type="tel" placeholder="(123)456-0000"></ion-input>
             </ion-item>
         </ion-item-group>
     </ion-list>
