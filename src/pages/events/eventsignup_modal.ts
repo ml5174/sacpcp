@@ -5,6 +5,7 @@ import { NgModel } from '@angular/forms';
 import { OrganizationServices } from '../../lib/service/organization';
 import { AddAttendeesModal } from '../events/add-attendees/add-attendees-modal';
 import { ModalController } from 'ionic-angular';
+import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 import { SignupAssistant } from '../../lib/service/signupassistant';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 
@@ -169,7 +170,7 @@ export class EventSignupModal {
                     let confirm = this.alertCtrl.create({
                         title: '',
                         cssClass: 'alertReminder',
-                        message: 'YOU have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the About Me page?',
+                        message: 'YOU have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the My Profile page?',
                         buttons: [
                             {
                                 text: 'No',
@@ -180,7 +181,8 @@ export class EventSignupModal {
                             {
                                 text: 'Yes',
                                 handler: () => {
-
+                                    this.viewCtrl.dismiss();
+                                    this.appCtrl.getRootNav().push(RegisterIndividualProfilePage,{errorResponse:err});
                                 }
                             }
                         ]
