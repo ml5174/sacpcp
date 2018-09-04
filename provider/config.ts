@@ -15,7 +15,7 @@ export const GET_MYEVENTS_URI = '/api/v0.2/events/myevents/';
 export const EVENT_SIGNUP_URI = '/api/v0.2/events/myevents/';
 export const EVENT_CANCEL_URI = '/api/v0.2/admin/event/expanded/';
 export const GET_EVENT_IMAGE_URI = '/api/v0.2/events/eventimages/';
-export const CHANGE_PASSWORD_URI = '/rest-auth/password/change/';   
+export const CHANGE_PASSWORD_URI = '/rest-auth/password/change/';
 export const UPDATE_MY_PREFERENCES_URI = '/api/v0.2/salarmy/mypreferences/';
 export const DONATE_URL = 'http://www.salvationarmydfw.org/p/get-involved/437';
 export const GET_USERS_URI = '/api/v0.2/admin/userprofile';
@@ -44,6 +44,7 @@ export const APPROVE_ORGANIZATION_URI = '/api/v0.2/admin/orgrequests/';
 export const CHECK_MY_EVENTS_URI = '/api/v0.2/events/checkmyevents/';
 export const APPLE_MAP_QUERY = 'https://maps.apple.com/?address=';
 export const GOOGLE_MAP_QUERY = 'https://www.google.com/maps/search/?api=1&query=\'';
+export const RED_KETTLE_URL = 'http://www.registertoring.com';
 
 export var SERVER = window['djangoserver'];
 if (document.location.hostname === '198.199.86.127')
@@ -61,7 +62,7 @@ export const CONSTRAINTS = {
     LAST_NAME_PATTERN: "[a-z A-Z]*"
 
 };
-    
+
 
 export const STRINGS = {
         first_name: 'First Name',
