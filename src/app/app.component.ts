@@ -26,6 +26,7 @@ import { Groups } from '../pages/admin/groups/groups';
 import { ServerVersion } from '../providers/server-version';
 import { version } from '../../package.json';
 import { DONATE_URL } from '../lib/provider/config';
+import { RED_KETTLE_URL } from '../lib/provider/config';
 import { AppVersion } from '@ionic-native/app-version';
 import { SERVER } from '../lib/provider/config';
 import { GroupProfilePage } from '../pages/group-profile/group-profile';
@@ -42,7 +43,7 @@ declare var cordova;
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
- 
+
   key: any = { key: 'key' };
   errors: Array<string> = [];
   rootPage: any = HomePage;
@@ -55,7 +56,7 @@ export class MyApp {
   appBuildVersion: String = "";
   serverENV: string = "";
   serverVersionNumber: string = "";
- 
+
   appManager: any = {};
   public showAdmin: boolean;
   public showMyGroupsMenu: boolean;
@@ -77,27 +78,27 @@ export class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'Login', component: LoginPage },                                        // 0 
+      { title: 'Login', component: LoginPage },                                        // 0
       { title: 'Home', component: HomePage },                                          // 1
-      { title: 'Login Registration', component: RegisterLoginPage },                   // 2 
-      { title: 'Profile Registration', component: RegisterIndividualProfilePage },     // 3 
-      { title: 'Change Password', component: ChangePasswordPage },                     // 4 
-      { title: 'About', component: AboutPage },                                        // 5 
-      { title: 'Contact Us', component: ContactPage },                                 // 6 
-      { title: 'Privacy & Terms', component: TermsPage },                              // 7 
-      { title: 'Admin', component: Admin },                                            // 8 
+      { title: 'Login Registration', component: RegisterLoginPage },                   // 2
+      { title: 'Profile Registration', component: RegisterIndividualProfilePage },     // 3
+      { title: 'Change Password', component: ChangePasswordPage },                     // 4
+      { title: 'About', component: AboutPage },                                        // 5
+      { title: 'Contact Us', component: ContactPage },                                 // 6
+      { title: 'Privacy & Terms', component: TermsPage },                              // 7
+      { title: 'Admin', component: Admin },                                            // 8
       { title: 'My Groups', component: MyGroupsPage },                                 // 9
-      { title: 'Create Group', component: CreateGroupPage },                           // 10 
+      { title: 'Create Group', component: CreateGroupPage },                           // 10
       { title: 'Group Profile', component: GroupProfilePage }                          // 11
     ];
-   
-    // set our app's pages for Administrators, only with desktop ('core') platform browsers   
+
+    // set our app's pages for Administrators, only with desktop ('core') platform browsers
     this.adminPages = [
-      { title: 'Create Event', component: CreateEvent },                               // 0 
+      { title: 'Create Event', component: CreateEvent },                               // 0
       { title: 'Edit Event', component: EditEvent },                                   // 1
-      { title: 'Reports', component: Reports },                                        // 2 
-      { title: 'Contact Volunteers', component: ContactVolunteers },                   // 3 
-      { title: 'Groups', component: Groups }                                           // 4 
+      { title: 'Reports', component: Reports },                                        // 2
+      { title: 'Contact Volunteers', component: ContactVolunteers },                   // 3
+      { title: 'Groups', component: Groups }                                           // 4
     ];
 
   }
@@ -105,14 +106,14 @@ export class MyApp {
   initializeApp() {
     let us = this.userServices;
     this.detectOldIE();
-    
+
     this.storage.get('key')
       .then(
       value => {
         if (value) {
           us.setId(value);
           us.getMyProfile().subscribe(
-                                 result => result, 
+                                 result => result,
                                  err => {
                                      console.log(err);
                                  });
@@ -125,12 +126,12 @@ export class MyApp {
         console.log('username: ' + value);
         if (value) us.user.name = value;
       });
- 
+
     this.platform.ready().then(() => {
       if (this.platform.is('core')) console.log("running on desktop browser");
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      if (this.platform.is("ios") || this.platform.is("android")) {	
+      if (this.platform.is("ios") || this.platform.is("android")) {
 	      //StatusBar.show();
       	this.statusBar.overlaysWebView(false);
       	this.statusBar.styleDefault();
@@ -144,12 +145,12 @@ export class MyApp {
         this.config.set("scrollAssist", false);
         this.config.set("autoFocusAssist", false);
       }
-       
+
       this.getAndWriteVersionInfo();
       this.getServerEnv();
   });
 
-   
+
   }
 
   openPage(page, tab, asTsaAdmin: boolean = false) {
@@ -176,12 +177,19 @@ export class MyApp {
     this.userServices.user = new UserProfile();
     this.nav.setRoot(HomePage);
   }
-  donate() { 
-     if(this.platform.is('android')) { 
-       if (cordova && cordova.InAppBrowser) { 
-         cordova.InAppBrowser.open(DONATE_URL); 
+  donate(dest) {
+    let dest_url = '';
+    console.log(dest);
+  if(dest === 'donate'){
+    dest_url = DONATE_URL
+  }else{
+    dest_url = RED_KETTLE_URL
+  }
+     if(this.platform.is('android')) {
+       if (cordova && cordova.InAppBrowser) {
+         cordova.InAppBrowser.open(dest_url);
        } else {
-         window.open(DONATE_URL, '_blank'); 
+         window.open(dest_url, '_blank');
        }
      }
      else if(this.platform.is('ios')) {
@@ -196,19 +204,19 @@ export class MyApp {
             text: 'OK',
             handler: () => {
               console.log('Okay clicked');
-              if (cordova && cordova.InAppBrowser) { 
-                cordova.InAppBrowser.open(DONATE_URL, '_system'); 
+              if (cordova && cordova.InAppBrowser) {
+                cordova.InAppBrowser.open(dest_url, '_system');
               } else {
-                window.open(DONATE_URL, '_system'); 
+                window.open(dest_url, '_system');
               }
             }
           }
         ]
       });
-      okayToLeaveApp.present();   
+      okayToLeaveApp.present();
      }
      else {
-       window.open(DONATE_URL, '_system'); 
+       window.open(dest_url, '_system');
      }
   }
 
@@ -228,7 +236,7 @@ export class MyApp {
             return;
         }*/
         ev.preventDefault();
-        ev.stopPropagation(); 
+        ev.stopPropagation();
         this.open();
       };
     }
@@ -285,7 +293,7 @@ showMyGroups()
         this.appPkgName = pkg;
         if (this.platform.is('android')) console.log('Package Name: ' + this.appPkgName);
         else console.log('BundleID: ' + this.appPkgName);
-      })    
+      })
       this.appVersion.getVersionNumber().then((marketingVersion) => {
         this.appMarketingVersion = marketingVersion;
         this.storage.set('version', this.appMarketingVersion.toString()).then((resource) => {
@@ -297,7 +305,7 @@ showMyGroups()
         this.storage.set('build', this.appBuildVersion.toString()).then((resource) => {
           console.log('Build Version: ' + this.appBuildVersion);
         });
-      })   
+      })
     } else {
       this.storage.set('version', version).then((resource) => {
           console.log('version: ' + this.appMarketingVersion);
