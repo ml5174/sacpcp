@@ -52,6 +52,7 @@ export class EventSignupModal {
     }
 
     ionViewWillEnter() {
+      console.log(this.eventData);
         this.loadData();
         this.eventType = this.eventData.org_restriction != undefined ? this.eventData.org_restriction : this.eventData.eventexpanded.org_restriction;
     }
