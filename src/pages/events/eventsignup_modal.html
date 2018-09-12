@@ -1,7 +1,7 @@
 <ion-header>
     <!--
   <ion-navbar class="navbar-background" hideBackButton="true">
-   
+
   </ion-navbar> -->
     <ion-toolbar>
         <img class="imageIcon" height="65px" width="65px" src="assets/img/SAVE_logo.svg">
@@ -28,6 +28,37 @@
                     <ion-radio value="group" [disabled]="isGroupAdmin == false"></ion-radio>
                 </ion-item>
             </ion-col>
+        </ion-row>
+        <ion-item>
+            <p>Event Details:</p>
+        </ion-item>
+        <ion-row>
+          <ion-item>
+            <ion-icon *ngIf="eventData.eventexpanded.org_restriction == '0' || eventData.eventexpanded.org_restriction == '3'" item-start name="person"></ion-icon>
+            <ion-icon *ngIf="eventData.eventexpanded.org_restriction == '0' || eventData.eventexpanded.org_restriction == '1' || eventData.eventexpanded.org_restriction == '2' " item-start name="people"></ion-icon>
+            <p *ngIf="eventData.eventexpanded.org_restriction == '0'">Groups & Individuals</p>
+            <p *ngIf="eventData.eventexpanded.org_restriction == '1'">Groups Only</p>
+          </ion-item>
+          <ion-item>
+            <ion-icon item-start name="calendar"></ion-icon>
+            <!--p>{{eventData.start | parseTimeZone:"MMM DD"}} - {{eventData.end | parseTimeZone:"MMM DD"}} {{eventData.end | parseTimeZone:"YYYY"}}</p-->
+            <p><span>{{eventData.start | parseTime:"MMM DD"}}</span><span *ngIf="(eventData.start | parseTime:'DD') !== (eventData.end | parseTime:'DD')">-{{eventData.end | parseTime:"DD"}}</span><span>, {{eventData.end | parseTime:"YYYY"}}</span></p>
+            <!--p>{{eventData.start | parseTimeZone: 'h:mm A'}}-{{eventData.end | parseTimeZone: 'h:mm A'}} {{eventData.start | parseTimeZone:'z'}}</p-->
+            <p>{{eventData.start | parseTime: 'h:mm A'}}-{{eventData.end | parseTime: 'h:mm A'}}</p>
+          </ion-item>
+          <ion-item *ngIf="eventData.location_name">
+            <ion-icon item-start name="pin"></ion-icon>
+            <p>{{eventData.location_name}}</p>
+            <a href="{{mapQueryStart}}{{eventData.location_address1}},{{eventData.location_city}}, {{eventData.location_state}} {{eventData.location_zipcode}}{{mapQueryEnd}}">
+          <span *ngIf="eventData.location_address1">
+              <p>{{eventData.location_address1}}</p>
+                <span *ngIf="eventData.location_address2">
+                  <p>{{eventData.location_address2}}</p>
+                </span>
+                <p>{{eventData.location_city}}, {{eventData.location_state}} {{eventData.location_zipcode}}</p>
+              </span>
+            </a>
+          </ion-item>
         </ion-row>
     </ion-grid>
     <!-- <ion-grid *ngIf="showGroups">
