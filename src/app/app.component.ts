@@ -301,7 +301,7 @@ showMyGroups()
         });
       })
       this.appVersion.getVersionCode().then((buildVersion) => {
-        this.appBuildVersion = buildVersion;
+        this.appBuildVersion = String(buildVersion);
         this.storage.set('build', this.appBuildVersion.toString()).then((resource) => {
           console.log('Build Version: ' + this.appBuildVersion);
         });
