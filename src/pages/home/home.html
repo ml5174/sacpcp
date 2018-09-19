@@ -6,16 +6,13 @@
 </ion-header>
 
 <ion-content padding-left padding-right padding-top scroll="false">
-    <section id="home-body">
+    <section id="home-body" *ngIf="userServices.user.id; else home">
         <div>
             <ion-segment [(ngModel)]="selectedTab" padding-bottom>
-                <ion-segment-button value="home">
-                    Home
-                </ion-segment-button>
                 <ion-segment-button value="events">
                     Opportunities
                 </ion-segment-button>
-                <ion-segment-button value="myevents" [hidden]="!volunteerEventsService.myEvents.length > 0">
+                <ion-segment-button value="myevents">
                     My Events
                 </ion-segment-button>
             </ion-segment>
@@ -24,9 +21,6 @@
         <div [ngSwitch]="selectedTab">
             <div *ngSwitchCase="'events'">
                 <events></events>
-            </div>
-            <div *ngSwitchCase="'home'">
-                <home-tab></home-tab>
             </div>
             <div *ngSwitchCase="'myevents'">
                 <myevents></myevents>
@@ -39,4 +33,9 @@
 
         </div>
     </section>
+    <ng-template #home>
+        <section>
+            <home-tab></home-tab>
+        </section>
+    </ng-template>
 </ion-content>

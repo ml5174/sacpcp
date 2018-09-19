@@ -14,7 +14,7 @@ export class HomePage {
   @ViewChild(EventPage)
   public eventPage: EventPage;
 
-  selectedTab: string = "home";
+  selectedTab: string = "myevents";
   language: string = "en";
   subscription: Subscription;
   
@@ -35,9 +35,8 @@ export class HomePage {
     if (params.get('tab')) {
       console.log('tab: '+params.get('tab'));
       this.selectedTab=params.get('tab');
-    }                     
+    }           
   }
-
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
