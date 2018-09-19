@@ -1,6 +1,38 @@
-
+<ion-grid *ngIf='!eventCategory; else events'>
+    <ion-row>
+      <ion-col col-12 col-sm>
+          <button type="button" (click)="selectEvent('Field Service')">Field Service</button>
+          <span *ngIf='urgentCategories["Field Service"]'>Urgent</span>
+      </ion-col>
+      <ion-col col-12 col-sm>
+            <button type="button" (click)="selectEvent('Food Pantry')">Food Pantry</button>
+            <span *ngIf='urgentCategories["Food Pantry"]'>Urgent</span>
+      </ion-col>
+      <ion-col col-12 col-sm>
+            <button type="button" (click)="selectEvent('Child Care')">Child Care</button>
+            <span *ngIf='urgentCategories["Child Care"]'>Urgent</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 col-sm>
+            <button type="button" (click)="selectEvent('Practicum Service')">Practicum Service</button>
+            <span *ngIf='urgentCategories["Practicum Service"]'>Urgent</span>
+      </ion-col>
+      <ion-col col-12 col-sm>
+            <button type="button" (click)="selectEvent('Red Kettle')">Red Kettle</button>
+            <span *ngIf='urgentCategories["Red Kettle"]'>Urgent</span>
+      </ion-col>
+      <ion-col col-12 col-sm>
+            <button type="button" (click)="selectEvent('Clothing Warehouse')">Clothing Warehouse</button>
+            <span *ngIf='urgentCategories["Clothing Warehouse"]'>Urgent</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ng-template #events>
+        <events [category]='eventCategory'></events>
+  </ng-template>
+<!-- 
 <ion-slides #homeSlider class="homeslider" autoplay="3000" (ionSlideDidChange)="changeSlides($event)" pager>
-   <!-- [options]="homeSlideOptions" -->
     <ion-slide>
         <div class="slide"><img src="assets/img/Volunteers.jpg" /> </div>
     </ion-slide>
@@ -164,4 +196,4 @@
 </ion-card>
 
 <div class="clear"></div>
-<div class="clear dynamicPageSpacer"></div>
+<div class="clear dynamicPageSpacer"></div> -->
