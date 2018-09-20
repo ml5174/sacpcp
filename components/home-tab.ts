@@ -19,12 +19,21 @@ export class HomeTab {
   eventCategory: string;
   urgentCategories: object = {'Field Service':false, 'Food Pantry':false, 'Child Care':false,
                               'Practicum Service':false, 'Red Kettle':false, 'Clothing Warehouse':false};
+  newCategories: object = {'Field Service':false, 'Food Pantry':false, 'Child Care':false,
+  'Practicum Service':false, 'Red Kettle':false, 'Clothing Warehouse':false};
   constructor(
     public storage: Storage,
     private eventService: VolunteerEventsService
   ) {
-    // storage.get('lastOpened').then((time) => { 
-    // });
+    storage.get('lastOpened').then((time) => { 
+      eventService.getVolunteerEventsMinTime(currTime.toISOString()).subscribe(events => {
+        events.forEach(event => {
+          if(new Date(event.created) > new Date(time)) {
+            this.newCategories[event.title] = true;
+          }
+        })
+      });
+    });
     const nextWeek = new Date(Moment().add(8, 'days').toISOString());
     const currTime = new Date(Moment().add(1,'days').toISOString());
     eventService.getVolunteerEventsTimeRange(currTime.toISOString(), nextWeek.toISOString()).subscribe(events => {
@@ -34,7 +43,8 @@ export class HomeTab {
         }
       });
     });
-    // storage.set("lastOpened", new Date(Moment(Moment()).toISOString()));
+   
+    storage.set("lastOpened", new Date(Moment(Moment()).toISOString()));
   }
    switch_view(viewname){
    this.program = viewname;

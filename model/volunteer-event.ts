@@ -14,7 +14,8 @@ export class VolunteerEvent {
   location_zipcode: string;
   status: string;
   visibility: string;
-
+  eventexpanded: any;
+  created: string;
   //these four attributes only show up if admin call is made
   volunteercount: string;
   created_by_first_name: string = "";
