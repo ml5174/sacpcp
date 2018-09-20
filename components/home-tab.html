@@ -1,35 +1,54 @@
 <ion-grid *ngIf='!eventCategory; else events'>
-    <ion-row>
-      <ion-col col-12 col-sm>
-          <button type="button" (click)="selectEvent('Field Service')">Field Service</button>
-          <span *ngIf='urgentCategories["Field Service"]'>Urgent</span>
-          <span *ngIf='newCategories["Field Service"]'>New</span>
-
+    <ion-row class="home-row">
+      <ion-col col-12 col-sm class="block-tile-container" (click)="selectEvent('Field Service')">
+          <img src="assets/img/The_Salvation_Army.svg.png" class="block-image">
+          <!-- <span>Field Service</span> -->
+          <div class="urgent">
+            <span *ngIf='urgentCategories["Field Service"]'>Urgent</span>
+            <span *ngIf='newCategories["Field Service"]'>New</span>
+          </div>
       </ion-col>
-      <ion-col col-12 col-sm>
-            <button type="button" (click)="selectEvent('Food Pantry')">Food Pantry</button>
-            <span *ngIf='urgentCategories["Food Pantry"]'>Urgent</span>
-            <span *ngIf='newCategories["Food Pantry"]'>New</span>
-
+      <ion-col col-12 col-sm class="block-tile-container" (click)="selectEvent('Food Pantry')" >
+            <img src="assets/img/The_Salvation_Army.svg.png" class="block-image">
+            <!-- <span>Food Pantry</span> -->
+            <div class="urgent">
+                <span *ngIf='urgentCategories["Food Pantry"]'>Urgent</span>
+                <span *ngIf='newCategories["Food Pantry"]'>New</span>
+            </div>
       </ion-col>
-      <ion-col col-12 col-sm>
-            <button type="button" (click)="selectEvent('Child Care')">Child Care</button>
-            <span *ngIf='urgentCategories["Child Care"]'>Urgent</span>
-            <span *ngIf='newCategories["Child Care"]'>New</span>
+      <ion-col col-12 col-sm class="block-tile-container" (click)="selectEvent('Child Care')">
+            <img src="assets/img/The_Salvation_Army.svg.png" class="block-image">
+            <!-- <span>Child Care</span> -->
+            <div class="urgent">
+                <span *ngIf='urgentCategories["Child Care"]'>Urgent</span>
+                <span *ngIf='newCategories["Child Care"]'>New</span>
+            </div>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col col-12 col-sm>
-            <button type="button" (click)="selectEvent('Practicum Service')">Practicum Service</button>
-            <span *ngIf='newCategories["Practicum Service"]'>New</span>
+    <ion-row class="home-row">
+      <ion-col col-12 col-sm class="block-tile-container" (click)="selectEvent('Practicum Service')">
+            <img src="assets/img/The_Salvation_Army.svg.png" class="block-image">
+            <!-- <span>Practicum Service</span> -->
+            <div class="urgent">
+                <span *ngIf='urgentCategories["Practicum Service"]'>Urgent</span>
+                <span *ngIf='newCategories["Practicum Service"]'>New</span>
+            </div>
       </ion-col>
-      <ion-col col-12 col-sm>
-            <button type="button" (click)="selectEvent('Red Kettle')">Red Kettle</button>
-            <span *ngIf='newCategories["Red Kettle"]'>New</span>
+      <ion-col col-12 col-sm class="block-tile-container" (click)="selectEvent('Red Kettle')">
+            <img src="assets/img/The_Salvation_Army.svg.png" class="block-image">
+            <!-- <span >Red Kettle</span> -->
+            <div class="urgent">
+                <span *ngIf='urgentCategories["Red Kettle"]'>Urgent</span>
+                <span *ngIf='newCategories["Red Kettle"]'>New</span>
+            </div>
       </ion-col>
-      <ion-col col-12 col-sm>
-            <button type="button" (click)="selectEvent('Clothing Warehouse')">Clothing Warehouse</button>
-            <span *ngIf='newCategories["Clothing Warehouse"]'>New</span>
+      <ion-col col-12 col-sm class="block-tile-container" (click)="selectEvent('Clothing Warehouse')">
+            <img src="assets/img/The_Salvation_Army.svg.png" class="block-image">
+            <!-- <span>Clothing Warehouse</span> -->
+            <div class="urgent">
+                <span *ngIf='urgentCategories["Clothing Warehouse"]'>Urgent</span>
+                <span *ngIf='urgentCategories["Clothing Warehouse"]'>New</span>
+            </div>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -83,7 +102,7 @@
 
         <accordion-box accordionTitle="{{'Food Pantry' | translate}}" text-wrap>
             <div class="accordion-content">
-                <p>The Carr P. Collins Center distributes over 800 bags of groceries a month to community members in need. Households receive one bag per adult and additional bags for children based on family size. They are eligible to receive food pantry
+                <p>The Carr P. Collins Center distributes over 1000 bags of groceries a month to community members in need. Households receive one bag per adult and additional bags for children based on family size. They are eligible to receive food pantry
                     services once every 30 days.Volunteers fill large bags with an assortment of groceries for individuals to take home to their families in need.
                 </p>
             </div>

@@ -10,3 +10,24 @@
     opacity: 1;
     background: red;
   }
+  .block-tile-container {
+    box-shadow: 0 4px 8px 0 rgba(133, 70, 70, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  .home-row { 
+    margin-bottom: 15px;
+  }
+  .urgent {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: orange;
+  }
+  .block-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
