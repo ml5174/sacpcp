@@ -89,7 +89,8 @@ export class MyApp {
       { title: 'Admin', component: Admin },                                            // 8
       { title: 'My Groups', component: MyGroupsPage },                                 // 9
       { title: 'Create Group', component: CreateGroupPage },                           // 10
-      { title: 'Group Profile', component: GroupProfilePage }                          // 11
+      { title: 'Group Profile', component: GroupProfilePage },                         // 11
+
     ];
 
     // set our app's pages for Administrators, only with desktop ('core') platform browsers
