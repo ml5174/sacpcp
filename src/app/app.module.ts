@@ -28,6 +28,9 @@ import { MyEventsPage } from '../pages/myevents/myevents';
 import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
 import { MyGroupsPage } from '../pages/mygroups/mygroups';
+import { AboutUsPage } from '../pages/about-us/about-us';
+import { ServicesPage } from '../pages/services/services';
+import { ProgramsPage } from '../pages/programs/programs';
 import { CreateEvent } from '../pages/admin/create-event/create-event';
 import { EditEvent } from '../pages/admin/edit-event/edit-event';
 import { Reports } from '../pages/admin/reports/reports';
@@ -111,6 +114,9 @@ export function translateFactory(http: HttpClient) {
     RegisterLoginPage,
     RegisterIndividualProfilePage,
     MyGroupsPage,
+    AboutUsPage,
+    ServicesPage,
+    ProgramsPage,
     EditGroupAttendancePage,
     UseridPopover,
     PasswordPopover,
@@ -193,6 +199,9 @@ export function translateFactory(http: HttpClient) {
     RegisterLoginPage,
     RegisterIndividualProfilePage,
     MyGroupsPage,
+    AboutUsPage,
+    ServicesPage,
+    ProgramsPage,
     CreateGroupPage,
     GroupProfilePage,
     EditGroupAttendancePage,

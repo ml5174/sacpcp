@@ -3,11 +3,11 @@ import { AboutPage } from '../../pages/about/about';
 import { ContactPage } from '../../pages/contact/contact';
 
 @Component({
-  selector: 'home-tab',
-  templateUrl: 'home-tab.html'
+  selector: 'programs',
+  templateUrl: 'programs.html'
 })
 
-export class HomeTab { 
+export class ProgramsPage { 
 
   program: string = "selection";
   aboutPage = AboutPage;

@@ -8,6 +8,9 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterLoginPage } from '../pages/register-login/register-login';
 import { RegisterIndividualProfilePage } from '../pages/register-individual-profile/register-individual-profile';
 import { MyGroupsPage } from '../pages/mygroups/mygroups';
+import { AboutUsPage } from '../pages/about-us/about-us';
+import { ServicesPage } from '../pages/services/services';
+import { ProgramsPage } from '../pages/programs/programs';
 import { CreateGroupPage } from '../pages/create-group/create-group';
 import { UserProfile } from '../lib/model/user-profile';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
@@ -76,7 +79,7 @@ export class MyApp {
   ) {
     this.initializeApp();
 
-    // set our app's pages
+    // set About app's pages
     this.pages = [
       { title: 'Login', component: LoginPage },                                        // 0
       { title: 'Home', component: HomePage },                                          // 1
@@ -90,7 +93,9 @@ export class MyApp {
       { title: 'My Groups', component: MyGroupsPage },                                 // 9
       { title: 'Create Group', component: CreateGroupPage },                           // 10
       { title: 'Group Profile', component: GroupProfilePage },                         // 11
-
+      { title: 'AboutUs', component: AboutUsPage },                                    // 12
+      { title: 'Services', component: ServicesPage },                                  // 13
+      { title: 'Programs', component: ProgramsPage }                                   // 14
     ];
 
     // set our app's pages for Administrators, only with desktop ('core') platform browsers

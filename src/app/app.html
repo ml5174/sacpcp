@@ -16,13 +16,13 @@
             <button ion-item >
 				Carr P. Collins Center
 			</button>
-            <button ion-item class="sub_menu" (click)="openPage(pages[12], '')" >
+            <button ion-item class="sub_menu" (click)="openPage(pages[12], '')">
 				About Us
 			</button>
-			<button ion-item class="sub_menu">
+			<button ion-item class="sub_menu" (click)="openPage(pages[13], '')">
 				Services
 			</button>
-			<button ion-item class="sub_menu">
+			<button ion-item class="sub_menu" (click)="openPage(pages[14], '')">
 				Programs
 			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="openPage(pages[3], '')">
