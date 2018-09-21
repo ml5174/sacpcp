@@ -1,41 +1,63 @@
 <ion-header>
-    <app-header>
-        <button *ngIf="!userServices.user.id" ion-button small color="primary" (click)="login()">{{'Login' | translate}}</button>
-        <button *ngIf="userServices.user.id" ion-button small color="primary" (click)="logout()">{{'Logout' | translate}}</button>
-    </app-header>
+    <app-header></app-header>
 </ion-header>
-
 <ion-content padding-left padding-right padding-top scroll="false">
-    <section id="home-body" *ngIf="userServices.user.id; else home">
-        <div>
-            <ion-segment [(ngModel)]="selectedTab" padding-bottom>
-                <ion-segment-button value="events">
-                    Opportunities
-                </ion-segment-button>
-                <ion-segment-button value="myevents">
-                    My Events
-                </ion-segment-button>
-            </ion-segment>
-        </div>
-
-        <div [ngSwitch]="selectedTab">
-            <div *ngSwitchCase="'events'">
-                <events></events>
-            </div>
-            <div *ngSwitchCase="'myevents'">
-                <myevents></myevents>
-            </div>
-        </div>
-        <ion-infinite-scroll *ngIf="selectedTab=='events'" (ionInfinite)="doInfinite($event)">
-            <ion-infinite-scroll-content></ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-        <div style="min-height: 10vh !important;">
-
-        </div>
-    </section>
-    <ng-template #home>
-        <section>
-            <home-tab></home-tab>
-        </section>
-    </ng-template>
+    <ion-grid *ngIf='!eventCategory; else events'>
+            <ion-row class="home-row">
+                <ion-col  class="block-tile-container" (click)="selectEvent('Food Service')">
+                    <img src="assets/img/The_Salvation_Army.svg.png" class="block-image">
+                    Food Service
+                    <div class="icons">
+                    <ion-icon *ngIf='urgentCategories["Food Service"].length > 0' name="alert" class="urgent">Urgent</ion-icon>
+                    <ion-icon *ngIf='newCategories["Food Service"].length > 0' name="add-circle" class="new">New Events</ion-icon>
+                    </div>
+                </ion-col>
+                <ion-col  class="block-tile-container" (click)="selectEvent('Food Pantry')" >
+                    <img src="assets/img/The_Salvation_Army.svg.png" class="block-image">
+                    Food Pantry
+                    <div class="icons">
+                        <ion-icon *ngIf='urgentCategories["Food Pantry"].length > 0' name="alert" class="urgent">Urgent</ion-icon>
+                        <ion-icon *ngIf='newCategories["Food Pantry"].length > 0' name="add-circle" class="new">New Events</ion-icon>            
+                    </div>
+                </ion-col>
+                <ion-col  class="block-tile-container" (click)="selectEvent('Child Care')">
+                    <img src="assets/img/The_Salvation_Army.svg.png" class="block-image">
+                    Child Care
+                    <div class="icons">
+                            <ion-icon *ngIf='urgentCategories["Child Care"].length > 0' name="alert" class="urgent">Urgent</ion-icon> 
+                            <ion-icon *ngIf='newCategories["Child Care"].length > 0' name="add-circle" class="new">New Events</ion-icon>            
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row class="home-row">
+                <ion-col  class="block-tile-container" (click)="selectEvent('Practicum Service')">
+                    <img src="assets/img/The_Salvation_Army.svg.png" class="block-image">
+                    Practicum Service
+                    <div class="icons">
+                            <ion-icon *ngIf='urgentCategories["Practicum Service"].length > 0' name="alert" class="urgent">Urgent</ion-icon> 
+                            <ion-icon *ngIf='newCategories["Practicum Service"].length > 0' name="add-circle" class="new">New Events</ion-icon>                  
+                    </div>
+                </ion-col>
+                <ion-col  class="block-tile-container" (click)="selectEvent('Red Kettle')">
+                    <img src="assets/img/The_Salvation_Army.svg.png" class="block-image">
+                    Red Kettle
+                    <div class="icons">
+                            <ion-icon *ngIf='urgentCategories["Red Kettle"].length > 0' name="alert" class="urgent">Urgent</ion-icon> 
+                            <ion-icon *ngIf='newCategories["Red Kettle"].length > 0' name="add-circle" class="new">New Events</ion-icon>                        
+                    </div>
+                </ion-col>
+                <ion-col   class="block-tile-container" (click)="selectEvent('Clothing Warehouse')">
+                    <img src="assets/img/The_Salvation_Army.svg.png" class="block-image">
+                    <span></span>Clothing Warehouse
+                    <div class="icons">
+                            <ion-icon *ngIf='urgentCategories["Clothing Warehouse"].length > 0' name="alert" class="urgent">Urgent</ion-icon> 
+                            <ion-icon *ngIf='newCategories["Clothing Warehouse"].length > 0' name="add-circle" class="new">New Events</ion-icon>                              
+                    </div>
+                </ion-col>
+            </ion-row>
+            </ion-grid>
+            <ng-template #events>
+                <events [category] ='eventCategory' [urgentCategories] = 'urgentCategories'
+                [newCategories] = 'newCategories'></events>
+            </ng-template>            
 </ion-content>

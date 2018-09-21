@@ -438,4 +438,9 @@ ion-card-header {
         padding-bottom: env(safe-area-inset-bottom);
     }
 }
-
+.currentPage {
+    border-color: #cc1f2c;
+    opacity: 1;
+    border-bottom-style: solid;
+    box-sizing: border-box;
+}

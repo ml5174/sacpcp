@@ -57,7 +57,11 @@
                 <ion-list-header (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">
                     <!-- Highlight in blue event 3689 Food Panty -->
                     <h2 *ngIf="e.id == '3689'" style="color: blue; ">{{e.title}}</h2>
-                    <h2 *ngIf="e.id != '3689'">{{e.title}}</h2>
+                    <h2 *ngIf="e.id != '3689'">{{e.title}} </h2>
+                    <div class="notifications">
+                        <ion-icon *ngIf='urgentCategories && urgentCategories[e.title].includes(e.id)' name="alert" class="urgent">Urgent</ion-icon> 
+                        <ion-icon *ngIf='newCategories && newCategories[e.title].includes(e.id)' name="add-circle" class="new">New Events</ion-icon>                              
+                    </div>
                 </ion-list-header>
                 <ion-list no-lines>
                     <span *ngIf="showDetails[i]">
