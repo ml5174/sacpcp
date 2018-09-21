@@ -39,7 +39,8 @@ export class VolunteerEventsService {
         private userServices: UserServices) {
     }
     getEventCategories() {
-        return this.http.get(SERVER + EVENT_CATEGORIES_URI, this.getOptions())
+        //Uncomment when fixed in backend
+        return this.http.get(SERVER + EVENT_CATEGORIES_URI /*, this.getOptions()*/)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
