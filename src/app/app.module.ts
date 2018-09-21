@@ -39,7 +39,6 @@ import { Groups } from '../pages/admin/groups/groups';
 import { Message } from '../pages/admin/contact-volunteers/message'
 import { Admin } from '../pages/admin/admin';
 import { AppHeaderComponent } from '../lib/components/app-header.component';
-import { HomeTab } from '../lib/components/home-tab';
 import { PhoneInput } from '../lib/components/phone-input.component';
 import { AccordionBox } from '../lib/components/accordion-box';
 import { PrivacyTermsContent } from '../lib/components/privacy-terms-content';
@@ -113,7 +112,6 @@ export function translateFactory(http: HttpClient) {
     EventPage,
     MyEventsPage,
     AppHeaderComponent,
-    HomeTab,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
     MyGroupsPage,
