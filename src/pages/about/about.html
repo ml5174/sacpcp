@@ -1,53 +1,163 @@
 <ion-header>
-	<app-header back="true" title="About Us">
-	</app-header>
+	<app-header title="About Us" back="true"></app-header>
 </ion-header>
+<ion-content padding-left padding-right padding-top scroll="false">
+	<section>
+		<ion-slides #homeSlider class="homeslider" autoplay="3000" (ionSlideDidChange)="changeSlides($event)" pager>
+			<ion-slide>
+				<div class="slide"><img src="assets/img/Volunteers.jpg" /> </div>
+			</ion-slide>
+			<ion-slide>
+				<div class="slide"><img src="assets/img/Homeless.jpg" /></div>
+			</ion-slide>
+			<ion-slide>
+				<div class="slide"><img src="assets/img/Veterans.jpg" /></div>
+			</ion-slide>
+			<ion-slide>
+				<div class="slide"><img src="assets/img/gentleman.jpg" /> </div>
+			</ion-slide>
+			<ion-slide>
+				<div class="slide"><img src="assets/img/Building.jpg" /> </div>
+			</ion-slide>
+		</ion-slides>
 
-<ion-content>
+		<ion-card class="title-card flex-card">
+			<h2 style="text-align:center;margin-top:10px; margin-bottom: 0px;font-size:20px;font-weight:bold;">THE SALVATION ARMY</h2>
+			<p style="font-size:18px;text-align:center;margin-top:0px;margin-bottom:0px">Carr P. Collins Social Service Center</p>
+			<ion-card-content>
+				<ion-list>
+					<h3 style="font-weight:bold;text-align:center;margin-bottom:1px;">5,000 People Served</h3>
+					<h3 style="font-weight:bold;text-align:center;margin-top:0px;">8,000 Volunteers</h3>
+					<h3 style="font-weight:bold;text-align:center;margin-top:0px;">Annually</h3>
+					
+				</ion-list>
+				<p style="text-align:left;margin-top:10px;">From serving meals, sorting clothes, making sandwiches and much more, volunteers can find their niche at The Salvation Army. Located west of downtown Dallas, The Carr P. Collins Social Service Center is next to Parkland Hospital on Harry Hines
+					Boulevard. The 161,000 square foot center, which houses up to 600 people per night, is the largest multi-use facility in The Salvation Army world. Every year, thousands of people find the spiritual and practical help they need to change their
+					lives. Nowhere else in Dallas will people find so many resources under one roof.</p>
+			</ion-card-content>
+		</ion-card>
+		<ion-card class="flex-card">
+			<ion-card-header>Services</ion-card-header>
+			<ion-card-content>
+				<accordion-box accordionTitle="{{'Meals' | translate}}" text-wrap>
+					<div class="accordion-content">
+						<p>Between 1,200 and 1,500 meals are served to clients at this center each day. Sack lunches are provided for clients going to work or for other community members needing a meal. At Thanksgiving and Christmas, the center opens its doors to
+							the community, offering a holiday feast to those individuals and families who may not otherwise have the opportunity. Volunteers can help serve clients breakfast, lunch or dinner. This is an opportunity for volunteers to interact with clients.
+						</p>
+					</div>
+				</accordion-box>
 
-	<!--ion-toolbar secondary>
-		<ion-buttons begin>
-			<button ion-button icon-start (click)="back()">
-       <ion-icon name="ios-arrow-back"></ion-icon>
-        {{'About' | translate}}
-		</button>
-		</ion-buttons>
-	</ion-toolbar-->
+				<accordion-box accordionTitle="{{'Food Pantry' | translate}}" text-wrap>
+					<div class="accordion-content">
+						<p>The Carr P. Collins Center distributes over 1000 bags of groceries a month to community members in need. Households receive one bag per adult and additional bags for children based on family size. They are eligible to receive food pantry
+							services once every 30 days.Volunteers fill large bags with an assortment of groceries for individuals to take home to their families in need.
+						</p>
+					</div>
+				</accordion-box>
+				<accordion-box accordionTitle="{{'Clothing Warehouse' | translate}}" text-wrap>
+					<div class="accordion-content">
+						<p>The clothing warehouse provides shirts, pants, shoes and more to clients coming in with only the clothes on their back. While residing with us, clients look for jobs and are in need of work clothes. 
+							Thanks to our generous donors, clients can pick from an assortment of outfits at the Clothing Warehouse. Volunteers can help hang and organize incoming donations.
+						</p>
+					</div>
+				</accordion-box>
+				<accordion-box accordionTitle="{{'Worship Programs' | translate}}" text-wrap>
+					<div class="accordion-content">
+						<p>The Salvation Army is an evangelical part of the universal Christian church. Its message is based on the Bible. Its ministry is motivated by the love of God. Its mission is to preach the Gospel of Jesus Christ and to meet human needs in
+							His name without discrimination. The Carr P. Collins Center offers mainstream Christian teaching at Sunday School and worship services on Sunday, as well as Bible study and fellowship groups during the week.
+							Volunteers can assist with music and bible studies.
+						</p>
+					</div>
+				</accordion-box>
+				<accordion-box accordionTitle="{{'Life-Skills Classes' | translate}}" text-wrap>
+					<div class="accordion-content">
+						<p>Life-skills classes are an essential component of each of our programs and are designed to provide valuable education and information on the tools that will help our clients be successful as they move towards stability and independence.
+							Topics for life-skills classes include resume building, interview skills, health and nutrition, relapse prevention, coping skills and parenting.
+							Volunteers have the opportunity to visit with clients and teach them skills that will help them successfully transition to independence.
+						</p>
+					</div>
+				</accordion-box>
+				<accordion-box accordionTitle="{{'Offsite Volunteer Oportunities' | translate}}" text-wrap>
+					<div class="accordion-content">
+						<p>If you’re looking for a way to give back to those in need but don’t have time to visit The Salvation Army facility, Offsite Volunteer Opportunities are a good place to begin. There are several opportunities available for you or a group. 
+							The HUGS program provides new Hats, Underwear, Gloves and Socks to our city’s struggling population. Or you can help create Care Kits. These include toiletry kits, first aid kits, home starter kits and back-to-school backpacks filled with school supplies. 
+							There’s also an opportunity to make sandwiches and sack lunches. Each day we give out about 350 sack lunches to individuals needing food. You can also help by writing an encouraging word or saying on the sacks to uplift someone’s spirit. 
+							Volunteers can do any of these projects themselves or with a group when their schedule allows.
+						</p>
+					</div>
+				</accordion-box>
+			</ion-card-content>
+		</ion-card>
+		<ion-card class="flex-card">
+			<ion-card-header>Programs</ion-card-header>
+			<ion-card-content>
+				<accordion-box accordionTitle="{{'Substance Abuse Treatment Program' | translate}}" text-wrap>
+					<div class="accordion-content">
+						<p>The Substance Abuse Treatment Program serves adult men and women who are battling addiction and who are on probation or parole for a felony crime related to their addiction. With 255 beds, this is the largest treatment program in North
+							Texas working with the Texas Department of Criminal Justice. The goal of the 90-day program is to provide clients with the tools to strengthen themselves against the stronghold of drug and alcohol addiction so they may live stable
+							and substance free lives.Individuals wishing to complete their LCDC Internships and Practicum can serve the clients in this program.
+						</p>
+					</div>
+				</accordion-box>
 
-	<section id="tab-content" padding style="text-align: left !important;">
-		<p>
-			The Salvation Army - DFW Application was developed by AT&amp;T in association with The Salvation Army – DFW. 
-		</p>
-		<p>
-			THIS APPLICATION IS PROVIDED 'AS IS' AND ANY EXPRESSED OR IMPLIED REPRESENTATIONS OR WARRANTIES, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY
-			AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-		</p>
-		<p>
-				This Application is provided as a free service to The Salvation Army
-			- DFW. It is intended to be useful in helping volunteers view events. It provides current event view and search capabilities
-			and informational links. Content and information provided by way of the Application are not intended as an endorsement
-			or sponsorship by AT&amp;T of 'The Salvation Army - DFW', its programs or services, and AT&amp;T does not warrant the accuracy
-			or the completeness of the content or information or the reliability of any advice, opinion, statement or other information
-			as displayed or distributed through the Application.
-		</p>
+				<accordion-box accordionTitle="{{'Veterans Programs' | translate}}" text-wrap>
+					<div class="accordion-content">
+						<p>The Carr P. Collins Center offers temporary housing and supportive services for male and female veterans experiencing homelessness. Veterans who are other than dishonorably discharged are screened and referred for placement by the Veteran's
+							Administration. The program can serve 110 veterans at a given time, and they can stay for up to 2 years. The overall goal is to provide a safe stable residential environment that meets their basic needs, while assisting the veterans
+							to achieve self-sufficiency.Individuals wishing to complete their Social Work Internships and Practicum can serve the clients in this program.
+						</p>
+					</div>
+				</accordion-box>
 
-		<p>ABOUT - TSA-CPC DFW</p>
 
-		<p>MISSION </p>
-		<p>The Salvation Army, an international movement, is an evangelical part of the universal Christian Church. Its message is based on the Bible. Its ministry is motivated by the love of God. Its mission is to preach the Gospel of Jesus Christ and to meet human needs in His name without discrimination.</p>
-		<p>HISTORY </p>
-		<p>William Booth embarked upon his ministerial career in 1852. His crusade was to win the lost multitudes of London to Christ. He went into the streets of London to preach the gospel of Jesus Christ to the poor, the homeless, the hungry and the destitute. Booth abandoned the conventional concept of a church and a pulpit and took his message to the people. His wife, Catherine, was a major force in The Salvation Army movement.</p>
-		<p>In 1865, William Booth was invited to hold a series of evangelistic meetings in the east end of London. Thieves, prostitutes, gamblers and drunkards were among Booth’s first converts to Christianity. His congregations were desperately poor. He preached hope and salvation. His aim was to lead them to Christ and to link them to a church for further spiritual guidance. Even though they were converted, churches did not accept Booth’s followers because of what they had been. Booth gave their lives direction in a spiritual manner and put them to work to save others who were like themselves. They too preached and sang in the streets as a living testimony to the power of God.</p>
-		<p>In 1867, Booth had only 10 full-time workers. By 1874, the numbers had grown to 1,000 volunteers and 42 evangelists. They served under the name “The Christian Mission.” Booth assumed the title of a General Superintendent. His followers called him “General.” Known as the “Hallelujah Army,” the converts spread out of the east end of London into neighboring areas and then to other cities.</p>
-		<p>Booth was reading a printer’s proof of the 1878 Annual Report when he noticed the statement, “The Christian Mission under the Superintendent of the Rev. William Booth is a volunteer army.” He crossed out the words “Volunteer Army” and penned in “Salvation Army.”  From those words came the basis of The Salvation Army.</p>
-		<p>Today, The Salvation Army is present in over 120 countries, preaching the gospel and providing social services to those in need.</p>
-		
-		<div class="sal-att-logo-container">
-			<button id="collabBtn" (click)="this.openAppInfo()"> 
-				<img id="collabImg" src="assets/img/collaboration.svg"/>
-			</button>
-		</div>
+				<accordion-box accordionTitle="{{'Emergency Shelter' | translate}}" text-wrap>
+					<div class="accordion-content">
+						<p>The Carr P. Collins Center's emergency shelter provides men, women, and women with children who are experiencing homelessness a safe refuge from the streets with sleeping accommodations, two hot meals a day, showers, clothes, and use of
+							laundry facilities. Through the emergency shelter, clients have access to longer term programming and additional services that address immediate barriers to stability.Volunteers can donate toiletry kits for shelter clients.
+							Individuals wishing to complete their Social Work Internships and Practicum can serve the clients in this program.
+						</p>
+					</div>
+				</accordion-box>
+
+				<accordion-box accordionTitle="{{'Transitional Shelter' | translate}}" text-wrap>
+					<div class="accordion-content">
+						<p>Thrive and Step-up transitional shelter programs serve men, women, and women with children who are experiencing homelessness. The Thrive program addresses the needs of those already working or work-ready. The Step-up Program addresses
+							the needs of those who are disabled due to mental illness, medical conditions, and/or substance abuse. The goals are to address barriers to stability, assist clients to successfully transition to permanent housing, and provide clients
+							the tools and resources so they can demonstrate housing stability six months after placement.Volunteers can donate home starter kits for those leaving the shelter for permanent housing. 
+							Individuals wishing to complete their Social Work Internships and Practicum can serve the clients in this program.
+						</p>
+					</div>
+				</accordion-box>
+
+				<accordion-box accordionTitle="{{'Domestic Violence Program (Confidential Location)' | translate}}" text-wrap>
+					<div class="accordion-content">
+						<p>The Domestic Violence Program offers safe shelter in a confidential location for battered women and their children. The program utilizes a trauma informed approach to service delivery, which includes safety planning, children's programming,
+							individual and group therapy, legal advocacy, and case management.Volunteers can donate comfort kits for the clients in this program.
+						</p>
+					</div>
+				</accordion-box>
+
+				<accordion-box accordionTitle="{{'Home Sweet Home' | translate}}" text-wrap>
+					<div class="accordion-content">
+						<p>The Home Sweet Home Program uses a combination of classroom and one-on-one client centered financial education coupled with limited direct financial assistance in order to prevent homelessness and support residential stability for at-risk
+							households. The goal is that through financial education, clients are empowered with the knowledge to effectively manage their finances to achieve and maintain residential stability.Individuals wishing to complete their Social Work Internships and Practicum can serve the clients in this program.
+							Volunteers can donate “Birthdays in a Bag” for the children in this program.
+						</p>
+					</div>
+				</accordion-box>
+
+				<accordion-box accordionTitle="{{'Summer Heat Relief - Cooling Station' | translate}}" text-wrap>
+					<div class="accordion-content">
+						<p>Extreme heat can be life-threatening. During the summer months, we provide an air-conditioned sitting area and water to keep people hydrated.
+							When temperatures rise above 90 degrees, volunteers can donate summer survival kits to be given out in our Cooling Station.
+						</p>
+					</div>
+
+				</accordion-box>
+
+			</ion-card-content>
+		</ion-card>
+		<br>
+		<br>
 	</section>
-<div style="min-height: 10vh !important;"></div>
-
 </ion-content>

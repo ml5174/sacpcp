@@ -32,6 +32,8 @@ import { OrganizationServices } from '../../lib/service/organization';
 
 export class EventPage {
   @Input() category: string;
+  @Input() newCategories: string;
+  @Input() urgentCategories: string;
   public infiniteScroll: InfiniteScroll;
   private oppType;
   public loadingOverlay;
@@ -108,7 +110,16 @@ export class EventPage {
     this.currentEndDate = this.selectedEndDate.slice();
     // this.loadEvents();
     this.volunteerEventsService.getEventCategories().subscribe(
-      data => this.eventCategories = data,
+      data => {
+        this.eventCategories = data;
+        if(this.category){
+          data.forEach(cat => {
+            if(cat.name == this.category){
+              this.oppType = cat.id;
+            }
+          });
+        }
+      },
       error => this.getPreferencesError = true
     );
     // get preferences
@@ -487,11 +498,7 @@ export class EventPage {
     this.volunteerEventsService
       .getVolunteerEventsTimeRange(minTime, maxTime).subscribe(
       events => {
-        if(this.category){
-          this.events = events.filter(event=> event.title = this.category);
-        } else {
           this.events = events;
-        }
       }, err => {
         this.hideLoading();
         console.log(err);

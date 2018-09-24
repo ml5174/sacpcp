@@ -17,10 +17,13 @@ import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { ConfirmEmailPage } from '../pages/confirm-email/confirm-email';
 import { ConfirmSMSPage } from '../pages/confirm-sms/confirm-sms';
 import { HomePage } from '../pages/home/home';
+import { MyhomePage } from '../pages/myhome/myhome';
 import { DonatePage } from '../pages/donate/donate';
 import { ForgotPage } from '../pages/forgot/forgot';
 import { LoginPage } from '../pages/login/login';
-import { AboutPage } from '../pages/about/about';
+import { HistoryPage } from '../pages/history/history';
+import { ProgramsPage } from '../pages/programs/programs';
+import { ServicesPage } from '../pages/services/services';
 import { AppInfoPage } from '../pages/app-info/app-info';
 import { ContactPage } from '../pages/contact/contact';
 import { EventPage } from '../pages/events/events';
@@ -36,7 +39,6 @@ import { Groups } from '../pages/admin/groups/groups';
 import { Message } from '../pages/admin/contact-volunteers/message'
 import { Admin } from '../pages/admin/admin';
 import { AppHeaderComponent } from '../lib/components/app-header.component';
-import { HomeTab } from '../lib/components/home-tab';
 import { PhoneInput } from '../lib/components/phone-input.component';
 import { AccordionBox } from '../lib/components/accordion-box';
 import { PrivacyTermsContent } from '../lib/components/privacy-terms-content';
@@ -96,10 +98,13 @@ export function translateFactory(http: HttpClient) {
     ConfirmSMSPage,
     ChangePasswordPage,
     HomePage,
+    MyhomePage,
     DonatePage,
     ForgotPage,
     LoginPage,
-    AboutPage,
+    HistoryPage,
+    ProgramsPage,
+    ServicesPage,
     AppInfoPage,
     ContactPage,
     CreateGroupPage,
@@ -107,7 +112,6 @@ export function translateFactory(http: HttpClient) {
     EventPage,
     MyEventsPage,
     AppHeaderComponent,
-    HomeTab,
     RegisterLoginPage,
     RegisterIndividualProfilePage,
     MyGroupsPage,
@@ -184,10 +188,13 @@ export function translateFactory(http: HttpClient) {
     ParentVerifyModal,
     PrivacyTermsModal,
     HomePage,
+    MyhomePage,
     DonatePage,
     ForgotPage,
     LoginPage,
-    AboutPage,
+    HistoryPage,
+    ProgramsPage,
+    ServicesPage,
     AppInfoPage,
     ContactPage,
     RegisterLoginPage,
