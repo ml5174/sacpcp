@@ -247,7 +247,6 @@ export class MyApp {
     }
       window.open(url, '_system'); 
     }
-  }
 
   private detectOldIE() {
 
