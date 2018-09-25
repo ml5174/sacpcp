@@ -2,6 +2,7 @@
   .block-tile-container {
     box-shadow: 0 4px 8px 0 rgba(133, 70, 70, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
     margin-left: 5px;
+    border-radius: 25px;
     margin-right: 5px;
   }
   .home-row { 
@@ -11,6 +12,7 @@
     position: absolute;
     top: 0px;
     right: 0px;
+    font-size: 10px ;
   }
   .urgent {
     color: red;

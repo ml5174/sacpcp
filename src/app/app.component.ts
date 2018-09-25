@@ -224,7 +224,6 @@ export class MyApp {
       }
     }
     else if(this.platform.is('ios')) {
-      // don't launch in-app browser, instead open Safari and alert customer about leaving the app
       console.log("opening Safari on web site");
       let okayToLeaveApp = this.alertCtrl.create({
        title: '',
@@ -246,7 +245,6 @@ export class MyApp {
      });
      okayToLeaveApp.present();   
     }
-    else {
       window.open(url, '_system'); 
     }
   }
