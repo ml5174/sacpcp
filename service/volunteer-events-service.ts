@@ -39,7 +39,8 @@ export class VolunteerEventsService {
         private userServices: UserServices) {
     }
     getEventCategories() {
-        return this.http.get(SERVER + EVENT_CATEGORIES_URI, this.getOptions())
+        //Uncomment when fixed in backend
+        return this.http.get(SERVER + EVENT_CATEGORIES_URI /*, this.getOptions()*/)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
@@ -84,7 +85,7 @@ export class VolunteerEventsService {
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
-    getVolunteerEventsTimeRange(minTime: Date, maxTime: Date): Observable<VolunteerEvent[]> {
+    getVolunteerEventsTimeRange(minTime: string, maxTime: string): Observable<VolunteerEvent[]> {
         return this.http.get(SERVER + GET_EVENTS_URI + "?timeMin=" + minTime + "&timeMax=" + maxTime)
             .map(res => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
