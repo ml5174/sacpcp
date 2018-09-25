@@ -5,14 +5,14 @@
 </style>
 <ion-menu [content]="content" persistent="true" side="right">
 
-	
+
 		<div class="menutop">
 		<button ion-button color="primary" clear *ngIf="userServices.user.id"  (click)="openPage(pages[3], '')">
 				{{userServices.user.name}}
 		</button>
 		<span class="menuspan">Menu</span>
 		</div>
-	
+
 	<ion-content style="margin-top: 50px;" >
 		<ion-list id="right-menu-items" >
 
@@ -44,7 +44,9 @@
 			<button ion-item (click)="openPage(pages[14], 'events')">
 				Opportunities
 			</button>
-
+			<button ion-item (click)="redKettle()">
+				Register to Ring
+			</button>
 			<button ion-item (click)="openPage(pages[6], '')">
 				Contact Us
 			</button>
@@ -54,11 +56,11 @@
 			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[2], '')">
 				Register
 			</button>
-                        <button ion-item (click)="donate()">
+                        <button ion-item (click)="donate('donate')">
 				Donate
-                        </button> 
+                        </button>
 			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')">
-				Login 
+				Login
 			</button>
 			<button ion-item *ngIf="userServices.user.id && userServices.user.profile.accounttype == 'A' && platform.is('core')" (click)="showAdmin1()">
 				Admin
@@ -79,7 +81,7 @@
 				<span class="sub_menu">Groups</span>
 			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="logout()">
-				Logout 
+				Logout
 			</button>
 		</ion-list>
 	</ion-content>

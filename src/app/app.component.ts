@@ -46,7 +46,7 @@ declare var cordova;
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
- 
+
   key: any = { key: 'key' };
   errors: Array<string> = [];
   rootPage: any;
@@ -60,6 +60,7 @@ export class MyApp {
   appBuildVersion: String = "";
   serverENV: string = "";
   serverVersionNumber: string = "";
+
   appManager: any = {};
   public showAdmin: boolean;
   public showMyGroupsMenu: boolean;
@@ -82,7 +83,7 @@ export class MyApp {
     // set our app's pages
 
     this.pages = [
-      { title: 'Login', component: LoginPage },                                        // 0 
+      { title: 'Login', component: LoginPage },                                        // 0
       { title: 'Home', component: HomePage },                                          // 1
       { title: 'Login Registration', component: RegisterLoginPage },                   // 2 
       { title: 'Profile Registration', component: RegisterIndividualProfilePage },     // 3 
@@ -99,14 +100,14 @@ export class MyApp {
       { title: 'My Home', component: MyhomePage }                                      // 14
 
     ];
-   
-    // set our app's pages for Administrators, only with desktop ('core') platform browsers   
+
+    // set our app's pages for Administrators, only with desktop ('core') platform browsers
     this.adminPages = [
-      { title: 'Create Event', component: CreateEvent },                               // 0 
+      { title: 'Create Event', component: CreateEvent },                               // 0
       { title: 'Edit Event', component: EditEvent },                                   // 1
-      { title: 'Reports', component: Reports },                                        // 2 
-      { title: 'Contact Volunteers', component: ContactVolunteers },                   // 3 
-      { title: 'Groups', component: Groups }                                           // 4 
+      { title: 'Reports', component: Reports },                                        // 2
+      { title: 'Contact Volunteers', component: ContactVolunteers },                   // 3
+      { title: 'Groups', component: Groups }                                           // 4
     ];
 
   }
@@ -117,13 +118,14 @@ export class MyApp {
     us.userIdChange.subscribe((value) => {
       this.setRoot();
     });
+
     this.storage.get('key')
       .then(
       value => {
         if (value) {
           us.setId(value);
           us.getMyProfile().subscribe(
-                                 result => result, 
+                                 result => result,
                                  err => {
                                      console.log(err);
                                  });
@@ -135,12 +137,12 @@ export class MyApp {
         console.log('username: ' + value);
         if (value) us.user.name = value;
       });
- 
+
     this.platform.ready().then(() => {
       if (this.platform.is('core')) console.log("running on desktop browser");
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      if (this.platform.is("ios") || this.platform.is("android")) {	
+      if (this.platform.is("ios") || this.platform.is("android")) {
 	      //StatusBar.show();
       	this.statusBar.overlaysWebView(false);
       	this.statusBar.styleDefault();
@@ -154,12 +156,12 @@ export class MyApp {
         this.config.set("scrollAssist", false);
         this.config.set("autoFocusAssist", false);
       }
-       
+
       this.getAndWriteVersionInfo();
       this.getServerEnv();
   });
 
-   
+
   }
   setRoot(){
     if(this.userServices.user.id){
@@ -248,6 +250,47 @@ export class MyApp {
     else {
       window.open(url, '_system'); 
     }
+  donate(dest) {
+    let dest_url = '';
+    console.log(dest);
+  if(dest === 'donate'){
+    dest_url = DONATE_URL
+  }else{
+    dest_url = RED_KETTLE_URL
+  }
+     if(this.platform.is('android')) {
+       if (cordova && cordova.InAppBrowser) {
+         cordova.InAppBrowser.open(dest_url);
+       } else {
+         window.open(dest_url, '_blank');
+       }
+     }
+     else if(this.platform.is('ios')) {
+       // don't launch in-app browser, instead open Safari and alert customer about leaving the app
+       console.log("opening Safari on web site");
+       let okayToLeaveApp = this.alertCtrl.create({
+        title: '',
+        cssClass: 'alertReminder',
+        message: 'You are about to leave the app and visit www.salvationarmydfw.org website with Safari. NOTE: The website has a separate login.',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              console.log('Okay clicked');
+              if (cordova && cordova.InAppBrowser) {
+                cordova.InAppBrowser.open(dest_url, '_system');
+              } else {
+                window.open(dest_url, '_system');
+              }
+            }
+          }
+        ]
+      });
+      okayToLeaveApp.present();
+     }
+     else {
+       window.open(dest_url, '_system');
+     }
   }
 
   private detectOldIE() {
@@ -266,7 +309,7 @@ export class MyApp {
             return;
         }*/
         ev.preventDefault();
-        ev.stopPropagation(); 
+        ev.stopPropagation();
         this.open();
       };
     }
@@ -326,7 +369,7 @@ showCenterOptions(){
         this.appPkgName = pkg;
         if (this.platform.is('android')) console.log('Package Name: ' + this.appPkgName);
         else console.log('BundleID: ' + this.appPkgName);
-      })    
+      })
       this.appVersion.getVersionNumber().then((marketingVersion) => {
         this.appMarketingVersion = marketingVersion;
         this.storage.set('version', this.appMarketingVersion.toString()).then((resource) => {
@@ -334,16 +377,16 @@ showCenterOptions(){
         });
       })
       this.appVersion.getVersionCode().then((buildVersion) => {
-        this.appBuildVersion = buildVersion;
+        this.appBuildVersion = String(buildVersion);
         this.storage.set('build', this.appBuildVersion.toString()).then((resource) => {
           console.log('Build Version: ' + this.appBuildVersion);
         });
-      })   
+      })
     } else {
       this.storage.set('version', version).then((resource) => {
           console.log('version: ' + this.appMarketingVersion);
         });
-      let buildNumberNonMobileFE = "1807101616";
+      let buildNumberNonMobileFE = "_build_number_";
       this.storage.set('build', buildNumberNonMobileFE).then((resource) => {
          console.log('build: ' + buildNumberNonMobileFE);
         });
