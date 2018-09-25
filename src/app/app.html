@@ -94,7 +94,7 @@
             <button ion-item (click)="donate('donate')">
 				Donate
             </button>
-			<button ion-item *ngIf="userServices.user.id" (click)="openPage(pages[1], 'myevents')">
+			<button ion-item *ngIf="userServices.user.id && volunteerEvents.myEvents.length > 0" (click)="openPage(pages[1], 'myevents')">
 				My Activities 
 			</button>
 			<button ion-item (click)="openPage(pages[5], '')">
