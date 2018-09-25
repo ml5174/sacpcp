@@ -60,7 +60,18 @@ img.main {
 .date-picker-input {
     border: none;
 }
-
+.notifications {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 10px;
+}
+.urgent {
+    color: red;
+}
+.new {
+    color:  orange
+}
 // #date-picker-container {
 //     display: flex;
 //     flex-direction: row;

@@ -1,0 +1,31 @@
+<ion-header>
+    <app-header></app-header>
+</ion-header>
+<ion-content padding-left padding-right padding-top scroll="false">
+    <section>
+        <div>
+            <ion-segment [(ngModel)]="selectedTab" padding-bottom>
+                <ion-segment-button value="events">
+                    Opportunities
+                </ion-segment-button>
+                <ion-segment-button value="myevents" [hidden]="volunteerEventsService.myEvents.length == 0">
+                    My Events
+                </ion-segment-button>
+            </ion-segment>
+        </div>
+
+        <div [ngSwitch]="selectedTab">
+            <div *ngSwitchCase="'events'">
+                <events></events>
+            </div>
+            <div *ngSwitchCase="'myevents'">
+                <myevents></myevents>
+            </div>
+        </div>
+        <ion-infinite-scroll *ngIf="selectedTab=='events'" (ionInfinite)="doInfinite($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+        <div style="min-height: 10vh !important;">
+        </div>
+    </section>
+</ion-content>

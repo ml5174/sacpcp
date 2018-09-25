@@ -1,72 +1,49 @@
 import {Component, ViewChild} from '@angular/core';
-import { Subscription } from 'rxjs/Rx';
-import {NavController, Nav, NavParams} from 'ionic-angular';
-import {VolunteerEventsService} from '../../lib/service/volunteer-events-service';
-import {LoginPage} from '../login/login';
-import {EventPage} from '../events/events';
-import {TranslateService} from '@ngx-translate/core';
-import { UserServices } from '../../lib/service/user';
+import { Storage } from '@ionic/storage';
+import { AboutPage } from '../../pages/about/about';
+import { ContactPage } from '../../pages/contact/contact';
+import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
+import Moment from "moment";
 
 @Component({
   templateUrl: 'home.html'
 })
 export class HomePage {
-  @ViewChild(EventPage)
-  public eventPage: EventPage;
-
-  selectedTab: string = "home";
-  language: string = "en";
-  subscription: Subscription;
-  
-  constructor(public navCtrl: NavController,
-              public nav: Nav, 
-              public params: NavParams, 
-              public volunteerEventsService: VolunteerEventsService,
-              public translate: TranslateService,
-              public userServices: UserServices
-  ) { 
-    this.userServices = userServices;
-    this.subscription = this.userServices.userIdChange.subscribe(
-                    (value) => {
-                                this.volunteerEventsService.loadMyEvents();
-                               },
-                               err => console.log(err) 
-                         );
-    if (params.get('tab')) {
-      console.log('tab: '+params.get('tab'));
-      this.selectedTab=params.get('tab');
-    }                     
+  program: string = "selection";
+  aboutPage = AboutPage;
+  contactPage = ContactPage
+  eventCategory: string;
+  urgentCategories: object = {'Food Service':[], 'Food Pantry':[], 'Child Care':[],
+                              'Practicum Service':[], 'Red Kettle':[], 'Clothing Warehouse':[]};
+  newCategories: object = {'Food Service':[], 'Food Pantry':[], 'Child Care':[],
+  'Practicum Service':[], 'Red Kettle':[], 'Clothing Warehouse':[]};
+  constructor(
+    public storage: Storage,
+    private eventService: VolunteerEventsService
+  ) {
+    storage.get('lastOpened').then((time) => { 
+      eventService.getVolunteerEventsMinTime(currTime.toISOString()).subscribe(events => {
+        events.forEach(event => {
+          if(new Date(event.created) > new Date(time)) {
+            this.newCategories[event.title].push(event.id);
+          }
+        })
+      });
+    });
+    const nextWeek = new Date(Moment().add(8, 'days').toISOString());
+    const currTime = new Date(Moment().add(1,'days').toISOString());
+    eventService.getVolunteerEventsTimeRange(currTime.toISOString(), nextWeek.toISOString()).subscribe(events => {
+      events.forEach(event => {
+        if((event.eventexpanded.min_registered / event.eventexpanded.max_registered) < .75 ){
+          this.urgentCategories[event.title].push(event.id);
+        }
+      });
+    });
+   
+    storage.set("lastOpened", new Date(Moment(Moment()).toISOString()));
   }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  changeLanguage() {
-    // use navigator lang if English(en) or Spanish (es)
-    var userLang = this.language; 
-    userLang = /(en|es)/gi.test(userLang) ? userLang : 'en';
-    // set default language and language to use
-    this.translate.setDefaultLang('en');
-    this.translate.use(userLang);
-  }
-  login() {
-   this.nav.push(LoginPage);
-  }
-  logout() {
-    this.userServices.logout();
-    this.volunteerEventsService.clearEvents();
-    this.nav.setRoot(HomePage);
-  }
-  noTabs() {
-    this.nav.pop();
-  }
-  doInfinite(infiniteScroll) {
-    if (this.selectedTab == "events") {
-      this.eventPage.doInfinite(infiniteScroll);
-    } else {
-      infiniteScroll.complete();
-    }
+  selectEvent(eventCategory) {
+    this.eventCategory = eventCategory
   }
 
 }
