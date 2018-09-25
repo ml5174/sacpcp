@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { VolunteerEvent } from '../../lib/model/volunteer-event';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import { EventImage } from '../../lib/model/eventImage';
@@ -31,7 +31,9 @@ import { OrganizationServices } from '../../lib/service/organization';
 })
 
 export class EventPage {
-
+  @Input() category: string;
+  @Input() newCategories: string;
+  @Input() urgentCategories: string;
   public infiniteScroll: InfiniteScroll;
   private oppType;
   public loadingOverlay;
@@ -108,7 +110,16 @@ export class EventPage {
     this.currentEndDate = this.selectedEndDate.slice();
     // this.loadEvents();
     this.volunteerEventsService.getEventCategories().subscribe(
-      data => this.eventCategories = data,
+      data => {
+        this.eventCategories = data;
+        if(this.category){
+          data.forEach(cat => {
+            if(cat.name == this.category){
+              this.oppType = cat.id;
+            }
+          });
+        }
+      },
       error => this.getPreferencesError = true
     );
     // get preferences
@@ -487,7 +498,7 @@ export class EventPage {
     this.volunteerEventsService
       .getVolunteerEventsTimeRange(minTime, maxTime).subscribe(
       events => {
-        this.events = events;
+          this.events = events;
       }, err => {
         this.hideLoading();
         console.log(err);

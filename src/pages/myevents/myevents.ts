@@ -5,7 +5,7 @@ import { EventDetailModal } from '../../pages/events/eventdetail-modal';
 import { EventDetailPopup } from '../../pages/events/eventdetail-popup';
 import { ModalController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
-import { HomePage } from '../home/home';
+import { MyhomePage } from '../myhome/myhome';
 import { AlertController, PopoverController, ToastController } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 
@@ -24,7 +24,7 @@ export class MyEventsPage {
         public alertCtrl: AlertController,
         public toastController: ToastController,
         private popoverCtrl: PopoverController,
-        public home: HomePage) {  };
+        public home: MyhomePage) {  };
 
     result: any;
     eventDetail: EventDetail;
