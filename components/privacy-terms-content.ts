@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { AppInfoPage } from '../../pages/app-info/app-info';
 
 @Component({
   selector: 'privacy-terms-content',
@@ -8,7 +10,13 @@ import { Component } from '@angular/core';
 export class PrivacyTermsContent { 
 
   constructor(
+    public nav: NavController
   ) {
   }
     
+  openAppInfo() {
+    console.log('About Us: openAppInfo');
+    this.nav.push(AppInfoPage);
+  }
+ 
 }
