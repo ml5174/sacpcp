@@ -42,6 +42,11 @@ export class AppInfoPage {
     console.log('ionViewDidLoad AppInfoPage');
   }
 
+  openAppInfo() {
+    console.log('About Us: openAppInfo');
+    this.navCtrl.push(AppInfoPage);
+  }
+
   back() {
     this.navCtrl.pop();
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, ModalController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, ModalController, NavParams, ToastController } from 'ionic-angular';
 
 import { Organization, sortMembers } from '../../lib/model/organization';
 import { AlertController } from 'ionic-angular';

@@ -1,6 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { AboutPage } from '../../pages/about/about';
 import { ContactPage } from '../../pages/contact/contact';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import Moment from "moment";
@@ -10,7 +9,6 @@ import Moment from "moment";
 })
 export class HomePage {
   program: string = "selection";
-  aboutPage = AboutPage;
   contactPage = ContactPage
   eventCategory: string;
   urgentCategories: object = {'Food Service':[], 'Food Pantry':[], 'Child Care':[],
