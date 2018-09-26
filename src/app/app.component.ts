@@ -341,7 +341,7 @@ showCenterOptions(){
       this.storage.set('version', version).then((resource) => {
           console.log('version: ' + this.appMarketingVersion);
         });
-      let buildNumberNonMobileFE = "1809252058";
+      let buildNumberNonMobileFE = "_build_number_";
       this.storage.set('build', buildNumberNonMobileFE).then((resource) => {
          console.log('build: ' + buildNumberNonMobileFE);
         });
