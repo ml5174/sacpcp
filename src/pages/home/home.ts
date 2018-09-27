@@ -19,6 +19,7 @@ export class HomePage {
     public storage: Storage,
     private eventService: VolunteerEventsService
   ) {
+        const currTime = new Date(Moment().add(1,'days').toISOString());
     storage.get('lastOpened').then((time) => { 
       eventService.getVolunteerEventsMinTime(currTime.toISOString()).subscribe(events => {
         events.forEach(event => {
@@ -28,16 +29,7 @@ export class HomePage {
         })
       });
     });
-    const nextWeek = new Date(Moment().add(8, 'days').toISOString());
-    const currTime = new Date(Moment().add(1,'days').toISOString());
-    eventService.getVolunteerEventsTimeRange(currTime.toISOString(), nextWeek.toISOString()).subscribe(events => {
-      events.forEach(event => {
-        if((event.eventexpanded.min_registered / event.eventexpanded.max_registered) < .75 ){
-          this.urgentCategories[event.title].push(event.id);
-        }
-      });
-    });
-   
+  
     storage.set("lastOpened", new Date(Moment(Moment()).toISOString()));
   }
   selectEvent(eventCategory) {
