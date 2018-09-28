@@ -2,30 +2,34 @@
 	.sub_menu{
 		margin-left:3em;
 	}
+    
+    .dividerLine{
+        min-height: 0px !important;
+        max-height: 0px !important;
+    }
 </style>
 
 <ion-menu [content]="content" side="right" persistent="true">
-
-
+    
 	<ion-content style="margin-top: 50px;" >
 		<ion-list id="right-menu-items" >
-
-			<button ion-item >
+			<button ion-item (click)="openPage(pages[1], '')">
 				Home
 			</button>
-            <accordion-box accordionTitle="{{'Carr P. Collins Center' | translate}}" text-wrap>
+            <accordion-box accordionTitle="{{'Carr P. Collins Center' | translate}}" >
                 <div class = "accordion-content">
-                <button ion-item class="sub_menu" (click)="openPage(pages[12], '')">
-                    About Us
-                </button>
-                <button ion-item class="sub_menu" (click)="openPage(pages[13], '')">
-                    Services
-                </button>
-                <button ion-item class="sub_menu" (click)="openPage(pages[14], '')">
-                    Programs
-                </button>
+                    <button ion-item class="sub_menu" (click)="openPage(pages[12], '')">
+                        About Us
+                    </button>
+                    <button ion-item class="sub_menu" (click)="openPage(pages[13], '')">
+                        Services
+                    </button>
+                    <button ion-item class="sub_menu" (click)="openPage(pages[14], '')">
+                        Programs
+                    </button>
                 </div>
             </accordion-box>
+            <ion-item-divider class= "dividerLine"></ion-item-divider>
 			<button ion-item *ngIf="userServices.user.id" (click)="openPage(pages[3], '')">
 				Profile
 			</button>
@@ -44,36 +48,6 @@
             <button ion-item *ngIf="userServices.user.id" (click)="logout()">
 				Logout
 			</button>
-    
-<!--
-			<button ion-item *ngIf="showMyGroupsMenu && userServices.user.id" (click)="openPage(pages[3], '')">
-				<span class="sub_menu">My Profile</span>
-			</button>
-			<button ion-item *ngIf="showMyGroupsMenu && userServices.user.id" (click)="openPage(pages[9], '')">
-				<span class="sub_menu">My Groups</span>
-			</button>
-			<button ion-item (click)="openPage(pages[1], 'events')">
-				Volunteer Opportunities
-			</button>
-			<button ion-item (click)="donate()">
-				Register to Ring
-			</button>
-			<button ion-item (click)="openPage(pages[6], '')">
-				Contact Us
-			</button>
-			<button ion-item (click)="openPage(pages[7], '')">
-				Privacy &amp; Terms
-			</button>
-			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[2], '')">
-				Register
-			</button>
-            <button ion-item (click)="donate('donate')">
-				Donate
-            </button>
-			<button ion-item *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')">
-				Login
-			</button>
--->
 			<button ion-item *ngIf="userServices.user.id && userServices.user.profile.accounttype == 'A' && platform.is('core')" (click)="showAdmin1()">
 				Admin
 			</button>
@@ -101,7 +75,11 @@
 			<button ion-item (click)="openPage(pages[5], '')">
 				Our History
 			</button>
-            <button ion-button menuClose>Close Menu</button>
+            <ion-row center>
+                <ion-col text-center>
+                    <button ion-button menuClose>Close Menu</button>
+                </ion-col>
+            </ion-row>
 		</ion-list>
 	</ion-content>
 </ion-menu>
@@ -112,20 +90,17 @@
 <ion-footer [hidden]="keyboard.isOpen()">
 	<ion-toolbar>
 		<ion-row>
-            <ion-col class="footer-col"><ion-icon  class="footer-icon" name="home"></ion-icon>Home</ion-col>
-            <ion-col *ngIf="volunteerEvents.myEvents.length > 0" (click)="openPage(pages[1], 'myevents')" class="footer-col"><ion-icon  class="footer-icon" name="calendar"></ion-icon>My Events</ion-col>
-            <ion-col (click)="donate('donate')" class="footer-col"><ion-icon  class="footer-icon" name="heart"></ion-icon>Donate</ion-col>
-            <ion-col (click)="donate()" class="footer-col"><ion-icon class="footer-icon" name="open"></ion-icon>Red Kettle</ion-col>
-            <ion-col class="footer-col"><button ion-button menuToggle><ion-icon class="footer-icon" name="menu"></ion-icon></button>More</ion-col>
             
-<!--
-			<ion-col *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')" class="footer-col"><ion-icon class="footer-icon" name="log-in"></ion-icon>Login</ion-col>
-			<ion-col *ngIf="userServices.user.id" (click)="logout()" class="footer-col"><ion-icon class="footer-icon" name="log-out"></ion-icon>Logout</ion-col>
-			<ion-col (click)="openPage(pages[1], 'events')" class="footer-col"><ion-icon  class="footer-icon" name="body"></ion-icon>Volunteer</ion-col>
-			<ion-col (click)="openPage(pages[1], 'home')" class="footer-col"><ion-icon  class="footer-icon" name="home"></ion-icon>Home</ion-col>
-			<ion-col *ngIf="volunteerEvents.myEvents.length > 0" (click)="openPage(pages[1], 'myevents')" class="footer-col"><ion-icon  class="footer-icon" name="calendar"></ion-icon>My Events</ion-col>
-			<ion-col (click)="donate()" class="footer-col"><ion-icon  class="footer-icon" name="heart"></ion-icon>Donate</ion-col>
--->
+            <ion-col class="footer-col" (click)="openPage(pages[1], '')" ><ion-icon class="footer-icon" name="home"></ion-icon>Home</ion-col>
+            
+            <ion-col *ngIf="userServices.user.id" (click)="openPage(pages[1], 'myevents')" class="footer-col"><ion-icon  class="footer-icon" name="calendar"></ion-icon>My Events</ion-col>
+            
+            <ion-col (click)="donate('donate')" class="footer-col"><ion-icon  class="footer-icon" name="heart"></ion-icon>Donate</ion-col>
+            
+            <ion-col *ngIf = "showRedKettle" (click)="donate()" class="footer-col"><ion-icon class="footer-icon" name="open"></ion-icon>Red Kettle</ion-col>
+            
+            <ion-col class="footer-col"><button ion-button icon-only menuToggle><ion-icon class="footer-icon" name="menu"></ion-icon></button>More</ion-col>
+            
 		</ion-row>
 	</ion-toolbar>
 </ion-footer>

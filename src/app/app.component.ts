@@ -62,6 +62,7 @@ export class MyApp {
 
   appManager: any = {};
   public showAdmin: boolean;
+  public showRedKettle: boolean;
   public showMyGroupsMenu: boolean;
   constructor(
     public alertCtrl: AlertController,
@@ -112,7 +113,7 @@ export class MyApp {
   initializeApp() {
     let us = this.userServices;
     this.detectOldIE();
-
+    this.showRedKettle1();
     this.storage.get('key')
       .then(
       value => {
@@ -262,6 +263,16 @@ showMyGroups()
 {
   this.showMyGroupsMenu=!this.showMyGroupsMenu;
 }
+showRedKettle1()
+{
+    let today = new Date().getTime();
+    let startRange = new Date("10/15/2018").getTime();
+    let endRange = new Date("12/25/2018").getTime();
+    console.log(today + ' ' + startRange + ' '  + endRange);
+    if(today >= startRange && today <= endRange){
+        this.showRedKettle = !this.showRedKettle;
+    }
+}
 
 
    private getServerEnv() {
@@ -322,6 +333,5 @@ showMyGroups()
         });
     }
   }
-
 
 }
