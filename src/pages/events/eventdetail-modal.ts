@@ -5,7 +5,7 @@ import { SignupAssistant } from '../../lib/service/signupassistant';
 import { EventSignupModal } from './eventsignup_modal';
 import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
-import { AlertController, NavController, App } from 'ionic-angular';
+import { AlertController, App, NavController} from 'ionic-angular';
 import { NOTIFICATION_SCHEDULE, NOTIFICATION_OPTIONS, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION, ORG_RESTRICTION } from './../../lib/provider/eventConstants';
 import { LoginPage } from '../login/login';
 import { RegisterLoginPage } from '../register-login/register-login';
@@ -169,7 +169,6 @@ export class EventDetailModal {
                         this.signupAssistant.setGuestSignup(true);
                         this.appCtrl.getRootNav().push(LoginPage);
                         this.viewCtrl.dismiss();
-
                     }
                 }
             ]
@@ -177,8 +176,11 @@ export class EventDetailModal {
         confirm.present();
     }
 
-
     signupEventRegistration(eventData) {
+        if(!this.userServices.user.id) {
+            this.unregisteredUserPopover();
+            return;
+        }
 
         let admin = false;
         let eventType = eventData.org_restriction;

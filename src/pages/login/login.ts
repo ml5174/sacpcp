@@ -78,13 +78,12 @@ export class LoginPage {
         this.loginSuccess = true;
         if (loginPage.remember) 
           loginPage.storage.set('key', loginPage.userServices.user.key);
-      //  loginPage.storage.set('test', 'test');
 
         loginPage.userServices.getMyProfile().subscribe(
                                  result => result, 
                                  err => {
                                    this.loginSuccess = false;
-                                     console.log(err);
+                                     console.error(err);
                                  });
         if(this.signupAssistant.getGuestSignup()){
             this.signupAssistant.setGuestSignup(false);
@@ -94,7 +93,7 @@ export class LoginPage {
                     this.signupAssistant.signupEventRegistration();
                 },
                 err => {
-                    console.log(err);
+                    console.error(err);
                     if(err._body.indexOf("Event Registration is full. We encourage you to search for similar events scheduled.") > 0){
                       let confirm = this.alertCtrl.create({
                             title: '',
