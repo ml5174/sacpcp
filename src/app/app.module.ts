@@ -22,6 +22,7 @@ import { DonatePage } from '../pages/donate/donate';
 import { ForgotPage } from '../pages/forgot/forgot';
 import { LoginPage } from '../pages/login/login';
 import { HistoryPage } from '../pages/history/history';
+import { AboutPage } from '../pages/about/about';
 import { ProgramsPage } from '../pages/programs/programs';
 import { ServicesPage } from '../pages/services/services';
 import { AppInfoPage } from '../pages/app-info/app-info';
@@ -103,6 +104,7 @@ export function translateFactory(http: HttpClient) {
     ForgotPage,
     LoginPage,
     HistoryPage,
+    AboutPage,
     ProgramsPage,
     ServicesPage,
     AppInfoPage,
@@ -193,6 +195,7 @@ export function translateFactory(http: HttpClient) {
     ForgotPage,
     LoginPage,
     HistoryPage,
+    AboutPage,
     ProgramsPage,
     ServicesPage,
     AppInfoPage,

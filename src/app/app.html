@@ -23,7 +23,7 @@
 				Carr P. Collins Center
 			</button>
 			<button *ngIf="showCenterMenu" ion-item (click)="openPage(pages[5], '')">
-				<span class="sub_menu">Our History</span>
+				<span class="sub_menu">About Us</span>
 			</button>
 			<button *ngIf="showCenterMenu" ion-item (click)="openPage(pages[12], '')">
 					<span class="sub_menu">Services</span>
@@ -79,6 +79,9 @@
 			</button>
 			<button ion-item *ngIf="showAdmin && userServices.user.id && userServices.user.profile.accounttype == 'A'" (click)="openPage(adminPages[4], '')">
 				<span class="sub_menu">Groups</span>
+			</button>
+			<button ion-item (click)="openPage(pages[15], '')">
+				Our History
 			</button>
 			<button ion-item *ngIf="userServices.user.id" (click)="logout()">
 				Logout

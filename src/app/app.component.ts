@@ -36,6 +36,7 @@ import Moment from "moment";
 import { HistoryPage } from '../pages/history/history';
 import { ProgramsPage } from '../pages/programs/programs';
 import { ServicesPage } from '../pages/services/services';
+import { AboutPage } from '../pages/about/about';
 
 declare var window;
 declare var cordova;
@@ -88,7 +89,7 @@ export class MyApp {
       { title: 'Login Registration', component: RegisterLoginPage },                   // 2 
       { title: 'Profile Registration', component: RegisterIndividualProfilePage },     // 3 
       { title: 'Change Password', component: ChangePasswordPage },                     // 4 
-      { title: 'Our History', component: HistoryPage },                                // 5 
+      { title: 'About Us', component: AboutPage },                                     // 5 
       { title: 'Contact Us', component: ContactPage },                                 // 6 
       { title: 'Privacy & Terms', component: TermsPage },                              // 7 
       { title: 'Admin', component: Admin },                                            // 8 
@@ -97,7 +98,8 @@ export class MyApp {
       { title: 'Group Profile', component: GroupProfilePage },                         // 11
       { title: 'Services', component: ServicesPage },                                  // 12
       { title: 'Programs', component: ProgramsPage },                                  // 13
-      { title: 'My Home', component: MyhomePage }                                      // 14
+      { title: 'My Home', component: MyhomePage },                                     // 14
+      { title: 'Our History', component: HistoryPage }                                 // 15
     ];
 
     // set our app's pages for Administrators, only with desktop ('core') platform browsers
