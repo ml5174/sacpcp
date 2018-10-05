@@ -93,16 +93,16 @@
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
 
 <ion-footer [hidden]="keyboard.isOpen()">
-	<ion-toolbar>		
-		<ion-row>	
-			<ion-col [class.currentPage]="currentPage == 'Home'" (click)="openPage(pages[1], 'home')" class="footer-col"><ion-icon  class="footer-icon" name="home"></ion-icon>Home</ion-col>			
+	<ion-toolbar>
+		<ion-row>
+			<ion-col [class.currentPage]="currentPage == 'Home'" (click)="openPage(pages[1], 'home')" class="footer-col"><ion-icon  class="footer-icon" name="home"></ion-icon>Home</ion-col>
 			<ion-col [class.currentPage]="currentPage == 'My Home'" *ngIf="volunteerEvents.myEvents.length > 0" (click)="openPage(pages[14], '')" class="footer-col"><ion-icon  class="footer-icon" name="calendar"></ion-icon>My Events</ion-col>
-			<ion-col (click)="donate()" class="footer-col"><ion-icon  class="footer-icon" name="heart"></ion-icon>Donate</ion-col>		
-			<ion-col *ngIf="isRedKettleSeason()" (click)="redKettle()" class="footer-col"><ion-icon  class="footer-icon" name="notifications"></ion-icon>Red Kettle</ion-col>			
-			<ion-col class="footer-col" menuToggle><ion-icon  class="footer-icon" name="menu"></ion-icon>More</ion-col>		
+			<ion-col (click)="donate()" class="footer-col"><ion-icon  class="footer-icon" name="heart"></ion-icon>Donate</ion-col>
+			<ion-col *ngIf="isRedKettleSeason()" (click)="redKettle()" class="footer-col"><ion-icon  class="footer-icon" name="notifications"></ion-icon>Register to Ring</ion-col>			
+			<ion-col class="footer-col" menuToggle><ion-icon  class="footer-icon" name="menu"></ion-icon>More</ion-col>
 			<!-- <ion-col *ngIf="!userServices.user.id" (click)="openPage(pages[0], '')" class="footer-col"><ion-icon class="footer-icon" name="log-in"></ion-icon>Login</ion-col> -->
 			<!-- <ion-col *ngIf="userServices.user.id" (click)="logout()" class="footer-col"><ion-icon class="footer-icon" name="log-out"></ion-icon>Logout</ion-col> -->
 			<!-- <ion-col (click)="openPage(pages[1], 'events')" class="footer-col"><ion-icon  class="footer-icon" name="body"></ion-icon>Volunteer</ion-col>		 -->
-		</ion-row>		
-	</ion-toolbar>		
+		</ion-row>
+	</ion-toolbar>
 </ion-footer>
