@@ -34,16 +34,15 @@
 			<button ion-item *ngIf="userServices.user.id" (click)="showMyGroups()">
 				Profile
 			</button>
-			<button ion-item (click)="openPage(pages[6], '')">
-				Contact Us
-			</button>
 			<button ion-item *ngIf="showMyGroupsMenu && userServices.user.id" (click)="openPage(pages[3], '')">
 				<span class="sub_menu">My Profile</span>
 			</button>
 			<button ion-item *ngIf="showMyGroupsMenu && userServices.user.id" (click)="openPage(pages[9], '')">
 				<span class="sub_menu">My Groups</span>
 			</button>
-
+			<button ion-item (click)="openPage(pages[6], '')">
+				Contact Us
+			</button>
 			<button ion-item (click)="openPage(pages[14], 'events')">
 				Volunteer Opportunities
 			</button>
