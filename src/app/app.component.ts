@@ -223,7 +223,7 @@ export class MyApp {
         let okayToLeaveApp = this.alertCtrl.create({
          title: '',
          cssClass: 'alertReminder',
-         message: 'You are about to leave the app and visit '+ url +' website with Safari. NOTE: The website has a separate login.',
+         message: 'You are about to leave the app and visit the '+ url +' website. NOTE: The website has a separate login.',
          buttons: [
            {
              text: 'OK',
@@ -239,7 +239,7 @@ export class MyApp {
          ]
        });
        okayToLeaveApp.present();
-       
+
      }else{
        let okayToLeaveApp = this.alertCtrl.create({
         title: '',
