@@ -62,12 +62,6 @@ export class LoginPage {
       );
   }
 
-  ngOnInit() {
-    console.log("LoginPage");
-    console.log("We came from: " + this.navParams.get('fromPage'));
-    console.log("We were signing up for eventId: " + this.navParams.get('event_id'));
-
-  }
   login() {
     var loginPage = this;
     this.usernameerror = false;
@@ -145,7 +139,7 @@ export class LoginPage {
                       confirm.present();
                     }
                 });
-        } 
+        }
          console.log("BreakPoint#3");
          if(this.navParams.get('fromPage')){
            this.navCtrl.pop().then(() => {

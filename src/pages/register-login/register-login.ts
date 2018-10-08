@@ -62,14 +62,6 @@ export class RegisterLoginPage {
     private navCtrl:NavController
   ){}
 
-
-  ngOnInit() {
-    console.log("LoginPage");
-    console.log("We came from: " + this.navParams.get('fromPage'));
-    console.log("We were signing up for eventId: " + this.navParams.get('event_id'));
-
-  }
-
   promiseToScroll() {
     //needed to allow view to refresh with error elements before scroll
     console.log("returning promise to life");
