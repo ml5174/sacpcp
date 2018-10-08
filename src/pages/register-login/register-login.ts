@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core'
 import { UserServices } from '../../lib/service/user';
-import { NavController, PopoverController, ModalController } from 'ionic-angular';
+import { NavController, PopoverController, ModalController, Events, NavParams } from 'ionic-angular';
 import { STRINGS } from '../../lib/provider/config';
 import { TranslateService } from "@ngx-translate/core";
 import { HomePage } from '../home/home';
@@ -57,8 +57,18 @@ export class RegisterLoginPage {
     public userServices: UserServices,
     public translate: TranslateService,
     public popoverCtrl: PopoverController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private navParams: NavParams,
+    private navCtrl:NavController
   ){}
+
+
+  ngOnInit() {
+    console.log("LoginPage");
+    console.log("We came from: " + this.navParams.get('fromPage'));
+    console.log("We were signing up for eventId: " + this.navParams.get('event_id'));
+
+  }
 
   promiseToScroll() {
     //needed to allow view to refresh with error elements before scroll
@@ -284,7 +294,17 @@ export class RegisterLoginPage {
             this.storage.set('key', this.userServices.user.id);
           }
           else this.storage.set('username', '');
-          registerLogin.nav.setPages([{page: HomePage}, {page:RegisterIndividualProfilePage}]);
+
+          if(this.navParams.get('fromPage')){
+            this.navCtrl.pop().then(() => {
+          // Trigger custom event and pass data to be send back
+          this.ev.publish('user-event-flow', this.navParams.get("event_id"));
+          //new
+         });
+       }else{
+           registerLogin.nav.setPages([{page: HomePage}, {page:RegisterIndividualProfilePage}]);
+       }
+
         },
         err => {
           console.log(err);
