@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { UserServices } from '../../lib/service/user';
 import { SignupAssistant } from '../../lib/service/signupassistant';
 import { Storage } from '@ionic/storage';
-import { NavController, NavParams, PopoverController,ViewController,App,AlertController } from 'ionic-angular';
+import { NavController, NavParams, PopoverController,ViewController,App,AlertController, Events } from 'ionic-angular';
 import { RegisterLoginPage } from '../register-login/register-login';
 import { ForgotPage } from '../forgot/forgot';
 import { HomePage } from '../home/home';
@@ -20,7 +20,7 @@ import { VolunteerEventsService } from '../../lib/service/volunteer-events-servi
 })
 
 export class LoginPage {
-  
+
   @ViewChild('popoverContent', { read: ElementRef }) content: ElementRef;
   @ViewChild('popoverText', { read: ElementRef }) text: ElementRef;
 
@@ -45,7 +45,9 @@ export class LoginPage {
     private volunteerEventsService: VolunteerEventsService,
     public viewCtrl: ViewController,
     public alertCtrl: AlertController,
-    public appCtrl: App
+    public appCtrl: App,
+    public navCtrl: NavController,
+    public ev: Events
     ) {
 
     /* Temp solution until login validation is implemented */
@@ -59,6 +61,7 @@ export class LoginPage {
       }
       );
   }
+
   login() {
     var loginPage = this;
     this.usernameerror = false;
@@ -76,20 +79,22 @@ export class LoginPage {
       .subscribe(
       key => {
         this.loginSuccess = true;
-        if (loginPage.remember) 
+        if (loginPage.remember)
           loginPage.storage.set('key', loginPage.userServices.user.key);
-
+ console.log("BreakPoint#0");
         loginPage.userServices.getMyProfile().subscribe(
-                                 result => result, 
+                                 result => result,
                                  err => {
                                    this.loginSuccess = false;
                                      console.error(err);
                                  });
+                                 console.log("BreakPoint#1");
         if(this.signupAssistant.getGuestSignup()){
+           console.log("BreakPoint#2");
             this.signupAssistant.setGuestSignup(false);
             this.volunteerEventsService
                 .checkMyEvents(this.signupAssistant.getCurrentEventId()).subscribe(
-                res => {  
+                res => {
                     this.signupAssistant.signupEventRegistration();
                 },
                 err => {
@@ -134,10 +139,20 @@ export class LoginPage {
                       confirm.present();
                     }
                 });
-        }                         
+        }
+         console.log("BreakPoint#3");
+         if(this.navParams.get('fromPage')){
+           this.navCtrl.pop().then(() => {
+         // Trigger custom event and pass data to be send back
+         this.ev.publish('user-event-flow', this.navParams.get("event_id"));
+         //new
+        });
+      }else{
         loginPage.nav.setRoot(HomePage);
-     
-     
+      }
+
+
+
       },
       err => this.setError(err));
   }
@@ -153,7 +168,7 @@ export class LoginPage {
   }
   setError(error) {
     this.errors = [];
-    
+
     if (error.status === 400) {
       error = error.json();
       if (error['detail']) {
