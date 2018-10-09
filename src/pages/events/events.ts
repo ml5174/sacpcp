@@ -544,7 +544,14 @@ export class EventPage {
         let admin = false;
         let eventType = eventData.eventexpanded.org_restriction;
         let eventId = eventData.id;
-
+        console.log("e blob");
+        console.log(eventData);
+        //Additional Case for preferences not being undefined
+        let prof = this.myPreferences ? this.myPreferences : false;
+        console.log("prof: " + prof)
+        if(!prof){
+          //We shouldn't check for groups as this is a newly made account
+      }else{
         for (let i in this.myPreferences.organizations) {
             if (this.myPreferences.organizations[i].role == 1 || this.myPreferences.organizations[i].role == 2) {
                 admin = true;
@@ -552,6 +559,7 @@ export class EventPage {
                 admin = false
             }
         }
+      }
         if (eventType == 1) {
 
             //TODO: Event only Logic
@@ -699,7 +707,7 @@ event_id: numeric Id representing specific event,
           this.ev.unsubscribe('user-event-flow'); // unsubscribe this event
       });
       //this.viewCtrl.dismiss();
-      let toPage = '';
+      let toPage: any;
       if(flag === 0){
         toPage = LoginPage;
     }else{
