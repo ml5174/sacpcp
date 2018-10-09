@@ -6,6 +6,9 @@ import { VolunteerEventsService } from '../../lib/service/volunteer-events-servi
 import { RED_KETTLE_URL } from '../../lib/provider/config';
 import Moment from "moment";
 
+
+declare var cordova;
+
 @Component({
   templateUrl: 'home.html'
 })
@@ -40,7 +43,7 @@ export class HomePage {
     this.eventCategory = eventCategory
   }
 
-  redKettle() {
+  private redKettle() {
     this.openExternalUrl(RED_KETTLE_URL);
   }
 
