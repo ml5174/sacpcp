@@ -58,7 +58,7 @@
   "cordova-plugin-app-version": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-app-version@~0.1.9"
+      "id": "cordova-plugin-app-version@^0.1.9"
     },
     "is_top_level": true,
     "variables": {}
@@ -87,7 +87,7 @@
   "cordova-plugin-dialogs": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-dialogs@^2.0.0"
+      "id": "cordova-plugin-dialogs@^2.0.1"
     },
     "is_top_level": true,
     "variables": {}
