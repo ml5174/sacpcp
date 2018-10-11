@@ -252,47 +252,6 @@ export class EventPage {
     this.moreInterval += this.moreIntervalIncrease;
     this.loadEvents();
   }
-<<<<<<< HEAD
-=======
-  /*
-    eventDetailGuestPopup(id) {
-      let eventDetailGuestPopup = this.popoverCtrl.create(EventDetailPopup, {
-        "id": id,
-        "registered": false,
-        "guestUser": true
-      }, {cssClass: 'detail-popover'});
-      let ev = {
-        target : {
-          getBoundingClientRect : () => {
-            return {
-              top: '200'
-            };
-          }
-        }
-      };
-      eventDetailGuestPopup.present({ev});
-    }
-
-     eventDetailPopup(id){
-      let eventDetailPopup = this.popoverCtrl.create(EventDetailPopup, {
-        "id": id,
-        "guestUser": false,
-        "registered": this.amISignedUp(id)
-      }, {cssClass: 'detail-popover'});
-
-      let ev = {
-    target : {
-      getBoundingClientRect : () => {
-        return {
-          top: '200'
-        };
-      }
-    }
-  };
-      eventDetailPopup.present({ev});
-    }
-  */
->>>>>>> 51f621297544e8732c8a78d44e661322b8703c5d
 
   eventDetailGuestModal(id) {
     let eventDetailGuestPopup = this.modalCtrl.create(EventDetailModal,
@@ -702,11 +661,7 @@ event_id: numeric Id representing specific event,
           this.ev.unsubscribe('user-event-flow'); // unsubscribe this event
       });
       //this.viewCtrl.dismiss();
-<<<<<<< HEAD
       let toPage ;
-=======
-      let toPage = '';
->>>>>>> 51f621297544e8732c8a78d44e661322b8703c5d
       if(flag === 0){
         toPage = LoginPage;
     }else{
@@ -714,11 +669,7 @@ event_id: numeric Id representing specific event,
     }
   this.navCtrl.push(toPage, {
       event_id: event_id,
-<<<<<<< HEAD
       fromPage:"events"
-=======
-      fromPage:"LoginPage"
->>>>>>> 51f621297544e8732c8a78d44e661322b8703c5d
     });
   }
 }
