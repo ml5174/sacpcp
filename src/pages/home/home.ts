@@ -43,7 +43,11 @@ export class HomePage {
     this.eventCategory = eventCategory
   }
 
+<<<<<<< HEAD
   private redKettle() {
+=======
+  redKettle() {
+>>>>>>> 51f621297544e8732c8a78d44e661322b8703c5d
     this.openExternalUrl(RED_KETTLE_URL);
   }
 

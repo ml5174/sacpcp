@@ -81,16 +81,22 @@ export class LoginPage {
         this.loginSuccess = true;
         if (loginPage.remember)
           loginPage.storage.set('key', loginPage.userServices.user.key);
-
+ console.log("BreakPoint#0");
         loginPage.userServices.getMyProfile().subscribe(
                                  result => result,
                                  err => {
                                    this.loginSuccess = false;
                                      console.error(err);
                                  });
+<<<<<<< HEAD
 
         if(this.signupAssistant.getGuestSignup()){
 
+=======
+                                 console.log("BreakPoint#1");
+        if(this.signupAssistant.getGuestSignup()){
+           console.log("BreakPoint#2");
+>>>>>>> 51f621297544e8732c8a78d44e661322b8703c5d
             this.signupAssistant.setGuestSignup(false);
             this.volunteerEventsService
                 .checkMyEvents(this.signupAssistant.getCurrentEventId()).subscribe(
@@ -140,7 +146,11 @@ export class LoginPage {
                     }
                 });
         }
+<<<<<<< HEAD
 
+=======
+         console.log("BreakPoint#3");
+>>>>>>> 51f621297544e8732c8a78d44e661322b8703c5d
          if(this.navParams.get('fromPage')){
            this.navCtrl.pop().then(() => {
          // Trigger custom event and pass data to be send back

@@ -59,8 +59,12 @@ export class RegisterLoginPage {
     public popoverCtrl: PopoverController,
     public modalCtrl: ModalController,
     private navParams: NavParams,
+<<<<<<< HEAD
     private navCtrl:NavController,
     private ev: Events
+=======
+    private navCtrl:NavController
+>>>>>>> 51f621297544e8732c8a78d44e661322b8703c5d
   ){}
 
   promiseToScroll() {
