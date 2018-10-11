@@ -252,44 +252,6 @@ export class EventPage {
     this.moreInterval += this.moreIntervalIncrease;
     this.loadEvents();
   }
-  /*
-    eventDetailGuestPopup(id) {
-      let eventDetailGuestPopup = this.popoverCtrl.create(EventDetailPopup, {
-        "id": id,
-        "registered": false,
-        "guestUser": true
-      }, {cssClass: 'detail-popover'});
-      let ev = {
-        target : {
-          getBoundingClientRect : () => {
-            return {
-              top: '200'
-            };
-          }
-        }
-      };
-      eventDetailGuestPopup.present({ev});
-    }
-
-     eventDetailPopup(id){
-      let eventDetailPopup = this.popoverCtrl.create(EventDetailPopup, {
-        "id": id,
-        "guestUser": false,
-        "registered": this.amISignedUp(id)
-      }, {cssClass: 'detail-popover'});
-
-      let ev = {
-    target : {
-      getBoundingClientRect : () => {
-        return {
-          top: '200'
-        };
-      }
-    }
-  };
-      eventDetailPopup.present({ev});
-    }
-  */
 
   eventDetailGuestModal(id) {
     let eventDetailGuestPopup = this.modalCtrl.create(EventDetailModal,
@@ -707,7 +669,7 @@ event_id: numeric Id representing specific event,
     }
   this.navCtrl.push(toPage, {
       event_id: event_id,
-      fromPage:"LoginPage"
+      fromPage:"events"
     });
   }
 }
