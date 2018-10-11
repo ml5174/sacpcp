@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import { UserServices } from '../../lib/service/user';
 import { EventDetailModal } from '../../pages/events/eventdetail-modal';
-import { EventDetailPopup } from '../../pages/events/eventdetail-popup';
 import { ModalController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { MyhomePage } from '../myhome/myhome';
@@ -31,7 +30,7 @@ export class MyEventsPage {
     deRegister(id){
     this.volunteerEventsService
          .eventDeregister(id).subscribe(
-                                result => this.result = result, 
+                                result => this.result = result,
                                  err => {
                                      console.log(err);
                                  }, ()=> {
@@ -39,7 +38,7 @@ export class MyEventsPage {
                                      if(this.volunteerEventsService.myEvents.length==1){
                                        this.home.selectedTab="events";
                                      }
-                                     
+
                                  });
     }
     eventDetailModal(id) {
@@ -50,24 +49,7 @@ export class MyEventsPage {
         });
         eventDetailModal.present();
     }
-    eventDetailPopup(id) {
-        let eventDetailPopup = this.popoverCtrl.create(EventDetailPopup, {
-            "id": id,
-            "guestUser": false,
-            "registered": this.amISignedUp(id)
-        }, { cssClass: 'detail-popover' });
 
-        let ev = {
-            target: {
-                getBoundingClientRect: () => {
-                    return {
-                        top: '200'
-                    };
-                }
-            }
-        };
-        eventDetailPopup.present({ ev });
-    }
     presentToast(message: string) {
         let toast = this.toastController.create({
             message: message,
@@ -78,7 +60,7 @@ export class MyEventsPage {
     }
     amISignedUp(id) {
         //we return true if there is no user logged in, this prevents the ability
-        //to sign up for an event 
+        //to sign up for an event
         if (!this.userServices.user.id) {
             return true;
         }
@@ -96,21 +78,21 @@ export class MyEventsPage {
                 console.log("Update reminder for event " + id);
                 this.presentToast("Event reminder updated successfully.");
             },
-            err => {              
+            err => {
                     console.log(err);
-                    this.presentToast("Error update reminder for event");                
+                    this.presentToast("Error update reminder for event");
             }, () => {
                 this.volunteerEventsService.loadMyEvents();
             });
     }
     updateEventReminder(id, event_notification_schedule, toggleevent: any) {
-       
+
         if (toggleevent.checked) {
             this.eventUpdateReminder(id, event_notification_schedule);
         }
         else {
             this.eventUpdateReminder(id, 0);
-        }        
+        }
     }
 
     cancelEventRegisteration(id) {

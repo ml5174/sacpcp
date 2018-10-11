@@ -10,11 +10,11 @@ import { PopoverController, ToastController, LoadingController } from 'ionic-ang
 import { OpportunityPipe } from '../../lib/pipe/eventsortpipe';
 import { PreferencePipe } from '../../lib/pipe/eventsortpipe';
 import { ParseTimePipe } from '../../lib/pipe/moment.pipe';
-import { AlertController } from 'ionic-angular';
+import { AlertController, NavController } from 'ionic-angular';
 import { EventDetail } from '../../lib/model/event-detail';
 import { SignupAssistant } from '../../lib/service/signupassistant';
 import Moment from "moment";
-import { Nav, InfiniteScroll } from 'ionic-angular';
+import { Nav, InfiniteScroll, Events } from 'ionic-angular';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
 import { LoginPage } from '../login/login';
 import { RegisterLoginPage } from '../register-login/register-login';
@@ -95,7 +95,9 @@ export class EventPage {
     public toastController: ToastController,
     public orgServices: OrganizationServices,
     public signupAssistant: SignupAssistant,
-    public nav: Nav
+    public nav: Nav,
+    private ev: Events,
+    private navCtrl: NavController
   ) {
   }
 
@@ -250,6 +252,8 @@ export class EventPage {
     this.moreInterval += this.moreIntervalIncrease;
     this.loadEvents();
   }
+<<<<<<< HEAD
+=======
   /*
     eventDetailGuestPopup(id) {
       let eventDetailGuestPopup = this.popoverCtrl.create(EventDetailPopup, {
@@ -268,14 +272,14 @@ export class EventPage {
       };
       eventDetailGuestPopup.present({ev});
     }
-   
+
      eventDetailPopup(id){
       let eventDetailPopup = this.popoverCtrl.create(EventDetailPopup, {
         "id": id,
         "guestUser": false,
         "registered": this.amISignedUp(id)
       }, {cssClass: 'detail-popover'});
-  
+
       let ev = {
     target : {
       getBoundingClientRect : () => {
@@ -288,6 +292,7 @@ export class EventPage {
       eventDetailPopup.present({ev});
     }
   */
+>>>>>>> 51f621297544e8732c8a78d44e661322b8703c5d
 
   eventDetailGuestModal(id) {
     let eventDetailGuestPopup = this.modalCtrl.create(EventDetailModal,
@@ -373,7 +378,7 @@ export class EventPage {
 
 
       /*          if(this.isPreferenceSelected(this.selectedPreferences) == 1 || this.isPreferenceSelected(this.selectedPreferences) == 2 || this.isPreferenceSelected(this.selectedPreferences) == 3 ){
-               
+
             this.preferenceSearch();
               }else{ */
       for (var i = 0; i < this.values.length; ++i) {
@@ -524,7 +529,7 @@ export class EventPage {
 
   amISignedUp(id) {
     //we return true if there is no user logged in, this prevents the ability
-    //to sign up for an event 
+    //to sign up for an event
     if (!this.userServices.user.id) {
       return true;
     }
@@ -536,9 +541,9 @@ export class EventPage {
     return false;
   }
 
-  //TODO: pass in eventLevel for handling 
+  //TODO: pass in eventLevel for handling
   signupEventRegistration(eventData) {
-       
+
         let admin = false;
         let eventType = eventData.eventexpanded.org_restriction;
         let eventId = eventData.id;
@@ -647,14 +652,16 @@ export class EventPage {
           text: 'Register',
           handler: () => {
             console.log("register clicked", eventId);
-            this.nav.push(RegisterLoginPage)
+            //this.nav.push(RegisterLoginPage);
+            this.handleEventLoginRegister(1, eventId);
           }
         },
         {
           text: 'Login',
           handler: () => {
             console.log("login clicked", eventId);
-            this.nav.push(LoginPage)
+            //this.nav.push(LoginPage)
+             this.handleEventLoginRegister(0, eventId);
           }
         }
       ]
@@ -678,5 +685,40 @@ export class EventPage {
       ]
     });
     confirm.present();
+  }
+/***
+Premise: TO redirect temporarily to either a login or registration, and then return
+to events to continue signup flow.
+params: flag -> 0 or 1 representing either login or register
+event_id: numeric Id representing specific event,
+***
+*/
+  private handleEventLoginRegister(flag, event_id){
+      this.ev.subscribe('user-event-flow', (paramsVar) => {
+          // Do stuff with "paramsVar"
+          console.log("paramsVar:" + paramsVar);
+          //Soso
+          this.eventDetailModal(paramsVar)
+          this.ev.unsubscribe('user-event-flow'); // unsubscribe this event
+      });
+      //this.viewCtrl.dismiss();
+<<<<<<< HEAD
+      let toPage ;
+=======
+      let toPage = '';
+>>>>>>> 51f621297544e8732c8a78d44e661322b8703c5d
+      if(flag === 0){
+        toPage = LoginPage;
+    }else{
+      toPage = RegisterLoginPage;
+    }
+  this.navCtrl.push(toPage, {
+      event_id: event_id,
+<<<<<<< HEAD
+      fromPage:"events"
+=======
+      fromPage:"LoginPage"
+>>>>>>> 51f621297544e8732c8a78d44e661322b8703c5d
+    });
   }
 }

@@ -34,10 +34,10 @@
         </ion-item>
         <ion-row>
           <ion-item>
-            <ion-icon *ngIf="eventData.eventexpanded.org_restriction == '0' || eventData.eventexpanded.org_restriction == '3'" item-start name="person"></ion-icon>
-            <ion-icon *ngIf="eventData.eventexpanded.org_restriction == '0' || eventData.eventexpanded.org_restriction == '1' || eventData.eventexpanded.org_restriction == '2' " item-start name="people"></ion-icon>
-            <p *ngIf="eventData.eventexpanded.org_restriction == '0'">Groups & Individuals</p>
-            <p *ngIf="eventData.eventexpanded.org_restriction == '1'">Groups Only</p>
+            <ion-icon *ngIf="eventType == '0' || eventType == '3'" item-start name="person"></ion-icon>
+            <ion-icon *ngIf="eventType == '0' || eventType == '1' || eventType== '2' " item-start name="people"></ion-icon>
+            <p *ngIf="eventType == '0'">Groups & Individuals</p>
+            <p *ngIf="eventType == '1'">Groups Only</p>
           </ion-item>
           <ion-item>
             <ion-icon item-start name="calendar"></ion-icon>

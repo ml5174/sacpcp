@@ -2,7 +2,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BrowserModule } from '@angular/platform-browser';
 import { EventDetailModal } from './../pages/events/eventdetail-modal';
-import { EventDetailPopup } from './../pages/events/eventdetail-popup';
 import { EventSignupModal } from './../pages/events/eventsignup_modal';
 import { AddAttendeesModal } from './../pages/events/add-attendees/add-attendees-modal';
 import { NgModule } from '@angular/core';
@@ -133,7 +132,6 @@ export function translateFactory(http: HttpClient) {
     PreferencePipe,
     OpportunityPipe,
     EventDetailModal,
-    EventDetailPopup,
     ContactMethod,
     PhoneInput,
     Admin,
@@ -164,7 +162,7 @@ export function translateFactory(http: HttpClient) {
     HttpModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, {}, deepLinkConfig),
-    TranslateModule.forRoot({ 
+    TranslateModule.forRoot({
           loader: {
 	          provide: TranslateLoader,
        		  useFactory: translateFactory,
@@ -214,7 +212,6 @@ export function translateFactory(http: HttpClient) {
     ContactVolunteers,
     Groups,
     Message,
-    EventDetailPopup,
     RecoverSuccessPage,
     DatePickerCalendar,
     DatePicker,
@@ -223,17 +220,17 @@ export function translateFactory(http: HttpClient) {
     GroupAttendeeModal,
     MemberPopOver,
     GroupAction
-    
+
   ],
-  providers: [ 
+  providers: [
     AppVersion,
-    StatusBar, 
-    SplashScreen, 
-    UseridPopover, 
-    PasswordPopover, 
-    UserServices, 
-    VolunteerEventsService, 
-    SignupAssistant, 
+    StatusBar,
+    SplashScreen,
+    UseridPopover,
+    PasswordPopover,
+    UserServices,
+    VolunteerEventsService,
+    SignupAssistant,
     MessageServices,
     OrganizationServices
   ]

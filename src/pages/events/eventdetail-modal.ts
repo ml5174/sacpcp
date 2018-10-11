@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController, ToastController, ModalController } from 'ionic-angular';
+import { NavParams, ViewController, ToastController, ModalController, Events } from 'ionic-angular';
 import { UserServices } from '../../lib/service/user';
 import { SignupAssistant } from '../../lib/service/signupassistant';
 import { EventSignupModal } from './eventsignup_modal';
@@ -47,7 +47,9 @@ export class EventDetailModal {
         public toastController: ToastController,
         public appCtrl: App,
         public navController: NavController,
-        private signupAssistant: SignupAssistant) {
+        private signupAssistant: SignupAssistant,
+        private ev: Events,
+        private navCtrl: NavController) {
         this.viewCtrl = viewCtrl;
         this.eventId = params.get('id');
 
@@ -131,7 +133,7 @@ export class EventDetailModal {
                 if (id == 3689) {
                     this.eventDetail.org_restriction = "1";
                     console.log("the eventDetail has its org restriction as " + this.eventDetail.org_restriction);
-                    //for any event that is org only restricted, only group admins and TSA admins can signup 
+                    //for any event that is org only restricted, only group admins and TSA admins can signup
                     this.youAreNotEligible();
                 }
 
@@ -393,4 +395,30 @@ export class EventDetailModal {
         });
         confirm.present();
     }
+    /***
+    Premise: TO redirect temporarily to either a login or registration, and then return
+    to events to continue signup flow.
+    params: flag -> 0 or 1 representing either login or register
+    event_id: numeric Id representing specific event,
+    ***
+    */
+      private handleEventLoginRegister(flag, event_id){
+          this.ev.subscribe('user-event-flow', (paramsVar) => {
+              // Do stuff with "paramsVar"
+              console.log("paramsVar:" + paramsVar);
+              //Soso
+              this.ev.unsubscribe('user-event-flow'); // unsubscribe this event
+          });
+          //this.viewCtrl.dismiss();
+          let toPage ;
+          if(flag === 0){
+            toPage = LoginPage;
+        }else{
+          toPage = RegisterLoginPage;
+        }
+      this.navCtrl.push(toPage, {
+          event_id: event_id,
+          fromPage:"eventDetails"
+        });
+      }
 }
