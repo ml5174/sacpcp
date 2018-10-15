@@ -54,12 +54,10 @@
     <ion-col width-50 class="flex-card" *ngFor="let e of displayedEvents; let i=index">
         <ion-card *ngIf="e.visibility==0" class="flex-card">
             <ion-card-content>
-                <ion-list-header (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">
-                    <!-- Highlight in blue event 3689 Food Panty -->
-                    <h2 *ngIf="e.id == '3689'" style="color: blue; ">{{e.title}}</h2>
-                    <h2 *ngIf="e.id != '3689'">{{e.title}} </h2>
+                <ion-list-header>
+                    <h2><span (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">{{e.title}} </span><ion-icon *ngIf='e.status == 3' name="alert" (click)="openUrgentAlert($event)" class="urgent"></ion-icon></h2>
                     <div class="notifications">
-                        <ion-icon *ngIf='urgentCategories && urgentCategories[e.title].includes(e.id)' name="alert" class="urgent">Urgent</ion-icon> 
+                         
                         <ion-icon *ngIf='newCategories && newCategories[e.title].includes(e.id)' name="add-circle" class="new">New Events</ion-icon>                              
                     </div>
                 </ion-list-header>

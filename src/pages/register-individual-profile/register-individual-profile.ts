@@ -204,7 +204,7 @@ export class RegisterIndividualProfilePage {
     Observable.forkJoin([getMyPreferencesObservable, getAvailablePreferencesObservable, getMyProfileObservable])
         .subscribe(data => {
           this.myPreferences = data[0];
-          console.log(this.myPreferences);
+          //console.log(this.myPreferences);
           this.availablePreferences = data[1];
 
           const getProfileThenCheckRequiredFields = new Promise((resolve,reject) => {
@@ -228,9 +228,9 @@ export class RegisterIndividualProfilePage {
               break;
             }
           }
-			console.log("Onload myProfile ")
-      console.log(this.myProfile);
-      console.log(this.testProfile);
+			//console.log("Onload myProfile ")
+      //console.log(this.myProfile);
+      //console.log(this.testProfile);
           if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
           if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
           if (!this.myProfile.my_volunteertype_id) this.myProfile.my_volunteertype_id = defaultVolunteerTypeId;
@@ -270,7 +270,7 @@ export class RegisterIndividualProfilePage {
   }
 
   birthdateChanged(event) {
-    console.log("Birthdate Changed");
+    //console.log("Birthdate Changed");
     this.birthDateChanged = true;
   }
 
@@ -284,7 +284,7 @@ export class RegisterIndividualProfilePage {
     	//toss up a modal.
     	this.openAlert(myAge);
     } else {
-      console.log("calling update profile");
+      //console.log("calling update profile");
       this.updateProfile();
     }
     this.birthDateChanged = false;
@@ -304,7 +304,7 @@ export class RegisterIndividualProfilePage {
       buttons: ['OK']
     });
     alert.onDidDismiss(data => {
-      console.log(data);
+      //console.log(data);
       this.updateProfile(); //update this method to handle that pending state
     });
     alert.present();
@@ -313,7 +313,7 @@ export class RegisterIndividualProfilePage {
   openModal(age:number){
   	let modal = this.modalCtrl.create(ParentVerifyModal, {age: age});
   	modal.onDidDismiss(data => { 
-      console.log(data);
+      //console.log(data);
       if (data && data.update == true) {
         this.updateProfile(); //update this method to handle that pending state
       }
@@ -329,16 +329,17 @@ export class RegisterIndividualProfilePage {
   }
 
   updateProfile() {
+      //console.log('updateProfile() called');
     this.showLoading();
     this.clearErrors();
     this.cleanBooleans();
-    console.log(this.mobileNumber);
+    //console.log(this.mobileNumber);
     this.translateFromFormPreferences();
     this.translateFromFormPhoneNumbers();
-	console.log("myprofile" + JSON.stringify(this.myProfile));
-	console.log("myprefs" + JSON.stringify(this.myPreferences));
+	//console.log("myprofile" + JSON.stringify(this.myProfile));
+	//console.log("myprefs" + JSON.stringify(this.myPreferences));
 
-  console.log(this.myProfile);
+  //console.log(this.myProfile);
   this.checkRequiredFields();
 
   let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
@@ -372,39 +373,39 @@ export class RegisterIndividualProfilePage {
   }
 
   checkRequiredFields() {
-    console.log(this.myProfile);
+    //console.log(this.myProfile);
     this.requiredFieldError=false;
     if(this.myProfile.first_name===undefined) {
       this.requiredFieldError=true;
-      console.log("first name: " + this.myProfile.first_name);
+      //console.log("first name: " + this.myProfile.first_name);
     }
     else if(this.myProfile.last_name===undefined) {
       this.requiredFieldError=true;
-      console.log("last name: " + this.myProfile.last_name);
+      //console.log("last name: " + this.myProfile.last_name);
     }
     else if(this.myProfile.birthdate===undefined) {
       this.requiredFieldError=true;
-      console.log("bday: " + this.myProfile.birthdate);
+      //console.log("bday: " + this.myProfile.birthdate);
     }
     else if(this.myProfile.gender===undefined){
       this.requiredFieldError=true;
-      console.log("gender: " + this.myProfile.gender);
+      //console.log("gender: " + this.myProfile.gender);
     }
     else if(this.myProfile.emergency_contact.first_name===undefined) {
       this.requiredFieldError=true;
-      console.log("ec first name: " + this.myProfile.emergency_contact.first_name);
+      //console.log("ec first name: " + this.myProfile.emergency_contact.first_name);
     }
     else if(this.myProfile.emergency_contact.last_name===undefined) {
       this.requiredFieldError=true;
-      console.log("ec last name: " + this.myProfile.emergency_contact.last_name);
+      //console.log("ec last name: " + this.myProfile.emergency_contact.last_name);
     }
     else if(this.myProfile.emergency_contact.relation===undefined) {
       this.requiredFieldError=true;
-      console.log("ec relation: " + this.myProfile.emergency_contact.relation);
+      //console.log("ec relation: " + this.myProfile.emergency_contact.relation);
     }
     else if(this.myProfile.emergency_contact.mobilenumber===undefined) {
       this.requiredFieldError=true;
-      console.log("ec mobile number: " + this.myProfile.emergency_contact.mobilenumber);
+      //console.log("ec mobile number: " + this.myProfile.emergency_contact.mobilenumber);
     }
   }
 
@@ -504,7 +505,7 @@ export class RegisterIndividualProfilePage {
     //   this.myProfile.emergency_contact.mobilenumber = "";
     // }
     if (this.emergencyNumber.getPN()) {
-      console.log("emergency number: " + this.emergencyNumber.getPN())
+      //console.log("emergency number: " + this.emergencyNumber.getPN())
       this.myProfile.emergency_contact.mobilenumber = this.emergencyNumber.getPN();
     }
 
