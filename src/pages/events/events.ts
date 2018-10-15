@@ -628,6 +628,18 @@ export class EventPage {
     confirm.present();
   }
 
+    openUrgentAlert(ev: Event) {
+        let alert = this.alertCtrl.create({
+            title: 'Urgent Need!',
+            message: 'We have an urgent need for volunteers for this event!',
+            buttons: ['Close'],
+            cssClass: 'urgentAlert'
+        });
+        alert.present();
+    }
+
+
+
   notAuthorizedForGroupOnly(id) {
     console.log("notAuthorizedForGroupOnly");
     let confirm = this.alertCtrl.create({

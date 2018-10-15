@@ -14,7 +14,7 @@
             </ion-row>
         </ion-card>
 
-        <form (ngSubmit)="register()">
+        <form>
             <input type="submit" class="hidden-submit">
 
             <!-- My Credentials -->
@@ -312,7 +312,7 @@
                 </ion-col>
                 <ion-col></ion-col>
                 <ion-col>
-                    <button ion-button color="primary">Save</button>
+                    <button ion-button color="primary" (click)="register()">Save</button>
                 </ion-col>
                 <ion-col></ion-col>
             </ion-row>

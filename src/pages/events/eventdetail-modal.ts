@@ -6,7 +6,8 @@ import { EventSignupModal } from './eventsignup_modal';
 import { EventDetail } from '../../lib/model/event-detail';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import { AlertController, App, NavController} from 'ionic-angular';
-import { NOTIFICATION_SCHEDULE, NOTIFICATION_OPTIONS, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, EVENT_STATUS, SAMEDAY_RESTRICTION, ORG_RESTRICTION } from './../../lib/provider/eventConstants';
+import { NOTIFICATION_SCHEDULE, NOTIFICATION_OPTIONS, AGE_RESTRICTION, GENDER_RESTRICTION, VOLUNTEER_RESTRICTION, 
+         EVENT_STATUS, SAMEDAY_RESTRICTION, ORG_RESTRICTION } from './../../lib/provider/eventConstants';
 import { LoginPage } from '../login/login';
 import { RegisterLoginPage } from '../register-login/register-login';
 import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
