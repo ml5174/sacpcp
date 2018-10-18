@@ -1,18 +1,5 @@
 <ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
-<!-- <div  *ngIf="!showAdvancedItems">
-<button ion-button small color="primary" (click)="showAdvancedItems = !showAdvancedItems">Advanced Search</button>
-</div>
-<div  *ngIf="showAdvancedItems">
-    <button ion-button small color="primary" (click)="presentPopover($event)">
-    Sort By
-</button>
-<button ion-button small color="primary" disabled="true" (click)="presentPreferences($event)">
- My Preferences 
-</button>
-<button ion-button small color="primary"  (click)="showAdvancedItems = !showAdvancedItems">
-  Hide Options 
-</button>
-</div> -->
+
 <ion-item>
     <ion-label>Opportunity Type:</ion-label>
     <ion-select id="selectbar" [(ngModel)]="oppType" (ngModelChange)="onOppTypeChange($event)">
@@ -55,7 +42,9 @@
         <ion-card *ngIf="e.visibility==0" class="flex-card">
             <ion-card-content>
                 <ion-list-header>
-                    <h2><span (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">{{e.title}} </span><ion-icon *ngIf='e.status == 3' name="alert" (click)="openUrgentAlert($event)" class="urgent"></ion-icon></h2>
+                    <h2><span (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">{{e.title}} </span>
+                        <ion-icon *ngIf='e.status == 3' name="alert" 
+                        (click)="openUrgentAlert($event)" class="savi-urgent-icon" color="primary"></ion-icon></h2>
                     <div class="notifications">
                          
                         <ion-icon *ngIf='newCategories && newCategories[e.title].includes(e.id)' name="add-circle" class="new">New Events</ion-icon>                              
