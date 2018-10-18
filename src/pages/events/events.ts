@@ -23,6 +23,7 @@ import { APPLE_MAP_QUERY } from '../../lib/provider/config';
 import { GOOGLE_MAP_QUERY } from '../../lib/provider/config';
 import { Organization } from '../../lib/model/organization';
 import { OrganizationServices } from '../../lib/service/organization';
+import { MONTH_NAMES } from '../../lib/provider/eventConstants';
 
 @Component({
   templateUrl: 'events.html',
@@ -46,8 +47,6 @@ export class EventPage {
   public maxEvents: Array<VolunteerEvent> = [];
   public minEvents: Array<VolunteerEvent> = [];
   public stubEvents: Array<VolunteerEvent> = [];
-  public monthNames: Array<String> = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"];
 
   // public preferenceModel: Array<MyPreferences> = [];
   // public currentPreferences: Array<MyPreferences> = [];
@@ -98,8 +97,7 @@ export class EventPage {
     public nav: Nav,
     private ev: Events,
     private navCtrl: NavController
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     // select today and 30 days worth of events by default
@@ -110,19 +108,16 @@ export class EventPage {
     this.maxStartDate = Moment().add(1, 'year').format("YYYY-MM-DD");
     this.currentStartDate = this.selectedStartDate.slice();
     this.currentEndDate = this.selectedEndDate.slice();
-    // this.loadEvents();
     this.volunteerEventsService.getEventCategories().subscribe(
       data => {
+          console.log('Categories: ' + JSON.stringify(data));
         this.eventCategories = data;
-        if(this.category){
-          data.forEach(cat => {
-            if(cat.name == this.category){
-              this.oppType = cat.id;
-            }
-          });
+        let selectedCategory: any = null;
+          if ( this.category && (selectedCategory = data.find(cat => cat.name === this.category)) ) {
+            this.oppType = selectedCategory.id;
         }
       },
-      error => this.getPreferencesError = true
+      error => {this.getPreferencesError = true; console.log('getEventCategories error: ' + error); }
     );
     // get preferences
 
@@ -167,7 +162,7 @@ export class EventPage {
   }
 
   onEndDateChange(evt) {
-    console.log(this.searchedEvents);
+    // console.log(this.searchedEvents);
     let date = Moment(evt);
     if (evt === this.currentEndDate) {
       return;
@@ -225,7 +220,7 @@ export class EventPage {
   }
 
   loadEvents() {
-    console.log("loadEvents...");
+    // console.log("loadEvents...");
     let now = new Date(Moment(this.selectedStartDate).hour(0).minute(0).toISOString());
     let until = new Date(Moment(this.selectedEndDate).hour(23).minute(59).toISOString());
     this.showLoading();
@@ -344,7 +339,7 @@ export class EventPage {
 
         this.searchedEvents = this.searchedEvents.filter((item) => {
           let d = new Date(item.start);
-          let month = this.monthNames[d.getMonth()];
+          let month = MONTH_NAMES[d.getMonth()];
           let year = d.getUTCFullYear().toString();
           let time = this.parseTimePipe.transform(item.start.toString(), 'h:mm A');
 
@@ -395,7 +390,7 @@ export class EventPage {
 
 
   getEvents() {
-    console.log("getEvents()...");
+    // console.log("getEvents()...");
     this.volunteerEventsService
       .getVolunteerEvents().subscribe(
       event => this.stubEvents = event,
@@ -561,7 +556,7 @@ export class EventPage {
                                 {
                                     text: 'Ok',
                                     handler: () => {
-                                        console.log('Ok, clicked');
+                                       // console.log('Ok, clicked');
                                     }
                                 }
                             ]
@@ -576,13 +571,13 @@ export class EventPage {
                                 {
                                     text: 'No',
                                     handler: () => {
-                                        console.log('No clicked');
+                                        // console.log('No clicked');
                                     }
                                 },
                                 {
                                     text: 'Yes',
                                     handler: () => {
-                                        console.log('Yes clicked');
+                                        // console.log('Yes clicked');
                                         this.nav.push(RegisterIndividualProfilePage, { errorResponse: err });
                                     }
                                 }
@@ -596,12 +591,12 @@ export class EventPage {
     }
 
   cancelEventRegisteration(id) {
-    console.log("events.ts: cancelEventRegistration: invoke signupassistant");
+    // console.log("events.ts: cancelEventRegistration: invoke signupassistant");
     this.signupAssistant.cancelEventRegisteration(id);
   }
 
   alertUserLoginRegister(eventId) {
-    console.log("bring up alert control for register or login", eventId);
+    // console.log("bring up alert control for register or login", eventId);
     let confirm = this.alertCtrl.create({
       title: '',
       cssClass: 'alertReminder',
@@ -610,7 +605,7 @@ export class EventPage {
         {
           text: 'Register',
           handler: () => {
-            console.log("register clicked", eventId);
+            // console.log("register clicked", eventId);
             //this.nav.push(RegisterLoginPage);
             this.handleEventLoginRegister(1, eventId);
           }
@@ -618,7 +613,7 @@ export class EventPage {
         {
           text: 'Login',
           handler: () => {
-            console.log("login clicked", eventId);
+            // console.log("login clicked", eventId);
             //this.nav.push(LoginPage)
              this.handleEventLoginRegister(0, eventId);
           }
@@ -641,7 +636,7 @@ export class EventPage {
 
 
   notAuthorizedForGroupOnly(id) {
-    console.log("notAuthorizedForGroupOnly");
+    // console.log("notAuthorizedForGroupOnly");
     let confirm = this.alertCtrl.create({
       title: '',
       cssClass: 'alertReminder',
@@ -650,7 +645,7 @@ export class EventPage {
         {
           text: 'OK',
           handler: () => {
-            console.log('OK clicked');
+            // console.log('OK clicked');
           }
         }
       ]
@@ -667,8 +662,8 @@ event_id: numeric Id representing specific event,
   private handleEventLoginRegister(flag, event_id){
       this.ev.subscribe('user-event-flow', (paramsVar) => {
           // Do stuff with "paramsVar"
-          console.log("paramsVar:" + paramsVar);
-          //Soso
+          // console.log("paramsVar:" + paramsVar);
+          // Soso
           this.eventDetailModal(paramsVar)
           this.ev.unsubscribe('user-event-flow'); // unsubscribe this event
       });

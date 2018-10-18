@@ -4,6 +4,7 @@
     <ion-label>Opportunity Type:</ion-label>
     <ion-select id="selectbar" [(ngModel)]="oppType" (ngModelChange)="onOppTypeChange($event)">
         <ion-option value="0" selected="true">All</ion-option>
+        <ion-option value="1000">Urgent</ion-option>
         <ion-option *ngFor="let cat of eventCategories" value="{{cat.id}}">{{cat.name}}</ion-option>
     </ion-select>
 </ion-item>
@@ -43,8 +44,8 @@
             <ion-card-content>
                 <ion-list-header>
                     <h2><span (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">{{e.title}} </span>
-                        <ion-icon *ngIf='e.status == 3' name="alert" 
-                        (click)="openUrgentAlert($event)" class="savi-urgent-icon" color="primary"></ion-icon></h2>
+                        <ion-icon *ngIf='e.status == 3' (click)="openUrgentAlert($event)"
+                        name="alert" class="savi-urgent-icon" color="primary"></ion-icon></h2>
                     <div class="notifications">
                          
                         <ion-icon *ngIf='newCategories && newCategories[e.title].includes(e.id)' name="add-circle" class="new">New Events</ion-icon>                              
