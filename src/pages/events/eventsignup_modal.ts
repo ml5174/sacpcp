@@ -120,7 +120,7 @@ export class EventSignupModal {
         }
     }
 
-    checkedMemberCount(): number {
+    get checkedMemberCount(): number {
         return this.orgContacts.filter(member => member.checked).length;
     }
 

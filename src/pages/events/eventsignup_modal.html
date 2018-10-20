@@ -100,7 +100,7 @@
                     *ngIf="!showMembers && !showGroups && (signupType=='individual' || signupType=='group')"
                     (click)="submit(signupType)">{{submitText}}</button>
                 <button class="savi-padded" ion-button item-start color="primary" *ngIf="showMembers && !showGroups" 
-                    [disabled]="checkedMemberCount() == 0" (click)="doGroupSignUp()">Finish</button>
+                    [disabled]="checkedMemberCount == 0" (click)="doGroupSignUp()">Finish</button>
                 <button class="savi-padded" ion-button item-start color="primary" *ngIf="showMembers && !showGroups" 
                     (click)="addAttendee(selectedGroup)">Add Attendee</button>
                 <button class="savi-padded" ion-button item-start color="primary" *ngIf="showGroups" [disabled]="selectedGroup == null" 
