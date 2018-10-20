@@ -32,7 +32,7 @@ export class EventSignupModal {
     showMembers = false;
     showGroups = false;
     submitText = "Next";
-    selectedGroup;
+    selectedGroup = "-1";
     constructor(params: NavParams,
         public viewCtrl: ViewController,
         public alertCtrl: AlertController,
@@ -62,12 +62,13 @@ export class EventSignupModal {
         this.orgServices.getMyOrganizations().subscribe(orgData => {
 
             for (var data of orgData) {
-                page.myOrgs.push({ 'name': data.name, 'group': data.group, 'org_id': data.organization_id });
+                if(data.org_status != 1 && data.role == 1) {
+                    page.myOrgs.push({ 'name': data.name, 'group': data.group, 'org_id': data.organization_id });
+                }
             }
-
         },
             err => {
-
+                console.error("Error loading Organizations: " + err);
             });
     }
 

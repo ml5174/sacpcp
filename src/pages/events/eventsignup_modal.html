@@ -100,7 +100,8 @@
     <ion-item *ngIf="showGroups">
         <ion-label>Organization</ion-label>
         <ion-select [(ngModel)]="selectedGroup">
-            <ion-option *ngFor="let org of myOrgs" value="{{org.org_id}}">{{org.name}} &nbsp; {{org.group}}</ion-option>
+            <ion-option value="-1">Choose from Below...</ion-option>
+            <ion-option *ngFor="let org of myOrgs" value="{{org.org_id}}">{{org.name}} -- {{org.group}}</ion-option>
         </ion-select>
     </ion-item>
     <!--<ion-item *ngIf="showMembers">
@@ -113,7 +114,7 @@
 
         <ion-list-header>Attending Members</ion-list-header>
         <ion-item *ngFor="let contacts of orgContacts ">
-            <ion-label>{{contacts.contact.first_name}}&nbsp;&nbsp; {{contacts.contact.last_name}}</ion-label>
+            <ion-label>{{contacts.contact.first_name}} {{contacts.contact.last_name}}</ion-label>
             <ion-checkbox [(ngModel)]="contacts.checked"
                 value="contacts" checked (ionChange)="updateMembers(contacts)"></ion-checkbox>
         </ion-item>
