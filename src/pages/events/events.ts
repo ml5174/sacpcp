@@ -101,7 +101,6 @@ export class EventPage {
 
   ngOnInit() {
     // select today and 30 days worth of events by default
-    console.log("ngOnInit");
     this.selectedStartDate = Moment().format("YYYY-MM-DD");
     this.selectedEndDate = Moment().add(30, 'day').format("YYYY-MM-DD");
     this.minStartDate = Moment().format("YYYY-MM-DD");
@@ -110,7 +109,6 @@ export class EventPage {
     this.currentEndDate = this.selectedEndDate.slice();
     this.volunteerEventsService.getEventCategories().subscribe(
       data => {
-          console.log('Categories: ' + JSON.stringify(data));
         this.eventCategories = data;
         let selectedCategory: any = null;
           if ( this.category && (selectedCategory = data.find(cat => cat.name === this.category)) ) {
@@ -162,7 +160,6 @@ export class EventPage {
   }
 
   onEndDateChange(evt) {
-    // console.log(this.searchedEvents);
     let date = Moment(evt);
     if (evt === this.currentEndDate) {
       return;
@@ -220,27 +217,10 @@ export class EventPage {
   }
 
   loadEvents() {
-    // console.log("loadEvents...");
     let now = new Date(Moment(this.selectedStartDate).hour(0).minute(0).toISOString());
     let until = new Date(Moment(this.selectedEndDate).hour(23).minute(59).toISOString());
     this.showLoading();
     this.getEventsTimeRange(now.toISOString(), until.toISOString());
-    // this.getFutureEvents(until.toISOString(), future.toISOString());
-
-    //Temporarily disabling admin call until I get more GET_EVENT_DETAILS_URI
-    //upon re-enabling, will need to be modified to utilize above call//
-
-    /*
-    if (this.userServices.isAdmin()) {
-      //check account for admin status
-      console.log("User is admin");
-      this.getAdminEvents();
-      //if they have admin status load admin view of events
-    }
-    else {
-      this.getEvents();
-    }
-    */
   }
 
   showMoreEvents() {
@@ -386,16 +366,12 @@ export class EventPage {
     }
   }
 
-
-
-
   getEvents() {
-    // console.log("getEvents()...");
     this.volunteerEventsService
       .getVolunteerEvents().subscribe(
       event => this.stubEvents = event,
       err => {
-        console.log(err);
+        console.log('getEvents error: ' + err);
       },
       () => {
         this.searchedEvents = this.events;
@@ -430,19 +406,20 @@ export class EventPage {
       .getAdminEvents().subscribe(
       event => this.stubEvents = event,
       err => {
-        console.log(err);
+        console.log('getAdminEvents error: ' + err);
       },
       () => {
         this.searchedEvents = this.events;
         this.loadFirstPageOfDisplayedEvents();
       });
   }
+
   getEventsMax(maxTime) {
     this.volunteerEventsService
       .getVolunteerEventsMaxTime(maxTime).subscribe(
       events => this.maxEvents = events,
       err => {
-        console.log(err);
+        console.log('getEventsMax error: ' + err);
       });
   }
   getEventsMin(minTime) {
@@ -450,7 +427,7 @@ export class EventPage {
       .getVolunteerEventsMinTime(minTime).subscribe(
       events => this.minEvents = events,
       err => {
-        console.log(err);
+        console.log('getEventsMin error: ' + err);
       });
   }
   getEventsTimeRange(minTime, maxTime) {
@@ -460,7 +437,7 @@ export class EventPage {
           this.events = events;
       }, err => {
         this.hideLoading();
-        console.log(err);
+        console.log('getEventsTimeRange error: '+err);
       },
       () => {
         this.searchedEvents = this.events;
@@ -477,7 +454,7 @@ export class EventPage {
       .getVolunteerEventsTimeRange(minTime, maxTime).subscribe(
       events => this.stubEvents = events,
       err => {
-        console.log(err);
+        console.log('getFutureEvents error: ' + err);
       });
   }
 
@@ -545,7 +522,7 @@ export class EventPage {
                     this.signupAssistant.signupEventRegistration();
                 },
                 err => {
-                    console.log(err);
+                    console.log('checkMyEvents subscribe error: ' + err);
                     // this.signupassitant.signupEventRegistration();
                     if (err._body.indexOf("Event registration is full") > 0) {
                         let confirm = this.alertCtrl.create({
@@ -555,9 +532,7 @@ export class EventPage {
                             buttons: [
                                 {
                                     text: 'Ok',
-                                    handler: () => {
-                                       // console.log('Ok, clicked');
-                                    }
+                                    handler: () => {}
                                 }
                             ]
                         });
@@ -570,14 +545,11 @@ export class EventPage {
                             buttons: [
                                 {
                                     text: 'No',
-                                    handler: () => {
-                                        // console.log('No clicked');
-                                    }
+                                    handler: () => {}
                                 },
                                 {
                                     text: 'Yes',
                                     handler: () => {
-                                        // console.log('Yes clicked');
                                         this.nav.push(RegisterIndividualProfilePage, { errorResponse: err });
                                     }
                                 }
@@ -586,17 +558,14 @@ export class EventPage {
                         confirm.present();
                     }
                 });
-
         }
     }
 
   cancelEventRegisteration(id) {
-    // console.log("events.ts: cancelEventRegistration: invoke signupassistant");
     this.signupAssistant.cancelEventRegisteration(id);
   }
 
   alertUserLoginRegister(eventId) {
-    // console.log("bring up alert control for register or login", eventId);
     let confirm = this.alertCtrl.create({
       title: '',
       cssClass: 'alertReminder',
@@ -605,16 +574,13 @@ export class EventPage {
         {
           text: 'Register',
           handler: () => {
-            // console.log("register clicked", eventId);
-            //this.nav.push(RegisterLoginPage);
+
             this.handleEventLoginRegister(1, eventId);
           }
         },
         {
           text: 'Login',
           handler: () => {
-            // console.log("login clicked", eventId);
-            //this.nav.push(LoginPage)
              this.handleEventLoginRegister(0, eventId);
           }
         }
@@ -633,10 +599,7 @@ export class EventPage {
         alert.present();
     }
 
-
-
   notAuthorizedForGroupOnly(id) {
-    // console.log("notAuthorizedForGroupOnly");
     let confirm = this.alertCtrl.create({
       title: '',
       cssClass: 'alertReminder',
@@ -644,9 +607,7 @@ export class EventPage {
       buttons: [
         {
           text: 'OK',
-          handler: () => {
-            // console.log('OK clicked');
-          }
+          handler: () => {}
         }
       ]
     });
@@ -661,14 +622,10 @@ event_id: numeric Id representing specific event,
 */
   private handleEventLoginRegister(flag, event_id){
       this.ev.subscribe('user-event-flow', (paramsVar) => {
-          // Do stuff with "paramsVar"
-          // console.log("paramsVar:" + paramsVar);
-          // Soso
           this.eventDetailModal(paramsVar)
           this.ev.unsubscribe('user-event-flow'); // unsubscribe this event
       });
-      //this.viewCtrl.dismiss();
-      let toPage ;
+      let toPage;
       if(flag === 0){
         toPage = LoginPage;
     }else{
