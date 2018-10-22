@@ -32,7 +32,7 @@ export class EventSignupModal {
     showMembers = false;
     showGroups = false;
     submitText = "Next";
-    selectedGroup;
+    selectedGroup = null;
     constructor(params: NavParams,
         public viewCtrl: ViewController,
         public alertCtrl: AlertController,
@@ -62,12 +62,13 @@ export class EventSignupModal {
         this.orgServices.getMyOrganizations().subscribe(orgData => {
 
             for (var data of orgData) {
-                page.myOrgs.push({ 'name': data.name, 'group': data.group, 'org_id': data.organization_id });
+                if(data.org_status != 1 && data.role == 1) {
+                    page.myOrgs.push({ 'name': data.name, 'group': data.group, 'org_id': data.organization_id });
+                }
             }
-
         },
             err => {
-
+                console.error("Error loading Organizations: " + err);
             });
     }
 
@@ -79,6 +80,7 @@ export class EventSignupModal {
     displayGroups() {
         this.showGroups = true;
         this.showMembers = false;
+        console.log("Show Groups!");
     }
 
     displayMembers() {
@@ -118,25 +120,21 @@ export class EventSignupModal {
         }
     }
 
+    get checkedMemberCount(): number {
+        return this.orgContacts.filter(member => member.checked).length;
+    }
+
     getOrgContacts(org_id) {
         var page = this;
         this.orgServices.getOrgContacts(org_id).subscribe(orgContactData => {
-            //page.orgContacts = orgContactData.members;
             page.orgContacts = [];
-            // page.orgContacts = [{}];
             for (var i in orgContactData.members) {
                 page.orgContacts.push({ contact: orgContactData.members[i], checked: true });
-                // page.orgContacts[i].checked = false;
                 page.selectedMembers.push(orgContactData.members[i]);
             }
-
             page.displayMembers();
-
         },
-            err => {
-
-            });
-
+            err => {});
     }
 
     doIndividualSignup() {

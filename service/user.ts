@@ -93,7 +93,7 @@ export class UserServices {
                 .catch((error: any) => Observable.throw(error || 'Server error'));
         }
         else {
-            console.info("cashed getMyPreferences used!!");
+            console.info("cached getMyPreferences used!!");
         }
         return this._myPreferences;
     }
@@ -112,7 +112,7 @@ export class UserServices {
                 .catch((error: any) => Observable.throw(error || 'Server error'));
         }
         else {
-            console.info("cashed getMyProfile used!!");
+            console.info("cached getMyProfile used!!");
         }
         return userServicesThis._myProfile;
     }
