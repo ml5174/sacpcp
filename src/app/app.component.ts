@@ -195,6 +195,7 @@ export class MyApp {
     }
   }
   logout() {
+    //console.log("logout()");
     this.showAdmin=false;
     this.showMyGroupsMenu=false;
     this.menu.close();
@@ -202,7 +203,7 @@ export class MyApp {
     this.userServices.unsetId();
     this.volunteerEvents.clearEvents();
     this.userServices.user = new UserProfile();
-
+    this.nav.popToRoot();
   }
   isRedKettleSeason() {
     const currDate = new Date(Moment().toISOString());
