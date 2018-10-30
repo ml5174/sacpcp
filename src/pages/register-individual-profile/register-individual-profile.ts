@@ -849,7 +849,8 @@ export class RegisterIndividualProfilePage {
   
   back() { // NOTE: need to 'refresh' this.myProfile data since all changes are written to it as the user makes them
            //         even without a save.
-      this.userServices.getMyProfile().subscribe(data => this.myProfile = data);
+      this.userServices.clearMyProfile();
+      //this.userServices.getMyProfile().subscribe(data => this.myProfile = data);
       this.nav.popToRoot();
   }
 
