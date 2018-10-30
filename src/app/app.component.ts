@@ -202,8 +202,10 @@ export class MyApp {
     this.storage.set('key', undefined);
     this.userServices.unsetId();
     this.volunteerEvents.clearEvents();
+    this.userServices.clearMyProfile();
     this.userServices.user = new UserProfile();
     this.nav.popToRoot();
+    this.openPage(this.pages[1], 'home');
   }
   isRedKettleSeason() {
     const currDate = new Date(Moment().toISOString());
