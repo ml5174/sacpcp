@@ -156,28 +156,6 @@ export class RegisterIndividualProfilePage {
 
   public selectedTab: string = "personal";
 
-  public testProfile = {
-    'mobilenumber': 18179809155,
-    'accepted_waiver': 4,
-    'birthdate': "2016-01-01",
-    'first_name': "first",
-    'last_name': "last",
-    'active': 1,
-    'emergency_contact': {
-      'first_name': "em",
-      'last_name': "cont",
-      'relation': 'spouse',
-      'email': 'jk005u@att.com',
-      'contactmethod': 2,
-      'mobilenumber': 18179809155,
-      'altnumber': 18179809154,
-      'address1': 'test',
-      'city': 'Dallas',
-      'state': 'TX',
-      'zipcode': '75206'
-    }
-  }
-
   // Constructor
   constructor(public nav: NavController,
               public userServices: UserServices,
@@ -230,7 +208,6 @@ export class RegisterIndividualProfilePage {
           }
 			//console.log("Onload myProfile ")
       //console.log(this.myProfile);
-      //console.log(this.testProfile);
           if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
           if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
           if (!this.myProfile.my_volunteertype_id) this.myProfile.my_volunteertype_id = defaultVolunteerTypeId;
@@ -870,8 +847,11 @@ export class RegisterIndividualProfilePage {
     this.accordionChangePassword.expand(this.passworderror || this.password1error || this.password2error);
   }
   
-  back() {
-    this.nav.popToRoot();
+  back() { // NOTE: need to 'refresh' this.myProfile data since all changes are written to it as the user makes them
+           //         even without a save.
+      this.userServices.clearMyProfile();
+      //this.userServices.getMyProfile().subscribe(data => this.myProfile = data);
+      this.nav.popToRoot();
   }
 
   goToChangePassword() {
