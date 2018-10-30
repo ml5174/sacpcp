@@ -168,7 +168,7 @@ export class EventSignupModal {
                     let confirm = this.alertCtrl.create({
                         title: '',
                         cssClass: 'alertReminder',
-                        message: 'YOU have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the My Profile page?',
+                        message: 'You have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the My Profile page?',
                         buttons: [
                             {
                                 text: 'No',
