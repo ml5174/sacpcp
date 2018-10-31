@@ -63,15 +63,11 @@
     </ion-grid>
     <ion-list *ngIf="showGroups" radio-group [(ngModel)]="selectedGroup">
         <ion-list-header>
-            Organization
+            Select an Organization/Group
         </ion-list-header>
         <ion-item *ngFor="let org of myOrgs">
-            <ion-label>{{org.name}} - {{org.group}}</ion-label>
+            <ion-label>{{org.name}}/{{org.group}}</ion-label>
             <ion-radio value="{{org.org_id}}"></ion-radio>
-        </ion-item>
-        <ion-item>
-            <ion-label>Milton</ion-label>
-            <ion-radio value="12121212"></ion-radio>
         </ion-item>
     </ion-list>
     <ion-list *ngIf="showMembers">

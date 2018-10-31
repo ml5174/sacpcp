@@ -18,11 +18,8 @@
     <ion-item *ngIf="showStatus && eventDetail.status_notes">
       <p>Status notes: {{eventDetail.status_notes}}</p>
     </ion-item>
-    <ion-item *ngIf="signedUp && userServices.user.id">
-      <p>Sign-Up Status: Signed Up</p>
-    </ion-item>
-     <ion-item *ngIf="!signedUp && userServices.user.id">
-      <p>Sign-Up Status: Not Signed Up</p>
+    <ion-item *ngIf="userServices.user.id">
+      <p style="text-transform:none">Signup: {{signUpStatusText}}</p>
     </ion-item>
     <ion-item>
       <p *ngIf="eventDetail.registeredcount !=null">Volunteers Participating: {{eventDetail.registeredcount}}</p>
@@ -40,7 +37,7 @@
        <img [src]="eventDetail.eventimages[0].thumbnail" />
 
        </span>
-      <p *ngIf="eventDetail.eventimages.length ==0">There are no images for this event</p>
+      <p *ngIf="!eventDetail.eventimages || eventDetail.eventimages.length ==0">There are no images for this event</p>
       <p>Gender restrictions: {{gender[eventDetail.gender_restriction]}}</p>
       <p>Age restriction: {{aRestriction[eventDetail.age_restriction]}}</p>
       <p>Volunteer type restrictions: {{vRestriction[eventDetail.volunteer_restriction]}}</p>
