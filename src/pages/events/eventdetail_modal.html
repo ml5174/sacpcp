@@ -19,7 +19,7 @@
       <p>Status notes: {{eventDetail.status_notes}}</p>
     </ion-item>
     <ion-item *ngIf="userServices.user.id">
-      <p style="text-transform:none">Signup: {{signUpStatusText}}</p>
+      <p style="text-transform:none">{{signUpStatusText}}</p>
     </ion-item>
     <ion-item>
       <p *ngIf="eventDetail.registeredcount !=null">Volunteers Participating: {{eventDetail.registeredcount}}</p>

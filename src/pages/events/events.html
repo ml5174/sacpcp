@@ -99,7 +99,7 @@
                         <button ion-button item-end small color="primary" *ngIf="amISignedUp(e.id) && !amIGroupAdmin(e.id)" 
                             (click)="cancelEventRegisteration(e.id)">Cancel Sign-Up</button>
                         <button ion-button item-end small color="primary" *ngIf="amISignedUp(e.id) && amIGroupAdmin(e.id)"
-                            (click)="cancelGroupEventRegisteration(e.id)">Cancel Group Sign-Up</button>
+                            (click)="cancelGroupEventRegistration(e.id)">Cancel Group Sign-Up</button>
                     </ion-item>
                 </ion-list>
             </ion-card-content>

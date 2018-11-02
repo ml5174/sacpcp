@@ -561,7 +561,7 @@ export class EventPage {
         }
 
         // NOTE: Requires - the user must be signed up via group and the user is group admin for the group
-        cancelEventRegistrationForGroup(event_id: string): void {
+        cancelGroupEventRegistration(event_id: string): void {
             this.signupAssistant.cancelGroupEventRegistration(event_id, this.getMyEventOrganizationId(event_id));
         }
 
@@ -636,4 +636,5 @@ event_id: numeric Id representing specific event,
             fromPage: "events"
         });
     }
+
 }

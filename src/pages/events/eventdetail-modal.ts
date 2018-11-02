@@ -130,11 +130,8 @@ export class EventDetailModal {
             (err) => {
                 console.log(err);
             },
-            () => {
-                console.log("completed");
-            }
+            () => {}
             );
-        console.log("getAdminEventDetails");
     }
 
     getMyEvent(id) {
@@ -142,10 +139,9 @@ export class EventDetailModal {
             .getMyEvent(id).subscribe(
                 (data) => {
                     this.myEvent = data;
-                    console.log('My Event Data: ' + JSON.stringify(this.myEvent));
                 },
                 (err) => {
-                    console.error('getEventDetails error: ' + err);
+                    console.error('getMyEvent error: ' + err);
                 }
             );
     }
@@ -175,7 +171,6 @@ export class EventDetailModal {
                         this.signupAssistant.setGuestSignup(true);
                         this.appCtrl.getRootNav().push(RegisterLoginPage);
                         this.viewCtrl.dismiss();
-
                     }
                 },
                 {
