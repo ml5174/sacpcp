@@ -165,7 +165,7 @@ export class MyApp {
   }
   setRoot(){
     if(this.userServices.user.id){
-      this.volunteerEvents.getMyEvents(this.userServices.user.id).subscribe(events=>{
+      this.volunteerEvents.getMyEvents().subscribe(events=>{
         if(events.length > 0){
           this.rootPage = MyhomePage;
           this.currentPage = "My Home";

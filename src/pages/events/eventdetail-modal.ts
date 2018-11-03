@@ -20,6 +20,7 @@ import { OrganizationServices } from '../../lib/service/organization';
 
 export class EventDetailModal {
     eventId: String;
+    myEvent: any;
     eventDetail: EventDetail;
     signedUp: Boolean = false;
     showStatus: Boolean = false;
@@ -78,13 +79,30 @@ export class EventDetailModal {
     loadDetails() {
 
         if (this.userServices.isAdmin()) {
-            //check account for admin status
+            //check account for TSA admin status
             this.getAdminEventDetails(this.eventId);
             //if they have admin status load admin view of events
         }
+
         else {
             this.getEventDetails(this.eventId);
+
         }
+        if (this.signedUp) {
+            this.getMyEvent(this.eventId);
+            console.log("Hey - I am signed up!");
+        }
+    }
+
+    get signUpStatusText():string {
+        if(this.signedUp && this.userServices.user.id && this.myEvent.organization_name) {
+            return "Signed Up as group member of " + this.myEvent.organization_name + '/' + 
+                this.myEvent.organization_group;
+        }
+        else if(this.signedUp && this.userServices.user.id) {
+            return "Signed Up";
+        }
+        return "Not Signed Up";
     }
 
     youAreNotEligible() {
@@ -108,22 +126,24 @@ export class EventDetailModal {
             .getAdminEventDetails(id).subscribe(
             (event) => {
                 this.eventDetail = event;
-                if (id == 3689) {
-                    this.eventDetail.org_restriction = "1";
-                    console.log("The org restriction is " + this.eventDetail.org_restriction);
-                    console.log("the eventDetail has its org restriction as " + this.eventDetail.org_restriction);
-
-                }
-                console.log(this.eventDetail);
             },
             (err) => {
                 console.log(err);
             },
-            () => {
-                console.log("completed");
-            }
+            () => {}
             );
-        console.log("getAdminEventDetails");
+    }
+
+    getMyEvent(id) {
+        this.volunteerEventsService
+            .getMyEvent(id).subscribe(
+                (data) => {
+                    this.myEvent = data;
+                },
+                (err) => {
+                    console.error('getMyEvent error: ' + err);
+                }
+            );
     }
 
     getEventDetails(id) {
@@ -131,22 +151,11 @@ export class EventDetailModal {
             .getVolunteerEventDetails(id).subscribe(
             (event) => {
                 this.eventDetail = event;
-                if (id == 3689) {
-                    this.eventDetail.org_restriction = "1";
-                    console.log("the eventDetail has its org restriction as " + this.eventDetail.org_restriction);
-                    //for any event that is org only restricted, only group admins and TSA admins can signup
-                    this.youAreNotEligible();
-                }
-
             },
             (err) => {
-                console.log(err);
-            },
-            () => {
-                console.log("completed");
+                console.error('getEventDetails error: ' + err);
             }
-            );
-        console.log("getEventDetails");
+        );
     }
 
     unregisteredUserPopover() {
@@ -162,7 +171,6 @@ export class EventDetailModal {
                         this.signupAssistant.setGuestSignup(true);
                         this.appCtrl.getRootNav().push(RegisterLoginPage);
                         this.viewCtrl.dismiss();
-
                     }
                 },
                 {

@@ -18,7 +18,7 @@ import { VolunteerEventsService } from '../../lib/service/volunteer-events-servi
 
 export class EventSignupModal {
     public orgData: Array<any> = [];
-    private myOrgs;
+    private myOrgs: Array<any> = [];
     private orgContactData: Array<any> = [];
     private orgContacts;
     private isGroupAdmin;
@@ -62,14 +62,24 @@ export class EventSignupModal {
         this.orgServices.getMyOrganizations().subscribe(orgData => {
 
             for (var data of orgData) {
+                // only active orgs for which this user is admin are displayed
                 if(data.org_status != 1 && data.role == 1) {
                     page.myOrgs.push({ 'name': data.name, 'group': data.group, 'org_id': data.organization_id });
                 }
             }
+            page.myOrgs.sort(this.orgCompare);
         },
             err => {
                 console.error("Error loading Organizations: " + err);
             });
+    }
+
+    orgCompare(a: any, b: any): number {
+       let retval = (<string>a.name).localeCompare((<string>b.name));
+       if(retval == 0) {
+           retval = (<string>a.group).localeCompare((<string>b.group));
+       }
+       return retval;
     }
 
     dismiss() {
