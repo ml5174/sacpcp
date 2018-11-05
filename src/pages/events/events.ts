@@ -251,7 +251,9 @@ export class EventPage {
             "id": id,
             "guestUser": false,
             "registered": this.amISignedUp(id),
-            "preference_data": this.myPreferences
+            "preference_data": this.myPreferences,
+            "isGroupAdmin": this.amIGroupAdmin(id),
+            "orgId": this.getMyEventOrganizationId(id)
         });
         eventDetailPopup.present();
     }
@@ -263,17 +265,8 @@ export class EventPage {
             "is_admin": is_admin,
         });
 
-        /*   let ev = {
-         target : {
-           getBoundingClientRect : () => {
-             return {
-               top: '200'
-             };
-           }
-         }
-           };*/
-        eventsignupPopup.present(/*{ev}*/);
-        eventsignupPopup.onDidDismiss(data => {
+        eventsignupPopup.present();
+        eventsignupPopup.onDidDismiss(() => {
             this.volunteerEventsService.loadMyEvents();
         });
     }

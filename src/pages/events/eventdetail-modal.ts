@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NavParams, ViewController, ToastController, ModalController, Events } from 'ionic-angular';
 import { UserServices } from '../../lib/service/user';
 import { SignupAssistant } from '../../lib/service/signupassistant';
@@ -19,7 +19,8 @@ import { OrganizationServices } from '../../lib/service/organization';
 })
 
 export class EventDetailModal {
-    eventId: String;
+
+    eventId: string;
     myEvent: any;
     eventDetail: EventDetail;
     signedUp: Boolean = false;
@@ -27,6 +28,9 @@ export class EventDetailModal {
     showDetails: Boolean = false;
     guestUser: Boolean = false;
     registering: Boolean = false;
+    isGroupAdmin: boolean = false;
+    orgId: string = null;
+
     gender = GENDER_RESTRICTION;
     vRestriction = VOLUNTEER_RESTRICTION;
     eStatus = EVENT_STATUS;
@@ -54,11 +58,12 @@ export class EventDetailModal {
         private navCtrl: NavController) {
         this.viewCtrl = viewCtrl;
         this.eventId = params.get('id');
-
         this.signedUp = params.get('registered');
         this.guestUser = params.get('guestUser');
         this.myPreferences = params.get('preference_data');
-
+        this.isGroupAdmin = params.get('isGroupAdmin');
+        this.orgId = params.get('orgId');
+        console.log("params: " + JSON.stringify(params));
     }
 
     ngOnInit() {
@@ -356,22 +361,43 @@ export class EventDetailModal {
                 this.volunteerEventsService.loadMyEvents();
             });
     }
-    deRegister(id) {
+    
+    deRegister() {
+        const myThis = this;
         this.volunteerEventsService
-            .eventDeregister(id).subscribe(
-            result => {
-                this.deregisterResult = result;
-                this.presentToast("You are no longer signed up for this event");
-                this.signedUp = false;
-            },
-            err => {
-                console.log(err);
-                this.presentToast("Error cancelling event registration");
-            }, () => {
-                this.volunteerEventsService.loadMyEvents();
-                this.loadDetails();
-            });
+            .eventDeregister(myThis.eventId).subscribe(
+                result => {
+                    this.deregisterResult = result;
+                    this.presentToast("You are no longer signed up for this event");
+                    this.signedUp = false;
+                },
+                err => {
+                    console.log(err);
+                    this.presentToast("Error cancelling event registration");
+                }, () => {
+                    this.volunteerEventsService.loadMyEvents();
+                    this.loadDetails();
+                });
     }
+
+    deRegisterGroup() {
+        const myThis = this;
+        this.volunteerEventsService
+            .eventDeregisterGroup(myThis.eventId, myThis.orgId).subscribe(
+                result => {
+                    this.deregisterResult = result;
+                    this.presentToast("Your group is longer signed up for this event");
+                    this.signedUp = false;
+                },
+                err => {
+                    console.log(err);
+                    this.presentToast("Error cancelling group event registration");
+                }, () => {
+                    this.volunteerEventsService.loadMyEvents();
+                    this.loadDetails();
+                });
+    }
+
     dismiss() {
         this.viewCtrl.dismiss();
     }
@@ -380,11 +406,13 @@ export class EventDetailModal {
         this.viewCtrl.onDidDismiss(function (data) {
         });
     }
-    cancelEventRegisteration(id) {
+    cancelEventRegistration(isGroup: boolean = false) {
+        const message = (isGroup ? "Are you sure you want to cancel event Registration for the group?" :
+                                   "Are you sure you want to cancel this event Registration?");
         let confirm = this.alertCtrl.create({
             title: '',
             cssClass: 'alertReminder',
-            message: 'Are you sure you want to cancel this event Registration?',
+            message: message,
             buttons: [
                 {
                     text: 'No',
@@ -396,7 +424,12 @@ export class EventDetailModal {
                     text: 'Yes',
                     handler: () => {
 
-                        this.deRegister(id);
+                        if(!isGroup) {
+                            this.deRegister();
+                        }
+                        else {
+                            this.deRegisterGroup();
+                        }
                     }
                 }
             ],

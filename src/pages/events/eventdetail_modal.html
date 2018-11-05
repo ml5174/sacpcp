@@ -60,15 +60,19 @@
 </ion-content>
 
 <ion-footer class="action-footer">
-	<ion-grid>
-		<ion-row>
-      <ion-col>
-              <button ion-button color="primary" (click)="dismiss()">Back</button>
-			</ion-col>
-			<ion-col>
-           <button class="savi-padded" ion-button color="primary" *ngIf="!signedUp" (click)="signupEventRegistration(eventDetail)">Sign Up</button>               
-                <button class="savi-padded" ion-button item-start color="primary" *ngIf="signedUp" (click)="cancelEventRegisteration(eventDetail.id)">Cancel Sign-Up</button>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <button ion-button color="primary" (click)="dismiss()">Back</button>
+            </ion-col>
+            <ion-col>
+                <button class="savi-padded" ion-button color="primary" *ngIf="!signedUp" (click)="signupEventRegistration(eventDetail)">Sign
+                    Up</button>
+                <button class="savi-padded" ion-button color="primary" *ngIf="signedUp && !isGroupAdmin"
+                    (click)="cancelEventRegistration()">Cancel Sign-Up</button>
+                <button ion-button block color="primary" *ngIf="signedUp && isGroupAdmin"
+                    (click)="cancelEventRegistration(true)">Cancel Group Sign-Up</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-footer>

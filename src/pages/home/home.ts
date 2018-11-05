@@ -24,21 +24,25 @@ export class HomePage {
     public storage: Storage,
     private eventService: VolunteerEventsService,
     public platform: Platform,
-    public alertCtrl: AlertController
-  ) {
-        const currTime = new Date(Moment().add(1,'days').toISOString());
-    storage.get('lastOpened').then((time) => {
-      eventService.getVolunteerEventsMinTime(currTime.toISOString()).subscribe(events => {
-        events.forEach(event => {
-          if(new Date(event.created) > new Date(time)) {
-            this.newCategories[event.title].push(event.id);
-          }
-        })
-      });
-    });
+    public alertCtrl: AlertController) {
+        storage.get('lastOpened').then((time) => {
+            const currentTime = new Date(time);
+            const selectedStartDate = Moment().format("YYYY-MM-DD");
+            const selectedEndDate = Moment().add(30, 'day').format("YYYY-MM-DD");
+            let now = new Date(Moment(selectedStartDate).hour(0).minute(0).toISOString());
+            let until = new Date(Moment(selectedEndDate).hour(23).minute(59).toISOString());
+            this.eventService.getVolunteerEventsTimeRange(now.toISOString(), until.toISOString())
+                .subscribe(events => {
+                    events.forEach(event => {
+                        if(new Date(event.created) > currentTime) {
+                            this.newCategories[event.title].push(event.id);
+                        }
+                    })
+                });
+        });
+        storage.set("lastOpened", new Date(Moment(Moment()).toISOString()));
+    }
 
-    storage.set("lastOpened", new Date(Moment(Moment()).toISOString()));
-  }
   selectEvent(eventCategory) {
     this.eventCategory = eventCategory
   }
@@ -49,7 +53,7 @@ export class HomePage {
 
   private openExternalUrl(url: string){
 
-      if(this.platform.is('android') && this.platform.is('ios')){
+      if(this.platform.is('android') || this.platform.is('ios')){
         let okayToLeaveApp = this.alertCtrl.create({
          title: '',
          cssClass: 'alertReminder',
