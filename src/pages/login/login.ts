@@ -80,8 +80,7 @@ export class LoginPage {
       key => {
         this.loginSuccess = true;
         if (loginPage.remember)
-          loginPage.storage.set('key', loginPage.userServices.user.key);
- console.log("BreakPoint#0");
+        loginPage.storage.set('key', loginPage.userServices.user.key);
         loginPage.userServices.getMyProfile().subscribe(
                                  result => result,
                                  err => {
