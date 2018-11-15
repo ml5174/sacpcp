@@ -88,14 +88,11 @@ export class EventDetailModal {
             this.getAdminEventDetails(this.eventId);
             //if they have admin status load admin view of events
         }
-
         else {
             this.getEventDetails(this.eventId);
-
         }
         if (this.signedUp) {
             this.getMyEvent(this.eventId);
-            console.log("Hey - I am signed up!");
         }
     }
 

@@ -16,7 +16,11 @@ export class HomePage {
   program: string = "selection";
   contactPage = ContactPage
   eventCategory: string;
-  urgentCategories: object = {'Food Service':[], 'Food Pantry':[], 'Child Care':[],
+  // for now, sort events by using event.categoryid == category.id
+  categoryMap: Array<string> = ['Food Service', 'Food Pantry', 'Clothing Warehouse', 'Child Care', 'Practicum Service',
+                                'Red Kettle'];
+
+    urgentCategories: object = {'Food Service':[], 'Food Pantry':[], 'Child Care':[],
                               'Practicum Service':[], 'Red Kettle':[], 'Clothing Warehouse':[]};
   newCategories: object = {'Food Service':[], 'Food Pantry':[], 'Child Care':[],
   'Practicum Service':[], 'Red Kettle':[], 'Clothing Warehouse':[]};
@@ -35,7 +39,10 @@ export class HomePage {
                 .subscribe(events => {
                     events.forEach(event => {
                         if(new Date(event.created) > currentTime) {
-                            this.newCategories[event.title].push(event.id);
+                            const category_id = parseInt(event.category_id, 10);
+                            if( category_id >= 1 && category_id <= 6 ) {
+                                this.newCategories[this.categoryMap[category_id]].push(event.id);
+                            }
                         }
                     })
                 });

@@ -97,7 +97,7 @@ export class LoginPage {
                     this.signupAssistant.signupEventRegistration();
                 },
                 err => {
-                    console.error(err);
+                    console.error("Sign up error: " + JSON.stringify(err));
                     if(err._body.indexOf("Event Registration is full. We encourage you to search for similar events scheduled.") > 0){
                       let confirm = this.alertCtrl.create({
                             title: '',
@@ -113,7 +113,20 @@ export class LoginPage {
                             ]
                         });
                         confirm.present();
-                    }else{
+                    } else if (err._body.non_field_errors.includes(item => item.event_conflict && item.event_conflict === "You are already registered for this event.")) {
+                        let confirm = this.alertCtrl.create({
+                            title: '',
+                            cssClass: 'alertReminder',
+                            message: 'You are already registered for this event.',
+                            buttons: [
+                                {
+                                    text: 'Ok',
+                                    handler: () => {}
+                                }
+                            ]
+                        });
+                        confirm.present();
+                    } else{
                       let confirm = this.alertCtrl.create({
                               title: '',
                               cssClass: 'alertReminder',
