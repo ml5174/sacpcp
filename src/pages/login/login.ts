@@ -97,7 +97,11 @@ export class LoginPage {
                     this.signupAssistant.signupEventRegistration();
                 },
                 err => {
+<<<<<<< HEAD
                     console.error("Sign up error: " + err);
+=======
+                    console.error("Sign up error: " + JSON.stringify(err));
+>>>>>>> 807581ae0d7e6f33c3b969bc80abc7e90aa04acf
                     if(err._body.indexOf("Event Registration is full. We encourage you to search for similar events scheduled.") > 0){
                       let confirm = this.alertCtrl.create({
                             title: '',
