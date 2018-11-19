@@ -350,40 +350,8 @@ export class RegisterIndividualProfilePage {
   }
 
   checkRequiredFields() {
-    //console.log(this.myProfile);
-    this.requiredFieldError=false;
-    if(this.myProfile.first_name===undefined) {
-      this.requiredFieldError=true;
-      //console.log("first name: " + this.myProfile.first_name);
-    }
-    else if(this.myProfile.last_name===undefined) {
-      this.requiredFieldError=true;
-      //console.log("last name: " + this.myProfile.last_name);
-    }
-    else if(this.myProfile.birthdate===undefined) {
-      this.requiredFieldError=true;
-      //console.log("bday: " + this.myProfile.birthdate);
-    }
-    else if(this.myProfile.gender===undefined){
-      this.requiredFieldError=true;
-      //console.log("gender: " + this.myProfile.gender);
-    }
-    else if(this.myProfile.emergency_contact.first_name===undefined) {
-      this.requiredFieldError=true;
-      //console.log("ec first name: " + this.myProfile.emergency_contact.first_name);
-    }
-    else if(this.myProfile.emergency_contact.last_name===undefined) {
-      this.requiredFieldError=true;
-      //console.log("ec last name: " + this.myProfile.emergency_contact.last_name);
-    }
-    else if(this.myProfile.emergency_contact.relation===undefined) {
-      this.requiredFieldError=true;
-      //console.log("ec relation: " + this.myProfile.emergency_contact.relation);
-    }
-    else if(this.myProfile.emergency_contact.mobilenumber===undefined) {
-      this.requiredFieldError=true;
-      //console.log("ec mobile number: " + this.myProfile.emergency_contact.mobilenumber);
-    }
+    this.requiredFieldError = (this.myProfile.first_name === undefined) || (this.myProfile.last_name === undefined) ||
+                              (this.myProfile.birthdate === undefined);
   }
 
   cleanBooleans() {
@@ -410,91 +378,41 @@ export class RegisterIndividualProfilePage {
     return false;
   }
 
-  //TODO Once phone numbers are single values instead of three values, change this code
   translateToFormPhoneNumbers() {
-    // Clear all parsed numbers
-    // this.mobileNumberAreaCode = "";
-    // this.mobileNumberPrefix = "";
-    // this.mobileNumberLineNumber = "";
+    
     this.mobileNumber = "";
-
-    // this.mobileNumberAreaCode = "";
-    // this.mobileNumberPrefix = "";
-    // this.mobileNumberLineNumber = "";
     this.ecMobileNumber = "";
-
-    // this.mobileNumberAreaCode = "";
-    // this.mobileNumberPrefix = "";
-    // this.mobileNumberLineNumber = "";
     this.ecAltNumber = "";
 
-    // Parse profile mobile number
-    // if (this.myProfile.mobilenumber && this.myProfile.mobilenumber.length == 11) {
-    //   this.mobileNumberAreaCode = this.myProfile.mobilenumber.substring(1, 4);
-    //   this.mobileNumberPrefix = this.myProfile.mobilenumber.substring(4, 7);
-    //   this.mobileNumberLineNumber = this.myProfile.mobilenumber.substring(7, 11);
-    // }
     if (this.myProfile.mobilenumber && this.myProfile.mobilenumber.length == 11) {
        this.mobileNumber = this.myProfile.mobilenumber;
        this.mobileNumber = "(" + this.myProfile.mobilenumber.substring(1,4) + ") " + this.myProfile.mobilenumber.substring(4, 7) + "-"  + this.myProfile.mobilenumber.substring(7, 11);
-       //console.log("Mobile Number:" + this.mobileNumber);
     }
 
-    // Parse emergency contact mobile number
-    // if (this.myProfile.emergency_contact.mobilenumber && this.myProfile.emergency_contact.mobilenumber.length == 11) {
-    //   this.ecMobileNumberAreaCode = this.myProfile.emergency_contact.mobilenumber.substring(1, 4);
-    //   this.ecMobileNumberPrefix = this.myProfile.emergency_contact.mobilenumber.substring(4, 7);
-    //   this.ecMobileNumberLineNumber = this.myProfile.emergency_contact.mobilenumber.substring(7, 11);
-    // }
     if (this.myProfile.emergency_contact.mobilenumber && this.myProfile.emergency_contact.mobilenumber.length == 11) {
       this.ecMobileNumber = this.myProfile.emergency_contact.mobilenumber;
       this.ecMobileNumber = "(" + this.myProfile.emergency_contact.mobilenumber.substring(1, 4) + ") " + this.myProfile.emergency_contact.mobilenumber.substring(4, 7) + "-" + this.myProfile.emergency_contact.mobilenumber.substring(7, 11);
     }
 
-
-    // Parse emergency contact alternate number
-    // if (this.myProfile.emergency_contact.altnumber && this.myProfile.emergency_contact.altnumber.length == 11) {
-    //   this.ecAltNumberAreaCode = this.myProfile.emergency_contact.altnumber.substring(1, 4);
-    //   this.ecAltNumberPrefix = this.myProfile.emergency_contact.altnumber.substring(4, 7);
-    //   this.ecAltNumberLineNumber = this.myProfile.emergency_contact.altnumber.substring(7, 11);
-    // }
     if (this.myProfile.emergency_contact.altnumber && this.myProfile.emergency_contact.altnumber.length == 11) {
       this.ecAltNumber = this.myProfile.emergency_contact.altnumber;
       this.ecAltNumber = "(" + this.myProfile.emergency_contact.altnumber.substring(1, 4) + ") " + this.myProfile.emergency_contact.altnumber.substring(4, 7) + "-" + this.myProfile.emergency_contact.altnumber.substring(7, 11);
     }
-
-
   }
 
   translateFromFormPhoneNumbers() {
-    // if (this.mobileNumberAreaCode || this.mobileNumberPrefix || this.mobileNumberLineNumber) {
-    //   this.myProfile.mobilenumber = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
-    // } else {
-    //   this.myProfile.mobilenumber = "";
-    // }
+   
     if (this.preferredNumber.getPN()) {
       this.myProfile.mobilenumber = this.preferredNumber.getPN();
     }
 
-    // if (this.ecMobileNumberAreaCode || this.ecMobileNumberPrefix || this.ecMobileNumberLineNumber) {
-    //   this.myProfile.emergency_contact.mobilenumber = "1" + this.ecMobileNumberAreaCode + this.ecMobileNumberPrefix + this.ecMobileNumberLineNumber;
-    // } else {
-    //   this.myProfile.emergency_contact.mobilenumber = "";
-    // }
     if (this.emergencyNumber.getPN()) {
-      //console.log("emergency number: " + this.emergencyNumber.getPN())
       this.myProfile.emergency_contact.mobilenumber = this.emergencyNumber.getPN();
     }
 
-    // if (this.ecAltNumberAreaCode || this.ecAltNumberPrefix || this.ecAltNumberLineNumber) {
-    //   this.myProfile.emergency_contact.altnumber = "1" + this.ecAltNumberAreaCode + this.ecAltNumberPrefix + this.ecAltNumberLineNumber;    
-    // } else {
-    //   this.myProfile.emergency_contact.altnumber = "";
-    // }
     if (this.emergencyAlternate.getPN()) {
       this.myProfile.emergency_contact.altnumber = this.emergencyAlternate.getPN();
     }
-
   }
 
   translateToFormPreferences() {
@@ -822,14 +740,6 @@ export class RegisterIndividualProfilePage {
       this.content.scrollToTop();
     }
 
-      //       @ViewChild('accordionMyCredentials') accordionMyCredentials : AccordionBox;
-  // @ViewChild('accordionPreferredContact') accordionPreferredContact : AccordionBox;
-  // @ViewChild('accordionEmergencyContact') accordionEmergencyContact : AccordionBox;
-  // @ViewChild('accordionVolunteerTypes') accordionVolunteerTypes : AccordionBox;
-  // @ViewChild('accordionPreferredLocations') accordionPreferredLocations : AccordionBox;
-  // @ViewChild('accordionServiceAreas') accordionServiceAreas : AccordionBox;
-  // @ViewChild('accordionChangePassword') accordionChangePassword : AccordionBox;
-    //Now, if therre are any error messages in an accordionbox, lets expand it!
     this.accordionMyCredentials.expand(this.firstnameerror || this.lastnameerror || this.birthdateerror || this.gendererror
       || this.address1error || this.address2error || this.cityerror || this.stateerror || this.zipcodeerror);
 
@@ -839,10 +749,6 @@ export class RegisterIndividualProfilePage {
       || this.ecmobilenumbererror || this.ecaltnumbererror );
 
     this.accordionVolunteerTypes.expand(this.my_volunteertype_iderror || this.my_referalsource_iderror);
-
-    //There are not (yet?) any errors for this accordionbox
-    // this.accordionPreferredLocations.expand(true);
-    //this.accordionServiceAreas.expand(true);
 
     this.accordionChangePassword.expand(this.passworderror || this.password1error || this.password2error);
   }

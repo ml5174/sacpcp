@@ -63,13 +63,15 @@ export class EventDetailModal {
         this.myPreferences = params.get('preference_data');
         this.isGroupAdmin = params.get('isGroupAdmin');
         this.orgId = params.get('orgId');
-        console.log("params: " + JSON.stringify(params));
     }
 
     ngOnInit() {
         this.registering = false;
         this.loadDetails();
         this.signupAssistant.setGuestSignup(false);
+        if (this.userServices.user.id && !this.myPreferences) {
+            this.userServices.getMyPreferences().subscribe(data => this.myPreferences = data);
+        }
     }
 
     presentToast(message: string) {
@@ -88,14 +90,11 @@ export class EventDetailModal {
             this.getAdminEventDetails(this.eventId);
             //if they have admin status load admin view of events
         }
-
         else {
             this.getEventDetails(this.eventId);
-
         }
         if (this.signedUp) {
             this.getMyEvent(this.eventId);
-            console.log("Hey - I am signed up!");
         }
     }
 
@@ -198,17 +197,10 @@ export class EventDetailModal {
             return;
         }
 
-        let admin = false;
         let eventType = eventData.org_restriction;
         let eventId = eventData.id;
-
-        for (let i in this.myPreferences.organizations) {
-            if (this.myPreferences.organizations[i].role == 1 || this.myPreferences.organizations[i].role == 2) {
-                admin = true;
-            } else {
-                admin = false
-            }
-        }
+        let admin = this.myPreferences && this.myPreferences.organications && this.myPreferences.organizations.some( org => org.role == 1 || org.role == 2);
+        
         if (eventType == 1) {
 
             //TODO: Event only Logic
@@ -246,12 +238,27 @@ export class EventDetailModal {
                 },
                 err => {
                     console.log(err);
-                    // this.signupassitant.signupEventRegistration();
-                    if (err._body.indexOf("Event registration is full") > 0) {
+                    if (err._body.indexOf("You are already registered for this event.") > 0) {
                         let confirm = this.alertCtrl.create({
-                            title: '',
+                            title: 'Event Notice',
                             cssClass: 'alertReminder',
-                            message: 'Event Registration is full. We encourage you to search for similar events scheduled.',
+                            message: "You are already registered for this event.",
+                            buttons: [
+                                {
+                                    text: 'Ok',
+                                    handler: () => {
+                                        console.log('Ok, clicked');
+                                    }
+                                }
+                            ]
+                        });
+                        confirm.present();
+                    }                     
+                    else if (err._body.indexOf("Event registration is full") > 0) {
+                        let confirm = this.alertCtrl.create({
+                            title: 'Event Notice',
+                            cssClass: 'alertReminder',
+                            message: 'Event Registration is full. We encourage you to search for other similar events.',
                             buttons: [
                                 {
                                     text: 'Ok',
@@ -264,7 +271,7 @@ export class EventDetailModal {
                         confirm.present();
                     } else {
                         let confirm = this.alertCtrl.create({
-                            title: '',
+                            title: 'Event Notice',
                             cssClass: 'alertReminder',
                             message: 'You have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the My Profile page?',
                             buttons: [

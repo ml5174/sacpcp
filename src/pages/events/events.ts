@@ -567,7 +567,6 @@ export class EventPage {
                     {
                         text: 'Register',
                         handler: () => {
-
                             this.handleEventLoginRegister(1, eventId);
                         }
                     },
@@ -615,15 +614,11 @@ event_id: numeric Id representing specific event,
 */
   private handleEventLoginRegister(flag, event_id) {
         this.ev.subscribe('user-event-flow', (paramsVar) => {
-            this.eventDetailModal(paramsVar)
+            this.eventDetailModal(paramsVar);
             this.ev.unsubscribe('user-event-flow'); // unsubscribe this event
         });
-        let toPage;
-        if (flag === 0) {
-            toPage = LoginPage;
-        } else {
-            toPage = RegisterLoginPage;
-        }
+        const toPage = (flag === 0) ? LoginPage : RegisterLoginPage;
+        
         this.navCtrl.push(toPage, {
             event_id: event_id,
             fromPage: "events"
