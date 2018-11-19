@@ -90,7 +90,6 @@ export class EventSignupModal {
     displayGroups() {
         this.showGroups = true;
         this.showMembers = false;
-        console.log("Show Groups!");
     }
 
     displayMembers() {
@@ -231,23 +230,24 @@ export class EventSignupModal {
 
             },
             err => {
-                console.log(err);
+                const event_error = JSON.parse(err);
+                let message = 'Group Sign-up Failed';
+                if(event_error && event_error.non_field_errors && event_error.non_field_errors.length > 0 && event_error.non_field_errors[0].capacity) {
+                    message += ": " + event_error.non_field_errors[0].capacity;
+                }
+                else message += ".";
                 let confirm = this.alertCtrl.create({
-                    title: '',
+                    title: 'Event Notice',
                     cssClass: 'alertReminder',
-                    message: 'Group Sign-up Failed',
+                    message: message,
                     buttons: [
                         {
                             text: 'Ok',
-                            handler: () => {
-                                page.signupSuccess = false;
-                            }
+                            handler: () => { page.signupSuccess = false; }
                         }
                     ]
                 });
-            },
-            () => {
-                //Do some stuff
+                confirm.present();
             });
     }
 

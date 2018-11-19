@@ -52,7 +52,6 @@ export class VolunteerEventsService {
     }
     //private commentsUrl = 'backend-mock/events.json';
     clearEvents() {
-        console.log("erase myevents was called");
         this.myEvents.length = 0;
     }
     getVolunteerEvents(): Observable<any[]> {
@@ -204,7 +203,6 @@ export class VolunteerEventsService {
             this.event.notification_schedule = 0;
             this.event.overlap_override = true;
             this.event.notification_option = 0;
-            console.log("event:" + JSON.stringify(this.event));
             return this.http.post(SERVER + CHECK_MY_EVENTS_URI,this.event, this.getOptions())
                 .map(res => res.json())
                 .catch((error: any) => Observable.throw(error || 'Server error'));
