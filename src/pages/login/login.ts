@@ -80,8 +80,7 @@ export class LoginPage {
       key => {
         this.loginSuccess = true;
         if (loginPage.remember)
-          loginPage.storage.set('key', loginPage.userServices.user.key);
- console.log("BreakPoint#0");
+        loginPage.storage.set('key', loginPage.userServices.user.key);
         loginPage.userServices.getMyProfile().subscribe(
                                  result => result,
                                  err => {
@@ -93,17 +92,17 @@ export class LoginPage {
 
             this.signupAssistant.setGuestSignup(false);
             this.volunteerEventsService
-                .checkMyEvents(this.signupAssistant.getCurrentEventId()).subscribe(
+                .checkMyEvents(this.signupAssistant.getCurrentEventId()).subscribe(          
                 res => {
                     this.signupAssistant.signupEventRegistration();
                 },
                 err => {
-                    console.error(err);
-                    if(err._body.indexOf("Event Registration is full. We encourage you to search for similar events scheduled.") > 0){
+                    
+                    if(err._body.indexOf("Event Registration is full. We encourage you to search for similar events.") >= 0){
                       let confirm = this.alertCtrl.create({
-                            title: '',
+                            title: 'Event Notice',
                             cssClass: 'alertReminder',
-                            message: 'Event registration is full.',
+                            message: 'Event registration is full.',   
                             buttons: [
                                 {
                                     text: 'Ok',
@@ -114,9 +113,22 @@ export class LoginPage {
                             ]
                         });
                         confirm.present();
-                    }else{
+                    } else if (err._body.indexOf("You are already registered for this event.") >= 0) {
+                        let confirm = this.alertCtrl.create({
+                            title: 'Event Notice',
+                            cssClass: 'alertReminder',
+                            message: 'You are already registered for this event.',
+                            buttons: [
+                                {
+                                    text: 'Ok',
+                                    handler: () => {}
+                                }
+                            ]
+                        });
+                        confirm.present();
+                    } else{
                       let confirm = this.alertCtrl.create({
-                              title: '',
+                              title: 'Event Notice',
                               cssClass: 'alertReminder',
                               message: 'You Have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the My Profile page?',
                               buttons: [
@@ -187,7 +199,7 @@ export class LoginPage {
       }
     }
     if (error.status === 500) {
-      this.errors.push('Backend returned 500 error, talk to JOHN :) ');
+      this.errors.push('Server 500 error');
     }
   }
 
