@@ -5,6 +5,7 @@ import { ContactPage } from '../../pages/contact/contact';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
 import { RED_KETTLE_URL } from '../../lib/provider/config';
 import Moment from "moment";
+import { last } from 'rxjs/operator/last';
 
 
 declare var cordova;
@@ -14,44 +15,50 @@ declare var cordova;
 })
 export class HomePage {
   program: string = "selection";
-  contactPage = ContactPage
+  contactPage = ContactPage;
   eventCategory: string;
   // for now, sort events by using event.categoryid == category.id
   categoryMap: Array<string> = ['Food Service', 'Food Pantry', 'Clothing Warehouse', 'Child Care', 'Practicum Service',
                                 'Red Kettle'];
 
-    urgentCategories: object = {'Food Service':[], 'Food Pantry':[], 'Child Care':[],
+  urgentCategories: object = {'Food Service':[], 'Food Pantry':[], 'Child Care':[],
                               'Practicum Service':[], 'Red Kettle':[], 'Clothing Warehouse':[]};
   newCategories: object = {'Food Service':[], 'Food Pantry':[], 'Child Care':[],
-  'Practicum Service':[], 'Red Kettle':[], 'Clothing Warehouse':[]};
-  constructor(
-    public storage: Storage,
-    private eventService: VolunteerEventsService,
-    public platform: Platform,
-    public alertCtrl: AlertController) {
+                              'Practicum Service':[], 'Red Kettle':[], 'Clothing Warehouse':[]};
+    constructor(
+        public storage: Storage,
+        private eventService: VolunteerEventsService,
+        public platform: Platform,
+        public alertCtrl: AlertController) {
         storage.get('lastOpened').then((time) => {
-            const currentTime = new Date(time);
+            const lastOpenedTime = new Date(time);
             const selectedStartDate = Moment().format("YYYY-MM-DD");
-            const selectedEndDate = Moment().add(30, 'day').format("YYYY-MM-DD");
+            const selectedEndDate = Moment().add(1, 'M').format("YYYY-MM-DD");
             let now = new Date(Moment(selectedStartDate).hour(0).minute(0).toISOString());
             let until = new Date(Moment(selectedEndDate).hour(23).minute(59).toISOString());
             this.eventService.getVolunteerEventsTimeRange(now.toISOString(), until.toISOString())
-                .subscribe(events => {
-                    events.forEach(event => {
-                        if(new Date(event.created) > currentTime) {
-                            const category_id = parseInt(event.category_id, 10);
-                            if( category_id >= 1 && category_id <= 6 ) {
-                                this.newCategories[this.categoryMap[category_id - 1]].push(event.id);
-                            }
-                        }
-                    })
-                });
+                .subscribe(
+                    {
+                        next: events => {
+                            let counter = 0;
+                            events.forEach(event => {
+                                if (new Date(event.created) > lastOpenedTime) {
+                                    const category_id = parseInt(event.category_id, 10);
+                                    if (category_id >= 1 && category_id <= 6) {
+                                        this.newCategories[this.categoryMap[category_id - 1]].push(event.id);
+                                    }
+                                }
+                            })
+                        },
+                        error: err => { console.error("getVolunteerEventsTimeRange Error: " + err) },
+                        complete: () => {}
+                    });
         });
         storage.set("lastOpened", new Date(Moment(Moment()).toISOString()));
     }
 
   selectEvent(eventCategory) {
-    this.eventCategory = eventCategory
+    this.eventCategory = eventCategory;
   }
 
   private redKettle() {
@@ -69,7 +76,6 @@ export class HomePage {
            {
              text: 'OK',
              handler: () => {
-               console.log('Okay clicked');
                if (cordova && cordova.InAppBrowser) {
                  cordova.InAppBrowser.open(url, '_system');
                } else {

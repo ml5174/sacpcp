@@ -23,7 +23,7 @@ import { APPLE_MAP_QUERY } from '../../lib/provider/config';
 import { GOOGLE_MAP_QUERY } from '../../lib/provider/config';
 import { Organization } from '../../lib/model/organization';
 import { OrganizationServices } from '../../lib/service/organization';
-import { MONTH_NAMES } from '../../lib/provider/eventConstants';
+import { MONTH_NAMES, CATEGORY_MAP } from '../../lib/provider/eventConstants';
 
 @Component({
     templateUrl: 'events.html',
@@ -38,6 +38,7 @@ export class EventPage {
     public infiniteScroll: InfiniteScroll;
     private oppType;
     public loadingOverlay;
+    public categoryMap = CATEGORY_MAP; // alias for html template scoping
     eventDetail: EventDetail;
     public search: boolean = false;
     public events: Array<VolunteerEvent> = [];
@@ -47,10 +48,7 @@ export class EventPage {
     public maxEvents: Array<VolunteerEvent> = [];
     public minEvents: Array<VolunteerEvent> = [];
     public stubEvents: Array<VolunteerEvent> = [];
-
-    // public preferenceModel: Array<MyPreferences> = [];
-    // public currentPreferences: Array<MyPreferences> = [];
-    // public selectedSort: string = '';
+    
     public image: Array<EventImage>;
     public val: string = "";
     public values: Array<String>;
@@ -101,6 +99,7 @@ export class EventPage {
 
     ngOnInit() {
         // select today and 30 days worth of events by default
+
         this.selectedStartDate = Moment().format("YYYY-MM-DD");
         this.selectedEndDate = Moment().add(30, 'day').format("YYYY-MM-DD");
         this.minStartDate = Moment().format("YYYY-MM-DD");

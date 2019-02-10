@@ -35,7 +35,6 @@
 </ion-row>
 
 <div id="results" *ngIf="searching">Search Results</div>
-<!-- Removed per Requirements  <img class="main" src="assets/img/logo2.jpg" /> -->
 <div *ngIf="searching && noResults">No Results Found</div>
 
 <ion-row responsive-sm wrap>
@@ -43,17 +42,16 @@
         <ion-card *ngIf="e.visibility==0" class="flex-card">
             <ion-card-content>
                 <ion-list-header>
-                    <h2><span (click)="!showDetails[i] ? showDetails[i]=true : showDetails[i]=false">{{e.title}} </span>
+                    <h2><span (click)="showDetails[i] = !showDetails[i]">{{e.title}} </span>
                         <ion-icon *ngIf='e.status == 3' (click)="openUrgentAlert($event)"
                         name="alert" class="savi-urgent-icon" color="primary"></ion-icon></h2>
                     <div class="notifications">
-                         
-                        <ion-icon *ngIf='newCategories && newCategories[e.title].includes(e.id)' name="add-circle" class="new">New Event</ion-icon>                              
+                        <ion-icon *ngIf='newCategories && newCategories[categoryMap[e.category_id - 1]].includes(e.id)' name="add-circle" class="new">New Event</ion-icon>                              
                     </div>
                 </ion-list-header>
                 <ion-list no-lines>
                     <span *ngIf="showDetails[i]">
-                        <ion-item >
+                        <ion-item>
                             <img src="assets/img/bucket.jpg" />
                         </ion-item>
                         <ion-item>
@@ -69,9 +67,7 @@
                     </ion-item>   
                     <ion-item>
                         <ion-icon item-start name="calendar"></ion-icon>
-                        <!--p>{{e.start | parseTimeZone:"MMM DD"}} - {{e.end | parseTimeZone:"MMM DD"}} {{e.end | parseTimeZone:"YYYY"}}</p-->
                         <p><span>{{e.start | parseTime:"MMM DD"}}</span><span *ngIf="(e.start | parseTime:'DD') !== (e.end | parseTime:'DD')">-{{e.end | parseTime:"DD"}}</span><span>, {{e.end | parseTime:"YYYY"}}</span></p>
-                        <!--p>{{e.start | parseTimeZone: 'h:mm A'}}-{{e.end | parseTimeZone: 'h:mm A'}} {{e.start | parseTimeZone:'z'}}</p-->
                         <p>{{e.start | parseTime: 'h:mm A'}}-{{e.end | parseTime: 'h:mm A'}}</p>
                     </ion-item>
                     <ion-item *ngIf="e.location_name">
