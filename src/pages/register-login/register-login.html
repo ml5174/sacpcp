@@ -1,88 +1,105 @@
 <ion-header>
-	<app-header back="true" title="Create New Account">
-	</app-header>
+    <app-header back="true" title="Create New Account">
+    </app-header>
 </ion-header>
 
 
 <ion-content>
+<p *ngIf="usernameerror || password1error || password2error || emailerror || smserror || !terms" align="center"><span style="color:#CC1F2C">Please Note:</span> All required fields must be completed to register.</p>
+    <section id="register-login-page">
+        <form (ngSubmit)="register()">
+            <!--username and usernameerror container-->
+            <div class="absolute-container">
+                <ion-item no-lines *ngIf="nonFieldsError" class="word-wrap: break-word;" text-wrap #usernameErrorElem>
+                    <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
+                    <p class="no-text-transform" style="color:#CC1F2C">{{nonFieldsErrorValue}}</p>
+                </ion-item>
+                <ion-item no-lines *ngIf="usernameerror" class="word-wrap: break-word;" text-wrap #usernameErrorElem>
+                    <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
+                    <p class="no-text-transform" style="color:#CC1F2C">{{usernameerrorvalue}}</p>
+                </ion-item>
 
-	<!--ion-toolbar secondary>
-		<ion-buttons begin>
-			<button ion-button icon-left (click)="back()">
-				<ion-icon name="ios-arrow-back" style="padding: 1px 12px 1px 5px;"></ion-icon>
-				{{'Create New Account' | translate}}
-			</button>
-		</ion-buttons>
-	</ion-toolbar-->
+                <ion-icon class="popover-icon" name="information-circle" (click)="presentUserPopover($event)"></ion-icon>
+                <ion-item no-lines class="">
+                    <!--<ion-icon *ngIf="usernameerror" name="alert" item-start isActive="false" [class.error]="usernameerror"></ion-icon>-->
+                    <ion-label stacked><span class="required-field">*</span>Username</ion-label>
+                    <ion-input maxlength="30" autocapitalize="off" name="username" type="text" class="" [(ngModel)]="username" (ionBlur)="checkUsername()" (ngModelChange)="checkRequired()"></ion-input>
+                </ion-item>
+            </div>
+            <!--password and password error container-->
+            <div class="absolute-container">
+                <ion-item no-lines *ngIf="password1error" class="word-wrap: break-word;" text-wrap #password1ErrorElem>
+                    <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
+                    <p class="no-text-transform" style="color:#CC1F2C">{{password1errorvalue}}</p>
+                </ion-item>
 
-	<section id="register-login-page">
-		<ion-item no-lines *ngFor="let error of errors">
-			<ion-icon name="alert" item-left></ion-icon>
-			<p style="color: red">{{error}}</p>
-		</ion-item>
+                <a id="show-link" (click)="showPassword()">{{(showpassword==='password') ? 'Show' : 'Hide'}}</a>
+                <ion-icon class="popover-icon" name="information-circle" (click)="presentPasswordPopover($event)"></ion-icon>
+                <ion-item no-lines [class.error]="password1error">
+                    <ion-label stacked><span class="required-field">*</span>{{ 'Password' | translate}} </ion-label>
+                    <ion-input maxlength="32" name="password1" (ionBlur)="checkPassword1()" [type]="showpassword" clearOnEdit="false"
+                         [(ngModel)]="password1" (ngModelChange)="checkRequired()"></ion-input>
+                </ion-item>
+            </div>
+            <!--password2 fields-->
+            <ion-item no-lines *ngIf="password2error" class="word-wrap: break-word;" text-wrap #password2ErrorElem>
+                <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
+                <p class="no-text-transform" style="color:#CC1F2C">{{password2errorvalue}}</p>
+            </ion-item>
+            <ion-item no-lines class="">
+                <ion-label stacked><span class="required-field">*</span>Confirm Password</ion-label>
+                <ion-input [type] ="showpassword" [(ngModel)]="password2" name="password2" clearOnEdit="false"
+                    (ionBlur)="checkPasswordsMatching()" (ngModelChange)="checkRequired()"></ion-input>
+            </ion-item>
+            <!--save login radio-->
+            <ion-item no-lines>
+                <ion-label>{{ 'Save My Login' | translate}}</ion-label>
+                <ion-checkbox name="remember" dark [(ngModel)]="remember"></ion-checkbox>
+            </ion-item>
 
-		<form (ngSubmit)="register()">
-		<div class="absolute-container">
+            <!--preferred contact method  and errors section-->
+            <ion-item no-lines *ngIf="emailerror" class="word-wrap: break-word;" text-wrap #emailErrorElem>
+                <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
+                <p class="no-text-transform" style="color:#CC1F2C">{{emailerrorvalue}}</p>
+            </ion-item>
+            <ion-item no-lines *ngIf="smserror" class="word-wrap: break-word;" text-wrap #smsErrorElem>
+                <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
+                <p class="no-text-transform" style="color:#CC1F2C">{{smserrorvalue}}</p>
+            </ion-item>
+            <contactMethod name="ep" [email]="pcmethod" (methodUpdated)="checkRequired(); clearContactErrors();" (contactMethodBlur)="checkContactMethod()" (emailUpdated)="checkRequired()" (mobileUpdated)="checkRequired()"></contactMethod>
+            <!--terms of service agreement-->
+            <ion-item no-lines *ngIf="!terms" class="word-wrap: break-word;" text-wrap #termsErrorElem>
+                <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
+                <p class="no-text-transform" style="color:#CC1F2C">{{termserrorvalue}}</p>
+            </ion-item>
+            <input type="submit" class="hidden-submit" />
+            <ion-row align-items-center justify-content-center>
+                <ion-col class="reviewpandt">
+                    <button ion-button id="reviewptbtn" (click)="viewTerms()">Review Privacy &amp; Terms</button>
+                </ion-col>
+                <ion-col class="iaccept">
+                    <ion-item class="item-checkbox-right" no-lines>
+                        <ion-label id="acceptlbl" text-right><span class="required-field">*</span>I Accept</ion-label>
+                        <ion-checkbox name="terms" item-start [(ngModel)]="terms" (ngModelChange)="checkRequired()" [disabled]="!modalClicked" style="margin-top: auto; margin-bottom: auto;">
+                        </ion-checkbox>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <!--cancel and registration-->
+            <ion-row>
+                <ion-col></ion-col>
+                <ion-col>
+                    <button ion-button color="primary" (click)="back()">Cancel</button>
+                </ion-col>
 
-			<ion-icon class="popover-icon" name="information-circle" (click)="presentUserPopover($event)"></ion-icon>
-			<ion-item no-lines class="">
-				<ion-icon *ngIf="usernameerror" name="alert" item-left isActive="false" [class.error]="usernameerror"></ion-icon>
-				<ion-label stacked>User ID</ion-label>
-				<ion-input name="username" required type="text" class="" [(ngModel)]="username" required></ion-input>
-			</ion-item>
-		</div>
+                <ion-col></ion-col>
+                <ion-col>
+                    <button ion-button color="primary" [disabled]="!meetsRequirement" (click)="register()" >Register</button>
+                </ion-col>
+                <ion-col></ion-col>
+            </ion-row>
 
-		<div class="absolute-container">
-			<a id="show-link" (click)="showPassword()">{{(showpassword==='password') ? 'Show' : 'Hide'}}</a>
-
-			<ion-icon class="popover-icon" name="information-circle" (click)="presentPasswordPopover($event)"></ion-icon>
-			<ion-item no-lines [class.error]="password1error">
-				<ion-icon *ngIf="password1error" name="alert" item-left isActive="false" [class.error]="password1error"></ion-icon>
-				<ion-label stacked>{{ 'Password' | translate}} </ion-label>
-				<ion-input name="password1" required [type]="showpassword" placeholder="" [(ngModel)]="password1"></ion-input>
-			</ion-item>
-		</div>
-
-		<!--ion-item no-lines class="">
-			<ion-icon name="lock" item-left isActive="false" [class.error]="password1error"></ion-icon>
-			<ion-label stacked>Password</ion-label>
-			<ion-input required type="password" placeholder="" class="" [(ngModel)]="password1" required></ion-input>
-		</ion-item-->
-
-		<ion-item no-lines class="">
-			<ion-icon *ngIf="password2error" name="alert" item-left isActive="false" [class.error]="password2error"></ion-icon>
-			<ion-label stacked>Confirm Password</ion-label>
-			<ion-input name="password2" required type="password" placeholder="" class="" [(ngModel)]="password2" required></ion-input>
-		</ion-item>
-
-		<ion-item no-lines>
-			<ion-label>{{ 'Save My Login' | translate}}</ion-label>
-			<ion-checkbox name="remember"dark [(ngModel)]="remember"></ion-checkbox>
-		</ion-item>
-		
-        <!-- Move the email, Phone contact details to a common component - ViewChild(ContactMethod)-->
-		<contactMethod name="ep" [email]="pcmethod"></contactMethod>
-
-		<input type="submit" hidden>
-				
-		<ion-item no-lines>
-			<ion-checkbox name="terms" item-left [(ngModel)]="terms"></ion-checkbox>
-			<ion-label>
-			<button ion-button large color="secondary" clear (click)="viewTerms()">I Agree to the Privacy &amp; Terms</button></ion-label>
-		</ion-item>
-		</form>
-	</section>
-
+            <div style="min-height: 10vh !important;"></div>
+        </form>
+    </section>
 </ion-content>
-<ion-footer class="action-footer">
-	<ion-grid>
-		<ion-row>
-			<ion-col width-50>
-				<button class="fatty" ion-button color="primary" (click)="back()">Cancel</button>
-			</ion-col>
-			<ion-col width-50>
-				<button class="fatty" ion-button color="primary" (click)="register()">Register</button>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
-</ion-footer>

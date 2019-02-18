@@ -1,0 +1,40 @@
+<ion-navbar class="navbar-background" hideBackButton="true"> 
+ <img class="imageIcon" height="65px" width="65px" src="assets/img/SAVE_logo.svg">
+ <!-- Added margin to keep title center with lack of menutoggle -->
+  <div class="title1" style="margin-right:55px">Volunteers</div>
+  <div class="title2" style="margin-right:55px">Doing the Most Good <sup class="trademark"> &#174;</sup></div>
+  <!-- <ion-buttons end> 
+    <button ion-button icon-only menuToggle> 
+      <ion-icon name="menu"></ion-icon> 
+    </button> 
+  </ion-buttons>  -->
+ 
+</ion-navbar> 
+ <ion-toolbar ng-switch on="isback" secondary id="home-header" class="toolbar-ios"> 
+  
+  <!--
+  <ion-buttons begin *ngIf="!isBack"> 
+    <button class="username" *ngIf="userServices.user.id" ion-button icon-left (click)="profile()"> 
+       Welcome, {{userServices.user.name}}!
+    </button> 
+  </ion-buttons> 
+  -->
+   <ion-buttons style="text-align:center;" begin *ngIf="!isBack"> 
+    <button class="registerBanner" *ngIf="!userServices.user.id" [navPush]="registerPage" ion-button icon-left> 
+       Want to volunteer? Register Today!
+    </button> 
+  </ion-buttons>
+
+  <ion-title class="app-header-title" *ngIf="isBack">{{title | translate}}</ion-title> 
+ 
+  <ion-buttons *ngIf="isBack"> 
+      <button class="app-header-back-button" ion-button icon-left color="secondary" clear (click)="back()"> 
+        <ion-icon name="ios-arrow-back"></ion-icon> 
+      </button> 
+  </ion-buttons> 
+ <!--
+  <ion-buttons end *ngIf="!isBack">     
+        <ng-content></ng-content> 
+  </ion-buttons>
+  --> 
+</ion-toolbar> 

@@ -1,0 +1,97 @@
+<ion-header>
+    <app-header back="true"  title="{{ (this.orgData && this.orgData.organization)?(this.orgData.organization.group + ' Profile' ):'' }}">
+    </app-header>
+</ion-header>
+
+<ion-content no-bounce>
+
+<ion-list  *ngIf='orgData && orgData.organization' >
+<ion-item  [ngClass]="{'item-edit':(orgData.organization.upper_name_editable==true),'item-error':orgData.organization.upper_name_error}"> 
+		<ion-label>
+		Organization </ion-label>
+		<ion-input class='item-input' 
+			
+			(ionBlur)='orgData.organization.upper_name_editable=false'
+			(click) ='this.canEditOrg && (orgData.organization.upper_name_editable=true)'
+			[readonly]='!canEditOrg'
+			
+			(ionChange)='showSaveMessage=true' placeholder='Organization Name' type='text' 
+			[(ngModel)]='orgData.organization.name'></ion-input>
+		</ion-item>	
+		
+		<ion-item  [ngClass]="{'item-edit':(orgData.organization.group_editable==true),'item-error':orgData.organization.group_error}"> 
+		<ion-label>
+		Group Name</ion-label>
+		<ion-input class='item-input'  class='has-tabs'
+			
+			(ionBlur)='orgData.organization.group_editable=false'
+			(click) ='this.canEditOrg && (orgData.organization.group_editable=true)'
+			[readonly]='!canEditOrg'
+			
+			(ionChange)='showSaveMessage=true' placeholder='Organization Group Name' type='text' 
+			[(ngModel)]='orgData.organization.group'></ion-input>
+		</ion-item>	
+		
+        <ion-item (click)='this.canEditOrg && (orgData.organization.orgtype_editable=true)' [ngClass]="{'item-edit-select':(orgData.organization.orgtype_editable==true),'item-select-error':orgData.orgtype_error}">
+            <ion-label>Organization Type </ion-label>
+            <ion-select [disabled]="!this.canEditOrg" interface="popover" class="ion-item no-lines" (ionChange)='orgChg=true' [(ngModel)]="orgData.organization.org_type.id">
+                <ion-option [value]="null">
+                    <font color=black>Not Selected</font>
+                </ion-option>
+        
+                <ion-option *ngFor="let orgType of arrayOrgTypes" [value]="this.orgType.id">
+                    <font color='black'>{{orgType.name}}</font>
+                </ion-option>
+            </ion-select>
+        </ion-item>
+        
+        <ion-item *ngIf="approval_status == 1 && asTsaAdmin" (click)="openGroupActionModal('approval')">
+            <div>Approval Status:
+                <span style="color: red" class="linked-group">Pending</span>
+            </div>
+        </ion-item>
+        <ion-item *ngIf="approval_status == 1 && !asTsaAdmin">
+            <div>Approval Status:
+                <span style="color: red">Pending</span>
+            </div>
+        </ion-item>
+        <ion-item *ngIf="approval_status != 1">
+            <ion-label>Group Status:</ion-label>Group Status:
+            <ion-select [disabled]="!(asTsaAdmin || userIsGroupAdmin())" class="ion-item no-lines" interface="popover" (ionChange)='showSaveMessage=true' [(ngModel)]="orgData.organization.status">
+                <ion-option value="0">
+                    <font color="black">Active</font>
+                </ion-option>
+                <ion-option value="1">
+                    <font color="black">Inactive</font>
+                </ion-option>
+            </ion-select>
+        </ion-item>
+
+	</ion-list>
+<ion-scroll scrollY="true" direction='y' style="max-height:100vh; height:50vh;">
+<ion-grid padding-top *ngIf='this.orgData && this.orgData.members' style='height: 400px !important;'>
+<ion-row>
+    <ion-col col-2><b>First</b></ion-col>
+    <ion-col col-2><b>Last</b></ion-col>
+    <ion-col col-4><b>Contact</b></ion-col>
+    <ion-col col-2><b>Role</b></ion-col>
+    <ion-col col-2><b>Status</b></ion-col>		
+</ion-row>
+<ion-item-divider></ion-item-divider>
+
+<ion-row *ngFor="let member of orgData.members; index as i" (click)="!asTsaAdmin && userIsGroupAdmin() && updateExisting(member, i)">
+        <ion-col col-2>{{member.first_name}}</ion-col>
+        <ion-col col-2>{{member.last_name}}</ion-col>
+        <ion-col col-4>{{ formatMemberContact(member) }}</ion-col>
+        <ion-col col-2>{{ member.role == 0 ? 'Member' : 'Admin'}}</ion-col>
+        <ion-col col-2>{{ formatMemberStatus(member)}}</ion-col>
+</ion-row>
+</ion-grid>
+ </ion-scroll>
+
+</ion-content>
+<ion-footer  has-tabs="true" class='bar bar-footer white-color has-tabs'>
+    <button ion-button padding-right (click)='exitPage()' >Cancel</button>
+    <button ion-button [disabled]='!showSaveMessage' padding-left (click)='saveOrg()'>Save</button>
+    <button ion-button item-end [disabled]="!userIsGroupAdmin() || asTsaAdmin" (click)="addNew()">Add Member</button>
+</ion-footer>

@@ -1,0 +1,107 @@
+<ion-header>
+    <!--
+  <ion-navbar class="navbar-background" hideBackButton="true">
+
+  </ion-navbar> -->
+    <ion-toolbar>
+        <img class="imageIcon" height="65px" width="65px" src="assets/img/SAVE_logo.svg">
+        <div class="title1">{{eventData.title}}</div>
+        <div class="title2">{{eventData.description}}</div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid *ngIf="(eventType == 0 && !showGroups && !showMembers) || (eventType == 1 && isGroupAdmin)">
+        <ion-item>
+            <p>Would you like to sign up as:</p>
+        </ion-item>
+        <ion-row radio-group [(ngModel)]="signupType" (ionChange)="updateButtonText(signupType)">
+            <ion-col>
+                <ion-item>
+                    <ion-label>Individual</ion-label>
+                    <ion-radio value="individual"></ion-radio>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item>
+                    <ion-label>Group</ion-label>
+                    <ion-radio value="group" [disabled]="isGroupAdmin == false"></ion-radio>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-item>
+            <p>Event Details:</p>
+        </ion-item>
+        <ion-row>
+          <ion-item>
+            <ion-icon *ngIf="eventType == '0' || eventType == '3'" item-start name="person"></ion-icon>
+            <ion-icon *ngIf="eventType == '0' || eventType == '1' || eventType== '2' " item-start name="people"></ion-icon>
+            <p *ngIf="eventType == '0'">Groups & Individuals</p>
+            <p *ngIf="eventType == '1'">Groups Only</p>
+          </ion-item>
+          <ion-item>
+            <ion-icon item-start name="calendar"></ion-icon>
+            <!--p>{{eventData.start | parseTimeZone:"MMM DD"}} - {{eventData.end | parseTimeZone:"MMM DD"}} {{eventData.end | parseTimeZone:"YYYY"}}</p-->
+            <p><span>{{eventData.start | parseTime:"MMM DD"}}</span><span *ngIf="(eventData.start | parseTime:'DD') !== (eventData.end | parseTime:'DD')">-{{eventData.end | parseTime:"DD"}}</span><span>, {{eventData.end | parseTime:"YYYY"}}</span></p>
+            <!--p>{{eventData.start | parseTimeZone: 'h:mm A'}}-{{eventData.end | parseTimeZone: 'h:mm A'}} {{eventData.start | parseTimeZone:'z'}}</p-->
+            <p>{{eventData.start | parseTime: 'h:mm A'}}-{{eventData.end | parseTime: 'h:mm A'}}</p>
+          </ion-item>
+          <ion-item *ngIf="eventData.location_name">
+            <ion-icon item-start name="pin"></ion-icon>
+            <p>{{eventData.location_name}}</p>
+            <a href="{{mapQueryStart}}{{eventData.location_address1}},{{eventData.location_city}}, {{eventData.location_state}} {{eventData.location_zipcode}}{{mapQueryEnd}}">
+          <span *ngIf="eventData.location_address1">
+              <p>{{eventData.location_address1}}</p>
+                <span *ngIf="eventData.location_address2">
+                  <p>{{eventData.location_address2}}</p>
+                </span>
+                <p>{{eventData.location_city}}, {{eventData.location_state}} {{eventData.location_zipcode}}</p>
+              </span>
+            </a>
+          </ion-item>
+        </ion-row>
+    </ion-grid>
+    <ion-list *ngIf="showGroups" radio-group [(ngModel)]="selectedGroup">
+        <ion-list-header>
+            Select an Organization/Group
+        </ion-list-header>
+        <ion-item *ngFor="let org of myOrgs">
+            <ion-label>{{org.name}}/{{org.group}}</ion-label>
+            <ion-radio value="{{org.org_id}}"></ion-radio>
+        </ion-item>
+    </ion-list>
+    <ion-list *ngIf="showMembers">
+
+        <ion-list-header>Attending Members</ion-list-header>
+        <ion-item *ngFor="let contacts of orgContacts ">
+            <ion-label>{{contacts.contact.first_name}} {{contacts.contact.last_name}}</ion-label>
+            <ion-checkbox [(ngModel)]="contacts.checked"
+                value="contacts" checked (ionChange)="updateMembers(contacts)"></ion-checkbox>
+        </ion-item>
+    </ion-list>
+    <div *ngIf="this.eventType == 1 && !isGroupAdmin">
+        <ion-row>
+            <ion-item>
+                <p>Group event signup is for admins only</p>
+            </ion-item>
+        </ion-row>
+    </div>
+</ion-content>
+<ion-footer class="action-footer">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <button class="savi-padded" ion-button item-start color="primary" (click)="dismiss()">Cancel</button>
+                <button class="savi-padded" ion-button item-start color="primary" 
+                    *ngIf="!showMembers && !showGroups && (signupType=='individual' || signupType=='group')"
+                    (click)="submit(signupType)">{{submitText}}</button>
+                <button class="savi-padded" ion-button item-start color="primary" *ngIf="showMembers && !showGroups" 
+                    [disabled]="checkedMemberCount == 0" (click)="doGroupSignUp()">Finish</button>
+                <button class="savi-padded" ion-button item-start color="primary" *ngIf="showMembers && !showGroups" 
+                    (click)="addAttendee(selectedGroup)">Add Attendee</button>
+                <button class="savi-padded" ion-button item-start color="primary" *ngIf="showGroups" [disabled]="selectedGroup == null" 
+                    (click)="getOrgContacts(selectedGroup)">{{submitText}}</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

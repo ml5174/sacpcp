@@ -1,0 +1,29 @@
+set TEAM in Xcode project
+select provisioning profiles for manual provisioning for each of the build configurations
+copy exportOptions.plist to platforms/ios
+
+How does the CordovaLib folder get created? it is not being created for sacpcp
+
+What packages should be installed at /usr/local/lib/node_modules?
+
+What options should be given on npm install command line? like -g for global, --unsafe-perm=true?
+
+What does ^ mean and what does ~ mean when used as prefix on npm package version number?
+
+CDVLogger.m was being found in cordova-plugin-console and in plugins/cordova-plugin-console. Why?
+
+Does ionic team have any good tslint rules to use?
+
+Should ionic cordova build, cordova build, or Xcode be used to build ionic for ios?
+	Is there anything different about ionic cordova build? and ionic build?
+	Are there command line options not mentioned with --help?
+	Shouldn't ionic info report even more about development environment?
+	Perhaps ionic info gives general and ionic info ios gives ios and ionic info android gives android.
+
+How should one build ionic code for web server deployment?
+
+What command line options should be given to ionic cordova build? cordova build? 
+
+What can be done to prevent any changes with the build process?
+
+What can be done to optimize app startup? so that users don't have to wait as long for web page to appear?

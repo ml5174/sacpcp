@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary">Cancel</span>
+      </button>
+    </ion-buttons>
+    <ion-title>Privacy &amp; Terms</ion-title>
+    <ion-buttons end></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+<privacy-terms-content></privacy-terms-content>
+					
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+  <button ion-button large color="primary" (click)="dismiss()">Decline</button>
+  <button ion-button large color="primary" (click)="agree()">Accept</button>
+
+  </ion-toolbar>
+</ion-footer>
+

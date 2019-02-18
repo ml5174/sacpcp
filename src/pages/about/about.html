@@ -1,49 +1,44 @@
+
 <ion-header>
-	<app-header back="true" title="About">
-	</app-header>
+    <app-header title="About Us" back="true"></app-header>
 </ion-header>
+<ion-content padding-left padding-right padding-top scroll="false">
+  <section>
+    <ion-slides #homeSlider class="homeslider" autoplay="3000" (ionSlideDidChange)="changeSlides($event)" pager>
+      <ion-slide>
+        <div class="slide"><img src="assets/img/Volunteers.jpg" /> </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="slide"><img src="assets/img/Homeless.jpg" /></div>
+      </ion-slide>
+      <ion-slide>
+        <div class="slide"><img src="assets/img/Veterans.jpg" /></div>
+      </ion-slide>
+      <ion-slide>
+        <div class="slide"><img src="assets/img/gentleman.jpg" /> </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="slide"><img src="assets/img/Building.jpg" /> </div>
+      </ion-slide>
+    </ion-slides>
 
-<ion-content>
+    <ion-card class="title-card flex-card">
+      <h2 style="text-align:center;margin-top:10px; margin-bottom: 0px;font-size:20px;font-weight:bold;">THE SALVATION ARMY</h2>
+      <p style="font-size:18px;text-align:center;margin-top:0px;margin-bottom:0px">Carr P. Collins Social Service Center</p>
+      <ion-card-content>
+        <ion-list>
+          <h3 style="font-weight:bold;text-align:center;margin-bottom:1px;">5,000 People Served</h3>
+          <h3 style="font-weight:bold;text-align:center;margin-top:0px;">8,000 Volunteers</h3>
+          <h3 style="font-weight:bold;text-align:center;margin-top:0px;">Annually</h3>
+          
+        </ion-list>
+        <p style="text-align:left;margin-top:10px;">From serving meals, sorting clothes, making sandwiches and much more, volunteers can find their niche at The Salvation Army. Located west of downtown Dallas, The Carr P. Collins Social Service Center is next to Parkland Hospital on Harry Hines
+          Boulevard. The 161,000 square foot center, which houses up to 600 people per night, is the largest multi-use facility in The Salvation Army world. Every year, thousands of people find the spiritual and practical help they need to change their
+          lives. Nowhere else in Dallas will people find so many resources under one roof.</p>
+      </ion-card-content>
+    </ion-card>
+    <div style="min-height: 10vh !important;">
 
-	<!--ion-toolbar secondary>
-		<ion-buttons begin>
-			<button ion-button icon-left (click)="back()">
-       <ion-icon name="ios-arrow-back"></ion-icon>
-        {{'About' | translate}}
-		</button>
-		</ion-buttons>
-	</ion-toolbar-->
-
-	<section id="tab-content" padding>
-		<p>
-			The Salvation Army - DFW Application was developed by AT&amp;T in association with The Salvation Army - DFW. 
-		</p>
-		<p>
-			THIS APPLICATION IS PROVIDED 'AS IS' AND ANY EXPRESSED OR IMPLIED REPRESENTATIONS OR WARRANTIES, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY
-			AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-		</p>
-		<p>
-				This Application is provided as a free service to The Salvation Army
-			- DFW. It is intended to be useful in helping volunteers view events. It provides current event view and search capabilities
-			and informational links. Content and information provided by way of the Application are not intended as an endorsement
-			or sponsorship by AT&amp;T of 'The Salvation Army - DFW', its programs or services, and AT&amp;T does not warrant the accuracy
-			or the completeness of the content or information or the reliability of any advice, opinion, statement or other information
-			as displayed or distributed through the Application.
-		</p>
-
-		<p>ABOUT - TSA-CPC DFW</p>
-
-		<p>MISSION </p>
-		<p>The Salvation Army, an international movement, is an evangelical part of the universal Christian Church. Its message is based on the Bible. Its ministry is motivated by the love of God. Its mission is to preach the Gospel of Jesus Christ and to meet human needs in His name without discrimination.</p>
-		<p>HISTORY </p>
-		<p>William Booth embarked upon his ministerial career in 1852. His crusade was to win the lost multitudes of London to Christ. He went into the streets of London to preach the gospel of Jesus Christ to the poor, the homeless, the hungry and the destitute. Booth abandoned the conventional concept of a church and a pulpit and took his message to the people. His wife, Catherine, was a major force in The Salvation Army movement.</p>
-		<p>In 1865, William Booth was invited to hold a series of evangelistic meetings in the east end of London. Thieves, prostitutes, gamblers and drunkards were among Boothâ€™s first converts to Christianity. His congregations were desperately poor. He preached hope and salvation. His aim was to lead them to Christ and to link them to a church for further spiritual guidance. Even though they were converted, churches did not accept Boothâ€™s followers because of what they had been. Booth gave their lives direction in a spiritual manner and put them to work to save others who were like themselves. They too preached and sang in the streets as a living testimony to the power of God.</p>
-		<p>In 1867, Booth had only 10 full-time workers. By 1874, the numbers had grown to 1,000 volunteers and 42 evangelists. They served under the name â€œThe Christian Mission.â€� Booth assumed the title of a General Superintendent. His followers called him â€œGeneral.â€� Known as the â€œHallelujah Army,â€� the converts spread out of the east end of London into neighboring areas and then to other cities.</p>
-		<p>Booth was reading a printerâ€™s proof of the 1878 Annual Report when he noticed the statement, â€œThe Christian Mission under the Superintendent of the Rev. William Booth is a volunteer army.â€� He crossed out the words â€œVolunteer Armyâ€� and penned in â€œSalvation Army.â€�  From those words came the basis of The Salvation Army.</p>
-		<p>Today, The Salvation Army is present in over 120 countries, preaching the gospel and providing social services to those in need.</p>
-		
-		<div class="sal-att-logo-container">
-			<img src="assets/img/collaboration.png" />
-		</div>
-	</section>
+    </div>
+  </section>
 </ion-content>

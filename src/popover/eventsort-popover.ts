@@ -1,6 +1,5 @@
 import { ViewController } from 'ionic-angular';
-import { Component, Input} from '@angular/core';
-import { EventPage } from '../pages/events/events';
+import { Component } from '@angular/core';
 
 @Component({
   template: `

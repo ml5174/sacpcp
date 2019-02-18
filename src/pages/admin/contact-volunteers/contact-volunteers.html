@@ -1,0 +1,51 @@
+<ion-header>
+    <app-header back="true" title="Contact Volunteers">
+    </app-header>
+</ion-header>
+
+<ion-content has-footer="true" class="has-footer" padding-left padding-right padding-top>
+    <section id="home-body">
+
+        <ion-list radio-group [(ngModel)]="sendTo">
+            <ion-item>
+                <ion-label [attr.for]="radio-individual"><ion-icon name="contact"></ion-icon> Select Individual Volunteers</ion-label>
+                <ion-radio checked [id]="radio-individual" value="individual" ngDefaultControl></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label [attr.for]="radio-events"><ion-icon name="calendar"></ion-icon> Select Event</ion-label>
+                <ion-radio [id]="radio-events" value="events" ngDefaultControl></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label [attr.for]="radio-events"><ion-icon name="contacts"></ion-icon> Select Group</ion-label>
+                <ion-radio [id]="radio-groups" value="groups" ngDefaultControl></ion-radio>
+            </ion-item>
+        </ion-list>
+            <message-target-list [listType]="sendTo">
+            </message-target-list>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-3></ion-col>
+                <ion-col col-3 padding>
+                    <div align="right">
+                        <button ion-button color="primary" (click)="back()">Cancel</button>
+                    </div>
+                </ion-col>
+                <ion-col col-3 padding>
+                    <div align="left">
+                        <button [disabled]="!canSendMessage()" ion-button color="primary" style="display: inline-block; width: auto;"
+                            (click)="openMessageModal();">Compose Message</button>
+                    </div>
+                </ion-col>
+                <ion-col col-3></ion-col>
+            </ion-row>
+        </ion-grid>
+    </section>
+
+
+    <section id="tab-content" padding>
+        <div class="sal-att-logo-container">
+            <img src="assets/img/collaboration.svg" />
+        </div>
+    </section>
+    <div style="min-height: 10vh !important;"></div>
+</ion-content>

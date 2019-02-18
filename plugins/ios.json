@@ -1,33 +1,51 @@
 {
-    "prepare_queue": {
-        "installed": [],
-        "uninstalled": []
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.att.TSA.DFW"
     },
-    "config_munge": {
-        "files": {}
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.att.TSA.DFW"
     },
-    "installed_plugins": {
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
-        },
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
-        },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
-        },
-        "ionic-plugin-deploy": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
-        },
-        "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.savi262892"
-        }
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.att.TSA.DFW"
     },
-    "dependent_plugins": {}
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.att.TSA.DFW"
+    },
+    "ionic-plugin-keyboard": {
+      "PACKAGE_NAME": "com.att.TSA.DFW"
+    },
+    "ionic-plugin-deploy": {
+      "PACKAGE_NAME": "com.att.TSA.DFW"
+    },
+    "ionic-plugin-deeplinks": {
+      "URL_SCHEME": "tsadfw",
+      "DEEPLINK_SCHEME": "https",
+      "DEEPLINK_HOST": "https://www.volunteers.tsadfw.org",
+      "PACKAGE_NAME": "com.att.TSA.DFW"
+    },
+    "cordova-plugin-ionic-webview": {
+      "PACKAGE_NAME": "com.att.TSA.DFW"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.att.TSA.DFW"
+    },
+    "cordova-plugin-app-version": {
+      "PACKAGE_NAME": "com.att.TSA.DFW"
+    },
+    "cordova-plugin-hide-home-indicator": {
+      "PACKAGE_NAME": "com.att.TSA.DFW"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.att.TSA.DFW"
+    }
+  },
+  "dependent_plugins": {}
 }

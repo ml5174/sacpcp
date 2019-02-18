@@ -10,9 +10,9 @@
 	<section id="login-page">
 
 		<ion-list>
-			<ion-item no-lines *ngFor="let error of errors" >
-				<ion-icon name="alert" item-left class="error"></ion-icon>
-				<p class="error">{{error | translate}}</p>
+			<ion-item no-lines *ngFor="let error of errors" class="word-wrap: break-word;" text-wrap>
+				<ion-icon name="alert" item-start class="error"></ion-icon>
+				<p class="error" style="color:#CC1F2C" item-start>{{error | translate}}</p>
 			</ion-item>
 			<form (ngSubmit)="login()">
 			<div class="absolute-container">
@@ -20,7 +20,7 @@
 				<ion-icon class="popover-icon" name="information-circle" (click)="presentPopover($event)"></ion-icon>
 
 				<ion-item no-lines>
-					<ion-icon *ngIf="usernameerror"  name="alert" item-left isActive="false" [class.error]="passworderror"></ion-icon>
+					<ion-icon *ngIf="usernameerror"  name="alert" item-start isActive="false" [class.error]="passworderror"></ion-icon>
 					<ion-label stacked>{{ 'Username' | translate}}</ion-label>
 					<ion-input name="username" required type="text" placeholder="" [(ngModel)]="username" autocapitalize="off"></ion-input>
 				</ion-item>
@@ -31,7 +31,7 @@
 				<ion-icon class="popover-icon" name="information-circle" (click)="presentPasswordPopover($event)"></ion-icon>
 
 				<ion-item no-lines>
-					<ion-icon *ngIf="passworderror" name="alert" item-left isActive="false" [class.error]="passworderror"></ion-icon>
+					<ion-icon *ngIf="passworderror" name="alert" item-start isActive="false" [class.error]="passworderror"></ion-icon>
 					<ion-label stacked>{{ 'Password' | translate}}</ion-label>
 					<ion-input name="password" required [type]="showpassword" placeholder="" [(ngModel)]="password" ></ion-input>
 				</ion-item>
@@ -47,20 +47,20 @@
 			<ion-item no-lines>
 				<p clear (click)="forgot()">{{ 'Forgot User ID/Password' | translate}}</p>
 			</ion-item>
-			<input type="submit" hidden>
+			<input type="submit" class="hidden-submit">
+
+				<ion-row>
+					<ion-col></ion-col>
+					<ion-col>
+						<button ion-button color="primary" (click)="back()">Cancel</button>
+					</ion-col>
+					<ion-col></ion-col>
+					<ion-col>
+						<button ion-button color="primary" (click)="login()">Login</button>
+					</ion-col>
+					<ion-col></ion-col>
+				</ion-row>
 			</form>
 		</ion-list>
 	</section>
 </ion-content>
-<ion-footer class="action-footer">
-	<ion-grid>
-		<ion-row>
-			<ion-col width-50>
-				<button ion-button color="primary" (click)="back()">Cancel</button>
-			</ion-col>
-			<ion-col width-50>
-				<button ion-button color="primary" (click)="login()">Login</button>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
-</ion-footer>

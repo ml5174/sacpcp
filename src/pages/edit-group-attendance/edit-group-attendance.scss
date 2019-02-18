@@ -1,0 +1,17 @@
+page-edit-group-attendance {
+
+    .below-select{
+        padding-top: 2%;
+    }
+    ion-select
+    {
+        max-width: 100% !important;
+        max-height: 100%;
+    }
+    
+    #selectAttendingIndicator {
+        border: none;
+        padding-left: none !important;
+    }
+
+}

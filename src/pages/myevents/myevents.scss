@@ -1,0 +1,19 @@
+﻿.togglelabel {
+  display: block;
+  overflow: hidden;
+
+  flex: 1;
+  text-transform:none !important;
+  margin: 0; 
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+}
+
+  .toggleswitch {
+    margin: 1px;
+    /* width: 25%; */
+    float: left;
+    border: none;   
+    color:green;
+    /* height: 50px;   */
+  }

@@ -2,24 +2,77 @@
     background: white;
     padding: 0;
 }
+
 .searchbar-input {
-     border:1px solid;
+    border: 1px solid;
 }
+
 #results {
     text-align: center;
     font-size: large;
     padding-top: 15px;
 }
+
 .item-block {
     width: 100% !important;
 }
-img.main{
+
+img.main {
     padding-top: 15px;
     padding-bottom: 15px;
     height: auto;
     width: 100%;
 }
-.sortButton{
-   padding-left:10em;
-   padding-right:10em;
+
+#selectbar {
+    border: none;
+    padding-left: none !important;
+}
+
+.platform-android .alertReminder {
+    background-color: white;
+    color: black;
+    button {
+        background-color: #cc1f2c;
+        color: white;
+        text-transform: none;
+        border: 1px solid;
+    }
+}
+
+.platform-ios .alertReminder {
+    background-color: white;
+    color: black;
+    button {
+        background-color: #cc1f2c;
+        color: white;
+        border: 2px solid;
+    }
+}
+
+// start of date picker input style
+#date-picker-item-label ion-label {
+    font-size: 12px;
+}
+
+.date-picker-input {
+    border: none;
+}
+.notifications {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 10px;
+}
+
+.savi-urgent-icon {
+    font-size: 28px;
+}
+
+.new {
+    color:  orange
+}
+
+.urgentAlert {
+    text-align: center;
 }

@@ -1,21 +1,26 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { UserServices } from '../../lib/service/user';
+import { SignupAssistant } from '../../lib/service/signupassistant';
 import { Storage } from '@ionic/storage';
-import { NavController, NavParams, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, PopoverController,ViewController,App,AlertController, Events } from 'ionic-angular';
 import { RegisterLoginPage } from '../register-login/register-login';
 import { ForgotPage } from '../forgot/forgot';
 import { HomePage } from '../home/home';
-import { TranslateService } from "ng2-translate/ng2-translate";
+import { TranslateService } from "@ngx-translate/core";
 import { STRINGS } from '../../lib/provider/config';
 import { UseridPopover } from '../../popover/userid';
 import { PasswordPopover } from '../../popover/password';
+import { RegisterIndividualProfilePage } from '../register-individual-profile/register-individual-profile';
+import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
+
+
 
 @Component({
-  templateUrl: 'login.html'
+  templateUrl: 'login.html',
 })
 
 export class LoginPage {
-  
+
   @ViewChild('popoverContent', { read: ElementRef }) content: ElementRef;
   @ViewChild('popoverText', { read: ElementRef }) text: ElementRef;
 
@@ -28,13 +33,21 @@ export class LoginPage {
   public key: any = { key: 'key' };
   public errors: Array<string> = [];
   public val: any;
+  private loginSuccess: boolean = false;
 
   constructor(public nav: NavController,
     public navParams: NavParams,
     public userServices: UserServices,
     public translate: TranslateService,
     public storage: Storage,
-    public popoverCtrl: PopoverController
+    public popoverCtrl: PopoverController,
+    private signupAssistant: SignupAssistant,
+    private volunteerEventsService: VolunteerEventsService,
+    public viewCtrl: ViewController,
+    public alertCtrl: AlertController,
+    public appCtrl: App,
+    public navCtrl: NavController,
+    public ev: Events
     ) {
 
     /* Temp solution until login validation is implemented */
@@ -48,6 +61,7 @@ export class LoginPage {
       }
       );
   }
+
   login() {
     var loginPage = this;
     this.usernameerror = false;
@@ -64,16 +78,93 @@ export class LoginPage {
     this.userServices.login(loginobject)
       .subscribe(
       key => {
-        if (loginPage.remember) 
-          loginPage.storage.set('key', loginPage.userServices.user.id);
-      //  loginPage.storage.set('test', 'test');
-
+        this.loginSuccess = true;
+        if (loginPage.remember)
+        loginPage.storage.set('key', loginPage.userServices.user.key);
         loginPage.userServices.getMyProfile().subscribe(
-                                 result => result, 
+                                 result => result,
                                  err => {
-                                     console.log(err);
+                                   this.loginSuccess = false;
+                                     console.error(err);
                                  });
+
+        if(this.signupAssistant.getGuestSignup()){
+
+            this.signupAssistant.setGuestSignup(false);
+            this.volunteerEventsService
+                .checkMyEvents(this.signupAssistant.getCurrentEventId()).subscribe(          
+                res => {
+                    this.signupAssistant.signupEventRegistration();
+                },
+                err => {
+                    
+                    if(err._body.indexOf("Event Registration is full. We encourage you to search for similar events.") >= 0){
+                      let confirm = this.alertCtrl.create({
+                            title: 'Event Notice',
+                            cssClass: 'alertReminder',
+                            message: 'Event registration is full.',   
+                            buttons: [
+                                {
+                                    text: 'Ok',
+                                    handler: () => {
+                                        console.log('Ok, clicked');
+                                    }
+                                }
+                            ]
+                        });
+                        confirm.present();
+                    } else if (err._body.indexOf("You are already registered for this event.") >= 0) {
+                        let confirm = this.alertCtrl.create({
+                            title: 'Event Notice',
+                            cssClass: 'alertReminder',
+                            message: 'You are already registered for this event.',
+                            buttons: [
+                                {
+                                    text: 'Ok',
+                                    handler: () => {}
+                                }
+                            ]
+                        });
+                        confirm.present();
+                    } else{
+                      let confirm = this.alertCtrl.create({
+                              title: 'Event Notice',
+                              cssClass: 'alertReminder',
+                              message: 'You Have not filled in all of the required information to sign up for an event. <br><br> Would you like to navigate to the My Profile page?',
+                              buttons: [
+                                  {
+                                      text: 'No',
+                                      handler: () => {
+                                          console.log('No clicked');
+                                      }
+                                  },
+                                  {
+                                      text: 'Yes',
+                                      handler: () => {
+                                          console.log('Yes clicked');
+                                          this.viewCtrl.dismiss();
+                                          this.appCtrl.getRootNav().push(RegisterIndividualProfilePage,{errorResponse:err});
+                                      }
+                                  }
+                              ]
+                      });
+                      confirm.present();
+                    }
+                });
+        }
+
+         if(this.navParams.get('fromPage')){
+           this.navCtrl.pop().then(() => {
+         // Trigger custom event and pass data to be send back
+         this.ev.publish('user-event-flow', this.navParams.get("event_id"));
+         //new
+        });
+      }else{
         loginPage.nav.setRoot(HomePage);
+      }
+
+
+
       },
       err => this.setError(err));
   }
@@ -89,7 +180,7 @@ export class LoginPage {
   }
   setError(error) {
     this.errors = [];
-    
+
     if (error.status === 400) {
       error = error.json();
       if (error['detail']) {
@@ -108,7 +199,7 @@ export class LoginPage {
       }
     }
     if (error.status === 500) {
-      this.errors.push('Backend returned 500 error, talk to JOHN :) ');
+      this.errors.push('Server 500 error');
     }
   }
 

@@ -1,0 +1,11 @@
+{
+  "ios": {
+    "release": {
+      "codeSignIdentity": "iPhone Developer",
+      "provisioningProfile": "7fdc50a2-324e-458e-8e06-8ee0162e75af",
+      "buildFlag": [
+         "-UseModernBuildSystem=0"
+      ]
+    }
+  }
+}

@@ -1,0 +1,39 @@
+
+<ion-header>
+    <app-header back="true" title="Event Registration Data">
+    </app-header>
+</ion-header>
+    
+<ion-content padding-left padding-right padding-top>
+    
+    <section id="header">
+        <div *ngIf="getEventsError" style="color:#CC1F2C">
+            There was an error getting the events in the range you provided.
+        </div>
+    </section>
+    
+    <div align="center">
+            
+        <section id="home-body">
+     
+            <div><h1 style="font-family:inherit">Select the date range:</h1></div>
+            <div padding>
+                <label for="start">Start Date:</label>
+                <input large name="start" [(ngModel)]="startDate" type="date">
+            </div>
+            <div padding>
+                <label for="end">End Date:</label>
+                <input [(ngModel)]="endDate" type="date"  max = "2030-01-02" min = {{startDate}} >
+            </div>
+            <div>
+                <button ion-button medium color="primary" (click)="goHome()">Cancel</button>
+                <button ion-button medium color="primary" [disabled]="!startDate || !endDate || endDate < startDate" (click)="exportEvents()" data-toggle="modal" >Export Data</button>
+            </div>
+       
+            <div padding>
+                <img src="assets/img/collaboration.svg" />
+            </div>
+        </section>
+    </div>
+    <div style="min-height: 10vh !important;"></div>
+</ion-content>

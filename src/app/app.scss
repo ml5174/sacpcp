@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/v2/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -20,83 +18,128 @@
 	font-family: Arial, sans-serif !important;
 }
 */
+
+
+
 @font-face {
-  font-family: "TrajanPro";
-  src: url("../assets/fonts/TrajanPro-Regular.otf") format("truetype");
+    font-family: "TrajanPro";
+    src: url("../assets/fonts/TrajanPro-Regular.otf") format("truetype");
 }
 
 @font-face {
-  font-family: "AJensonPro";
-  src: local("AJensonPro-Bold"), local("AJensonPro Bold"), url("../assets/fonts/AJensonPro-Bold.otf") format("truetype"); 
+    font-family: "AJensonPro";
+    src: local("AJensonPro-Bold"), local("AJensonPro Bold"), url("../assets/fonts/AJensonPro-Bold.otf") format("truetype");
 }
 
 @font-face {
-  font-family: "AJensonPro";
-  src: local("AJensonPro-Regular"), local("AJensonPro Regular"), url("../assets/fonts/AJensonPro-Regular.otf") format("truetype"); 
+    font-family: "AJensonPro";
+    src: local("AJensonPro-Regular"), local("AJensonPro Regular"), url("../assets/fonts/AJensonPro-Regular.otf") format("truetype");
 }
 
 @font-face {
-  font-family: "AJensonPro";
-  font-style: italic;
-  src: local("AJensonPro-Italic"), local("AJensonPro-Italic"), url("../assets/fonts/AJensonPro-It.otf") format("truetype"); 
+    font-family: "AJensonPro";
+    font-style: italic;
+    src: local("AJensonPro-Italic"), local("AJensonPro-Italic"), url("../assets/fonts/AJensonPro-It.otf") format("truetype");
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: TrajanPro;
-    //font-family: Arial;
-}
+h1,
+h2,
+h3,
+h4,
+h5,
 h6 {
-  font-weight: bold;
-}
-.toolbar-content, ion-footer button {
     font-family: TrajanPro;
     //font-family: Arial;
 }
 
-app-header > ion-navbar > div.toolbar-background {
-    background-image: url("../assets/img/logo2.svg");
+.alert-wrapper {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: AJensonPro, "Trebuchet MS", Arial, Helvetica, sans-serif
+    }
+}
+
+h6 {
+    font-weight: bold;
+}
+
+.app-header-title .toolbar-title {
+    text-align: center;
+    margin-left: 0;
+    font-size: 1.1em;
+    font-weight: normal;
+    color: map-get($colors, primary);
+}
+
+#home-header {
+    max-height: 20px;
+    text-align: initial;
+}
+
+#home-header button.app-header-back-button {
+    min-width: 80px;
+    text-align: left;
+}
+
+#home-header button.app-header-back-button .button-inner {
+    display: inline;
+}
+
+.toolbar-content,
+ion-footer button {
+    font-family: TrajanPro;
+    //font-family: Arial;
+}
+
+app-header>ion-navbar>div.toolbar-background {
+    //   background-image: url("../assets/img/logo2.svg");
     background-repeat: no-repeat;
     background-size: auto 85%;
     background-position: left 5px top 5px;
- //   background-color: white;
+    //   background-color: white;
 }
 
-ion-header > ion-navbar > div.toolbar-background {
-    background-image: url("../assets/img/logo2.svg");
+ion-header>ion-navbar>div.toolbar-background {
+    //   background-image: url("../assets/img/logo2.svg");
     background-repeat: no-repeat;
     background-size: auto 85%;
     background-position: left 5px top 5px;
-  //  background-color: white;
+    //  background-color: white;
 }
 
-#right-menu > div {
-  text-align: right;
+#right-menu>div {
+    text-align: right;
 }
-#right-menu-items > ion-item > div.item-inner > div > ion-label {
-  text-align: right;
+
+#right-menu-items>ion-item>div.item-inner>div>ion-label {
+    text-align: right;
 }
 
 //CUSTOM CONTENT
-.content-pad{
+.content-pad {
     max-width: 95%;
     margin: auto;
 }
 
-.flex-card{
+.flex-card {
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
-    margin: 0 !important;
+    margin: 0 0 5px 0 !important;
     width: auto !important;
-    
 }
 
-button.readmore{
+button.readmore {
     margin-top: auto;
 }
 
-.item-label-stacked .text-input, .item-label-floating .text-input {
-    border: 1px solid;   
+.item-label-stacked .text-input,
+.item-label-floating .text-input {
+    border: 1px solid;
     padding: 0 10px;
     height: 3rem;
     border-radius: 5px;
@@ -110,288 +153,294 @@ button.readmore{
 .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner,
 .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child,
 .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child,
-.list-md .item-input.input-has-focus:last-child
-{
-  border-bottom-color: transparent;
-  box-shadow: inset 0 0 0 0 transparent;
+.list-md .item-input.input-has-focus:last-child {
+    border-bottom-color: transparent;
+    box-shadow: inset 0 0 0 0 transparent;
 }
 
 .item-md.item-input.input-has-focus .item-inner .text-input,
 .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner .text-input {
-  border-color: map-get($colors, primary);
+    border-color: map-get($colors, primary);
 }
 
 .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner .text-input,
-.item-md ion-select, .item-md ion-datetime {
-  border-color: map-get($colors, secondary);
+.item-md ion-select,
+.item-md ion-datetime {
+    border-color: map-get($colors, secondary);
 }
 
 .multi-choice {
-  float: left;
-  width: 230px;
+    float: left;
+    width: 245px;
 }
 
 .radio-choice {
-  float: left;
-  width: 102px;
+    float: left;
+    width: 102px;
 }
 
 .multi-choice ion-label {
-  font-size: 0.9em;
-  white-space: normal;
+    font-size: 0.9em;
+    white-space: normal;
 }
 
 .label-ios[stacked],
 .label-md[stacked],
 .label-ios[stacked],
 ion-label {
-  font-size: 1.6rem;
-  color: black;
+    font-size: 1.6rem;
+    color: black;
 }
 
 ion-select {
-  margin-right: 8px;
+    margin-right: 8px;
 }
 
-ion-select, ion-datetime {
-  border: 1px solid;
-  padding-left: 10px !important;
-  border-radius: 5px;
+ion-select,
+ion-datetime {
+    border: 1px solid;
+    padding-left: 10px !important;
+    border-radius: 5px;
 }
 
 .scroll-content {
-  overflow: auto;
+    overflow: auto;
 }
 
 ion-footer {
-  text-align: center;
+    text-align: center;
 }
 
 ion-footer button {
-  width: 8em;
-}
-
-ion-list.toggle-section.list-md {
-  margin-bottom: 0px !important;
-}
-
-ion-list.toggle-section {
-  margin-bottom: 10px !important;
-}
-
-ion-list.toggle-section ion-list-header {
-  margin-top: 0px;
-  border-top: 1px solid #ccc;
-} 
-
-ion-list.toggle-section:not(:last-child) ion-list-header {
-  border-bottom: none;
-} 
-
-ion-list.toggle-section ion-list-header.selected {
-  background-color: #ddd;
-  color: black;
-  border-bottom: 1px solid #ccc;
-  border-top: 1px solid #ccc;
-} 
-
-ion-list.toggle-section .toggle-section-content.hide-section {
-  max-height: 0px;
-}
-
-.list-md .item-input:last-child {
-    border-bottom: 0px;
-}
-ion-list.toggle-section .toggle-section-content {
- -webkit-transition: max-height 0.2s ease-in-out;
-  -moz-transition: max-height 0.2s ease-in-out;
-  -ms-transition: max-height 0.2s ease-in-out;
-  transition: max-height 0.2s ease-in-out;
-  max-height: 800px;
-  overflow: hidden;
+    width: 8em;
 }
 
 .toolbar-title {
-  margin-left: 35px;
-  font-size: 1.4rem;
+    margin-left: 35px;
+    font-size: 0.2rem;
 }
 
 .toolbar-title-ios {
-    font-size: 1.4rem;
     text-align: left;
 }
 
 .toolbar-ios ion-title {
-  padding: 0 12px;
+    padding: 0 12px;
 }
 
 .sal-att-logo-container {
-  text-align: center; 
+    text-align: center;
 }
+
 // Global features
 .absolute-container {
-  display: inline-block;
-  width: 100%;
-  position: relative;
+    display: inline-block;
+    width: 100%;
+    position: relative;
 }
 
 .md .popover-icon {
-  margin-left: 20px;
+    margin-left: 20px;
 }
+
 .md #show-link {
-  margin-left: 20px;
+    margin-left: 20px;
 }
 
 .action-footer {
-  background-color: black;
+    background-color: black;
 }
 
 @media (min-width: 1024px) {
-  ion-nav > ng-component > ion-header > app-header > ion-navbar > ion-buttons > button {
-    visibility: hidden;
-  }
-  ion-menu {
-    left: auto;
-    width: 312px;
-    display: block;
-  } 
-  ion-menu > .menu-inner {
-    transform: translateX(0px);
-  }
-  ion-nav {
-    width: calc(100% - 312px);
-    @media (min-width: 1258px) {
-    #home-body {
-      max-width: 900px;
-      margin-left: calc(50% - 450px);
+    ion-nav>ng-component>ion-header>app-header>ion-navbar>ion-buttons>button {
+        visibility: hidden;
+        color: #532211;
     }
+    ion-menu {
+        left: auto;
+        width: 312px;
+        display: block;
     }
-  }
-  #home-header {
-   // display: none;
-  }
+    ion-menu>.menu-inner {
+        transform: translateX(0px);
+    }
+    ion-nav {
+        width: calc(100% - 312px);
+        @media (min-width: 1258px) {
+            #home-body {
+                max-width: 900px;
+                margin-left: calc(50% - 450px);
+            }
+        }
+    }
+    //#home-header {
+        // display: none;
+    //}
 }
 
 #account-login {
-  display: block;
-  ion-icon {
-    font-size: 150px;
-    margin-left: 60px;
-    height: 50px
-  }
-  button {
-    margin-left: 104px;
-  }
+    display: block;
+    ion-icon {
+        font-size: 150px;
+        margin-left: 60px;
+        height: 50px
+    }
+    button {
+        margin-left: 104px;
+    }
 }
+
 #account-logout {
-  display: block;
-  ion-icon {
-    font-size: 150px;
-    margin-left: 82px;
-    height: 50px
-  }
-  button {
-    margin-left: 96px;
-  }
+    display: block;
+    ion-icon {
+        font-size: 150px;
+        margin-left: 82px;
+        height: 50px
+    }
+    button {
+        margin-left: 96px;
+    }
 }
+
 .phone-number {
-  margin-top: -20px;
+    margin-top: -20px;
+    ion-col {
+        padding-right: 0px;
+    }
 }
+
 .phone-number ion-label {
-  display: none;
+    display: none;
 }
+
 .phone-number ion-col ion-item {
-  padding-left: 6px;
+    padding-left: 6px;
 }
 
-.homeslider{
-	width:100%; 
-	height:30vh;
-	
-	div{
-		max-height: 30vh;
-		width: 100%;
-	}
-	
-	img{
-		object-fit:contain !important;
-		max-height: 30vh !important;	
-	}
+.homeslider {
+    width: 100%;
+    height: 30vh;
+    div {
+        max-height: 30vh;
+        width: 100%;
+    }
+    img {
+        object-fit: contain !important;
+        max-height: 30vh !important;
+    }
 }
 
-.title-card{
-	ion-item{
-		min-height: 1.5rem !important;
-	}
-	ion-card-header{
-		//white-space: normal;
-		font-size: 2.6rem !important;
-		font-weight: 500 !important;
-	}
-	ion-label{
-		margin-top: 0px !important;
-		margin-bottom: 6px !important;
-	}
+.title-card {
+    margin-top: 10px !important;
+    ion-item {
+        min-height: 1.5rem !important;
+    }
+    ion-card-header {
+        //white-space: normal;
+        font-size: 2.6rem !important;
+        font-weight: 500 !important;
+    }
+    ion-label {
+        margin-top: 0px !important;
+        margin-bottom: 6px !important;
+    }
 }
 
-ion-card-header{
-	white-space: normal !important;
+ion-card-header {
+    white-space: normal !important;
 }
 
 //Added this to fix ionic being STUPID ABOUT AUTO CAPSING BUTTONS
-.button, .label, .segment-button{
-	text-transform: capitalize !important;
+.button,
+.label,
+.segment-button {
+    text-transform: capitalize !important;
 }
 
 //.label{
 //	text-transform: capitalize !important;
 //}
-
-.fatty{
-	span{
-		font-size: 2rem;
-	}
+.fatty {
+    span {
+        font-size: 2rem;
+    }
 }
 
-
-.menutop{
-margin-left: 1%;
-display:table;
-width: 75%;
-.menuspan{
-display:table-cell;
-vertical-align:middle;
-font-size:2.5rem;
-font-family: TrajanPro;
-
-	}
+.menutop {
+    margin-left: 1%;
+    display: table;
+    width: 75%;
+    .menuspan {
+        display: table-cell;
+        vertical-align: middle;
+        font-size: 2.5rem;
+        font-family: TrajanPro;
+    }
 }
-
 
 .alert-button-group {
-justify-content: center !important;
+    justify-content: center !important;
 }
 
-.alert-button{
+.alert-button {
     width: 45% !important;
-    .button-inner{
+    .button-inner {
         justify-content: center !important;
-        }
+    }
 }
 
 .alert-title {
-	text-align: center !important;
-	}
-	
-.picker-toolbar{
-	display: inline-block !important;
-	justify-content: center;
-	
-	.picker-toolbar-cancel{
-	float: left !important;
-	}
-	.picker-button{
-	float: right;
-	}
+    text-align: center !important;
+}
 
+.picker-toolbar {
+    display: inline-block !important;
+    justify-content: center;
+    .picker-toolbar-cancel {
+        float: left !important;
+    }
+    .picker-button {
+        float: right;
+    }
+}
+
+.hidden-submit {
+    height: 0px;
+    width: 0px;
+    opacity: 0;
+    font-size: 0px;
+    border: none;
+    background: transparent;
+}
+
+.ion-ios-menu {
+    color: #424242;
+}
+
+.toggle-section p {
+    margin: 5px;
+}
+
+.footer-col {
+    font-size: 8px;
+    line-height: 8px;
+}
+
+.footer-icon {
+    display: block;
+    font-size: 26px;
+    margin-bottom: 2px !important;
+}
+
+.ios {
+    body {
+        padding-top: env(safe-area-inset-top); 
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+.currentPage {
+    border-color: #cc1f2c;
+    opacity: 1;
+    border-bottom-style: solid;
+    box-sizing: border-box;
 }

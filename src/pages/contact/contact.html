@@ -7,7 +7,7 @@
 
 	<!--ion-toolbar secondary>
 		<ion-buttons begin>
-			<button ion-button icon-left (click)="back()">
+			<button ion-button icon-start (click)="back()">
        <ion-icon name="ios-arrow-back"></ion-icon>
         {{'Contact Us' | translate}}
 		</button>
@@ -17,18 +17,42 @@
 	<section id="tab-content" padding>
 
 		<h6 class="dynamicPageTitle"><span id="MainContent_content_lbl_title">Carr P. Collins Social Service Center</span></h6>
-
 		<div id="MainContent_content_pnl_modules">
 			<div class="clear dynamicPageSpacer"></div>
 			<div class="clear dynamicPageSpacer"></div>
-
+			<img class="image" src="assets/img/Building.jpg">
+ 
 			<div class="textGalleryModule module">
 
 				<div class="moduleItemsWrapper">
-					<span style="font-size: 12pt;">5302 Harry Hines Blvd.</span><br style="font-size: 12pt;">
-					<span style="font-size: 12pt;">Dallas,TX 75235</span><br style="font-size: 12pt;"><span style="font-size: 12pt;">(214) 424-7050</span>
-					<br style="font-size: 12pt;">
-					<span style="font-size: 12pt;">(214) 688-5234 Fax </span>
+					<a href="{{mapsURL}}">
+						<span style="font-size: 12pt;">5302 Harry Hines Blvd.</span><br style="font-size: 12pt;">
+							<span style="font-size: 12pt;">Dallas,TX 75235</span><br style="font-size: 12pt;">
+					</a>
+					<span style="font-size: 12pt;">Contact Number :</span>
+					<a href="javascript:void(0);" (click)="call_TSACPC('(214) 424-7050');">
+						<span style="font-size: 12pt;"> (214) 424-7050</span><br style="font-size: 12pt;">
+					</a>
+					<!-- Updating Fax Number-->
+					<span style="font-size: 12pt;">Fax Number : (214) 424-7080</span><br style="font-size: 12pt;">
+					<span style="font-size: 12pt;">Email : </span>
+					<a href="mailto:sa.cpc.volunteer@gmail.com">
+						<span style="font-size: 12pt;">sa.cpc.volunteer@gmail.com</span><br style="font-size: 12pt;">
+					</a>
+					<div class = 'iconFormat'>
+						<button ion-button icon-start target="_blank" (click)="openLink('https://www.facebook.com/salarmydfw')">
+ 							<ion-icon name="logo-facebook"></ion-icon>
+						</button>
+						<button ion-button icon-start target="_blank" (click)="openLink('https://twitter.com/SalArmyDFW')">
+ 							<ion-icon name="logo-twitter"></ion-icon>
+						</button>
+						<button ion-button icon-start target="_blank" (click)="openLink('https://www.youtube.com/salvationarmydfw')">
+ 							<ion-icon name="logo-youtube"></ion-icon>
+						</button>
+						<button ion-button icon-start target="_blank" (click)="openLink('https://www.instagram.com/salarmydfw')">
+ 							<ion-icon name="logo-instagram"></ion-icon>
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

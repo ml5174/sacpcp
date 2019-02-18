@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
   templateUrl: 'about.html'
 })
 export class AboutPage {
-  constructor(public nav: NavController) {
 
+  @ViewChild('homeSlider') homeSlider;
+  constructor(public nav: NavController, public navParams: NavParams) {
   }
-
-  back() {
-    this.nav.pop();
+  changeSlides(event) {
+    if(event.getActiveIndex() == 0){
+      this.homeSlider.startAutoplay(3000);
+    }
   }
 
 }

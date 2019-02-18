@@ -1,0 +1,25 @@
+.md, .ios {
+  ion-card {
+  
+    img {
+    max-width: 200px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    }
+  }
+}
+
+.linked-group {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+  input[type=submit]:hover{
+    font-style: italic;
+    font-weight: bold;
+  }
+}
+
+.nogroups {
+  color: red;
+}
