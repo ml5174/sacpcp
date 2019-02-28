@@ -76,6 +76,7 @@ h6 {
 }
 
 #home-header {
+    max-height: 20px;
     text-align: initial;
 }
 
@@ -216,11 +217,10 @@ ion-footer button {
 
 .toolbar-title {
     margin-left: 35px;
-    font-size: 1.4rem;
+    font-size: 0.2rem;
 }
 
 .toolbar-title-ios {
-    font-size: 1.4rem;
     text-align: left;
 }
 

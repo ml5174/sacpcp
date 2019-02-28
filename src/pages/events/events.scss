@@ -29,8 +29,6 @@ img.main {
     padding-left: none !important;
 }
 
-.sortButton {}
-
 .platform-android .alertReminder {
     background-color: white;
     color: black;
@@ -66,40 +64,15 @@ img.main {
     right: 0px;
     font-size: 10px;
 }
-.urgent {
-    color: red;
+
+.savi-urgent-icon {
+    font-size: 28px;
 }
+
 .new {
     color:  orange
 }
-// #date-picker-container {
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-between;
-//     width: 100%;
-// }
-// #date-picker-start-input-container {
-//     border: solid 1px #c8c7cc;
-//     border-radius: 5px;
-//     padding: 5px;
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-around;
-//     width: 45%;
-// }
-// #date-picker-end-input-container {
-//     border: solid 1px #c8c7cc;
-//     border-radius: 5px;
-//     padding: 5px;
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-around;
-//     width: 45%;
-// }
-// .date-picker-date-display {
-//     font-size: 1.1 em;
-// }
-// date-picker {
-//     width: 45%;
-// }
-// end of date picker input style
+
+.urgentAlert {
+    text-align: center;
+}

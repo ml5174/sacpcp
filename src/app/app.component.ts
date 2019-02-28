@@ -86,15 +86,15 @@ export class MyApp {
       { title: 'Login', component: LoginPage },                                        // 0
       { title: 'Home', component: HomePage },                                          // 1
 
-      { title: 'Login Registration', component: RegisterLoginPage },                   // 2 
-      { title: 'Profile Registration', component: RegisterIndividualProfilePage },     // 3 
-      { title: 'Change Password', component: ChangePasswordPage },                     // 4 
-      { title: 'About Us', component: AboutPage },                                     // 5 
-      { title: 'Contact Us', component: ContactPage },                                 // 6 
-      { title: 'Privacy & Terms', component: TermsPage },                              // 7 
-      { title: 'Admin', component: Admin },                                            // 8 
+      { title: 'Login Registration', component: RegisterLoginPage },                   // 2
+      { title: 'Profile Registration', component: RegisterIndividualProfilePage },     // 3
+      { title: 'Change Password', component: ChangePasswordPage },                     // 4
+      { title: 'About Us', component: AboutPage },                                     // 5
+      { title: 'Contact Us', component: ContactPage },                                 // 6
+      { title: 'Privacy & Terms', component: TermsPage },                              // 7
+      { title: 'Admin', component: Admin },                                            // 8
       { title: 'My Groups', component: MyGroupsPage },                                 // 9
-      { title: 'Create Group', component: CreateGroupPage },                           // 10 
+      { title: 'Create Group', component: CreateGroupPage },                           // 10
       { title: 'Group Profile', component: GroupProfilePage },                         // 11
       { title: 'Services', component: ServicesPage },                                  // 12
       { title: 'Programs', component: ProgramsPage },                                  // 13
@@ -112,7 +112,7 @@ export class MyApp {
     ];
 
   }
-  
+
   initializeApp() {
     let us = this.userServices;
     this.detectOldIE();
@@ -165,10 +165,10 @@ export class MyApp {
   }
   setRoot(){
     if(this.userServices.user.id){
-      this.volunteerEvents.getMyEvents(this.userServices.user.id).subscribe(events=>{
+      this.volunteerEvents.getMyEvents().subscribe(events=>{
         if(events.length > 0){
           this.rootPage = MyhomePage;
-          this.currentPage = "My Home"; 
+          this.currentPage = "My Home";
         }
         else{
           this.rootPage = HomePage;
@@ -195,14 +195,17 @@ export class MyApp {
     }
   }
   logout() {
+    //console.log("logout()");
     this.showAdmin=false;
     this.showMyGroupsMenu=false;
     this.menu.close();
     this.storage.set('key', undefined);
     this.userServices.unsetId();
     this.volunteerEvents.clearEvents();
+    this.userServices.clearMyProfile();
     this.userServices.user = new UserProfile();
-    
+    this.nav.popToRoot();
+    this.openPage(this.pages[1], 'home');
   }
   isRedKettleSeason() {
     const currDate = new Date(Moment().toISOString());
@@ -210,44 +213,53 @@ export class MyApp {
     const redKettleEnd = new Date(new Date().getFullYear(),12,25);
     return currDate >= redKettleStart && currDate <= redKettleEnd;
   }
-  redKettle() { 
+  redKettle() {
     this.openExternalUrl(RED_KETTLE_URL);
   }
 
-  donate() { 
+  donate() {
     this.openExternalUrl(DONATE_URL);
   }
   private openExternalUrl(url: string){
-    if(this.platform.is('android')) { 
-      if (cordova && cordova.InAppBrowser) { 
-        cordova.InAppBrowser.open(url); 
-      } else {
-        window.open(url, '_blank'); 
-      }
-    }
-    else if(this.platform.is('ios')) {
-      console.log("opening Safari on web site");
-      let okayToLeaveApp = this.alertCtrl.create({
-       title: '',
-       cssClass: 'alertReminder',
-       message: 'You are about to leave the app and visit '+ url +' website with Safari. NOTE: The website has a separate login.',
-       buttons: [
-         {
-           text: 'OK',
-           handler: () => {
-             console.log('Okay clicked');
-             if (cordova && cordova.InAppBrowser) { 
-               cordova.InAppBrowser.open(url, '_system'); 
-             } else {
-               window.open(url, '_system'); 
+
+      if(this.platform.is('android') && this.platform.is('ios')){
+        let okayToLeaveApp = this.alertCtrl.create({
+         title: '',
+         cssClass: 'alertReminder',
+         message: 'You are about to leave the app and visit the '+ url +' website. NOTE: The website has a separate login.',
+         buttons: [
+           {
+             text: 'OK',
+             handler: () => {
+               console.log('Okay clicked');
+               if (cordova && cordova.InAppBrowser) {
+                 cordova.InAppBrowser.open(url, '_system');
+               } else {
+                 window.open(url, '_system');
+               }
              }
            }
-         }
-       ]
-     });
-     okayToLeaveApp.present();   
-    }
-      window.open(url, '_system'); 
+         ]
+       });
+       okayToLeaveApp.present();
+
+     }else{
+       let okayToLeaveApp = this.alertCtrl.create({
+        title: '',
+        cssClass: 'alertReminder',
+        message: 'You are about to leave the app and visit '+ url +' website. NOTE: The website has a separate login.',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+                window.open(url, '_system');
+            }
+          }
+        ]
+      });
+      okayToLeaveApp.present();
+
+     }
     }
 
   private detectOldIE() {
@@ -351,6 +363,6 @@ showCenterOptions(){
   }
   private async getFromStorageAsync(key){
     return await this.storage.get(key);
-  } 
+  }
 
 }

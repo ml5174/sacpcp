@@ -34,10 +34,10 @@
         </ion-item>
         <ion-row>
           <ion-item>
-            <ion-icon *ngIf="eventData.eventexpanded.org_restriction == '0' || eventData.eventexpanded.org_restriction == '3'" item-start name="person"></ion-icon>
-            <ion-icon *ngIf="eventData.eventexpanded.org_restriction == '0' || eventData.eventexpanded.org_restriction == '1' || eventData.eventexpanded.org_restriction == '2' " item-start name="people"></ion-icon>
-            <p *ngIf="eventData.eventexpanded.org_restriction == '0'">Groups & Individuals</p>
-            <p *ngIf="eventData.eventexpanded.org_restriction == '1'">Groups Only</p>
+            <ion-icon *ngIf="eventType == '0' || eventType == '3'" item-start name="person"></ion-icon>
+            <ion-icon *ngIf="eventType == '0' || eventType == '1' || eventType== '2' " item-start name="people"></ion-icon>
+            <p *ngIf="eventType == '0'">Groups & Individuals</p>
+            <p *ngIf="eventType == '1'">Groups Only</p>
           </ion-item>
           <ion-item>
             <ion-icon item-start name="calendar"></ion-icon>
@@ -61,59 +61,20 @@
           </ion-item>
         </ion-row>
     </ion-grid>
-    <!-- <ion-grid *ngIf="showGroups">
-        <ion-row>
-            <ion-col col-4>
-                <ion-item>
-                    <ion-label>Organization</ion-label>
-                </ion-item>
-            </ion-col>
-            <ion-col>
-                <ion-item col-4>
-                    <ion-label>Group Name</ion-label>
-                </ion-item>
-            </ion-col>
-            <ion-col col-4>
-                <ion-item>
-                    <ion-label>&nbsp;</ion-label>
-                </ion-item>
-            </ion-col>
-        </ion-row>
-        <ion-row radio-group [(ngModel)]="selectedGroup" *ngFor="let org of myOrgs">
-            <ion-col col-4>
-                <ion-item>
-                    <ion-label>{{org.name}}</ion-label>
-                </ion-item>
-            </ion-col>
-            <ion-col col-4>
-                <ion-item>
-                    <ion-label>{{org.group}}</ion-label>
-                </ion-item>
-            </ion-col>
-            <ion-col col-4>
-                <ion-item>
-                    <ion-radio value="{{org.org_id}}"></ion-radio>
-                </ion-item>
-            </ion-col>
-        </ion-row>
-    </ion-grid> -->
-    <ion-item *ngIf="showGroups">
-        <ion-label>Organization</ion-label>
-        <ion-select [(ngModel)]="selectedGroup">
-            <ion-option *ngFor="let org of myOrgs" value="{{org.org_id}}">{{org.name}} &nbsp; {{org.group}}</ion-option>
-        </ion-select>
-    </ion-item>
-    <!--<ion-item *ngIf="showMembers">
-  <ion-label>Attendees</ion-label>
-  <ion-select  [(ngModel)]="orgContacts" multiple="true" >
-    <ion-option   *ngFor="let contacts of orgContacts" [value]="contacts.contact"  (ionSelect)="updateMembers(contacts)" selected="{{contacts.selected}}">{{contacts.contact.first_name}} &nbsp; {{contacts.contact.last_name}}</ion-option>
-  </ion-select>
-</ion-item> -->
+    <ion-list *ngIf="showGroups" radio-group [(ngModel)]="selectedGroup">
+        <ion-list-header>
+            Select an Organization/Group
+        </ion-list-header>
+        <ion-item *ngFor="let org of myOrgs">
+            <ion-label>{{org.name}}/{{org.group}}</ion-label>
+            <ion-radio value="{{org.org_id}}"></ion-radio>
+        </ion-item>
+    </ion-list>
     <ion-list *ngIf="showMembers">
 
         <ion-list-header>Attending Members</ion-list-header>
         <ion-item *ngFor="let contacts of orgContacts ">
-            <ion-label>{{contacts.contact.first_name}}&nbsp;&nbsp; {{contacts.contact.last_name}}</ion-label>
+            <ion-label>{{contacts.contact.first_name}} {{contacts.contact.last_name}}</ion-label>
             <ion-checkbox [(ngModel)]="contacts.checked"
                 value="contacts" checked (ionChange)="updateMembers(contacts)"></ion-checkbox>
         </ion-item>
@@ -131,13 +92,15 @@
         <ion-row>
             <ion-col>
                 <button class="savi-padded" ion-button item-start color="primary" (click)="dismiss()">Cancel</button>
-                <!--    <button class="savi-padded" ion-button item-start color="primary" *ngIf="signupType=='individual'" >Finish</button>
-                <button class="savi-padded" ion-button item-start color="primary" *ngIf="signupType=='individual'" >Finish</button> -->
-                <button class="savi-padded" ion-button item-start color="primary" *ngIf="!showMembers && !showGroups && (signupType=='individual' || signupType=='group')"
+                <button class="savi-padded" ion-button item-start color="primary" 
+                    *ngIf="!showMembers && !showGroups && (signupType=='individual' || signupType=='group')"
                     (click)="submit(signupType)">{{submitText}}</button>
-                <button class="savi-padded" ion-button item-start color="primary" *ngIf="showMembers && !showGroups" (click)="doGroupSignUp()">Finish</button>
-                <button class="savi-padded" ion-button item-start color="primary" *ngIf="showMembers && !showGroups" (click)="addAttendee(selectedGroup)">Add Attendee</button>
-                <button class="savi-padded" ion-button item-start color="primary" *ngIf="showGroups" (click)="getOrgContacts(selectedGroup)">{{submitText}}</button>
+                <button class="savi-padded" ion-button item-start color="primary" *ngIf="showMembers && !showGroups" 
+                    [disabled]="checkedMemberCount == 0" (click)="doGroupSignUp()">Finish</button>
+                <button class="savi-padded" ion-button item-start color="primary" *ngIf="showMembers && !showGroups" 
+                    (click)="addAttendee(selectedGroup)">Add Attendee</button>
+                <button class="savi-padded" ion-button item-start color="primary" *ngIf="showGroups" [disabled]="selectedGroup == null" 
+                    (click)="getOrgContacts(selectedGroup)">{{submitText}}</button>
             </ion-col>
         </ion-row>
     </ion-grid>

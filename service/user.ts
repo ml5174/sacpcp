@@ -87,13 +87,9 @@ export class UserServices {
     }
     getMyPreferences(): Observable<any> {
         if(!this._myPreferences) {
-            console.info("actual http:// getMyPreferences called!!");
             this._myPreferences = this.http.get(SERVER + GET_MY_PREFERENCES_URI, this.getOptions())
                 .map(res => res.json()).publishReplay(1)
                 .catch((error: any) => Observable.throw(error || 'Server error'));
-        }
-        else {
-            console.info("cashed getMyPreferences used!!");
         }
         return this._myPreferences;
     }
@@ -112,7 +108,7 @@ export class UserServices {
                 .catch((error: any) => Observable.throw(error || 'Server error'));
         }
         else {
-            console.info("cashed getMyProfile used!!");
+            console.info("cached getMyProfile used!!");
         }
         return userServicesThis._myProfile;
     }

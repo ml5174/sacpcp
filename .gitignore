@@ -1,6 +1,7 @@
 # Specifies files to intentionally ignore when using Git
 # http://git-scm.com/docs/gitignore
 /nbproject/
+ionic.config.json
 .sourcemaps/
 /src/lib/
 node_modules/

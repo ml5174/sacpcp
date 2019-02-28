@@ -2,7 +2,7 @@
 <ion-row responsive-sm wrap>
     <!--  NG REPEAT THIS -->
     <ion-col width-50 class="flex-card" *ngFor="let e of volunteerEventsService.myEvents">
-        <ion-card class="flex-card" style="">
+        <ion-card class="flex-card">
             <img *ngIf="e?.image && e.image[0].image != 'no image'" [src]="e.image[0].image" />
 
             <ion-card-content>
@@ -37,29 +37,14 @@
                     <ion-toggle class="toggleswitch" id="toggleReminder" (ionChange)="updateEventReminder(e.event_id,e.event_notification_schedule,$event)" checked="{{e.notification_schedule>0}}"></ion-toggle>
           
                 </ion-item>
-                <ion-item >
-                    <button (click)="eventDetailModal(e.event_id)" ion-button small item-start round>Details</button>
-                    <button (click)="cancelEventRegisteration(e.event_id)" ion-button small item-end round>Cancel Sign-Up</button>
+                <ion-item>
+                <button (click)="eventDetailModal(e.event_id)" ion-button small item-start round>Details</button>
+                <button ion-button item-end small color="primary" *ngIf="!amIGroupAdmin(e.event_id)"
+                        (click)="cancelEventRegisteration(e.event_id)">Cancel Sign-Up</button>
+                <button ion-button item-end small color="primary" *ngIf="amIGroupAdmin(e.event_id)"
+                (click)="cancelGroupEventRegistration(e.event_id)">Cancel Group Sign-Up</button>                
                 </ion-item>
             </ion-card-content>
-            <!--button padding ion-button class="readmore">Read more</button>
-            <ion-row no-padding>
-              <ion-col>
-                <button icon-only ion-button clear small color="danger" icon-start>
-          <ion-icon name='star'></ion-icon>
-        </button>
-              </ion-col>
-              <ion-col text-center>
-                <button ion-button clear small color="danger" icon-start>
-          <ion-icon name='calendar'></ion-icon>
-          Attend
-        </button>
-              </ion-col>
-              <ion-col text-right>
-                <button ion-button clear small color="danger" icon-start>
-          <ion-icon name='share-alt'></ion-icon>
-          Share
-        </button-->
         </ion-card>
     </ion-col>
 </ion-row>

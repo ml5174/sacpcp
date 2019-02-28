@@ -22,6 +22,15 @@
     "ionic-plugin-keyboard": {
       "PACKAGE_NAME": "com.att.TSA.DFW"
     },
+    "ionic-plugin-deploy": {
+      "PACKAGE_NAME": "com.att.TSA.DFW"
+    },
+    "ionic-plugin-deeplinks": {
+      "URL_SCHEME": "tsadfw",
+      "DEEPLINK_SCHEME": "https",
+      "DEEPLINK_HOST": "https://www.volunteers.tsadfw.org",
+      "PACKAGE_NAME": "com.att.TSA.DFW"
+    },
     "cordova-plugin-ionic-webview": {
       "PACKAGE_NAME": "com.att.TSA.DFW"
     },
@@ -35,15 +44,6 @@
       "PACKAGE_NAME": "com.att.TSA.DFW"
     },
     "cordova-plugin-inappbrowser": {
-      "PACKAGE_NAME": "com.att.TSA.DFW"
-    },
-    "ionic-plugin-deploy": {
-      "PACKAGE_NAME": "com.att.TSA.DFW"
-    },
-    "ionic-plugin-deeplinks": {
-      "URL_SCHEME": "tsadfw",
-      "DEEPLINK_SCHEME": "https",
-      "DEEPLINK_HOST": "https://www.volunteers.tsadfw.org",
       "PACKAGE_NAME": "com.att.TSA.DFW"
     }
   },

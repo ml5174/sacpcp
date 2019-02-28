@@ -5,12 +5,21 @@
     border-radius: 10px;
     margin-right: 5px;
     font-family: 'TrajanPro';
-    padding-bottom: 25px;
+    padding-bottom: 15px;
     font-size: 1em;
   }
-  .home-row { 
-    margin-bottom: 15px;
+  .top-row { 
+    margin-bottom: 10px;
   }
+
+  .middle-row { 
+    margin-bottom: 10px;
+  }
+
+  .bottom-row { 
+    margin-bottom: 10px;
+  }
+
   .icons {
     position: absolute;
     top: 0px;
@@ -29,15 +38,19 @@
   .image-text {
     display: block;
     text-align: center;
-    margin-top: 5px;
+    margin-top: 2px;
+    margin-bottom: 3px;
+    font: 0.8em;
   }
   .block-image {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 85%;
-    height: 85%;
+    width: 90%;
+    height: 90%;
     border-radius: 10px;
-    max-height: 200px;
-    max-width: 220px;
+    min-height: 50px;
+    min-width: 56px;
+    max-height: 180px;
+    max-width: 180px;
   }

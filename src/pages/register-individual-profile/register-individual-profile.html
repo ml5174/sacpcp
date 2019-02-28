@@ -4,17 +4,11 @@
 </ion-header>
 
 <ion-content>
-    <p *ngIf="requiredFieldError" align="center"><span style="color:#CC1F2C">Please Note:</span> All required fields must be completed in order to sign up for a volunteer event.</p>
+    <p *ngIf="requiredFieldError" align="center"><span style="color:#CC1F2C">Please Note:</span> All required fields (*) must be completed in order to sign up for a volunteer opportunity.</p>
     <section id="register-individual-profile-page">
-        <ion-card>
-            <ion-row>
-                <ion-col>
-                    <button ion-button block icon-start><ion-icon name="cloud-upload"></ion-icon>Coming Soon: Upload Custom Profile Images</button>
-                </ion-col>
-            </ion-row>
-        </ion-card>
+        
 
-        <form (ngSubmit)="register()">
+        <form>
             <input type="submit" class="hidden-submit">
 
             <!-- My Credentials -->
@@ -52,7 +46,7 @@
                         <p style="color:#CC1F2C">{{gendererrorvalue}}</p>
                     </ion-item>
                     <ion-item no-lines class="">
-                        <ion-label stacked>*{{"Gender" | translate }}</ion-label>
+                        <ion-label stacked>{{"Gender" | translate }}</ion-label>
                         <ion-select name="myProfile.gender" [(ngModel)]="myProfile.gender">
                             <ion-option *ngFor="let m of genders" [value]="m.id">{{m.value}}</ion-option>
                         </ion-select>
@@ -161,14 +155,14 @@
             </accordion-box>
 
             <!-- Emergency Contact -->
-            <accordion-box #accordionEmergencyContact accordionTitle="*{{'Emergency Contact' | translate}}">
+            <accordion-box #accordionEmergencyContact accordionTitle="{{'Emergency Contact' | translate}}">
                 <ion-list class="accordion-content">
                     <ion-item no-lines *ngIf="ecfirstnameerror" class="word-wrap: break-word;" text-wrap>
                         <ion-icon name="alert" style="color: #CC1F2C;" item-start></ion-icon>
                         <p style="color:#CC1F2C">{{ecfirstnameerrorvalue}}</p>
                     </ion-item>
                     <ion-item no-lines class="">
-                        <ion-label stacked>*{{"First Name" | translate }}</ion-label>
+                        <ion-label stacked>{{"First Name" | translate }}</ion-label>
                         <ion-input name="myProfile.emergency_contact.first_name" type="string" placeholder="" class="" [(ngModel)]="myProfile.emergency_contact.first_name"></ion-input>
                     </ion-item>
 
@@ -177,7 +171,7 @@
                         <p style="color:#CC1F2C">{{eclastnameerrorvalue}}</p>
                     </ion-item>
                     <ion-item no-lines class="">
-                        <ion-label stacked>*{{"Last Name" | translate }}</ion-label>
+                        <ion-label stacked>{{"Last Name" | translate }}</ion-label>
                         <ion-input name="myProfile.emergency_contact.last_name" type="string" placeholder="" class="" [(ngModel)]="myProfile.emergency_contact.last_name"></ion-input>
                     </ion-item>
 
@@ -186,7 +180,7 @@
                         <p style="color:#CC1F2C">{{ecrelationerrorvalue}}</p>
                     </ion-item>
                     <ion-item no-lines class="">
-                        <ion-label stacked>*{{"Relationship" | translate }}</ion-label>
+                        <ion-label stacked>{{"Relationship" | translate }}</ion-label>
                         <ion-select name="myProfile.emergency_contact.relation" [(ngModel)]="myProfile.emergency_contact.relation">
                             <ion-option *ngFor="let m of relationships" [value]="m">{{m}}</ion-option>
                         </ion-select>
@@ -197,7 +191,7 @@
                         <p style="color:#CC1F2C">{{ecmobilenumbererrorvalue}}</p>
                     </ion-item>
                     <ion-item no-lines class="">
-                        <ion-label stacked>*{{"Emergency Contact's Phone" | translate }}</ion-label>
+                        <ion-label stacked>{{"Emergency Contact's Phone" | translate }}</ion-label>
                     </ion-item>
                     <phone-input #emergencyNumber idsuffix="emergency" [pn]="ecMobileNumber"></phone-input>
 
@@ -312,7 +306,7 @@
                 </ion-col>
                 <ion-col></ion-col>
                 <ion-col>
-                    <button ion-button color="primary">Save</button>
+                    <button ion-button color="primary" (click)="register()">Save</button>
                 </ion-col>
                 <ion-col></ion-col>
             </ion-row>

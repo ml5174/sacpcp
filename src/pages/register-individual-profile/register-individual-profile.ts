@@ -156,28 +156,6 @@ export class RegisterIndividualProfilePage {
 
   public selectedTab: string = "personal";
 
-  public testProfile = {
-    'mobilenumber': 18179809155,
-    'accepted_waiver': 4,
-    'birthdate': "2016-01-01",
-    'first_name': "first",
-    'last_name': "last",
-    'active': 1,
-    'emergency_contact': {
-      'first_name': "em",
-      'last_name': "cont",
-      'relation': 'spouse',
-      'email': 'jk005u@att.com',
-      'contactmethod': 2,
-      'mobilenumber': 18179809155,
-      'altnumber': 18179809154,
-      'address1': 'test',
-      'city': 'Dallas',
-      'state': 'TX',
-      'zipcode': '75206'
-    }
-  }
-
   // Constructor
   constructor(public nav: NavController,
               public userServices: UserServices,
@@ -204,7 +182,7 @@ export class RegisterIndividualProfilePage {
     Observable.forkJoin([getMyPreferencesObservable, getAvailablePreferencesObservable, getMyProfileObservable])
         .subscribe(data => {
           this.myPreferences = data[0];
-          console.log(this.myPreferences);
+          //console.log(this.myPreferences);
           this.availablePreferences = data[1];
 
           const getProfileThenCheckRequiredFields = new Promise((resolve,reject) => {
@@ -228,9 +206,8 @@ export class RegisterIndividualProfilePage {
               break;
             }
           }
-			console.log("Onload myProfile ")
-      console.log(this.myProfile);
-      console.log(this.testProfile);
+			//console.log("Onload myProfile ")
+      //console.log(this.myProfile);
           if (!this.myProfile.emergency_contact) this.myProfile.emergency_contact = {};
           if (this.myProfile.tc_version == "") this.myProfile.tc_version = null;
           if (!this.myProfile.my_volunteertype_id) this.myProfile.my_volunteertype_id = defaultVolunteerTypeId;
@@ -270,7 +247,7 @@ export class RegisterIndividualProfilePage {
   }
 
   birthdateChanged(event) {
-    console.log("Birthdate Changed");
+    //console.log("Birthdate Changed");
     this.birthDateChanged = true;
   }
 
@@ -284,7 +261,7 @@ export class RegisterIndividualProfilePage {
     	//toss up a modal.
     	this.openAlert(myAge);
     } else {
-      console.log("calling update profile");
+      //console.log("calling update profile");
       this.updateProfile();
     }
     this.birthDateChanged = false;
@@ -304,7 +281,7 @@ export class RegisterIndividualProfilePage {
       buttons: ['OK']
     });
     alert.onDidDismiss(data => {
-      console.log(data);
+      //console.log(data);
       this.updateProfile(); //update this method to handle that pending state
     });
     alert.present();
@@ -313,7 +290,7 @@ export class RegisterIndividualProfilePage {
   openModal(age:number){
   	let modal = this.modalCtrl.create(ParentVerifyModal, {age: age});
   	modal.onDidDismiss(data => { 
-      console.log(data);
+      //console.log(data);
       if (data && data.update == true) {
         this.updateProfile(); //update this method to handle that pending state
       }
@@ -329,16 +306,17 @@ export class RegisterIndividualProfilePage {
   }
 
   updateProfile() {
+      //console.log('updateProfile() called');
     this.showLoading();
     this.clearErrors();
     this.cleanBooleans();
-    console.log(this.mobileNumber);
+    //console.log(this.mobileNumber);
     this.translateFromFormPreferences();
     this.translateFromFormPhoneNumbers();
-	console.log("myprofile" + JSON.stringify(this.myProfile));
-	console.log("myprefs" + JSON.stringify(this.myPreferences));
+	//console.log("myprofile" + JSON.stringify(this.myProfile));
+	//console.log("myprefs" + JSON.stringify(this.myPreferences));
 
-  console.log(this.myProfile);
+  //console.log(this.myProfile);
   this.checkRequiredFields();
 
   let updateMyProfileObservable =  this.userServices.updateMyProfile(this.myProfile);
@@ -372,40 +350,8 @@ export class RegisterIndividualProfilePage {
   }
 
   checkRequiredFields() {
-    console.log(this.myProfile);
-    this.requiredFieldError=false;
-    if(this.myProfile.first_name===undefined) {
-      this.requiredFieldError=true;
-      console.log("first name: " + this.myProfile.first_name);
-    }
-    else if(this.myProfile.last_name===undefined) {
-      this.requiredFieldError=true;
-      console.log("last name: " + this.myProfile.last_name);
-    }
-    else if(this.myProfile.birthdate===undefined) {
-      this.requiredFieldError=true;
-      console.log("bday: " + this.myProfile.birthdate);
-    }
-    else if(this.myProfile.gender===undefined){
-      this.requiredFieldError=true;
-      console.log("gender: " + this.myProfile.gender);
-    }
-    else if(this.myProfile.emergency_contact.first_name===undefined) {
-      this.requiredFieldError=true;
-      console.log("ec first name: " + this.myProfile.emergency_contact.first_name);
-    }
-    else if(this.myProfile.emergency_contact.last_name===undefined) {
-      this.requiredFieldError=true;
-      console.log("ec last name: " + this.myProfile.emergency_contact.last_name);
-    }
-    else if(this.myProfile.emergency_contact.relation===undefined) {
-      this.requiredFieldError=true;
-      console.log("ec relation: " + this.myProfile.emergency_contact.relation);
-    }
-    else if(this.myProfile.emergency_contact.mobilenumber===undefined) {
-      this.requiredFieldError=true;
-      console.log("ec mobile number: " + this.myProfile.emergency_contact.mobilenumber);
-    }
+    this.requiredFieldError = (this.myProfile.first_name === undefined) || (this.myProfile.last_name === undefined) ||
+                              (this.myProfile.birthdate === undefined);
   }
 
   cleanBooleans() {
@@ -432,91 +378,41 @@ export class RegisterIndividualProfilePage {
     return false;
   }
 
-  //TODO Once phone numbers are single values instead of three values, change this code
   translateToFormPhoneNumbers() {
-    // Clear all parsed numbers
-    // this.mobileNumberAreaCode = "";
-    // this.mobileNumberPrefix = "";
-    // this.mobileNumberLineNumber = "";
+    
     this.mobileNumber = "";
-
-    // this.mobileNumberAreaCode = "";
-    // this.mobileNumberPrefix = "";
-    // this.mobileNumberLineNumber = "";
     this.ecMobileNumber = "";
-
-    // this.mobileNumberAreaCode = "";
-    // this.mobileNumberPrefix = "";
-    // this.mobileNumberLineNumber = "";
     this.ecAltNumber = "";
 
-    // Parse profile mobile number
-    // if (this.myProfile.mobilenumber && this.myProfile.mobilenumber.length == 11) {
-    //   this.mobileNumberAreaCode = this.myProfile.mobilenumber.substring(1, 4);
-    //   this.mobileNumberPrefix = this.myProfile.mobilenumber.substring(4, 7);
-    //   this.mobileNumberLineNumber = this.myProfile.mobilenumber.substring(7, 11);
-    // }
     if (this.myProfile.mobilenumber && this.myProfile.mobilenumber.length == 11) {
        this.mobileNumber = this.myProfile.mobilenumber;
        this.mobileNumber = "(" + this.myProfile.mobilenumber.substring(1,4) + ") " + this.myProfile.mobilenumber.substring(4, 7) + "-"  + this.myProfile.mobilenumber.substring(7, 11);
-       //console.log("Mobile Number:" + this.mobileNumber);
     }
 
-    // Parse emergency contact mobile number
-    // if (this.myProfile.emergency_contact.mobilenumber && this.myProfile.emergency_contact.mobilenumber.length == 11) {
-    //   this.ecMobileNumberAreaCode = this.myProfile.emergency_contact.mobilenumber.substring(1, 4);
-    //   this.ecMobileNumberPrefix = this.myProfile.emergency_contact.mobilenumber.substring(4, 7);
-    //   this.ecMobileNumberLineNumber = this.myProfile.emergency_contact.mobilenumber.substring(7, 11);
-    // }
     if (this.myProfile.emergency_contact.mobilenumber && this.myProfile.emergency_contact.mobilenumber.length == 11) {
       this.ecMobileNumber = this.myProfile.emergency_contact.mobilenumber;
       this.ecMobileNumber = "(" + this.myProfile.emergency_contact.mobilenumber.substring(1, 4) + ") " + this.myProfile.emergency_contact.mobilenumber.substring(4, 7) + "-" + this.myProfile.emergency_contact.mobilenumber.substring(7, 11);
     }
 
-
-    // Parse emergency contact alternate number
-    // if (this.myProfile.emergency_contact.altnumber && this.myProfile.emergency_contact.altnumber.length == 11) {
-    //   this.ecAltNumberAreaCode = this.myProfile.emergency_contact.altnumber.substring(1, 4);
-    //   this.ecAltNumberPrefix = this.myProfile.emergency_contact.altnumber.substring(4, 7);
-    //   this.ecAltNumberLineNumber = this.myProfile.emergency_contact.altnumber.substring(7, 11);
-    // }
     if (this.myProfile.emergency_contact.altnumber && this.myProfile.emergency_contact.altnumber.length == 11) {
       this.ecAltNumber = this.myProfile.emergency_contact.altnumber;
       this.ecAltNumber = "(" + this.myProfile.emergency_contact.altnumber.substring(1, 4) + ") " + this.myProfile.emergency_contact.altnumber.substring(4, 7) + "-" + this.myProfile.emergency_contact.altnumber.substring(7, 11);
     }
-
-
   }
 
   translateFromFormPhoneNumbers() {
-    // if (this.mobileNumberAreaCode || this.mobileNumberPrefix || this.mobileNumberLineNumber) {
-    //   this.myProfile.mobilenumber = "1" + this.mobileNumberAreaCode + this.mobileNumberPrefix + this.mobileNumberLineNumber;
-    // } else {
-    //   this.myProfile.mobilenumber = "";
-    // }
+   
     if (this.preferredNumber.getPN()) {
       this.myProfile.mobilenumber = this.preferredNumber.getPN();
     }
 
-    // if (this.ecMobileNumberAreaCode || this.ecMobileNumberPrefix || this.ecMobileNumberLineNumber) {
-    //   this.myProfile.emergency_contact.mobilenumber = "1" + this.ecMobileNumberAreaCode + this.ecMobileNumberPrefix + this.ecMobileNumberLineNumber;
-    // } else {
-    //   this.myProfile.emergency_contact.mobilenumber = "";
-    // }
     if (this.emergencyNumber.getPN()) {
-      console.log("emergency number: " + this.emergencyNumber.getPN())
       this.myProfile.emergency_contact.mobilenumber = this.emergencyNumber.getPN();
     }
 
-    // if (this.ecAltNumberAreaCode || this.ecAltNumberPrefix || this.ecAltNumberLineNumber) {
-    //   this.myProfile.emergency_contact.altnumber = "1" + this.ecAltNumberAreaCode + this.ecAltNumberPrefix + this.ecAltNumberLineNumber;    
-    // } else {
-    //   this.myProfile.emergency_contact.altnumber = "";
-    // }
     if (this.emergencyAlternate.getPN()) {
       this.myProfile.emergency_contact.altnumber = this.emergencyAlternate.getPN();
     }
-
   }
 
   translateToFormPreferences() {
@@ -844,14 +740,6 @@ export class RegisterIndividualProfilePage {
       this.content.scrollToTop();
     }
 
-      //       @ViewChild('accordionMyCredentials') accordionMyCredentials : AccordionBox;
-  // @ViewChild('accordionPreferredContact') accordionPreferredContact : AccordionBox;
-  // @ViewChild('accordionEmergencyContact') accordionEmergencyContact : AccordionBox;
-  // @ViewChild('accordionVolunteerTypes') accordionVolunteerTypes : AccordionBox;
-  // @ViewChild('accordionPreferredLocations') accordionPreferredLocations : AccordionBox;
-  // @ViewChild('accordionServiceAreas') accordionServiceAreas : AccordionBox;
-  // @ViewChild('accordionChangePassword') accordionChangePassword : AccordionBox;
-    //Now, if therre are any error messages in an accordionbox, lets expand it!
     this.accordionMyCredentials.expand(this.firstnameerror || this.lastnameerror || this.birthdateerror || this.gendererror
       || this.address1error || this.address2error || this.cityerror || this.stateerror || this.zipcodeerror);
 
@@ -862,15 +750,14 @@ export class RegisterIndividualProfilePage {
 
     this.accordionVolunteerTypes.expand(this.my_volunteertype_iderror || this.my_referalsource_iderror);
 
-    //There are not (yet?) any errors for this accordionbox
-    // this.accordionPreferredLocations.expand(true);
-    //this.accordionServiceAreas.expand(true);
-
     this.accordionChangePassword.expand(this.passworderror || this.password1error || this.password2error);
   }
   
-  back() {
-    this.nav.popToRoot();
+  back() { // NOTE: need to 'refresh' this.myProfile data since all changes are written to it as the user makes them
+           //         even without a save.
+      this.userServices.clearMyProfile();
+      //this.userServices.getMyProfile().subscribe(data => this.myProfile = data);
+      this.nav.popToRoot();
   }
 
   goToChangePassword() {
