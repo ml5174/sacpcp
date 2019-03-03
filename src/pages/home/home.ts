@@ -3,7 +3,7 @@ import { Storage } from '@ionic/storage';
 import { Platform, AlertController } from 'ionic-angular';
 import { ContactPage } from '../../pages/contact/contact';
 import { VolunteerEventsService } from '../../lib/service/volunteer-events-service';
-import { RED_KETTLE_URL } from '../../lib/provider/config';
+import { RED_KETTLE_URL, DONATE_URL } from '../../lib/provider/config';
 import Moment from "moment";
 import { last } from 'rxjs/operator/last';
 
@@ -64,6 +64,10 @@ export class HomePage {
   private redKettle() {
     this.openExternalUrl(RED_KETTLE_URL);
   }
+
+    donate() {
+        this.openExternalUrl(DONATE_URL);
+    }
 
   private openExternalUrl(url: string){
 
