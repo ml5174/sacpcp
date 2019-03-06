@@ -6,58 +6,70 @@
         <ion-grid *ngIf='!eventCategory; else events'>
             <ion-row class="top-row">
                 <ion-col  class="block-tile-container" (click)="selectEvent('Food Service')">
-                    <img src="assets/img/FoodService.jpg" class="block-image">
-                    <span class="image-text">Food Service</span>
-                    <div class="icons">
-                        <ion-icon *ngIf='urgentCategories["Food Service"].length > 0' name="alert" class="urgent">Urgent</ion-icon>
-                        <ion-icon *ngIf='newCategories["Food Service"].length > 0' name="add-circle" class="new">New Events</ion-icon>
+                    <div class='img-container'>
+                        <img src="assets/img/FoodService.jpg" class="block-image">
+                        <div class="icons">
+                            <ion-icon *ngIf='urgentCategories["Food Service"].length > 0' name="alert" >Urgent</ion-icon>
+                            <ion-icon *ngIf='newCategories["Food Service"].length > 0' name="add-circle" >New Events</ion-icon>
+                        </div>
                     </div>
+                    <span class="image-text">Food Service</span>
                 </ion-col>
                 <ion-col  class="block-tile-container" (click)="selectEvent('Food Pantry')" >
-                    <img src="assets/img/FoodPantry.jpg" class="block-image">
-                    <span class="image-text">Food Pantry</span>
-                    <div class="icons">
-                        <ion-icon *ngIf='urgentCategories["Food Pantry"].length > 0' name="alert" class="urgent">Urgent</ion-icon>
-                        <ion-icon *ngIf='newCategories["Food Pantry"].length > 0' name="add-circle" class="new">New Events</ion-icon>
+                    <div class='img-container'>
+                        <img src="assets/img/FoodPantry.jpg" class="block-image">
+                        <div class="icons">
+                            <ion-icon *ngIf='urgentCategories["Food Pantry"].length > 0' name="alert" >Urgent</ion-icon>
+                            <ion-icon *ngIf='newCategories["Food Pantry"].length > 0' name="add-circle" >New Events</ion-icon>
+                        </div>
                     </div>
+                    <span class="image-text">Food Pantry</span>
                 </ion-col>
             </ion-row>
 
             <ion-row class="middle-row">
                 <ion-col  class="block-tile-container" (click)="selectEvent('Child Care')">
-                    <img src="assets/img/Childcare.jpg" class="block-image">
-                    <span class="image-text">Child Care</span>
-                    <div class="icons">
-                            <ion-icon *ngIf='urgentCategories["Child Care"].length > 0' name="alert" class="urgent">Urgent</ion-icon>
-                            <ion-icon *ngIf='newCategories["Child Care"].length > 0' name="add-circle" class="new">New Events</ion-icon>
+                    <div class="img-container">
+                        <img src="assets/img/Childcare.jpg" class="block-image">
+                        <div class="icons">
+                                <ion-icon *ngIf='urgentCategories["Child Care"].length > 0' name="alert" >Urgent</ion-icon>
+                                <ion-icon *ngIf='newCategories["Child Care"].length > 0' name="add-circle" >New Events</ion-icon>
+                        </div>
                     </div>
+                    <span class="image-text">Child Care</span>
                 </ion-col>
                 <ion-col  class="block-tile-container" (click)="selectEvent('Practicum Service')">
-                    <img src="assets/img/Practicum.jpg" class="block-image">
-                    <span class="image-text">Practicum Service</span>
-                    <div class="icons">
-                        <ion-icon *ngIf='urgentCategories["Practicum Service"].length > 0' name="alert" class="urgent">Urgent</ion-icon>
-                        <ion-icon *ngIf='newCategories["Practicum Service"].length > 0' name="add-circle" class="new">New Events</ion-icon>
+                    <div class="img-container">
+                        <img src="assets/img/Practicum.jpg" class="block-image">
+                        <div class="icons">
+                                <ion-icon *ngIf='urgentCategories["Practicum Service"].length > 0' name="alert" >Urgent</ion-icon>
+                                <ion-icon *ngIf='newCategories["Practicum Service"].length > 0' name="add-circle" >New Events</ion-icon>
+                        </div>
                     </div>
+                    <span class="image-text">Practicum Service</span>
                 </ion-col>
             </ion-row>
 
             <ion-row class="bottom-row">
                     <ion-col  class="block-tile-container" (click)="redKettle()">
-                        <img src="assets/img/BellRinging.jpg" class="block-image">
-                        <span class="image-text">Register to Ring</span>
-                        <div class="icons">
-                            <ion-icon *ngIf='urgentCategories["Red Kettle"].length > 0' name="alert" class="urgent">Urgent</ion-icon>
-                            <ion-icon *ngIf='newCategories["Red Kettle"].length > 0' name="add-circle" class="new">New Events</ion-icon>
+                        <div class="img-container">
+                            <img src="assets/img/BellRinging.jpg" class="block-image">
+                            <div class="icons">
+                                <ion-icon *ngIf='urgentCategories["Red Kettle"].length > 0' name="alert" >Urgent</ion-icon>
+                                <ion-icon *ngIf='newCategories["Red Kettle"].length > 0' name="add-circle" >New Events</ion-icon>
+                            </div>
                         </div>
+                        <span class="image-text">Register to Ring</span>
                     </ion-col>
                     <ion-col   class="block-tile-container" (click)="selectEvent('Clothing Warehouse')">
-                        <img src="assets/img/ClothingWarehouse.jpg" class="block-image">
-                        <span class="image-text">Clothing Warehouse</span>
-                        <div class="icons">
-                            <ion-icon *ngIf='urgentCategories["Clothing Warehouse"].length > 0' name="alert" class="urgent">Urgent</ion-icon>
-                            <ion-icon *ngIf='newCategories["Clothing Warehouse"].length > 0' name="add-circle" class="new">New Events</ion-icon>
+                        <div class='img-container'>
+                            <img src="assets/img/ClothingWarehouse.jpg" class="block-image">
+                            <div class="icons">
+                                <ion-icon *ngIf='urgentCategories["Clothing Warehouse"].length > 0' name="alert" >Urgent</ion-icon>
+                                <ion-icon *ngIf='newCategories["Clothing Warehouse"].length > 0' name="add-circle" >New Events</ion-icon>
+                            </div>
                         </div>
+                        <span class="image-text">Clothing Warehouse</span>
                     </ion-col>
             </ion-row>
         </ion-grid>
