@@ -70,6 +70,7 @@ export class HomePage {
     }
 
   private openExternalUrl(url: string){
+      console.log("Mo Salah");
 
       if(this.platform.is('android') || this.platform.is('ios')){
         let okayToLeaveApp = this.alertCtrl.create({
