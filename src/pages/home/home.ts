@@ -61,22 +61,18 @@ export class HomePage {
     this.eventCategory = eventCategory;
   }
 
-  private redKettle() {
+  redKettle() {
     this.openExternalUrl(RED_KETTLE_URL);
   }
 
-    donate() {
-        this.openExternalUrl(DONATE_URL);
-    }
-
   private openExternalUrl(url: string){
-      console.log("Mo Salah");
 
       if(this.platform.is('android') || this.platform.is('ios')){
         let okayToLeaveApp = this.alertCtrl.create({
          title: '',
          cssClass: 'alertReminder',
-         message: 'You are about to leave the app and visit the '+ url +' website. NOTE: The website has a separate login.',
+         message: 'You are about to leave the app and visit the '+ url +
+             ' website. NOTE: The website has a separate login.',
          buttons: [
            {
              text: 'OK',
@@ -92,23 +88,20 @@ export class HomePage {
        });
        okayToLeaveApp.present();
 
-     }else{
+     } else{
        let okayToLeaveApp = this.alertCtrl.create({
         title: '',
         cssClass: 'alertReminder',
-        message: 'You are about to leave the app and visit '+ url +' website. NOTE: The website has a separate login.',
+        message: 'You are about to leave the app and visit '+ url +
+           ' website. NOTE: The website has a separate login.',
         buttons: [
           {
             text: 'OK',
-            handler: () => {
-                window.open(url, '_system');
-            }
+            handler: () => { window.open(url, '_system');}
           }
         ]
       });
       okayToLeaveApp.present();
-
      }
     }
-
 }
